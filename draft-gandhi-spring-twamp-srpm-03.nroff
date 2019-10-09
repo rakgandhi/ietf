@@ -8,9 +8,9 @@
 .ds LF Gandhi, et al.
 .ds RF FORMFEED[Page %]
 .ds LH Internet-Draft
-.ds RH August 30, 2019
+.ds RH October 9, 2019
 .ds CH TWAMP Light for Segment Routing
-.ds CF Expires March 2, 2020
+.ds CF Expires April 11, 2020
 .hy 0
 .nh
 .ad l
@@ -20,13 +20,13 @@
 .tl 'SPRING Working Group''R. Gandhi, Ed.'
 .tl '\%Internet-Draft''C. Filsfils'
 .tl 'Intended Status: Standards Track''Cisco Systems, Inc.'
-.tl 'Expires: March 2, 2020''D. Voyer'
+.tl 'Expires: April 11, 2020''D. Voyer'
 .tl '''Bell Canada'
 .tl '''M. Chen'
 .tl '''Huawei'
 .tl '''B. Janssens'
 .tl '''Colt'
-.tl '''August 30, 2019'
+.tl '''October 9, 2019'
 .fi
 .in 3
 .nf
@@ -76,7 +76,7 @@ Table of Contents
      2.2.  Abbreviations  . . . . . . . . . . . . . . . . . . . . . .  4
      2.3.  Reference Topology . . . . . . . . . . . . . . . . . . . .  5
    3.  Overview . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
-     3.1.  Example Provisioning Model for TWAMP Light . . . . . . . .  6
+     3.1.  Example Provisioning Model . . . . . . . . . . . . . . . .  6
      3.2.  STAMP Applicability  . . . . . . . . . . . . . . . . . . .  6
    4.  Probe Messages . . . . . . . . . . . . . . . . . . . . . . . .  7
      4.1.  Probe Query Message  . . . . . . . . . . . . . . . . . . .  7
@@ -107,7 +107,7 @@ Table of Contents
      10.1.  Normative References  . . . . . . . . . . . . . . . . . . 21
      10.2.  Informative References  . . . . . . . . . . . . . . . . . 22
    Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . . . 24
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 24
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 25
 .fi
 .in 3
 
@@ -336,7 +336,7 @@ The message content for Loss Measurement probe query message using UDP header [R
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|   Reserved                |         Block Number          |
+ |X|B|I|  Reserved               |         Block Number          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
  .                        Packet Padding                         .
@@ -347,6 +347,26 @@ The message content for Loss Measurement probe query message using UDP header [R
 
                Figure 3A: LM Probe Query Message
 .fi
+
+.nf
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Sequence Number                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Transmit Counter                       |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |X|B|I|  Reserved               |         Block Number          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ .                        MBZ (28 octets)                        .
+ .                                                               .
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+           Figure 3A-1: LM Probe Query Message for STAMP
+.fi
+
 
 
 .nf
@@ -528,7 +548,7 @@ In this document, new probe response message formats are defined for loss measur
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|   Reserved                |         Block Number          |
+ |X|B|I|   Reserved              |         Block Number          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter                        |
  |                                                               |
@@ -538,7 +558,7 @@ In this document, new probe response message formats are defined for loss measur
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|   Reserved                |     Sender Block Number       |
+ |X|B|I|   Reserved              |     Sender Block Number       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |                                               |
  +-+-+-+-+-+-+-+-+                                               +
@@ -565,7 +585,7 @@ In this document, new probe response message formats are defined for loss measur
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|   Reserved                |         Block Number          |
+ |X|B|I|   Reserved              |         Block Number          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (6 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -584,7 +604,7 @@ In this document, new probe response message formats are defined for loss measur
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|   Reserved                |    Sender Block Number        |
+ |X|B|I|   Reserved              |     Sender Block Number       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -830,6 +850,30 @@ IANA is requested to allocate value for the following Return Path TLV Type for \
 .ti 6
 .in 6
 o  Type TBA1: Return Path TLV
+.ti 3
+.in 3
+
+IANA is also requested to allocate the values for the following Sub-TLV Types for the Return Path TLV.
+
+.in 6
+.ti 3
+o  Type (value 1): Respond back on Incoming Interface (Layer-3 and Layer-2) (Segment List is Empty)
+
+.in 6
+.ti 3
+o  Type (value 2): SR-MPLS Segment List (Label Stack) of the Reverse SR Path
+
+.in 6
+.ti 3
+o  Type (value 3): SR-MPLS Binding SID \%[I-D.pce-binding-label-sid] of the Reverse SR Policy
+
+.in 6
+.ti 3
+o  Type (value 4): SRv6 Segment List of the Reverse SR Path
+
+.in 6
+.ti 3
+o  Type (value 5): SRv6 Binding SID \%[I-D.pce-binding-label-sid] of the Reverse SR Policy
 .ti 3
 .in 3
 
