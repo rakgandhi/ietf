@@ -33,7 +33,7 @@
 .in 3
 
              Performance Measurement Using TWAMP Light
-                   for Segment Routing Networks
+                   for Segment Routing Networks 
                  draft-gandhi-spring-twamp-srpm-03
 .fi
 
@@ -83,30 +83,30 @@ Table of Contents
        4.1.1.  Delay Measurement Probe Query Message  . . . . . . . .  7
          4.1.1.1.  Delay Measurement Authentication Mode  . . . . . .  8
        4.1.2.  Loss Measurement Probe Query Message . . . . . . . . .  8
-         4.1.2.1.  Loss Measurement Authentication Mode . . . . . . . 11
-       4.1.3.  Probe Query for SR Links . . . . . . . . . . . . . . . 11
-       4.1.4.  Probe Query for End-to-end Measurement for SR Policy . 12
-         4.1.4.1.  Probe Query Message for SR-MPLS Policy . . . . . . 12
-         4.1.4.2.  Probe Query Message for SRv6 Policy  . . . . . . . 12
-     4.2.  Probe Response Message . . . . . . . . . . . . . . . . . . 13
-       4.2.1.  One-way Measurement Mode . . . . . . . . . . . . . . . 15
-       4.2.2.  Two-way Measurement Mode . . . . . . . . . . . . . . . 16
-         4.2.2.1.  Return Path TLV  . . . . . . . . . . . . . . . . . 16
-         4.2.2.2.  Probe Response Message for SR-MPLS Policy  . . . . 17
-         4.2.2.3.  Probe Response Message for SRv6 Policy . . . . . . 18
-       4.2.3.  Loopback Measurement Mode  . . . . . . . . . . . . . . 18
-   5.  Performance Measurement for P2MP SR Policies . . . . . . . . . 18
-   6.  ECMP Support for SR Policies . . . . . . . . . . . . . . . . . 19
-   7.  Additional Message Processing Rules  . . . . . . . . . . . . . 20
-     7.1.  TTL Value  . . . . . . . . . . . . . . . . . . . . . . . . 20
-     7.2.  Router Alert Option  . . . . . . . . . . . . . . . . . . . 20
-     7.3.  UDP Checksum . . . . . . . . . . . . . . . . . . . . . . . 20
-   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 20
-   9.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 21
-   10.  References  . . . . . . . . . . . . . . . . . . . . . . . . . 21
-     10.1.  Normative References  . . . . . . . . . . . . . . . . . . 21
-     10.2.  Informative References  . . . . . . . . . . . . . . . . . 22
-   Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . . . 24
+         4.1.2.1.  Loss Measurement Authentication Mode . . . . . . . 12
+       4.1.3.  Probe Query for SR Links . . . . . . . . . . . . . . . 12
+       4.1.4.  Probe Query for End-to-end Measurement for SR Policy . 13
+         4.1.4.1.  Probe Query Message for SR-MPLS Policy . . . . . . 13
+         4.1.4.2.  Probe Query Message for SRv6 Policy  . . . . . . . 13
+     4.2.  Probe Response Message . . . . . . . . . . . . . . . . . . 14
+       4.2.1.  One-way Measurement Mode . . . . . . . . . . . . . . . 16
+       4.2.2.  Two-way Measurement Mode . . . . . . . . . . . . . . . 17
+         4.2.2.1.  Return Path TLV  . . . . . . . . . . . . . . . . . 17
+         4.2.2.2.  Probe Response Message for SR-MPLS Policy  . . . . 18
+         4.2.2.3.  Probe Response Message for SRv6 Policy . . . . . . 19
+       4.2.3.  Loopback Measurement Mode  . . . . . . . . . . . . . . 19
+   5.  Performance Measurement for P2MP SR Policies . . . . . . . . . 19
+   6.  ECMP Support for SR Policies . . . . . . . . . . . . . . . . . 20
+   7.  Additional Message Processing Rules  . . . . . . . . . . . . . 21
+     7.1.  TTL Value  . . . . . . . . . . . . . . . . . . . . . . . . 21
+     7.2.  Router Alert Option  . . . . . . . . . . . . . . . . . . . 21
+     7.3.  UDP Checksum . . . . . . . . . . . . . . . . . . . . . . . 21
+   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 21
+   9.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 22
+   10.  References  . . . . . . . . . . . . . . . . . . . . . . . . . 22
+     10.1.  Normative References  . . . . . . . . . . . . . . . . . . 22
+     10.2.  Informative References  . . . . . . . . . . . . . . . . . 23
+   Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . . . 25
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 25
 .fi
 .in 3
@@ -326,7 +326,6 @@ The message content for Loss Measurement probe query message using UDP header [R
 .fi
 
 
-
 .nf
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -348,26 +347,6 @@ The message content for Loss Measurement probe query message using UDP header [R
                Figure 3A: LM Probe Query Message
 .fi
 
-.nf
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sequence Number                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Transmit Counter                       |
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|I|  Reserved               |         Block Number          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- .                        MBZ (28 octets)                        .
- .                                                               .
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-           Figure 3A-1: LM Probe Query Message for STAMP
-.fi
-
-
 
 .nf
  0                   1                   2                   3
@@ -384,7 +363,7 @@ The message content for Loss Measurement probe query message using UDP header [R
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|I|   Reserved              |         Block Number          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (6 octets)                         |
+ |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        HMAC (16 octets)                       |
  |                                                               |
@@ -400,6 +379,58 @@ The message content for Loss Measurement probe query message using UDP header [R
 
       Figure 3B: LM Probe Query Message - Authenticated Mode
 .fi
+
+.nf
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Sequence Number                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Transmit Counter                       |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |X|B|I|  Reserved               |         Block Number          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ |                        MBZ (28 octets)                        |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+           Figure 3C: LM Probe Query Message for STAMP
+.fi
+
+.nf
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Sequence Number                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        MBZ (12 octets)                        |
+ |                                                               |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        Transmit Counter                       |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |X|B|I|   Reserved              |         Block Number          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ ~                                                               ~
+ |                        MBZ (68 octets)                        |
+ ~                                                               ~
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        HMAC (16 octets)                       |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ Figure 3D: LM Probe Query Message - Authenticated Mode for STAMP
+.fi
+
 
 
 Sequence Number (32-bit):
@@ -587,7 +618,7 @@ In this document, new probe response message formats are defined for loss measur
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|I|   Reserved              |         Block Number          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (6 octets)                         |
+ |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter                        |
  |                                                               |
