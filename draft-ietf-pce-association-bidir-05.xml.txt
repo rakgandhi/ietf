@@ -15,7 +15,6 @@
 <!ENTITY RFC7942 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7942.xml">
 <!ENTITY RFC8051 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8051.xml">
 <!ENTITY RFC8253 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8253.xml">
-<!ENTITY RFC8408 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8408.xml">
 <!ENTITY I-D.ietf-pce-pcep-yang-13 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-pce-pcep-yang-13.xml">
 ]>
 <rfc submissionType="IETF" docName="draft-ietf-pce-association-bidir-05" category="std" ipr="trust200902">
@@ -28,7 +27,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="PCEP Extensions for Associated Bidirecti">PCEP Extensions for Associated Bidirectional Label Switched Paths (LSPs)</title>
+	<title abbrev="PCEP for Associated Bidirectional LSP">PCEP Extensions for Associated Bidirectional Label Switched Paths (LSPs)</title>
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
 	<address><postal><street>Canada</street>
@@ -49,43 +48,28 @@
 	</address>
 	</author>
 
-	<date day="1" month="February" year="2020"/>
+	<date day="3" month="February" year="2020"/>
 	<workgroup>PCE Working Group</workgroup>
-	<abstract><t><list style="hanging" hangIndent="1"><?rfc subcompact="yes"?>
-	<t hangText="The Path Computation Element Communication Protocol (PCEP) provides">
-	<vspace blankLines="0"/>
-	mechanisms for Path Computation Elements (PCEs) to perform path
-   computations in response to Path Computation Clients (PCCs) requests.
-    The Stateful PCE extensions allow stateful control of Multiprotocol
+
+	<abstract><t>
+
+
+
 	</t>
 
-	<t hangText="Label Switching (MPLS) Traffic Engineering (TE) Label Switched Paths">
-	<vspace blankLines="0"/>
-	(LSPs) using PCEP.
-	</t>
-
-	<?rfc subcompact="no"?>
-	</list>
+	<t> 
+   The Path Computation Element Communication Protocol (PCEP) provides mechanisms for Path Computation Elements (PCEs) to perform path computations in response to Path Computation Clients (PCCs) requests.  The Stateful PCE extensions allow stateful control of Multiprotocol Label Switching (MPLS) Traffic Engineering (TE) Label Switched Paths (LSPs) using PCEP.
 	</t>
 
 	<t>
-   This document defines PCEP extensions for grouping two 
-   unidirectional MPLS TE LSPs into an Associated Bidirectional LSP when
-   using a Stateful PCE for both PCE-Initiated and PCC-Initiated LSPs as
-   well as when using a Stateless PCE.  The procedures defined are
-   applicable to the LSPs using Resource Reservation Protocol (RSVP) for
-   signaling.</t>
+   This document defines PCEP extensions for grouping two unidirectional MPLS TE LSPs (one in each direction in the network) into an Associated Bidirectional LSP.  The mechanisms defined in this document can be applied using a Stateful PCE for both PCE-Initiated and PCC-Initiated LSPs, as well as when using a Stateless PCE.  The procedures defined are applicable to the LSPs using Resource Reservation Protocol (RSVP) for signaling.</t>
 
 	</abstract>
 	</front>
 
 	<middle>
 	<section title="Introduction" anchor="sect-1"><t>
-   <xref target="RFC5440"/> describes the Path Computation Element Protocol (PCEP) as a
-   communication mechanism between a Path Computation Client (PCC) and a
-   Path Control Element (PCE), or between PCE and PCC, that enables
-   computation of Multiprotocol Label Switching (MPLS) Traffic
-   Engineering (TE) Label Switched Paths (LSPs).</t>
+   <xref target="RFC5440"/> describes the Path Computation Element Protocol (PCEP) as a communication mechanism between a Path Computation Client (PCC) and a Path Control Element (PCE), or between PCE and PCC, that enables computation of Multiprotocol Label Switching (MPLS) Traffic Engineering (TE) Label Switched Paths (LSPs).</t>
 
 	<t>
    <xref target="RFC8231"/> specifies extensions to PCEP to enable stateful control of
@@ -113,10 +97,10 @@
    bidirectional LSPs are described in <xref target="RFC8537"/>.</t>
 
 	<t>
-   This document defines PCEP extensions for grouping two reverse
+   This document defines PCEP extensions for grouping two
    unidirectional MPLS-TE LSPs into an Associated Bidirectional LSP for
-   both single-sided and double-sided initiation cases when using a
-   Stateful (both active and passive modes) or Stateless PCE.  The
+   both single-sided and double-sided initiation cases when using a Stateful PCE for both PCE-Initiated and PCC-Initiated
+   LSPs as well as when using a Stateless PCE.  The
    procedures defined are applicable to the LSPs using Resource
    Reservation Protocol (RSVP) for signaling <xref target="RFC3209"/>.  The PCEP
    extensions cover the following cases:</t>
@@ -195,7 +179,7 @@
    As specified in <xref target="RFC7551"/>, in the single-sided case, the
    bidirectional tunnel is provisioned only on one endpoint node (PCC)
    of the tunnel.  Both forward and reverse LSPs of this tunnel are
-   initiated with the Association Type set to "Single-sided Bidirectional Association" on the originating endpoint node.  The
+   initiated with the RSVP Association Type set to "Single-sided Bidirectional Association" on the originating endpoint node.  The
    forward and reverse LSPs are identified in the Bidirectional 
    Association Group TLV of their PCEP Association Objects.</t>
 
@@ -260,7 +244,7 @@
    As specified in <xref target="RFC7551"/>, in the double-sided case, the
    bidirectional tunnel is provisioned on both endpoint nodes (PCCs) of
    the tunnel.  The forward and reverse LSPs of this tunnel are
-   initiated with the Association Type set to "Double-sided Bidirectional Association" on both endpoint nodes.  The forward
+   initiated with the RSVP Association Type set to "Double-sided Bidirectional Association" on both endpoint nodes.  The forward
    and reverse LSPs are identified in the Bidirectional Association
    Group TLV of their Association Objects.</t>
 
@@ -349,11 +333,9 @@
    This document defines two new Association Types for the Association
    Object as follows:</t>
 
-	<t><list style="symbols"><t>Association Type (TBD1) = Single-sided Bidirectional LSP
-      Association Group</t>
+	<t><list style="symbols"><t>Association Type (TBD1) = Single-sided Bidirectional Association Group</t>
 
-	<t>Association Type (TBD2) = Double-sided Bidirectional LSP
-      Association Group</t>
+	<t>Association Type (TBD2) = Double-sided Bidirectional Association Group</t>
 
 	</list>
 	</t>
@@ -362,14 +344,14 @@
    These Association Types are operator-configured associations in
    nature and statically created by the operator on the PCEP peers.  The
    LSP belonging to these associations is conveyed via PCEP messages to
-   the PCEP peer.  Operator-configured Association Range TLV
+   the PCEP peer.  Operator-configured Association Range TLV (Value 29) 
    <xref target="RFC8697"/> MUST NOT be sent for these Association
    Types, and MUST be ignored, so that the entire range of association
    ID can be used for them.</t>
 
 	<t>
    The Association ID, Association Source, optional Global Association
-   Source and optional Extended Association ID in the Bidirectional LSP
+   Source and optional Extended Association ID in the Bidirectional
    Association Group Object are initialized using the procedures defined
    in <xref target="RFC8697"/> and <xref target="RFC7551"/>.</t>
 
@@ -387,7 +369,7 @@
 
 	<t>The Length is 4 Bytes.</t>
 
-	<t>The value comprises of a single field, the Bidirectional LSP
+	<t>The value comprises of a single field, the Bidirectional
       Association Flags (32 bits), where each bit represents a flag
       option.</t>
 
@@ -396,7 +378,7 @@
 
 	<t>For co-routed LSPs, this TLV MUST be present.</t>
 
-	<t>For reverse LSPs, this TLV MUST be present.</t>
+	<t>For reverse direction LSPs, this TLV MUST be present.</t>
 
 	<t>The Bidirectional Association Group TLV MUST NOT be present
       more than once.  If it appears more than once, only the first
@@ -457,12 +439,11 @@
 	</section>
 
 	<section title="PCEP Procedure" anchor="sect-5"><section title="PCE Initiated LSPs" anchor="sect-5.1"><t>
-   As specified in <xref target="RFC8697"/>, the Bidirectional LSP
-   Association Groups can be created by a Stateful PCE.</t>
+   As specified in <xref target="RFC8697"/>, the Bidirectional Association Groups can be created by a Stateful PCE.</t>
 
 	<t><list style="symbols"><t>Stateful PCE can create and update the forward and reverse LSPs
-      independently for both single-sided and double-sided bidirectional
-      LSP association groups.</t>
+      independently for both Single-sided and Double-sided Bidirectional
+      Association Groups.</t>
 
 	<t>Stateful PCE can establish and remove the association relationship
       on a per LSP basis.</t>
@@ -481,8 +462,8 @@
    Association Groups can also be created by a PCC.</t>
 
 	<t><list style="symbols"><t>PCC can create and update the forward and reverse LSPs
-      independently for both single-sided and double-sided bidirectional
-      LSP association groups.</t>
+      independently for both Single-sided and Double-sided Bidirectional
+      Association Groups.</t>
 
 	<t>PCC can establish and remove the association relationship on a per<vspace blankLines="1"/>
 	LSP basis.
@@ -500,8 +481,8 @@
       LSPs of a tunnel together to a Stateful PCE in order to avoid any
       race condition.</t>
 
-	<t>Stateful PCE can update the LSPs in the bidirectional LSP
-      association group via PCUpd message, using the procedures
+	<t>Stateful PCE can update the LSPs in the Bidirectional
+     Association Group via PCUpd message, using the procedures
       described in <xref target="RFC8697"/>.</t>
 
 	</list>
@@ -514,8 +495,8 @@
    computation request to an association group, thus enabling it to
    associate a common set of configuration parameters or behaviors with
    the request.  A PCC can request co-routed or non co-routed forward
-   and reverse direction paths from a stateless PCE for a bidirectional
-   LSP association group.</t>
+   and reverse direction paths from a stateless PCE for a Bidirectional
+   Association Group.</t>
 
 	</section>
 
@@ -573,7 +554,7 @@
    PCE MUST send this PCErr.</t>
 
 	<t>
-   The LSPs (forward or reverse) in a Single-sided Bidirectional LSP
+   The LSPs (forward or reverse) in a Single-sided Bidirectional
    Association Group MUST belong to the same TE Tunnel (as defined in
    <xref target="RFC3209"/>).  If a PCE attempts to add an LSP in a Single-sided
    Bidirectional Association Group for a different Tunnel, the PCC
@@ -582,15 +563,6 @@
    Association - Tunnel Mismatch).  Similarly, if a PCC attempts to add
    an LSP to a Single-sided Bidirectional Association Group at PCE
    not complying to this rule, the PCE MUST send this PCErr.</t>
-
-	<t>
-   The PCEP Path Setup Type (PST) MUST be set to the same value
-   <xref target="RFC8408"/> for the LSP
-   belonging to the Bidirectional Association Groups defined in this
-   document.  In case a PCEP speaker receives a different PST value for
-   this association group, it MUST return a PCErr message with Error-Type = 26 (Association Error) 
-   and Error-Value = TBD6 (Bidirectional Association - Path Setup Type
-   Mismatch).</t>
 
 	<t>
    The processing rules as specified in Section 6.4 of
@@ -773,9 +745,7 @@ Error Type  Description                  Reference
             Error value: TBD5            [This document]
             Bidirectional Association - Tunnel Mismatch
 
-            Error value: TBD6            [This document]
-            Bidirectional Association - Path Setup Type Mismatch
-               
+
 ]]></artwork>
 	</figure>
 
@@ -805,7 +775,6 @@ Error Type  Description                  Reference
 	&RFC7942;
 	&RFC8051;
 	&RFC8253;
-	&RFC8408;
 	&I-D.ietf-pce-pcep-yang-13;
 	</references>
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
