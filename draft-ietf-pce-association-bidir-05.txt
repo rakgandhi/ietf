@@ -248,7 +248,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    As specified in [RFC7551], in the single-sided case, the
    bidirectional tunnel is provisioned only on one endpoint node (PCC)
    of the tunnel.  Both forward and reverse LSPs of this tunnel are
-   initiated with the RSVP Association Type set to "Single-sided
+   initiated with the Association Type set to "Single-sided
    Bidirectional LSP Association" on the originating endpoint node.  The
    forward and reverse LSPs are identified in the Bidirectional LSP
    Association Group TLV of their PCEP ASSOCIATION Objects.
@@ -326,7 +326,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    As specified in [RFC7551], in the double-sided case, the
    bidirectional tunnel is provisioned on both endpoint nodes (PCCs) of
    the tunnel.  The forward and reverse LSPs of this tunnel are
-   initiated with the RSVP Association Type set to "Double-sided
+   initiated with the Association Type set to "Double-sided
    Bidirectional LSP Association" on both endpoint nodes.  The forward
    and reverse LSPs are identified in the Bidirectional LSP Association
    Group TLV of their ASSOCIATION Objects.
@@ -472,7 +472,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
    o  For co-routed LSPs, this TLV MUST be present.
 
-   o  For reverse direction LSPs, this TLV MUST be present.
+   o  For reverse LSPs, this TLV MUST be present.
 
    o  The Bidirectional LSP Association Group TLV MUST NOT be present
       more than once.  If it appears more than once, only the first
@@ -530,7 +530,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
    o  Stateful PCE can create and update the forward and reverse LSPs
       independently for both Single-sided and Double-sided Bidirectional
-      Association Groups.
+      LSP Association Groups.
 
    o  Stateful PCE can establish and remove the association relationship
       on a per LSP basis.
@@ -546,14 +546,14 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
    o  PCC can create and update the forward and reverse LSPs
       independently for both Single-sided and Double-sided Bidirectional
-      Association Groups.
+      LSP Association Groups.
 
    o  PCC can establish and remove the association relationship on a per
-
       LSP basis.
 
    o  PCC MUST report the change in the association group of an LSP to
       PCE(s) via PCRpt message.
+
 
 
 
@@ -661,7 +661,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    LSP Association - Path Setup Type Mismatch).
 
    The processing rules as specified in Section 6.4 of [RFC8697]
-   continue to apply for the Association Types defined in this document.
+   continue to apply to the Association Types defined in this document.
 
 
 
@@ -786,7 +786,7 @@ Gandhi, et al.           Expires August 7, 2020                [Page 14]
 Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
 
-   Type Name                                        Reference
+   Type Name                                             Reference
    ---------------------------------------------------------------------
    TBD1 Single-sided Bidirectional LSP Association Group [This document]
    TBD2 Double-sided Bidirectional LSP Association Group [This document]
@@ -798,7 +798,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    requested to add the assignment of a new value in the existing "PCEP
    TLV Type Indicators" registry as follows:
 
-   Value     Meaning                               Reference
+   Value     Meaning                                   Reference
    -------------------------------------------------------------------
     TBD3     Bidirectional LSP Association Group TLV   [This document]
 
@@ -810,14 +810,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    Flag field in the Bidirectional LSP Association Group TLV.  New
    values are to be assigned by Standards Action [RFC8126].  Each bit
    should be tracked with the following qualities:
-
-
-
-      o  Bit number (count from 0 as the most significant bit)
-
-      o  Description
-
-      o  Reference
 
    The following values are defined in this document for the Flag field.
 
@@ -833,6 +825,14 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    Error).  IANA is requested to allocate new Error value within the
    "PCEP-ERROR Object Error Types and Values" sub-registry of the PCEP
    Numbers registry, as follows:
+
+
+
+
+
+
+
+
 
 
 
