@@ -365,8 +365,8 @@
             on the originating node MUST be the same.</t>
           </list></t>
 
-        <t>This document defines two new Association Types for the Association
-        Object as follows:</t>
+        <t>This document defines two new Association Types for the ASSOCIATION
+        Object (Object-Class value 40) as follows:</t>
 
         <t><list style="symbols">
             <t>Association Type (TBD1) = Single-sided Bidirectional LSP
@@ -439,13 +439,13 @@
 
         <t>Bidirectional LSP Association Flags are defined as following.</t>
 
-        <t>F (Forward Direction, 1 bit) - Indicates whether the LSP associated
-        is the forward LSP of the bidirectional LSP. If this flag is set, the
-        LSP is a forward LSP.</t>
+        <t>F (Forward LSP, 1 bit) - Indicates whether the LSP associated is
+        the forward LSP of the bidirectional LSP. If this flag is set, the LSP
+        is a forward LSP.</t>
 
-        <t>R (Reverse Direction, 1 bit) - Indicates whether the LSP associated
-        is the reverse LSP of the bidirectional LSP. If this flag is set, the
-        LSP is a reverse LSP.</t>
+        <t>R (Reverse LSP, 1 bit) - Indicates whether the LSP associated is
+        the reverse LSP of the bidirectional LSP. If this flag is set, the LSP
+        is a reverse LSP.</t>
 
         <t>C (Co-routed Path, 1 bit) - Indicates whether the bidirectional LSP
         is co-routed. This flag MUST be set for both the forward and reverse
@@ -722,17 +722,25 @@ Value     Meaning                                   Reference
           Action <xref target="RFC8126"/>. Each bit should be tracked with the
           following qualities:</t>
 
-          <t/>
+          <t><list style="symbols">
+              <t>Bit number (count from 0 as the most significant bit)</t>
+
+              <t>Description</t>
+
+              <t>Reference</t>
+            </list></t>
 
           <t>The following values are defined in this document for the Flag
           field.</t>
 
           <figure>
-            <artwork>Bit No.     Description                   Reference
+            <artwork>
+Bit No.     Description                   Reference
 ---------------------------------------------------------
- 31         F - Forward Direction         [This document]
- 30         R - Reverse Direction         [This document]
- 29         C - Co-routed Path            [This document]</artwork>
+ 31         F - Forward LSP               [This document]
+ 30         R - Reverse LSP               [This document]
+ 29         C - Co-routed Path            [This document]
+</artwork>
           </figure>
         </section>
       </section>
