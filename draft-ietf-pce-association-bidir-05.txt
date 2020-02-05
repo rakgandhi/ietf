@@ -290,7 +290,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
          (LSP1 (F), LSP2 (R))   |      \    (LSP2 (F))
          Association #1         v       \   Association #1
                              +-----+    +-----+
-
                              |  A  |    |  D  |
                              +-----+    +-----+
 
@@ -330,6 +329,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    Bidirectional LSP Association" on both endpoint nodes.  The forward
    and reverse LSPs are identified in the Bidirectional LSP Association
    Group TLV of their ASSOCIATION Objects.
+
 
 
 
