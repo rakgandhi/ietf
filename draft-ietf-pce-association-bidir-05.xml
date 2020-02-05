@@ -234,7 +234,6 @@
       (LSP1 (F), LSP2 (R))   |      \    (LSP2 (F))
       Association #1         v       \   Association #1
                           +-----+    +-----+
-
                           |  A  |    |  D  |
                           +-----+    +-----+
 </artwork>
