@@ -421,8 +421,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
       of the Single-sided Bidirectional LSP Association on the
       originating node MUST be the same.
 
-   This document defines two new Association Types for the Association
-   Object as follows:
+   This document defines two new Association Types for the ASSOCIATION
+   Object (Object-Class value 40) as follows:
 
    o  Association Type (TBD1) = Single-sided Bidirectional LSP
       Association Group
@@ -493,9 +493,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
    Bidirectional LSP Association Flags are defined as following.
 
-   F (Forward Direction, 1 bit) - Indicates whether the LSP associated
-   is the forward LSP of the bidirectional LSP.  If this flag is set,
-   the LSP is a forward LSP.
+   F (Forward LSP, 1 bit) - Indicates whether the LSP associated is the
+   forward LSP of the bidirectional LSP.  If this flag is set, the LSP
+   is a forward LSP.
 
 
 
@@ -506,9 +506,9 @@ Gandhi, et al.           Expires August 7, 2020                 [Page 9]
 Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
 
 
-   R (Reverse Direction, 1 bit) - Indicates whether the LSP associated
-   is the reverse LSP of the bidirectional LSP.  If this flag is set,
-   the LSP is a reverse LSP.
+   R (Reverse LSP, 1 bit) - Indicates whether the LSP associated is the
+   reverse LSP of the bidirectional LSP.  If this flag is set, the LSP
+   is a reverse LSP.
 
    C (Co-routed Path, 1 bit) - Indicates whether the bidirectional LSP
    is co-routed.  This flag MUST be set for both the forward and reverse
@@ -811,12 +811,18 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    values are to be assigned by Standards Action [RFC8126].  Each bit
    should be tracked with the following qualities:
 
+   o  Bit number (count from 0 as the most significant bit)
+
+   o  Description
+
+   o  Reference
+
    The following values are defined in this document for the Flag field.
 
    Bit No.     Description                   Reference
    ---------------------------------------------------------
-    31         F - Forward Direction         [This document]
-    30         R - Reverse Direction         [This document]
+    31         F - Forward LSP               [This document]
+    30         R - Reverse LSP               [This document]
     29         C - Co-routed Path            [This document]
 
 9.3.  PCEP Errors
@@ -825,12 +831,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    February 2020
    Error).  IANA is requested to allocate new Error value within the
    "PCEP-ERROR Object Error Types and Values" sub-registry of the PCEP
    Numbers registry, as follows:
-
-
-
-
-
-
 
 
 
