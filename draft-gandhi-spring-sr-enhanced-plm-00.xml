@@ -225,7 +225,7 @@
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
                 Sender                       Reflector Endpoint
-                                             (Forword)
+                                             (Forward)
        </artwork>
       </figure>
 
@@ -274,7 +274,7 @@
           <artwork>  
   +---------------------------------------------------------------+
   |                           SRH                                 |
-  .                      &lt;Segment List&gt;                           .
+  .                           &lt;Segment List&gt;                      .
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -318,7 +318,7 @@
 
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
-      provisioned value. </t>
+      provisioned value.</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -338,15 +338,15 @@
       <section anchor="sect-4.1"
                title="Loopback Mode Enabled with Network Programming for SR-MPLS"
                toc="default">
-        <t>In this document, new timestamp label (special purpose label with
+        <t>In this document, new Timestamp Label (special purpose label with
         value TBD1) is defined for SR-MPLS to enable network programming
         function for timestamp, pop and forward the received packet.</t>
 
         <t>In the loopback mode enabled with network programming for SR-MPLS,
-        timestamp label is added in the MPLS header to collect receive
+        Timestamp Label is added in the MPLS header to collect receive
         timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet. When a node receives a packet with timestamp label, the node
-        pops the timestamp label and forwards the packet using the next label
+        packet. When a node receives a packet with Timestamp Label, the node
+        pops the Timestamp Label and forwards the packet using the next label
         or IP header in the packet, in addition to adding the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
@@ -384,17 +384,17 @@
 
       <section anchor="sect-4.2"
                title="Loopback Mode Enabled with Network Programming for SRv6">
-        <t>In this document, new Endpoint function OAM Timestamp (OTS) (value
-        TBD2) is defined for Segment Routing Header (SRH) <xref
+        <t>In this document, new Endpoint function "Timestamp and Forward
+        (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
         target="I-D.ietf-6man-segment-routing-header"/> for SRv6 to enable
         network programming function for timestamp and forward the received
         packet.</t>
 
         <t>In the loopback mode enabled with network programming for SRv6,
-        END.OTS function is added for the Endpoint SID in SRH <xref
+        END.TSF function is added for the Endpoint SID in SRH <xref
         target="I-D.ietf-6man-segment-routing-header"/> to collect receive
         timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet. When a node receives a packet with END.OTS function for the
+        packet. When a node receives a packet with END.TSF function for the
         target SID which is local, the node forwards the packet using the next
         SID or IP header in the packet, in addition to adding the
         timestamp.</t>
@@ -404,8 +404,8 @@
           <artwork>
   +---------------------------------------------------------------+
   |                           SRH                                 |
-  .                      &lt;Segment List&gt;                           .
-  .  END.OTS (TBA2) with Target SRv6 SID                          .
+  .                           &lt;Segment List&gt;                      .
+  .  END.TSF (TBA2) with Target SRv6 SID                          .
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv6 Address                    .
@@ -426,7 +426,19 @@
     </section>
 
     <section anchor="sect-5" title="Security Considerations" toc="default">
-      <t>TBA</t>
+      <t>The Performance and Liveness Monitoring is intended for deployment in
+      well-managed private and service provider networks. As such, it assumes
+      that a node involved in a monitoring operation has previously verified
+      the integrity of the path and the identity of the far-end reflector
+      node. If desired, attacks can be mitigated by performing basic
+      validation and sanity checks, at the sender, of the counter or timestamp
+      fields in received measurement response messages. The minimal state
+      associated with these protocols also limits the extent of disruption
+      that can be caused by a corrupt or invalid message to a single
+      query/response cycle. Use of HMAC-SHA-256 in the authenticated mode
+      protects the data integrity of the probe messages. Cryptographic
+      measures may be enhanced by the correct configuration of access-control
+      lists and firewalls.</t>
     </section>
 
     <section anchor="sect-7" title="IANA Considerations" toc="default">
@@ -447,18 +459,18 @@
       </figure>
 
       <t>IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
-      Registry" sub-registry belonging to the top-level "Segment- routing with
+      Registry" sub-registry belonging to the top-level "Segment-routing with
       IPv6 data plane (SRv6) Parameters" registry <xref
       target="I-D.ietf-spring-srv6-network-programming"/>, the following
       allocations:</t>
 
       <figure>
         <artwork>     
-     +------------+-------------------------+---------------+
-     | Value      | Endpoint Behavior       | Reference     |
-     +------------+-------------------------+---------------+
-     | TBA2       | End.OTS (OAM Timestamp) | This document |
-     +------------+-------------------------+---------------+</artwork>
+     +------------+---------------------------------+---------------+
+     | Value      | Endpoint Behavior               | Reference     |
+     +------------+---------------------------------+---------------+
+     | TBA2       | END.TSF (Timestamp and Forward) | This document |
+     +------------+---------------------------------+---------------+</artwork>
       </figure>
     </section>
   </middle>
