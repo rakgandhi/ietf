@@ -93,19 +93,19 @@ Table of Contents
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching (SR-
-   MPLS) and IPv6 (SRv6) data planes.  SR takes advantage of the Equal-
-   Cost Multipaths (ECMPs) between source and transit nodes, between
-   transit nodes and between transit and destination nodes.  SR Policies
-   as defined in [I-D.ietf-spring-segment-routing-policy]are used to
-   steer traffic through a specific, user-defined paths using a stack of
-   Segments.  Built-in Liveness Monitoring for detecting faults as well
-   as Performance Delay and Loss Monitoring are essential requirements
-   to provide Service Level Agreements (SLAs) in SR networks.
+   MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR takes advantage of
+   the Equal-Cost Multipaths (ECMPs) between source and transit nodes,
+   between transit nodes and between transit and destination nodes.  SR
+   Policies as defined in [I-D.ietf-spring-segment-routing-policy] are
+   used to steer traffic through a specific, user-defined paths using a
+   stack of Segments.  Built-in Liveness Monitoring for detecting faults
+   as well as Performance Delay and Loss Monitoring are essential
+   requirements to provide Service Level Agreements (SLAs) in SR
+   networks.
 
    The One-Way Active Measurement Protocol (OWAMP) defined in
    [RFC4656]and Two-Way Active Measurement Protocol (TWAMP) defined in
-   [RFC5357]provide capabilities for the measurement of various
-   performance metrics in IP networks using probe messages.  The TWAMP
+   [RFC5357] provide capabilities for the measurement of various
 
 
 
@@ -114,13 +114,21 @@ Gandhi, et al.           Expires August 9, 2020                 [Page 2]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
+   performance metrics in IP networks using probe messages.  The TWAMP
    Light [Appendix I in RFC 5357] provides simplified mechanisms for
    active performance measurement in Customer IP networks by
    provisioning UDP paths that eliminates the control-channel signaling.
 
+   For Liveness monitoring, Bidirectional Forwarding Detection (BFD)
+   [RFC5884] can be used in Segment Routing networks.  However, BFD
+   requires protocol support on the remote node to process the BFD
+   packets to reply thereby limiting the scale.  In addition, BFD does
+   not have capability today to enable peformance delay and loss
+   monitoring in SR networks.
+
    This document defines procedure for Enhanced Performance and Liveness
    Monitoring (PLM) in Segment Routing networks.  The procedure uses the
-   probe messages defined in [RFC5357](Two-Way Active Measurement
+   probe messages defined in [RFC5357] (Two-Way Active Measurement
    Protocol (TWAMP) Light) in loopback mode.  The procedure specified is
    applicable to both SR-MPLS and SRv6 data planes.
 
@@ -155,6 +163,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
    SID: Segment ID.
 
+
+
+Gandhi, et al.           Expires August 9, 2020                 [Page 3]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
+
+
    SL: Segment List.
 
    SR: Segment Routing.
@@ -162,13 +177,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    SRH: Segment Routing Header.
 
    SR-MPLS: Segment Routing with MPLS data plane.
-
-
-
-Gandhi, et al.           Expires August 9, 2020                 [Page 3]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
-
 
    SRv6: Segment Routing with IPv6 data plane.
 
@@ -185,9 +193,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    Segment Lists of the SR Policy.  The Source and destination IP
    addresses in the probe packets are set to the endpoint node and the
    sender node.  The probe packets are received back by the sender node
-   via IP return path.  The Segment List of the return path can be added
-   in the probe message header to receive the probe message on a
-   specific SR path.
+   via IP /UDP [RFC0768]return path.  The Segment List of the return
+   path can be added in the probe message header to receive the probe
+   message on a specific SR path
+   [I-D.ietf-pce-binding-label-sid][I-D.li-pce-sr-bidir-path]
 
    Liveness failure is notified when N number of consecutive probe
    messages are not received back at the sender, where N is locally
@@ -206,15 +215,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 3.1.  Loopback Mode for SR-MPLS
 
    Lopback Mode for SR-MPLS TBD
-
-
-
-
-
-
-
-
-
 
 
 
@@ -314,6 +314,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    timestamp in the payload of the TWAMP probe message without punting
    the probe message in control-plane.  The end-to-end delay is measured
    using the receive and transmit timestamps in the probe message.
+
+   Timestamp format used is [IEEE1588][RFC8186]
+
    Liveness failure is notified when N number of consecutive probe
    messages are not received back at the sender, where N is locally
    provisioned.
@@ -324,12 +327,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
                   |       |<- - - - - - - - - - |       |
                   +-------+     Return Probe    +-------+
                    Sender                       Endpoint
-                                                (Timestamp and Forward)
+                                           (Timestamp, Pop and Forward)
 
              Figure 4: Loopback Mode with Network Programming
-
-
-
 
 
 
@@ -342,7 +342,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
    In the loopback mode with network programming for SR-MPLS, a
    timestamp label (reserved label TBD1) is added in the MPLS header to
-   collect receive timestamp in the payload of the TWAMP [RFC5357]probe
+   collect receive timestamp in the payload of the TWAMP [RFC5357] probe
    packet at a specific location locally provisioned.  When a node
    receives a packet with timestamp label, the node pops the timestamp
    label and forwards the packet using the next label or IP header in
@@ -380,11 +380,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 4.2.  Loopback Mode with Network Programming for SRv6
 
-   In the loopback mode with network programming for SRv6, END.OTS
-   function (OAM Timestamp, value TBD2) is added for the Endpoint SID in
-   SRH [I-D.ietf-6man-segment-routing-header]to collect receive
-   timestamp in the payload of the TWAMP [RFC5357]probe packet at a
-   specific location locally provisioned.  When a node receives a packet
+   In this document, new Endpoint function OAM Timestamp (OTS) (value
+   TBD2) is defined for Segment Routing Header (SRH)
+   [I-D.ietf-6man-segment-routing-header] for SRv6 to enable network
+   programming for timestamp and forward the packet.
+
 
 
 
@@ -394,8 +394,13 @@ Gandhi, et al.           Expires August 9, 2020                 [Page 7]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
-   with END.OTS function, the node forwards the packet using the next
-   SID or IP header in the packet, in addition to adding the timestamp.
+   In the loopback mode with network programming for SRv6, END.OTS
+   function is added for the Endpoint SID in SRH
+   [I-D.ietf-6man-segment-routing-header] to collect receive timestamp
+   in the payload of the TWAMP [RFC5357] probe packet at a specific
+   location locally provisioned.  When a node receives a packet with
+   END.OTS function, the node forwards the packet using the next SID or
+   IP header in the packet, in addition to adding the timestamp.
 
      +---------------------------------------------------------------+
      |                           SRH                                 |
@@ -437,11 +442,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
        | TBA1        | Timestamp Label         | This document |
        +-------------+-------------------------+---------------+
 
-   IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
-   Registry" sub-registry belonging to the top-level "Segment- routing
-   with IPv6 data plane (SRv6) Parameters" registry
-   [I-D.ietf-spring-srv6-network-programming], the following
-   allocations.
 
 
 
@@ -449,6 +449,12 @@ Gandhi, et al.           Expires August 9, 2020                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
+
+   IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
+   Registry" sub-registry belonging to the top-level "Segment- routing
+   with IPv6 data plane (SRv6) Parameters" registry
+   [I-D.ietf-spring-srv6-network-programming], the following
+   allocations.
 
         +------------+-------------------------+---------------+
         | Value      | Endpoint Behavior       | Reference     |
@@ -490,12 +496,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
 
-   [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
-              "Bidirectional Forwarding Detection (BFD) for MPLS Label
-              Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
-              June 2010, <https://www.rfc-editor.org/info/rfc5884>.
-
-
 
 
 
@@ -506,16 +506,10 @@ Gandhi, et al.           Expires August 9, 2020                 [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
-   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
-              Cheshire, "Internet Assigned Numbers Authority (IANA)
-              Procedures for the Management of the Service Name and
-              Transport Protocol Port Number Registry", BCP 165,
-              RFC 6335, DOI 10.17487/RFC6335, August 2011,
-              <https://www.rfc-editor.org/info/rfc6335>.
-
-   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
-              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
-              March 2017, <https://www.rfc-editor.org/info/rfc8085>.
+   [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
+              "Bidirectional Forwarding Detection (BFD) for MPLS Label
+              Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
+              June 2010, <https://www.rfc-editor.org/info/rfc5884>.
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -551,6 +545,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               Bidirectional Segment Routing (SR) Paths", draft-li-pce-
               sr-bidir-path-06 (work in progress), August 2019.
 
+   [I-D.gandhi-spring-twamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Performance Measurement Using TWAMP Light for
+              Segment Routing Networks", draft-gandhi-spring-twamp-
+              srpm-05 (work in progress), December 2019.
+
 
 
 
@@ -561,12 +561,6 @@ Gandhi, et al.           Expires August 9, 2020                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
-
-   [I-D.gandhi-spring-twamp-srpm]
-              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Performance Measurement Using TWAMP Light for
-              Segment Routing Networks", draft-gandhi-spring-twamp-
-              srpm-05 (work in progress), December 2019.
 
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
@@ -609,6 +603,12 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
 
 
 
