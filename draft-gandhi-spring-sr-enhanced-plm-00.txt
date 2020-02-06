@@ -7,7 +7,7 @@ Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
 Expires: August 8, 2020                                         D. Voyer
                                                              Bell Canada
-                                                                 M. Chen
+                                                                    M. C
                                                                        H
                                                              B. Janssens
                                                                     Colt
@@ -439,7 +439,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
    Registry" sub-registry belonging to the top-level "Segment- routing
-   with IPv6 data plane (SRv6) Parameters" registry [I-D.ietf- spring-
+   with IPv6 data plane (SRv6) Parameters" registry [I-D.ietf-spring-
    srv6-network-programming], the following allocations.
 
 
