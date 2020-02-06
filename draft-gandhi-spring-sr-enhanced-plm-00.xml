@@ -79,7 +79,7 @@
       </address>
     </author>
 
-    <author fullname="MC" initials="M." surname="Chen">
+    <author fullname="MC" initials="M." surname="C">
       <organization>H</organization>
 
       <address>
@@ -233,7 +233,7 @@
       are not received back at the sender, where N is locally provisioned.</t>
 
       <figure anchor="ure-loopback-mode" title="Loopback Mode">
-	      <artwork>
+        <artwork>
                +-------+       Probe         +-------+
                |       | - - - - - - - - - - |       |
                |   R1  |--------------------||  R5   |
@@ -317,9 +317,9 @@
       when N number of consecutive probe messages are not received back at the
       sender, where N is locally provisioned.</t>
 
-
-      <figure anchor="ure-loopback-mode-with-network-programming" title="Loopback Mode with Network Programming">
-	      <artwork>
+      <figure anchor="ure-loopback-mode-with-network-programming"
+              title="Loopback Mode with Network Programming">
+        <artwork>
                +-------+       Probe         +-------+
                |       | - - - - - - - - - - |       |
                |   R1  |--------------------||  R5   |
@@ -328,8 +328,6 @@
 	        Sender                       Endpoint
 	      </artwork>
       </figure>
-
-
 
       <section anchor="sect-5.1"
                title="Loopback Mode with Network Programming for SR-MPLS"
@@ -434,8 +432,9 @@
 
       <t>IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
       Registry" sub-registry belonging to the top-level "Segment- routing with
-      IPv6 data plane (SRv6) Parameters" registry [I-D.ietf-
-      spring-srv6-network-programming], the following allocations.</t>
+      IPv6 data plane (SRv6) Parameters" registry
+      [I-D.ietf-spring-srv6-network-programming], the following
+      allocations.</t>
 
       <figure>
         <artwork>     
