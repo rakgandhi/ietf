@@ -85,7 +85,7 @@ Table of Contents
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  11
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
@@ -232,7 +232,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
                   |       |<- - - - - - - - - - |       |
                   +-------+     Return Probe    +-------+
                    Sender                       Reflector Endpoint
-                                                (Forword)
+                                                (Forward)
 
                           Figure 1: Loopback Mode
 
@@ -290,7 +290,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
      +---------------------------------------------------------------+
      |                           SRH                                 |
-     .                      <Segment List>                           .
+     .                           <Segment List>                      .
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -358,15 +358,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 4.1.  Loopback Mode Enabled with Network Programming for SR-MPLS
 
-   In this document, new timestamp label (special purpose label with
+   In this document, new Timestamp Label (special purpose label with
    value TBD1) is defined for SR-MPLS to enable network programming
    function for timestamp, pop and forward the received packet.
 
    In the loopback mode enabled with network programming for SR-MPLS,
-   timestamp label is added in the MPLS header to collect receive
+   Timestamp Label is added in the MPLS header to collect receive
    timestamp in the payload of the TWAMP [RFC5357] probe packet.  When a
-   node receives a packet with timestamp label, the node pops the
-   timestamp label and forwards the packet using the next label or IP
+   node receives a packet with Timestamp Label, the node pops the
+   Timestamp Label and forwards the packet using the next label or IP
    header in the packet, in addition to adding the timestamp.
 
 
@@ -426,16 +426,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 4.2.  Loopback Mode Enabled with Network Programming for SRv6
 
-   In this document, new Endpoint function OAM Timestamp (OTS) (value
-   TBD2) is defined for Segment Routing Header (SRH)
+   In this document, new Endpoint function "Timestamp and Forward (TSF)"
+   (value TBD2) is defined for Segment Routing Header (SRH)
    [I-D.ietf-6man-segment-routing-header] for SRv6 to enable network
    programming function for timestamp and forward the received packet.
 
    In the loopback mode enabled with network programming for SRv6,
-   END.OTS function is added for the Endpoint SID in SRH
+   END.TSF function is added for the Endpoint SID in SRH
    [I-D.ietf-6man-segment-routing-header] to collect receive timestamp
    in the payload of the TWAMP [RFC5357] probe packet.  When a node
-   receives a packet with END.OTS function for the target SID which is
+   receives a packet with END.TSF function for the target SID which is
    local, the node forwards the packet using the next SID or IP header
    in the packet, in addition to adding the timestamp.
 
@@ -452,8 +452,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
      +---------------------------------------------------------------+
      |                           SRH                                 |
-     .                      <Segment List>                           .
-     .  END.OTS (TBA2) with Target SRv6 SID                          .
+     .                           <Segment List>                      .
+     .  END.TSF (TBA2) with Target SRv6 SID                          .
      +---------------------------------------------------------------+
      | IP Header                                                     |
      .  Source IP Address = Endpoint IPv6 Address                    .
@@ -474,7 +474,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 5.  Security Considerations
 
-   TBA
+   The Performance and Liveness Monitoring is intended for deployment in
+   well-managed private and service provider networks.  As such, it
+   assumes that a node involved in a monitoring operation has previously
+   verified the integrity of the path and the identity of the far-end
+   reflector node.  If desired, attacks can be mitigated by performing
+   basic validation and sanity checks, at the sender, of the counter or
+   timestamp fields in received measurement response messages.  The
+   minimal state associated with these protocols also limits the extent
+   of disruption that can be caused by a corrupt or invalid message to a
+   single query/response cycle.  Use of HMAC-SHA-256 in the
+   authenticated mode protects the data integrity of the probe messages.
+   Cryptographic measures may be enhanced by the correct configuration
+   of access-control lists and firewalls.
 
 6.  IANA Considerations
 
@@ -483,18 +495,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    mpls-label-values/mpls-label- values.xml>).  IANA is requested to
    allocate Timestamp Label value from the "Extended Special-Purpose
    MPLS Label Values" registry:
-
-       +-------------+-------------------------+---------------+
-       | Value       | Description             | Reference     |
-       +-------------+-------------------------+---------------+
-       | TBA1        | Timestamp Label         | This document |
-       +-------------+-------------------------+---------------+
-
-   IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
-   Registry" sub-registry belonging to the top-level "Segment- routing
-   with IPv6 data plane (SRv6) Parameters" registry
-   [I-D.ietf-spring-srv6-network-programming], the following
-   allocations:
 
 
 
@@ -506,11 +506,23 @@ Gandhi, et al.           Expires August 9, 2020                 [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
-        +------------+-------------------------+---------------+
-        | Value      | Endpoint Behavior       | Reference     |
-        +------------+-------------------------+---------------+
-        | TBA2       | End.OTS (OAM Timestamp) | This document |
-        +------------+-------------------------+---------------+
+       +-------------+-------------------------+---------------+
+       | Value       | Description             | Reference     |
+       +-------------+-------------------------+---------------+
+       | TBA1        | Timestamp Label         | This document |
+       +-------------+-------------------------+---------------+
+
+   IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
+   Registry" sub-registry belonging to the top-level "Segment-routing
+   with IPv6 data plane (SRv6) Parameters" registry
+   [I-D.ietf-spring-srv6-network-programming], the following
+   allocations:
+
+        +------------+---------------------------------+---------------+
+        | Value      | Endpoint Behavior               | Reference     |
+        +------------+---------------------------------+---------------+
+        | TBA2       | END.TSF (Timestamp and Forward) | This document |
+        +------------+---------------------------------+---------------+
 
 7.  References
 
@@ -539,6 +551,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 9, 2020                [Page 10]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
+
+
 7.2.  Informative References
 
    [IEEE1588]
@@ -550,17 +573,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
               Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
               June 2010, <https://www.rfc-editor.org/info/rfc5884>.
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 9, 2020                [Page 10]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
-
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -591,10 +603,20 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               sid-01 (work in progress), November 2019.
 
    [I-D.li-pce-sr-bidir-path]
-              Li, C., Chen, M., Cheng, W., Li, Z., Dong, J., Gandhi, R.,
-              and Q. Xiong, "PCEP Extensions for Associated
-              Bidirectional Segment Routing (SR) Paths", draft-li-pce-
-              sr-bidir-path-06 (work in progress), August 2019.
+              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
+              "PCEP Extensions for Associated Bidirectional Segment
+              Routing (SR) Paths", draft-li-pce-sr-bidir-path-07 (work
+              in progress), February 2020.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 9, 2020                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
+
 
    [I-D.gandhi-spring-twamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
@@ -607,16 +629,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
               draft-ietf-spring-srv6-network-programming-08 (work in
               progress), January 2020.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 9, 2020                [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
-
 
 Acknowledgments
 
@@ -653,18 +665,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
