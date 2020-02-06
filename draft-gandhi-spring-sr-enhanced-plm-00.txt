@@ -80,7 +80,7 @@ Table of Contents
      4.1.  Loopback Mode for SR-MPLS . . . . . . . . . . . . . . . .   5
      4.2.  Loopback Mode for SRv6  . . . . . . . . . . . . . . . . .   6
    5.  Enhanced Performance and Liveness Monitoring  . . . . . . . .   6
-     5.1.  Loopback Mode with Network Programming for SR-MPLS  . . .   6
+     5.1.  Loopback Mode with Network Programming for SR-MPLS  . . .   7
      5.2.  Loopback Mode with Network Programming for SRv6 . . . . .   7
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
@@ -234,7 +234,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
                   +-------+       Probe         +-------+
                   |       | - - - - - - - - - - |       |
                   |   R1  |--------------------||  R5   |
-                  |       |<- - - - - - - - - - |       |
+                  |       |<- - - - - - - - - - | FWD   |
                   +-------+     Return Probe    +-------+
                    Sender                       Endpoint
 
@@ -322,14 +322,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    messages are not received back at the sender, where N is locally
    provisioned.
 
-5.1.  Loopback Mode with Network Programming for SR-MPLS
+                  +-------+       Probe         +-------+
+                  |       | - - - - - - - - - - |       |
+                  |   R1  |--------------------||  R5   |
+                  |       |<- - - - - - - - - - | TS+FWD|
+                  +-------+     Return Probe    +-------+
+                   Sender                       Endpoint
 
-   In the loopback mode with network programming for SR-MPLS, a
-   timestamp label (reserved label TBD1) is added in the MPLS header to
-   collect receive timestamp in the payload of the TWAMP [RFC5357] probe
-   packet at a specific location locally provisioned.  When a node
-   receives a packet with timestamp label, the node pops the timestamp
-   label and forwards the packet using the next label or IP header in
+             Figure 4: Loopback Mode with Network Programming
 
 
 
@@ -338,8 +338,15 @@ Gandhi, et al.           Expires August 8, 2020                 [Page 6]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
-   the packet, in addition to adding the timestamp in the payload of the
-   packet.
+5.1.  Loopback Mode with Network Programming for SR-MPLS
+
+   In the loopback mode with network programming for SR-MPLS, a
+   timestamp label (reserved label TBD1) is added in the MPLS header to
+   collect receive timestamp in the payload of the TWAMP [RFC5357] probe
+   packet at a specific location locally provisioned.  When a node
+   receives a packet with timestamp label, the node pops the timestamp
+   label and forwards the packet using the next label or IP header in
+   the packet, in addition to adding the timestamp.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -369,7 +376,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-      Figure 4: Probe Message Header For SR-MPLS with Timestamp Label
+      Figure 5: Probe Message Header For SR-MPLS with Timestamp Label
 
 5.2.  Loopback Mode with Network Programming for SRv6
 
@@ -378,13 +385,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    SRH to collect receive timestamp in the payload of the TWAMP
    [RFC5357] probe packet at a specific location locally provisioned.
    When a node receives a packet with END.OTS function, the node
-   forwards the packet using the next SID or IP header in the packet, in
-   addition to adding the timestamp in the payload of the packet.
-
-
-
-
-
 
 
 
@@ -393,6 +393,9 @@ Gandhi, et al.           Expires August 8, 2020                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
+
+   forwards the packet using the next SID or IP header in the packet, in
+   addition to adding the timestamp.
 
      +---------------------------------------------------------------+
      |                           SRH                                 |
@@ -414,7 +417,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-      Figure 5: Probe Message Header for SRv6 With Endpoint Function
+      Figure 6: Probe Message Header for SRv6 With Endpoint Function
 
 6.  Security Considerations
 
@@ -438,9 +441,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    Registry" sub-registry belonging to the top-level "Segment- routing
    with IPv6 data plane (SRv6) Parameters" registry [I-D.ietf- spring-
    srv6-network-programming], the following allocations.
-
-
-
 
 
 
