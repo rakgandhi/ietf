@@ -233,12 +233,14 @@
       are not received back at the sender, where N is locally provisioned.</t>
 
       <figure anchor="ure-loopback-mode" title="Loopback Mode">
-        <artwork>               +-------+       Probe         +-------+
+	      <artwork>
+               +-------+       Probe         +-------+
                |       | - - - - - - - - - - |       |
                |   R1  |--------------------||  R5   |
-               |       |&lt;- - - - - - - - - - |       |
+               |       |&lt;- - - - - - - - - - | FWD   |
                +-------+     Return Probe    +-------+
-                Sender                       Endpoint</artwork>
+	        Sender                       Endpoint
+	      </artwork>
       </figure>
 
       <section anchor="sect-4.1" title="Loopback Mode for SR-MPLS">
@@ -315,6 +317,20 @@
       when N number of consecutive probe messages are not received back at the
       sender, where N is locally provisioned.</t>
 
+
+      <figure anchor="ure-loopback-mode-with-network-programming" title="Loopback Mode with Network Programming">
+	      <artwork>
+               +-------+       Probe         +-------+
+               |       | - - - - - - - - - - |       |
+               |   R1  |--------------------||  R5   |
+               |       |&lt;- - - - - - - - - - | TS+FWD|
+               +-------+     Return Probe    +-------+
+	        Sender                       Endpoint
+	      </artwork>
+      </figure>
+
+
+
       <section anchor="sect-5.1"
                title="Loopback Mode with Network Programming for SR-MPLS"
                toc="default">
@@ -324,8 +340,7 @@
         packet at a specific location locally provisioned. When a node
         receives a packet with timestamp label, the node pops the timestamp
         label and forwards the packet using the next label or IP header in the
-        packet, in addition to adding the timestamp in the payload of the
-        packet.</t>
+        packet, in addition to adding the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
                 title="Probe Message Header For SR-MPLS with Timestamp Label">
@@ -368,7 +383,7 @@
         probe packet at a specific location locally provisioned. When a node
         receives a packet with END.OTS function, the node forwards the packet
         using the next SID or IP header in the packet, in addition to adding
-        the timestamp in the payload of the packet.</t>
+        the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Probe Message Header for SRv6 With Endpoint Function">
