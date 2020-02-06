@@ -69,7 +69,7 @@
       </address>
     </author>
 
-    <author fullname="Daniel Voyer" initials="D." surname="Voyer (TBD)">
+    <author fullname="Daniel Voyer (TBD)" initials="D." surname="Voyer (TBD)">
       <organization>Bell Canada</organization>
 
       <address>
@@ -77,7 +77,7 @@
       </address>
     </author>
 
-    <author fullname="MC" initials="M." surname="C (TBD)">
+    <author fullname="MC (TBD)" initials="M." surname="C (TBD)">
       <organization>H</organization>
 
       <address>
@@ -85,7 +85,8 @@
       </address>
     </author>
 
-    <author fullname="Bart Janssens" initials="B." surname="Janssens (TBD)">
+    <author fullname="Bart Janssens (TBD)" initials="B."
+            surname="Janssens (TBD)">
       <organization>Colt</organization>
 
       <address>
@@ -134,10 +135,13 @@
 
       <t>For Liveness monitoring, Bidirectional Forwarding Detection (BFD)
       <xref target="RFC5884"/> can be used in Segment Routing networks.
-      However, BFD requires protocol support on the remote node to process the
-      BFD packets to reply thereby limiting the scale. In addition, BFD does
-      not have capability today to enable peformance delay and loss monitoring
-      in SR networks.</t>
+      However, BFD requires protocol support on the reflector node to process
+      the BFD packets as packets are punted from forwarding path in order to
+      send reply thereby limiting the scale. In addition, BFD does not have
+      the capability today to enable peformance delay and loss monitoring in
+      SR networks. Enabling multiple protocols in SR networks, BFD for
+      liveness monitoring and TWAMP for performance delay and loss monitoring
+      increases the operational complexity in the SR networks.</t>
 
       <t>This document defines procedure for Enhanced Performance and Liveness
       Monitoring (PLM) in Segment Routing networks. The procedure uses the
@@ -200,15 +204,16 @@
       node of the SR Policy using the Segment Lists of the SR Policy. The
       Source and destination IP addresses in the probe packets are set to the
       endpoint node and the sender node. The probe packets are received back
-      by the sender node via IP /UDP <xref target="RFC0768"/>return path. The
-      Segment List of the return path can be added in the probe message header
-      to receive the probe message on a specific SR path <xref
-      target="I-D.ietf-pce-binding-label-sid"/><xref
-      target="I-D.li-pce-sr-bidir-path"/></t>
+      by the sender node via IP/UDP path <xref target="RFC0768"/>return path.
+      The Segment List of the return path can be added in the probe message
+      header to receive the probe message on a specific SR path using the
+      mechanisms defined in <xref
+      target="I-D.ietf-pce-binding-label-sid"/>and<xref
+      target="I-D.li-pce-sr-bidir-path"/>.</t>
 
-      <t>Liveness failure is notified when N number of consecutive probe
+      <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
-      provisioned.</t>
+      provisioned value.</t>
 
       <figure anchor="ure-loopback-mode" title="Loopback Mode">
         <artwork>
@@ -223,20 +228,22 @@
       </figure>
 
       <section anchor="sect-3.1" title="Loopback Mode for SR-MPLS">
-        <t>Lopback Mode for SR-MPLS TBD</t>
+        <t>The TWAMP probe messages are sent using the Label stack of the SR
+        Policy as shown in Figure 2. The label stack can contain the reverse
+        SR path to receive the reply on a specific SR path.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
                 title="Probe Message Header For SR-MPLS">
           <artwork>  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Segment(1)             | TC  |S|      TTL      |
+  |                Label(1)               | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   .                                                               .
   .                                                               .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Segment(n)             | TC  |S|      TTL      |
+  |                Label(n)               | TC  |S|      TTL      |
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
@@ -249,7 +256,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   RFC 5357 Message in Payload                                 |
+  |  RFC 5357 Message in Payload                                  |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -263,7 +270,7 @@
           <artwork>  
   +---------------------------------------------------------------+
   |                           SRH                                 |
-  .                           &lt;Segment List&gt;                      .
+  .                      &lt;Segment List&gt;                           .
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -277,7 +284,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   RFC 5357 Message in Payload                                 |
+  |  RFC 5357 Message in Payload                                  |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -291,16 +298,17 @@
       transmit and receive timestamps are collected in data plane by the probe
       messages sent in loopback mode enabled with network programming
       function. The endpoint node returns the receive timestamp in the payload
-      of the TWAMP probe message without punting the probe message in
+      of the TWAMP probe message without needing to punt the probe message in
       control-plane. The end-to-end delay is measured using the receive and
       transmit timestamps in the probe message.</t>
 
-      <t>Timestamp format used is <xref target="IEEE1588"/><xref
-      target="RFC8186"/></t>
+      <t>Timestamp format recommended is <xref target="IEEE1588"/> as
+      specified in <xref target="RFC8186"/> . Note this can be locally
+      provisioned as part of the network programming function.</t>
 
-      <t>Liveness failure is notified when N number of consecutive probe
+      <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
-      provisioned.</t>
+      provisioned value.</t>
 
       <figure anchor="ure-loopback-mode-with-network-programming"
               title="Loopback Mode with Network Programming">
@@ -311,21 +319,24 @@
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
                 Sender                       Endpoint
-                                        (Timestamp, Pop and Forward)
+                                    (Timestamp, Pop and Forward)
       </artwork>
       </figure>
 
       <section anchor="sect-4.1"
                title="Loopback Mode with Network Programming for SR-MPLS"
                toc="default">
-        <t>In the loopback mode with network programming for SR-MPLS, a
-        timestamp label (reserved label TBD1) is added in the MPLS header to
-        collect receive timestamp in the payload of the TWAMP <xref
-        target="RFC5357"/> probe packet at a specific location locally
-        provisioned. When a node receives a packet with timestamp label, the
-        node pops the timestamp label and forwards the packet using the next
-        label or IP header in the packet, in addition to adding the
-        timestamp.</t>
+        <t>In this document, new timestamp label (special purpose label with
+        value TBD1) is defined for SR-MPLS to enable network programming
+        function for timestamp, pop and forward the received packet.</t>
+
+        <t>In the loopback mode with network programming for SR-MPLS,
+        timestamp label is added in the MPLS header to collect receive
+        timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
+        packet at a specific location locally provisioned. When a node
+        receives a packet with timestamp label, the node pops the timestamp
+        label and forwards the packet using the next label or IP header in the
+        packet, in addition to adding the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
                 title="Probe Message Header For SR-MPLS with Timestamp Label">
@@ -333,13 +344,13 @@
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Segment(1)             | TC  |S|      TTL      |
+  |                Label(1)               | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   .                                                               .
   .                                                               .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Segment(n)             | TC  |S|      TTL      |
+  |                Label(n)               | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                Timestamp Label (TBA1) | TC  |S|      TTL      |
   +---------------------------------------------------------------+
@@ -354,7 +365,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   RFC 5357 Message in Payload                                 |
+  |  RFC 5357 Message in Payload                                  |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -365,7 +376,8 @@
         <t>In this document, new Endpoint function OAM Timestamp (OTS) (value
         TBD2) is defined for Segment Routing Header (SRH) <xref
         target="I-D.ietf-6man-segment-routing-header"/> for SRv6 to enable
-        network programming for timestamp and forward the packet.</t>
+        network programming function for timestamp and forward the received
+        packet.</t>
 
         <t>In the loopback mode with network programming for SRv6, END.OTS
         function is added for the Endpoint SID in SRH <xref
@@ -382,7 +394,7 @@
   +---------------------------------------------------------------+
   |                           SRH                                 |
   .                      &lt;Segment List&gt;                           .
-  .   END.OTS (TBA2) with Target SRv6 SID                         .
+  .  END.OTS (TBA2) with Target SRv6 SID                          .
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv6 Address                    .
@@ -395,7 +407,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |   RFC 5357 Message in Payload                                 |
+  |  RFC 5357 Message in Payload                                  |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -427,7 +439,7 @@
       Registry" sub-registry belonging to the top-level "Segment- routing with
       IPv6 data plane (SRv6) Parameters" registry <xref
       target="I-D.ietf-spring-srv6-network-programming"/>, the following
-      allocations.</t>
+      allocations:</t>
 
       <figure>
         <artwork>     
