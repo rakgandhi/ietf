@@ -10,13 +10,11 @@
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
 <!ENTITY RFC5884 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5884.xml">
 <!ENTITY RFC6038 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6038.xml">
-<!ENTITY RFC6335 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
 <!ENTITY RFC6437 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!ENTITY RFC6936 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6936.xml">
 <!ENTITY RFC7506 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7506.xml">
 <!ENTITY RFC7820 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7820.xml">
 <!ENTITY RFC8029 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8029.xml">
-<!ENTITY RFC8085 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8085.xml">
 <!ENTITY RFC8186 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8186.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
@@ -115,11 +113,11 @@
       <t>Segment Routing (SR) leverages the source routing paradigm and
       greatly simplifies network operations for Software Defined Networks
       (SDNs). SR is applicable to both Multiprotocol Label Switching (SR-MPLS)
-      and IPv6 (SRv6) data planes. SR takes advantage of the Equal-Cost
-      Multipaths (ECMPs) between source and transit nodes, between transit
-      nodes and between transit and destination nodes. SR Policies as defined
-      in <xref format="default"
-      target="I-D.ietf-spring-segment-routing-policy"/>are used to steer
+      and IPv6 (SRv6) data planes <xref target="RFC8402"/>. SR takes advantage
+      of the Equal-Cost Multipaths (ECMPs) between source and transit nodes,
+      between transit nodes and between transit and destination nodes. SR
+      Policies as defined in <xref format="default"
+      target="I-D.ietf-spring-segment-routing-policy"/> are used to steer
       traffic through a specific, user-defined paths using a stack of
       Segments. Built-in Liveness Monitoring for detecting faults as well as
       Performance Delay and Loss Monitoring are essential requirements to
@@ -127,16 +125,23 @@
 
       <t>The One-Way Active Measurement Protocol (OWAMP) defined in <xref
       target="RFC4656"/>and Two-Way Active Measurement Protocol (TWAMP)
-      defined in <xref target="RFC5357"/>provide capabilities for the
+      defined in <xref target="RFC5357"/> provide capabilities for the
       measurement of various performance metrics in IP networks using probe
       messages. The TWAMP Light [Appendix I in RFC 5357] provides simplified
       mechanisms for active performance measurement in Customer IP networks by
       provisioning UDP paths that eliminates the control-channel
       signaling.</t>
 
+      <t>For Liveness monitoring, Bidirectional Forwarding Detection (BFD)
+      <xref target="RFC5884"/> can be used in Segment Routing networks.
+      However, BFD requires protocol support on the remote node to process the
+      BFD packets to reply thereby limiting the scale. In addition, BFD does
+      not have capability today to enable peformance delay and loss monitoring
+      in SR networks.</t>
+
       <t>This document defines procedure for Enhanced Performance and Liveness
       Monitoring (PLM) in Segment Routing networks. The procedure uses the
-      probe messages defined in <xref target="RFC5357"/>(Two-Way Active
+      probe messages defined in <xref target="RFC5357"/> (Two-Way Active
       Measurement Protocol (TWAMP) Light) in loopback mode. The procedure
       specified is applicable to both SR-MPLS and SRv6 data planes.</t>
     </section>
@@ -195,9 +200,11 @@
       node of the SR Policy using the Segment Lists of the SR Policy. The
       Source and destination IP addresses in the probe packets are set to the
       endpoint node and the sender node. The probe packets are received back
-      by the sender node via IP return path. The Segment List of the return
-      path can be added in the probe message header to receive the probe
-      message on a specific SR path.</t>
+      by the sender node via IP /UDP <xref target="RFC0768"/>return path. The
+      Segment List of the return path can be added in the probe message header
+      to receive the probe message on a specific SR path <xref
+      target="I-D.ietf-pce-binding-label-sid"/><xref
+      target="I-D.li-pce-sr-bidir-path"/></t>
 
       <t>Liveness failure is notified when N number of consecutive probe
       messages are not received back at the sender, where N is locally
@@ -286,9 +293,14 @@
       function. The endpoint node returns the receive timestamp in the payload
       of the TWAMP probe message without punting the probe message in
       control-plane. The end-to-end delay is measured using the receive and
-      transmit timestamps in the probe message. Liveness failure is notified
-      when N number of consecutive probe messages are not received back at the
-      sender, where N is locally provisioned.</t>
+      transmit timestamps in the probe message.</t>
+
+      <t>Timestamp format used is <xref target="IEEE1588"/><xref
+      target="RFC8186"/></t>
+
+      <t>Liveness failure is notified when N number of consecutive probe
+      messages are not received back at the sender, where N is locally
+      provisioned.</t>
 
       <figure anchor="ure-loopback-mode-with-network-programming"
               title="Loopback Mode with Network Programming">
@@ -299,7 +311,7 @@
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
                 Sender                       Endpoint
-                                             (Timestamp and Forward)
+                                        (Timestamp, Pop and Forward)
       </artwork>
       </figure>
 
@@ -309,7 +321,7 @@
         <t>In the loopback mode with network programming for SR-MPLS, a
         timestamp label (reserved label TBD1) is added in the MPLS header to
         collect receive timestamp in the payload of the TWAMP <xref
-        target="RFC5357"/>probe packet at a specific location locally
+        target="RFC5357"/> probe packet at a specific location locally
         provisioned. When a node receives a packet with timestamp label, the
         node pops the timestamp label and forwards the packet using the next
         label or IP header in the packet, in addition to adding the
@@ -350,14 +362,19 @@
 
       <section anchor="sect-4.2"
                title="Loopback Mode with Network Programming for SRv6">
+        <t>In this document, new Endpoint function OAM Timestamp (OTS) (value
+        TBD2) is defined for Segment Routing Header (SRH) <xref
+        target="I-D.ietf-6man-segment-routing-header"/> for SRv6 to enable
+        network programming for timestamp and forward the packet.</t>
+
         <t>In the loopback mode with network programming for SRv6, END.OTS
-        function (OAM Timestamp, value TBD2) is added for the Endpoint SID in
-        SRH <xref target="I-D.ietf-6man-segment-routing-header"/>to collect
-        receive timestamp in the payload of the TWAMP <xref
-        target="RFC5357"/>probe packet at a specific location locally
-        provisioned. When a node receives a packet with END.OTS function, the
-        node forwards the packet using the next SID or IP header in the
-        packet, in addition to adding the timestamp.</t>
+        function is added for the Endpoint SID in SRH <xref
+        target="I-D.ietf-6man-segment-routing-header"/> to collect receive
+        timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
+        packet at a specific location locally provisioned. When a node
+        receives a packet with END.OTS function, the node forwards the packet
+        using the next SID or IP header in the packet, in addition to adding
+        the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Probe Message Header for SRv6 With Endpoint Function">
@@ -451,10 +468,6 @@
       </reference>
 
       &RFC5884;
-
-      &RFC6335;
-
-      &RFC8085;
 
       &RFC8186;
 
