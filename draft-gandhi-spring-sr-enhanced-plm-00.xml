@@ -104,8 +104,8 @@
       (SRv6) data planes. This document defines procedure for Enhanced
       Performance and Liveness Monitoring (PLM) in Segment Routing networks.
       The procedure uses the probe messages defined in RFC 5357 (Two-Way
-      Active Measurement Protocol (TWAMP) Light). The procedure specified is
-      applicable to both SR-MPLS and SRv6 data planes.</t>
+      Active Measurement Protocol (TWAMP) Light) and is applicable to both
+      SR-MPLS and SRv6 data planes.</t>
     </abstract>
   </front>
 
@@ -133,15 +133,16 @@
       provisioning UDP paths that eliminates the control-channel
       signaling.</t>
 
-      <t>For Liveness monitoring, Bidirectional Forwarding Detection (BFD)
+      <t>For Liveness Monitoring, Bidirectional Forwarding Detection (BFD)
       <xref target="RFC5884"/> can be used in Segment Routing networks.
       However, BFD requires protocol support on the reflector node to process
       the BFD packets as packets are punted from forwarding path in order to
-      send reply thereby limiting the scale. In addition, BFD does not have
-      the capability today to enable peformance delay and loss monitoring in
-      SR networks. Enabling multiple protocols in SR networks, BFD for
-      liveness monitoring and TWAMP for performance delay and loss monitoring
-      increases the operational complexity in the SR networks.</t>
+      send reply thereby limiting the scale for number of sessions and fault
+      detection interval. In addition, BFD protocol does not have the
+      capability today to enable peformance delay and loss monitoring in SR
+      networks. Enabling multiple protocols in SR networks, BFD for liveness
+      monitoring and TWAMP for performance delay and loss monitoring increases
+      the operational complexity in SR networks.</t>
 
       <t>This document defines procedure for Enhanced Performance and Liveness
       Monitoring (PLM) in Segment Routing networks. The procedure uses the
@@ -200,15 +201,16 @@
       <t>For liveness monitoring for an SR Policy, the loopback mode as
       defined in <xref target="I-D.gandhi-spring-twamp-srpm"/> is used. The
       TWAMP probe messages for delay measurement defined in <xref
-      target="RFC5357"/> are sent by the head-end sender node to the endpoint
-      node of the SR Policy using the Segment Lists of the SR Policy. The
-      Source and destination IP addresses in the probe packets are set to the
-      endpoint node and the sender node. The probe packets are received back
-      by the sender node via IP/UDP path <xref target="RFC0768"/>return path.
-      The Segment List of the return path can be added in the probe message
-      header to receive the probe message on a specific SR path using the
-      mechanisms defined in <xref
-      target="I-D.ietf-pce-binding-label-sid"/>and<xref
+      target="RFC5357"/> are sent by the sender (headend) node to the endpoint
+      node of the SR Policy using the Segment List of the SR Policy. When an
+      SR Policy has more than one Segment List, multiple probe messages are
+      sent, one for each Segment List. The Source and Destination IP addresses
+      in the probe packets are set to the endpoint and the sender node
+      addresses. The probe packets are received back by the sender node via
+      IP/UDP <xref target="RFC0768"/> return path. The Segment List of the
+      return path can be added in the probe message header to receive the
+      probe message on a specific SR path using the mechanisms defined in
+      <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
       target="I-D.li-pce-sr-bidir-path"/>.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
@@ -222,15 +224,15 @@
                |   R1  |--------------------||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
-                Sender                       Endpoint
+                Sender                       Reflector Endpoint
                                              (Forword)
        </artwork>
       </figure>
 
       <section anchor="sect-3.1" title="Loopback Mode for SR-MPLS">
-        <t>The TWAMP probe messages are sent using the Label stack of the SR
+        <t>The TWAMP probe messages are sent using the label stack of the SR
         Policy as shown in Figure 2. The label stack can contain the reverse
-        SR path to receive the reply on a specific SR path.</t>
+        path to receive the reply on a specific SR-MPLS path.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
                 title="Probe Message Header For SR-MPLS">
@@ -263,7 +265,9 @@
       </section>
 
       <section anchor="sect-3.2" title="Loopback Mode for SRv6">
-        <t>Lopback Mode for SRv6 TBD</t>
+        <t>The TWAMP probe messages are sent using the SRH containing the SID
+        List of the SR Policy as shown in Figure 3. The SID List can contain
+        the reverse path to receive the reply on a specific SRv6 path.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
                 title="Probe Message Header for SRv6">
@@ -294,24 +298,31 @@
     <section anchor="sect-4"
              title="Enhanced Performance and Liveness Monitoring">
       <t>The enhanced performance and liveness monitoring for an SR Policy is
-      defined using loopback mode with network programming. In this mode, both
-      transmit and receive timestamps are collected in data plane by the probe
-      messages sent in loopback mode enabled with network programming
-      function. The endpoint node returns the receive timestamp in the payload
-      of the TWAMP probe message without needing to punt the probe message in
-      control-plane. The end-to-end delay is measured using the receive and
-      transmit timestamps in the probe message.</t>
+      defined using loopback mode enabled with network programming. In this
+      mode, both transmit and receive timestamps are collected in data plane
+      by the probe messages sent in loopback mode enabled with network
+      programming function. The endpoint node returns the receive timestamp in
+      the payload of the TWAMP probe message without needing to punt the probe
+      message in control-plane. The end-to-end delay is measured using the
+      receive and transmit timestamps in the probe message.</t>
 
       <t>Timestamp format recommended is <xref target="IEEE1588"/> as
-      specified in <xref target="RFC8186"/> . Note this can be locally
+      specified in <xref target="RFC8186"/>. Note this can be locally
       provisioned as part of the network programming function.</t>
+
+      <t>The network programming function is enabled to add receive timestamp
+      in the payload of the probe packet at a specific location locally
+      provisioned. In TWAMP packet defined in Section 4.2.1 of [RFC5357], the
+      64-bit receive timestamp is added at byte-offset 16 from the start of
+      the payload.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
-      provisioned value.</t>
+      provisioned value. </t>
 
-      <figure anchor="ure-loopback-mode-with-network-programming"
-              title="Loopback Mode with Network Programming">
+      <figure align="center"
+              anchor="ure-loopback-mode-enabled-with-network-programming"
+              title="Loopback Mode Enabled with Network Programming">
         <artwork>
                +-------+       Probe         +-------+
                |       | - - - - - - - - - - |       |
@@ -319,24 +330,24 @@
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
                 Sender                       Endpoint
-                                    (Timestamp, Pop and Forward)
+                                             (Timestamp, 
+                                              Pop and Forward)
       </artwork>
       </figure>
 
       <section anchor="sect-4.1"
-               title="Loopback Mode with Network Programming for SR-MPLS"
+               title="Loopback Mode Enabled with Network Programming for SR-MPLS"
                toc="default">
         <t>In this document, new timestamp label (special purpose label with
         value TBD1) is defined for SR-MPLS to enable network programming
         function for timestamp, pop and forward the received packet.</t>
 
-        <t>In the loopback mode with network programming for SR-MPLS,
+        <t>In the loopback mode enabled with network programming for SR-MPLS,
         timestamp label is added in the MPLS header to collect receive
         timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet at a specific location locally provisioned. When a node
-        receives a packet with timestamp label, the node pops the timestamp
-        label and forwards the packet using the next label or IP header in the
-        packet, in addition to adding the timestamp.</t>
+        packet. When a node receives a packet with timestamp label, the node
+        pops the timestamp label and forwards the packet using the next label
+        or IP header in the packet, in addition to adding the timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
                 title="Probe Message Header For SR-MPLS with Timestamp Label">
@@ -372,21 +383,21 @@
       </section>
 
       <section anchor="sect-4.2"
-               title="Loopback Mode with Network Programming for SRv6">
+               title="Loopback Mode Enabled with Network Programming for SRv6">
         <t>In this document, new Endpoint function OAM Timestamp (OTS) (value
         TBD2) is defined for Segment Routing Header (SRH) <xref
         target="I-D.ietf-6man-segment-routing-header"/> for SRv6 to enable
         network programming function for timestamp and forward the received
         packet.</t>
 
-        <t>In the loopback mode with network programming for SRv6, END.OTS
-        function is added for the Endpoint SID in SRH <xref
+        <t>In the loopback mode enabled with network programming for SRv6,
+        END.OTS function is added for the Endpoint SID in SRH <xref
         target="I-D.ietf-6man-segment-routing-header"/> to collect receive
         timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet at a specific location locally provisioned. When a node
-        receives a packet with END.OTS function, the node forwards the packet
-        using the next SID or IP header in the packet, in addition to adding
-        the timestamp.</t>
+        packet. When a node receives a packet with END.OTS function for the
+        target SID which is local, the node forwards the packet using the next
+        SID or IP header in the packet, in addition to adding the
+        timestamp.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Probe Message Header for SRv6 With Endpoint Function">
