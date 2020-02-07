@@ -7,8 +7,8 @@ Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
 Expires: August 9, 2020                                   D. Voyer (TBD)
                                                              Bell Canada
-                                                       B. Janssens (TBD)
-                                                                    Colt
+                                                      M. Nagarajah (TBD)
+                                                                 Telstra
                                                               M. C (TBD)
                                                                        H
                                                         February 6, 2020
@@ -655,10 +655,10 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
-   Bart Janssens (TBD)
-   Colt
+   Moses Nagarajah (TBD)
+   Telstra
 
-   Email: Bart.Janssens@colt.net
+   Email: Moses.Nagarajah@team.telstra.com
 
 
    MC (TBD)
