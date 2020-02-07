@@ -7,10 +7,10 @@ Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
 Expires: August 9, 2020                                   D. Voyer (TBD)
                                                              Bell Canada
-                                                              M. C (TBD)
-                                                                       H
                                                        B. Janssens (TBD)
                                                                     Colt
+                                                              M. C (TBD)
+                                                                       H
                                                         February 6, 2020
 
 
@@ -126,8 +126,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    packets as packets are punted from forwarding path in order to send
    reply thereby limiting the scale for number of sessions and fault
    detection interval.  In addition, BFD protocol does not have the
-   capability today to enable peformance delay and loss monitoring in SR
-   networks.  Enabling multiple protocols in SR networks, BFD for
+   capability today to enable performance delay and loss monitoring in
+   SR networks.  Enabling multiple protocols in SR networks, BFD for
    liveness monitoring and TWAMP for performance delay and loss
    monitoring increases the operational complexity in SR networks.
 
@@ -196,15 +196,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    defined in [I-D.gandhi-spring-twamp-srpm] is used.  The TWAMP probe
    messages for delay measurement defined in [RFC5357] are sent by the
    sender (headend) node to the endpoint node of the SR Policy using the
-   Segment List of the SR Policy.  When an SR Policy has more than one
-   Segment List, multiple probe messages are sent, one for each Segment
-   List.  The Source and Destination IP addresses in the probe packets
-   are set to the endpoint and the sender node addresses.  The probe
-   packets are received back by the sender node via IP/UDP [RFC0768]
-   return path.  The Segment List of the return path can be added in the
-   probe message header to receive the probe message on a specific SR
-   path using the mechanisms defined in [I-D.ietf-pce-binding-label-sid]
-   and [I-D.li-pce-sr-bidir-path].
+   Segment List of the SR Policy as shown in Figure 1.  When an SR
+   Policy has more than one Segment List, multiple probe messages are
+   sent, one for each Segment List.  The Source and Destination IP
+   addresses in the probe packets are set to the endpoint and the sender
+   node addresses.  The probe packets are received back by the sender
+   node via IP/UDP [RFC0768] return path.  The Segment List of the
+   return path can be added in the probe message header to receive the
+   probe message on a specific SR path using the mechanisms defined in
+   [I-D.ietf-pce-binding-label-sid] and [I-D.li-pce-sr-bidir-path].
 
    Liveness failure is notified when consecutive N number of probe
    messages are not received back at the sender, where N is locally
@@ -316,11 +316,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    defined using loopback mode enabled with network programming.  In
    this mode, both transmit and receive timestamps are collected in data
    plane by the probe messages sent in loopback mode enabled with
-   network programming function.  The endpoint node returns the receive
-   timestamp in the payload of the TWAMP probe message without needing
-   to punt the probe message in control-plane.  The end-to-end delay is
-   measured using the receive and transmit timestamps in the probe
-   message.
+   network programming function as shown in Figure 4.  The endpoint node
+   returns the receive timestamp in the payload of the TWAMP probe
+   message without needing to punt the probe message in control-plane.
+   The end-to-end delay is measured using the receive and transmit
+   timestamps in the probe message.
 
    Timestamp format recommended is [IEEE1588] as specified in [RFC8186].
    Note this can be locally provisioned as part of the network
@@ -655,16 +655,16 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
-   MC (TBD)
-   H
-
-   Email: mc@h.com
-
-
    Bart Janssens (TBD)
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+   MC (TBD)
+   H
+
+   Email: mc@h.com
 
 
 
