@@ -245,13 +245,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Label(1)               | TC  |S|      TTL      |
+     |            Label(1)                   | TC  |S|      TTL      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      .                                                               .
      .                                                               .
      .                                                               .
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Label(n)               | TC  |S|      TTL      |
+     |            Label(n)                   | TC  |S|      TTL      |
      +---------------------------------------------------------------+
      | IP Header                                                     |
      .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
@@ -363,11 +363,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
    function for timestamp, pop and forward the received packet.
 
    In the loopback mode enabled with network programming for SR-MPLS,
-   Timestamp Label is added in the MPLS header to collect receive
-   timestamp in the payload of the TWAMP [RFC5357] probe packet.  When a
-   node receives a packet with Timestamp Label, the node pops the
-   Timestamp Label and forwards the packet using the next label or IP
-   header in the packet, in addition to adding the timestamp.
+   Timestamp Label is added in the MPLS header as shown in Figure 5, to
+   collect receive timestamp in the payload of the TWAMP [RFC5357] probe
+   packet.  When a node receives a packet with Timestamp Label, the node
+   pops the Timestamp Label and forwards the packet using the next label
+   or IP header in the packet, in addition to timestamping the packet.
 
 
 
@@ -397,15 +397,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Label(1)               | TC  |S|      TTL      |
+     |            Label(1)                   | TC  |S|      TTL      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      .                                                               .
      .                                                               .
      .                                                               .
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Label(n)               | TC  |S|      TTL      |
+     |            Label(n)                   | TC  |S|      TTL      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                Timestamp Label (TBA1) | TC  |S|      TTL      |
+     |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
      +---------------------------------------------------------------+
      | IP Header                                                     |
      .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
@@ -433,12 +433,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
    In the loopback mode enabled with network programming for SRv6,
    END.TSF function is added for the Endpoint SID in SRH
-   [I-D.ietf-6man-segment-routing-header] to collect receive timestamp
-   in the payload of the TWAMP [RFC5357] probe packet.  When a node
-   receives a packet with END.TSF function for the target SID which is
-   local, the node forwards the packet using the next SID or IP header
-   in the packet, in addition to adding the timestamp.
-
+   [I-D.ietf-6man-segment-routing-header] as shown in Figure 6, to
+   collect receive timestamp in the payload of the TWAMP [RFC5357] probe
+   packet.  When a node receives a packet with END.TSF function for the
+   target SID which is local, the node forwards the packet using the
+   next SID or IP header in the packet, in addition to timestamping the
+   packet.
 
 
 
@@ -492,7 +492,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
    (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
-   mpls-label-values/mpls-label- values.xml>).  IANA is requested to
+   mpls-label-values/mpls-label-values.xml>).  IANA is requested to
    allocate Timestamp Label value from the "Extended Special-Purpose
    MPLS Label Values" registry:
 
@@ -562,6 +562,12 @@ Gandhi, et al.           Expires August 9, 2020                [Page 10]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
 
 
+   [I-D.gandhi-spring-twamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Performance Measurement Using TWAMP Light for
+              Segment Routing Networks", draft-gandhi-spring-twamp-
+              srpm-05 (work in progress), December 2019.
+
 7.2.  Informative References
 
    [IEEE1588]
@@ -590,11 +596,27 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               ietf-spring-segment-routing-policy-06 (work in progress),
               December 2019.
 
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-08 (work in
+              progress), January 2020.
+
    [I-D.ietf-6man-segment-routing-header]
               Filsfils, C., Dukes, D., Previdi, S., Leddy, J.,
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
               (SRH)", draft-ietf-6man-segment-routing-header-26 (work in
               progress), October 2019.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 9, 2020                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
+
 
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
@@ -607,28 +629,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
               "PCEP Extensions for Associated Bidirectional Segment
               Routing (SR) Paths", draft-li-pce-sr-bidir-path-07 (work
               in progress), February 2020.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 9, 2020                [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2020
-
-
-   [I-D.gandhi-spring-twamp-srpm]
-              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Performance Measurement Using TWAMP Light for
-              Segment Routing Networks", draft-gandhi-spring-twamp-
-              srpm-05 (work in progress), December 2019.
-
-   [I-D.ietf-spring-srv6-network-programming]
-              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
-              Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-08 (work in
-              progress), January 2020.
 
 Acknowledgments
 
