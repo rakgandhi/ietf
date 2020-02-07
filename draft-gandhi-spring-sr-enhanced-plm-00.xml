@@ -239,13 +239,13 @@
           <artwork>  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Label(1)               | TC  |S|      TTL      |
+  |            Label(1)                   | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   .                                                               .
   .                                                               .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Label(n)               | TC  |S|      TTL      |
+  |            Label(n)                   | TC  |S|      TTL      |
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
@@ -343,11 +343,12 @@
         function for timestamp, pop and forward the received packet.</t>
 
         <t>In the loopback mode enabled with network programming for SR-MPLS,
-        Timestamp Label is added in the MPLS header to collect receive
-        timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet. When a node receives a packet with Timestamp Label, the node
-        pops the Timestamp Label and forwards the packet using the next label
-        or IP header in the packet, in addition to adding the timestamp.</t>
+        Timestamp Label is added in the MPLS header as shown in Figure 5, to
+        collect receive timestamp in the payload of the TWAMP <xref
+        target="RFC5357"/> probe packet. When a node receives a packet with
+        Timestamp Label, the node pops the Timestamp Label and forwards the
+        packet using the next label or IP header in the packet, in addition to
+        timestamping the packet.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
                 title="Probe Message Header For SR-MPLS with Timestamp Label">
@@ -355,15 +356,15 @@
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Label(1)               | TC  |S|      TTL      |
+  |            Label(1)                   | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   .                                                               .
   .                                                               .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Label(n)               | TC  |S|      TTL      |
+  |            Label(n)                   | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Timestamp Label (TBA1) | TC  |S|      TTL      |
+  |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
@@ -392,12 +393,12 @@
 
         <t>In the loopback mode enabled with network programming for SRv6,
         END.TSF function is added for the Endpoint SID in SRH <xref
-        target="I-D.ietf-6man-segment-routing-header"/> to collect receive
-        timestamp in the payload of the TWAMP <xref target="RFC5357"/> probe
-        packet. When a node receives a packet with END.TSF function for the
-        target SID which is local, the node forwards the packet using the next
-        SID or IP header in the packet, in addition to adding the
-        timestamp.</t>
+        target="I-D.ietf-6man-segment-routing-header"/> as shown in Figure 6,
+        to collect receive timestamp in the payload of the TWAMP <xref
+        target="RFC5357"/> probe packet. When a node receives a packet with
+        END.TSF function for the target SID which is local, the node forwards
+        the packet using the next SID or IP header in the packet, in addition
+        to timestamping the packet.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Probe Message Header for SRv6 With Endpoint Function">
@@ -444,9 +445,9 @@
     <section anchor="sect-7" title="IANA Considerations" toc="default">
       <t>IANA maintains the "Special-Purpose Multiprotocol Label Switching
       (MPLS) Label Values" registry (see
-      &lt;https://www.iana.org/assignments/mpls-label-values/mpls-label-
-      values.xml&gt;). IANA is requested to allocate Timestamp Label value
-      from the "Extended Special-Purpose MPLS Label Values" registry:</t>
+      &lt;https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml&gt;).
+      IANA is requested to allocate Timestamp Label value from the "Extended
+      Special-Purpose MPLS Label Values" registry:</t>
 
       <figure>
         <artwork>
@@ -486,6 +487,8 @@
       &RFC5357;
 
       &RFC8174;
+
+      &I-D.gandhi-spring-twamp-srpm;
     </references>
 
     <references title="Informative References">
@@ -510,15 +513,13 @@
 
       &I-D.ietf-spring-segment-routing-policy;
 
+      &I-D.ietf-spring-srv6-network-programming;
+
       &I-D.ietf-6man-segment-routing-header;
 
       &I-D.ietf-pce-binding-label-sid;
 
       &I-D.li-pce-sr-bidir-path;
-
-      &I-D.gandhi-spring-twamp-srpm;
-
-      &I-D.ietf-spring-srv6-network-programming;
     </references>
 
     <section anchor="acknowledgments" numbered="no" title="Acknowledgments">
