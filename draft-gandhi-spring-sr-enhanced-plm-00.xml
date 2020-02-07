@@ -77,12 +77,12 @@
       </address>
     </author>
 
-    <author fullname="Bart Janssens (TBD)" initials="B."
-            surname="Janssens (TBD)">
-      <organization>Colt</organization>
+    <author fullname="Moses Nagarajah (TBD)" initials="M."
+            surname="Nagarajah (TBD)">
+      <organization>Telstra</organization>
 
       <address>
-        <email>Bart.Janssens@colt.net</email>
+        <email>Moses.Nagarajah@team.telstra.com</email>
       </address>
     </author>
 
@@ -94,7 +94,7 @@
       </address>
     </author>
 
-    <date day="6" month="February" year="2020"/>
+    <date day="7" month="February" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
