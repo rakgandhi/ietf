@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 8, 2020                                         D. Voyer
+Expires: August 9, 2020                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        February 5, 2020
+                                                        February 6, 2020
 
 
  Performance Measurement Using TWAMP Light for Segment Routing Networks
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 8, 2020.
+   This Internet-Draft will expire on August 9, 2020.
 
 
 
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 1]
+Gandhi, et al.           Expires August 9, 2020                 [Page 1]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 2]
+Gandhi, et al.           Expires August 9, 2020                 [Page 2]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -165,7 +165,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 3]
+Gandhi, et al.           Expires August 9, 2020                 [Page 3]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -221,7 +221,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 4]
+Gandhi, et al.           Expires August 9, 2020                 [Page 4]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -277,7 +277,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 5]
+Gandhi, et al.           Expires August 9, 2020                 [Page 5]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -333,7 +333,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 6]
+Gandhi, et al.           Expires August 9, 2020                 [Page 6]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -378,7 +378,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 4.1.1.  Delay Measurement Probe Query Message
 
    The message content for Delay Measurement probe query message using
-   UDP header [RFC0768] is shown in Figure 1.  The DM probe query
+   UDP header [RFC0768], is shown in Figure 1.  The DM probe query
    message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
    the message does not have any indication to distinguish between query
@@ -389,7 +389,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 7]
+Gandhi, et al.           Expires August 9, 2020                 [Page 7]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -445,7 +445,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 8]
+Gandhi, et al.           Expires August 9, 2020                 [Page 8]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -474,7 +474,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 4.1.2.  Loss Measurement Probe Query Message
 
    In this document, new probe query message formats are defined for
-   loss measurement as shown in Figure 3A and Figure 3B.  The message
+   loss measurement as shown in Figure 3 and Figure 4.  The message
    formats are hardware efficient due to the small size payload and
    well-known locations of counters.  They are similar to the delay
    measurement message formats and do not require any backwards
@@ -489,7 +489,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    used as Source port, since the message does not have any indication
    to distinguish between query and response.  The LM probe query
    message contains the payload for loss measurement as defined in
-   Figure 3A-3D.
+   Figure 3-6.
 
 
 
@@ -501,7 +501,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                 [Page 9]
+Gandhi, et al.           Expires August 9, 2020                 [Page 9]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -518,8 +518,8 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     .  Destination Port = User-configured Port for Loss Measurement .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = Message as specified in Figure 3A or 3B |           |
-    . Payload = Message as specified in Figure 3C or 3D             .
+    | Payload = Message as specified in Figure 3 or 4 |             |
+    . Payload = Message as specified in Figure 5 or 6               .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -557,7 +557,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 10]
+Gandhi, et al.           Expires August 9, 2020                [Page 10]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -613,7 +613,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 11]
+Gandhi, et al.           Expires August 9, 2020                [Page 11]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -669,7 +669,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 12]
+Gandhi, et al.           Expires August 9, 2020                [Page 12]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -725,7 +725,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 13]
+Gandhi, et al.           Expires August 9, 2020                [Page 13]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -762,7 +762,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
-   segment list as shown in Figure 4.
+   segment list as shown in Figure 7.
 
 
 
@@ -781,7 +781,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 14]
+Gandhi, et al.           Expires August 9, 2020                [Page 14]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -837,14 +837,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 15]
+Gandhi, et al.           Expires August 9, 2020                [Page 15]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
    For delay measurement of SRv6 Policy using SRH, END function END.OTP
    [I-D.ietf-6man-spring-srv6-oam] is used with the target SRv6 SID to
-   punt probe messages on the target node, as shown in Figure 5.
+   punt probe messages on the target node, as shown in Figure 8.
    Similarly, for loss measurement of SRv6 Policy, END function END.OP
    [I-D.ietf-6man-spring-srv6-oam] is used with target SRv6 SID to punt
    probe messages on the target node.
@@ -853,7 +853,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
-   message is shown in Figure 6.
+   message is shown in Figure 9.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -869,15 +869,15 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +---------------------------------------------------------------+
     | DM Payload as specified in Section 4.2.1 of RFC 5357, or      |
     . DM payload as specified in Section 4.3 of [I-D.ippm-stamp]    .
-    . LM Payload as specified in Figure 7A or 7B in this document or.
-    . LM Payload as specified in Figure 7C or 7D in this document   .
+    . LM Payload as specified in Figure 10 or 11 in this document or.
+    . LM Payload as specified in Figure 12 or 13 in this document   .
     .                                                               .
     +---------------------------------------------------------------+
 
                      Figure 9: Probe Response Message
 
    In this document, probe response message formats are defined for loss
-   measurement as shown in Figure 7A-7D.  The message formats are
+   measurement as shown in Figure 10-13.  The message formats are
    hardware efficient due to the small size payload and well known
    locations of the counters.  They are also similar to the delay
    measurement message formats.
@@ -893,7 +893,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 16]
+Gandhi, et al.           Expires August 9, 2020                [Page 16]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -949,7 +949,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 17]
+Gandhi, et al.           Expires August 9, 2020                [Page 17]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 18]
+Gandhi, et al.           Expires August 9, 2020                [Page 18]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 19]
+Gandhi, et al.           Expires August 9, 2020                [Page 19]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 20]
+Gandhi, et al.           Expires August 9, 2020                [Page 20]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1125,14 +1125,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 4.2.1.  One-way Measurement Mode
 
    In one-way performance measurement mode, the probe response message
-   as defined in Figure 6 is sent back out-of-band to the sender node,
+   as defined in Figure 9 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to "Out-
    of-band Response Requested".
 
 4.2.2.  Two-way Measurement Mode
 
    In two-way performance measurement mode, when using a bidirectional
-   path, the probe response message as defined in Figure 6 is sent back
+   path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    [I-D.li-pce-sr-bidir-path].  The Control Code is set to "In-band
@@ -1142,7 +1142,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    The message content for sending probe response message for two-way
    end-to-end performance measurement of an SR-MPLS Policy is shown in
-   Figure 9.
+   Figure 14.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1156,7 +1156,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                Segment(n)             | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                Message as shown in Figure 6                   |
+    |                Message as shown in Figure 9                   |
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -1173,7 +1173,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 21]
+Gandhi, et al.           Expires August 9, 2020                [Page 21]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1182,14 +1182,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy with SRH is shown in Figure 10.
+   measurement of an SRv6 Policy with SRH is shown in Figure 15.
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
     .   END.OTP (DM) or END.OP (LM) with Target SRv6 SID            .
     .                                                               .
     +---------------------------------------------------------------+
-    |   Message as shown in Figure 6                                |
+    |   Message as shown in Figure 9                                |
     .   (Using IPv6 Source and Destination Addresses)               .
     .                                                               .
     +---------------------------------------------------------------+
@@ -1225,11 +1225,11 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    that can include one or more optional TLVs.  The TLV Type (TBA1) is
    defined in this document for Return Path to carry reverse path for
    probe response messages (in the payload of the message).  The format
-   of the Return Path TLV is shown in Figure 8A and Figure 8B:
+   of the Return Path TLV is shown in Figure 16 and Figure 17:
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 22]
+Gandhi, et al.           Expires August 9, 2020                [Page 22]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1245,7 +1245,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
                         Figure 16: Return Path TLV
 
-   The Node Address sub-TLV (shown in Figure 12) in the Return Path TLV
+   The Node Address sub-TLV (shown in Figure 18) in the Return Path TLV
    can be one of the following Types:
 
    o  Type (value 0): Return Address.  Target node address of the
@@ -1270,7 +1270,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
             Figure 17: Segment List Sub-TLV in Return Path TLV
 
-   The Segment List Sub-TLV (shown in Figure 8B) in the Return Path TLV
+   The Segment List Sub-TLV (shown in Figure 17) in the Return Path TLV
    can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Reverse SR Path
@@ -1285,7 +1285,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 23]
+Gandhi, et al.           Expires August 9, 2020                [Page 23]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 24]
+Gandhi, et al.           Expires August 9, 2020                [Page 24]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1355,10 +1355,10 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    o  The sender root node sends probe query messages using the
       Replication Segment defined in
       [I-D.voyer-spring-sr-replication-segment] for the P2MP SR Policy
-      as shown in Figure 11.
+      as shown in Figure 19.
 
    o  Each reflector leaf node sends its IP address in the Source
-      Address of the probe response messages as shown in Figure 6.  This
+      Address of the probe response messages as shown in Figure 9.  This
       allows the sender root node to identify the reflector leaf nodes
       of the P2MP SR Policy.
 
@@ -1397,7 +1397,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 25]
+Gandhi, et al.           Expires August 9, 2020                [Page 25]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 26]
+Gandhi, et al.           Expires August 9, 2020                [Page 26]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 27]
+Gandhi, et al.           Expires August 9, 2020                [Page 27]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 28]
+Gandhi, et al.           Expires August 9, 2020                [Page 28]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 29]
+Gandhi, et al.           Expires August 9, 2020                [Page 29]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 30]
+Gandhi, et al.           Expires August 9, 2020                [Page 30]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 31]
+Gandhi, et al.           Expires August 9, 2020                [Page 31]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1789,7 +1789,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 32]
+Gandhi, et al.           Expires August 9, 2020                [Page 32]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1845,4 +1845,4 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.           Expires August 8, 2020                [Page 33]
+Gandhi, et al.           Expires August 9, 2020                [Page 33]
