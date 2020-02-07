@@ -79,7 +79,7 @@
 	</address>
 	</author>
 
-	<date day="6" month="February" year="2020"/>
+	<date day="7" month="February" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -1315,11 +1315,7 @@ the Point-to-Multipoint (P2MP) SR Policies
    Return Path TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be carried in
    PM probe query messages:</t>
 
-	<t><list style="empty" hangIndent="3">
 	<t><list style="symbols"><t>Type TBA1: Return Path TLV</t>
-
-	</list>
-	</t>
 
 	</list>
 	</t>
@@ -1328,7 +1324,6 @@ the Point-to-Multipoint (P2MP) SR Policies
    IANA is also requested to allocate the values for the following
    Sub-TLV Types for the Return Path TLV.</t>
 
-	<t><list style="empty" hangIndent="3">
 	<t><list style="symbols"><t>Type (value 0): Return Address</t>
 
 	<t>Type (value 1): SR-MPLS Label Stack of the Reverse SR Path</t>
@@ -1344,19 +1339,12 @@ the Point-to-Multipoint (P2MP) SR Policies
 	</list>
 	</t>
 
-	</list>
-	</t>
-
 	<t>
    IANA is requested to allocate a value for the following optional
    Destination Address TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be
    carried in PM probe message:</t>
 
-	<t><list style="empty" hangIndent="3">
 	<t><list style="symbols"><t>Type TBA2: Destination Address TLV</t>
-
-	</list>
-	</t>
 
 	</list>
 	</t>
