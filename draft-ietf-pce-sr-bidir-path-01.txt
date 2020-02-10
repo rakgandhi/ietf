@@ -522,9 +522,9 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 4.5.  State Synchronization
 
    During state synchronization, a PCC MUST report all the existing
-   Bidirectional LSP Association Groups to the Stateful PCE as per
+   Bidirectional SR Association Groups to the Stateful PCE as per
    [RFC8697].  After the state synchronization, the PCE MUST remove all
-   stale Bidirectional LSP Associations.
+   stale Bidirectional SR Associations.
 
 4.6.  Error Handling
 
