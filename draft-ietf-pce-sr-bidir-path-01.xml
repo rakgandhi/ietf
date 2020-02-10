@@ -578,45 +578,6 @@
       </section>
     </section>
 
-    <section anchor="IANA" title="IANA Considerations">
-      <t/>
-
-      <section title="Association Type">
-        <t>This document defines a new Association Type for the Association
-        Object (Class Value 40) defined <xref target="RFC8697"/>. IANA
-        is requested to make the assignment of a type for the sub-registry
-        "ASSOCIATION Type" as follows:</t>
-
-        <t><figure>
-            <artwork><![CDATA[   
-Type    Name                                          Reference
--------------------------------------------------------------------
-TBD1    Double-sided Bidirectional SR Path            This document
-        Association Group 
-
-]]></artwork>
-          </figure></t>
-      </section>
-
-      <section title="PCEP Errors">
-        <t>This document defines new Error value for Error Type 26
-        (Association Error). IANA is requested to allocate new Error value
-        within the "PCEP-ERROR Object Error Types and Values" sub-registry of
-        the PCEP Numbers registry, as follows:</t>
-
-        <t><figure>
-            <artwork><![CDATA[
-Error Type  Description                              Reference
--------------------------------------------------------------------
- 26         Association Error
-
-            Error value: TBD2                        This document
-            Bidirectional LSP Association -
-            Path Setup Type Not Supported
-]]></artwork>
-          </figure></t>
-      </section>
-    </section>
 
     <section anchor="Security" title="Security Considerations">
       <t>The security considerations described in <xref target="RFC5440"/>,
@@ -682,46 +643,47 @@ Error Type  Description                              Reference
       </section>
     </section>
 
-    <section title="Contributors">
-      <t>The following people have substantially contributed to this
-      document:</t>
+    <section anchor="IANA" title="IANA Considerations">
+      <t/>
 
-      <t><figure>
-          <artwork><![CDATA[    Dhruv Dhody
-    Huawei Technologies
-    Divyashree Techno Park, Whitefield
-    Bangalore, Karnataka  560066
-    India
+      <section title="Association Type">
+        <t>This document defines a new Association Type for the Association
+        Object (Class Value 40) defined <xref target="RFC8697"/>. IANA
+        is requested to make the assignment of a type for the sub-registry
+        "ASSOCIATION Type" as follows:</t>
 
-    Email: dhruv.ietf@gmail.com
-
-    Zhenbin Li
-    Huawei Technologies
-    Huawei Campus, No. 156 Beiqing Rd.
-    Beijing  100095
-    China
-
-    Email: lizhenbin@huawei.com
-
-
-    Jie Dong
-    Huawei Technologies
-    Huawei Campus, No. 156 Beiqing Rd.
-    Beijing  100095
-    China
-
-    Email: jie.dong@huawei.com
-
+        <t><figure>
+            <artwork><![CDATA[   
+Type    Name                                          Reference
+-------------------------------------------------------------------
+TBD1    Double-sided Bidirectional SR Path            This document
+        Association Group 
 
 ]]></artwork>
-        </figure></t>
+          </figure></t>
+      </section>
+
+      <section title="PCEP Errors">
+        <t>This document defines new Error value for Error Type 26
+        (Association Error). IANA is requested to allocate new Error value
+        within the "PCEP-ERROR Object Error Types and Values" sub-registry of
+        the PCEP Numbers registry, as follows:</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+Error Type  Description                              Reference
+-------------------------------------------------------------------
+ 26         Association Error
+
+            Error value: TBD2                        This document
+            Bidirectional LSP Association -
+            Path Setup Type Not Supported
+]]></artwork>
+          </figure></t>
+      </section>
     </section>
 
-    <section title="Acknowledgments">
-      <t>Many thanks to Marina Fizgeer, Adrian Farrel, and Andrew Stone for the detailed review of this document and providing many useful comments.</t>
 
-      <t/>
-    </section>
   </middle>
 
   <back>
@@ -766,5 +728,48 @@ Error Type  Description                              Reference
       <?rfc include='reference.I-D.ietf-pce-pcep-stateful-pce-gmpls'?>
 
     </references>
+
+    <section title="Acknowledgments" numbered="no">
+      <t>Many thanks to Marina Fizgeer, Adrian Farrel, and Andrew Stone for the detailed review of this document and providing many useful comments.</t>
+
+    </section>
+
+
+    <section title="Contributors" numbered="no">
+      <t>The following people have substantially contributed to this
+      document:</t>
+
+    <t><figure>
+          <artwork><![CDATA[ Dhruv Dhody
+ Huawei Technologies
+ Divyashree Techno Park, Whitefield
+ Bangalore, Karnataka  560066
+ India
+
+ Email: dhruv.ietf@gmail.com
+
+ Zhenbin Li
+ Huawei Technologies
+ Huawei Campus, No. 156 Beiqing Rd.
+ Beijing  100095
+ China
+
+ Email: lizhenbin@huawei.com
+
+
+ Jie Dong
+ Huawei Technologies
+ Huawei Campus, No. 156 Beiqing Rd.
+ Beijing  100095
+ China
+
+ Email: jie.dong@huawei.com
+
+
+]]></artwork>
+        </figure></t>
+    </section>
+
+
   </back>
 </rfc>
