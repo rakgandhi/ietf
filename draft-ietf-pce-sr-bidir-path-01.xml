@@ -238,7 +238,7 @@
       target="RFC8697"/>, and <xref
       target="I-D.ietf-pce-association-bidir"/>.</t>
 
-    <section title="Requirements Language">
+     <section title="Requirements Language">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
         "OPTIONAL" in this document are to be interpreted as described in BCP
@@ -379,9 +379,9 @@
             target="RFC8697"/>.</t>
 
             <t>The reverse direction SR Path (LSP2(R) at node S, LSP1(R) at
-               node D as shown in Figure 1) SHOULD be informed by the PCE via 
-               PCInitiate message with the matching association group for 
-               the use-cases which require the PCC to be aware of the reverse direction SR path.</t>
+             node D as shown in Figure 1) SHOULD be informed by the PCE via 
+             PCInitiate message with the matching association group for 
+             the use-cases which require the PCC to be aware of the reverse direction SR path.</t>
           </list><figure>
             <artwork><![CDATA[
                                +-----+
@@ -492,28 +492,36 @@
       </section>
 
       <section title="Bidirectional Flag">
-      <t>As defined in <xref target="RFC5440"/>, the B-flag in Request Parameters (RP) object MUST
-      be set when the PCC specifies that the path computation request relates
-      to a bidirectional TE LSP. The B-flag also MUST be set
-      when the PCC specifies that the path computation request relates to an associated
-      bidirectional SR Path.</t>
+       <t>As defined in <xref target="RFC5440"/>, the B-flag in Request Parameters (RP) object MUST
+       be set when the PCC specifies that the path computation request relates
+       to a bidirectional TE LSP. The B-flag also MUST be set
+       when the PCC specifies that the path computation request relates to an associated
+       bidirectional SR Path.</t>
       
-      <t>Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
-      object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> is not required 
-      for associated bidirectional SR path as association group is used to indicate that the path is bidirectional.</t>
-      </section>
+       <t>Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
+       object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> is not required 
+       for associated bidirectional SR path as association group is used to indicate that the path is bidirectional.</t>
+       </section>
+
+      <section title="State Synchronization">
+       <t>During state synchronization, a PCC MUST report all the existing
+       Bidirectional LSP Association Groups to the Stateful PCE as per  <xref
+       target="RFC8697"/>.
+       After the state synchronization, the PCE MUST remove all
+       stale Bidirectional LSP Associations.</t>
+       </section>
 
       <section title="Error Handling">
-        <t>The error handling as described in section 5.7 of <xref
-        target="I-D.ietf-pce-association-bidir"/> continue to apply.</t>
+       <t>The error handling as described in section 5.7 of <xref
+       target="I-D.ietf-pce-association-bidir"/> continue to apply.</t>
 
-        <t>The PCEP Path Setup Type (PST) for SR is set to 'TE Path is Setup
-        using Segment Routing' <xref target="RFC8408"/>.
-        If a PCEP speaker receives a different PST
-        value for Bidirectional SR Path association group and it does not support; it MUST send a PCErr message with
-        Error-Type = 26 (Association Error) and
-        Error-Value = TBD2 (Bidirectional LSP Association - Path Setup Type
-        Not Supported).</t>
+       <t>The PCEP Path Setup Type (PST) for SR is set to 'TE Path is Setup
+       using Segment Routing' <xref target="RFC8408"/>.
+       If a PCEP speaker receives a different PST
+       value for Bidirectional SR Path association group and it does not support; it MUST send a PCErr message with
+       Error-Type = 26 (Association Error) and
+       Error-Value = TBD2 (Bidirectional LSP Association - Path Setup Type
+       Not Supported).</t>
       </section>
     </section>
 
@@ -600,8 +608,6 @@
       target="RFC8281"/> apply to PCEP protocol extensions defined in this
       document. In addition, requirements and considerations listed in this
       section apply.</t>
-
-      <t/>
 
       <section title="Control of Function and Policy">
         <t>The mechanisms defined in this document do not imply any control or
