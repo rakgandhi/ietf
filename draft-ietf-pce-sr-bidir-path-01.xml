@@ -189,8 +189,8 @@
       Path Computation Client (PCC) and a PCE, or between PCE and PCE, for the
       purpose of computation of Traffic Engineering (TE) Label Switched Paths (LSP).
       <xref target="RFC8231"/> specifies a set of extensions to PCEP to
-      enable stateful control of TE LSPs within and across PCEP sessions in
-      compliance with <xref target="RFC4657"/>. The model of
+      enable stateful control of TE LSPs within and across PCEP sessions.
+      The mode of
       operation where LSPs are initiated from the PCE is described in <xref
       target="RFC8281"/>.</t>
 
@@ -247,11 +247,11 @@
       </section>
     </section>
 
-    <section title="PCEP Extension for Bidirectional SR Path">
+    <section title="PCEP Extensions">
       <t>As per <xref target="RFC8697"/>, TE LSPs are
-      associated by adding them to a common association group. 
-      Similarly, two SR Paths can be associated by the PCE using the association
-      group object and the procedures specified in <xref
+      associated by adding them to a common association group by PCE. 
+      Similarly, two SR Paths can be associated using the association
+      group object and the procedures as specified in <xref
       target="RFC8697"/>. This document
       extends these association mechanisms for bidirectional SR Paths. Two unidirectional SR
       Paths (one in each direction in the network) can be associated 
@@ -274,10 +274,10 @@
       associated bidirectional SR Path.</t>
 
       <section anchor="double-sided"
-               title="Double-sided Bidirectional SR Path Association Group Object">
+               title="Double-sided Bidirectional SR Path Association Group">
       <t>For associating two unidirectional SR paths,
-        this document defines a new association group called 'Double-sided
-        Bidirectional SR Path Association Group' as follows: <list
+        this document defines a new association type called 'Double-sided
+        Bidirectional SR Path Association Group' for association group as follows: <list
         style="symbols">
         <t>Association Type (TBD1 to be assigned by IANA) = Double-sided
         Bidirectional SR Path Association Group</t>
@@ -308,29 +308,29 @@
             different.</t>
           </list></t>
 
-        <t>For describing the SR Paths in this association group, properties such as forward and reverse
-        direction path and co-routed path, it uses the
-        Bidirectional LSP Association Group TLV defined in <xref
-        target="I-D.ietf-pce-association-bidir"/>. All fields and processing
-        rules are as per <xref target="I-D.ietf-pce-association-bidir"/>.</t>
+        <section title="Bidirectional LSP Association Group TLV">
+           <t>For describing the SR Paths in this association group, properties such as forward and reverse
+           direction path and co-routed path, it uses the
+           Bidirectional LSP Association Group TLV defined in <xref
+           target="I-D.ietf-pce-association-bidir"/>. All fields and processing
+           rules are as per <xref target="I-D.ietf-pce-association-bidir"/>.</t>
+         </section>
       </section>
     </section>
 
-
-    <section title="Procedures for Associated Bidirectional SR Path Computation">
+    <section title="PCEP Procedures">
 
       <t>A PCEP message such as PCRep or PCUdp or PCInitiate, containing a
-      bidirectional SR path, sent to the PCC contains a forward direction SR path
-      beginning from itself to the remote PCC and when required, a reverse SR path from the
-      remote PCC back to the PCC itself.</t>
+      bidirectional SR path, sent to the ingress PCC contains a forward direction SR path
+      beginning from itself to the egress PCC and when required.</t>
 
-      <t>For bidirectional SR Paths, there are use cases which require the PCC to be aware of the reverse direction SR path. 
-      For this use-cases, PCE informs the reverse SR Paths to the
-      ingress PCCs and vice versa. To achieve this, a PCInitiate message for
+      <t>For the use-cases which require the PCC 
+      to be aware of the reverse direction SR path, PCE informs the reverse SR Path to the
+      ingress PCC. To achieve this, a PCInitiate message for
       the reverse SR Path is sent to the ingress PCC and a PCInitiate message
-      for the forward SR Path is sent to the egress PCC (with the same
+      for the forward SR Path is sent to the egress PCC (with the matching
       association group). These PCInitiate message MUST NOT trigger initiation
-      of SR Paths.</t>
+      of SR Paths on PCCs.</t>
 
       <t>For a bidirectional LSP computation when using both direction LSPs on
       a node, the same LSP would need to be identified using 2 different
@@ -367,7 +367,7 @@
 
         <t><list style="symbols">
             <t>Stateful PCE can create and update the forward and reverse SR
-            Paths independently for a 'Double-sided Bidirectional SR Path
+            Paths independently for 'Double-sided Bidirectional SR Path
             Association Group'.</t>
 
             <t>Stateful PCE can establish and remove the association
@@ -387,10 +387,10 @@
                                +-----+
                                | PCE |
                                +-----+
-   PCInitiate/PCUpd:           /     \         PCInitiate/PCUpd:
-   Tunnel 1 (F)               /       \        Tunnel 2 (F)
-   (LSP1 (F), LSP2 (R))      /         \       (LSP2 (F), LSP1 (R))
-   Association #1           /           \      Association #1
+   PCInitiate/PCUpd:           /     \       PCInitiate/PCUpd:
+   Tunnel 1 (F)               /       \      Tunnel 2 (F)
+   (LSP1 (F), LSP2 (R))      /         \     (LSP2 (F), LSP1 (R))
+   Association #1           /           \    Association #1
                            /             \
                           v               v
                      +-----+    LSP1     +-----+
@@ -492,16 +492,15 @@
       </section>
 
       <section title="Bidirectional Flag">
-      <t>As defined in <xref target="RFC5440"/>, the B-flag in RP object MUST
+      <t>As defined in <xref target="RFC5440"/>, the B-flag in Request Parameters (RP) object MUST
       be set when the PCC specifies that the path computation request relates
       to a bidirectional TE LSP. The B-flag also MUST be set
       when the PCC specifies that the path computation request relates to an associated
       bidirectional SR Path.</t>
       
-      <t>When a stateful PCE initiates or updates an associated
-      bidirectional SR Path, the B-flag in SRP
-      object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> MAY be set
-      as well.</t>
+      <t>Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
+      object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> is not required 
+      for associated bidirectional SR path as association group is used to indicate that the path is bidirectional.</t>
       </section>
 
       <section title="Error Handling">
@@ -741,14 +740,9 @@ Error Type  Description                              Reference
 
       <?rfc include='reference.I-D.ietf-pce-association-bidir'?>
 
-      <?rfc include='reference.I-D.ietf-pce-pcep-stateful-pce-gmpls'?>
-
-      <?rfc include='reference.I-D.ietf-pce-sr-path-segment'?>
     </references>
 
     <references title="Informative References">
-      <?rfc include='reference.RFC.4657'?>
-
       <?rfc include="reference.RFC.8253"?>
 
       <?rfc include='reference.RFC.8402'?>
@@ -765,7 +759,11 @@ Error Type  Description                              Reference
 
       <?rfc include='reference.I-D.ietf-spring-mpls-path-segment'?>
 
+      <?rfc include='reference.I-D.ietf-pce-sr-path-segment'?>
+
       <?rfc include='reference.I-D.ietf-pce-pcep-yang'?>
+
+      <?rfc include='reference.I-D.ietf-pce-pcep-stateful-pce-gmpls'?>
 
     </references>
   </back>
