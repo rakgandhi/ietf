@@ -86,7 +86,8 @@ Table of Contents
      4.2.  PCC Initiated Associated Bidirectional SR Paths . . . . .   7
      4.3.  Stateless PCE . . . . . . . . . . . . . . . . . . . . . .   9
      4.4.  Bidirectional Flag  . . . . . . . . . . . . . . . . . . .  10
-     4.5.  Error Handling  . . . . . . . . . . . . . . . . . . . . .  10
+     4.5.  State Synchronization . . . . . . . . . . . . . . . . . .  10
+     4.6.  Error Handling  . . . . . . . . . . . . . . . . . . . . .  10
    5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  10
      5.1.  Huawei's Commercial Delivery  . . . . . . . . . . . . . .  11
      5.2.  ZTE's Commercial Delivery . . . . . . . . . . . . . . . .  11
@@ -98,14 +99,13 @@ Table of Contents
      7.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  12
      7.5.  Requirements On Other Protocols . . . . . . . . . . . . .  12
      7.6.  Impact On Network Operations  . . . . . . . . . . . . . .  12
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
      8.1.  Association Type  . . . . . . . . . . . . . . . . . . . .  13
      8.2.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  13
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  14
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -114,6 +114,7 @@ Li, et al.               Expires August 13, 2020                [Page 2]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
@@ -161,7 +162,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    into a bidirectional SR Path.  For bidirectional SR, there are use
    cases such as directed BFD [I-D.ietf-mpls-bfd-directed] and SR
    performance measurement [I-D.gandhi-spring-twamp-srpm] those require
-   PCC to be aware of the reverse direction SR path.  For such use-
 
 
 
@@ -170,6 +170,7 @@ Li, et al.               Expires August 13, 2020                [Page 3]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
+   PCC to be aware of the reverse direction SR path.  For such use-
    cases, the reverse SR paths are also communicated to the ingress
    nodes using the PCEP extensions defined in this document.  This
    allows both endpoints to be aware of SR Paths in both directions,
@@ -214,7 +215,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    LSP object to support required use-cases.  The PATH-SEGMENT TLV MUST
    be handled as defined in [I-D.ietf-pce-sr-path-segment] and is not
    modified for associated bidirectional SR Path.
-
 
 
 
@@ -519,7 +519,14 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    associated bidirectional SR path as association group is used to
    indicate that the path is bidirectional.
 
-4.5.  Error Handling
+4.5.  State Synchronization
+
+   During state synchronization, a PCC MUST report all the existing
+   Bidirectional LSP Association Groups to the Stateful PCE as per
+   [RFC8697].  After the state synchronization, the PCE MUST remove all
+   stale Bidirectional LSP Associations.
+
+4.6.  Error Handling
 
    The error handling as described in section 5.7 of
    [I-D.ietf-pce-association-bidir] continue to apply.
@@ -546,13 +553,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    has been spent to verify the information presented here that was
    supplied by IETF contributors.  This is not intended as, and must not
    be construed to be, a catalog of available implementations or their
-   features.  Readers are advised to note that other implementations may
-   exist.
-
-   According to [RFC7942], "this will allow reviewers and working groups
-   to assign due consideration to documents that have the benefit of
-   running code, which may serve as evidence of valuable experimentation
-   and feedback that have made the implemented protocols more mature.
 
 
 
@@ -562,6 +562,13 @@ Li, et al.               Expires August 13, 2020               [Page 10]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
+   features.  Readers are advised to note that other implementations may
+   exist.
+
+   According to [RFC7942], "this will allow reviewers and working groups
+   to assign due consideration to documents that have the benefit of
+   running code, which may serve as evidence of valuable experimentation
+   and feedback that have made the implemented protocols more mature.
    It is up to the individual working groups to use this information as
    they see fit".
 
@@ -603,13 +610,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    Associated Bidirectional SR Path Association Group' is introduced in
    this document.  Additional security considerations related to LSP
    associations due to a malicious PCEP speaker is described in
-   [RFC8697] and apply to this Association Type.  Hence, securing the
-   PCEP session using Transport Layer Security (TLS) [RFC8253] is
-   recommended.
-
-
-
-
 
 
 
@@ -617,6 +617,10 @@ Li, et al.               Expires August 13, 2020               [Page 11]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
+
+   [RFC8697] and apply to this Association Type.  Hence, securing the
+   PCEP session using Transport Layer Security (TLS) [RFC8253] is
+   recommended.
 
 7.  Manageability Considerations
 
@@ -660,10 +664,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    Mechanisms defined in [RFC5440], [RFC8231], and [RFC8408] also apply
    to PCEP extensions defined in this document.
 
-8.  IANA Considerations
-
-
-
 
 
 
@@ -673,6 +673,8 @@ Li, et al.               Expires August 13, 2020               [Page 12]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
+
+8.  IANA Considerations
 
 8.1.  Association Type
 
@@ -719,8 +721,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
 
 
 
