@@ -505,10 +505,10 @@
 
       <section title="State Synchronization">
        <t>During state synchronization, a PCC MUST report all the existing
-       Bidirectional LSP Association Groups to the Stateful PCE as per  <xref
+       Bidirectional SR Association Groups to the Stateful PCE as per  <xref
        target="RFC8697"/>.
        After the state synchronization, the PCE MUST remove all
-       stale Bidirectional LSP Associations.</t>
+       stale Bidirectional SR Associations.</t>
        </section>
 
       <section title="Error Handling">
