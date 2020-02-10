@@ -276,7 +276,7 @@
       <section anchor="double-sided"
                title="Double-sided Bidirectional SR Path Association Group">
       <t>For associating two unidirectional SR paths,
-        this document defines a new association type called 'Double-sided
+        this document defines a new Association Type called 'Double-sided
         Bidirectional SR Path Association Group' for association group as follows: <list
         style="symbols">
         <t>Association Type (TBD1 to be assigned by IANA) = Double-sided
@@ -309,8 +309,8 @@
           </list></t>
 
         <section title="Bidirectional LSP Association Group TLV">
-           <t>For describing the SR Paths in this association group, properties such as forward and reverse
-           direction path and co-routed path, it uses the
+           <t> In Bidirectional SR Association Group, for properties such as forward and reverse
+           direction and co-routed path, it uses the
            Bidirectional LSP Association Group TLV defined in <xref
            target="I-D.ietf-pce-association-bidir"/>. All fields and processing
            rules are as per <xref target="I-D.ietf-pce-association-bidir"/>.</t>
@@ -740,6 +740,8 @@ Error Type  Description                              Reference
 
       <?rfc include='reference.I-D.ietf-pce-association-bidir'?>
 
+      <?rfc include='reference.I-D.ietf-pce-sr-path-segment'?>
+
     </references>
 
     <references title="Informative References">
@@ -758,8 +760,6 @@ Error Type  Description                              Reference
       <?rfc include='reference.I-D.gandhi-spring-twamp-srpm'?>
 
       <?rfc include='reference.I-D.ietf-spring-mpls-path-segment'?>
-
-      <?rfc include='reference.I-D.ietf-pce-sr-path-segment'?>
 
       <?rfc include='reference.I-D.ietf-pce-pcep-yang'?>
 
