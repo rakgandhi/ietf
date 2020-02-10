@@ -90,22 +90,22 @@ Table of Contents
    5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  10
      5.1.  Huawei's Commercial Delivery  . . . . . . . . . . . . . .  11
      5.2.  ZTE's Commercial Delivery . . . . . . . . . . . . . . . .  11
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-     6.1.  Association Type  . . . . . . . . . . . . . . . . . . . .  11
-     6.2.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  12
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
-   8.  Manageability Considerations  . . . . . . . . . . . . . . . .  12
-     8.1.  Control of Function and Policy  . . . . . . . . . . . . .  12
-     8.2.  Information and Data Models . . . . . . . . . . . . . . .  12
-     8.3.  Liveness Detection and Monitoring . . . . . . . . . . . .  13
-     8.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  13
-     8.5.  Requirements On Other Protocols . . . . . . . . . . . . .  13
-     8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  13
-   9.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  13
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  14
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  14
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  15
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   7.  Manageability Considerations  . . . . . . . . . . . . . . . .  12
+     7.1.  Control of Function and Policy  . . . . . . . . . . . . .  12
+     7.2.  Information and Data Models . . . . . . . . . . . . . . .  12
+     7.3.  Liveness Detection and Monitoring . . . . . . . . . . . .  12
+     7.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  12
+     7.5.  Requirements On Other Protocols . . . . . . . . . . . . .  12
+     7.6.  Impact On Network Operations  . . . . . . . . . . . . . .  12
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
+     8.1.  Association Type  . . . . . . . . . . . . . . . . . . . .  13
+     8.2.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  13
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  14
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -114,7 +114,7 @@ Li, et al.               Expires August 13, 2020                [Page 2]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -593,19 +593,19 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
    o  Contact: zhan.shuangping@zte.com.cn
 
-6.  IANA Considerations
+6.  Security Considerations
 
-6.1.  Association Type
+   The security considerations described in [RFC5440], [RFC8231],
+   [RFC8281], and [RFC8408] apply to the extensions defined in this
+   document as well.
 
-   This document defines a new Association Type for the Association
-   Object (Class Value 40) defined [RFC8697].  IANA is requested to make
-   the assignment of a type for the sub-registry "ASSOCIATION Type" as
-   follows:
-
-   Type    Name                                          Reference
-   -------------------------------------------------------------------
-   TBD1    Double-sided Bidirectional SR Path            This document
-           Association Group
+   A new Association Type for the Association Object, 'Double-sided
+   Associated Bidirectional SR Path Association Group' is introduced in
+   this document.  Additional security considerations related to LSP
+   associations due to a malicious PCEP speaker is described in
+   [RFC8697] and apply to this Association Type.  Hence, securing the
+   PCEP session using Transport Layer Security (TLS) [RFC8253] is
+   recommended.
 
 
 
@@ -618,7 +618,76 @@ Li, et al.               Expires August 13, 2020               [Page 11]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-6.2.  PCEP Errors
+7.  Manageability Considerations
+
+   All manageability requirements and considerations listed in
+   [RFC5440], [RFC8231], and [RFC8281] apply to PCEP protocol extensions
+   defined in this document.  In addition, requirements and
+   considerations listed in this section apply.
+
+7.1.  Control of Function and Policy
+
+   The mechanisms defined in this document do not imply any control or
+   policy requirements in addition to those already listed in [RFC5440],
+   [RFC8231], and [RFC8281].
+
+7.2.  Information and Data Models
+
+   [RFC7420] describes the PCEP MIB, there are no new MIB Objects
+   defined for Bidirectional SR Path associations.  The PCEP YANG module
+   [I-D.ietf-pce-pcep-yang] defines data model for Bidirectional SR Path
+   associations.
+
+7.3.  Liveness Detection and Monitoring
+
+   Mechanisms defined in this document do not imply any new liveness
+   detection and monitoring requirements in addition to those already
+   listed in [RFC5440], [RFC8231], and [RFC8281].
+
+7.4.  Verify Correct Operations
+
+   Mechanisms defined in this document do not imply any new operation
+   verification requirements in addition to those already listed in
+   [RFC5440], [RFC8231], and [RFC8408] .
+
+7.5.  Requirements On Other Protocols
+
+   Mechanisms defined in this document do not imply any new requirements
+   on other protocols.
+
+7.6.  Impact On Network Operations
+
+   Mechanisms defined in [RFC5440], [RFC8231], and [RFC8408] also apply
+   to PCEP extensions defined in this document.
+
+8.  IANA Considerations
+
+
+
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 12]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
+
+8.1.  Association Type
+
+   This document defines a new Association Type for the Association
+   Object (Class Value 40) defined [RFC8697].  IANA is requested to make
+   the assignment of a type for the sub-registry "ASSOCIATION Type" as
+   follows:
+
+   Type    Name                                          Reference
+   -------------------------------------------------------------------
+   TBD1    Double-sided Bidirectional SR Path            This document
+           Association Group
+
+
+8.2.  PCEP Errors
 
    This document defines new Error value for Error Type 26 (Association
    Error).  IANA is requested to allocate new Error value within the
@@ -633,139 +702,9 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
                Bidirectional LSP Association -
                Path Setup Type Not Supported
 
-7.  Security Considerations
+9.  References
 
-   The security considerations described in [RFC5440], [RFC8231],
-   [RFC8281], and [RFC8408] apply to the extensions defined in this
-   document as well.
-
-   A new Association Type for the Association Object, 'Double-sided
-   Associated Bidirectional SR Path Association Group' is introduced in
-   this document.  Additional security considerations related to LSP
-   associations due to a malicious PCEP speaker is described in
-   [RFC8697] and apply to this Association Type.  Hence, securing the
-   PCEP session using Transport Layer Security (TLS) [RFC8253] is
-   recommended.
-
-8.  Manageability Considerations
-
-   All manageability requirements and considerations listed in
-   [RFC5440], [RFC8231], and [RFC8281] apply to PCEP protocol extensions
-   defined in this document.  In addition, requirements and
-   considerations listed in this section apply.
-
-8.1.  Control of Function and Policy
-
-   The mechanisms defined in this document do not imply any control or
-   policy requirements in addition to those already listed in [RFC5440],
-   [RFC8231], and [RFC8281].
-
-8.2.  Information and Data Models
-
-   [RFC7420] describes the PCEP MIB, there are no new MIB Objects
-   defined for Bidirectional SR Path associations.  The PCEP YANG module
-   [I-D.ietf-pce-pcep-yang] defines data model for Bidirectional SR Path
-   associations.
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 12]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
-8.3.  Liveness Detection and Monitoring
-
-   Mechanisms defined in this document do not imply any new liveness
-   detection and monitoring requirements in addition to those already
-   listed in [RFC5440], [RFC8231], and [RFC8281].
-
-8.4.  Verify Correct Operations
-
-   Mechanisms defined in this document do not imply any new operation
-   verification requirements in addition to those already listed in
-   [RFC5440], [RFC8231], and [RFC8408] .
-
-8.5.  Requirements On Other Protocols
-
-   Mechanisms defined in this document do not imply any new requirements
-   on other protocols.
-
-8.6.  Impact On Network Operations
-
-   Mechanisms defined in [RFC5440], [RFC8231], and [RFC8408] also apply
-   to PCEP extensions defined in this document.
-
-9.  Contributors
-
-   The following people have substantially contributed to this document:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 13]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
-       Dhruv Dhody
-       Huawei Technologies
-       Divyashree Techno Park, Whitefield
-       Bangalore, Karnataka  560066
-       India
-
-       Email: dhruv.ietf@gmail.com
-
-       Zhenbin Li
-       Huawei Technologies
-       Huawei Campus, No. 156 Beiqing Rd.
-       Beijing  100095
-       China
-
-       Email: lizhenbin@huawei.com
-
-
-       Jie Dong
-       Huawei Technologies
-       Huawei Campus, No. 156 Beiqing Rd.
-       Beijing  100095
-       China
-
-       Email: jie.dong@huawei.com
-
-
-
-10.  Acknowledgments
-
-   Many thanks to Marina Fizgeer, Adrian Farrel, and Andrew Stone for
-   the detailed review of this document and providing many useful
-   comments.
-
-11.  References
-
-11.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -777,18 +716,19 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
               DOI 10.17487/RFC5440, March 2009,
               <https://www.rfc-editor.org/info/rfc5440>.
 
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 14]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 13]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
 
    [RFC8231]  Crabbe, E., Minei, I., Medved, J., and R. Varga, "Path
               Computation Element Communication Protocol (PCEP)
@@ -822,7 +762,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
               draft-ietf-pce-sr-path-segment-00 (work in progress),
               October 2019.
 
-11.2.  Informative References
+9.2.  Informative References
 
    [RFC8253]  Lopez, D., Gonzalez de Dios, O., Wu, Q., and D. Dhody,
               "PCEPS: Usage of TLS to Provide a Secure Transport for the
@@ -837,7 +777,11 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 13, 2020               [Page 15]
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 14]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -893,9 +837,46 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 13, 2020               [Page 16]
+Li, et al.               Expires August 13, 2020               [Page 15]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
+
+Acknowledgments
+
+   Many thanks to Marina Fizgeer, Adrian Farrel, and Andrew Stone for
+   the detailed review of this document and providing many useful
+   comments.
+
+Contributors
+
+   The following people have substantially contributed to this document:
+
+    Dhruv Dhody
+    Huawei Technologies
+    Divyashree Techno Park, Whitefield
+    Bangalore, Karnataka  560066
+    India
+
+    Email: dhruv.ietf@gmail.com
+
+    Zhenbin Li
+    Huawei Technologies
+    Huawei Campus, No. 156 Beiqing Rd.
+    Beijing  100095
+    China
+
+    Email: lizhenbin@huawei.com
+
+
+    Jie Dong
+    Huawei Technologies
+    Huawei Campus, No. 156 Beiqing Rd.
+    Beijing  100095
+    China
+
+    Email: jie.dong@huawei.com
+
 
 
 Authors' Addresses
@@ -907,6 +888,14 @@ Authors' Addresses
    China
 
    Email: chengli13@huawei.com
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 16]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
    Mach(Guoyi) Chen
@@ -937,6 +926,17 @@ Authors' Addresses
    China
 
    Email: xiong.quan@zte.com.cn
+
+
+
+
+
+
+
+
+
+
+
 
 
 
