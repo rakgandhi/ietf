@@ -146,7 +146,7 @@
       </address>
     </author>
 
-    <date day="8" month="February" year="2020"/>
+    <date day="9" month="February" year="2020"/>
 
     <area>Routing Area</area>
 
@@ -155,11 +155,12 @@
     <abstract>
       <t>The Path Computation Element Communication Protocol (PCEP) provides
       mechanisms for Path Computation Elements (PCEs) to perform path
-      computations in response to Path Computation Clients (PCCs) requests.
-      The Stateful PCE extensions allow stateful control of Multiprotocol
-      Label Switching (MPLS) Traffic Engineering (TE) Label Switched Paths
-      (LSPs) using PCEP. Furthermore, PCEP can be used for computing paths in
-      Segment Routing (SR) TE networks.</t>
+      computations in response to Path Computation Clients (PCCs) requests. 
+      Segment routing (SR) leverages the source
+      routing and tunneling paradigms.
+      The Stateful PCEP extensions allow stateful control of Segment Routing (SR) 
+      Traffic Engineering (TE) Paths. Furthermore, PCEP can be used for computing SR TE paths in
+      the network.</t>
 
       <t>This document defines PCEP extensions for grouping two unidirectional
    SR Paths (one in each direction in the network) into a single
@@ -176,14 +177,18 @@
     <section title="Introduction">
       <t>Segment routing (SR) <xref target="RFC8402"/> leverages the source
       routing and tunneling paradigms. SR supports steering packets onto an
-      explicit forwarding path at the ingress node.</t>
+      explicit forwarding path at the ingress node. SR is specified for unidirectional paths.  
+      However, some applications
+      require bidirectional paths in SR networks, for example, in mobile
+      backhaul transport networks.  The requirement for bidirectional
+      SR Paths is specified in <xref
+      target="I-D.ietf-spring-mpls-path-segment"/>.</t>
 
       <t><xref target="RFC5440"/> describes the Path Computation Element (PCE)
       Communication Protocol (PCEP). PCEP enables the communication between a
       Path Computation Client (PCC) and a PCE, or between PCE and PCE, for the
-      purpose of computation of Multiprotocol Label Switching (MPLS) as well
-      as Generalized MPLS (GMPLS) Traffic Engineering Label Switched Path (TE
-      LSP) characteristics. <xref target="RFC8231"/> specifies a set of extensions to PCEP to
+      purpose of computation of Traffic Engineering (TE) Label Switched Paths (
+      LSP). <xref target="RFC8231"/> specifies a set of extensions to PCEP to
       enable stateful control of TE LSPs within and across PCEP sessions in
       compliance with <xref target="RFC4657"/>. The model of
       operation where LSPs are initiated from the PCE is described in <xref
@@ -191,8 +196,8 @@
 
       <t><xref target="RFC8408"/> specifies extensions to
       the Path Computation Element Protocol (PCEP) <xref target="RFC5440"/>
-      for SR networks, that allow a stateful PCE to compute and initiate SR-TE
-      paths, as well as a PCC to request, report or delegate SR Paths.</t>
+      for SR networks, that allow a stateful PCE to compute and initiate SR TE
+      paths, as well as a PCC to request, report or delegate them.</t>
 
       <t><xref target="RFC8697"/> introduces a generic
       mechanism to create a grouping of LSPs which can then be used to define
@@ -201,40 +206,25 @@
       applicable to the active and passive modes of a Stateful PCE <xref
       target="RFC8231"/> or a stateless PCE <xref target="RFC5440"/>.</t>
 
-      <t>Currently, SR networks only support unidirectional paths. However,
-      bidirectional SR Paths are required in some networks, for example, in
-      mobile backhaul transport networks. The requirement of bidirectional SR
-      Path is specified in <xref
-      target="I-D.ietf-spring-mpls-path-segment"/>.</t>
-
-      <t><xref target="I-D.ietf-pce-association-bidir"/> defines PCEP
-      extensions for grouping two unidirectional RSVP-TE LSPs into an
-      Associated Bidirectional LSP when using a Stateful PCE for both
-      PCE-Initiated and PCC-Initiated LSPs as well as when using a Stateless
-      PCE.</t>
-
-      <t>This document extends the bidirectional association to segment
-      routing by specifying PCEP extensions for grouping two reverse
-      unidirectional SR Paths into a bidirectional SR Path.</t>
-
-      <t><xref target="I-D.ietf-pce-association-bidir"/> specifies the
-      Double-sided Bidirectional LSP Association procedure, where the PCE
-      creates the association and provisions at both endpoints, the RSVP-TE
-      does the signaling to the egress the status of the forward LSP and the
-      ingress about the reverse LSP. Thus, the both endpoints learn the
-      reverse LSPs forming the bidirectional LSP association. In case of SR,
-      to support the bidirectional path use-case, this is done using the PCEP
-      protocol. This is done so that both endpoints are aware of the the
-      unidirectional SR Path, as well as the status and other SR path related
+      <t><xref target="I-D.ietf-pce-association-bidir"/> defines PCEP extensions for grouping
+      two unidirectional RSVP-TE LSPs into an Associated Bidirectional LSP
+      when using a Stateful PCE for both PCE-Initiated and PCC-Initiated
+      LSPs as well as when using a Stateless PCE.
+      It specifies the procedure for 
+      Double-sided Bidirectional LSP Association, where the PCE
+      creates the association and provisions the forward LSPs at their ingress nodes. The RSVP-TE
+      signals the forward LSPs to the egress nodes. Thus, both endpoints learn the
+      reverse LSPs forming the bidirectional LSP association.</t>
+      
+      <t>This document extends the bidirectional LSP association to SR
+      by specifying PCEP extensions for grouping two
+      unidirectional SR Paths into a bidirectional SR Path. In case of SR,
+      to support the bidirectional path use-case, their reverse paths are also communicated 
+      to the ingress noodes using the PCEP
+      extensions in this document. This is done so that both endpoints are aware of both
+      unidirectional SR Paths, inclduing their status and other path related
       information.</t>
 
-      <t/>
-
-      <t><xref target="I-D.ietf-pce-sr-path-segment"/> defines a procedure for
-      Path Segment Identifier (PSID) in PCEP for SR using PATH-SEGMENT TLV.
-      The PSID can be a Path Segment Identifier in SR-MPLS <xref
-      target="I-D.ietf-spring-mpls-path-segment"/>. The PSID can be used for
-      an associated bidirectional SR Path for identifying the SR Path.</t>
     </section>
 
     <section title="Terminology">
@@ -242,7 +232,7 @@
       target="RFC8408"/>. The reader is assumed to be
       familiar with the terminology defined in <xref target="RFC5440"/>, <xref
       target="RFC8231"/>, <xref target="RFC8281"/>, <xref
-      target="RFC8697"/> and <xref
+      target="RFC8697"/>, and <xref
       target="I-D.ietf-pce-association-bidir"/>.</t>
 
       <section title="Requirements Language">
@@ -255,32 +245,28 @@
     </section>
 
     <section title="PCEP Extension for Bidirectional SR Path">
-      <t>As per <xref target="RFC8697"/>, LSPs are
-      associated by adding them to a common association group. <xref
-      target="I-D.ietf-pce-association-bidir"/> specifies PCEP extensions for
-      grouping two unidirectional RSVP-TE LSPs into an Associated
-      Bidirectional LSP for both single-sided and double-sided initiation
-      cases by defining Bidirectional LSP Association Groups Types for them.</t>
+      <t>As per <xref target="RFC8697"/>, TE LSPs are
+      associated by adding them to a common association group. This document specifies the 
+      procedure for associating two unidirectional SR
+      Paths into a bidirectional SR Path by defining a new association group.</t>
 
-      <t>This document extends the procedure for associated bidirectional SR
-      Paths by defining a new bidirectional association group (Double-sided
-      Bidirectional SR Path Association Group). The document further describes
-      the mechanism for associating two unidirectional SR Paths into a
-      bidirectional SR Path. <xref target="I-D.ietf-pce-sr-path-segment"/>
-      defines a procedure for communicating Path Segment in PCEP for SR using
-      PATH-SEGMENT TLV. The bidirectional SR Path can also use the
-      PATH-SEGMENT TLV.</t>
-
-      <t>Note that an association group is defined in this document to define
-      procedures specific to SR Paths (and the procedures are different than
+      <t>Note that the association group defined in this document is specific to the
+      SR Paths abd the procedures are different than
       the RSVP-TE bidirectional association groups defined in <xref
-      target="I-D.ietf-pce-association-bidir"/>).</t>
+      target="I-D.ietf-pce-association-bidir"/>.</t>
+
+      <t><xref target="I-D.ietf-pce-sr-path-segment"/> defines a mechanisms for
+      communicating Path Segment Identifier (PSID) in PCEP for SR.
+      The PSID is dfined for SR-MPLS in <xref
+      target="I-D.ietf-spring-mpls-path-segment"/>. The PSID can be used for
+      for identifying an SR Path of an associated bidirectional SR Path. The
+      PATH-SEGMENT TLV <xref target="I-D.ietf-pce-sr-path-segment"/> SHOULD also
+      be included in the LSP object for these SR Paths to support required
+      use-cases.</t>
 
       <section anchor="double-sided"
                title="Double-sided Bidirectional SR Path Association Group Object">
-        <t>As defined in <xref target="I-D.ietf-pce-association-bidir"/>, two
-        LSPs are associated as a bidirectional RSVP-TE LSP by a common
-        bidirectional LSP association group. For associating two SR paths,
+       <t>For associating two unidrectional SR paths,
         this document defines a new association group called 'Double-sided
         Bidirectional SR Path Association Group' as follows: <list
             style="symbols">
@@ -288,7 +274,7 @@
             Bidirectional SR Path Association Group</t>
           </list></t>
 
-        <t>Similar to other bidirectional associations, this Association Type
+        <t>Similar to RSVP-TE bidirectional LSP associations, this Association Type
         is operator-configured in nature and statically created by the
         operator on the PCEP peers. The paths belonging to this association is
         conveyed via PCEP messages to the PCEP peer. Operator-configured
@@ -314,7 +300,7 @@
           </list></t>
 
         <t>For describing the SR Paths in this association group, such as
-        direction and co-routed information, this association group reuses the
+        direction and co-routed information, this association group uses the
         Bidirectional LSP Association Group TLV defined in <xref
         target="I-D.ietf-pce-association-bidir"/>. All fields and processing
         rules are as per <xref target="I-D.ietf-pce-association-bidir"/>.</t>
@@ -324,26 +310,23 @@
     <section title="Bidirectional Flag">
       <t>As defined in <xref target="RFC5440"/>, the B-flag in RP object MUST
       be set when the PCC specifies that the path computation request relates
-      to a bidirectional TE LSP. In this document, the B-flag also MUST be set
-      when the PCC specifies that the path computation request relates to a
-      bidirectional SR Path. When a stateful PCE initiates or updates a
+      to a bidirectional TE LSP. The B-flag also MUST be set
+      when the PCC specifies that the path computation request relates to an associated
+      bidirectional SR Path.</t>
+      
+      <t>When a stateful PCE initiates or updates an associated
       bidirectional SR Paths including LSPs and SR paths, the B-flag in SRP
       object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> MAY be set
       as well.</t>
     </section>
 
     <section title="Procedures for Associated Bidirectional SR Path Computation">
-      <t>Two unidirectional SR Paths can be associated by the association
+      <t>Two SR Paths can be associated by the association
       group object as specified in <xref
-      target="RFC8697"/>. A bidirectional LSP
-      association group object is defined in <xref
-      target="I-D.ietf-pce-association-bidir"/> for RSVP-TE. This document
-      extends these association mechanisms for bidirectional SR Paths. Two SR
-      Paths can be associated together by using the Bidirectional SR Path
-      Association Group defined in this document for PCEP messages. The
-      PATH-SEGMENT TLV <xref target="I-D.ietf-pce-sr-path-segment"/> SHOULD also
-      be included in the LSP object for these SR Paths to support required
-      use-cases.</t>
+      target="RFC8697"/>. This document
+      extends the association mechanisms for bidirectional SR Paths. Two unidirectional SR
+      Paths (one in each direction in the network) can be associated together by using the Bidirectional SR Path
+      Association Group defined in this document for PCEP messages.</t>
 
       <t>For bidirectional SR Paths, there may be a need to know the reverse
       direction SR paths. The PCE SHOULD inform the reverse SR Paths to the
@@ -367,21 +350,21 @@
       
       <t> Since the PLSP-ID space is independent at each PCC, the PLSP-ID
    allocated by the egress PCC cannot be used for the LSP at the
-   ingress PCC (PLSP-ID conflict may occur). As per normal PCE-INIT
+   ingress PCC (PLSP-ID conflict may occur). As per normal PCInitiate
    operations, PCC assigns the PLSP-IDs for local LSPs.
-   Hence, when the PCE notifies an ingress PCC of the reverse egress LSP, it
-   does so using PCE-INIT operations and sets PLSP-ID to zero and sets the R bit in the association
-   object to indicate that this PCE-INIT LSP is a reverse LSP. The PCC
-   upon receiving the PCE-INIT MUST locally assign a PLSP-ID and it MUST
-   issue a PCREPORT to PCE for this LSP containing the new PLSP-ID. This
+   Hence, when the PCE notifies an ingress PCC of the reverse LSP, it
+   does so using PCInitiate operations and sets PLSP-ID to zero and sets the R bit in the association
+   object to indicate that this PCInitiate LSP is a reverse LSP. The PCC
+   upon receiving the PCInitiate MUST locally assign a PLSP-ID and it MUST
+   issue a PCRep to PCE for this LSP containing the new PLSP-ID. This
    LSP MUST NOT be instantiated on the PCC.</t>
 
-     <t> For example, ingress PCC1 way may report to PCE an LSP with
+     <t> For example, ingress PCC1 may report to PCE an LSP with
    PLSP-ID 100. Egress PCC2 may report to PCE an LSP with PLSP-ID 200.
-   Both of these LSPs are bi-directional associated. When PCE
-   notifies PCC1 of the PCC2 LSP, it does so by sending a PCE-INIT to PCC1 with
+   Both of these LSPs are part of bidirectional association. When PCE
+   notifies PCC1 of the PCC2 LSP, it does so by sending a PCInitiate to PCC1 with
    PLSP-ID set to zero and R bit set. PCC1 upon reception of this generates a PLSP-ID
-   (example PLSP-ID 300) and issues a PCREPORT to PCE.</t>
+   (example PLSP-ID 300) and issues a PCRep to PCE.</t>
 
       <t>After path computation, the bidirectional path that combined by two
       SR paths and associated by an association group object will be sent to
@@ -398,7 +381,7 @@
       <section title="PCE Initiated Associated Bidirectional SR Paths">
         <t>As specified in <xref target="RFC8697"/>,
         Bidirectional SR Path Association Group can be created by a Stateful
-        PCE.</t>
+        PCE as shown in Figure 1.</t>
 
         <t><list style="symbols">
             <t>Stateful PCE can create and update the forward and reverse SR
@@ -446,12 +429,12 @@
       <section title="PCC Initiated Associated Bidirectional SR Paths">
         <t>As specified in <xref target="RFC8697"/>,
         Bidirectional SR Path Association Group can also be created by a
-        PCC.</t>
+        PCC as shown in Figure 2a and 2b.</t>
 
         <t><list style="symbols">
             <t>PCC can create and update the forward and reverse SR Paths
             independently for a 'Double-sided Bidirectional SR Path
-            Association Group'.</t>
+            Association Group' as shown in Figure 2b.</t>
 
             <t>PCC can establish and remove the association relationship on a
             per SR Path basis.</t>
@@ -525,7 +508,7 @@
         request to an association group, thus enabling it to associate a
         common set of configuration parameters or behaviors with the request.
         A PCC can request co-routed or non co-routed forward and reverse
-        direction paths from a stateless PCE for a bidirectional LSP
+        direction paths from a stateless PCE for a bidirectional SR
         association group.</t>
       </section>
 
