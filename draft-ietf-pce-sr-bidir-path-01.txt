@@ -78,34 +78,34 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
-   3.  PCEP Extension for Bidirectional SR Path  . . . . . . . . . .   4
-     3.1.  Double-sided Bidirectional SR Path Association Group
-           Object  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Procedures for Associated Bidirectional SR Path Computation .   5
+   3.  PCEP Extensions . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.1.  Double-sided Bidirectional SR Path Association Group  . .   5
+       3.1.1.  Bidirectional LSP Association Group TLV . . . . . . .   5
+   4.  PCEP Procedures . . . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  PCE Initiated Associated Bidirectional SR Paths . . . . .   6
      4.2.  PCC Initiated Associated Bidirectional SR Paths . . . . .   7
      4.3.  Stateless PCE . . . . . . . . . . . . . . . . . . . . . .   9
-     4.4.  Bidirectional Flag  . . . . . . . . . . . . . . . . . . .   9
-     4.5.  Error Handling  . . . . . . . . . . . . . . . . . . . . .   9
-   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  Huawei's Commercial Delivery  . . . . . . . . . . . . . .  10
-     5.2.  ZTE's Commercial Delivery . . . . . . . . . . . . . . . .  10
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
-     6.1.  Association Type  . . . . . . . . . . . . . . . . . . . .  10
-     6.2.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  11
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   8.  Manageability Considerations  . . . . . . . . . . . . . . . .  11
-     8.1.  Control of Function and Policy  . . . . . . . . . . . . .  11
+     4.4.  Bidirectional Flag  . . . . . . . . . . . . . . . . . . .  10
+     4.5.  Error Handling  . . . . . . . . . . . . . . . . . . . . .  10
+   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  10
+     5.1.  Huawei's Commercial Delivery  . . . . . . . . . . . . . .  11
+     5.2.  ZTE's Commercial Delivery . . . . . . . . . . . . . . . .  11
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+     6.1.  Association Type  . . . . . . . . . . . . . . . . . . . .  11
+     6.2.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   8.  Manageability Considerations  . . . . . . . . . . . . . . . .  12
+     8.1.  Control of Function and Policy  . . . . . . . . . . . . .  12
      8.2.  Information and Data Models . . . . . . . . . . . . . . .  12
-     8.3.  Liveness Detection and Monitoring . . . . . . . . . . . .  12
-     8.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  12
-     8.5.  Requirements On Other Protocols . . . . . . . . . . . . .  12
-     8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  12
-   9.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  13
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
+     8.3.  Liveness Detection and Monitoring . . . . . . . . . . . .  13
+     8.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  13
+     8.5.  Requirements On Other Protocols . . . . . . . . . . . . .  13
+     8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  13
+   9.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  13
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  14
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  15
 
 
 
@@ -114,7 +114,7 @@ Li, et al.               Expires August 13, 2020                [Page 2]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -131,9 +131,9 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    Computation Client (PCC) and a PCE, or between PCE and PCE, for the
    purpose of computation of Traffic Engineering (TE) Label Switched
    Paths (LSP).  [RFC8231] specifies a set of extensions to PCEP to
-   enable stateful control of TE LSPs within and across PCEP sessions in
-   compliance with [RFC4657].  The model of operation where LSPs are
-   initiated from the PCE is described in [RFC8281].
+   enable stateful control of TE LSPs within and across PCEP sessions.
+   The mode of operation where LSPs are initiated from the PCE is
+   described in [RFC8281].
 
    [RFC8408] specifies extensions to the Path Computation Element
    Protocol (PCEP) [RFC5440] for SR networks, that allow a stateful PCE
@@ -190,12 +190,12 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  PCEP Extension for Bidirectional SR Path
+3.  PCEP Extensions
 
    As per [RFC8697], TE LSPs are associated by adding them to a common
-   association group.  Similarly, two SR Paths can be associated by the
-   PCE using the association group object and the procedures specified
-   in [RFC8697].  This document extends these association mechanisms for
+   association group by PCE.  Similarly, two SR Paths can be associated
+   using the association group object and the procedures as specified in
+   [RFC8697].  This document extends these association mechanisms for
    bidirectional SR Paths.  Two unidirectional SR Paths (one in each
    direction in the network) can be associated together by using the
    Bidirectional SR Path Association Group defined in this document for
@@ -226,11 +226,11 @@ Li, et al.               Expires August 13, 2020                [Page 4]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-3.1.  Double-sided Bidirectional SR Path Association Group Object
+3.1.  Double-sided Bidirectional SR Path Association Group
 
    For associating two unidirectional SR paths, this document defines a
-   new association group called 'Double-sided Bidirectional SR Path
-   Association Group' as follows:
+   new association type called 'Double-sided Bidirectional SR Path
+   Association Group' for association group as follows:
 
    o  Association Type (TBD1 to be assigned by IANA) = Double-sided
       Bidirectional SR Path Association Group
@@ -257,23 +257,23 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    o  The endpoints of the SR Paths in this associations cannot be
       different.
 
+3.1.1.  Bidirectional LSP Association Group TLV
+
    For describing the SR Paths in this association group, properties
    such as forward and reverse direction path and co-routed path, it
    uses the Bidirectional LSP Association Group TLV defined in
    [I-D.ietf-pce-association-bidir].  All fields and processing rules
    are as per [I-D.ietf-pce-association-bidir].
 
-4.  Procedures for Associated Bidirectional SR Path Computation
+4.  PCEP Procedures
 
    A PCEP message such as PCRep or PCUdp or PCInitiate, containing a
-   bidirectional SR path, sent to the PCC contains a forward direction
-   SR path beginning from itself to the remote PCC and when required, a
-   reverse SR path from the remote PCC back to the PCC itself.
+   bidirectional SR path, sent to the ingress PCC contains a forward
+   direction SR path beginning from itself to the egress PCC and when
+   required.
 
-   For bidirectional SR Paths, there are use cases which require the PCC
-   to be aware of the reverse direction SR path.  For this use-cases,
-   PCE informs the reverse SR Paths to the ingress PCCs and vice versa.
-   To achieve this, a PCInitiate message for the reverse SR Path is sent
+   For the use-cases which require the PCC to be aware of the reverse
+   direction SR path, PCE informs the reverse SR Path to the ingress
 
 
 
@@ -282,9 +282,11 @@ Li, et al.               Expires August 13, 2020                [Page 5]
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-   to the ingress PCC and a PCInitiate message for the forward SR Path
-   is sent to the egress PCC (with the same association group).  These
-   PCInitiate message MUST NOT trigger initiation of SR Paths.
+   PCC.  To achieve this, a PCInitiate message for the reverse SR Path
+   is sent to the ingress PCC and a PCInitiate message for the forward
+   SR Path is sent to the egress PCC (with the matching association
+   group).  These PCInitiate message MUST NOT trigger initiation of SR
+   Paths on PCCs.
 
    For a bidirectional LSP computation when using both direction LSPs on
    a node, the same LSP would need to be identified using 2 different
@@ -321,15 +323,13 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    can be created by a Stateful PCE as shown in Figure 1.
 
    o  Stateful PCE can create and update the forward and reverse SR
-      Paths independently for a 'Double-sided Bidirectional SR Path
+      Paths independently for 'Double-sided Bidirectional SR Path
       Association Group'.
 
    o  Stateful PCE can establish and remove the association relationship
       on a per SR Path basis.
 
-   o  Stateful PCE can create and update the SR Path and the association
-      on a PCC via PCInitiate and PCUpd messages, respectively, using
-      the procedures described in [RFC8697].
+
 
 
 
@@ -337,6 +337,10 @@ Li, et al.               Expires August 13, 2020                [Page 6]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
+
+   o  Stateful PCE can create and update the SR Path and the association
+      on a PCC via PCInitiate and PCUpd messages, respectively, using
+      the procedures described in [RFC8697].
 
    o  The reverse direction SR Path (LSP2(R) at node S, LSP1(R) at node
       D as shown in Figure 1) SHOULD be informed by the PCE via
@@ -347,10 +351,10 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
                                   +-----+
                                   | PCE |
                                   +-----+
-      PCInitiate/PCUpd:           /     \         PCInitiate/PCUpd:
-      Tunnel 1 (F)               /       \        Tunnel 2 (F)
-      (LSP1 (F), LSP2 (R))      /         \       (LSP2 (F), LSP1 (R))
-      Association #1           /           \      Association #1
+      PCInitiate/PCUpd:           /     \       PCInitiate/PCUpd:
+      Tunnel 1 (F)               /       \      Tunnel 2 (F)
+      (LSP1 (F), LSP2 (R))      /         \     (LSP2 (F), LSP1 (R))
+      Association #1           /           \    Association #1
                               /             \
                              v               v
                         +-----+    LSP1     +-----+
@@ -381,11 +385,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    o  PCC MUST report the change in the association group of an SR Path
       to PCE(s) via PCRpt message.
 
-   o  PCC can report the forward and reverse SR Paths independently to
-      PCE(s) via PCRpt message.
 
-   o  PCC can delegate the forward and reverse SR Paths independently to
-      a Stateful PCE, where PCE would control the SR Paths.
 
 
 
@@ -393,6 +393,12 @@ Li, et al.               Expires August 13, 2020                [Page 7]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
+
+   o  PCC can report the forward and reverse SR Paths independently to
+      PCE(s) via PCRpt message.
+
+   o  PCC can delegate the forward and reverse SR Paths independently to
+      a Stateful PCE, where PCE would control the SR Paths.
 
    o  Stateful PCE can update the SR Paths in the 'Double-sided
       Bidirectional SR Path Association Group' via PCUpd message, using
@@ -403,6 +409,46 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
       PCInitiate message with the matching association group for the
       use-cases which require the PCC to be aware of the reverse
       direction SR path.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Li, et al.               Expires August 13, 2020                [Page 8]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
 
                                  +-----+
                                  | PCE |
@@ -442,14 +488,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
                        SR - Reverse Direction SR Paths
 
 
-
-
-
-Li, et al.               Expires August 13, 2020                [Page 8]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
 4.3.  Stateless PCE
 
    As defined in [I-D.ietf-pce-association-bidir], for a stateless PCE,
@@ -459,17 +497,27 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    request co-routed or non-co-routed forward and reverse direction
    paths from a stateless PCE for a bidirectional SR association group.
 
+
+
+
+
+Li, et al.               Expires August 13, 2020                [Page 9]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
+
 4.4.  Bidirectional Flag
 
-   As defined in [RFC5440], the B-flag in RP object MUST be set when the
-   PCC specifies that the path computation request relates to a
-   bidirectional TE LSP.  The B-flag also MUST be set when the PCC
-   specifies that the path computation request relates to an associated
-   bidirectional SR Path.
+   As defined in [RFC5440], the B-flag in Request Parameters (RP) object
+   MUST be set when the PCC specifies that the path computation request
+   relates to a bidirectional TE LSP.  The B-flag also MUST be set when
+   the PCC specifies that the path computation request relates to an
+   associated bidirectional SR Path.
 
-   When a stateful PCE initiates or updates an associated bidirectional
-   SR Path, the B-flag in SRP object
-   [I-D.ietf-pce-pcep-stateful-pce-gmpls] MAY be set as well.
+   Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
+   object [I-D.ietf-pce-pcep-stateful-pce-gmpls] is not required for
+   associated bidirectional SR path as association group is used to
+   indicate that the path is bidirectional.
 
 4.5.  Error Handling
 
@@ -498,14 +546,6 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    has been spent to verify the information presented here that was
    supplied by IETF contributors.  This is not intended as, and must not
    be construed to be, a catalog of available implementations or their
-
-
-
-Li, et al.               Expires August 13, 2020                [Page 9]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
    features.  Readers are advised to note that other implementations may
    exist.
 
@@ -513,6 +553,15 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    to assign due consideration to documents that have the benefit of
    running code, which may serve as evidence of valuable experimentation
    and feedback that have made the implemented protocols more mature.
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 10]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
+
    It is up to the individual working groups to use this information as
    they see fit".
 
@@ -553,19 +602,20 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    the assignment of a type for the sub-registry "ASSOCIATION Type" as
    follows:
 
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 10]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
    Type    Name                                          Reference
    -------------------------------------------------------------------
    TBD1    Double-sided Bidirectional SR Path            This document
            Association Group
+
+
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 11]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 6.2.  PCEP Errors
@@ -610,20 +660,19 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
    policy requirements in addition to those already listed in [RFC5440],
    [RFC8231], and [RFC8281].
 
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 11]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
 8.2.  Information and Data Models
 
    [RFC7420] describes the PCEP MIB, there are no new MIB Objects
    defined for Bidirectional SR Path associations.  The PCEP YANG module
    [I-D.ietf-pce-pcep-yang] defines data model for Bidirectional SR Path
    associations.
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 12]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
 
 8.3.  Liveness Detection and Monitoring
 
@@ -669,7 +718,14 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 13, 2020               [Page 12]
+
+
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 13]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -725,7 +781,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 13, 2020               [Page 13]
+Li, et al.               Expires August 13, 2020               [Page 14]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -759,37 +815,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
               draft-ietf-pce-association-bidir-05 (work in progress),
               February 2020.
 
-   [I-D.ietf-pce-pcep-stateful-pce-gmpls]
-              Lee, Y., Zheng, H., Dios, O., Lopezalvarez, V., and Z.
-              Ali, "Path Computation Element (PCE) Protocol Extensions
-              for Stateful PCE Usage in GMPLS-controlled Networks",
-              draft-ietf-pce-pcep-stateful-pce-gmpls-12 (work in
-              progress), October 2019.
-
-   [I-D.ietf-pce-sr-path-segment]
-              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
-              "Path Computation Element Communication Protocol (PCEP)
-              Extension for Path Segment in Segment Routing (SR)",
-              draft-ietf-pce-sr-path-segment-00 (work in progress),
-              October 2019.
-
 11.2.  Informative References
-
-
-
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 14]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
-   [RFC4657]  Ash, J., Ed. and J. Le Roux, Ed., "Path Computation
-              Element (PCE) Communication Protocol Generic
-              Requirements", RFC 4657, DOI 10.17487/RFC4657, September
-              2006, <https://www.rfc-editor.org/info/rfc4657>.
 
    [RFC8253]  Lopez, D., Gonzalez de Dios, O., Wu, Q., and D. Dhody,
               "PCEPS: Usage of TLS to Provide a Secure Transport for the
@@ -806,6 +832,15 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
               Code: The Implementation Status Section", BCP 205,
               RFC 7942, DOI 10.17487/RFC7942, July 2016,
               <https://www.rfc-editor.org/info/rfc7942>.
+
+
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 15]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
 
    [RFC7420]  Koushik, A., Stephan, E., Zhao, Q., King, D., and J.
               Hardwick, "Path Computation Element Communication Protocol
@@ -830,29 +865,38 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
               Segment Routing Networks", draft-gandhi-spring-twamp-
               srpm-05 (work in progress), December 2019.
 
-
-
-
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 15]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
               draft-ietf-spring-mpls-path-segment-01 (work in progress),
               September 2019.
 
+   [I-D.ietf-pce-sr-path-segment]
+              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
+              "Path Computation Element Communication Protocol (PCEP)
+              Extension for Path Segment in Segment Routing (SR)",
+              draft-ietf-pce-sr-path-segment-00 (work in progress),
+              October 2019.
+
    [I-D.ietf-pce-pcep-yang]
               Dhody, D., Hardwick, J., Beeram, V., and J. Tantsura, "A
               YANG Data Model for Path Computation Element
               Communications Protocol (PCEP)", draft-ietf-pce-pcep-
               yang-13 (work in progress), October 2019.
+
+   [I-D.ietf-pce-pcep-stateful-pce-gmpls]
+              Lee, Y., Zheng, H., Dios, O., Lopezalvarez, V., and Z.
+              Ali, "Path Computation Element (PCE) Protocol Extensions
+              for Stateful PCE Usage in GMPLS-controlled Networks",
+              draft-ietf-pce-pcep-stateful-pce-gmpls-12 (work in
+              progress), October 2019.
+
+
+
+Li, et al.               Expires August 13, 2020               [Page 16]
+
+Internet-Draft    PCEP for Bidirectional SR Association    February 2020
+
 
 Authors' Addresses
 
@@ -888,55 +932,11 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-
-
-
-
-
-Li, et al.               Expires August 13, 2020               [Page 16]
-
-Internet-Draft    PCEP for Bidirectional SR Association    February 2020
-
-
    Quan Xiong
    ZTE Corporation
    China
 
    Email: xiong.quan@zte.com.cn
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
