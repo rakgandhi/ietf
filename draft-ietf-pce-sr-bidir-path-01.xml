@@ -146,7 +146,7 @@
       </address>
     </author>
 
-    <date day="10" month="February" year="2020"/>
+    <date day="13" month="February" year="2020"/>
 
     <area>Routing Area</area>
 
@@ -249,10 +249,13 @@
 
     <section title="PCEP Extensions">
       <t>As per <xref target="RFC8697"/>, TE LSPs are
-      associated by adding them to a common association group by PCE. 
-      Similarly, two SR Paths can be associated using the association
-      group object and the procedures as specified in <xref
-      target="RFC8697"/>. This document
+      associated by adding them to a common association group by a PCEP peer.  
+      <xref target="I-D.ietf-pce-association-bidir"/> uses the the association
+      group object  and the procedures as specified in <xref
+      target="RFC8697"/> to group 
+      two unidirectional RSVP-TE LSPs. 
+      Similarly, two SR Paths can also be associated using similar technique.
+      This document
       extends these association mechanisms for bidirectional SR Paths. Two unidirectional SR
       Paths (one in each direction in the network) can be associated 
       together by using the Bidirectional SR Path
@@ -277,7 +280,7 @@
                title="Double-sided Bidirectional SR Path Association Group">
       <t>For associating two unidirectional SR paths,
         this document defines a new Association Type called 'Double-sided
-        Bidirectional SR Path Association Group' for association group as follows: <list
+        Bidirectional SR Path Association Group' for Association Group Object (Class-Value 40) as follows: <list
         style="symbols">
         <t>Association Type (TBD1 to be assigned by IANA) = Double-sided
         Bidirectional SR Path Association Group</t>
@@ -319,12 +322,9 @@
     </section>
 
     <section title="PCEP Procedures">
-
-      <t>A PCEP message such as PCRep or PCUdp or PCInitiate, containing a
-      bidirectional SR path, sent to the ingress PCC contains a forward direction SR path
-      beginning from itself to the egress PCC and when required.</t>
-
-      <t>For the use-cases which require the PCC 
+     <t>For bidirectional SR path, an ingress PCC is aware of the forward
+      direction SR path beginning from itself to the egress PCC using existing
+      PCEP procedures. For the use-cases which require the PCC 
       to be aware of the reverse direction SR path, PCE informs the reverse SR Path to the
       ingress PCC. To achieve this, a PCInitiate message for
       the reverse SR Path is sent to the ingress PCC and a PCInitiate message
@@ -332,33 +332,33 @@
       association group). These PCInitiate message MUST NOT trigger initiation
       of SR Paths on PCCs.</t>
 
-      <t>For a bidirectional LSP computation when using both direction LSPs on
+     <t>For a bidirectional LSP computation when using both direction LSPs on
       a node, the same LSP would need to be identified using 2 different
-      PLSP-IDs based on the PCEP session to the ingress or the egress node. In
-      other words, the LSP will have PLSP-ID A at the ingress node while it
-      will have PLSP-ID B at the egress node. The PCE will maintain the
-      two PLSP-IDs for the same LSP. For instance, an ingress PCC requests a
-      bidirectional SR Path computation, and the PCE computes a forward LSP1
-      with PLSP-ID say 100. The reverse LSP2 from the egress to the ingress
-      with PLSP-ID say 200 is allocated by the egress PCC. </t>
-      
-      <t> Since the PLSP-ID space is independent at each PCC, the PLSP-ID
+      PLSP-IDs based on the PCEP session to the ingress or the egress node. 
+      Note that the PLSP-ID space is independent at each PCC, the PLSP-ID
       allocated by the egress PCC cannot be used for the LSP at the
       ingress PCC (PLSP-ID conflict may occur). As per normal PCInitiate
-      operations, PCC assigns the PLSP-IDs for local LSPs.
+      operations, PCC assigns the PLSP-IDs for the local LSPs.
       Hence, when the PCE notifies an ingress PCC of the reverse LSP, it
-      does so by using PCInitiate operations and sets PLSP-ID to zero and sets the R bit in the association
+      does so by using PCInitiate operations and sets PLSP-ID to zero and sets the
+      R bit in the Bidirectional LSP Association Group TLV in the association
       object to indicate that this PCInitiate LSP is a reverse LSP. The PCC
-      upon receiving the PCInitiate MUST locally assign a PLSP-ID and it MUST
-      issue a PCRep to PCE for this LSP containing the new PLSP-ID. This
-      LSP MUST NOT be instantiated on the PCC.</t>
+      upon receiving the PCInitiate MUST locally assign a new PLSP-ID and it MUST
+      issue a PCRpt to PCE for this LSP containing the new PLSP-ID. This
+      reverse direction LSP MUST NOT be instantiated on the PCC.</t>
 
-      <t> For example, ingress PCC1 may report to PCE an LSP with
-      PLSP-ID 100. Egress PCC2 may report to PCE an LSP with PLSP-ID 200.
-      Both of these LSPs are part of bidirectional association. When PCE
-      notifies PCC1 of the PCC2 LSP, it does so by sending a PCInitiate to PCC1 with
-      PLSP-ID set to zero and R bit set. PCC1 upon reception of this generates a PLSP-ID
-      (example PLSP-ID 300) and issues a PCRep to PCE.</t>
+     <t>In other words, a given LSP will be identified by PLSP-ID A at the ingress node while it
+      will be identified by PLSP-ID B at the egress node. The PCE will maintain 
+      two PLSP-IDs for the same LSP. 
+      For example, ingress PCC1 may report to PCE an LSP1 with
+      PLSP-ID 100. Egress PCC2 may report to PCE an LSP2 with PLSP-ID 200.
+      Both of these LSPs are part of a bidirectional association. When PCE
+      notifies PCC1 of the reverse direction LSP2, it does so by sending a PCInitiate to PCC1 with
+      PLSP-ID set to zero and R bit set in the Bidirectional LSP Association Group TLV. 
+      PCC1 upon reception of this generates a new PLSP-ID
+      (example PLSP-ID 300) and issues a PCRpt to PCE. Thus there would two PLSP-ID associated 
+      for LSP2 (300 at PCC1 and 200 at PCC2).</t>
+
 
       <section title="PCE Initiated Associated Bidirectional SR Paths">
         <t>As specified in <xref target="RFC8697"/>,
@@ -416,7 +416,7 @@
             independently for a 'Double-sided Bidirectional SR Path
             Association Group'.</t>
 
-            <t>PCC does not instantiate a reverse SR Path in a bidirectional SR Path.</t>
+            <t>PCC cannot instantiate a reverse SR Path in a bidirectional SR Path.</t>
 
             <t>PCC can establish and remove the association relationship on a
             per SR Path basis.</t>
@@ -475,7 +475,7 @@
                           <no signaling>
 
  Figure 2b: Step 2: PCE-Updated/Initiated Double-sided Bidirectional
-                    SR - Reverse Direction SR Paths
+                    SR Path with Reverse Direction SR Paths
 
 ]]></artwork>
           </figure></t>
@@ -491,8 +491,8 @@
         association group.</t>
       </section>
 
-      <section title="Bidirectional Flag">
-       <t>As defined in <xref target="RFC5440"/>, the B-flag in Request Parameters (RP) object MUST
+      <section title="Bidirectional (B) Flag">
+       <t>As defined in <xref target="RFC5440"/>, the Bidirectional (B) flag in Request Parameters (RP) object MUST
        be set when the PCC specifies that the path computation request relates
        to a bidirectional TE LSP. The B-flag also MUST be set
        when the PCC specifies that the path computation request relates to an associated
@@ -501,7 +501,7 @@
        <t>Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
        object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> is not required 
        for associated bidirectional SR path as association group is used to indicate that the path is bidirectional.</t>
-       </section>
+      </section>
 
       <section title="State Synchronization">
        <t>During state synchronization, a PCC MUST report all the existing
@@ -509,7 +509,7 @@
        target="RFC8697"/>.
        After the state synchronization, the PCE MUST remove all
        stale Bidirectional SR Associations.</t>
-       </section>
+      </section>
 
       <section title="Error Handling">
        <t>The error handling as described in section 5.7 of <xref
@@ -634,7 +634,7 @@
         <t>Mechanisms defined in this document do not imply any new operation
         verification requirements in addition to those already listed in <xref
         target="RFC5440"/>, <xref target="RFC8231"/>, and <xref
-        target="RFC8408"/> .</t>
+        target="RFC8408"/>.</t>
       </section>
 
       <section title="Requirements On Other Protocols">
