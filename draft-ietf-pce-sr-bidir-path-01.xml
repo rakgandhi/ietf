@@ -146,7 +146,7 @@
       </address>
     </author>
 
-    <date day="13" month="February" year="2020"/>
+    <date day="14" month="February" year="2020"/>
 
     <area>Routing Area</area>
 
@@ -323,8 +323,8 @@
 
     <section title="PCEP Procedures">
      <t>For bidirectional SR path, an ingress PCC is aware of the forward
-      direction SR path beginning from itself to the egress PCC using existing
-      PCEP procedures. For the use-cases which require the PCC 
+      direction SR path beginning from itself to the egress PCC using the existing
+      PCEP procedures. For the use-cases which require the ingress PCC 
       to be aware of the reverse direction SR path, PCE informs the reverse SR Path to the
       ingress PCC. To achieve this, a PCInitiate message for
       the reverse SR Path is sent to the ingress PCC and a PCInitiate message
