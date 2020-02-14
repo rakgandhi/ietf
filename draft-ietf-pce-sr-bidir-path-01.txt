@@ -5,13 +5,13 @@
 PCE Working Group                                                  C. Li
 Internet-Draft                                                   M. Chen
 Intended status: Standards Track                     Huawei Technologies
-Expires: August 16, 2020                                        W. Cheng
+Expires: August 17, 2020                                        W. Cheng
                                                             China Mobile
                                                                R. Gandhi
                                                      Cisco Systems, Inc.
                                                                 Q. Xiong
                                                          ZTE Corporation
-                                                       February 13, 2020
+                                                       February 14, 2020
 
 
 PCEP Extensions for Associated Bidirectional Segment Routing (SR) Paths
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 16, 2020.
+   This Internet-Draft will expire on August 17, 2020.
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 1]
+Li, et al.               Expires August 17, 2020                [Page 1]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 2]
+Li, et al.               Expires August 17, 2020                [Page 2]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -165,7 +165,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 3]
+Li, et al.               Expires August 17, 2020                [Page 3]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -221,7 +221,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 4]
+Li, et al.               Expires August 17, 2020                [Page 4]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -269,22 +269,22 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 4.  PCEP Procedures
 
    For bidirectional SR path, an ingress PCC is aware of the forward
-   direction SR path beginning from itself to the egress PCC using
-   existing PCEP procedures.  For the use-cases which require the PCC to
-   be aware of the reverse direction SR path, PCE informs the reverse SR
-   Path to the ingress PCC.  To achieve this, a PCInitiate message for
-   the reverse SR Path is sent to the ingress PCC and a PCInitiate
+   direction SR path beginning from itself to the egress PCC using the
+   existing PCEP procedures.  For the use-cases which require the
+   ingress PCC to be aware of the reverse direction SR path, PCE informs
+   the reverse SR Path to the ingress PCC.  To achieve this, a
+   PCInitiate message for the reverse SR Path is sent to the ingress PCC
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 5]
+Li, et al.               Expires August 17, 2020                [Page 5]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
-   message for the forward SR Path is sent to the egress PCC (with the
-   matching association group).  These PCInitiate message MUST NOT
-   trigger initiation of SR Paths on PCCs.
+   and a PCInitiate message for the forward SR Path is sent to the
+   egress PCC (with the matching association group).  These PCInitiate
+   message MUST NOT trigger initiation of SR Paths on PCCs.
 
    For a bidirectional LSP computation when using both direction LSPs on
    a node, the same LSP would need to be identified using 2 different
@@ -333,7 +333,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 6]
+Li, et al.               Expires August 17, 2020                [Page 6]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -389,7 +389,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 7]
+Li, et al.               Expires August 17, 2020                [Page 7]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -445,7 +445,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 8]
+Li, et al.               Expires August 17, 2020                [Page 8]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -501,7 +501,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020                [Page 9]
+Li, et al.               Expires August 17, 2020                [Page 9]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -557,7 +557,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 10]
+Li, et al.               Expires August 17, 2020               [Page 10]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -613,7 +613,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 11]
+Li, et al.               Expires August 17, 2020               [Page 11]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -669,7 +669,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 12]
+Li, et al.               Expires August 17, 2020               [Page 12]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -725,7 +725,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 13]
+Li, et al.               Expires August 17, 2020               [Page 13]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -781,7 +781,7 @@ Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 14]
+Li, et al.               Expires August 17, 2020               [Page 14]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -837,7 +837,7 @@ Contributors
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 15]
+Li, et al.               Expires August 17, 2020               [Page 15]
 
 Internet-Draft    PCEP for Bidirectional SR Association    February 2020
 
@@ -893,4 +893,4 @@ Authors' Addresses
 
 
 
-Li, et al.               Expires August 16, 2020               [Page 16]
+Li, et al.               Expires August 17, 2020               [Page 16]
