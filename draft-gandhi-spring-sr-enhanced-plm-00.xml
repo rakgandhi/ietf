@@ -8,7 +8,7 @@
 <!ENTITY RFC2104 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2104.xml">
 <!ENTITY RFC2113 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2113.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
-<!ENTITY RFC5884 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5884.xml">
+<!ENTITY RFC7880 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7880.xml">
 <!ENTITY RFC6038 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6038.xml">
 <!ENTITY RFC6437 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!ENTITY RFC6936 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6936.xml">
@@ -22,7 +22,7 @@
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-6man-segment-routing-header SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-segment-routing-header.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
-<!ENTITY I-D.li-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.li-pce-sr-bidir-path.xml">
+<!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
 <!ENTITY I-D.gandhi-spring-twamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-twamp-srpm.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
 ]>
@@ -69,16 +69,15 @@
       </address>
     </author>
 
-    <author fullname="Daniel Voyer (TBD)" initials="D." surname="Voyer (TBD)">
-      <organization>Bell Canada</organization>
+    <author fullname="Navin Vaghamshi" initials="N." surname="Vaghamshi">
+      <organization>Reliance</organization>
 
       <address>
-        <email>daniel.voyer@bell.ca</email>
+        <email>Navin.Vaghamshi@ril.com</email>
       </address>
     </author>
 
-    <author fullname="Moses Nagarajah (TBD)" initials="M."
-            surname="Nagarajah (TBD)">
+    <author fullname="Moses Nagarajah" initials="M." surname="Nagarajah">
       <organization>Telstra</organization>
 
       <address>
@@ -86,15 +85,7 @@
       </address>
     </author>
 
-    <author fullname="MC (TBD)" initials="M." surname="C (TBD)">
-      <organization>H</organization>
-
-      <address>
-        <email>mc@h.com</email>
-      </address>
-    </author>
-
-    <date day="7" month="February" year="2020"/>
+    <date day="15" month="February" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -133,15 +124,15 @@
       provisioning UDP paths that eliminates the control-channel
       signaling.</t>
 
-      <t>For Liveness Monitoring, Bidirectional Forwarding Detection (BFD)
-      <xref target="RFC5884"/> can be used in Segment Routing networks.
-      However, BFD requires protocol support on the reflector node to process
-      the BFD packets as packets are punted from forwarding path in order to
+      <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
+      <xref target="RFC7880"/> can be used in Segment Routing networks.
+      However, S-BFD requires protocol support on the reflector node to process
+      the S-BFD packets as packets are punted from forwarding path in order to
       send reply thereby limiting the scale for number of sessions and fault
-      detection interval. In addition, BFD protocol does not have the
+      detection interval. In addition, S-BFD protocol does not have the
       capability today to enable performance delay and loss monitoring in SR
-      networks. Enabling multiple protocols in SR networks, BFD for liveness
-      monitoring and TWAMP for performance delay and loss monitoring increases
+      networks. Enabling multiple protocols in SR networks, S-BFD for liveness
+      monitoring and TWAMP Light for performance delay and loss monitoring increases
       the operational complexity in SR networks.</t>
 
       <t>This document defines procedure for Enhanced Performance and Liveness
@@ -161,6 +152,8 @@
       </section>
 
       <section anchor="sect-2.2" title="Abbreviations">
+        <t>BFD: Bidirectional Forwarding Detection.</t>
+
         <t>BSID: Binding Segment ID.</t>
 
         <t>DM: Delay Measurement.</t>
@@ -170,8 +163,6 @@
         <t>LM: Loss Measurement.</t>
 
         <t>MPLS: Multiprotocol Label Switching.</t>
-
-        <t>NTP: Network Time Protocol.</t>
 
         <t>OWAMP: One-Way Active Measurement Protocol.</t>
 
@@ -191,8 +182,6 @@
 
         <t>SRv6: Segment Routing with IPv6 data plane.</t>
 
-        <t>TC: Traffic Class.</t>
-
         <t>TWAMP: Two-Way Active Measurement Protocol.</t>
       </section>
     </section>
@@ -201,7 +190,7 @@
       <t>For liveness monitoring for an SR Policy, the loopback mode as
       defined in <xref target="I-D.gandhi-spring-twamp-srpm"/> is used. The
       TWAMP probe messages for delay measurement defined in <xref
-      target="RFC5357"/> are sent by the sender (headend) node to the endpoint
+      target="RFC5357"/> are sent by the sender (head-end) node to the endpoint
       node of the SR Policy using the Segment List of the SR Policy as shown
       in Figure 1. When an SR Policy has more than one Segment List, multiple
       probe messages are sent, one for each Segment List. The Source and
@@ -211,7 +200,7 @@
       Segment List of the return path can be added in the probe message header
       to receive the probe message on a specific SR path using the mechanisms
       defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
-      target="I-D.li-pce-sr-bidir-path"/>.</t>
+      target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
@@ -258,7 +247,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  RFC 5357 Message in Payload                                  |
+  |  Payload as defined in Section 4.2.1 of RFC 5357              |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -288,7 +277,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  RFC 5357 Message in Payload                                  |
+  |  Payload as defined in Section 4.2.1 of RFC 5357              |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -301,15 +290,16 @@
       defined using loopback mode enabled with network programming. In this
       mode, both transmit and receive timestamps are collected in data plane
       by the probe messages sent in loopback mode enabled with network
-      programming function as shown in Figure 4. The endpoint node returns the
-      receive timestamp in the payload of the TWAMP probe message without
-      needing to punt the probe message in control-plane. The end-to-end delay
+      programming function as shown in Figure 4. The sender node adds transmit 
+      timestamp in the payload of the TWAMP probe message. The endpoint node adds the
+      receive timestamp (at fixed location) in the payload of the TWAMP probe message without
+      punting the probe message in control-plane. The end-to-end delay
       is measured using the receive and transmit timestamps in the probe
       message.</t>
 
-      <t>Timestamp format recommended is <xref target="IEEE1588"/> as
-      specified in <xref target="RFC8186"/>. Note this can be locally
-      provisioned as part of the network programming function.</t>
+      <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
+      specified in <xref target="RFC8186"/> implemented in hardware. Note this can be 
+      locally provisioned as part of the network programming function.</t>
 
       <t>The network programming function is enabled to add receive timestamp
       in the payload of the probe packet at a specific location locally
@@ -319,7 +309,9 @@
 
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
-      provisioned value.</t>
+      provisioned value. Similarly, delay metrics are notified when consecutive 
+      M number of probe messages have measured delay values violate user-configured threshold,
+      where M is lcoally provisioned value</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -330,7 +322,7 @@
                |   R1  |--------------------||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
-                Sender                       Endpoint
+                Sender                       Reflector Endpoint
                                              (Timestamp, 
                                               Pop and Forward)
       </artwork>
@@ -345,11 +337,12 @@
 
         <t>In the loopback mode enabled with network programming for SR-MPLS,
         Timestamp Label is added in the MPLS header as shown in Figure 5, to
-        collect receive timestamp in the payload of the TWAMP <xref
+        collect "Receive Timestamp" field in the payload of the TWAMP <xref
         target="RFC5357"/> probe packet. When a node receives a packet with
-        Timestamp Label, the node pops the Timestamp Label and forwards the
-        packet using the next label or IP header in the packet, in addition to
-        timestamping the packet.</t>
+        Timestamp Label, other timestamping the packet at a fixed location, the node pops 
+        the Timestamp Label and forwards the
+        packet using the next label or IP header in the packet (just like the 
+        packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
                 title="Probe Message Header For SR-MPLS with Timestamp Label">
@@ -378,7 +371,7 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  RFC 5357 Message in Payload                                  |
+  |  Payload as defined in Section 4.2.1 of RFC 5357              |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -395,11 +388,12 @@
         <t>In the loopback mode enabled with network programming for SRv6,
         END.TSF function is added for the Endpoint SID in SRH <xref
         target="I-D.ietf-6man-segment-routing-header"/> as shown in Figure 6,
-        to collect receive timestamp in the payload of the TWAMP <xref
+        to collect "Receive Timestamp" field in the payload of the TWAMP <xref
         target="RFC5357"/> probe packet. When a node receives a packet with
-        END.TSF function for the target SID which is local, the node forwards
-        the packet using the next SID or IP header in the packet, in addition
-        to timestamping the packet.</t>
+        END.TSF function for the target SID which is local, 
+        other than timestamping the packet at a fixed location,
+        the node forwards the packet using the next SID or IP header in the packet 
+        (just like the packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Probe Message Header for SRv6 With Endpoint Function">
@@ -420,16 +414,31 @@
   .  Destination Port = User-configured Port                      .
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  RFC 5357 Message in Payload                                  |
+  |  Payload as defined in Section 4.2.1 of RFC 5357              |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
       </section>
     </section>
 
-    <section anchor="sect-5" title="Security Considerations" toc="default">
+
+   <section anchor="sect-5" title="ECMP Handling" toc="default">
+     <t>An SR Policy can have ECMPs between the source and transit nodes,
+      between transit nodes and between transit and destination nodes. 
+      The PM probe messages need to be sent to traverse different ECMP 
+      paths to monitor the liveness for an SR Policy.  
+
+      Forwarding plane has various hashing functions available to forward
+      packets on specific ECMP paths. In the IP header of the PM probe messages,
+      sweeping of Destination Addresses in 127/8 range for IPv4 or
+      0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise a
+      particular ECMP path.  The Flow Label field in the IPv6 header can also 
+      be used for sweeping.</t>
+   </section>
+
+    <section anchor="sect-6" title="Security Considerations" toc="default">
       <t>The Performance and Liveness Monitoring is intended for deployment in
-      well-managed private and service provider networks. As such, it assumes
+      the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
       the integrity of the path and the identity of the far-end reflector
       node. If desired, attacks can be mitigated by performing basic
@@ -468,11 +477,11 @@
 
       <figure>
         <artwork>     
-     +------------+---------------------------------+---------------+
-     | Value      | Endpoint Behavior               | Reference     |
-     +------------+---------------------------------+---------------+
-     | TBA2       | END.TSF (Timestamp and Forward) | This document |
-     +------------+---------------------------------+---------------+</artwork>
+    +-------------+---------------------------------+---------------+
+    | Value       | Endpoint Behavior               | Reference     |
+    +-------------+---------------------------------+---------------+
+    | TBA2        | END.TSF (Timestamp and Forward) | This document |
+    +-------------+---------------------------------+---------------+</artwork>
       </figure>
     </section>
   </middle>
@@ -506,7 +515,7 @@
         </front>
       </reference>
 
-      &RFC5884;
+      &RFC7880;
 
       &RFC8186;
 
@@ -520,7 +529,7 @@
 
       &I-D.ietf-pce-binding-label-sid;
 
-      &I-D.li-pce-sr-bidir-path;
+      &I-D.ietf-pce-sr-bidir-path;
     </references>
 
     <section anchor="acknowledgments" numbered="no" title="Acknowledgments">
