@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="15" month="February" year="2020"/>
+    <date day="18" month="February" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -122,7 +122,8 @@
       messages. The TWAMP Light [Appendix I in RFC 5357] provides simplified
       mechanisms for active performance measurement in Customer IP networks by
       provisioning UDP paths that eliminates the control-channel
-      signaling.</t>
+      signaling. <xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedures
+      for using TWAMP Light in Segment Routing networks.</t>
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in Segment Routing networks.
@@ -191,19 +192,26 @@
       defined in <xref target="I-D.gandhi-spring-twamp-srpm"/> is used. The
       TWAMP probe messages for delay measurement defined in <xref
       target="RFC5357"/> are sent by the sender (head-end) node to the endpoint
-      node of the SR Policy using the Segment List of the SR Policy as shown
+      node of the SR Policy using the Segment List (SL) of the SR Policy as shown
       in Figure 1. When an SR Policy has more than one Segment List, multiple
-      probe messages are sent, one for each Segment List. The Source and
+      probe messages are sent, one using each Segment List. The Source and
       Destination IP addresses in the probe packets are set to the endpoint
-      and the sender node addresses. The probe packets are received back by
+      and the sender node addresses. 
+      The IPv4 Time To Live (TTL), IPv6 Hop Limit (HL), Router Alert (RA) Option 
+      and UDP checksum fields in the probe packets are set using
+      the procedures defined in <xref target="I-D.gandhi-spring-twamp-srpm"/>.</t>
+
+      <t>The probe packets are received back by
       the sender node via IP/UDP <xref target="RFC0768"/> return path. The
       Segment List of the return path can be added in the probe message header
-      to receive the probe message on a specific SR path using the mechanisms
+      to receive the probe message on a specific reverse SR path using the mechanisms
       defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
-      target="I-D.ietf-pce-sr-bidir-path"/>.</t>
+      target="I-D.ietf-pce-sr-bidir-path"/>. In both cases, the reflector 
+      MUST not drop the loopback probe messages due to a local policy 
+      provisioned on the node.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
-      messages are not received back at the sender, where N is locally
+      packets are not received back at the sender, where N is locally
       provisioned value.</t>
 
       <figure anchor="ure-loopback-mode" title="Loopback Mode">
@@ -254,7 +262,7 @@
       </section>
 
       <section anchor="sect-3.2" title="Loopback Mode for SRv6">
-        <t>The TWAMP probe messages are sent using the SRH containing the SID
+        <t>The TWAMP probe messages are sent using the SRH containing the Segment Identifier (SID)
         List of the SR Policy as shown in Figure 3. The SID List can contain
         the reverse path to receive the reply on a specific SRv6 path.</t>
 
@@ -288,30 +296,32 @@
              title="Enhanced Performance and Liveness Monitoring">
       <t>The enhanced performance and liveness monitoring for an SR Policy is
       defined using loopback mode enabled with network programming. In this
-      mode, both transmit and receive timestamps are collected in data plane
+      mode, both transmit and receive timestamps from data plane are collected
       by the probe messages sent in loopback mode enabled with network
       programming function as shown in Figure 4. The sender node adds transmit 
       timestamp in the payload of the TWAMP probe message. The endpoint node adds the
-      receive timestamp (at fixed location) in the payload of the TWAMP probe message without
-      punting the probe message in control-plane. The end-to-end delay
+      receive timestamp (at the fixed location) in the payload of the received TWAMP probe 
+      message without punting the probe message in control-plane. The end-to-end delay
       is measured using the receive and transmit timestamps in the probe
       message.</t>
 
       <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
-      specified in <xref target="RFC8186"/> implemented in hardware. Note this can be 
-      locally provisioned as part of the network programming function.</t>
+      specified in <xref target="RFC8186"/> implemented in hardware. Note that this can be 
+      locally provisioned as part of the network programming function. In addition to
+      adding the timestamp in the packet, the "Error Estimate" field in the payload
+      of the message is updated using the procedure defined in <xref target="RFC4656"/></t>
 
       <t>The network programming function is enabled to add receive timestamp
       in the payload of the probe packet at a specific location locally
-      provisioned. In TWAMP packet defined in Section 4.2.1 of [RFC5357], the
-      64-bit receive timestamp is added at byte-offset 16 from the start of
+      provisioned. In TWAMP packet defined in Section 4.2.1 of <xref target="RFC5357"/>, the
+      64-bit receive timestamp is added at byte-offset 16 which is from the start of
       the payload.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
-      messages are not received back at the sender, where N is locally
+      packets are not received back at the sender, where N is locally
       provisioned value. Similarly, delay metrics are notified when consecutive 
       M number of probe messages have measured delay values violate user-configured threshold,
-      where M is lcoally provisioned value</t>
+      where M is locally provisioned value.</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -339,8 +349,8 @@
         Timestamp Label is added in the MPLS header as shown in Figure 5, to
         collect "Receive Timestamp" field in the payload of the TWAMP <xref
         target="RFC5357"/> probe packet. When a node receives a packet with
-        Timestamp Label, other timestamping the packet at a fixed location, the node pops 
-        the Timestamp Label and forwards the
+        Timestamp Label, other than timestamping the packet at a fixed location, 
+        the node pops the Timestamp Label and forwards the
         packet using the next label or IP header in the packet (just like the 
         packets for the normal traffic).</t>
 
@@ -426,17 +436,17 @@
      <t>An SR Policy can have ECMPs between the source and transit nodes,
       between transit nodes and between transit and destination nodes. 
       The PM probe messages need to be sent to traverse different ECMP 
-      paths to monitor the liveness for an SR Policy.  
+      paths to monitor the liveness for an SR Policy.</t>
 
-      Forwarding plane has various hashing functions available to forward
+      <t>Forwarding plane has various hashing functions available to forward
       packets on specific ECMP paths. In the IP header of the PM probe messages,
       sweeping of Destination Addresses in 127/8 range for IPv4 or
       0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise a
-      particular ECMP path.  The Flow Label field in the IPv6 header can also 
+      particular ECMP path. The Flow Label field in the IPv6 header can also 
       be used for sweeping.</t>
    </section>
 
-    <section anchor="sect-6" title="Security Considerations" toc="default">
+   <section anchor="sect-6" title="Security Considerations" toc="default">
       <t>The Performance and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
@@ -450,9 +460,9 @@
       protects the data integrity of the probe messages. Cryptographic
       measures may be enhanced by the correct configuration of access-control
       lists and firewalls.</t>
-    </section>
+   </section>
 
-    <section anchor="sect-7" title="IANA Considerations" toc="default">
+   <section anchor="sect-7" title="IANA Considerations" toc="default">
       <t>IANA maintains the "Special-Purpose Multiprotocol Label Switching
       (MPLS) Label Values" registry (see
       &lt;https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml&gt;).
@@ -483,7 +493,7 @@
     | TBA2        | END.TSF (Timestamp and Forward) | This document |
     +-------------+---------------------------------+---------------+</artwork>
       </figure>
-    </section>
+   </section>
   </middle>
 
   <back>
