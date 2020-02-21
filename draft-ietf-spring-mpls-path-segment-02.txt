@@ -21,11 +21,11 @@ Abstract
 
    A Segment Routing (SR) path is identified by an SR segment list.
    Only the unique entire segment list can identify the end-to-end SR
-   path, and a set of segments from the list cannot distinguish one SR
-   path from other SR paths as they may be partially congruent.  SR path
-   identification is a pre-requisite for various use-cases such as
-   Performance Measurement (PM), bidirectional path identification and
-   end-to-end 1+1 path protection.
+   path, and a sub-set of segments from thei segment list cannot
+   distinguish one SR path from another as they may be partially
+   congruent.  SR path identification is a pre-requisite for various
+   use-cases such as Performance Measurement (PM), bidirectional path
+   identification and end-to-end 1+1 path protection.
 
    In SR for MPLS data plane (SR-MPLS), the segment identifiers are
    stripped from the packet through label popping as the packet transits
@@ -96,7 +96,7 @@ Table of Contents
    7.  Path Segment for End-to-end Path Protection . . . . . . . . .   8
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
      10.1.  Normative References . . . . . . . . . . . . . . . . . .   9
      10.2.  Informative References . . . . . . . . . . . . . . . . .   9
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  10
@@ -404,10 +404,10 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    Segments can be used to correlate the traffic for the two
    unidirectional SR paths at both ends of the paths.
 
-   [I-D.ietf-pce-sr-bidir-path] defines how to use PCEP and Path segment
-   to initiate a bidirectional SR path, and
-   [I-D.li-idr-sr-policy-path-segment] defines how to use SR policy and
-   Path Segment to initiate a bidirectional SR path.
+   [I-D.ietf-pce-sr-bidir-path] defines procedures on how to use PCEP
+   for SR Policy to initiate a bidirectional SR path.
+   [I-D.li-idr-sr-policy-path-segment] defines procedures on how to use
+   BGP for SR Policy to initiate a bidirectional SR path.
 
 7.  Path Segment for End-to-end Path Protection
 
@@ -418,17 +418,14 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    secondaries [RFC4426].
 
    To do this in Segment Routing, each SR path needs a path identifier
-   that is unique at the egress node.  Depending on the design, this is
-   a unique path segment label chosen by the egress node.
+   that is unique at the egress node.  For SR-MPLS, this can be the Path
+   Segment label chosen by the egress node.
 
    There then needs to be a method of binding this SR path identifiers
    into equivalence groups such that the egress node can determine for
-   example the set of packets that represent a single primary path.
-
-   It is obvious that this equivalence group can be instantiated in the
-   network by an SDN controller and that the Path Segment identifier
-   achieves the desired functionality needed for end-to-end 1+1 path
-   protection.
+   example, the set of packets that represent a single primary path.
+   Such equivalence group can be instantiated in the network by an SDN
+   controller.  Path Segment can be used to achieve this function.
 
 8.  Security Considerations
 
@@ -438,6 +435,9 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 9.  IANA Considerations
 
    This document does not require any IANA actions.
+
+10.  References
+
 
 
 
@@ -449,8 +449,6 @@ Cheng, et al.            Expires August 24, 2020                [Page 8]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
-
-10.  References
 
 10.1.  Normative References
 
@@ -494,10 +492,12 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
               Routing (SR) Paths", draft-ietf-pce-sr-bidir-path-01 (work
               in progress), February 2020.
 
-
-
-
-
+   [I-D.ietf-pce-sr-path-segment]
+              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
+              "Path Computation Element Communication Protocol (PCEP)
+              Extension for Path Segment in Segment Routing (SR)",
+              draft-ietf-pce-sr-path-segment-00 (work in progress),
+              October 2019.
 
 
 
@@ -505,13 +505,6 @@ Cheng, et al.            Expires August 24, 2020                [Page 9]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
-
-   [I-D.ietf-pce-sr-path-segment]
-              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
-              "Path Computation Element Communication Protocol (PCEP)
-              Extension for Path Segment in Segment Routing (SR)",
-              draft-ietf-pce-sr-path-segment-00 (work in progress),
-              October 2019.
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
@@ -552,6 +545,13 @@ Acknowledgements
 Contributors
 
    The following people have substantially contributed to this document:
+
+
+
+
+
+
+
 
 
 
