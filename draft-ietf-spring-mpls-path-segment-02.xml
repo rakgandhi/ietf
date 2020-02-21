@@ -169,7 +169,7 @@
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
         NOT&ldquo;, "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
         "MAY", and "OPTIONAL" in this document are to be interpreted as
-        described in BCP14 <xref target="RFC2119"/> <xref target="RFC8174">
+        described in <xref target="RFC2119"/> <xref target="RFC8174">
         </xref> when, and only when, they appear in all capitals, as shown
         here.</t>
       </section>
@@ -338,19 +338,25 @@
 
     <section title="Path Segment for PM">
       <t>As defined in <xref target="RFC7799"/>, performance measurement can
-      be classified into Active, Passive and Hybrid measurement. For Passive
+      be classified into Passive, Active, and Hybrid measurement.</t>
+
+      <t>For Passive performance 
       measurement, path identification at the measuring points is the
       pre-requisite. Path Segment can be used by the measuring points (e.g.,
       the ingress and egress nodes of the SR path or a centralized controller) to
-      correlate the packets counts and timestamps from the ingress and
+      correlate the packet counts and timestamps from the ingress and
       egress nodes for a specific SR path, then packet loss and delay can be
       calculated, respectively.</t>
 
-      <t>Path Segment can also be used for active performance Delay Measurement (DM) and
-      Loss Measurements (LM) in SR networks with MPLS data plane for 
-      collecting packet counters and timestamps, respectively
+      <t>Path Segment can also be used for Active performance measurement 
+      in SR-MPLS networks for 
+      collecting packet counters and timestamps using probe messages 
       <xref target="I-D.gandhi-mpls-rfc6374-sr"/> and <xref
       target="I-D.gandhi-spring-twamp-srpm"/>.</t>
+
+      <t>Path Segment can also be used for In-situ OAM for SR-MPLS to identify the SR Path
+      associated with the in-situ data fields in the data
+      packets on the egress node <xref target="I-D.gandhi-mpls-ioam-sr"/>.</t>
     </section>
 
     <section title="Path Segment for Bidirectional SR Path">
@@ -364,9 +370,9 @@
       <t>MPLS supports this by introducing the concepts of co-routed
       bidirectional LSP and associated bidirectional LSP. With SR, to support
       bidirectional paths, a straightforward way is to bind two unidirectional
-      SR paths to a single bidirectional path. Path Segments can be used to
+      SR paths to a single bidirectional SR path. Path Segments can then be used to
       correlate the traffic for the two unidirectional SR paths at both ends
-      of the paths.</t>
+      of the bidirectional path.</t>
 
       <t><xref target="I-D.ietf-pce-sr-bidir-path"/> defines procedures on how to use PCEP
       for SR Policy to initiate a bidirectional SR path. <xref
@@ -383,13 +389,13 @@
 
       <t>To do this in Segment Routing, each SR path needs a path identifier
       that is unique at the egress node. For SR-MPLS, this can be the
-      Path Segment label chosen by the egress node.</t>
+      Path Segment label allocated by the egress node.</t>
 
       <t>There then needs to be a method of binding this SR path identifiers
       into equivalence groups such that the egress node can determine for
       example, the set of packets that represent a single primary path.
       Such equivalence group can be instantiated in the
-      network by an SDN controller. Path Segment can be used to achieve this function.</t>
+      network by an SDN controller using Path Segments of the SR paths.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -422,6 +428,8 @@
       <?rfc include='reference.I-D.ietf-pce-sr-bidir-path'?>
 
       <?rfc include='reference.I-D.gandhi-spring-twamp-srpm'?>
+
+      <?rfc include='reference.I-D.gandhi-mpls-ioam-sr'?>
 
       <?rfc include='reference.I-D.gandhi-mpls-rfc6374-sr'?>
 
