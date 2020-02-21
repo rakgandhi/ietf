@@ -21,7 +21,7 @@ Abstract
 
    A Segment Routing (SR) path is identified by an SR segment list.
    Only the unique entire segment list can identify the end-to-end SR
-   path, and a sub-set of segments from thei segment list cannot
+   path, and a sub-set of segments from the segment list cannot
    distinguish one SR path from another as they may be partially
    congruent.  SR path identification is a pre-requisite for various
    use-cases such as Performance Measurement (PM), bidirectional path
@@ -92,15 +92,15 @@ Table of Contents
    3.  Path Segment Allocation . . . . . . . . . . . . . . . . . . .   5
    4.  Nesting of Path Segments  . . . . . . . . . . . . . . . . . .   6
    5.  Path Segment for PM . . . . . . . . . . . . . . . . . . . . .   7
-   6.  Path Segment for Bidirectional SR Path  . . . . . . . . . . .   7
+   6.  Path Segment for Bidirectional SR Path  . . . . . . . . . . .   8
    7.  Path Segment for End-to-end Path Protection . . . . . . . . .   8
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
      10.1.  Normative References . . . . . . . . . . . . . . . . . .   9
      10.2.  Informative References . . . . . . . . . . . . . . . . .   9
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  10
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 
@@ -148,8 +148,8 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in
-   BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
+   [RFC2119] [RFC8174] when, and only when, they appear in all capitals,
+   as shown here.
 
 1.2.  Abbreviations
 
@@ -365,26 +365,26 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 5.  Path Segment for PM
 
    As defined in [RFC7799], performance measurement can be classified
-   into Active, Passive and Hybrid measurement.  For Passive
-   measurement, path identification at the measuring points is the pre-
-   requisite.  Path Segment can be used by the measuring points (e.g.,
-   the ingress and egress nodes of the SR path or a centralized
-   controller) to correlate the packets counts and timestamps from the
-   ingress and egress nodes for a specific SR path, then packet loss and
-   delay can be calculated, respectively.
+   into Passive, Active, and Hybrid measurement.
 
-   Path Segment can also be used for active performance Delay
-   Measurement (DM) and Loss Measurements (LM) in SR networks with MPLS
-   data plane for collecting packet counters and timestamps,
-   respectively [I-D.gandhi-mpls-rfc6374-sr] and
+   For Passive performance measurement, path identification at the
+   measuring points is the pre-requisite.  Path Segment can be used by
+   the measuring points (e.g., the ingress and egress nodes of the SR
+   path or a centralized controller) to correlate the packet counts and
+   timestamps from the ingress and egress nodes for a specific SR path,
+   then packet loss and delay can be calculated, respectively.
+
+   Path Segment can also be used for Active performance measurement in
+   SR-MPLS networks for collecting packet counters and timestamps using
+   probe messages [I-D.gandhi-mpls-rfc6374-sr] and
    [I-D.gandhi-spring-twamp-srpm].
 
-6.  Path Segment for Bidirectional SR Path
+   Path Segment can also be used for In-situ OAM for SR-MPLS to identify
+   the SR Path associated with the in-situ data fields in the data
+   packets on the egress node [I-D.gandhi-mpls-ioam-sr].
 
-   With the current SR architecture, an SR path is a unidirectional
-   path.  In some scenarios, for example, mobile backhaul transport
-   network, there are requirements to support bidirectional paths, and
-   the path is normally treated as a single entity and both directions
+
+
 
 
 
@@ -394,15 +394,21 @@ Cheng, et al.            Expires August 24, 2020                [Page 7]
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
+6.  Path Segment for Bidirectional SR Path
+
+   With the current SR architecture, an SR path is a unidirectional
+   path.  In some scenarios, for example, mobile backhaul transport
+   network, there are requirements to support bidirectional paths, and
+   the path is normally treated as a single entity and both directions
    of the path have the same fate, for example, failure in one direction
    will result in switching traffic at both directions.
 
    MPLS supports this by introducing the concepts of co-routed
    bidirectional LSP and associated bidirectional LSP.  With SR, to
    support bidirectional paths, a straightforward way is to bind two
-   unidirectional SR paths to a single bidirectional path.  Path
-   Segments can be used to correlate the traffic for the two
-   unidirectional SR paths at both ends of the paths.
+   unidirectional SR paths to a single bidirectional SR path.  Path
+   Segments can then be used to correlate the traffic for the two
+   unidirectional SR paths at both ends of the bidirectional path.
 
    [I-D.ietf-pce-sr-bidir-path] defines procedures on how to use PCEP
    for SR Policy to initiate a bidirectional SR path.
@@ -419,24 +425,18 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
    To do this in Segment Routing, each SR path needs a path identifier
    that is unique at the egress node.  For SR-MPLS, this can be the Path
-   Segment label chosen by the egress node.
+   Segment label allocated by the egress node.
 
    There then needs to be a method of binding this SR path identifiers
    into equivalence groups such that the egress node can determine for
    example, the set of packets that represent a single primary path.
    Such equivalence group can be instantiated in the network by an SDN
-   controller.  Path Segment can be used to achieve this function.
+   controller using Path Segments of the SR paths.
 
 8.  Security Considerations
 
    This document does not introduce additional security requirements and
    mechanisms other than the ones described in [RFC8402].
-
-9.  IANA Considerations
-
-   This document does not require any IANA actions.
-
-10.  References
 
 
 
@@ -449,6 +449,12 @@ Cheng, et al.            Expires August 24, 2020                [Page 8]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
+
+9.  IANA Considerations
+
+   This document does not require any IANA actions.
+
+10.  References
 
 10.1.  Normative References
 
@@ -474,6 +480,12 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 10.2.  Informative References
 
+   [I-D.gandhi-mpls-ioam-sr]
+              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
+              and V. Kozak, "Segment Routing with MPLS Data Plane
+              Encapsulation for In-situ OAM Data", draft-gandhi-mpls-
+              ioam-sr-01 (work in progress), December 2019.
+
    [I-D.gandhi-mpls-rfc6374-sr]
               Gandhi, R., Filsfils, C., Voyer, D., Salsano, S., and M.
               Chen, "Performance Measurement for Segment Routing
@@ -485,6 +497,14 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
               Janssens, "Performance Measurement Using TWAMP Light for
               Segment Routing Networks", draft-gandhi-spring-twamp-
               srpm-05 (work in progress), December 2019.
+
+
+
+
+Cheng, et al.            Expires August 24, 2020                [Page 9]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -498,13 +518,6 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
               Extension for Path Segment in Segment Routing (SR)",
               draft-ietf-pce-sr-path-segment-00 (work in progress),
               October 2019.
-
-
-
-Cheng, et al.            Expires August 24, 2020                [Page 9]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
@@ -542,25 +555,16 @@ Acknowledgements
    The authors would like to acknowledge the contribution from Alexander
    Vainshtein on "Nesting of Path Segments".
 
-Contributors
-
-   The following people have substantially contributed to this document:
-
-
-
-
-
-
-
-
-
-
 
 
 Cheng, et al.            Expires August 24, 2020               [Page 10]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
+
+Contributors
+
+   The following people have substantially contributed to this document:
 
       Cheng Li,
       Huawei Technologies,
@@ -604,10 +608,6 @@ Authors' Addresses
    Huawei
 
    Email: mach.chen@huawei.com
-
-
-
-
 
 
 
