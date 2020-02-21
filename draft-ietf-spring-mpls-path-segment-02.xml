@@ -115,8 +115,8 @@
     <abstract>
       <t>A Segment Routing (SR) path is identified by an SR segment list. Only
       the unique entire segment list can identify the end-to-end SR path, and
-      a set of segments from the list cannot distinguish one SR path from
-      other SR paths as they may be partially congruent. SR path
+      a sub-set of segments from the segment list cannot distinguish one SR path from
+      another as they may be partially congruent. SR path
       identification is a pre-requisite for various use-cases such as
       Performance Measurement (PM), bidirectional path identification and
       end-to-end 1+1 path protection.</t>
@@ -368,10 +368,10 @@
       correlate the traffic for the two unidirectional SR paths at both ends
       of the paths.</t>
 
-      <t><xref target="I-D.ietf-pce-sr-bidir-path"/> defines how to use PCEP
-      and Path segment to initiate a bidirectional SR path, and <xref
-      target="I-D.li-idr-sr-policy-path-segment"/> defines how to use SR
-      policy and Path Segment to initiate a bidirectional SR path.</t>
+      <t><xref target="I-D.ietf-pce-sr-bidir-path"/> defines procedures on how to use PCEP
+      for SR Policy to initiate a bidirectional SR path. <xref
+      target="I-D.li-idr-sr-policy-path-segment"/> defines procedures on how to use BGP 
+      for SR Policy to initiate a bidirectional SR path.</t>
     </section>
 
     <section title="Path Segment for End-to-end Path Protection">
@@ -382,17 +382,14 @@
       <xref target="RFC4426"/>.</t>
 
       <t>To do this in Segment Routing, each SR path needs a path identifier
-      that is unique at the egress node. Depending on the design, this is a
-      unique path segment label chosen by the egress node.</t>
+      that is unique at the egress node. For SR-MPLS, this can be the
+      Path Segment label chosen by the egress node.</t>
 
       <t>There then needs to be a method of binding this SR path identifiers
       into equivalence groups such that the egress node can determine for
-      example the set of packets that represent a single primary path.</t>
-
-      <t>It is obvious that this equivalence group can be instantiated in the
-      network by an SDN controller and that the Path Segment identifier
-      achieves the desired functionality needed for end-to-end 1+1 path
-      protection.</t>
+      example, the set of packets that represent a single primary path.
+      Such equivalence group can be instantiated in the
+      network by an SDN controller. Path Segment can be used to achieve this function.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
