@@ -225,18 +225,18 @@
       and do not know how to process it. A Path Segment presenting to an
       intermediate node is an error condition.</t>
 
+      <t>A Path Segment can be used in the case of Penultimate Hop Popping (PHP), where some labels are 
+      be popped off at the penultimate hop of an SR path, but the Path Segment
+      MUST NOT be popped off until it reaches at the egress node.</t>
+
       <t>The egress node MUST pop the Path Segment. The egress node MAY use
       the Path Segment for further processing. For example, when performance
       measurement is enabled on the SR path, it can trigger packet counting or
       timestamping.</t>
 
-      <t>A Path Segment can be used in the case of PHP, where some labels MAY
-      be popped off at the penultimate hop of an SR path, but the Path Segment
-      MUST NOT be popped off until it reaches at the egress node.</t>
-
       <t>In some deployments, service labels may be added after the Path Segment 
       label in the MPLS label stack. In this case, the egress node MUST be capable
-      of processing more than one label. The additional processing required, 
+      of processing more than one label. The additional processing required 
       can have an impact on forwarding performance.</t>
 
       <t>Generic Associated Label (GAL) is used for Operations, 
@@ -365,7 +365,7 @@
         </figure></t>
     </section>
 
-    <section title="Path Segment for End-to-end Performance Measurement">
+    <section title="Path Segment for Performance Measurement">
       <t>As defined in <xref target="RFC7799"/>, performance measurement can
       be classified into Passive, Active, and Hybrid measurement.</t>
 
@@ -480,7 +480,7 @@
 
     <section anchor="Acknowledgements" numbered="no" title="Acknowledgements">
       <t>The authors would like to thank Adrian Farrel, Stewart Bryant,
-      Alexander Vainshtein, Andrew G. Malis, Ketan Talaulikar, and Loa Andersson for their
+      Alexander Vainshtein, Andrew G. Malis, Ketan Talaulikar, Shraddha Hegde, and Loa Andersson for their
       review, suggestions and comments to this document.</t>
 
       <t>The authors would like to acknowledge the contribution from Alexander
@@ -492,32 +492,31 @@
       document:</t>
 
      <t><figure>
-        <artwork><![CDATA[   Cheng Li
-   Huawei Technologies
+        <artwork><![CDATA[ Cheng Li
+ Huawei Technologies
 
-   EMail: chengli13@huawei.com
-
-
-   Lei Wang
-   China Mobile
-
-   Email: wangleiyj@chinamobile.com
+ EMail: chengli13@huawei.com
 
 
-   Shuangping Zhan
-   ZTE Corp
+ Lei Wang
+ China Mobile
 
-   Email: zhan.shuangping@zte.com.cn
+ Email: wangleiyj@chinamobile.com
 
 
-   Greg Mirsky
-   ZTE Corp
+ Shuangping Zhan
+ ZTE Corp
 
-   Email: gregimirsky@gmail.com
+ Email: zhan.shuangping@zte.com.cn
+
+
+ Greg Mirsky
+ ZTE Corp
+
+ Email: gregimirsky@gmail.com
     
 ]]></artwork>
         </figure></t>
-
 
     </section>
   </back>
