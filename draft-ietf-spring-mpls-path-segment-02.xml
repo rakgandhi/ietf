@@ -106,7 +106,7 @@
       </address>
     </author>
 
-    <date day="21" month="February" year="2020"/>
+    <date day="22" month="February" year="2020"/>
 
     <area>Routing Area</area>
 
@@ -114,11 +114,11 @@
 
     <abstract>
       <t>A Segment Routing (SR) path is identified by an SR segment list. Only
-      the unique complete segment list can identify the end-to-end SR path, and
+      the complete segment list can identify the end-to-end SR path, and
       a sub-set of segments from the segment list cannot distinguish one SR path from
       another as they may be partially congruent. SR path
       identification is a pre-requisite for various use-cases such as
-      Performance Measurement (PM), bidirectional path identification and
+      Performance Measurement (PM), bidirectional paths correlation, and
       end-to-end 1+1 path protection.</t>
 
       <t>In SR for MPLS data plane (SR-MPLS), the segment identifiers are
@@ -133,7 +133,7 @@
       and immediately follows the last segment identifier in the segment list
       of the SR path. The Path Segment will not be popped off until it reaches
       the egress node of the SR path. The Path Segment then can be used by
-      the egress node to implement SR path identification.</t>
+      the egress node to implement SR path identification and correlation.</t>
     </abstract>
   </front>
 
@@ -160,12 +160,14 @@
       bidirectional path <xref target="RFC5654"/>, or
       Performance Measurement (PM) <xref target="RFC7799"/>, 
       the ability to implement path
-      identification is a pre-requisite.</t>
+      identification on the egress node is a pre-requisite.</t>
 
       <t>Therefore, this document introduces a new segment type that is
       referred to as the Path Segment. A Path Segment is defined to uniquely
       identify an SR path in an SR-MPLS network in the context of the egress
-      node. It is normally used by the egress nodes for path identification or
+      node. It is normally used by the egress nodes for path identification
+      hence to support various use-cases including SR path
+      PM, end-to-end 1+1 SR path protection, and bidirectional SR paths
       correlation.</t>
 
       <section title="Requirements Language">
@@ -182,8 +184,9 @@
 
         <t>LM: Loss Measurement.</t>
 
-	<t>MPLS: Multiprotocol Label Switching:w
-		.</t>
+	<t>MPLS: Multiprotocol Label Switching.</t>
+
+	<t>MSD: Maximum SID Depth.</t>
 
         <t>PM: Performance Measurement.</t>
 
@@ -196,19 +199,18 @@
         <t>SR: Segment Routing.</t>
 
         <t>SR-MPLS: Segment Routing instantiated on MPLS data plane.</t>
-
-        <t>SRv6: Segment Routing instantiated on IPv6 data plane</t>
       </section>
     </section>
 
     <section title="Path Segment">
       <t>A Path Segment is a single label that is assigned from the Segment
-      Routing Local Block (SRLB) or Segment Routing Global Block (SRGB) of the
+      Routing Local Block (SRLB) or Segment Routing Global Block (SRGB) or dynamic MPLS label pool of the
       egress node of an SR path. It means that the Path Segment is unique in
       the context of the egress node of the SR path. When a Path Segment is
       used, the Path Segment MUST be inserted at the ingress node and MUST
-      immediately follow the last label of the SR path.</t>
-	      
+      immediately follow the last label of the SR path, in other words, inserted 
+      after the routing segment (adjacency/node/prefix segment) pointing to the egress node.</t>
+ 
       <t>The Path Segment may be used to identify an SR-MPLS Policy, its
       Candidate-Path (CP), or a SID List (SL) <xref
       target="I-D.ietf-spring-segment-routing-policy"/> terminating on an
@@ -232,7 +234,29 @@
       be popped off at the penultimate hop of an SR path, but the Path Segment
       MUST NOT be popped off until it reaches at the egress node.</t>
 
-      <t>The label stack with Path Segment is as below (Figure 1):</t>
+      <t>In some deployments, service labels may be added after the Path Segment 
+      label in the MPLS label stack. In this case, the egress node MUST be capable
+      of processing more than one label. The additional processing required, 
+      can have an impact on forwarding performance.</t>
+
+      <t>Generic Associated Label (GAL) is used for Operations, 
+      Administration and Maintenance (OAM) 
+      in MPLS networks <xref target="RFC5586"/>. The GAL MUST be added at 
+      the bottom of the label stack after the Path Segment label.</t>
+ 
+      <t>Entropy label and Entropy Label Indicator (ELI) as described in  
+      <xref target="RFC8662"/>
+      for SR-MPLS path, can be placed before or after
+      the Path Segment label in the MPLS label stack.</t>
+
+      <t>The SR path computation needs to know the Maximum SID
+      Depth (MSD) that can be imposed at each node/link of a given SR path <xref
+      target="RFC8664"/>.
+      This ensures that the SID stack depth of a
+      computed path does not exceed the number of SIDs the node is capable
+      of imposing. The MSD used for path computation MUST include the Path Segment label.</t>
+
+      <t>The label stack with Path Segment is shown in Figure 1:</t>
 
       <t><figure>
           <artwork>            +--------------------+
@@ -280,7 +304,8 @@
       controller) to assign the Path Segment. In this case, the controller
       MUST make sure (e.g., by some capability discovery mechanisms outside
       the scope of this document) that the egress node knows the Path Segment
-      and it can process it.</t>
+      and it can process it, as well as the label does not collide with 
+      any label allocation done by the egress node.</t>
 
       <t>Path Computation Element Protocol (PCEP) based Path Segment
       allocation for SR Policy is defined in <xref
@@ -340,7 +365,7 @@
         </figure></t>
     </section>
 
-    <section title="Path Segment for PM">
+    <section title="Path Segment for End-to-end Performance Measurement">
       <t>As defined in <xref target="RFC7799"/>, performance measurement can
       be classified into Passive, Active, and Hybrid measurement.</t>
 
@@ -350,16 +375,16 @@
       the ingress and egress nodes of the SR path or a centralized controller) to
       correlate the packet counts and timestamps from the ingress and
       egress nodes for a specific SR path, then packet loss and delay can be
-      calculated, respectively.</t>
+      calculated for the end-to-end path, respectively.</t>
 
       <t>Path Segment can also be used for Active performance measurement 
-      in SR-MPLS networks for 
-      collecting packet counters and timestamps using probe messages 
+      for an SR path in SR-MPLS networks for 
+      collecting packet counters and timestamps from the egress node using probe messages 
       <xref target="I-D.gandhi-mpls-rfc6374-sr"/> and <xref
       target="I-D.gandhi-spring-twamp-srpm"/>.</t>
 
-      <t>Path Segment can also be used for In-situ OAM for SR-MPLS to identify the SR Path
-      associated with the in-situ data fields in the data
+      <t>Path Segment can also be used for In-situ OAM for SR-MPLS 
+      to identify the SR Path associated with the in-situ data fields in the data
       packets on the egress node <xref target="I-D.gandhi-mpls-ioam-sr"/>.</t>
     </section>
 
@@ -399,8 +424,8 @@
       <t>There then needs to be a method of binding this SR path identifiers
       into equivalence groups such that the egress node can determine for
       example, the set of packets that represent a single primary path.
-      Such equivalence group can be instantiated in the
-      network by an SDN controller using Path Segments of the SR paths.</t>
+      It is obvious that this equivalence group can be instantiated in the
+      network by an SDN controller using the Path Segments of the SR paths.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -445,6 +470,10 @@
       <?rfc include='reference.RFC.5586'?>
 
       <?rfc include='reference.RFC.5654'?>
+
+      <?rfc include='reference.RFC.8662'?>
+
+      <?rfc include='reference.RFC.8664'?>
 
       <?rfc include='reference.RFC.7799'?>
     </references>
