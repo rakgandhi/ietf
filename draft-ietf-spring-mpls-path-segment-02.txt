@@ -5,13 +5,13 @@
 SPRING Working Group                                            W. Cheng
 Internet-Draft                                                     H. Li
 Intended status: Standards Track                            China Mobile
-Expires: August 24, 2020                                         M. Chen
+Expires: August 25, 2020                                         M. Chen
                                                                   Huawei
                                                                R. Gandhi
                                                      Cisco Systems, Inc.
                                                                R. Zigler
                                                                 Broadcom
-                                                       February 21, 2020
+                                                       February 22, 2020
 
 
            Path Segment in MPLS Based Segment Routing Network
@@ -20,12 +20,12 @@ Expires: August 24, 2020                                         M. Chen
 Abstract
 
    A Segment Routing (SR) path is identified by an SR segment list.
-   Only the unique complete segment list can identify the end-to-end SR
-   path, and a sub-set of segments from the segment list cannot
-   distinguish one SR path from another as they may be partially
-   congruent.  SR path identification is a pre-requisite for various
-   use-cases such as Performance Measurement (PM), bidirectional path
-   identification and end-to-end 1+1 path protection.
+   Only the complete segment list can identify the end-to-end SR path,
+   and a sub-set of segments from the segment list cannot distinguish
+   one SR path from another as they may be partially congruent.  SR path
+   identification is a pre-requisite for various use-cases such as
+   Performance Measurement (PM), bidirectional paths correlation, and
+   end-to-end 1+1 path protection.
 
    In SR for MPLS data plane (SR-MPLS), the segment identifiers are
    stripped from the packet through label popping as the packet transits
@@ -40,7 +40,7 @@ Abstract
    segment list of the SR path.  The Path Segment will not be popped off
    until it reaches the egress node of the SR path.  The Path Segment
    then can be used by the egress node to implement SR path
-   identification.
+   identification and correlation.
 
 Status of This Memo
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Cheng, et al.            Expires August 24, 2020                [Page 1]
+Cheng, et al.            Expires August 25, 2020                [Page 1]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -66,7 +66,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 24, 2020.
+   This Internet-Draft will expire on August 25, 2020.
 
 Copyright Notice
 
@@ -89,9 +89,9 @@ Table of Contents
      1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      1.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Path Segment  . . . . . . . . . . . . . . . . . . . . . . . .   4
-   3.  Path Segment Allocation . . . . . . . . . . . . . . . . . . .   5
+   3.  Path Segment Allocation . . . . . . . . . . . . . . . . . . .   6
    4.  Nesting of Path Segments  . . . . . . . . . . . . . . . . . .   6
-   5.  Path Segment for PM . . . . . . . . . . . . . . . . . . . . .   7
+   5.  Path Segment for End-to-end Performance Measurement . . . . .   7
    6.  Path Segment for Bidirectional SR Path  . . . . . . . . . . .   8
    7.  Path Segment for End-to-end Path Protection . . . . . . . . .   8
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
@@ -101,7 +101,7 @@ Table of Contents
      10.2.  Informative References . . . . . . . . . . . . . . . . .   9
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  11
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Cheng, et al.            Expires August 24, 2020                [Page 2]
+Cheng, et al.            Expires August 25, 2020                [Page 2]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -135,13 +135,16 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    However, to support various use-cases in SR-MPLS networks, like end-
    to-end 1+1 path protection (Live-Live case) [RFC4426], bidirectional
    path [RFC5654], or Performance Measurement (PM) [RFC7799], the
-   ability to implement path identification is a pre-requisite.
+   ability to implement path identification on the egress node is a pre-
+   requisite.
 
    Therefore, this document introduces a new segment type that is
    referred to as the Path Segment.  A Path Segment is defined to
    uniquely identify an SR path in an SR-MPLS network in the context of
    the egress node.  It is normally used by the egress nodes for path
-   identification or correlation.
+   identification hence to support various use-cases including SR path
+   PM, end-to-end 1+1 SR path protection, and bidirectional SR paths
+   correlation.
 
 1.1.  Requirements Language
 
@@ -157,18 +160,21 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
    LM: Loss Measurement.
 
-   MPLS: Multiprotocol Label Switching:w .
+   MPLS: Multiprotocol Label Switching.
+
+
+
+
+Cheng, et al.            Expires August 25, 2020                [Page 3]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
+   MSD: Maximum SID Depth.
 
    PM: Performance Measurement.
 
    PSID: Path Segment ID.
-
-
-
-Cheng, et al.            Expires August 24, 2020                [Page 3]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
 
    SID: Segment ID.
 
@@ -178,16 +184,16 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
    SR-MPLS: Segment Routing instantiated on MPLS data plane.
 
-   SRv6: Segment Routing instantiated on IPv6 data plane
-
 2.  Path Segment
 
    A Path Segment is a single label that is assigned from the Segment
-   Routing Local Block (SRLB) or Segment Routing Global Block (SRGB) of
-   the egress node of an SR path.  It means that the Path Segment is
-   unique in the context of the egress node of the SR path.  When a Path
-   Segment is used, the Path Segment MUST be inserted at the ingress
-   node and MUST immediately follow the last label of the SR path.
+   Routing Local Block (SRLB) or Segment Routing Global Block (SRGB) or
+   dynamic MPLS label pool of the egress node of an SR path.  It means
+   that the Path Segment is unique in the context of the egress node of
+   the SR path.  When a Path Segment is used, the Path Segment MUST be
+   inserted at the ingress node and MUST immediately follow the last
+   label of the SR path, in other words, inserted after the routing
+   segment (adjacency/node/prefix segment) pointing to the egress node.
 
    The Path Segment may be used to identify an SR-MPLS Policy, its
    Candidate-Path (CP), or a SID List (SL)
@@ -212,19 +218,34 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    be popped off at the penultimate hop of an SR path, but the Path
    Segment MUST NOT be popped off until it reaches at the egress node.
 
-   The label stack with Path Segment is as below (Figure 1):
 
 
 
-
-
-
-
-
-Cheng, et al.            Expires August 24, 2020                [Page 4]
+Cheng, et al.            Expires August 25, 2020                [Page 4]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
+
+   In some deployments, service labels may be added after the Path
+   Segment label in the MPLS label stack.  In this case, the egress node
+   MUST be capable of processing more than one label.  The additional
+   processing required, can have an impact on forwarding performance.
+
+   Generic Associated Label (GAL) is used for Operations, Administration
+   and Maintenance (OAM) in MPLS networks [RFC5586].  The GAL MUST be
+   added at the bottom of the label stack after the Path Segment label.
+
+   Entropy label and Entropy Label Indicator (ELI) as described in
+   [RFC8662] for SR-MPLS path, can be placed before or after the Path
+   Segment label in the MPLS label stack.
+
+   The SR path computation needs to know the Maximum SID Depth (MSD)
+   that can be imposed at each node/link of a given SR path [RFC8664].
+   This ensures that the SID stack depth of a computed path does not
+   exceed the number of SIDs the node is capable of imposing.  The MSD
+   used for path computation MUST include the Path Segment label.
+
+   The label stack with Path Segment is shown in Figure 1:
 
                +--------------------+
                |       ...          |
@@ -252,6 +273,15 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    o  The Labels 1 to n are the segment label stack used to direct how
       to steer the packets along the SR path.
 
+
+
+
+
+Cheng, et al.            Expires August 25, 2020                [Page 5]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
    o  The Path Segment identifies the SR path in the context of the
       egress node of the SR path.
 
@@ -268,20 +298,12 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    controller) to assign the Path Segment.  In this case, the controller
    MUST make sure (e.g., by some capability discovery mechanisms outside
    the scope of this document) that the egress node knows the Path
-   Segment and it can process it.
+   Segment and it can process it, as well as the label does not collide
+   with any label allocation done by the egress node.
 
    Path Computation Element Protocol (PCEP) based Path Segment
    allocation for SR Policy is defined in
    [I-D.ietf-pce-sr-path-segment].  Also, BGP based Path Segment
-
-
-
-
-Cheng, et al.            Expires August 24, 2020                [Page 5]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
-
    allocation for SR Policy is defined in
    [I-D.li-idr-sr-policy-path-segment].
 
@@ -311,29 +333,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 24, 2020                [Page 6]
+Cheng, et al.            Expires August 25, 2020                [Page 6]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -362,7 +362,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
                 Figure 2: Nesting of Path Segments
 
-5.  Path Segment for PM
+5.  Path Segment for End-to-end Performance Measurement
 
    As defined in [RFC7799], performance measurement can be classified
    into Passive, Active, and Hybrid measurement.
@@ -372,12 +372,13 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    the measuring points (e.g., the ingress and egress nodes of the SR
    path or a centralized controller) to correlate the packet counts and
    timestamps from the ingress and egress nodes for a specific SR path,
-   then packet loss and delay can be calculated, respectively.
+   then packet loss and delay can be calculated for the end-to-end path,
+   respectively.
 
-   Path Segment can also be used for Active performance measurement in
-   SR-MPLS networks for collecting packet counters and timestamps using
-   probe messages [I-D.gandhi-mpls-rfc6374-sr] and
-   [I-D.gandhi-spring-twamp-srpm].
+   Path Segment can also be used for Active performance measurement for
+   an SR path in SR-MPLS networks for collecting packet counters and
+   timestamps from the egress node using probe messages
+   [I-D.gandhi-mpls-rfc6374-sr] and [I-D.gandhi-spring-twamp-srpm].
 
    Path Segment can also be used for In-situ OAM for SR-MPLS to identify
    the SR Path associated with the in-situ data fields in the data
@@ -388,8 +389,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-
-Cheng, et al.            Expires August 24, 2020                [Page 7]
+Cheng, et al.            Expires August 25, 2020                [Page 7]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -430,9 +430,9 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
    There then needs to be a method of binding this SR path identifiers
    into equivalence groups such that the egress node can determine for
-   example, the set of packets that represent a single primary path.
-   Such equivalence group can be instantiated in the network by an SDN
-   controller using Path Segments of the SR paths.
+   example, the set of packets that represent a single primary path.  It
+   is obvious that this equivalence group can be instantiated in the
+   network by an SDN controller using the Path Segments of the SR paths.
 
 8.  Security Considerations
 
@@ -445,7 +445,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 24, 2020                [Page 8]
+Cheng, et al.            Expires August 25, 2020                [Page 8]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -501,7 +501,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 24, 2020                [Page 9]
+Cheng, et al.            Expires August 25, 2020                [Page 9]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -557,10 +557,22 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 24, 2020               [Page 10]
+Cheng, et al.            Expires August 25, 2020               [Page 10]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
+
+   [RFC8662]  Kini, S., Kompella, K., Sivabalan, S., Litkowski, S.,
+              Shakir, R., and J. Tantsura, "Entropy Label for Source
+              Packet Routing in Networking (SPRING) Tunnels", RFC 8662,
+              DOI 10.17487/RFC8662, December 2019,
+              <https://www.rfc-editor.org/info/rfc8662>.
+
+   [RFC8664]  Sivabalan, S., Filsfils, C., Tantsura, J., Henderickx, W.,
+              and J. Hardwick, "Path Computation Element Communication
+              Protocol (PCEP) Extensions for Segment Routing", RFC 8664,
+              DOI 10.17487/RFC8664, December 2019,
+              <https://www.rfc-editor.org/info/rfc8664>.
 
 Acknowledgements
 
@@ -599,23 +611,19 @@ Contributors
       Email: gregimirsky@gmail.com
 
 
+
+
+Cheng, et al.            Expires August 25, 2020               [Page 11]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
 Authors' Addresses
 
    Weiqiang Cheng
    China Mobile
 
    Email: chengweiqiang@chinamobile.com
-
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 24, 2020               [Page 11]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
    Han Li
@@ -661,12 +669,4 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 24, 2020               [Page 12]
+Cheng, et al.            Expires August 25, 2020               [Page 12]
