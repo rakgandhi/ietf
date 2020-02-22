@@ -91,7 +91,7 @@ Table of Contents
    2.  Path Segment  . . . . . . . . . . . . . . . . . . . . . . . .   4
    3.  Path Segment Allocation . . . . . . . . . . . . . . . . . . .   6
    4.  Nesting of Path Segments  . . . . . . . . . . . . . . . . . .   6
-   5.  Path Segment for End-to-end Performance Measurement . . . . .   7
+   5.  Path Segment for Performance Measurement  . . . . . . . . . .   7
    6.  Path Segment for Bidirectional SR Path  . . . . . . . . . . .   8
    7.  Path Segment for End-to-end Path Protection . . . . . . . . .   8
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
@@ -209,15 +209,15 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    and do not know how to process it.  A Path Segment presenting to an
    intermediate node is an error condition.
 
+   A Path Segment can be used in the case of Penultimate Hop Popping
+   (PHP), where some labels are be popped off at the penultimate hop of
+   an SR path, but the Path Segment MUST NOT be popped off until it
+   reaches at the egress node.
+
    The egress node MUST pop the Path Segment.  The egress node MAY use
    the Path Segment for further processing.  For example, when
    performance measurement is enabled on the SR path, it can trigger
    packet counting or timestamping.
-
-   A Path Segment can be used in the case of PHP, where some labels MAY
-   be popped off at the penultimate hop of an SR path, but the Path
-   Segment MUST NOT be popped off until it reaches at the egress node.
-
 
 
 
@@ -229,7 +229,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    In some deployments, service labels may be added after the Path
    Segment label in the MPLS label stack.  In this case, the egress node
    MUST be capable of processing more than one label.  The additional
-   processing required, can have an impact on forwarding performance.
+   processing required can have an impact on forwarding performance.
 
    Generic Associated Label (GAL) is used for Operations, Administration
    and Maintenance (OAM) in MPLS networks [RFC5586].  The GAL MUST be
@@ -362,7 +362,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
                 Figure 2: Nesting of Path Segments
 
-5.  Path Segment for End-to-end Performance Measurement
+5.  Path Segment for Performance Measurement
 
    As defined in [RFC7799], performance measurement can be classified
    into Passive, Active, and Hybrid measurement.
@@ -577,8 +577,9 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 Acknowledgements
 
    The authors would like to thank Adrian Farrel, Stewart Bryant,
-   Alexander Vainshtein, Andrew G.  Malis and Loa Andersson for their
-   review, suggestions and comments to this document.
+   Alexander Vainshtein, Andrew G.  Malis, Ketan Talaulikar, Shraddha
+   Hegde, and Loa Andersson for their review, suggestions and comments
+   to this document.
 
    The authors would like to acknowledge the contribution from Alexander
    Vainshtein on "Nesting of Path Segments".
@@ -587,28 +588,27 @@ Contributors
 
    The following people have substantially contributed to this document:
 
-      Cheng Li,
-      Huawei Technologies,
-
-      EMail: chengli13@huawei.com
 
 
-      Lei Wang,
-      China Mobile,
-
-      Email: wangleiyj@chinamobile.com
 
 
-      Shuangping Zhan,
-      ZTE Corp,
-
-      Email: zhan.shuangping@zte.com.cn
 
 
-      Greg Mirsky,
-      ZTE Corp,
 
-      Email: gregimirsky@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -616,6 +616,30 @@ Contributors
 Cheng, et al.            Expires August 25, 2020               [Page 11]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
+    Cheng Li
+    Huawei Technologies
+
+    EMail: chengli13@huawei.com
+
+
+    Lei Wang
+    China Mobile
+
+    Email: wangleiyj@chinamobile.com
+
+
+    Shuangping Zhan
+    ZTE Corp
+
+    Email: zhan.shuangping@zte.com.cn
+
+
+    Greg Mirsky
+    ZTE Corp
+
+    Email: gregimirsky@gmail.com
 
 
 Authors' Addresses
@@ -636,6 +660,18 @@ Authors' Addresses
    Huawei
 
    Email: mach.chen@huawei.com
+
+
+
+
+
+
+
+
+
+Cheng, et al.            Expires August 25, 2020               [Page 12]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
    Rakesh Gandhi
@@ -669,4 +705,24 @@ Authors' Addresses
 
 
 
-Cheng, et al.            Expires August 25, 2020               [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cheng, et al.            Expires August 25, 2020               [Page 13]
