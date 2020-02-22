@@ -480,7 +480,7 @@
 
     <section anchor="Acknowledgements" numbered="no" title="Acknowledgements">
       <t>The authors would like to thank Adrian Farrel, Stewart Bryant,
-      Alexander Vainshtein, Andrew G. Malis and Loa Andersson for their
+      Alexander Vainshtein, Andrew G. Malis, Ketan Talaulikar, and Loa Andersson for their
       review, suggestions and comments to this document.</t>
 
       <t>The authors would like to acknowledge the contribution from Alexander
@@ -492,26 +492,26 @@
       document:</t>
 
      <t><figure>
-        <artwork><![CDATA[   Cheng Li,
-   Huawei Technologies,
+        <artwork><![CDATA[   Cheng Li
+   Huawei Technologies
 
    EMail: chengli13@huawei.com
 
 
-   Lei Wang,
-   China Mobile,
+   Lei Wang
+   China Mobile
 
    Email: wangleiyj@chinamobile.com
 
 
-   Shuangping Zhan,
-   ZTE Corp,
+   Shuangping Zhan
+   ZTE Corp
 
    Email: zhan.shuangping@zte.com.cn
 
 
-   Greg Mirsky,
-   ZTE Corp,
+   Greg Mirsky
+   ZTE Corp
 
    Email: gregimirsky@gmail.com
     
