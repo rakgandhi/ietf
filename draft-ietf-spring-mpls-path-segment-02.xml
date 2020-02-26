@@ -106,7 +106,7 @@
       </address>
     </author>
 
-    <date day="22" month="February" year="2020"/>
+    <date day="26" month="February" year="2020"/>
 
     <area>Routing Area</area>
 
@@ -241,8 +241,8 @@
 
       <t>Generic Associated Label (GAL) is used for Operations, 
       Administration and Maintenance (OAM) 
-      in MPLS networks <xref target="RFC5586"/>. The GAL MUST be added at 
-      the bottom of the label stack after the Path Segment label.</t>
+      in MPLS networks <xref target="RFC5586"/>. When GAL is used, it MUST be
+      added at the bottom of the label stack after the Path Segment label.</t>
  
       <t>Entropy label and Entropy Label Indicator (ELI) as described in  
       <xref target="RFC8662"/>
@@ -386,6 +386,11 @@
       <t>Path Segment can also be used for In-situ OAM for SR-MPLS 
       to identify the SR Path associated with the in-situ data fields in the data
       packets on the egress node <xref target="I-D.gandhi-mpls-ioam-sr"/>.</t>
+
+      <t>Path Segment can also be used for In-band PM for SR-MPLS to identify the 
+      SR Path associated with the collected performance metrics 
+      <xref target="I-D.cheng-mpls-inband-pm-encapsulation"/>.</t>
+
     </section>
 
     <section title="Path Segment for Bidirectional SR Path">
@@ -465,6 +470,8 @@
 
       <?rfc include='reference.I-D.ietf-spring-segment-routing-policy'?>
 
+      <?rfc include='reference.I-D.cheng-mpls-inband-pm-encapsulation'?>
+
       <?rfc include='reference.RFC.4426'?>
 
       <?rfc include='reference.RFC.5586'?>
@@ -479,7 +486,7 @@
     </references>
 
     <section anchor="Acknowledgements" numbered="no" title="Acknowledgements">
-      <t>The authors would like to thank Adrian Farrel, Stewart Bryant,
+      <t>The authors would like to thank Adrian Farrel, Stewart Bryant, Shuangping Zhan,
       Alexander Vainshtein, Andrew G. Malis, Ketan Talaulikar, Shraddha Hegde, and Loa Andersson for their
       review, suggestions and comments to this document.</t>
 
@@ -504,10 +511,10 @@
  Email: wangleiyj@chinamobile.com
 
 
- Shuangping Zhan
+ Aihua Liu
  ZTE Corp
 
- Email: zhan.shuangping@zte.com.cn
+ Email: liu.aihua@zte.com.cn
 
 
  Greg Mirsky
