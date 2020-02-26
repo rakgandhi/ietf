@@ -5,13 +5,13 @@
 SPRING Working Group                                            W. Cheng
 Internet-Draft                                                     H. Li
 Intended status: Standards Track                            China Mobile
-Expires: August 25, 2020                                         M. Chen
+Expires: August 29, 2020                                         M. Chen
                                                                   Huawei
                                                                R. Gandhi
                                                      Cisco Systems, Inc.
                                                                R. Zigler
                                                                 Broadcom
-                                                       February 22, 2020
+                                                       February 26, 2020
 
 
            Path Segment in MPLS Based Segment Routing Network
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 1]
+Cheng, et al.            Expires August 29, 2020                [Page 1]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -66,7 +66,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 25, 2020.
+   This Internet-Draft will expire on August 29, 2020.
 
 Copyright Notice
 
@@ -94,7 +94,7 @@ Table of Contents
    5.  Path Segment for Performance Measurement  . . . . . . . . . .   7
    6.  Path Segment for Bidirectional SR Path  . . . . . . . . . . .   8
    7.  Path Segment for End-to-end Path Protection . . . . . . . . .   8
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
      10.1.  Normative References . . . . . . . . . . . . . . . . . .   9
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 2]
+Cheng, et al.            Expires August 29, 2020                [Page 2]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -165,7 +165,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 3]
+Cheng, et al.            Expires August 29, 2020                [Page 3]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -221,7 +221,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 4]
+Cheng, et al.            Expires August 29, 2020                [Page 4]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -232,8 +232,9 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    processing required can have an impact on forwarding performance.
 
    Generic Associated Label (GAL) is used for Operations, Administration
-   and Maintenance (OAM) in MPLS networks [RFC5586].  The GAL MUST be
-   added at the bottom of the label stack after the Path Segment label.
+   and Maintenance (OAM) in MPLS networks [RFC5586].  When GAL is used,
+   it MUST be added at the bottom of the label stack after the Path
+   Segment label.
 
    Entropy label and Entropy Label Indicator (ELI) as described in
    [RFC8662] for SR-MPLS path, can be placed before or after the Path
@@ -276,8 +277,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-
-Cheng, et al.            Expires August 25, 2020                [Page 5]
+Cheng, et al.            Expires August 29, 2020                [Page 5]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -333,7 +333,7 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 6]
+Cheng, et al.            Expires August 29, 2020                [Page 6]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -389,10 +389,14 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 25, 2020                [Page 7]
+Cheng, et al.            Expires August 29, 2020                [Page 7]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
+
+   Path Segment can also be used for In-band PM for SR-MPLS to identify
+   the SR Path associated with the collected performance metrics
+   [I-D.cheng-mpls-inband-pm-encapsulation].
 
 6.  Path Segment for Bidirectional SR Path
 
@@ -434,21 +438,22 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    is obvious that this equivalence group can be instantiated in the
    network by an SDN controller using the Path Segments of the SR paths.
 
+
+
+
+
+
+
+
+Cheng, et al.            Expires August 29, 2020                [Page 8]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
 8.  Security Considerations
 
    This document does not introduce additional security requirements and
    mechanisms other than the ones described in [RFC8402].
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 25, 2020                [Page 8]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
 
 9.  IANA Considerations
 
@@ -480,11 +485,26 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 10.2.  Informative References
 
+   [I-D.cheng-mpls-inband-pm-encapsulation]
+              Cheng, W., Xiao, M., Zhou, T., Dong, X., and Y. Peleg,
+              "Encapsulation For MPLS Performance Measurement with
+              Alternate Marking Method", draft-cheng-mpls-inband-pm-
+              encapsulation-02 (work in progress), November 2019.
+
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
               and V. Kozak, "Segment Routing with MPLS Data Plane
               Encapsulation for In-situ OAM Data", draft-gandhi-mpls-
               ioam-sr-01 (work in progress), December 2019.
+
+
+
+
+
+Cheng, et al.            Expires August 29, 2020                [Page 9]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
 
    [I-D.gandhi-mpls-rfc6374-sr]
               Gandhi, R., Filsfils, C., Voyer, D., Salsano, S., and M.
@@ -497,14 +517,6 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
               Janssens, "Performance Measurement Using TWAMP Light for
               Segment Routing Networks", draft-gandhi-spring-twamp-
               srpm-05 (work in progress), December 2019.
-
-
-
-
-Cheng, et al.            Expires August 25, 2020                [Page 9]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -542,6 +554,14 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
               DOI 10.17487/RFC5586, June 2009,
               <https://www.rfc-editor.org/info/rfc5586>.
 
+
+
+
+Cheng, et al.            Expires August 29, 2020               [Page 10]
+
+Internet-Draft           Path Segment in SR-MPLS           February 2020
+
+
    [RFC5654]  Niven-Jenkins, B., Ed., Brungard, D., Ed., Betts, M., Ed.,
               Sprecher, N., and S. Ueno, "Requirements of an MPLS
               Transport Profile", RFC 5654, DOI 10.17487/RFC5654,
@@ -550,17 +570,6 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
    [RFC7799]  Morton, A., "Active and Passive Metrics and Methods (with
               Hybrid Types In-Between)", RFC 7799, DOI 10.17487/RFC7799,
               May 2016, <https://www.rfc-editor.org/info/rfc7799>.
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 25, 2020               [Page 10]
-
-Internet-Draft           Path Segment in SR-MPLS           February 2020
-
 
    [RFC8662]  Kini, S., Kompella, K., Sivabalan, S., Litkowski, S.,
               Shakir, R., and J. Tantsura, "Entropy Label for Source
@@ -577,9 +586,9 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 Acknowledgements
 
    The authors would like to thank Adrian Farrel, Stewart Bryant,
-   Alexander Vainshtein, Andrew G.  Malis, Ketan Talaulikar, Shraddha
-   Hegde, and Loa Andersson for their review, suggestions and comments
-   to this document.
+   Shuangping Zhan, Alexander Vainshtein, Andrew G.  Malis, Ketan
+   Talaulikar, Shraddha Hegde, and Loa Andersson for their review,
+   suggestions and comments to this document.
 
    The authors would like to acknowledge the contribution from Alexander
    Vainshtein on "Nesting of Path Segments".
@@ -604,16 +613,7 @@ Contributors
 
 
 
-
-
-
-
-
-
-
-
-
-Cheng, et al.            Expires August 25, 2020               [Page 11]
+Cheng, et al.            Expires August 29, 2020               [Page 11]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -630,10 +630,10 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
     Email: wangleiyj@chinamobile.com
 
 
-    Shuangping Zhan
+    Aihua Liu
     ZTE Corp
 
-    Email: zhan.shuangping@zte.com.cn
+    Email: liu.aihua@zte.com.cn
 
 
     Greg Mirsky
@@ -669,7 +669,7 @@ Authors' Addresses
 
 
 
-Cheng, et al.            Expires August 25, 2020               [Page 12]
+Cheng, et al.            Expires August 29, 2020               [Page 12]
 
 Internet-Draft           Path Segment in SR-MPLS           February 2020
 
@@ -725,4 +725,4 @@ Internet-Draft           Path Segment in SR-MPLS           February 2020
 
 
 
-Cheng, et al.            Expires August 25, 2020               [Page 13]
+Cheng, et al.            Expires August 29, 2020               [Page 13]
