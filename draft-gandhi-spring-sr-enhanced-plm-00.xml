@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="18" month="February" year="2020"/>
+    <date day="27" month="February" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -193,7 +193,22 @@
       TWAMP probe messages for delay measurement defined in <xref
       target="RFC5357"/> are sent by the sender (head-end) node to the endpoint
       node of the SR Policy using the Segment List (SL) of the SR Policy as shown
-      in Figure 1. When an SR Policy has more than one Segment List, multiple
+      in Figure 1.</t>
+	     
+      <figure anchor="ure-loopback-mode" title="Loopback Mode">
+        <artwork>
+               +-------+       Probe         +-------+
+               |       | - - - - - - - - - - |       |
+               |   R1  |--------------------||  R5   |
+               |       |&lt;- - - - - - - - - - |       |
+               +-------+     Return Probe    +-------+
+                Sender                       Reflector Endpoint
+                                             (Forward)
+       </artwork>
+      </figure>
+	     
+	     
+      <t>When an SR Policy has more than one Segment List, multiple
       probe messages are sent, one using each Segment List. The Source and
       Destination IP addresses in the probe packets are set to the endpoint
       and the sender node addresses. 
@@ -214,25 +229,13 @@
       packets are not received back at the sender, where N is locally
       provisioned value.</t>
 
-      <figure anchor="ure-loopback-mode" title="Loopback Mode">
-        <artwork>
-               +-------+       Probe         +-------+
-               |       | - - - - - - - - - - |       |
-               |   R1  |--------------------||  R5   |
-               |       |&lt;- - - - - - - - - - |       |
-               +-------+     Return Probe    +-------+
-                Sender                       Reflector Endpoint
-                                             (Forward)
-       </artwork>
-      </figure>
-
       <section anchor="sect-3.1" title="Loopback Mode for SR-MPLS">
         <t>The TWAMP probe messages are sent using the label stack of the SR
         Policy as shown in Figure 2. The label stack can contain the reverse
         path to receive the reply on a specific SR-MPLS path.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
-                title="Probe Message Header For SR-MPLS">
+                title="Probe Message Header for SR-MPLS">
           <artwork>  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -295,15 +298,39 @@
     <section anchor="sect-4"
              title="Enhanced Performance and Liveness Monitoring">
       <t>The enhanced performance and liveness monitoring for an SR Policy is
-      defined using loopback mode enabled with network programming. In this
+      defined using the loopback mode enabled with network programming.
+      The network programming function optimizes the operations of punt, 
+      add receive timestamp and inject the probe packet on the reflector node. In this
       mode, both transmit and receive timestamps from data plane are collected
-      by the probe messages sent in loopback mode enabled with network
-      programming function as shown in Figure 4. The sender node adds transmit 
-      timestamp in the payload of the TWAMP probe message. The endpoint node adds the
-      receive timestamp (at the fixed location) in the payload of the received TWAMP probe 
-      message without punting the probe message in control-plane. The end-to-end delay
-      is measured using the receive and transmit timestamps in the probe
-      message.</t>
+      by the probe messages sent in loopback mode as shown in Figure 4.</t>	      
+
+
+      <figure align="center"
+              anchor="ure-loopback-mode-enabled-with-network-programming"
+              title="Loopback Mode Enabled with Network Programming">
+        <artwork>
+               +-------+       Probe         +-------+
+               |       | - - - - - - - - - - |       |
+               |   R1  |--------------------||  R5   |
+               |       |&lt;- - - - - - - - - - |       |
+               +-------+     Return Probe    +-------+
+                Sender                       Reflector Endpoint
+                                             (Timestamp, 
+                                              Pop and Forward)
+      </artwork>
+      </figure>
+   
+      <t> The sender node adds transmit 
+      timestamp in the payload of the TWAMP probe message and clears the receive timestamp. 
+      The endpoint node adds the receive timestamp (at the fixed location 
+      locally provisioned and is consistent in the network) in the 
+      payload of the received TWAMP probe 
+      message without punting the probe message in control-plane. The endpoint node only
+      adds the receive timestamp if the source address in the probe message matches
+      the local node address to ensure that the probe messages are returned by the 
+      intended endpoint node. In addition, the UDP port in the probe message must be
+      locally programmed for adding the timestamp in the packet. The end-to-end delay 
+      is measured using the receive and transmit timestamps in the probe message.</t>
 
       <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
       specified in <xref target="RFC8186"/> implemented in hardware. Note that this can be 
@@ -323,21 +350,6 @@
       M number of probe messages have measured delay values violate user-configured threshold,
       where M is locally provisioned value.</t>
 
-      <figure align="center"
-              anchor="ure-loopback-mode-enabled-with-network-programming"
-              title="Loopback Mode Enabled with Network Programming">
-        <artwork>
-               +-------+       Probe         +-------+
-               |       | - - - - - - - - - - |       |
-               |   R1  |--------------------||  R5   |
-               |       |&lt;- - - - - - - - - - |       |
-               +-------+     Return Probe    +-------+
-                Sender                       Reflector Endpoint
-                                             (Timestamp, 
-                                              Pop and Forward)
-      </artwork>
-      </figure>
-
       <section anchor="sect-4.1"
                title="Loopback Mode Enabled with Network Programming for SR-MPLS"
                toc="default">
@@ -355,7 +367,7 @@
         packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
-                title="Probe Message Header For SR-MPLS with Timestamp Label">
+                title="Probe Message Header for SR-MPLS with Timestamp Label">
           <artwork>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -406,7 +418,7 @@
         (just like the packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
-                title="Probe Message Header for SRv6 With Endpoint Function">
+                title="Probe Message Header for SRv6 with Endpoint Function">
           <artwork>
   +---------------------------------------------------------------+
   |                           SRH                                 |
@@ -441,9 +453,9 @@
       <t>Forwarding plane has various hashing functions available to forward
       packets on specific ECMP paths. In the IP header of the PM probe messages,
       sweeping of Destination Addresses in 127/8 range for IPv4 or
-      0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise a
-      particular ECMP path. The Flow Label field in the IPv6 header can also 
-      be used for sweeping.</t>
+      0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise different 
+      ECMP paths in loopback mode as long as reverse path is SR-MPLS or SRv6 path.
+      The Flow Label field in the IPv6 header can also be used for sweeping ECMP paths.</t>
    </section>
 
    <section anchor="sect-6" title="Security Considerations" toc="default">
