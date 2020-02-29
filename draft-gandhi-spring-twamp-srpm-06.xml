@@ -90,7 +90,7 @@
    Measurement (PM) in Segment Routing networks.  The procedure uses the
    mechanisms defined in RFC 5357 (Two-Way Active Measurement Protocol
    (TWAMP) Light) and Simple Two-Way Active Measurement Protocol (STAMP)
-   for Delay Measurement, and also uses the mechanisms defined in this
+   for Delay Measurement, and also uses the extensions defined in this
    document for Loss Measurement.  The procedure specified is applicable
    to SR-MPLS and SRv6 data planes and is used for both links and
    end-to-end SR Policies.</t>
@@ -132,7 +132,7 @@
    query and response messages for Performance Measurement in SR
    networks.  The procedure uses the mechanisms defined in <xref target="RFC5357"/>
    (TWAMP Light) and STAMP for Delay Measurement (DM), and also uses the
-   mechanisms defined in this document for Loss Measurement.  The
+   extensions defined in this document for Loss Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
@@ -497,7 +497,7 @@ response messages.
 	</section>
         </section>
 
-	<section title="Loss Measurement Probe Query Message Formats" anchor="sect-4.1.3">
+	<section title="Loss Measurement Query Message Formats" anchor="sect-4.1.3">
    <t> In this document, new probe query message formats are defined for
    loss measurement.  The message
    formats are hardware efficient due to the small size payload and
@@ -629,7 +629,9 @@ response messages.
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.</t>
 
-	<section title="Loss Measurement Probe Query Message Formats for STAMP" anchor="sect-4.1.3.1">
+   </section>
+
+   <section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.4">
 
 	<figure title="STAMP LM Probe Query Message Format" anchor="ure-stamp-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -682,9 +684,7 @@ response messages.
 
 	</section>
 
-	</section>
-
-	<section title="Probe Query for SR Links" anchor="sect-4.1.4"><t>
+	<section title="Probe Query for SR Links" anchor="sect-4.1.5"><t>
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
    query message as defined in Figure 2 is sent on the congruent path of
@@ -692,7 +692,7 @@ response messages.
 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.5"><t>
+	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.6"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.</t>
 
@@ -732,7 +732,7 @@ response messages.
 
 	</section>
 
-	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.5.2"><t>
+	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.6.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. 
    For SRv6, network programming is defined in <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
@@ -874,7 +874,7 @@ response messages.
 
 	</section>
 
-	<section title="Loss Measurement Probe Response Message Formats" anchor="sect-4.2.4"><t>
+	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
    In this document, probe response message formats are defined for loss
    measurement as shown in Figure 12-15.  The message formats are
    hardware efficient due to the small size payload and well known
@@ -969,7 +969,9 @@ response messages.
 ]]></artwork>
 	</figure>
 
-	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.4.1">
+	</section>
+
+	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.5">
 
 	<figure title="STAMP LM Probe Response Message Format" anchor="ure-stamp-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -1048,8 +1050,6 @@ response messages.
 	</figure>
         </section>
         </section>
-
-	</section>
 
 	<section title="Return Path TLV for STAMP" anchor="sect-4.3"><t>
    For two-way performance measurement, the reflector node needs to send
@@ -1133,7 +1133,7 @@ response messages.
    The Return Path TLV is optional.  The PM sender node MUST only insert
    one Return Path TLV in the probe query message and the reflector node
    MUST only process the first Return Path TLV in the probe query
-   message and ignore other Return Path TLVs if present.  The reflector
+   message and ignore other Return Path TLVs if present. The reflector
    node MUST send probe response message back on the reverse path
    specified in the Return Path TLV and MUST NOT add Return Path TLV in
    the probe response message.</t>
@@ -1141,7 +1141,7 @@ response messages.
 	<t>
    In the absence of Return Path TLV, in two-way measurement mode, the
    probe response message is sent back on the incoming physical
-   interface where the probe query message is received.  This is useful
+   interface where the probe query message is received. This is useful
    for example, in case of two-way measurement mode for SR link delay.</t>
 
 	</section>
