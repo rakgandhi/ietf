@@ -1244,7 +1244,7 @@ response messages.
 
 	</section>
 
-	<section title="Additional Message Processing Rules" anchor="sect-7"><section title="TTL Value" anchor="sect-7.1"><t>
+	<section title="Additional Message Processing Rules" anchor="sect-7"><section title="TTL and Hop Limit" anchor="sect-7.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
    probe query messages is set to 255 <xref target="RFC5357"/>.
    Similarly, the Hop Limit field in the IPv6 and SRH headers of the
@@ -1257,7 +1257,8 @@ response messages.
    outer IPv6 header is set to 255.</t>
 
        <t> 
-   For SR link performance delay and loss measurement, the probe messages are pre-routed over the link and the TTL and Hop Limit field are set to 1. 
+   For SR link performance delay and loss measurement, the probe messages are pre-routed 
+   over the link and the TTL and Hop Limit field are set to 1 in both one-way and two-way measurement modes. 
        </t>
 
 	</section>
