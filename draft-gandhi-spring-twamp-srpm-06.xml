@@ -495,9 +495,9 @@ response messages.
    authentication mode due to the different message format.</t>
 
 	</section>
+        </section>
 
-	<section title="Loss Measurement Probe Query Message Formats" anchor="sect-4.1.2.2">
-
+	<section title="Loss Measurement Probe Query Message Formats" anchor="sect-4.1.3">
    <t> In this document, new probe query message formats are defined for
    loss measurement.  The message
    formats are hardware efficient due to the small size payload and
@@ -629,9 +629,7 @@ response messages.
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.</t>
 
-   </section>
-
-	<section title="Loss Measurement Probe Query Message Formats for STAMP" anchor="sect-4.1.2.3">
+	<section title="Loss Measurement Probe Query Message Formats for STAMP" anchor="sect-4.1.3.1">
 
 	<figure title="STAMP LM Probe Query Message Format" anchor="ure-stamp-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -686,7 +684,7 @@ response messages.
 
 	</section>
 
-	<section title="Probe Query for SR Links" anchor="sect-4.1.3"><t>
+	<section title="Probe Query for SR Links" anchor="sect-4.1.4"><t>
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
    query message as defined in Figure 2 is sent on the congruent path of
@@ -694,11 +692,11 @@ response messages.
 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.4"><t>
+	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.5"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.</t>
 
-	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
+	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.5.1"><t>
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 7.</t>
@@ -734,7 +732,7 @@ response messages.
 
 	</section>
 
-	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.4.2"><t>
+	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.5.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. The
    probe query messages for end-to-end performance measurement of an
@@ -877,7 +875,7 @@ response messages.
 
 	</section>
 
-	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
+	<section title="Loss Measurement Probe Response Message Formats" anchor="sect-4.2.4"><t>
    In this document, probe response message formats are defined for loss
    measurement as shown in Figure 12-15.  The message formats are
    hardware efficient due to the small size payload and well known
