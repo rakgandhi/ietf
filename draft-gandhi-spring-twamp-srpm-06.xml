@@ -28,6 +28,7 @@
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-6man-segment-routing-header SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-segment-routing-header.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
+<!ENTITY I-D.filsfils-spring-net-pgm-extension-srv6-usid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.filsfils-spring-net-pgm-extension-srv6-usid.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.gandhi-spring-ioam-sr-mpls SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-ioam-sr-mpls.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
@@ -43,7 +44,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="TWAMP Light for Segment Routing">Performance Measurement Using TWAMP Light for Segment Routing Networks</title>
+	<title abbrev="TWAMP Light for Segment Routing">Performance Measurement Using TWAMP Light and STAMP for Segment Routing Networks</title>
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
 	<address><postal><street>Canada</street>
@@ -734,15 +735,16 @@ response messages.
 
 	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.5.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. The
-   probe query messages for end-to-end performance measurement of an
+   a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. 
+   For SRv6, network programming is defined in <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
+   and its extensiopns in <xref target="I-D.filsfils-spring-net-pgm-extension-srv6-usid"/>. 
+   The probe query messages for end-to-end performance measurement of an
    SRv6 Policy is sent using its SRH and Segment List as shown in Figure
    8.</t>
 
 	<figure title="Probe Query Message for SRv6 Policy" anchor="ure-probe-query-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
  |                           SRH                                 |
- .   END.OTP (DM) or END.OP (LM) with Target SRv6 SID            .
  .                                                               .
  +---------------------------------------------------------------+
 
@@ -849,7 +851,6 @@ response messages.
 	<figure title="Probe Response Message for SRv6 Policy" anchor="ure-probe-response-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
  |                           SRH                                 |
- .   END.OTP (DM) or END.OP (LM) with Target SRv6 SID            .
  .                                                               .
  +---------------------------------------------------------------+
  |   Message as shown in Figure 9                                |
@@ -1246,9 +1247,10 @@ response messages.
 	</section>
 
 	<section title="Additional Message Processing Rules" anchor="sect-7"><section title="TTL Value" anchor="sect-7.1"><t>
-   The TTL or the Hop Limit field in the IP, MPLS and SRH headers of the
-   probe query messages are set to 255 <xref target="RFC5357"/>.</t>
-
+   The TTL field in the IPv4 and MPLS headers of the
+   probe query messages is set to 255 <xref target="RFC5357"/>.
+   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
+   probe query messages is set to 255 <xref target="RFC5357"/>.</t>
 	<t>
    When using the Destination IPv4 Address from the 127/8 range, the TTL
    in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
@@ -1257,7 +1259,7 @@ response messages.
    outer IPv6 header is set to 255.</t>
 
        <t> 
-   For SR links performance delay and loss measurement, the probe messages are pre-routed over the links and the TTL is set to 1. 
+   For SR link performance delay and loss measurement, the probe messages are pre-routed over the link and the TTL and Hop Limit field are set to 1. 
        </t>
 
 	</section>
@@ -1404,6 +1406,7 @@ response messages.
 	&I-D.ietf-spring-mpls-path-segment;
 	&I-D.ietf-6man-segment-routing-header;
 	&I-D.ietf-spring-srv6-network-programming;
+	&I-D.filsfils-spring-net-pgm-extension-srv6-usid;
 	&I-D.ietf-pce-binding-label-sid;
 	<reference anchor="BBF.TR-390"><front>
 	<title>Performance Measurement from IP Edge to Customer Equipment using TWAMP Light</title>
