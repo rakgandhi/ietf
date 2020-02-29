@@ -457,15 +457,6 @@ response messages.
 	</section>
 
 	<section title="Loss Measurement Probe Query Message" anchor="sect-4.1.2"><t>
-   In this document, new probe query message formats are defined for
-   loss measurement.  The message
-   formats are hardware efficient due to the small size payload and
-   well-known locations of counters.  They are similar to the delay
-   measurement message formats and do not require any backwards
-   compatibility and support for the existing DM message formats from
-   <xref target="RFC5357"/>.</t>
-
-	<t>
    The message content for Loss Measurement probe query message using
    UDP header <xref target="RFC0768"/> is shown in Figure 2.  The LM probe query message
    is sent with user-configured Destination UDP port number for LM.
@@ -495,6 +486,14 @@ response messages.
  +---------------------------------------------------------------+
 ]]></artwork>
 	</figure>
+
+   <t> In this document, new probe query message formats are defined for
+   loss measurement.  The message
+   formats are hardware efficient due to the small size payload and
+   well-known locations of counters.  They are similar to the delay
+   measurement message formats and do not require any backwards
+   compatibility and support for the existing DM message formats from
+   <xref target="RFC5357"/>.</t>
 
 	<figure title="LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -787,8 +786,8 @@ response messages.
  +---------------------------------------------------------------+
  | DM Payload as specified in Section 4.2.1 of RFC 5357, or      |
  . DM payload as specified in Section 4.3 of [I-D.ippm-stamp]    .
- . LM Payload as specified in Figure 10 or 11 in this document or.
- . LM Payload as specified in Figure 12 or 13 in this document   .
+ . LM Payload as specified in Figure 12 or 13 in this document or.
+ . LM Payload as specified in Figure 14 or 15 in this document   .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -811,7 +810,7 @@ response messages.
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The message content for sending probe response message for two-way
    end-to-end performance measurement of an SR-MPLS Policy is shown in
-   Figure 14.</t>
+   Figure 10.</t>
 
 	<figure title="Probe Response Message for SR-MPLS Policy" anchor="ure-probe-response-message-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -843,7 +842,7 @@ response messages.
 	<section title="Probe Response Message for SRv6 Policy" anchor="sect-4.2.2.2"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy with SRH is shown in Figure 15.</t>
+   measurement of an SRv6 Policy with SRH is shown in Figure 11.</t>
 
 	<figure title="Probe Response Message for SRv6 Policy" anchor="ure-probe-response-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -876,7 +875,7 @@ response messages.
 
 	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
    In this document, probe response message formats are defined for loss
-   measurement as shown in Figure 10-13.  The message formats are
+   measurement as shown in Figure 12-15.  The message formats are
    hardware efficient due to the small size payload and well known
    locations of the counters.  They are also similar to the delay
    measurement message formats.</t>
