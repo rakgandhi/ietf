@@ -14,7 +14,8 @@ Expires: September 1, 2020                                      D. Voyer
                                                        February 29, 2020
 
 
- Performance Measurement Using TWAMP Light for Segment Routing Networks
+Performance Measurement Using TWAMP Light and STAMP for Segment Routing
+                                Networks
                    draft-gandhi-spring-twamp-srpm-06
 
 Abstract
@@ -47,7 +48,6 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on September 1, 2020.
-
 
 
 
@@ -116,7 +116,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  28
      10.2.  Informative References . . . . . . . . . . . . . . . . .  29
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  32
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  33
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
@@ -817,13 +817,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in [I-D.ietf-6man-segment-routing-header].
-   The probe query messages for end-to-end performance measurement of an
-   SRv6 Policy is sent using its SRH and Segment List as shown in
-   Figure 8.
+   For SRv6, network programming is defined in
+   [I-D.ietf-spring-srv6-network-programming].  and its extensiopns in
+   [I-D.filsfils-spring-net-pgm-extension-srv6-usid].  The probe query
+   messages for end-to-end performance measurement of an SRv6 Policy is
+   sent using its SRH and Segment List as shown in Figure 8.
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
-    .   END.OTP (DM) or END.OP (LM) with Target SRv6 SID            .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -833,7 +834,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +---------------------------------------------------------------+
 
                Figure 8: Probe Query Message for SRv6 Policy
-
 
 
 
@@ -956,7 +956,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
-    .   END.OTP (DM) or END.OP (LM) with Target SRv6 SID            .
     .                                                               .
     +---------------------------------------------------------------+
     |   Message as shown in Figure 9                                |
@@ -984,6 +983,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    hardware efficient due to the small size payload and well known
    locations of the counters.  They are also similar to the delay
    measurement message formats.
+
 
 
 
@@ -1441,14 +1441,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 7.1.  TTL Value
 
-   The TTL or the Hop Limit field in the IP, MPLS and SRH headers of the
-   probe query messages are set to 255 [RFC5357].
+   The TTL field in the IPv4 and MPLS headers of the probe query
+   messages is set to 255 [RFC5357].  Similarly, the Hop Limit field in
+   the IPv6 and SRH headers of the probe query messages is set to 255
+   [RFC5357].
 
    When using the Destination IPv4 Address from the 127/8 range, the TTL
    in the IPv4 header is set to 1 [RFC8029].  Similarly, when using the
    Destination IPv6 Address from the 0:0:0:0:0:FFFF:7F00/104 range, the
-   Hop Limit field in the inner IPv6 header is set to 1 whereas in the
-   outer IPv6 header is set to 255.
 
 
 
@@ -1458,8 +1458,12 @@ Gandhi, et al.          Expires September 1, 2020              [Page 26]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
-   For SR links performance delay and loss measurement, the probe
-   messages are pre-routed over the links and the TTL is set to 1.
+   Hop Limit field in the inner IPv6 header is set to 1 whereas in the
+   outer IPv6 header is set to 255.
+
+   For SR link performance delay and loss measurement, the probe
+   messages are pre-routed over the link and the TTL and Hop Limit field
+   are set to 1.
 
 7.2.  Router Alert Option
 
@@ -1503,10 +1507,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    disruption that can be caused by a corrupt or invalid message to a
    single query/response cycle.
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the probe messages.  SRv6 has HMAC protection
-   authentication defined for SRH
-
 
 
 Gandhi, et al.          Expires September 1, 2020              [Page 27]
@@ -1514,6 +1514,9 @@ Gandhi, et al.          Expires September 1, 2020              [Page 27]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the probe messages.  SRv6 has HMAC protection
+   authentication defined for SRH
    [I-D.ietf-6man-segment-routing-header].  Hence, PM probe messages for
    SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
@@ -1556,10 +1559,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+
 
 
 
@@ -1569,6 +1569,11 @@ Gandhi, et al.          Expires September 1, 2020              [Page 28]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4656]  Shalunov, S., Teitelbaum, B., Karp, A., Boote, J., and M.
               Zekauskas, "A One-way Active Measurement Protocol
@@ -1614,17 +1619,16 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               DOI 10.17487/RFC2104, February 1997,
               <https://www.rfc-editor.org/info/rfc2104>.
 
-   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
-              DOI 10.17487/RFC2113, February 1997,
-              <https://www.rfc-editor.org/info/rfc2113>.
-
-
 
 
 Gandhi, et al.          Expires September 1, 2020              [Page 29]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
+
+   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
+              DOI 10.17487/RFC2113, February 1997,
+              <https://www.rfc-editor.org/info/rfc2113>.
 
    [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
               384, and HMAC-SHA-512 with IPsec", RFC 4868,
@@ -1669,11 +1673,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               DOI 10.17487/RFC7820, March 2016,
               <https://www.rfc-editor.org/info/rfc7820>.
 
-   [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
-              Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
-              Switched (MPLS) Data-Plane Failures", RFC 8029,
-              DOI 10.17487/RFC8029, March 2017,
-              <https://www.rfc-editor.org/info/rfc8029>.
+
 
 
 
@@ -1681,6 +1681,12 @@ Gandhi, et al.          Expires September 1, 2020              [Page 30]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
+
+   [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
+              Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
+              Switched (MPLS) Data-Plane Failures", RFC 8029,
+              DOI 10.17487/RFC8029, March 2017,
+              <https://www.rfc-editor.org/info/rfc8029>.
 
    [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
@@ -1720,12 +1726,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
 
-   [I-D.ietf-6man-segment-routing-header]
-              Filsfils, C., Dukes, D., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", draft-ietf-6man-segment-routing-header-26 (work in
-              progress), October 2019.
-
 
 
 
@@ -1738,11 +1738,24 @@ Gandhi, et al.          Expires September 1, 2020              [Page 31]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
+   [I-D.ietf-6man-segment-routing-header]
+              Filsfils, C., Dukes, D., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", draft-ietf-6man-segment-routing-header-26 (work in
+              progress), October 2019.
+
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
               draft-ietf-spring-srv6-network-programming-10 (work in
               progress), February 2020.
+
+   [I-D.filsfils-spring-net-pgm-extension-srv6-usid]
+              Filsfils, C., Camarillo, P., Cai, D., Voyer, D., Meilik,
+              I., Patel, K., Henderickx, W., Jonnalagadda, P., and D.
+              Melman, "Network Programming extension: SRv6 uSID
+              instruction", draft-filsfils-spring-net-pgm-extension-
+              srv6-usid-04 (work in progress), February 2020.
 
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
@@ -1773,6 +1786,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               Routing (SR) Paths", draft-ietf-pce-sr-bidir-path-01 (work
               in progress), February 2020.
 
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 32]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
+
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -1785,14 +1806,6 @@ Acknowledgments
    described in draft-xiao-ippm-twamp-ext-direct-loss.  The authors
    would also like to thank Sam Aldrin for the discussions to check for
    broken path.
-
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 32]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
 
 Authors' Addresses
 
@@ -1825,19 +1838,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
