@@ -351,7 +351,7 @@ Loss Measurement Mode  /                  \
    of 0.0.0.0 or IPv6 endpoint of ::0
    <xref target="I-D.ietf-spring-segment-routing-policy"/>.</t>
 
-	<section title="Delay Measurement Probe Query Message" anchor="sect-4.1.1"><t>
+	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
    UDP header <xref target="RFC0768"/>, is shown in Figure 1.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
@@ -423,10 +423,8 @@ response messages.
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the response is required
        over the same path in the reverse direction.</t>
-
 	</list>
 	</t>
-
 	<t><list style="empty" hangIndent="2">
 	<t><list style="hanging" hangIndent="2"><t hangText="For a Response:">
 	<vspace blankLines="1"/>
@@ -456,7 +454,7 @@ response messages.
 
 	</section>
 
-	<section title="Loss Measurement Probe Query Message" anchor="sect-4.1.2"><t>
+	<section title="Loss Measurement Query Message" anchor="sect-4.1.2"><t>
    The message content for Loss Measurement probe query message using
    UDP header <xref target="RFC0768"/> is shown in Figure 2.  The LM probe query message
    is sent with user-configured Destination UDP port number for LM.
@@ -727,8 +725,7 @@ response messages.
 	<t>
    The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
    the SR-MPLS Policy is used for accounting received traffic on the
-   egress node for loss measurement.  The PSID is not required for
-   end-to-end SR Policy delay measurement.</t>
+   egress node for loss measurement.</t>
 
 	</section>
 
@@ -808,6 +805,11 @@ response messages.
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Control Code is set to "In-band Response Requested".</t>
+
+	<t>
+   Specifically, the probe response message is sent back on the incoming physical
+   interface where the probe query message is received. This is useful
+   for example, in case of two-way measurement mode for SR link delay.</t>
 
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The message content for sending probe response message for two-way
@@ -1067,7 +1069,7 @@ response messages.
 
 	<t>
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/> defines STAMP probe query messages that
-   can include one or more optional TLVs.  The TLV Type (TBA1) is
+   can include one or more optional TLVs.  The TLV Type (value TBA1) is
    defined in this document for Return Path to carry reverse path for
    probe response messages (in the payload of the message).  The format
    of the Return Path TLV is shown in Figure 16 and Figure 17:</t>
@@ -1083,9 +1085,8 @@ response messages.
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
-	<t>
-   The Node Address sub-TLV (shown in Figure 18) in the Return Path TLV
-   can be one of the following Types:</t>
+	<t>The Node Address sub-TLV (shown in Figure 18) in the Return Path TLV
+   can be of the following Type:</t>
 
 	<t><list style="symbols"><t>Type (value 0): Return Address.  Target node address of the
       response different than the Source Address in the query</t>
@@ -1130,7 +1131,7 @@ response messages.
 	</t>
 
 	<t>
-   The Return Path TLV is optional.  The PM sender node MUST only insert
+   The Return Path TLV is optional. The PM sender node MUST only insert
    one Return Path TLV in the probe query message and the reflector node
    MUST only process the first Return Path TLV in the probe query
    message and ignore other Return Path TLVs if present. The reflector
@@ -1138,21 +1139,13 @@ response messages.
    specified in the Return Path TLV and MUST NOT add Return Path TLV in
    the probe response message.</t>
 
-	<t>
-   In the absence of Return Path TLV, in two-way measurement mode, the
-   probe response message is sent back on the incoming physical
-   interface where the probe query message is received. This is useful
-   for example, in case of two-way measurement mode for SR link delay.</t>
-
 	</section>
 
 	<section title="Node Address TLV for STAMP" anchor="sect-4.4">
-        <t><list style="hanging" hangIndent="-1"><t hangText="The Node Address TLV defined for STAMP has the following format:">
-	<vspace blankLines="0"/>
-	</t>
 
-	</list>
-	</t>
+        <t>The Node Address TLV is defined for STAMP <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
+        in this document and has the following format:</t>
+
 
 	<figure title="Node Address TLV Format" anchor="ure-node-address-tlv-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -1164,19 +1157,18 @@ response messages.
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
-	<t>
-   The Address Family field indicates the type of the address, and it
+
+   <t>The Address Family field indicates the type of the address, and it
    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.</t>
 
-	<t>
-   The Node Address TLV is of the following Type: Destination Node
-   Address.</t>
+   <t>The Node Address TLV has a following Type defined in this document: </t>
 
-	<t>
+   <t>Destination Node Address (value TBA2):</t>
+   <t>
    The Destination Node Address TLV is optional.  The Destination Node
    Address TLV indicates the address of the intended recipient of the
    probe message.  The destination node SHOULD NOT send response if it
-   is not the intended destination node of the prone query message.
+   is not the intended destination node of the probe query message.
    This check is useful for example, for performance measurement of SR
    Policy when using the destination address in 127/8 range for IPv4 or
    in 0:0:0:0:0:FFFF:7F00/104 range for IPv6.</t>
@@ -1188,9 +1180,9 @@ response messages.
 	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-5">
 	<t>
    The procedures for delay and loss measurement described in this
-   document for Point-to-Point (P2P) SR Policies
-   [I-D.spring-segment-routing-policy] are also equally applicable to
-   the Point-to-Multipoint (P2MP) SR Policies[I-D.spring-sr-p2mp-policy] as following:</t>
+   document for Point-to-Point (P2P) SR Policies <xref target="I-D.ietf-spring-segment-routing-policy"/> 
+   are also equally applicable to
+   the Point-to-Multipoint (P2MP) SR Policies as following:</t>
 
 	<t><list style="symbols"><t>The sender root node sends probe query messages using the
    Replication Segment defined in <xref target="I-D.voyer-spring-sr-replication-segment"/> for the
@@ -1354,7 +1346,7 @@ response messages.
    Destination Address TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be
    carried in PM probe message:</t>
 
-	<t><list style="symbols"><t>Type TBA2: Destination Address TLV</t>
+	<t><list style="symbols"><t>Type TBA2: Destination Node Address TLV</t>
 
 	</list>
 	</t>
