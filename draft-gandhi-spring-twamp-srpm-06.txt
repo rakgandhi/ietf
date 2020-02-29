@@ -89,23 +89,23 @@ Table of Contents
        4.1.2.  Loss Measurement Probe Query Message  . . . . . . . .   9
        4.1.3.  Probe Query for SR Links  . . . . . . . . . . . . . .  14
        4.1.4.  Probe Query for End-to-end Measurement for SR Policy   14
-     4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  15
+     4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  16
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  16
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  16
-       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  17
+       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  18
        4.2.4.  Loss Measurement Response Message Formats . . . . . .  18
-     4.3.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  22
-     4.4.  Node Address TLV for STAMP  . . . . . . . . . . . . . . .  24
-   5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  24
-   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  25
-   7.  Additional Message Processing Rules . . . . . . . . . . . . .  25
-     7.1.  TTL Value . . . . . . . . . . . . . . . . . . . . . . . .  25
-     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  26
-     7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  26
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  27
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  27
+     4.3.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  23
+     4.4.  Node Address TLV for STAMP  . . . . . . . . . . . . . . .  25
+   5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  25
+   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  26
+   7.  Additional Message Processing Rules . . . . . . . . . . . . .  26
+     7.1.  TTL Value . . . . . . . . . . . . . . . . . . . . . . . .  26
+     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  27
+     7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  27
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  28
 
 
 
@@ -114,9 +114,9 @@ Gandhi, et al.          Expires September 1, 2020               [Page 2]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  28
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  31
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  29
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  32
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
 
@@ -473,13 +473,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 4.1.2.  Loss Measurement Probe Query Message
 
-   In this document, new probe query message formats are defined for
-   loss measurement.  The message formats are hardware efficient due to
-   the small size payload and well-known locations of counters.  They
-   are similar to the delay measurement message formats and do not
-   require any backwards compatibility and support for the existing DM
-   message formats from [RFC5357].
-
    The message content for Loss Measurement probe query message using
    UDP header [RFC0768] is shown in Figure 2.  The LM probe query
    message is sent with user-configured Destination UDP port number for
@@ -489,6 +482,13 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    to distinguish between query and response.  The LM probe query
    message contains the payload for loss measurement as defined in
    Figure 3-6.
+
+
+
+
+
+
+
 
 
 
@@ -525,24 +525,24 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
                      Figure 2: LM Probe Query Message
 
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                                                               |
-    .                        Packet Padding                         .
-    .                                                               .
-    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               |      Checksum Complement      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+4.1.2.1.  Loss Measurement Authentication Mode
 
-                  Figure 3: LM Probe Query Message Format
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the loss measurement in
+   authentication mode due to the different message format.
+
+4.1.2.2.  Loss Measurement Probe Query Message Formats
+
+   In this document, new probe query message formats are defined for
+   loss measurement.  The message formats are hardware efficient due to
+   the small size payload and well-known locations of counters.  They
+   are similar to the delay measurement message formats and do not
+   require any backwards compatibility and support for the existing DM
+   message formats from [RFC5357].
+
+
 
 
 
@@ -561,6 +561,25 @@ Gandhi, et al.          Expires September 1, 2020              [Page 10]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    .                        Packet Padding                         .
+    .                                                               .
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               |      Checksum Complement      |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                  Figure 3: LM Probe Query Message Format
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -592,6 +611,13 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
        Figure 4: LM Probe Query Message Format - Authenticated Mode
 
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 11]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
+
    Sequence Number (32-bit): As defined in [RFC5357].
 
    Transmit Counter (64-bit): The number of packets or octets sent by
@@ -610,13 +636,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    Sender Sequence Number (32-bit): As defined in [RFC5357].
 
    Sender TTL: As defined in [RFC5357].
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 11]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
 
    LM Flags: The meanings of the Flag bits are:
 
@@ -646,6 +665,15 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    query and response messages are authenticated by adding Sequence
    Number with Hashed Message Authentication Code (HMAC) TLV.  It can
    use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 12]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
+
    IPSec defined in [RFC4868]); hence the length of the HMAC field is 16
    octets.
 
@@ -657,24 +685,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.
 
-4.1.2.1.  Loss Measurement Authentication Mode
-
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the loss measurement in
-   authentication mode due to the different message format.
-
-
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 12]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
-4.1.2.2.  Loss Measurement Probe Query Message for STAMP
+4.1.2.3.  Loss Measurement Probe Query Message Formats for STAMP
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -696,6 +707,28 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                Figure 5: STAMP LM Probe Query Message Format
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 13]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -723,13 +756,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
     Figure 6: STAMP LM Probe Query Message Format - Authenticated Mode
 
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 13]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
 4.1.3.  Probe Query for SR Links
 
    The probe query message as defined in Figure 1 is sent on the
@@ -747,6 +773,18 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 7.
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 14]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -775,17 +813,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    accounting received traffic on the egress node for loss measurement.
    The PSID is not required for end-to-end SR Policy delay measurement.
 
-
-
-
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 14]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
@@ -807,6 +834,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
                Figure 8: Probe Query Message for SRv6 Policy
 
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 15]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
+
    For delay measurement of SRv6 Policy using SRH, END function END.OTP
    [I-D.ietf-6man-spring-srv6-oam] is used with the target SRv6 SID to
    punt probe messages on the target node, as shown in Figure 8.
@@ -819,28 +854,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
    message is shown in Figure 9.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 15]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -856,8 +869,8 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +---------------------------------------------------------------+
     | DM Payload as specified in Section 4.2.1 of RFC 5357, or      |
     . DM payload as specified in Section 4.3 of [I-D.ippm-stamp]    .
-    . LM Payload as specified in Figure 10 or 11 in this document or.
-    . LM Payload as specified in Figure 12 or 13 in this document   .
+    . LM Payload as specified in Figure 12 or 13 in this document or.
+    . LM Payload as specified in Figure 14 or 15 in this document   .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -876,19 +889,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
-   [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
-   Response Requested".
-
-4.2.2.1.  Probe Response Message for SR-MPLS Policy
-
-   The message content for sending probe response message for two-way
-   end-to-end performance measurement of an SR-MPLS Policy is shown in
-   Figure 14.
-
-
-
-
-
 
 
 
@@ -897,6 +897,15 @@ Gandhi, et al.          Expires September 1, 2020              [Page 16]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
+
+   [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
+   Response Requested".
+
+4.2.2.1.  Probe Response Message for SR-MPLS Policy
+
+   The message content for sending probe response message for two-way
+   end-to-end performance measurement of an SR-MPLS Policy is shown in
+   Figure 10.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -927,7 +936,23 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy with SRH is shown in Figure 15.
+   measurement of an SRv6 Policy with SRH is shown in Figure 11.
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 17]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
@@ -946,14 +971,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    The Loopback measurement mode can be used to measure round-trip delay
    for a bidirectional SR Path.  The IP header of the probe query
    message contains the destination address equals to the sender address
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 17]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
    and the source address equals to the reflector address.  Optionally,
    the probe query message can carry the reverse path information (e.g.
    reverse path label stack for SR-MPLS) as part of the SR header.  The
@@ -963,10 +980,35 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 4.2.4.  Loss Measurement Response Message Formats
 
    In this document, probe response message formats are defined for loss
-   measurement as shown in Figure 10-13.  The message formats are
+   measurement as shown in Figure 12-15.  The message formats are
    hardware efficient due to the small size payload and well known
    locations of the counters.  They are also similar to the delay
    measurement message formats.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 18]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1002,14 +1044,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sequence Number                        |
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 18]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
     |                                                               |
@@ -1024,6 +1058,14 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Receive Counter                        |
     |                                                               |
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 19]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
+
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (8 octets)                         |
     |                                                               |
@@ -1058,19 +1100,27 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     .                                                               .
     |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                               |     Checksum Complement       |
-
-
-
-Gandhi, et al.          Expires September 1, 2020              [Page 19]
-
-Internet-Draft       TWAMP Light for Segment Routing       February 2020
-
-
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 13: LM Probe Response Message Format - Authenticated Mode
 
 4.2.4.1.  Loss Measurement Response Message Formats for STAMP
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 20]
+
+Internet-Draft       TWAMP Light for Segment Routing       February 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1117,7 +1167,13 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 20]
+
+
+
+
+
+
+Gandhi, et al.          Expires September 1, 2020              [Page 21]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1173,7 +1229,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 21]
+Gandhi, et al.          Expires September 1, 2020              [Page 22]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1229,7 +1285,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 22]
+Gandhi, et al.          Expires September 1, 2020              [Page 23]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1285,7 +1341,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 23]
+Gandhi, et al.          Expires September 1, 2020              [Page 24]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1341,7 +1397,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 24]
+Gandhi, et al.          Expires September 1, 2020              [Page 25]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1397,7 +1453,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 25]
+Gandhi, et al.          Expires September 1, 2020              [Page 26]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1453,7 +1509,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 26]
+Gandhi, et al.          Expires September 1, 2020              [Page 27]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1509,7 +1565,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 27]
+Gandhi, et al.          Expires September 1, 2020              [Page 28]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1565,7 +1621,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 28]
+Gandhi, et al.          Expires September 1, 2020              [Page 29]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1621,7 +1677,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 29]
+Gandhi, et al.          Expires September 1, 2020              [Page 30]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1677,7 +1733,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 30]
+Gandhi, et al.          Expires September 1, 2020              [Page 31]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1733,7 +1789,7 @@ Acknowledgments
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 31]
+Gandhi, et al.          Expires September 1, 2020              [Page 32]
 
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
@@ -1789,4 +1845,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires September 1, 2020              [Page 32]
+Gandhi, et al.          Expires September 1, 2020              [Page 33]
