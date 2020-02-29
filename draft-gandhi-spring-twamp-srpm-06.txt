@@ -100,7 +100,7 @@ Table of Contents
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  25
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  26
    7.  Additional Message Processing Rules . . . . . . . . . . . . .  26
-     7.1.  TTL Value . . . . . . . . . . . . . . . . . . . . . . . .  26
+     7.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . . . .  26
      7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  27
      7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  27
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
@@ -1439,7 +1439,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 7.  Additional Message Processing Rules
 
-7.1.  TTL Value
+7.1.  TTL and Hop Limit
 
    The TTL field in the IPv4 and MPLS headers of the probe query
    messages is set to 255 [RFC5357].  Similarly, the Hop Limit field in
@@ -1463,7 +1463,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
    For SR link performance delay and loss measurement, the probe
    messages are pre-routed over the link and the TTL and Hop Limit field
-   are set to 1.
+   are set to 1 in both one-way and two-way measurement modes.
 
 7.2.  Router Alert Option
 
