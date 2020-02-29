@@ -487,6 +487,17 @@ response messages.
 ]]></artwork>
 	</figure>
 
+	<section title="Loss Measurement Authentication Mode" anchor="sect-4.1.2.1"><t>
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g. HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the loss measurement in
+   authentication mode due to the different message format.</t>
+
+	</section>
+
+	<section title="Loss Measurement Probe Query Message Formats" anchor="sect-4.1.2.2">
+
    <t> In this document, new probe query message formats are defined for
    loss measurement.  The message
    formats are hardware efficient due to the small size payload and
@@ -618,16 +629,9 @@ response messages.
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.</t>
 
-	<section title="Loss Measurement Authentication Mode" anchor="sect-4.1.2.1"><t>
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the loss measurement in
-   authentication mode due to the different message format.</t>
+   </section>
 
-	</section>
-
-	<section title="Loss Measurement Probe Query Message for STAMP" anchor="sect-4.1.2.2">
+	<section title="Loss Measurement Probe Query Message Formats for STAMP" anchor="sect-4.1.2.3">
 
 	<figure title="STAMP LM Probe Query Message Format" anchor="ure-stamp-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
