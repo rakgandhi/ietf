@@ -87,13 +87,14 @@ Table of Contents
      4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   7
        4.1.1.  Delay Measurement Probe Query Message . . . . . . . .   7
        4.1.2.  Loss Measurement Probe Query Message  . . . . . . . .   9
-       4.1.3.  Probe Query for SR Links  . . . . . . . . . . . . . .  14
-       4.1.4.  Probe Query for End-to-end Measurement for SR Policy   14
+       4.1.3.  Loss Measurement Probe Query Message Formats  . . . .  10
+       4.1.4.  Probe Query for SR Links  . . . . . . . . . . . . . .  14
+       4.1.5.  Probe Query for End-to-end Measurement for SR Policy   14
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  16
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  16
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  16
        4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  18
-       4.2.4.  Loss Measurement Response Message Formats . . . . . .  18
+       4.2.4.  Loss Measurement Probe Response Message Formats . . .  18
      4.3.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  23
      4.4.  Node Address TLV for STAMP  . . . . . . . . . . . . . . .  25
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  25
@@ -105,7 +106,6 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  28
 
 
 
@@ -114,6 +114,7 @@ Gandhi, et al.          Expires September 1, 2020               [Page 2]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  28
      10.2.  Informative References . . . . . . . . . . . . . . . . .  29
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  32
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
@@ -157,7 +158,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    performance delay measurements.
 
 2.  Conventions Used in This Document
-
 
 
 
@@ -533,7 +533,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    destination UDP port is used for the loss measurement in
    authentication mode due to the different message format.
 
-4.1.2.2.  Loss Measurement Probe Query Message Formats
+4.1.3.  Loss Measurement Probe Query Message Formats
 
    In this document, new probe query message formats are defined for
    loss measurement.  The message formats are hardware efficient due to
@@ -685,7 +685,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.
 
-4.1.2.3.  Loss Measurement Probe Query Message Formats for STAMP
+4.1.3.1.  Loss Measurement Probe Query Message Formats for STAMP
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -756,19 +756,19 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
     Figure 6: STAMP LM Probe Query Message Format - Authenticated Mode
 
-4.1.3.  Probe Query for SR Links
+4.1.4.  Probe Query for SR Links
 
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
    query message as defined in Figure 2 is sent on the congruent path of
    the data traffic for Loss measurement.
 
-4.1.4.  Probe Query for End-to-end Measurement for SR Policy
+4.1.5.  Probe Query for End-to-end Measurement for SR Policy
 
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.
 
-4.1.4.1.  Probe Query Message for SR-MPLS Policy
+4.1.5.1.  Probe Query Message for SR-MPLS Policy
 
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
@@ -813,7 +813,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    accounting received traffic on the egress node for loss measurement.
    The PSID is not required for end-to-end SR Policy delay measurement.
 
-4.1.4.2.  Probe Query Message for SRv6 Policy
+4.1.5.2.  Probe Query Message for SRv6 Policy
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in [I-D.ietf-6man-segment-routing-header].
@@ -977,7 +977,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    reflector node does not process the PM probe messages and generate
    response messages.
 
-4.2.4.  Loss Measurement Response Message Formats
+4.2.4.  Loss Measurement Probe Response Message Formats
 
    In this document, probe response message formats are defined for loss
    measurement as shown in Figure 12-15.  The message formats are
