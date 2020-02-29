@@ -116,7 +116,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  28
      10.2.  Informative References . . . . . . . . . . . . . . . . .  29
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  33
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  32
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
@@ -818,10 +818,9 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in [I-D.ietf-6man-segment-routing-header].
    For SRv6, network programming is defined in
-   [I-D.ietf-spring-srv6-network-programming].  and its extensiopns in
-   [I-D.filsfils-spring-net-pgm-extension-srv6-usid].  The probe query
-   messages for end-to-end performance measurement of an SRv6 Policy is
-   sent using its SRH and Segment List as shown in Figure 8.
+   [I-D.ietf-spring-srv6-network-programming].  The probe query messages
+   for end-to-end performance measurement of an SRv6 Policy is sent
+   using its SRH with Segment List as shown in Figure 8.
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
@@ -834,6 +833,7 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
     +---------------------------------------------------------------+
 
                Figure 8: Probe Query Message for SRv6 Policy
+
 
 
 
@@ -1750,13 +1750,6 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               draft-ietf-spring-srv6-network-programming-10 (work in
               progress), February 2020.
 
-   [I-D.filsfils-spring-net-pgm-extension-srv6-usid]
-              Filsfils, C., Camarillo, P., Cai, D., Voyer, D., Meilik,
-              I., Patel, K., Henderickx, W., Jonnalagadda, P., and D.
-              Melman, "Network Programming extension: SRv6 uSID
-              instruction", draft-filsfils-spring-net-pgm-extension-
-              srv6-usid-04 (work in progress), February 2020.
-
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
@@ -1786,6 +1779,13 @@ Internet-Draft       TWAMP Light for Segment Routing       February 2020
               Routing (SR) Paths", draft-ietf-pce-sr-bidir-path-01 (work
               in progress), February 2020.
 
+Acknowledgments
+
+   The authors would like to thank Thierry Couture for the discussions
+   on the use-cases for TWAMP Light in Segment Routing.  The authors
+   would also like to thank Greg Mirsky for reviewing this document and
+   providing useful comments and suggestions.  Patrick Khordoc and Radu
+   Valceanu, both from Cisco Systems have helped significantly improve
 
 
 
@@ -1794,13 +1794,6 @@ Gandhi, et al.          Expires September 1, 2020              [Page 32]
 Internet-Draft       TWAMP Light for Segment Routing       February 2020
 
 
-Acknowledgments
-
-   The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for TWAMP Light in Segment Routing.  The authors
-   would also like to thank Greg Mirsky for reviewing this document and
-   providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu, both from Cisco Systems have helped significantly improve
    the mechanisms defined in this document.  The authors would like to
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.  The authors
@@ -1838,6 +1831,13 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
 
 
 
