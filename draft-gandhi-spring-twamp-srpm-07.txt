@@ -431,11 +431,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.1.1.1.  Control Code Field in TWAMP and STAMP Message
 
    The Control Code field is defined in the modified DM probe message
-   format as follows for both TWAMP and STAMP packet formats in
-   unauthenticated and authenticated modes.  The modified DM probe
-   message format is backwards compatible with the format defined in
-   [RFC5357] as its reflector MUST ignore the received MBZ field.
-
+   format for both TWAMP and STAMP packet formats in unauthenticated and
+   authenticated modes as follows.  The modified DM probe message format
+   is backwards compatible with the format defined in [RFC5357] as its
+   reflector MUST ignore the received MBZ field.  The Control Code is
+   applicable to both SR as well as non-SR paths.
 
 
 
@@ -473,12 +473,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is
        required over the same path in the reverse direction.  The
-       bidirectional path does not have to an SR path.
+       bidirectional path does not have to be an SR path.
 
    For a Response:
 
        0x1: Error - Invalid Message.  Indicates that the operation
-       failed because the received query message was malformed.
+       failed because the received query message could not be processed.
 
    Reserved: Reserved for future use.
 
