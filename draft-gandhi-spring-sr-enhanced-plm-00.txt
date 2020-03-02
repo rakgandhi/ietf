@@ -121,8 +121,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR     March 2020
    way Active Measurement Protocol (STAMP) [I-D.ietf-ippm-stamp]
    alleviates the control-channel signaling by using configuration data
    model to provision a test-channel.  [I-D.gandhi-spring-twamp-srpm]
-   defines procedures for using TWAMP Light and STAMP in Segment Routing
-   networks.
+   defines procedures for using TWAMP Light and STAMP in SR networks
+   applicable to both SR-MPLS and SRv6 data planes.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in Segment Routing networks.  However,
@@ -236,7 +236,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR     March 2020
    specific reverse SR path using the mechanisms defined in
    [I-D.ietf-pce-binding-label-sid] and [I-D.ietf-pce-sr-bidir-path].
    In both cases, the reflector must not drop the loopback probe
-   messages due to a local policy provisioned on the node.
+   messages, for example, due to a local policy provisioned on the node.
 
    Liveness failure is notified when consecutive N number of probe
    packets are not received back at the sender, where N is locally
@@ -245,9 +245,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR     March 2020
 3.1.  Loopback Mode for SR-MPLS
 
    The TWAMP probe messages are sent using the label stack of the SR
-   Policy as shown in Figure 2.  The label stack can contain the reverse
-   path to receive the reply on a specific SR-MPLS path.
-
+   Policy as shown in Figure 2 using the procedure specified in
+   [I-D.gandhi-spring-twamp-srpm].  The label stack can contain a
+   reverse SR-MPLS path to receive the reply on a specific path.
 
 
 
@@ -313,10 +313,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR     March 2020
 3.2.  Loopback Mode for SRv6
 
    The TWAMP probe messages are sent using the SRH containing the
-   Segment Identifier (SID) List of the SR Policy as shown in Figure 3.
-   The SID List can contain the reverse path to receive the reply on a
-   specific SRv6 path.
-
+   Segment Identifier (SID) List of the SR Policy as shown in Figure 3
+   using the procedure specified in [I-D.gandhi-spring-twamp-srpm].  The
+   SID List can contain a reverse SRv6 path to receive the reply on a
+   specific path.
 
 
 
@@ -364,8 +364,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR     March 2020
 
    The enhanced performance and liveness monitoring for an SR Policy is
    defined using the loopback mode enabled with network programming.
-   The network programming function optimizes the operations of punt,
-   add receive timestamp and inject the probe packet on the reflector
+   The network programming function optimizes the "operations of punt,
+   add receive timestamp and inject the probe packet" on the reflector
    node.  In this mode, both transmit and receive timestamps from data
    plane are collected by the probe messages sent in loopback mode as
    shown in Figure 4.  The payload of the probe message is not modified
