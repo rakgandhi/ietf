@@ -331,7 +331,7 @@ Loss Measurement Mode  /                  \
    measurement. However, note that when used only for loss measurement purpose, it requires the node to 
    also timestamp the packet. Furthermore, for hardware-based counter collection, 
    the optional TLV based processing adds unnecessary overhead. Many hardware cannot 
-   load large size packet into the local memory to update the counter value at a higher offset into the payload. 
+   load large size packet into the local memory to update the counter value at a further offset pointer into the payload. 
    In addition, it is also not 
    compatible with the loss measurement messages defined in this document for TWAMP Light (e.g. location for the counters).</t>
 	</section>
@@ -506,10 +506,10 @@ For a Query:
 	<section title="Loss Measurement Query Message Formats for TWAMP" anchor="sect-4.1.3">
    <t> In this document, TWAMP probe query message formats are defined for
    loss measurement as shown in Figure 3 and 4. The message
-   formats are hardware efficient due to the small size payload and
+   formats are hardware efficient due to the small size payload (with closer offset pointer for the Counter in payload) and
    well-known locations of counters.  They are similar to the delay
-   measurement message formats and do not require any backwards
-   compatibility and support for the existing DM message formats from
+   measurement message formats (e.g. location of the Counter and Timestamp) and do not require any backwards
+   compatibility or support for the existing DM message formats from
    <xref target="RFC5357"/>.</t>
 
 	<figure title="LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
@@ -890,9 +890,12 @@ For a Query:
 	<section title="Loss Measurement Response Message Formats for TWAMP" anchor="sect-4.2.4"><t>
    In this document, TWAMP probe response message formats are defined for loss
    measurement as shown in Figure 12 and 13.  The message formats are
-   hardware efficient due to the small size payload and well known
+   hardware efficient due to the small size payload (with closer offset pointer for the Counter in payload) and well known
    locations of the counters.  They are also similar to the delay
-   measurement message formats.</t>
+   measurement message formats (e.g. location of the Counter and Timestamp) 
+   and do not require any backwards
+   compatibility or support for the existing DM message formats from
+   <xref target="RFC5357"/>.</t>
 
 	<figure title="LM Probe Response Message Format" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
