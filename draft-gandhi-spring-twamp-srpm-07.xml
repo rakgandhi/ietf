@@ -398,10 +398,10 @@ Loss Measurement Mode  /                  \
 	<section title="Control Code Field in TWAMP and STAMP Message" anchor="sect-4.1.1.1">
 	<t>
    The Control Code field is defined in the modified DM probe message
-   format as follows for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes.  
+   format for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes as follows.  
    The modified DM probe message format is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
-   ignore the received MBZ field.</t>
+   ignore the received MBZ field. The Control Code is applicable to both SR as well as non-SR paths.</t>
 
 	<figure><artwork><![CDATA[
  .                                                               .
@@ -432,14 +432,14 @@ For a Query:
 	<t><list hangIndent="4" style="hanging"><t>
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is required
-       over the same path in the reverse direction. The bidirectional path does not have to an SR path.</t>
+       over the same path in the reverse direction. The bidirectional path does not have to be an SR path.</t>
 	</list>
 	</t>
 
 	<t><list style="hanging" hangIndent="4"><t hangText="For a Response:">
 	<vspace blankLines="1"/>
        0x1: Error - Invalid Message.  Indicates that the operation
-       failed because the received query message was malformed.
+       failed because the received query message could not be processed.
 	</t>
 
 
