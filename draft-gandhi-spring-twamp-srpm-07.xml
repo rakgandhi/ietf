@@ -329,7 +329,7 @@ Loss Measurement Mode  /                  \
 
    <t>The STAMP message with a TLV for "direct measurement" can be used for combined delay + loss
    measurement. However, note that when used only for loss measurement purpose, it requires the node to 
-   also timestamp the packet. Furthermore, for hardware-based counter collection, 
+   support the existing STAMP messages and also timestamp the packets. Furthermore, for hardware-based counter collection, 
    the optional TLV based processing adds unnecessary overhead. Many hardware cannot 
    load large size packet into the local memory to update the counter value at a further offset pointer into the payload. 
    In addition, it is also not 
