@@ -137,8 +137,10 @@
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
-   performance delay measurement.</t>
-
+   performance delay measurement. Unless otherwise specified, the procedures 
+   defined in <xref target="RFC5357"/> and <xref target="I-D.ietf-ippm-stamp"/>
+   are not modified by this document.  Any procedures and extensions defined
+   in this document are expected to work consistently across both protocols.</t>
 	</section>
 
 	<section title="Conventions Used in This Document" anchor="sect-2"><section title="Requirements Language" anchor="sect-2.1"><t>
@@ -398,10 +400,13 @@ Loss Measurement Mode  /                  \
 	<section title="Control Code Field in TWAMP and STAMP Message" anchor="sect-4.1.1.1">
 	<t>
    The Control Code field is defined in the modified DM probe message
-   format for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes as follows.  
-   The modified DM probe message format is backwards
+   format for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes.  
+   Using the same field in STAMP packet format eliminates 
+   the need to define a different mechanism using TLV.
+   The modified DM probe message format for both TWAMP and STAMP is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
-   ignore the received MBZ field. The Control Code is applicable to both SR as well as non-SR paths.</t>
+   ignore the received field (previously MBZ).
+   The Control Code is applicable to both SR as well as non-SR paths.</t>
 
 	<figure><artwork><![CDATA[
  .                                                               .
