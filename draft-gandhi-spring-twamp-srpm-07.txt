@@ -157,11 +157,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
-   performance delay measurement.
-
-
-
-
+   performance delay measurement.  Unless otherwise specified, the
+   procedures defined in [RFC5357] and [I-D.ietf-ippm-stamp] are not
+   modified by this document.  Any procedures and extensions defined in
+   this document are expected to work consistently across both
+   protocols.
 
 
 
@@ -432,12 +432,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The Control Code field is defined in the modified DM probe message
    format for both TWAMP and STAMP packet formats in unauthenticated and
-   authenticated modes as follows.  The modified DM probe message format
-   is backwards compatible with the format defined in [RFC5357] as its
-   reflector MUST ignore the received MBZ field.  The Control Code is
-   applicable to both SR as well as non-SR paths.
-
-
+   authenticated modes.  Using the same field in STAMP packet format
+   eliminates the need to define a different mechanism using TLV.  The
+   modified DM probe message format for both TWAMP and STAMP is
+   backwards compatible with the format defined in [RFC5357] as its
+   reflector MUST ignore the received field (previously MBZ).  The
+   Control Code is applicable to both SR as well as non-SR paths.
 
 
 
@@ -1725,8 +1725,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-10 (work in
-              progress), February 2020.
+              draft-ietf-spring-srv6-network-programming-11 (work in
+              progress), March 2020.
 
 
 
