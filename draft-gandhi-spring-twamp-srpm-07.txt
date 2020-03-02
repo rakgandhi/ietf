@@ -357,10 +357,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    the packet.  Furthermore, for hardware-based counter collection, the
    optional TLV based processing adds unnecessary overhead.  Many
    hardware cannot load large size packet into the local memory to
-   update the counter value at a higher offset into the payload.  In
-   addition, it is also not compatible with the loss measurement
-   messages defined in this document for TWAMP Light (e.g. location for
-   the counters).
+   update the counter value at a further offset pointer into the
+   payload.  In addition, it is also not compatible with the loss
+   measurement messages defined in this document for TWAMP Light (e.g.
+   location for the counters).
 
 4.  Probe Messages
 
@@ -541,12 +541,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    In this document, TWAMP probe query message formats are defined for
    loss measurement as shown in Figure 3 and 4.  The message formats are
-   hardware efficient due to the small size payload and well-known
-   locations of counters.  They are similar to the delay measurement
-   message formats and do not require any backwards compatibility and
-   support for the existing DM message formats from [RFC5357].
-
-
+   hardware efficient due to the small size payload (with closer offset
+   pointer for the Counter in payload) and well-known locations of
+   counters.  They are similar to the delay measurement message formats
+   (e.g. location of the Counter and Timestamp) and do not require any
+   backwards compatibility or support for the existing DM message
+   formats from [RFC5357].
 
 
 
@@ -980,12 +980,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    In this document, TWAMP probe response message formats are defined
    for loss measurement as shown in Figure 12 and 13.  The message
-   formats are hardware efficient due to the small size payload and well
-   known locations of the counters.  They are also similar to the delay
-   measurement message formats.
-
-
-
+   formats are hardware efficient due to the small size payload (with
+   closer offset pointer for the Counter in payload) and well known
+   locations of the counters.  They are also similar to the delay
+   measurement message formats (e.g. location of the Counter and
+   Timestamp) and do not require any backwards compatibility or support
+   for the existing DM message formats from [RFC5357].
 
 
 
