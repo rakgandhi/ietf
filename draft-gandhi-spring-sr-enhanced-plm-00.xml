@@ -18,6 +18,7 @@
 <!ENTITY RFC8186 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8186.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
+<!ENTITY I-D.ietf-ippm-stamp SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp.xml">
 <!ENTITY I-D.ietf-spring-segment-routing-policy SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-segment-routing-policy.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-6man-segment-routing-header SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-segment-routing-header.xml">
@@ -85,7 +86,7 @@
       </address>
     </author>
 
-    <date day="27" month="February" year="2020"/>
+    <date day="2" month="March" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -95,7 +96,7 @@
       (SRv6) data planes. This document defines procedure for Enhanced
       Performance and Liveness Monitoring (PLM) in Segment Routing networks.
       The procedure uses the probe messages defined in RFC 5357 (Two-Way
-      Active Measurement Protocol (TWAMP) Light) and is applicable to both
+      Active Measurement Protocol (TWAMP) Light) as well as STAMP and is applicable to both
       SR-MPLS and SRv6 data planes.</t>
     </abstract>
   </front>
@@ -116,14 +117,17 @@
       provide Service Level Agreements (SLAs) in SR networks.</t>
 
       <t>The One-Way Active Measurement Protocol (OWAMP) defined in <xref
-      target="RFC4656"/>and Two-Way Active Measurement Protocol (TWAMP)
+      target="RFC4656"/> and Two-Way Active Measurement Protocol (TWAMP)
       defined in <xref target="RFC5357"/> provide capabilities for the
       measurement of various performance metrics in IP networks using probe
       messages. The TWAMP Light [Appendix I in RFC 5357] provides simplified
       mechanisms for active performance measurement in Customer IP networks by
       provisioning UDP paths that eliminates the control-channel
-      signaling. <xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedures
-      for using TWAMP Light in Segment Routing networks.</t>
+      signaling. The Simple Two-way Active Measurement Protocol (STAMP)
+      <xref target="I-D.ietf-ippm-stamp"/> alleviates the control-channel signaling by using
+      configuration data model to provision a test-channel.  
+      <xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedures
+      for using TWAMP Light and STAMP in Segment Routing networks.</t>
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in Segment Routing networks.
@@ -139,7 +143,7 @@
       <t>This document defines procedure for Enhanced Performance and Liveness
       Monitoring (PLM) in Segment Routing networks. The procedure uses the
       probe messages defined in <xref target="RFC5357"/> (Two-Way Active
-      Measurement Protocol (TWAMP) Light) in loopback mode. The procedure
+      Measurement Protocol (TWAMP) Light) as well as STAMP in loopback mode. The procedure
       specified is applicable to both SR-MPLS and SRv6 data planes.</t>
     </section>
 
@@ -167,6 +171,8 @@
 
         <t>OWAMP: One-Way Active Measurement Protocol.</t>
 
+        <t>PLM: Performance and Liveness Monitoring.</t>
+
         <t>PM: Performance Measurement.</t>
 
         <t>PTP: Precision Time Protocol.</t>
@@ -182,6 +188,8 @@
         <t>SR-MPLS: Segment Routing with MPLS data plane.</t>
 
         <t>SRv6: Segment Routing with IPv6 data plane.</t>
+	
+	<t>STAMP: Simple Two-way Active Measurement Protocol.</t>
 
         <t>TWAMP: Two-Way Active Measurement Protocol.</t>
       </section>
@@ -222,7 +230,7 @@
       to receive the probe message on a specific reverse SR path using the mechanisms
       defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
       target="I-D.ietf-pce-sr-bidir-path"/>. In both cases, the reflector 
-      MUST not drop the loopback probe messages due to a local policy 
+      must not drop the loopback probe messages due to a local policy 
       provisioned on the node.</t>
 
       <t>Liveness failure is notified when consecutive N number of probe
@@ -302,8 +310,8 @@
       The network programming function optimizes the operations of punt, 
       add receive timestamp and inject the probe packet on the reflector node. In this
       mode, both transmit and receive timestamps from data plane are collected
-      by the probe messages sent in loopback mode as shown in Figure 4.</t>	      
-
+      by the probe messages sent in loopback mode as shown in Figure 4.
+      The payload of the probe message is not modified by any intermediate nodes.</t>	      
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -397,6 +405,19 @@
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
+
+      <section anchor="sect-4.1.1"
+               title="Node Capability for Timestamp Label"
+	       toc="default">
+        <t>The ingress node needs 
+        to know if the egress node can process the Timestamp Label. The signaling extension 
+        for this capability exchange is outside the scope of this document.</t>
+
+        <t>Another way is to leverage a centralized controller (e.g., SDN
+        controller) to program the ingress and egress nodes.  In this case, the controller
+        MUST make sure (e.g., by some capability discovery mechanisms outside
+        the scope of this document) that the egress node can process the Timestamp Label.</t>
+       </section>
       </section>
 
       <section anchor="sect-4.2"
@@ -423,7 +444,6 @@
   +---------------------------------------------------------------+
   |                           SRH                                 |
   .                           &lt;Segment List&gt;                      .
-  .  END.TSF (TBA2) with Target SRv6 SID                          .
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Endpoint IPv6 Address                    .
@@ -511,16 +531,12 @@
   <back>
     <references title="Normative References">
       &RFC0768;
-
       &RFC2119;
-
       &RFC4656;
-
       &RFC5357;
-
       &RFC8174;
-
       &I-D.gandhi-spring-twamp-srpm;
+      &I-D.ietf-ippm-stamp;
     </references>
 
     <references title="Informative References">
@@ -538,19 +554,12 @@
       </reference>
 
       &RFC7880;
-
       &RFC8186;
-
       &RFC8402;
-
       &I-D.ietf-spring-segment-routing-policy;
-
       &I-D.ietf-spring-srv6-network-programming;
-
       &I-D.ietf-6man-segment-routing-header;
-
       &I-D.ietf-pce-binding-label-sid;
-
       &I-D.ietf-pce-sr-bidir-path;
     </references>
 
