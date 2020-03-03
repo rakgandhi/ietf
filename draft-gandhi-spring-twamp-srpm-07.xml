@@ -91,7 +91,7 @@
    Measurement (PM) in Segment Routing networks.  The procedure uses the
    mechanisms defined in RFC 5357 (Two-Way Active Measurement Protocol
    (TWAMP) Light) and Simple Two-Way Active Measurement Protocol (STAMP)
-   for Delay Measurement, and also uses the extensions defined in this
+   for Delay Measurement, and uses the messages defined in this
    document for Loss Measurement.  The procedure specified is applicable
    to SR-MPLS and SRv6 data planes and is used for both links and
    end-to-end SR Policies.</t>
@@ -112,32 +112,33 @@
    of Segments.  Built-in SR Performance Measurement (PM) is one of the
    essential requirements to provide Service Level Agreements (SLAs).</t>
 
-	<t>
+   <t>
    The One-Way Active Measurement Protocol (OWAMP) defined in <xref target="RFC4656"/>
    and Two-Way Active Measurement Protocol (TWAMP) defined in <xref target="RFC5357"/>
    provide capabilities for the measurement of various performance
    metrics in IP networks using probe messages.  These protocols rely on
    control-channel signaling to establish a test-channel over an UDP
-   path.  These protocols lack support for direct-mode Loss Measurement
-   (LM) to detect actual data traffic loss which is required in SR
-   networks.  The Simple Two-way Active Measurement Protocol (STAMP)
-   <xref target="I-D.ietf-ippm-stamp"/> alleviates the control-channel signaling by using
-   configuration data model to provision a test-channel.  The TWAMP
-   Light [Appendix I in RFC5357] <xref target="BBF.TR-390"/> provides simplified
+   path. The TWAMP Light [Appendix I in RFC5357] <xref target="BBF.TR-390"/> provides simplified
    mechanisms for active performance measurement in Customer IP networks
    by provisioning UDP paths and eliminates the control-channel
-   signaling.</t>
+   signaling. TWAMP lacks support for direct-mode Loss Measurement
+   (LM) to detect actual Customer data traffic loss which is required in SR
+   networks.</t>
 
-	<t>
+   <t>The Simple Two-way Active Measurement Protocol (STAMP)
+   <xref target="I-D.ietf-ippm-stamp"/> alleviates the control-channel signaling by using
+   configuration data model to provision a test-channel.</t>
+
+   <t>
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
    networks.  The procedure uses the mechanisms defined in <xref target="RFC5357"/>
-   (TWAMP Light) and STAMP for Delay Measurement (DM), and also uses the
-   extensions defined in this document for Loss Measurement.  The
+   (TWAMP Light) and STAMP for Delay Measurement (DM), and uses the
+   messages defined in this document for Loss Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
-   performance delay measurement. Unless otherwise specified, the procedures 
+   performance delay measurement.  Unless otherwise specified, the procedures 
    defined in <xref target="RFC5357"/> and <xref target="I-D.ietf-ippm-stamp"/>
    are not modified by this document.  Any procedures and extensions defined
    in this document are expected to work consistently across both protocols.</t>
@@ -402,7 +403,7 @@ Loss Measurement Mode  /                  \
    The Control Code field is defined in the modified DM probe message
    format for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes.  
    Using the same field in STAMP packet format eliminates 
-   the need to define a different mechanism using TLV.
+   the need to define a different mechanism using STAMP TLV.
    The modified DM probe message format for both TWAMP and STAMP is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
    ignore the received field (previously MBZ).
