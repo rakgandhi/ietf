@@ -771,9 +771,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The STAMP loss measurement probe query message uses the same packet
    format as the TWAMP loss measurement probe query message, except the
-   padding size is 28 bytes in STAMP message in unauthenticated mode and
-   no padding is added in authenticated mode.
-
+   padding size is 28 bytes in STAMP message in unauthenticated mode
+   (shown in Figure 5) and no padding is added in authenticated mode
+   (shown in Figure 6).
 
 
 
@@ -1049,14 +1049,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The STAMP loss measurement probe respone message uses the same packet
    format as the TWAMP loss measurement probe response message, except
    the padding size is 3 bytes in STAMP message in unauthenticated mode
-   whereas no padding is added in authenticated mode.
+   (shown in Figure 10) whereas no padding is added in authenticated
+   mode (shown in Figure 11).
 
 4.3.  Node Address TLV for STAMP
 
    The Node Address TLV is defined for STAMP
    [I-D.ietf-ippm-stamp-option-tlv] in this document and has the
    following format:
-
 
 
 
