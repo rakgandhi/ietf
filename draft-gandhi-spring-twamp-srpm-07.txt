@@ -86,15 +86,15 @@ Table of Contents
    4.  Probe Messages  . . . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   7
        4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   8
-       4.1.2.  Control Code Field in TWAMP and STAMP Message . . . .   9
-       4.1.3.  Loss Measurement Query Message  . . . . . . . . . . .   9
-       4.1.4.  Loss Measurement Query Message Formats for TWAMP  . .  10
-       4.1.5.  Loss Measurement Query Message Formats for STAMP  . .  13
+       4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   9
+       4.1.3.  Loss Measurement Query Message Formats for TWAMP  . .   9
+       4.1.4.  Loss Measurement Query Message Formats for STAMP  . .  12
+       4.1.5.  Control Code Field in TWAMP and STAMP Message . . . .  14
        4.1.6.  Probe Query for SR Links  . . . . . . . . . . . . . .  14
-       4.1.7.  Probe Query for End-to-end Measurement for SR Policy   14
+       4.1.7.  Probe Query for End-to-end Measurement for SR Policy   15
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  16
-       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  16
-       4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  16
+       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  17
+       4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  17
        4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  18
        4.2.4.  Loss Measurement Response Message Formats for TWAMP .  18
        4.2.5.  Loss Measurement Response Message Formats for STAMP .  20
@@ -450,7 +450,287 @@ Gandhi, et al.          Expires September 3, 2020               [Page 8]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
-4.1.2.  Control Code Field in TWAMP and STAMP Message
+4.1.2.  Loss Measurement Query Message
+
+   The message content for Loss Measurement probe query message using
+   UDP header [RFC0768] is shown in Figure 2.  The LM probe query
+   message is sent with user-configured Destination UDP port number for
+   LM.  Separate Destination UDP ports are used for direct-mode and
+   inferred-mode loss measurements.  The Destination UDP port cannot be
+   used as Source port, since the message does not have any indication
+   to distinguish between query and response.  The LM probe query
+   message contains the payload for loss measurement as defined in
+   Figure 3-6.
+
+    +---------------------------------------------------------------+
+    | IP Header                                                     |
+    .  Source IP Address = Sender IPv4 or IPv6 Address              .
+    .  Destination IP Address = Reflector IPv4 or IPv6 Address      .
+    .  Protocol = UDP                                               .
+    .                                                               .
+    +---------------------------------------------------------------+
+    | UDP Header                                                    |
+    .  Source Port = As chosen by Sender                            .
+    .  Destination Port = User-configured Port for Loss Measurement .
+    .                                                               .
+    +---------------------------------------------------------------+
+    | Payload = Message as specified in Figure 3 or 4 |             |
+    . Payload = Message as specified in Figure 5 or 6               .
+    .                                                               .
+    +---------------------------------------------------------------+
+
+                     Figure 2: LM Probe Query Message
+
+4.1.2.1.  Loss Measurement Authentication Mode
+
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the loss measurement in
+   authentication mode due to the different message format.
+
+4.1.3.  Loss Measurement Query Message Formats for TWAMP
+
+   In this document, TWAMP probe query message formats are defined for
+   loss measurement as shown in Figure 3 and 4.  The message formats are
+   hardware efficient due to the small size payload (with closer offset
+   pointer for the Counter in payload) and well-known locations of
+   counters.  They are similar to the delay measurement message formats
+   (e.g. location of the Counter and Timestamp) and do not require any
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020               [Page 9]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
+   backwards compatibility or support for the existing DM message
+   formats from [RFC5357].
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    .                        Packet Padding                         .
+    .                                                               .
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               |      Checksum Complement      |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                  Figure 3: LM Probe Query Message Format
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 10]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (4 octets)                         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        HMAC (16 octets)                       |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    .                        Packet Padding                         .
+    .                                                               .
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               |      Checksum Complement      |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+       Figure 4: LM Probe Query Message Format - Authenticated Mode
+
+   Sequence Number (32-bit): As defined in [RFC5357].
+
+   Transmit Counter (64-bit): The number of packets or octets sent by
+   the sender node in the query message and by the reflector node in the
+   response message.  The counter is always written at the fixed
+   location in the probe query and response messages.
+
+   Receive Counter (64-bit): The number of packets or octets received at
+   the reflector node.  It is written by the reflector node in the probe
+   response message.
+
+   Sender Counter (64-bit): This is the exact copy of the transmit
+   counter from the received query message.  It is written by the
+   reflector node in the probe response message.
+
+   Sender Sequence Number (32-bit): As defined in [RFC5357].
+
+   Sender TTL: As defined in [RFC5357].
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 11]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
+   LM Flags: The meanings of the Flag bits are:
+
+      X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an LM Query and copied from an LM
+      Query to an LM response.  Set to 0 when the LM message is
+      transmitted or received over an interface that writes 32-bit
+      counter values.
+
+      B: Octet (byte) count.  When set to 1, indicates that the Counter
+      1-4 fields represent octet counts.  The octet count applies to all
+      packets within the LM scope, and the octet count of a packet sent
+      or received includes the total length of that packet (but excludes
+      headers, labels, or framing of the channel itself).  When set to
+      0, indicates that the Counter fields represent packet counts.
+
+   Block Number (8-bit): The Loss Measurement using Alternate-Marking
+   method defined in [RFC8321] requires to color the data traffic.  To
+   be able to compare the transmit and receive traffic counters of the
+   matching color, the Block Number (or color) of the traffic counters
+   is carried by the probe query and response messages for loss
+   measurement.
+
+   HMAC: The PM probe packet in authenticated mode includes a key Hashed
+   Message Authentication Code (HMAC) ([RFC2104]) hash.  Each probe
+   query and response messages are authenticated by adding Sequence
+   Number with Hashed Message Authentication Code (HMAC) TLV.  It can
+   use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
+   IPSec defined in [RFC4868]); hence the length of the HMAC field is 16
+   octets.
+
+   HMAC uses its own key and the mechanism to distribute the HMAC key is
+   outside the scope of this document.
+
+   In authenticated mode, only the sequence number is encrypted, and the
+   other payload fields are sent in clear text.  The probe packet MAY
+   include Comp.MBZ (Must Be Zero) variable length field to align the
+   packet on 16 octets boundary.
+
+4.1.4.  Loss Measurement Query Message Formats for STAMP
+
+   In this document, STAMP probe query message formats are defined for
+   loss measurement as shown in Figures 5 and 6.  These messages are
+   compatible with TWAMP probe query messages for loss measurement (e.g.
+   location for the counters).
+
+
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 12]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                        MBZ (28 octets)                        |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+               Figure 5: STAMP LM Probe Query Message Format
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    ~                                                               ~
+    |                        MBZ (68 octets)                        |
+    ~                                                               ~
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        HMAC (16 octets)                       |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+    Figure 6: STAMP LM Probe Query Message Format - Authenticated Mode
+
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 13]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
+4.1.5.  Control Code Field in TWAMP and STAMP Message
 
    The Control Code field is defined for the probe message for both
    TWAMP and STAMP packet formats in unauthenticated and authenticated
@@ -493,273 +773,19 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    Reserved: Reserved for future use.
 
-4.1.3.  Loss Measurement Query Message
-
-   The message content for Loss Measurement probe query message using
-   UDP header [RFC0768] is shown in Figure 2.  The LM probe query
-   message is sent with user-configured Destination UDP port number for
-
-
-
-Gandhi, et al.          Expires September 3, 2020               [Page 9]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
-   LM.  Separate Destination UDP ports are used for direct-mode and
-   inferred-mode loss measurements.  The Destination UDP port cannot be
-   used as Source port, since the message does not have any indication
-   to distinguish between query and response.  The LM probe query
-   message contains the payload for loss measurement as defined in
-   Figure 3-6.
-
-    +---------------------------------------------------------------+
-    | IP Header                                                     |
-    .  Source IP Address = Sender IPv4 or IPv6 Address              .
-    .  Destination IP Address = Reflector IPv4 or IPv6 Address      .
-    .  Protocol = UDP                                               .
-    .                                                               .
-    +---------------------------------------------------------------+
-    | UDP Header                                                    |
-    .  Source Port = As chosen by Sender                            .
-    .  Destination Port = User-configured Port for Loss Measurement .
-    .                                                               .
-    +---------------------------------------------------------------+
-    | Payload = Message as specified in Figure 3 or 4 |             |
-    . Payload = Message as specified in Figure 5 or 6               .
-    .                                                               .
-    +---------------------------------------------------------------+
-
-                     Figure 2: LM Probe Query Message
-
-4.1.3.1.  Loss Measurement Authentication Mode
-
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the loss measurement in
-   authentication mode due to the different message format.
-
-4.1.4.  Loss Measurement Query Message Formats for TWAMP
-
-   In this document, TWAMP probe query message formats are defined for
-   loss measurement as shown in Figure 3 and 4.  The message formats are
-   hardware efficient due to the small size payload (with closer offset
-   pointer for the Counter in payload) and well-known locations of
-   counters.  They are similar to the delay measurement message formats
-   (e.g. location of the Counter and Timestamp) and do not require any
-   backwards compatibility or support for the existing DM message
-   formats from [RFC5357].
-
-
-
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 10]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                                                               |
-    .                        Packet Padding                         .
-    .                                                               .
-    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               |      Checksum Complement      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-                  Figure 3: LM Probe Query Message Format
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (12 octets)                        |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (4 octets)                         |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        HMAC (16 octets)                       |
-    |                                                               |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                                                               |
-    .                        Packet Padding                         .
-    .                                                               .
-    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               |      Checksum Complement      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-       Figure 4: LM Probe Query Message Format - Authenticated Mode
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 11]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
-   Sequence Number (32-bit): As defined in [RFC5357].
-
-   Transmit Counter (64-bit): The number of packets or octets sent by
-   the sender node in the query message and by the reflector node in the
-   response message.  The counter is always written at the fixed
-   location in the probe query and response messages.
-
-   Receive Counter (64-bit): The number of packets or octets received at
-   the reflector node.  It is written by the reflector node in the probe
-   response message.
-
-   Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received query message.  It is written by the
-   reflector node in the probe response message.
-
-   Sender Sequence Number (32-bit): As defined in [RFC5357].
-
-   Sender TTL: As defined in [RFC5357].
-
-   LM Flags: The meanings of the Flag bits are:
-
-      X: Extended counter format indicator.  Indicates the use of
-      extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of an LM Query and copied from an LM
-      Query to an LM response.  Set to 0 when the LM message is
-      transmitted or received over an interface that writes 32-bit
-      counter values.
-
-      B: Octet (byte) count.  When set to 1, indicates that the Counter
-      1-4 fields represent octet counts.  The octet count applies to all
-      packets within the LM scope, and the octet count of a packet sent
-      or received includes the total length of that packet (but excludes
-      headers, labels, or framing of the channel itself).  When set to
-      0, indicates that the Counter fields represent packet counts.
-
-   Block Number (8-bit): The Loss Measurement using Alternate-Marking
-   method defined in [RFC8321] requires to color the data traffic.  To
-   be able to compare the transmit and receive traffic counters of the
-   matching color, the Block Number (or color) of the traffic counters
-   is carried by the probe query and response messages for loss
-   measurement.
-
-   HMAC: The PM probe packet in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) ([RFC2104]) hash.  Each probe
-   query and response messages are authenticated by adding Sequence
-   Number with Hashed Message Authentication Code (HMAC) TLV.  It can
-   use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 12]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
-   IPSec defined in [RFC4868]); hence the length of the HMAC field is 16
-   octets.
-
-   HMAC uses its own key and the mechanism to distribute the HMAC key is
-   outside the scope of this document.
-
-   In authenticated mode, only the sequence number is encrypted, and the
-   other payload fields are sent in clear text.  The probe packet MAY
-   include Comp.MBZ (Must Be Zero) variable length field to align the
-   packet on 16 octets boundary.
-
-4.1.5.  Loss Measurement Query Message Formats for STAMP
-
-   In this document, STAMP probe query message formats are defined for
-   loss measurement as shown in Figures 5 and 6.  These messages are
-   compatible with TWAMP probe query messages for loss measurement (e.g.
-   location for the counters).
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                                                               |
-    |                        MBZ (28 octets)                        |
-    |                                                               |
-    |                                                               |
-    |                                                               |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-               Figure 5: STAMP LM Probe Query Message Format
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 13]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (12 octets)                        |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ~                                                               ~
-    |                        MBZ (68 octets)                        |
-    ~                                                               ~
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        HMAC (16 octets)                       |
-    |                                                               |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-    Figure 6: STAMP LM Probe Query Message Format - Authenticated Mode
-
 4.1.6.  Probe Query for SR Links
 
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 14]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
    query message as defined in Figure 2 is sent on the congruent path of
    the data traffic for Loss measurement.
 
@@ -773,18 +799,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 7.
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 14]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -821,6 +835,13 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    for end-to-end performance measurement of an SRv6 Policy is sent
    using its SRH with Segment List as shown in Figure 8.
 
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 15]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
     +---------------------------------------------------------------+
     |                           SRH                                 |
     .                                                               .
@@ -832,15 +853,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +---------------------------------------------------------------+
 
                Figure 8: Probe Query Message for SRv6 Policy
-
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 15]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
 
    For delay measurement of SRv6 Policy using SRH, END function END.OTP
    [I-D.ietf-6man-spring-srv6-oam] is used with the target SRv6 SID to
@@ -876,6 +888,16 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
                      Figure 9: Probe Response Message
 
+
+
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 16]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
 4.2.1.  One-way Measurement Mode
 
    In one-way performance measurement mode, the probe response message
@@ -889,15 +911,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 16]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
    Response Requested".
 
@@ -933,6 +946,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The Path Segment Identifier (PSID)
    [I-D.ietf-spring-mpls-path-segment] of the forward SR Policy in the
    probe query can be used to find the associated reverse SR Policy
+
+
+
+Gandhi, et al.          Expires September 3, 2020              [Page 17]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
    [I-D.ietf-pce-sr-bidir-path] to send the probe response message for
    two-way measurement of SR Policy unless when using STAMP with Return
    Path TLV.
@@ -942,17 +963,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy with SRH is shown in Figure 11.
-
-
-
-
-
-
-
-Gandhi, et al.          Expires September 3, 2020              [Page 17]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
@@ -986,16 +996,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    measurement message formats (e.g. location of the Counter and
    Timestamp) and do not require any backwards compatibility or support
    for the existing DM message formats from [RFC5357].
-
-
-
-
-
-
-
-
-
-
 
 
 
