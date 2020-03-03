@@ -27,10 +27,10 @@ Abstract
    Measurement (PM) in Segment Routing networks.  The procedure uses the
    mechanisms defined in RFC 5357 (Two-Way Active Measurement Protocol
    (TWAMP) Light) and Simple Two-Way Active Measurement Protocol (STAMP)
-   for Delay Measurement, and also uses the extensions defined in this
-   document for Loss Measurement.  The procedure specified is applicable
-   to SR-MPLS and SRv6 data planes and is used for both links and end-
-   to-end SR Policies.
+   for Delay Measurement, and uses the messages defined in this document
+   for Loss Measurement.  The procedure specified is applicable to SR-
+   MPLS and SRv6 data planes and is used for both links and end-to-end
+   SR Policies.
 
 Status of This Memo
 
@@ -85,7 +85,7 @@ Table of Contents
      3.2.  STAMP Applicability . . . . . . . . . . . . . . . . . . .   7
    4.  Probe Messages  . . . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   7
-       4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   7
+       4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   8
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   9
        4.1.3.  Loss Measurement Query Message Formats for TWAMP  . .  10
        4.1.4.  Loss Measurement Query Message Formats for STAMP  . .  13
@@ -139,29 +139,29 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    provide capabilities for the measurement of various performance
    metrics in IP networks using probe messages.  These protocols rely on
    control-channel signaling to establish a test-channel over an UDP
-   path.  These protocols lack support for direct-mode Loss Measurement
-   (LM) to detect actual data traffic loss which is required in SR
-   networks.  The Simple Two-way Active Measurement Protocol (STAMP)
+   path.  The TWAMP Light [Appendix I in RFC5357] [BBF.TR-390] provides
+   simplified mechanisms for active performance measurement in Customer
+   IP networks by provisioning UDP paths and eliminates the control-
+   channel signaling.  TWAMP lacks support for direct-mode Loss
+   Measurement (LM) to detect actual Customer data traffic loss which is
+   required in SR networks.
+
+   The Simple Two-way Active Measurement Protocol (STAMP)
    [I-D.ietf-ippm-stamp] alleviates the control-channel signaling by
-   using configuration data model to provision a test-channel.  The
-   TWAMP Light [Appendix I in RFC5357] [BBF.TR-390] provides simplified
-   mechanisms for active performance measurement in Customer IP networks
-   by provisioning UDP paths and eliminates the control-channel
-   signaling.
+   using configuration data model to provision a test-channel.
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
    networks.  The procedure uses the mechanisms defined in [RFC5357]
-   (TWAMP Light) and STAMP for Delay Measurement (DM), and also uses the
-   extensions defined in this document for Loss Measurement.  The
+   (TWAMP Light) and STAMP for Delay Measurement (DM), and uses the
+   messages defined in this document for Loss Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
    performance delay measurement.  Unless otherwise specified, the
    procedures defined in [RFC5357] and [I-D.ietf-ippm-stamp] are not
    modified by this document.  Any procedures and extensions defined in
-   this document are expected to work consistently across both
-   protocols.
+
 
 
 
@@ -169,6 +169,9 @@ Gandhi, et al.          Expires September 3, 2020               [Page 3]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   this document are expected to work consistently across both
+   protocols.
 
 2.  Conventions Used in This Document
 
@@ -215,9 +218,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    SRv6: Segment Routing with IPv6 data plane.
 
-   STAMP: Simple Two-way Active Measurement Protocol.
-
-   TC: Traffic Class.
 
 
 
@@ -225,6 +225,10 @@ Gandhi, et al.          Expires September 3, 2020               [Page 4]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   STAMP: Simple Two-way Active Measurement Protocol.
+
+   TC: Traffic Class.
 
    TWAMP: Two-Way Active Measurement Protocol.
 
@@ -269,10 +273,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    For Performance Measurement, probe query and response messages are
    sent as following:
 
-   o  For Delay Measurement, the probe messages are sent on the
-      congruent path of the data traffic by the sender node, and are
-      used to measure the delay experienced by the actual data traffic
-      flowing on the links and SR Policies.
 
 
 
@@ -281,6 +281,11 @@ Gandhi, et al.          Expires September 3, 2020               [Page 5]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   o  For Delay Measurement, the probe messages are sent on the
+      congruent path of the data traffic by the sender node, and are
+      used to measure the delay experienced by the actual data traffic
+      flowing on the links and SR Policies.
 
    o  For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
@@ -323,12 +328,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
                        Example Provisioning Model
 
-   The reflector node R5 uses the parameters for the timestamp format,
-   delay measurement mode (i.e. one-way, two-way or loopback mode) and
-   packet padding size from the received probe query message.
 
-   Examples of Measurement Protocol is TWAMP Light or STAMP, the
-   Timestamp Format is PTPv2 [IEEE1588] or NTP and the Loss Measurement
 
 
 
@@ -338,6 +338,12 @@ Gandhi, et al.          Expires September 3, 2020               [Page 6]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
+   The reflector node R5 uses the parameters for the timestamp format,
+   delay measurement mode (i.e. one-way, two-way or loopback mode) and
+   packet padding size from the received probe query message.
+
+   Examples of Measurement Protocol is TWAMP Light or STAMP, the
+   Timestamp Format is PTPv2 [IEEE1588] or NTP and the Loss Measurement
    mode is inferred or direct mode.  The mechanisms to provision the
    sender and reflector nodes are outside the scope of this document.
 
@@ -381,12 +387,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    of 0.0.0.0 or IPv6 endpoint of ::0
    [I-D.ietf-spring-segment-routing-policy].
 
-4.1.1.  Delay Measurement Query Message
-
-   The message content for Delay Measurement probe query message using
-   UDP header [RFC0768], is shown in Figure 1.  The DM probe query
-   message is sent with user-configured Destination UDP port number for
-
 
 
 Gandhi, et al.          Expires September 3, 2020               [Page 7]
@@ -394,6 +394,11 @@ Gandhi, et al.          Expires September 3, 2020               [Page 7]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
+4.1.1.  Delay Measurement Query Message
+
+   The message content for Delay Measurement probe query message using
+   UDP header [RFC0768], is shown in Figure 1.  The DM probe query
+   message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
    the message does not have any indication to distinguish between query
    and response.  The DM probe query message contains the payload for
@@ -433,14 +438,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The Control Code field is defined in the modified DM probe message
    format for both TWAMP and STAMP packet formats in unauthenticated and
    authenticated modes.  Using the same field in STAMP packet format
-   eliminates the need to define a different mechanism using TLV.  The
-   modified DM probe message format for both TWAMP and STAMP is
+   eliminates the need to define a different mechanism using STAMP TLV.
+   The modified DM probe message format for both TWAMP and STAMP is
    backwards compatible with the format defined in [RFC5357] as its
-   reflector MUST ignore the received field (previously MBZ).  The
-   Control Code is applicable to both SR as well as non-SR paths.
-
-
-
 
 
 
@@ -449,6 +449,9 @@ Gandhi, et al.          Expires September 3, 2020               [Page 8]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   reflector MUST ignore the received field (previously MBZ).  The
+   Control Code is applicable to both SR as well as non-SR paths.
 
     .                                                               .
     .                                                               .
@@ -495,9 +498,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The message content for Loss Measurement probe query message using
    UDP header [RFC0768] is shown in Figure 2.  The LM probe query
    message is sent with user-configured Destination UDP port number for
-   LM.  Separate Destination UDP ports are used for direct-mode and
-   inferred-mode loss measurements.  The Destination UDP port cannot be
-   used as Source port, since the message does not have any indication
 
 
 
@@ -506,6 +506,9 @@ Gandhi, et al.          Expires September 3, 2020               [Page 9]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
+   LM.  Separate Destination UDP ports are used for direct-mode and
+   inferred-mode loss measurements.  The Destination UDP port cannot be
+   used as Source port, since the message does not have any indication
    to distinguish between query and response.  The LM probe query
    message contains the payload for loss measurement as defined in
    Figure 3-6.
@@ -547,9 +550,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    (e.g. location of the Counter and Timestamp) and do not require any
    backwards compatibility or support for the existing DM message
    formats from [RFC5357].
-
-
-
 
 
 
