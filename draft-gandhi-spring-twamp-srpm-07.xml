@@ -121,7 +121,7 @@
    path. The TWAMP Light [Appendix I in RFC5357] <xref target="BBF.TR-390"/> provides simplified
    mechanisms for active performance measurement in Customer IP networks
    by provisioning UDP paths and eliminates the control-channel
-   signaling. TWAMP lacks support for direct-mode Loss Measurement
+   signaling. The TWAMP lacks support for direct-mode Loss Measurement
    (LM) to detect actual Customer data traffic loss which is required in SR
    networks.</t>
 
@@ -140,8 +140,8 @@
    also defines mechanisms for handling ECMPs of SR Policies for
    performance delay measurement.  Unless otherwise specified, the procedures 
    defined in <xref target="RFC5357"/> and <xref target="I-D.ietf-ippm-stamp"/>
-   are not modified by this document.  Any procedures and extensions defined
-   in this document are expected to work consistently across both protocols.</t>
+   are not modified by this document.  The procedures and extensions 
+   in this document are defined to work consistently across both protocols.</t>
 	</section>
 
 	<section title="Conventions Used in This Document" anchor="sect-2"><section title="Requirements Language" anchor="sect-2.1"><t>
@@ -398,12 +398,25 @@ Loss Measurement Mode  /                  \
    <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with hardware support
    in Segment Routing networks.</t>
 
-	<section title="Control Code Field in TWAMP and STAMP Message" anchor="sect-4.1.1.1">
+
+
+	<section title="Delay Measurement Authentication Mode" anchor="sect-4.1.1.1"><t>
+   When using the authenticated mode for delay measurement, the matching
+   authentication type (e.g. HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the delay measurement in
+   authentication mode due to the different probe message format.</t>
+
+	</section>
+
+	</section>
+
+	<section title="Control Code Field in TWAMP and STAMP Message" anchor="sect-4.1.2">
 	<t>
-   The Control Code field is defined in the modified DM probe message
-   format for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes.  
-   Using the same field in STAMP packet format eliminates 
-   the need to define a different mechanism using STAMP TLV.
+   The Control Code field is defined for the probe message
+   for both TWAMP and STAMP packet formats in unauthenticated and authenticated modes.  
+   Using the same field for the STAMP packet format eliminates 
+   the need to define a different mechanism (e.g. using STAMP TLV).
    The modified DM probe message format for both TWAMP and STAMP is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
    ignore the received field (previously MBZ).
@@ -457,18 +470,7 @@ For a Query:
 
 	</section>
 
-	<section title="Delay Measurement Authentication Mode" anchor="sect-4.1.1.2"><t>
-   When using the authenticated mode for delay measurement, the matching
-   authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the delay measurement in
-   authentication mode due to the different probe message format.</t>
-
-	</section>
-
-	</section>
-
-	<section title="Loss Measurement Query Message" anchor="sect-4.1.2"><t>
+	<section title="Loss Measurement Query Message" anchor="sect-4.1.3"><t>
    The message content for Loss Measurement probe query message using
    UDP header <xref target="RFC0768"/> is shown in Figure 2. The LM probe query message
    is sent with user-configured Destination UDP port number for LM.
@@ -499,7 +501,7 @@ For a Query:
 ]]></artwork>
 	</figure>
 
-	<section title="Loss Measurement Authentication Mode" anchor="sect-4.1.2.1"><t>
+	<section title="Loss Measurement Authentication Mode" anchor="sect-4.1.3.1"><t>
    When using the authenticated mode for loss measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
    on both the sender and reflector nodes.  A separate user-configured
@@ -509,7 +511,7 @@ For a Query:
 	</section>
         </section>
 
-	<section title="Loss Measurement Query Message Formats for TWAMP" anchor="sect-4.1.3">
+	<section title="Loss Measurement Query Message Formats for TWAMP" anchor="sect-4.1.4">
    <t> In this document, TWAMP probe query message formats are defined for
    loss measurement as shown in Figure 3 and 4. The message
    formats are hardware efficient due to the small size payload (with closer offset pointer for the Counter in payload) and
@@ -643,7 +645,7 @@ For a Query:
 
    </section>
 
-   <section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.4">
+   <section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.5">
 
    <t>In this document, STAMP probe query message formats are defined for loss measurement as shown in Figures 5 and 6. 
    These messages are compatible with TWAMP probe query messages for loss measurement (e.g. location for the counters).</t> 
@@ -699,7 +701,7 @@ For a Query:
 
 	</section>
 
-	<section title="Probe Query for SR Links" anchor="sect-4.1.5"><t>
+	<section title="Probe Query for SR Links" anchor="sect-4.1.6"><t>
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
    query message as defined in Figure 2 is sent on the congruent path of
@@ -707,11 +709,11 @@ For a Query:
 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.6"><t>
+	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.7"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.</t>
 
-	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.5.1"><t>
+	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.7.1"><t>
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 7.</t>
@@ -746,7 +748,7 @@ For a Query:
 
 	</section>
 
-	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.6.2"><t>
+	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.7.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. 
    For SRv6, network programming is defined in <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
