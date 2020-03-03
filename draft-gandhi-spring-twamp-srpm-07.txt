@@ -526,7 +526,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                               |      Checksum Complement      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                  Figure 3: LM Probe Query Message Format
+               Figure 3: TWAMP LM Probe Query Message Format
 
 
 
@@ -590,7 +590,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                               |      Checksum Complement      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-       Figure 4: LM Probe Query Message Format - Authenticated Mode
+    Figure 4: TWAMP LM Probe Query Message Format - Authenticated Mode
 
    Sequence Number (32-bit): As defined in [RFC5357].
 
@@ -1038,7 +1038,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                               |      Checksum Complement      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                Figure 12: LM Probe Response Message Format
+             Figure 12: TWAMP LM Probe Response Message Format
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1102,7 +1102,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                               |     Checksum Complement       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-     Figure 13: LM Probe Response Message Format - Authenticated Mode
+     Figure 13: TWAMP LM Probe Response Message Format - Authenticated
+                                   Mode
 
 4.2.5.  Loss Measurement Response Message Formats for STAMP
 
@@ -1110,7 +1111,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    for loss measurement as shown in Figure 14 and 15.  These messages
    are compatible with TWAMP probe response messages for loss
    measurement (e.g. location for the counters).
-
 
 
 
