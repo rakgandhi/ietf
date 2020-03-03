@@ -316,7 +316,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    Authentication Mode & Key  /          \     Authentication Mode & Key
    Timestamp Format          /            \    Loss Measurement Mode
    Delay Measurement Mode   /              \
-   Padding/MBZ Bytes       /                \
+   Padding/Packet Size     /                \
    Loss Measurement Mode  /                  \
                          v                    v
                      +-------+            +-------+
