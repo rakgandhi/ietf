@@ -463,7 +463,7 @@ Loss Measurement Mode  /                  \
    compatibility or support for the existing DM message formats from
    <xref target="RFC5357"/>.</t>
 
-	<figure title="LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
+	<figure title="TWAMP LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -483,7 +483,7 @@ Loss Measurement Mode  /                  \
 ]]></artwork>
 	</figure>
 
-	<figure title="LM Probe Query Message Format - Authenticated Mode" anchor="ure-lm-probe-query-message-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="TWAMP LM Probe Query Message Format - Authenticated Mode" anchor="ure-lm-probe-query-message-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -907,7 +907,7 @@ For a Query:
    compatibility or support for the existing DM message formats from
    <xref target="RFC5357"/>.</t>
 
-	<figure title="LM Probe Response Message Format" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
+	<figure title="TWAMP LM Probe Response Message Format" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -938,7 +938,7 @@ For a Query:
 ]]></artwork>
 	</figure>
 
-	<figure title="LM Probe Response Message Format - Authenticated Mode" anchor="ure-lm-probe-response-message-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="TWAMP LM Probe Response Message Format - Authenticated Mode" anchor="ure-lm-probe-response-message-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
