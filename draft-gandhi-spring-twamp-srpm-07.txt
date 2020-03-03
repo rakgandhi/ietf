@@ -1034,8 +1034,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+                                               +
     |                        Packet Padding                         |
     .                                                               .
-    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               |      Checksum Complement      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
              Figure 12: TWAMP LM Probe Response Message Format
@@ -1058,6 +1056,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Receive Counter                        |
     |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (8 octets)                         |
 
 
 
@@ -1066,8 +1066,6 @@ Gandhi, et al.          Expires September 4, 2020              [Page 19]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (8 octets)                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sender Sequence Number                 |
@@ -1095,11 +1093,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
-    .                                                               .
     .                        Packet Padding                         .
     .                                                               .
-    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                               |     Checksum Complement       |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 13: TWAMP LM Probe Response Message Format - Authenticated
@@ -1111,6 +1106,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    for loss measurement as shown in Figure 14 and 15.  These messages
    are compatible with TWAMP probe response messages for loss
    measurement (e.g. location for the counters).
+
+
+
+
+
 
 
 
