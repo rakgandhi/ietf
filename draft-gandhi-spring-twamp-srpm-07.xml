@@ -956,7 +956,7 @@ Loss Measurement Mode  /                  \
 	<section title="Node Address TLV for STAMP" anchor="sect-4.3">
 
         <t>The Node Address TLV is defined for STAMP <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
-        in this document and has the following format:</t>
+        in this document and has the following format shown in Figure 14:</t>
 
 
 	<figure title="Node Address TLV Format" anchor="ure-node-address-tlv-format"><artwork><![CDATA[
