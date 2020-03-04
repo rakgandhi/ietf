@@ -546,9 +546,9 @@ Loss Measurement Mode  /                  \
    The modified DM probe message format for both TWAMP and STAMP is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
    ignore the received field (identified as MBZ).
-   The Control Code is applicable to both SR as well as non-SR paths.</t>
+   The usage of the Control Code is not limited to the SR use-cases.</t>
 
-   <figure title="Control Code in TWAMP and STAMP" anchor="ure-control-code-in-twamp-and-stamp"><artwork><![CDATA[
+   <figure title="Control Code in TWAMP and STAMP Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -562,8 +562,10 @@ Loss Measurement Mode  /                  \
 ]]></artwork>
 	</figure>
 
-<t>
-   Control Code: Set as follows in TWAMP and STAMP probe query and response messages.
+   <t>
+	Control Code: Set as follows in TWAMP and STAMP probe query and response messages.</t>
+   <t>  </t>
+   <t>
    For a Query:</t>
 
 	<t><list hangIndent="4" style="hanging"><t>
@@ -767,7 +769,7 @@ Loss Measurement Mode  /                  \
    as defined in Figure 11 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to
    "Out-of-band Response Requested". 
-   In this delay measuremnt mode, as per Reference Topology, only timestamps t1 and t2 are collected by the probes.</t>
+   In this delay measurement mode, as per Reference Topology, only timestamps t1 and t2 are collected by the probes.</t>
 	</section>
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
@@ -776,7 +778,7 @@ Loss Measurement Mode  /                  \
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Control Code is set to "In-band Response Requested".
-   In this delay measuremnt mode, as per Reference Topology, all timestamps t1, t2, t3, and t4 are collected by the probes.</t>
+   In this delay measurement mode, as per Reference Topology, all timestamps t1, t2, t3, and t4 are collected by the probes.</t>
 
 	<t>
    Specifically, the probe response message is sent back on the incoming physical
@@ -845,7 +847,7 @@ Loss Measurement Mode  /                  \
    reverse path label stack for SR-MPLS) as part of the SR header.  The
    probe packets are not punted at the reflector node and it does not process them and generate
    response messages.
-   In this delay measuremnt mode, as per Reference Topology, the timestamps t1 and t4 are collected by the probes.</t>
+   In this delay measurement mode, as per Reference Topology, the timestamps t1 and t4 are collected by the probes.</t>
 
 	</section>
 
@@ -945,7 +947,7 @@ Loss Measurement Mode  /                  \
 	</section>
 
 	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.5"><t>
-   The STAMP loss measurement probe respone message uses the same packet format as the TWAMP loss measurement probe response message, 
+   The STAMP loss measurement probe response message uses the same packet format as the TWAMP loss measurement probe response message, 
    except the padding size is 3 bytes in STAMP message in unauthenticated 
    mode (shown in Figure 12) whereas no padding is added in authenticated mode (shown in Figure 13).</t>
         </section>
