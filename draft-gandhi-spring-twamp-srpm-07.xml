@@ -542,7 +542,7 @@ Loss Measurement Mode  /                  \
    The Control Code field is defined for the probe message
    for both TWAMP Light and STAMP packet formats in unauthenticated and authenticated modes as shown in Figure 6.  
    Using the same field as in TWAMP Light message format eliminates 
-   the need to define a different mechanism (e.g. using STAMP TLV) for STAMP.
+   the need to define a different mechanism (e.g. using STAMP TLV) for STAMP and maintains the consistency of their packet formats.
    The modified DM probe message format for both TWAMP and STAMP is backwards
    compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
    ignore the received field (identified as MBZ).
@@ -733,7 +733,9 @@ Loss Measurement Mode  /                  \
    <section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.7">
    <t>The STAMP loss measurement probe query message uses the same packet format as the TWAMP loss measurement probe query message, 
    except the padding size is 28 bytes in STAMP message in unauthenticated 
-   mode (shown in Figure 7) and no padding is added in authenticated mode (shown in Figure 8).</t>
+   mode (shown in Figure 7) and no padding is added in authenticated mode (shown in Figure 8).
+   These messages do not modify the procedure for delay measurement defined in <xref target="I-D.ietf-ippm-stamp"/>, 
+   as different destination UDP port is used for loss measurement</t>
 	</section>
 
 	</section>
@@ -766,7 +768,7 @@ Loss Measurement Mode  /                  \
 	</figure>
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way performance measurement mode, the probe response message
-   as defined in Figure 11 is sent back out-of-band to the sender node,
+   as defined in Figure 9 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to
    "Out-of-band Response Requested". 
    In this delay measurement mode, as per Reference Topology, only timestamps t1 and t2 are collected by the probes.</t>
