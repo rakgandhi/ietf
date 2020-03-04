@@ -304,7 +304,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    An example of a provisioning model and typical measurement parameters
    for performance delay and loss measurements is shown in the following
-   Figure:
+   Figure 1:
+
 
                              +------------+
                              | Controller |
@@ -326,9 +327,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
                      +-------+            +-------+
                       Sender              Reflector
 
-                       Example Provisioning Model
 
-
+                   Figure 1: Example Provisioning Model
 
 
 
@@ -400,7 +400,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.1.1.  Delay Measurement Query Message
 
    The message content for Delay Measurement probe query message using
-   UDP header [RFC0768], is shown in Figure 1.  The DM probe query
+   UDP header [RFC0768], is shown in Figure 2.  The DM probe query
    message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
    the message does not have any indication to distinguish between query
@@ -428,7 +428,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +---------------------------------------------------------------+
 
-                     Figure 1: DM Probe Query Message
+                     Figure 2: DM Probe Query Message
 
    Timestamp field is eight bytes and use the format defined in
    Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
@@ -456,14 +456,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.1.2.  Loss Measurement Query Message
 
    The message content for Loss Measurement probe query message using
-   UDP header [RFC0768] is shown in Figure 2.  The LM probe query
+   UDP header [RFC0768] is shown in Figure 3.  The LM probe query
    message is sent with user-configured Destination UDP port number for
    LM.  Separate Destination UDP ports are used for direct-mode and
    inferred-mode loss measurements.  The Destination UDP port cannot be
    used as Source port, since the message does not have any indication
    to distinguish between query and response.  The LM probe query
    message contains the payload for loss measurement as defined in
-   Figure 5 and 6.
+   Figure 7 and Figure 8.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -477,12 +477,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .  Destination Port = User-configured Port for Loss Measurement .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = Message as specified in Figure 5 or 6               |
+    | Payload = Message as specified in Figure 7 or 8               |
     .           for TWAMP and STAMP                                 .
     .                                                               .
     +---------------------------------------------------------------+
 
-                     Figure 2: LM Probe Query Message
+                     Figure 3: LM Probe Query Message
 
 4.1.2.1.  Loss Measurement Authentication Mode
 
@@ -494,9 +494,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 4.1.3.  Probe Query for SR Links
 
-   The probe query message as defined in Figure 1 is sent on the
+   The probe query message as defined in Figure 2 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
-   query message as defined in Figure 2 is sent on the congruent path of
+   query message as defined in Figure 3 is sent on the congruent path of
    the data traffic for Loss measurement.
 
 
@@ -515,7 +515,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
-   segment list as shown in Figure 3.
+   segment list as shown in Figure 4.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -530,11 +530,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                PSID                   | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+    |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
     .                                                               .
     +---------------------------------------------------------------+
 
-             Figure 3: Probe Query Message for SR-MPLS Policy
+             Figure 4: Probe Query Message for SR-MPLS Policy
 
    The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.
@@ -550,7 +550,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    For SRv6, network programming is defined in
    [I-D.ietf-spring-srv6-network-programming].  The probe query messages
    for end-to-end performance measurement of an SRv6 Policy is sent
-   using its SRH with Segment List as shown in Figure 4.
+   using its SRH with Segment List as shown in Figure 5.
 
 
 
@@ -567,16 +567,16 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +---------------------------------------------------------------+
 
-    |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+    |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
     .   (Using IPv6 Source and Destination Addresses)               .
     .                                                               .
     +---------------------------------------------------------------+
 
-               Figure 4: Probe Query Message for SRv6 Policy
+               Figure 5: Probe Query Message for SRv6 Policy
 
    For delay measurement of SRv6 Policy using SRH, END function END.OTP
    [I-D.ietf-6man-spring-srv6-oam] is used with the target SRv6 SID to
-   punt probe messages on the target node, as shown in Figure 4.
+   punt probe messages on the target node, as shown in Figure 5.
    Similarly, for loss measurement of SRv6 Policy, END function END.OP
    [I-D.ietf-6man-spring-srv6-oam] is used with target SRv6 SID to punt
    probe messages on the target node.
@@ -585,13 +585,13 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The Control Code field is defined for the probe message for both
    TWAMP Light and STAMP packet formats in unauthenticated and
-   authenticated modes.  Using the same field as in TWAMP Light message
-   format eliminates the need to define a different mechanism (e.g.
-   using STAMP TLV) for STAMP.  The modified DM probe message format for
-   both TWAMP and STAMP is backwards compatible with the format defined
-   in [RFC5357] as its reflector MUST ignore the received field
-   (identified as MBZ).  The Control Code is applicable to both SR as
-   well as non-SR paths.
+   authenticated modes as shown in Figure 6.  Using the same field as in
+   TWAMP Light message format eliminates the need to define a different
+   mechanism (e.g. using STAMP TLV) for STAMP.  The modified DM probe
+   message format for both TWAMP and STAMP is backwards compatible with
+   the format defined in [RFC5357] as its reflector MUST ignore the
+   received field (identified as MBZ).  The Control Code is applicable
+   to both SR as well as non-SR paths.
 
     .                                                               .
     .                                                               .
@@ -604,10 +604,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     .                                                               .
 
-   Control Code: Set as follows in TWAMP and STAMP probe query and
-   response messages.
+                 Figure 6: Control Code in TWAMP and STAMP
 
-   For a Query:
+   Control Code: Set as follows in TWAMP and STAMP probe query and
+   response messages.  For a Query:
 
 
 
@@ -637,13 +637,13 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.1.6.  Loss Measurement Query Message Formats for TWAMP
 
    In this document, TWAMP probe query message formats are defined for
-   loss measurement as shown in Figure 5 and 6.  The message formats are
-   hardware efficient due to the small size payload (with closer offset
-   pointer for the Counter in payload) and well-known locations of the
-   counters.  They are similar to the delay measurement message formats
-   (e.g. location of the Counter and Timestamp) and do not require any
-   backwards compatibility or support for the existing DM message
-   formats from [RFC5357].
+   loss measurement as shown in Figure 7 and Figure 8.  The message
+   formats are hardware efficient due to the small size payload (with
+   closer offset pointer for the Counter in payload) and well-known
+   locations of the counters.  They are similar to the delay measurement
+   message formats (e.g. location of the Counter and Timestamp) and do
+   not require any backwards compatibility or support for the existing
+   DM message formats from [RFC5357].
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -660,7 +660,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-               Figure 5: TWAMP LM Probe Query Message Format
+               Figure 7: TWAMP LM Probe Query Message Format
 
 
 
@@ -700,7 +700,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-    Figure 6: TWAMP LM Probe Query Message Format - Authenticated Mode
+    Figure 8: TWAMP LM Probe Query Message Format - Authenticated Mode
 
    Sequence Number (32-bit): As defined in [RFC5357].
 
@@ -772,8 +772,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The STAMP loss measurement probe query message uses the same packet
    format as the TWAMP loss measurement probe query message, except the
    padding size is 28 bytes in STAMP message in unauthenticated mode
-   (shown in Figure 5) and no padding is added in authenticated mode
-   (shown in Figure 6).
+   (shown in Figure 7) and no padding is added in authenticated mode
+   (shown in Figure 8).
 
 
 
@@ -790,7 +790,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
-   message is shown in Figure 7.
+   message is shown in Figure 9.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -806,17 +806,17 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +---------------------------------------------------------------+
     | DM Payload as specified in Section 4.2.1 of RFC 5357 |        |
     . DM payload as specified in Section 4.3 of ietf-ippm-stamp |   .
-    . LM Payload as specified in Figure 10 or 11                    .
+    . LM Payload as specified in Figure 12 or 13                    .
     .               for TWAMP and STAMP                             .
     .                                                               .
     +---------------------------------------------------------------+
 
-                     Figure 7: Probe Response Message
+                     Figure 9: Probe Response Message
 
 4.2.1.  One-way Measurement Mode
 
    In one-way performance measurement mode, the probe response message
-   as defined in Figure 9 is sent back out-of-band to the sender node,
+   as defined in Figure 11 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to "Out-
    of-band Response Requested".  In this delay measuremnt mode, as per
    Reference Topology, only timestamps t1 and t2 are collected by the
@@ -825,7 +825,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.2.2.  Two-way Measurement Mode
 
    In two-way performance measurement mode, when using a bidirectional
-   path, the probe response message as defined in Figure 7 is sent back
+   path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
@@ -851,7 +851,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The message content for sending probe response message for two-way
    end-to-end performance measurement of an SR-MPLS Policy is shown in
-   Figure 8.
+   Figure 10.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -865,11 +865,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                Segment(n)             | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                Message as shown in Figure 7                   |
+    |                Message as shown in Figure 9                   |
     .                                                               .
     +---------------------------------------------------------------+
 
-            Figure 8: Probe Response Message for SR-MPLS Policy
+           Figure 10: Probe Response Message for SR-MPLS Policy
 
    The Path Segment Identifier (PSID)
    [I-D.ietf-spring-mpls-path-segment] of the forward SR Policy in the
@@ -882,7 +882,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy with SRH is shown in Figure 9.
+   measurement of an SRv6 Policy with SRH is shown in Figure 11.
 
 
 
@@ -902,12 +902,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     |                           SRH                                 |
     .                                                               .
     +---------------------------------------------------------------+
-    |   Message as shown in Figure 7                                |
+    |   Message as shown in Figure 9                                |
     .   (Using IPv6 Source and Destination Addresses)               .
     .                                                               .
     +---------------------------------------------------------------+
 
-             Figure 9: Probe Response Message for SRv6 Policy
+             Figure 11: Probe Response Message for SRv6 Policy
 
 4.2.3.  Loopback Measurement Mode
 
@@ -925,10 +925,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.2.4.  Loss Measurement Response Message Formats for TWAMP
 
    In this document, TWAMP probe response message formats are defined
-   for loss measurement as shown in Figure 10 and 11.  The message
-   formats are hardware efficient due to the small size payload (with
-   closer offset pointer for the Counter in payload) and well known
-   locations of the counters.  They are also similar to the delay
+   for loss measurement as shown in Figure 12 and Figure 13.  The
+   message formats are hardware efficient due to the small size payload
+   (with closer offset pointer for the Counter in payload) and well
+   known locations of the counters.  They are also similar to the delay
    measurement message formats (e.g. location of the Counter and
    Timestamp) and do not require any backwards compatibility or support
    for the existing DM message formats from [RFC5357].
@@ -980,7 +980,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 10: TWAMP LM Probe Response Message Format
+             Figure 12: TWAMP LM Probe Response Message Format
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1041,7 +1041,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-     Figure 11: TWAMP LM Probe Response Message Format - Authenticated
+     Figure 13: TWAMP LM Probe Response Message Format - Authenticated
                                    Mode
 
 4.2.5.  Loss Measurement Response Message Formats for STAMP
@@ -1049,8 +1049,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The STAMP loss measurement probe respone message uses the same packet
    format as the TWAMP loss measurement probe response message, except
    the padding size is 3 bytes in STAMP message in unauthenticated mode
-   (shown in Figure 10) whereas no padding is added in authenticated
-   mode (shown in Figure 11).
+   (shown in Figure 12) whereas no padding is added in authenticated
+   mode (shown in Figure 13).
 
 4.3.  Node Address TLV for STAMP
 
@@ -1074,7 +1074,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     ~                           Address                             ~
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                    Figure 12: Node Address TLV Format
+                    Figure 14: Node Address TLV Format
 
    The Address Family field indicates the type of the address, and it
    SHALL be set to one of the assigned values in the "IANA Address
@@ -1111,7 +1111,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    that can include one or more optional TLVs.  The TLV Type (value
    TBA2) is defined in this document for Return Path to carry reverse
    path for probe response messages (in the payload of the message).
-   The format of the Return Path TLV is shown in Figure 13:
+   The format of the Return Path TLV is shown in Figure 15:
 
 
 
@@ -1131,10 +1131,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                        Figure 13: Return Path TLV
+                        Figure 15: Return Path TLV
 
    The following Type defined for the Return Path TLV contains the Node
-   Address sub-TLV (shown in Figure 12):
+   Address sub-TLV (shown in Figure 14):
 
    o  Type (value 0): Return Address.  Target node address of the
       response different than the Source Address in the query
@@ -1156,9 +1156,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-            Figure 14: Segment List Sub-TLV in Return Path TLV
+            Figure 16: Segment List Sub-TLV in Return Path TLV
 
-   The Segment List Sub-TLV (shown in Figure 14) in the Return Path TLV
+   The Segment List Sub-TLV (shown in Figure 16) in the Return Path TLV
    can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Reverse SR Path
@@ -1196,10 +1196,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    o  The sender root node sends probe query messages using the
       Replication Segment defined in
       [I-D.voyer-spring-sr-replication-segment] for the P2MP SR Policy
-      as shown in Figure 15.
+      as shown in Figure 17.
 
    o  Each reflector leaf node sends its IP address in the Source
-      Address of the probe response messages as shown in Figure 7.  This
+      Address of the probe response messages as shown in Figure 9.  This
       allows the sender root node to identify the reflector leaf nodes
       of the P2MP SR Policy.
 
@@ -1211,11 +1211,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |              Replication SID          | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+    |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
     .                                                               .
     +---------------------------------------------------------------+
 
-       Figure 15: Query with Replication Segment for SR-MPLS Policy
+       Figure 17: Query with Replication Segment for SR-MPLS Policy
 
 6.  ECMP Support for SR Policies
 
