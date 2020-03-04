@@ -1056,7 +1056,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The Node Address TLV is defined for STAMP
    [I-D.ietf-ippm-stamp-option-tlv] in this document and has the
-   following format:
+   following format shown in Figure 14:
 
 
 
@@ -1552,7 +1552,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-11 (work in
+              draft-ietf-spring-srv6-network-programming-12 (work in
               progress), March 2020.
 
    [I-D.ietf-pce-binding-label-sid]
