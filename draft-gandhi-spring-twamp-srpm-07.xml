@@ -840,7 +840,7 @@ For a Query:
    and the source address equals to the reflector address.  Optionally,
    the probe query message can carry the reverse path information (e.g.
    reverse path label stack for SR-MPLS) as part of the SR header.  The
-   reflector node does not process the PM probe messages and generate
+   probe packets are not punted at the reflector node and it does not process them and generate
    response messages.</t>
 
 	</section>
