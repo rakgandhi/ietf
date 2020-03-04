@@ -359,15 +359,13 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    The STAMP message with a TLV for "direct measurement" can be used for
    combined delay + loss measurement [I-D.ietf-ippm-stamp-option-tlv].
-   However, note that in order to use only for loss measurement purpose,
-   it requires the node to support the delay measurement STAMP messages
-   and timestamp the packets.  Furthermore, for hardware-based counter
+   However, in order to use only for loss measurement purpose, it
+   requires the node to support the delay measurement STAMP messages and
+   timestamp the packets.  Furthermore, for hardware-based counter
    collection, the optional TLV based processing adds unnecessary
-   overhead.  Many hardware cannot load large size packet into the local
-   memory to update the counter value at a further offset pointer into
-   the payload.  In addition, it is also not compatible with the loss
-   measurement messages defined in this document for TWAMP Light (e.g.
-   location for the counters).
+   overhead.  In addition, the TLV cannot be used with TWAMP Light
+   protocol and it is not compatible with the loss measurement messages
+   defined for TWAMP Light in this document.
 
 4.  Probe Messages
 
@@ -385,6 +383,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    address.  If not known, the address in the range of 127/8 for IPv4 or
    0:0:0:0:0:FFFF:7F00/104 for IPv6 is used as destination address.
    This is the case for example, when using SR Policy with IPv4 endpoint
+   of 0.0.0.0 or IPv6 endpoint of ::0
+   [I-D.ietf-spring-segment-routing-policy].
 
 
 
@@ -393,9 +393,6 @@ Gandhi, et al.          Expires September 5, 2020               [Page 7]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
-
-   of 0.0.0.0 or IPv6 endpoint of ::0
-   [I-D.ietf-spring-segment-routing-policy].
 
 4.1.1.  Delay Measurement Query Message
 
@@ -441,6 +438,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    When using the authenticated mode for delay measurement, the matching
    authentication type (e.g.  HMAC-SHA-256) and key are user-configured
    on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the delay measurement in
+   authentication mode due to the different probe message format.
+
 
 
 
@@ -449,9 +449,6 @@ Gandhi, et al.          Expires September 5, 2020               [Page 8]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
-
-   destination UDP port is used for the delay measurement in
-   authentication mode due to the different probe message format.
 
 4.1.2.  Loss Measurement Query Message
 
@@ -498,6 +495,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    congruent path of the data traffic for Delay measurement.  The probe
    query message as defined in Figure 3 is sent on the congruent path of
    the data traffic for Loss measurement.
+
+
+
 
 
 
@@ -640,12 +640,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    In this document, TWAMP probe query message formats are defined for
    loss measurement as shown in Figure 7 and Figure 8.  The message
-   formats are hardware efficient due to the small size payload (with
-   closer offset pointer for the Counter in payload) and well-known
-   locations of the counters.  They are similar to the delay measurement
-   message formats (e.g. location of the Counter and Timestamp) and do
-   not require any backwards compatibility or support for the existing
-   DM message formats from [RFC5357].
+   formats are hardware efficient due to the small size payload and
+   well-known locations of the counters.  They are similar to the delay
+   measurement message formats (e.g. location of the Counter and
+   Timestamp) and do not require any backwards compatibility or support
+   for the existing DM message formats from [RFC5357].
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -663,6 +662,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                Figure 7: TWAMP LM Probe Query Message Format
+
 
 
 
@@ -927,11 +927,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    In this document, TWAMP probe response message formats are defined
    for loss measurement as shown in Figure 12 and Figure 13.  The
    message formats are hardware efficient due to the small size payload
-   (with closer offset pointer for the Counter in payload) and well
-   known locations of the counters.  They are also similar to the delay
-   measurement message formats (e.g. location of the Counter and
-   Timestamp) and do not require any backwards compatibility or support
-   for the existing DM message formats from [RFC5357].
+   and well known locations of the counters.  They are also similar to
+   the delay measurement message formats (e.g. location of the Counter
+   and Timestamp) and do not require any backwards compatibility or
+   support for the existing DM message formats from [RFC5357].
+
 
 
 
