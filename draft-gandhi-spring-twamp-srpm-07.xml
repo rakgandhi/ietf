@@ -1021,7 +1021,7 @@ Loss Measurement Mode  /                  \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
-	<t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV (shown in Figure 14):</t>
+	<t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV using the format shown in Figure 14:</t>
 
 	<t><list style="symbols"><t>Type (value 0): Return Address. Target node address of the
       response different than the Source Address in the query</t>
