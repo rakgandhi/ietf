@@ -1134,7 +1134,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
                         Figure 15: Return Path TLV
 
    The following Type defined for the Return Path TLV contains the Node
-   Address sub-TLV (shown in Figure 14):
+   Address sub-TLV using the format shown in Figure 14:
 
    o  Type (value 0): Return Address.  Target node address of the
       response different than the Source Address in the query
