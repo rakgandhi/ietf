@@ -286,9 +286,10 @@
 	<section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters
    for performance delay and loss measurements is shown in the following
-   Figure:</t>
+   Figure 1:</t>
 
-	<figure><artwork><![CDATA[
+   <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
+
                           +------------+
                           | Controller |
                           +------------+
@@ -309,7 +310,6 @@ Loss Measurement Mode  /                  \
                   +-------+            +-------+
                    Sender              Reflector
 
-                    Example Provisioning Model
 ]]></artwork>
 	</figure>
 	<t>
@@ -362,7 +362,7 @@ Loss Measurement Mode  /                  \
 
 	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
-   UDP header <xref target="RFC0768"/>, is shown in Figure 1.  The DM probe query message
+   UDP header <xref target="RFC0768"/>, is shown in Figure 2.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the message
    does not have any indication to distinguish between query and
@@ -417,14 +417,14 @@ Loss Measurement Mode  /                  \
 
 	<section title="Loss Measurement Query Message" anchor="sect-4.1.2"><t>
    The message content for Loss Measurement probe query message using
-   UDP header <xref target="RFC0768"/> is shown in Figure 2. The LM probe query message
+   UDP header <xref target="RFC0768"/> is shown in Figure 3. The LM probe query message
    is sent with user-configured Destination UDP port number for LM.
    Separate Destination UDP ports are used for direct-mode and
    inferred-mode loss measurements.  The Destination UDP port cannot be
    used as Source port, since the message does not have any indication
    to distinguish between query and response.  The LM probe query
    message contains the payload for loss measurement as defined in
-   Figure 5 and 6.</t>
+   Figure 7 and Figure 8.</t>
 
 	<figure title="LM Probe Query Message" anchor="ure-lm-probe-query-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -439,7 +439,7 @@ Loss Measurement Mode  /                  \
  .  Destination Port = User-configured Port for Loss Measurement .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = Message as specified in Figure 5 or 6               |
+ | Payload = Message as specified in Figure 7 or 8               |
  .           for TWAMP and STAMP                                 .
  .                                                               .
  +---------------------------------------------------------------+
@@ -457,9 +457,9 @@ Loss Measurement Mode  /                  \
     </section>
 
 	<section title="Probe Query for SR Links" anchor="sect-4.1.3"><t>
-   The probe query message as defined in Figure 1 is sent on the
+   The probe query message as defined in Figure 2 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
-   query message as defined in Figure 2 is sent on the congruent path of
+   query message as defined in Figure 3 is sent on the congruent path of
    the data traffic for Loss measurement.</t>
 
 	</section>
@@ -471,7 +471,7 @@ Loss Measurement Mode  /                  \
 	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
-   segment list as shown in Figure 3.</t>
+   segment list as shown in Figure 4.</t>
 
 	<figure title="Probe Query Message for SR-MPLS Policy" anchor="ure-probe-query-message-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -487,7 +487,7 @@ Loss Measurement Mode  /                  \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                PSID                   | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+ |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -509,7 +509,7 @@ Loss Measurement Mode  /                  \
    For SRv6, network programming is defined in <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The probe query messages for end-to-end performance measurement of an
    SRv6 Policy is sent using its SRH with Segment List as shown in Figure
-   4.</t>
+   5.</t>
 
 	<figure title="Probe Query Message for SRv6 Policy" anchor="ure-probe-query-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -517,7 +517,7 @@ Loss Measurement Mode  /                  \
  .                                                               .
  +---------------------------------------------------------------+
 
- |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+ |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
  .   (Using IPv6 Source and Destination Addresses)               .
  .                                                               .
  +---------------------------------------------------------------+
@@ -528,7 +528,7 @@ Loss Measurement Mode  /                  \
 	<t>
    For delay measurement of SRv6 Policy using SRH, END function END.OTP
    <xref target="I-D.ietf-6man-spring-srv6-oam"/> is used with the target SRv6 SID to punt probe
-   messages on the target node, as shown in Figure 4.  Similarly, for
+   messages on the target node, as shown in Figure 5.  Similarly, for
    loss measurement of SRv6 Policy, END function END.OP
    <xref target="I-D.ietf-6man-spring-srv6-oam"/> is used with target SRv6 SID to punt probe
    messages on the target node.</t>
@@ -540,7 +540,7 @@ Loss Measurement Mode  /                  \
 	<section title="Control Code Field in TWAMP and STAMP Message Formats" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for the probe message
-   for both TWAMP Light and STAMP packet formats in unauthenticated and authenticated modes.  
+   for both TWAMP Light and STAMP packet formats in unauthenticated and authenticated modes as shown in Figure 6.  
    Using the same field as in TWAMP Light message format eliminates 
    the need to define a different mechanism (e.g. using STAMP TLV) for STAMP.
    The modified DM probe message format for both TWAMP and STAMP is backwards
@@ -548,7 +548,7 @@ Loss Measurement Mode  /                  \
    ignore the received field (identified as MBZ).
    The Control Code is applicable to both SR as well as non-SR paths.</t>
 
-	<figure><artwork><![CDATA[
+   <figure title="Control Code in TWAMP and STAMP" anchor="ure-control-code-in-twamp-and-stamp"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -559,13 +559,13 @@ Loss Measurement Mode  /                  \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  .                                                               .
  .                                                               .
-
-Control Code: Set as follows in TWAMP and STAMP probe query and 
-response messages.
-
-For a Query:
 ]]></artwork>
 	</figure>
+
+<t>
+   Control Code: Set as follows in TWAMP and STAMP probe query and response messages.
+   For a Query:</t>
+
 	<t><list hangIndent="4" style="hanging"><t>
        0x0: Out-of-band Response Requested.  Indicates that the probe response
        is not required over the same path in the reverse direction.
@@ -600,7 +600,7 @@ For a Query:
 
 	<section title="Loss Measurement Query Message Formats for TWAMP" anchor="sect-4.1.6">
    <t> In this document, TWAMP probe query message formats are defined for
-   loss measurement as shown in Figure 5 and 6. The message
+   loss measurement as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to the small size payload (with closer offset pointer for the Counter in payload) and
    well-known locations of the counters.  They are similar to the delay
    measurement message formats (e.g. location of the Counter and Timestamp) and do not require any backwards
@@ -731,7 +731,7 @@ For a Query:
    <section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.7">
    <t>The STAMP loss measurement probe query message uses the same packet format as the TWAMP loss measurement probe query message, 
    except the padding size is 28 bytes in STAMP message in unauthenticated 
-   mode (shown in Figure 5) and no padding is added in authenticated mode (shown in Figure 6).</t>
+   mode (shown in Figure 7) and no padding is added in authenticated mode (shown in Figure 8).</t>
 	</section>
 
 	</section>
@@ -739,7 +739,7 @@ For a Query:
 	<section title="Probe Response Message" anchor="sect-4.2"><t>
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
-   message is shown in Figure 7.</t>
+   message is shown in Figure 9.</t>
 
 	<figure title="Probe Response Message" anchor="ure-probe-response-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -756,7 +756,7 @@ For a Query:
  +---------------------------------------------------------------+
  | DM Payload as specified in Section 4.2.1 of RFC 5357 |        |
  . DM payload as specified in Section 4.3 of ietf-ippm-stamp |   .
- . LM Payload as specified in Figure 10 or 11                    .
+ . LM Payload as specified in Figure 12 or 13                    .
  .               for TWAMP and STAMP                             .
  .                                                               .
  +---------------------------------------------------------------+
@@ -764,7 +764,7 @@ For a Query:
 	</figure>
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way performance measurement mode, the probe response message
-   as defined in Figure 9 is sent back out-of-band to the sender node,
+   as defined in Figure 11 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to
    "Out-of-band Response Requested". 
    In this delay measuremnt mode, as per Reference Topology, only timestamps t1 and t2 are collected by the probes.</t>
@@ -772,7 +772,7 @@ For a Query:
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way performance measurement mode, when using a bidirectional
-   path, the probe response message as defined in Figure 7 is sent back
+   path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Control Code is set to "In-band Response Requested".
@@ -786,7 +786,7 @@ For a Query:
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The message content for sending probe response message for two-way
    end-to-end performance measurement of an SR-MPLS Policy is shown in
-   Figure 8.</t>
+   Figure 10.</t>
 
 	<figure title="Probe Response Message for SR-MPLS Policy" anchor="ure-probe-response-message-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -801,7 +801,7 @@ For a Query:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                Segment(n)             | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                Message as shown in Figure 7                   |
+ |                Message as shown in Figure 9                   |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -818,14 +818,14 @@ For a Query:
 	<section title="Probe Response Message for SRv6 Policy" anchor="sect-4.2.2.2"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy with SRH is shown in Figure 9.</t>
+   measurement of an SRv6 Policy with SRH is shown in Figure 11.</t>
 
 	<figure title="Probe Response Message for SRv6 Policy" anchor="ure-probe-response-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
  |                           SRH                                 |
  .                                                               .
  +---------------------------------------------------------------+
- |   Message as shown in Figure 7                                |
+ |   Message as shown in Figure 9                                |
  .   (Using IPv6 Source and Destination Addresses)               .
  .                                                               .
  +---------------------------------------------------------------+
@@ -851,7 +851,7 @@ For a Query:
 
 	<section title="Loss Measurement Response Message Formats for TWAMP" anchor="sect-4.2.4"><t>
    In this document, TWAMP probe response message formats are defined for loss
-   measurement as shown in Figure 10 and 11.  The message formats are
+   measurement as shown in Figure 12 and Figure 13.  The message formats are
    hardware efficient due to the small size payload (with closer offset pointer for the Counter in payload) and well known
    locations of the counters.  They are also similar to the delay
    measurement message formats (e.g. location of the Counter and Timestamp) 
@@ -947,7 +947,7 @@ For a Query:
 	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.5"><t>
    The STAMP loss measurement probe respone message uses the same packet format as the TWAMP loss measurement probe response message, 
    except the padding size is 3 bytes in STAMP message in unauthenticated 
-   mode (shown in Figure 10) whereas no padding is added in authenticated mode (shown in Figure 11).</t>
+   mode (shown in Figure 12) whereas no padding is added in authenticated mode (shown in Figure 13).</t>
         </section>
         </section>
 
@@ -1004,7 +1004,7 @@ For a Query:
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
    defined in this document for Return Path to carry reverse path for
    probe response messages (in the payload of the message).  The format
-   of the Return Path TLV is shown in Figure 13:</t>
+   of the Return Path TLV is shown in Figure 15:</t>
 
 	<figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
  0                   1                   2                   3
@@ -1017,7 +1017,7 @@ For a Query:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
-	<t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV (shown in Figure 12):</t>
+	<t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV (shown in Figure 14):</t>
 
 	<t><list style="symbols"><t>Type (value 0): Return Address. Target node address of the
       response different than the Source Address in the query</t>
@@ -1045,7 +1045,7 @@ For a Query:
 ]]></artwork>
 	</figure>
 	<t>
-   The Segment List Sub-TLV (shown in Figure 14) in the Return Path TLV can be one of the following Types:</t>
+   The Segment List Sub-TLV (shown in Figure 16) in the Return Path TLV can be one of the following Types:</t>
 
 	<t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Reverse SR Path</t>
 
@@ -1083,10 +1083,10 @@ For a Query:
 
 	<t><list style="symbols"><t>The sender root node sends probe query messages using the
    Replication Segment defined in <xref target="I-D.voyer-spring-sr-replication-segment"/> for the
-   P2MP SR Policy as shown in Figure 15.</t>
+   P2MP SR Policy as shown in Figure 17.</t>
 
 	<t>Each reflector leaf node sends its IP address in the Source
-   Address of the probe response messages as shown in Figure 7.  This
+   Address of the probe response messages as shown in Figure 9.  This
    allows the sender root node to identify the reflector leaf nodes
    of the P2MP SR Policy.</t>
 
@@ -1102,7 +1102,7 @@ For a Query:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |              Replication SID          | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Message as shown in Figure 1 for DM or Figure 2 for LM      |
+ |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
