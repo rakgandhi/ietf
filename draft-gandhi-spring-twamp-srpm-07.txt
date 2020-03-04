@@ -245,11 +245,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    originating from source node R1 may terminate on multiple destination
    leaf nodes [I-D.voyer-spring-sr-replication-segment].
 
-               +-------+        Query        +-------+
+               +-------+ t1     Query     t2 +-------+
                |       | - - - - - - - - - ->|       |
                |   R1  |---------------------|   R5  |
                |       |<- - - - - - - - - - |       |
-               +-------+       Response      +-------+
+               +-------+ t4     Response  t3 +-------+
                 Sender                       Reflector
 
                          Reference Topology
@@ -818,7 +818,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    In one-way performance measurement mode, the probe response message
    as defined in Figure 9 is sent back out-of-band to the sender node,
    for both SR links and SR Policies.  The Control Code is set to "Out-
-   of-band Response Requested".
+   of-band Response Requested".  In this delay measuremnt mode, as per
+   Reference Topology, only timestamps t1 and t2 are collected.
 
 4.2.2.  Two-way Measurement Mode
 
@@ -827,12 +828,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    to the sender node on the congruent path of the data traffic on the
    same reverse direction SR Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
-   Response Requested".
+   Response Requested".  In this delay measuremnt mode, as per Reference
+   Topology, all timestamps t1, t2, t3, and t4 are collected.
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
-   is useful for example, in case of two-way measurement mode for SR
-   link delay.
 
 
 
@@ -841,6 +841,9 @@ Gandhi, et al.          Expires September 4, 2020              [Page 15]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   is useful for example, in case of two-way measurement mode for SR
+   link delay.
 
 4.2.2.1.  Probe Response Message for SR-MPLS Policy
 
@@ -879,6 +882,22 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy with SRH is shown in Figure 9.
 
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires September 4, 2020              [Page 16]
+
+Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
+
+
     +---------------------------------------------------------------+
     |                           SRH                                 |
     .                                                               .
@@ -890,14 +909,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
              Figure 9: Probe Response Message for SRv6 Policy
 
-
-
-
-Gandhi, et al.          Expires September 4, 2020              [Page 16]
-
-Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
-
-
 4.2.3.  Loopback Measurement Mode
 
    The Loopback measurement mode can be used to measure round-trip delay
@@ -907,7 +918,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    the probe query message can carry the reverse path information (e.g.
    reverse path label stack for SR-MPLS) as part of the SR header.  The
    probe packets are not punted at the reflector node and it does not
-   process them and generate response messages.
+   process them and generate response messages.  In this delay
+   measuremnt mode, as per Reference Topology, the timestamps t1 and t4
+   are collected.
 
 4.2.4.  Loss Measurement Response Message Formats for TWAMP
 
@@ -919,19 +932,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    measurement message formats (e.g. location of the Counter and
    Timestamp) and do not require any backwards compatibility or support
    for the existing DM message formats from [RFC5357].
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
