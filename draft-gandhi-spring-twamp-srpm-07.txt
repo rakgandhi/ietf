@@ -424,12 +424,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    UDP header [RFC0768], is shown in Figure 2.  The DM probe query
    message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
-   the message does not have any indication to distinguish between query
-   and response.  The DM probe query message contains the payload for
-   delay measurement defined in Section 4.1.2 of [RFC5357].  For
-   symmetrical size query and response messages [RFC6038], the DM probe
-   query message contains the payload format defined in Section 4.2.1 of
-   [RFC5357].
+   the message does not have any indication to distinguish between the
+   query and response message.  The DM probe query message contains the
+   payload for delay measurement defined in Section 4.1.2 of [RFC5357].
+   For symmetrical size query and response messages [RFC6038], the DM
+   probe query message contains the payload format defined in
+   Section 4.2.1 of [RFC5357].
 
 
 
@@ -489,13 +489,13 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The message content for Loss Measurement probe query message using
    UDP header [RFC0768] is shown in Figure 3.  The LM probe query
    message is sent with user-configured Destination UDP port number for
-   LM.  Separate Destination UDP ports are used for direct-mode and
-   inferred-mode loss measurements.  The Destination UDP port cannot be
-   used as Source port, since the message does not have any indication
-   to distinguish between query and response.  The LM probe query
-   message contains the payload for loss measurement as defined in
+   LM, which is a different Destination UDP port number than DM.
+   Separate Destination UDP ports are used for direct-mode and inferred-
+   mode loss measurements.  The Destination UDP port cannot be used as
+   Source port, since the message does not have any indication to
+   distinguish between the query and response message.  The LM probe
+   query message contains the payload for loss measurement as defined in
    Figure 7 and Figure 8.
-
 
 
 
