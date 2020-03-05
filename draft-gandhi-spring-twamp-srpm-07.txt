@@ -627,16 +627,19 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 4.1.5.  Control Code Field in TWAMP Light and STAMP Message Formats
 
-   The Control Code field is defined for the probe message for both
-   TWAMP Light and STAMP message formats in unauthenticated and
-   authenticated modes as shown in Figure 6.  Using the same field as in
-   TWAMP Light message format eliminates the need to define a different
-   mechanism (e.g. using STAMP TLV) for STAMP and maintains the
-   consistency of their message formats.  The modified DM probe message
-   format for both TWAMP Light and STAMP is backwards compatible with
-   the format defined in [RFC5357] as its reflector MUST ignore the
-   received field (identified as MBZ).  The usage of the Control Code is
-   not limited to the SR networks.
+   The Control Code field is defined for the probe query and response
+   messages for both TWAMP Light and STAMP message formats in
+   unauthenticated and authenticated modes.  The modified DM probe query
+   and response message format for both TWAMP Light and STAMP is shown
+   in Figure 6.  This message format is backwards compatible with the
+   message format defined in [RFC5357] and STAMP [I-D.ietf-ippm-stamp]
+   as its reflector MUST ignore the received field (identified as MBZ).
+   Using the same field in STAMP as in TWAMP Light message format
+   eliminates the need to define a different mechanism (e.g. using STAMP
+   TLV) for STAMP and also maintains the consistency of their message
+   formats.  The usage of the Control Code is not limited to the SR
+   networks and can be used for various bidirectional paths in a
+   network.
 
     .                                                               .
     .                                                               .
@@ -649,8 +652,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     .                                                               .
 
-    Figure 6: Control Code in TWAMP Light and STAMP Query and Response
-                                  Message
+        Figure 6: Control Code in TWAMP Light and STAMP DM Message
 
    Control Code: Set as follows in TWAMP Light and STAMP probe query and
    response messages.
@@ -663,8 +665,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is
-       required over the same path in the reverse direction.  The
-       bidirectional path does not have to be an SR path.
 
 
 
@@ -673,6 +673,9 @@ Gandhi, et al.          Expires September 6, 2020              [Page 12]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+       required over the same path in the reverse direction.  The
+       bidirectional path does not have to be an SR path.
 
    For a Response:
 
@@ -708,9 +711,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             Figure 7: TWAMP Light LM Probe Query Message Format
-
-
-
 
 
 

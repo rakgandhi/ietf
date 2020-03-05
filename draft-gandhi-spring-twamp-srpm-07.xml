@@ -538,18 +538,19 @@ Loss Measurement Mode  /                  \
 
 	<section title="Control Code Field in TWAMP Light and STAMP Message Formats" anchor="sect-4.1.5">
 	<t>
-   The Control Code field is defined for the probe message
+   The Control Code field is defined for the probe query and response messages
    for both TWAMP Light and STAMP message formats in unauthenticated 
-   and authenticated modes as shown in Figure 6.  
-   Using the same field as in TWAMP Light message format eliminates 
-   the need to define a different mechanism (e.g. using STAMP TLV) 
-   for STAMP and maintains the consistency of their message formats.
-   The modified DM probe message format for both TWAMP Light and STAMP is backwards
-   compatible with the format defined in <xref target="RFC5357"/> as its reflector MUST
+   and authenticated modes.  
+   The modified DM probe query and response message format for both TWAMP Light and STAMP is shown in Figure 6. 
+   This message format is backwards
+   compatible with the message format defined in <xref target="RFC5357"/> and STAMP <xref target="I-D.ietf-ippm-stamp"/> as its reflector MUST
    ignore the received field (identified as MBZ).
-   The usage of the Control Code is not limited to the SR networks.</t>
+   Using the same field in STAMP as in TWAMP Light message format eliminates 
+   the need to define a different mechanism (e.g. using STAMP TLV) 
+   for STAMP and also maintains the consistency of their message formats.
+   The usage of the Control Code is not limited to the SR networks and can be used for various bidirectional paths in a network.</t>
 
-   <figure title="Control Code in TWAMP Light and STAMP Query and Response Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
+   <figure title="Control Code in TWAMP Light and STAMP DM Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
