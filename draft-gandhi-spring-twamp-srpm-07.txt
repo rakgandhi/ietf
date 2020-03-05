@@ -627,19 +627,19 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 4.1.5.  Control Code Field in TWAMP Light and STAMP Message Formats
 
-   The Control Code field is defined for the probe query and response
-   messages for both TWAMP Light and STAMP message formats in
-   unauthenticated and authenticated modes.  The modified DM probe query
-   and response message format for both TWAMP Light and STAMP is shown
-   in Figure 6.  This message format is backwards compatible with the
-   message format defined in [RFC5357] and STAMP [I-D.ietf-ippm-stamp]
-   as its reflector MUST ignore the received field (identified as MBZ).
-   Using the same field in STAMP as in TWAMP Light message format
-   eliminates the need to define a different mechanism (e.g. using STAMP
-   TLV) for STAMP and also maintains the consistency of their message
-   formats.  The usage of the Control Code is not limited to the SR
-   networks and can be used for various bidirectional paths in a
-   network.
+   The Control Code field is defined for delay and loss measurement
+   probe query and response messages for both TWAMP Light and STAMP
+   message formats in unauthenticated and authenticated modes.  The
+   modified delay measurement probe query and response message format
+   for both TWAMP Light and STAMP is shown in Figure 6.  This message
+   format is backwards compatible with the message format defined in
+   [RFC5357] and STAMP [I-D.ietf-ippm-stamp] as its reflector MUST
+   ignore the received field (identified as MBZ).  Using the same field
+   in STAMP as in TWAMP Light message format eliminates the need to
+   define a different mechanism (e.g. using STAMP TLV) for STAMP and
+   also maintains the consistency of the message formats.  The usage of
+   the Control Code is not limited to the SR networks and can be used
+   for various bidirectional paths in a network.
 
     .                                                               .
     .                                                               .
@@ -1306,7 +1306,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    sweeping of Destination Addresses in 127/8 range for IPv4 or
    0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise
    particular ECMP paths.  As specified in [RFC6437], Flow Label field
-   in the IPv6 header can also be used for sweeping.
+   in the outer IPv6 header can also be used for sweeping.
 
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.
