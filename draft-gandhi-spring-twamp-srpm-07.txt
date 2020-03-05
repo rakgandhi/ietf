@@ -776,7 +776,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    Sender Sequence Number (32-bit): As defined in [RFC5357].
 
-   Sender TTL: As defined in [RFC5357].
+   Sender TTL: As defined in Section 7.1.
 
 
 

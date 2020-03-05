@@ -683,7 +683,7 @@ Loss Measurement Mode  /                  \
    Sender Sequence Number (32-bit): As defined in <xref target="RFC5357"/>.</t>
 
 	<t>
-   Sender TTL: As defined in <xref target="RFC5357"/>.</t>
+   Sender TTL: As defined in Section 7.1.</t>
 
 	<t><list style="hanging" hangIndent="3"><t hangText="LM Flags: The meanings of the Flag bits are:">
 	<vspace blankLines="1"/>
