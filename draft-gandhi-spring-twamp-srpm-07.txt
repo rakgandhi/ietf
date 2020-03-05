@@ -1306,7 +1306,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    sweeping of Destination Addresses in 127/8 range for IPv4 or
    0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise
    particular ECMP paths.  As specified in [RFC6437], Flow Label field
-   in the outer IPv6 header can also be used for sweeping.
+   in the IPv6 header can also be used for sweeping.
 
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.

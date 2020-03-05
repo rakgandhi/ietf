@@ -538,16 +538,16 @@ Loss Measurement Mode  /                  \
 
 	<section title="Control Code Field in TWAMP Light and STAMP Message Formats" anchor="sect-4.1.5">
 	<t>
-   The Control Code field is defined for the probe query and response messages
+   The Control Code field is defined for delay and loss measurement probe query and response messages
    for both TWAMP Light and STAMP message formats in unauthenticated 
    and authenticated modes.  
-   The modified DM probe query and response message format for both TWAMP Light and STAMP is shown in Figure 6. 
+   The modified delay measurement probe query and response message format for both TWAMP Light and STAMP is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in <xref target="RFC5357"/> and STAMP <xref target="I-D.ietf-ippm-stamp"/> as its reflector MUST
    ignore the received field (identified as MBZ).
    Using the same field in STAMP as in TWAMP Light message format eliminates 
    the need to define a different mechanism (e.g. using STAMP TLV) 
-   for STAMP and also maintains the consistency of their message formats.
+   for STAMP and also maintains the consistency of the message formats.
    The usage of the Control Code is not limited to the SR networks and can be used for various bidirectional paths in a network.</t>
 
    <figure title="Control Code in TWAMP Light and STAMP DM Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
