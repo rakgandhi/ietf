@@ -105,7 +105,7 @@ Table of Contents
      4.4.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  21
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  23
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  23
-   7.  Additional Message Processing Rules for TWAMP Light and STAMP  24
+   7.  Additional Message Processing Rules . . . . . . . . . . . . .  24
 
 
 
@@ -242,7 +242,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    probe query for performance measurement and the reflector node R5
    sends a probe response for the query message received.  The probe
    response is sent to the sender node R1.  The nodes R1 and R5 may be
-   directly connected via a Link (e.g. physical interface) or there
+   directly connected via a Link enabled with Segment Routing or there
    exists a Point-to-Point (P2P) SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 with destination
    to node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
@@ -372,14 +372,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 3.2.  STAMP Applicability
 
    The Simple Two-way Active Measurement Protocol (STAMP)
-   [I-D.ietf-ippm-stamp] and the STAMP TLVs
+   [I-D.ietf-ippm-stamp] messages and the STAMP TLVs
    [I-D.ietf-ippm-stamp-option-tlv] are both equally applicable to the
-   procedures specified in this document and are within the scope of
-   this document.  Similarly, the procedure defined in this document is
-   equally applicable to STAMP and STAMP TLVs unless otherwise
-   specified.  Recall that the delay measurement message formats defined
-   for STAMP are backwards compatible with the delay measurement message
-   formats defined in [RFC5357].
+   procedures specified in this document.  Similarly, the procedure
+   defined in this document is equally applicable to the STAMP messages
+   and STAMP TLVs unless otherwise specified.  Recall that the delay
+   measurement message formats defined for STAMP are backwards
+   compatible with the delay measurement message formats defined in
+   [RFC5357].
 
    The STAMP message with a TLV for "direct measurement" can be used for
    combined delay + loss measurement [I-D.ietf-ippm-stamp-option-tlv].
@@ -931,8 +931,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    [I-D.ietf-spring-mpls-path-segment] of the forward SR Policy in the
    probe query can be used to find the associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path] to send the probe response message for
-   two-way measurement of SR Policy unless when using STAMP with Return
-   Path TLV.
+   two-way measurement of SR Policy unless when using STAMP message with
+   Return Path TLV.
 
 4.2.2.2.  Probe Response Message for SRv6 Policy
 
@@ -1302,7 +1302,11 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.
 
-7.  Additional Message Processing Rules for TWAMP Light and STAMP
+7.  Additional Message Processing Rules
+
+   The processing rules defined in this section are applicable to both
+   TWAMP Light and STAMP messages for delay and loss measurement for
+   Links and end-to-end SR Policies.
 
 7.1.  TTL and Hop Limit
 
@@ -1334,10 +1338,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    [RFC7506] for IPv6 MAY be added in the destination option header,
    Section 4.6 of [RFC8200].  For SRv6 Policy using SRH, it is added in
    the inner IPv6 header.
-
-
-
-
 
 
 
