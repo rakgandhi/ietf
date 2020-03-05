@@ -375,8 +375,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    [I-D.ietf-ippm-stamp] and the STAMP TLVs
    [I-D.ietf-ippm-stamp-option-tlv] are both equally applicable to the
    procedures specified in this document and are within the scope of
-   this document.  The delay measurement message formats defined for
-   STAMP are backwards compatible with the delay measurement message
+   this document.  Similarly, the procedure defined in this document is
+   equally applicable to STAMP and STAMP TLVs unless otherwise
+   specified.  Recall that the delay measurement message formats defined
+   for STAMP are backwards compatible with the delay measurement message
    formats defined in [RFC5357].
 
    The STAMP message with a TLV for "direct measurement" can be used for
@@ -384,8 +386,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    However, in order to use only for loss measurement purpose, it
    requires the node to support the delay measurement STAMP messages and
    timestamp the packets.  Furthermore, for hardware-based counter
-   collection, the optional TLV based processing adds unnecessary
-   overhead (as counters are not at well-known locations).  In addition,
 
 
 
@@ -394,6 +394,8 @@ Gandhi, et al.          Expires September 6, 2020               [Page 7]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
+   collection, the optional TLV based processing adds unnecessary
+   overhead (as counters are not at well-known locations).  In addition,
    the TLV cannot be used with TWAMP Light messages and it is not
    compatible with the loss measurement messages defined for TWAMP Light
    in this document.
@@ -428,8 +430,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    symmetrical size query and response messages [RFC6038], the DM probe
    query message contains the payload format defined in Section 4.2.1 of
    [RFC5357].
-
-
 
 
 
