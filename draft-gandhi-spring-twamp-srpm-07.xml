@@ -777,10 +777,11 @@ Loss Measurement Mode  /                  \
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way performance measurement mode, the probe response message
    as defined in Figure 9 is sent back out-of-band to the sender node,
-   for both Links and SR Policies.  The Control Code is set to
+   for both Links and SR Policies. The Control Code is set to
    "Out-of-band Response Requested". 
    In this delay measurement mode, as per Reference Topology, 
-   only timestamps t1 and t2 are collected by the probes.</t>
+   all timestamps t1, t2, t3, and t4 are collected by the probes.
+   However, only timestamps t1 and t2 are needed to measure one-way delay.</t>
 	</section>
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
@@ -791,7 +792,8 @@ Loss Measurement Mode  /                  \
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Control Code is 
    set to "In-band Response Requested".
    In this delay measurement mode, as per Reference Topology, 
-   all timestamps t1, t2, t3, and t4 are collected by the probes.</t>
+   all timestamps t1, t2, t3, and t4 are collected by the probes.
+   All four timestamps are needed to measure two-way delay.</t>
 
 	<t>
    Specifically, the probe response message is sent back on the incoming physical
@@ -861,7 +863,8 @@ Loss Measurement Mode  /                  \
    probe messages are not punted at the reflector node and it does 
    not process them and generate response messages.
    In this delay measurement mode, as per Reference Topology, 
-   the timestamps t1 and t4 are collected by the probes.</t>
+   the timestamps t1 and t4 are collected by the probes.
+   Both these timestamps are needed to measure round-trip delay.</t>
 	</section>
 
 	<section title="Loss Measurement Response Message Formats for TWAMP Light" anchor="sect-4.2.4"><t>

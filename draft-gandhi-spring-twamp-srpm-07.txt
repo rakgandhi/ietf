@@ -879,8 +879,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    as defined in Figure 9 is sent back out-of-band to the sender node,
    for both Links and SR Policies.  The Control Code is set to "Out-of-
    band Response Requested".  In this delay measurement mode, as per
-   Reference Topology, only timestamps t1 and t2 are collected by the
-   probes.
+   Reference Topology, all timestamps t1, t2, t3, and t4 are collected
+   by the probes.  However, only timestamps t1 and t2 are needed to
+   measure one-way delay.
 
 4.2.2.  Two-way Measurement Mode
 
@@ -889,7 +890,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    to the sender node on the congruent path of the data traffic on the
    same reverse direction Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
-   Response Requested".  In this delay measurement mode, as per
 
 
 
@@ -898,8 +898,10 @@ Gandhi, et al.          Expires September 6, 2020              [Page 16]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
+   Response Requested".  In this delay measurement mode, as per
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected
-   by the probes.
+   by the probes.  All four timestamps are needed to measure two-way
+   delay.
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
@@ -947,8 +949,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-
-
 Gandhi, et al.          Expires September 6, 2020              [Page 17]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
@@ -976,7 +976,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    probe messages are not punted at the reflector node and it does not
    process them and generate response messages.  In this delay
    measurement mode, as per Reference Topology, the timestamps t1 and t4
-   are collected by the probes.
+   are collected by the probes.  Both these timestamps are needed to
+   measure round-trip delay.
 
 4.2.4.  Loss Measurement Response Message Formats for TWAMP Light
 
@@ -987,7 +988,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    require any backwards compatibility or support for the existing DM
    message formats from [RFC5357], as different user-configured
    destination UDP port is used for loss measurement.
-
 
 
 
