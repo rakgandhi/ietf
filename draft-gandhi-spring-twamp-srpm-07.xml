@@ -612,7 +612,7 @@ Loss Measurement Mode  /                  \
    measurement message formats (e.g. location of the Counter and Timestamp) 
    and do not require any backwards
    compatibility or support for the existing DM message formats from
-   <xref target="RFC5357"/> as different destination UDP port is used for loss measurement.</t>
+   <xref target="RFC5357"/> as different user-configured destination UDP port is used for loss measurement.</t>
 
 	<figure title="TWAMP Light LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -744,7 +744,7 @@ Loss Measurement Mode  /                  \
    measurement message formats (e.g. location of the Counter and Timestamp) 
    and do not require any backwards
    compatibility or support for the existing DM message formats from <xref target="I-D.ietf-ippm-stamp"/>,
-   as different destination UDP port is used for loss measurement.</t>
+   as different user-configured destination UDP port is used for loss measurement.</t>
 	</section>
 
 	</section>
@@ -871,7 +871,7 @@ Loss Measurement Mode  /                  \
    hardware efficient due to the small size payload and well-known
    locations of the counters.  They do not require any backwards
    compatibility or support for the existing DM message formats from
-   <xref target="RFC5357"/>.</t>
+   <xref target="RFC5357"/>, as different user-configured destination UDP port is used for loss measurement.</t>
 
 	<figure title="TWAMP Light LM Probe Response Message Format" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -964,7 +964,8 @@ Loss Measurement Mode  /                  \
    except the padding size is 3 bytes in STAMP message in unauthenticated 
    mode (in Figure 12) whereas no padding is added in authenticated mode (in Figure 13).
    They do not require any backwards
-   compatibility or support for the existing DM message formats from  <xref target="I-D.ietf-ippm-stamp"/>.</t> 
+   compatibility or support for the existing DM message formats from  <xref target="I-D.ietf-ippm-stamp"/>,
+   as different user-configured destination UDP port is used for loss measurement.</t> 
         </section>
         </section>
 

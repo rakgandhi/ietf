@@ -687,8 +687,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    well-known locations of the counters.  They are similar to the delay
    measurement message formats (e.g. location of the Counter and
    Timestamp) and do not require any backwards compatibility or support
-   for the existing DM message formats from [RFC5357] as different
-   destination UDP port is used for loss measurement.
+   for the existing DM message formats from [RFC5357] as different user-
+   configured destination UDP port is used for loss measurement.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -843,7 +843,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
    for the existing DM message formats from [I-D.ietf-ippm-stamp], as
-   different destination UDP port is used for loss measurement.
+   different user-configured destination UDP port is used for loss
+   measurement.
 
 4.2.  Probe Response Message
 
@@ -889,7 +890,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    same reverse direction Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
    Response Requested".  In this delay measurement mode, as per
-
 
 
 
@@ -985,8 +985,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The message formats are hardware efficient due to the small size
    payload and well-known locations of the counters.  They do not
    require any backwards compatibility or support for the existing DM
-   message formats from [RFC5357].
-
+   message formats from [RFC5357], as different user-configured
+   destination UDP port is used for loss measurement.
 
 
 
@@ -1108,8 +1108,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    unauthenticated mode (in Figure 12) whereas no padding is added in
    authenticated mode (in Figure 13).  They do not require any backwards
    compatibility or support for the existing DM message formats from
-   [I-D.ietf-ippm-stamp].
-
+   [I-D.ietf-ippm-stamp], as different user-configured destination UDP
+   port is used for loss measurement.
 
 
 
