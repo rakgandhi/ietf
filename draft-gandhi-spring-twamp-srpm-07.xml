@@ -967,9 +967,9 @@ Loss Measurement Mode  /                  \
         </section>
         </section>
 
-	<section title="Node Address TLV for STAMP" anchor="sect-4.3">
+	<section title="Node Address TLV for STAMP Message" anchor="sect-4.3">
 
-        <t>The Node Address TLV is defined for STAMP <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
+        <t>The Node Address TLV is defined for STAMP message <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
         in this document and has the following format shown in Figure 14:</t>
 
 
@@ -1001,7 +1001,7 @@ Loss Measurement Mode  /                  \
 
 	</section>
 
-	<section title="Return Path TLV for STAMP" anchor="sect-4.4"><t>
+	<section title="Return Path TLV for STAMP Message" anchor="sect-4.4"><t>
    For two-way performance measurement, the reflector node needs to send
    the probe response message on a specific reverse path.  The sender
    node can request in the probe query message to the reflector node to
@@ -1018,7 +1018,7 @@ Loss Measurement Mode  /                  \
 	<t>
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/> defines STAMP probe query messages that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
-   defined in this document for Return Path to carry reverse path for
+   defined in this document for Return Path that carries reverse path for STAMP
    probe response messages (in the payload of the message).  The format
    of the Return Path TLV is shown in Figure 15:</t>
 

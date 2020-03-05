@@ -101,8 +101,8 @@ Table of Contents
        4.2.4.  Loss Measurement Response Message Formats for TWAMP
                Light . . . . . . . . . . . . . . . . . . . . . . . .  18
        4.2.5.  Loss Measurement Response Message Formats for STAMP .  20
-     4.3.  Node Address TLV for STAMP  . . . . . . . . . . . . . . .  20
-     4.4.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  21
+     4.3.  Node Address TLV for STAMP Message  . . . . . . . . . . .  20
+     4.4.  Return Path TLV for STAMP Message . . . . . . . . . . . .  21
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  23
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  23
    7.  Additional Message Processing Rules . . . . . . . . . . . . .  24
@@ -1108,9 +1108,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    unauthenticated mode (in Figure 12) whereas no padding is added in
    authenticated mode (in Figure 13).
 
-4.3.  Node Address TLV for STAMP
+4.3.  Node Address TLV for STAMP Message
 
-   The Node Address TLV is defined for STAMP
+   The Node Address TLV is defined for STAMP message
    [I-D.ietf-ippm-stamp-option-tlv] in this document and has the
    following format shown in Figure 14:
 
@@ -1149,7 +1149,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    Policy when using the destination address in 127/8 range for IPv4 or
    in 0:0:0:0:0:FFFF:7F00/104 range for IPv6.
 
-4.4.  Return Path TLV for STAMP
+4.4.  Return Path TLV for STAMP Message
 
    For two-way performance measurement, the reflector node needs to send
    the probe response message on a specific reverse path.  The sender
@@ -1165,9 +1165,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    [I-D.ietf-ippm-stamp-option-tlv] defines STAMP probe query messages
    that can include one or more optional TLVs.  The TLV Type (value
-   TBA2) is defined in this document for Return Path to carry reverse
-   path for probe response messages (in the payload of the message).
-   The format of the Return Path TLV is shown in Figure 15:
+   TBA2) is defined in this document for Return Path that carries
+   reverse path for STAMP probe response messages (in the payload of the
+   message).  The format of the Return Path TLV is shown in Figure 15:
 
 
 
