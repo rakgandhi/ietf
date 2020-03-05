@@ -394,7 +394,7 @@ Gandhi, et al.          Expires September 6, 2020               [Page 7]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
-   overhead (as counters are not at well known locations).  In addition,
+   overhead (as counters are not at well-known locations).  In addition,
    the TLV cannot be used with TWAMP Light messages and it is not
    compatible with the loss measurement messages defined for TWAMP Light
    in this document.
@@ -763,7 +763,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    Transmit Counter (64-bit): The number of packets or octets sent by
    the sender node in the query message and by the reflector node in the
-   response message.  The counter is always written at the fixed
+   response message.  The counter is always written at the well-known
    location in the probe query and response messages.
 
    Receive Counter (64-bit): The number of packets or octets received at
@@ -983,7 +983,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    In this document, TWAMP Light probe response message formats are
    defined for loss measurement as shown in Figure 12 and Figure 13.
    The message formats are hardware efficient due to the small size
-   payload and well known locations of the counters.  They are also
+   payload and well-known locations of the counters.  They are also
    similar to the delay measurement message formats (e.g. location of
    the Counter and Timestamp) and do not require any backwards
    compatibility or support for the existing DM message formats from
