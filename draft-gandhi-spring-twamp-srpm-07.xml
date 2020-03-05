@@ -863,16 +863,13 @@ Loss Measurement Mode  /                  \
    not process them and generate response messages.
    In this delay measurement mode, as per Reference Topology, 
    the timestamps t1 and t4 are collected by the probes.</t>
-
 	</section>
 
 	<section title="Loss Measurement Response Message Formats for TWAMP Light" anchor="sect-4.2.4"><t>
    In this document, TWAMP Light probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.  The message formats are
    hardware efficient due to the small size payload and well-known
-   locations of the counters.  They are also similar to the delay
-   measurement message formats (e.g. location of the Counter and Timestamp) 
-   and do not require any backwards
+   locations of the counters.  They do not require any backwards
    compatibility or support for the existing DM message formats from
    <xref target="RFC5357"/>.</t>
 
@@ -965,7 +962,9 @@ Loss Measurement Mode  /                  \
    The STAMP loss measurement probe response message uses the same message format 
    as the TWAMP Light loss measurement probe response message, 
    except the padding size is 3 bytes in STAMP message in unauthenticated 
-   mode (in Figure 12) whereas no padding is added in authenticated mode (in Figure 13).</t>
+   mode (in Figure 12) whereas no padding is added in authenticated mode (in Figure 13).
+   They do not require any backwards
+   compatibility or support for the existing DM message formats from  <xref target="I-D.ietf-ippm-stamp"/>.</t> 
         </section>
         </section>
 
