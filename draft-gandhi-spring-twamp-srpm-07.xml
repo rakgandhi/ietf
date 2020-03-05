@@ -220,7 +220,7 @@
    probe query for performance measurement and the reflector node R5
    sends a probe response for the query message received.  The probe
    response is sent to the sender node R1.  The nodes R1 and R5 may be
-   directly connected via a Link enabled with Segment Routing or there
+   directly connected via a Link or there
    exists a Point-to-Point (P2P) SR Policy
    <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 with destination to
    node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
@@ -326,10 +326,8 @@ Loss Measurement Mode  /                  \
 	<section title="STAMP Applicability" anchor="sect-3.2">
    <t>The Simple Two-way Active Measurement Protocol (STAMP)
    <xref target="I-D.ietf-ippm-stamp"/> messages and the STAMP TLVs <xref target="I-D.ietf-ippm-stamp-option-tlv"/> are
-   both equally applicable to the procedures specified in this 
-   document. Similarly, the procedure defined in this document is equally 
-   applicable to the STAMP messages and STAMP TLVs unless otherwise specified.
-   Recall that the delay measurement message formats defined for STAMP are backwards compatible with the 
+   equally applicable to the procedures specified in this 
+   document.  Recall that the delay measurement message formats defined for STAMP are backwards compatible with the 
    delay measurement message formats defined in <xref target="RFC5357"/>.</t>
 
    <t>The STAMP message with a TLV for "direct measurement" can be used for combined delay + loss
