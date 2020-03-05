@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: September 5, 2020                                      D. Voyer
+Expires: September 6, 2020                                      D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                           March 4, 2020
+                                                           March 5, 2020
 
 
 Performance Measurement Using TWAMP Light and STAMP for Segment Routing
@@ -29,7 +29,7 @@ Abstract
    (TWAMP) Light) and Simple Two-Way Active Measurement Protocol (STAMP)
    for Delay Measurement, and uses the messages defined in this document
    for Loss Measurement.  The procedure specified is applicable to SR-
-   MPLS and SRv6 data planes and is used for both links and end-to-end
+   MPLS and SRv6 data planes and is used for both Links and end-to-end
    SR Policies.
 
 Status of This Memo
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 5, 2020.
+   This Internet-Draft will expire on September 6, 2020.
 
 
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 1]
+Gandhi, et al.          Expires September 6, 2020               [Page 1]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -87,7 +87,7 @@ Table of Contents
      4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   8
        4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   8
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   9
-       4.1.3.  Probe Query for SR Links  . . . . . . . . . . . . . .  10
+       4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .  10
        4.1.4.  Probe Query for End-to-end Measurement for SR Policy   10
        4.1.5.  Control Code Field in TWAMP Light and STAMP Message
                Formats . . . . . . . . . . . . . . . . . . . . . . .  12
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 2]
+Gandhi, et al.          Expires September 6, 2020               [Page 2]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -165,12 +165,12 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 3]
+Gandhi, et al.          Expires September 6, 2020               [Page 3]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
-   and SRv6 data planes and are used for both links and end-to-end SR
+   and SRv6 data planes and are used for both Links and end-to-end SR
    Policies.  This document also defines mechanisms for handling ECMPs
    of SR Policies for performance delay measurement.  Unless otherwise
    specified, the mechanisms defined in [RFC5357],
@@ -221,7 +221,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 4]
+Gandhi, et al.          Expires September 6, 2020               [Page 4]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -242,7 +242,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    probe query for performance measurement and the reflector node R5
    sends a probe response for the query message received.  The probe
    response is sent to the sender node R1.  The nodes R1 and R5 may be
-   directly connected via a link enabled with Segment Routing or there
+   directly connected via a Link (e.g. physical interface) or there
    exists a Point-to-Point (P2P) SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 with destination
    to node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
@@ -270,14 +270,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    UDP destination port numbers are user-configured for delay and loss
    measurements from the range specified in [I-D.ietf-ippm-stamp].  The
    sender uses the UDP port number following the guidelines specified in
-   Section 6 in [RFC6335].  For both links and end-to-end SR Policies,
+   Section 6 in [RFC6335].  For both Links and end-to-end SR Policies,
    no PM session for delay or loss measurement is created on the
    reflector node R5 [RFC5357].
 
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 5]
+Gandhi, et al.          Expires September 6, 2020               [Page 5]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -288,7 +288,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    o  For Delay Measurement, the probe messages are sent on the
       congruent path of the data traffic by the sender node, and are
       used to measure the delay experienced by the actual data traffic
-      flowing on the links and SR Policies.
+      flowing on the Links and SR Policies.
 
    o  For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
@@ -333,7 +333,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 6]
+Gandhi, et al.          Expires September 6, 2020               [Page 6]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -389,7 +389,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 7]
+Gandhi, et al.          Expires September 6, 2020               [Page 7]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -404,11 +404,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 4.1.  Probe Query Message
 
    In this document, the probe messages defined in [RFC5357] are used
-   for Delay and Loss measurements for SR links and end-to-end SR
-   Policies.  The user-configured destination UDP ports (separate UDP
-   ports for different delay and loss message formats) are used for
-   identifying the PM probe messages as described in Appendix I of
-   [RFC5357].
+   for Delay and Loss measurements for Links and end-to-end SR Policies.
+   The user-configured destination UDP ports (separate UDP ports for
+   different delay and loss message formats) are used for identifying
+   the PM probe messages as described in Appendix I of [RFC5357].
 
    The Sender IPv4 or IPv6 address is used as the source address.  When
    known, the reflector IPv4 or IPv6 address is used as the destination
@@ -445,7 +444,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 8]
+
+Gandhi, et al.          Expires September 6, 2020               [Page 8]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -501,7 +501,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020               [Page 9]
+Gandhi, et al.          Expires September 6, 2020               [Page 9]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -533,7 +533,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    destination UDP port is used for the loss measurement in
    authentication mode due to the different message format.
 
-4.1.3.  Probe Query for SR Links
+4.1.3.  Probe Query for Links
 
    The probe query message as defined in Figure 2 is sent on the
    congruent path of the data traffic for Delay measurement.  The probe
@@ -557,7 +557,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 10]
+Gandhi, et al.          Expires September 6, 2020              [Page 10]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -613,7 +613,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 11]
+Gandhi, et al.          Expires September 6, 2020              [Page 11]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -636,7 +636,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    format for both TWAMP Light and STAMP is backwards compatible with
    the format defined in [RFC5357] as its reflector MUST ignore the
    received field (identified as MBZ).  The usage of the Control Code is
-   not limited to the SR use-cases.
+   not limited to the SR networks.
 
     .                                                               .
     .                                                               .
@@ -669,7 +669,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 12]
+Gandhi, et al.          Expires September 6, 2020              [Page 12]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -725,7 +725,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 13]
+Gandhi, et al.          Expires September 6, 2020              [Page 13]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -781,7 +781,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 14]
+Gandhi, et al.          Expires September 6, 2020              [Page 14]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -830,14 +830,14 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The STAMP loss measurement probe query message uses the same message
    format as the TWAMP Light loss measurement probe query message,
    except the padding size is 28 bytes in STAMP message in
-   unauthenticated mode (shown in Figure 7) and no padding is added in
-   authenticated mode (shown in Figure 8).  These messages do not modify
-   the procedure for delay measurement defined in [I-D.ietf-ippm-stamp],
-   as different destination UDP port is used for loss measurement
+   unauthenticated mode (in Figure 7) and no padding is added in
+   authenticated mode (in Figure 8).  These messages do not modify the
+   procedure for delay measurement defined in [I-D.ietf-ippm-stamp], as
+   different destination UDP port is used for loss measurement
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 15]
+Gandhi, et al.          Expires September 6, 2020              [Page 15]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -873,8 +873,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    In one-way performance measurement mode, the probe response message
    as defined in Figure 9 is sent back out-of-band to the sender node,
-   for both SR links and SR Policies.  The Control Code is set to "Out-
-   of-band Response Requested".  In this delay measurement mode, as per
+   for both Links and SR Policies.  The Control Code is set to "Out-of-
+   band Response Requested".  In this delay measurement mode, as per
    Reference Topology, only timestamps t1 and t2 are collected by the
    probes.
 
@@ -883,7 +883,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    In two-way performance measurement mode, when using a bidirectional
    path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
-   same reverse direction SR Link or associated reverse SR Policy
+   same reverse direction Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
    Response Requested".  In this delay measurement mode, as per
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected
@@ -893,15 +893,15 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 16]
+Gandhi, et al.          Expires September 6, 2020              [Page 16]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
-   is useful for example, in case of two-way measurement mode for SR
-   link delay.
+   is useful for example, in case of two-way measurement mode for Link
+   delay.
 
 4.2.2.1.  Probe Response Message for SR-MPLS Policy
 
@@ -949,7 +949,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 17]
+Gandhi, et al.          Expires September 6, 2020              [Page 17]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 18]
+Gandhi, et al.          Expires September 6, 2020              [Page 18]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 19]
+Gandhi, et al.          Expires September 6, 2020              [Page 19]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1105,8 +1105,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The STAMP loss measurement probe response message uses the same
    message format as the TWAMP Light loss measurement probe response
    message, except the padding size is 3 bytes in STAMP message in
-   unauthenticated mode (shown in Figure 12) whereas no padding is added
-   in authenticated mode (shown in Figure 13).
+   unauthenticated mode (in Figure 12) whereas no padding is added in
+   authenticated mode (in Figure 13).
 
 4.3.  Node Address TLV for STAMP
 
@@ -1117,7 +1117,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 20]
+Gandhi, et al.          Expires September 6, 2020              [Page 20]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 21]
+Gandhi, et al.          Expires September 6, 2020              [Page 21]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 22]
+Gandhi, et al.          Expires September 6, 2020              [Page 22]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 23]
+Gandhi, et al.          Expires September 6, 2020              [Page 23]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1317,9 +1317,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    Hop Limit field in the inner IPv6 header is set to 1 whereas in the
    outer IPv6 header is set to 255.
 
-   For SR link performance delay and loss measurement, the probe
-   messages are pre-routed over the link and the TTL and Hop Limit field
-   are set to 1 in both one-way and two-way measurement modes.
+   For Link performance delay and loss measurement, the probe messages
+   are pre-routed over the Link and the TTL and Hop Limit field are set
+   to 1 in both one-way and two-way measurement modes.
 
 7.2.  Router Alert Option
 
@@ -1341,7 +1341,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 24]
+Gandhi, et al.          Expires September 6, 2020              [Page 24]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 25]
+Gandhi, et al.          Expires September 6, 2020              [Page 25]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 26]
+Gandhi, et al.          Expires September 6, 2020              [Page 26]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 27]
+Gandhi, et al.          Expires September 6, 2020              [Page 27]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 28]
+Gandhi, et al.          Expires September 6, 2020              [Page 28]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 29]
+Gandhi, et al.          Expires September 6, 2020              [Page 29]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1677,7 +1677,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 30]
+Gandhi, et al.          Expires September 6, 2020              [Page 30]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
@@ -1733,4 +1733,4 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
 
-Gandhi, et al.          Expires September 5, 2020              [Page 31]
+Gandhi, et al.          Expires September 6, 2020              [Page 31]
