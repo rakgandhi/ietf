@@ -309,7 +309,6 @@ Loss Measurement Mode  /                  \
                   |       |            |       |
                   +-------+            +-------+
                    Sender              Reflector
-
 ]]></artwork>
 	</figure>
 	<t>
@@ -1150,7 +1149,7 @@ Loss Measurement Mode  /                  \
 
 	</section>
 
-	<section title="Additional Message Processing Rules" anchor="sect-7"><section title="TTL and Hop Limit" anchor="sect-7.1"><t>
+	<section title="Additional Message Processing Rules for TWAMP Light and STAMP" anchor="sect-7"><section title="TTL and Hop Limit" anchor="sect-7.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
    probe query messages is set to 255 <xref target="RFC5357"/>.
    Similarly, the Hop Limit field in the IPv6 and SRH headers of the
@@ -1230,7 +1229,7 @@ Loss Measurement Mode  /                  \
 	<section title="IANA Considerations" anchor="sect-9"><t>
    IANA is requested to allocate a value for the following optional
    Destination Address TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be
-   carried in PM probe message:</t>
+   carried in PM probe messages:</t>
 
 	<t><list style="symbols"><t>Type TBA1: Destination Node Address TLV</t>
 
