@@ -549,7 +549,7 @@ Loss Measurement Mode  /                  \
    ignore the received field (identified as MBZ).
    The usage of the Control Code is not limited to the SR networks.</t>
 
-   <figure title="Control Code in TWAMP Light and STAMP Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
+   <figure title="Control Code in TWAMP Light and STAMP Query and Response Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

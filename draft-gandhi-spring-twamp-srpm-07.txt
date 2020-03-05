@@ -649,7 +649,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     .                                                               .
     .                                                               .
 
-          Figure 6: Control Code in TWAMP Light and STAMP Message
+    Figure 6: Control Code in TWAMP Light and STAMP Query and Response
+                                  Message
 
    Control Code: Set as follows in TWAMP Light and STAMP probe query and
    response messages.
@@ -665,7 +666,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
        required over the same path in the reverse direction.  The
        bidirectional path does not have to be an SR path.
 
-   For a Response:
 
 
 
@@ -673,6 +673,8 @@ Gandhi, et al.          Expires September 6, 2020              [Page 12]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   For a Response:
 
        0x1: Error - Invalid Message.  Indicates that the operation
        failed because the received query message could not be processed.
@@ -706,8 +708,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             Figure 7: TWAMP Light LM Probe Query Message Format
-
-
 
 
 
