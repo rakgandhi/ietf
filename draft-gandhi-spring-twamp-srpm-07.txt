@@ -535,10 +535,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 4.1.3.  Probe Query for Links
 
-   The probe query message as defined in Figure 2 is sent on the
-   congruent path of the data traffic for Delay measurement.  The probe
-   query message as defined in Figure 3 is sent on the congruent path of
-   the data traffic for Loss measurement.
+   The probe query message as defined in Figure 2 for delay measurement
+   and Figure 3 for loss measurement is sent on the congruent path of
+   the data traffic.  The probe messages are pre-routed over the Link
+   for both delay and loss measurement.
 
 4.1.4.  Probe Query for End-to-end Measurement for SR Policy
 
@@ -1330,9 +1330,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    Hop Limit field in the inner IPv6 header is set to 1 whereas in the
    outer IPv6 header is set to 255.
 
-   For Link performance delay and loss measurement, the probe messages
-   are pre-routed over the Link and the TTL and Hop Limit field are set
-   to 1 in both one-way and two-way measurement modes.
+   For Link performance delay and loss measurements, the TTL and Hop
+   Limit field in the probe message is set to 1 in both one-way and two-
+   way measurement modes.
 
 
 
