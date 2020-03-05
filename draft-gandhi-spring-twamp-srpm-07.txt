@@ -265,10 +265,10 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    Routing networks, the TWAMP Light messages defined in Appendix I of
    [RFC5357] are used.  For one-way and two-way direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
-   procedures defined in this document are used.  One-way loss
-   measurement provides receive packet loss whereas two-way loss
-   measurement provides both transmit and receive packet loss.  Separate
-   UDP destination port numbers are user-configured for delay and loss
+   messages defined in this document are used.  One-way loss measurement
+   provides receive packet loss whereas two-way loss measurement
+   provides both transmit and receive packet loss.  Separate UDP
+   destination port numbers are user-configured for delay and loss
    measurements from the range specified in [I-D.ietf-ippm-stamp].  The
    sender uses the UDP port number following the guidelines specified in
    Section 6 in [RFC6335].  For both Links and end-to-end SR Policies,
