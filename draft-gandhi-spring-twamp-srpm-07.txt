@@ -105,7 +105,7 @@ Table of Contents
      4.4.  Return Path TLV for STAMP . . . . . . . . . . . . . . . .  21
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  23
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  23
-   7.  Additional Message Processing Rules . . . . . . . . . . . . .  24
+   7.  Additional Message Processing Rules for TWAMP Light and STAMP  24
 
 
 
@@ -358,7 +358,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
                      +-------+            +-------+
                       Sender              Reflector
 
-
                    Figure 1: Example Provisioning Model
 
    The reflector node R5 uses the parameters for the timestamp format,
@@ -386,6 +385,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    requires the node to support the delay measurement STAMP messages and
    timestamp the packets.  Furthermore, for hardware-based counter
    collection, the optional TLV based processing adds unnecessary
+   overhead (as counters are not at well-known locations).  In addition,
 
 
 
@@ -394,7 +394,6 @@ Gandhi, et al.          Expires September 6, 2020               [Page 7]
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
 
-   overhead (as counters are not at well-known locations).  In addition,
    the TLV cannot be used with TWAMP Light messages and it is not
    compatible with the loss measurement messages defined for TWAMP Light
    in this document.
@@ -429,6 +428,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    symmetrical size query and response messages [RFC6038], the DM probe
    query message contains the payload format defined in Section 4.2.1 of
    [RFC5357].
+
 
 
 
@@ -1302,7 +1302,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.
 
-7.  Additional Message Processing Rules
+7.  Additional Message Processing Rules for TWAMP Light and STAMP
 
 7.1.  TTL and Hop Limit
 
@@ -1386,7 +1386,7 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
    IANA is requested to allocate a value for the following optional
    Destination Address TLV Type for [I-D.ietf-ippm-stamp-option-tlv] to
-   be carried in PM probe message:
+   be carried in PM probe messages:
 
    o  Type TBA1: Destination Node Address TLV
 
