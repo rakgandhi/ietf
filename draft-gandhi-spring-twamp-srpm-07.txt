@@ -687,7 +687,8 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    well-known locations of the counters.  They are similar to the delay
    measurement message formats (e.g. location of the Counter and
    Timestamp) and do not require any backwards compatibility or support
-   for the existing DM message formats from [RFC5357].
+   for the existing DM message formats from [RFC5357] as different
+   destination UDP port is used for loss measurement.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -705,7 +706,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             Figure 7: TWAMP Light LM Probe Query Message Format
-
 
 
 
@@ -831,9 +831,9 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    format as the TWAMP Light loss measurement probe query message,
    except the padding size is 28 bytes in STAMP message in
    unauthenticated mode (in Figure 7) and no padding is added in
-   authenticated mode (in Figure 8).  These messages do not modify the
-   procedure for delay measurement defined in [I-D.ietf-ippm-stamp], as
-   different destination UDP port is used for loss measurement
+   authenticated mode (in Figure 8).  They are similar to the delay
+   measurement message formats (e.g. location of the Counter and
+   Timestamp) and do not require any backwards compatibility or support
 
 
 
@@ -841,6 +841,9 @@ Gandhi, et al.          Expires September 6, 2020              [Page 15]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   for the existing DM message formats from [I-D.ietf-ippm-stamp], as
+   different destination UDP port is used for loss measurement.
 
 4.2.  Probe Response Message
 
@@ -886,9 +889,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    same reverse direction Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Control Code is set to "In-band
    Response Requested".  In this delay measurement mode, as per
-   Reference Topology, all timestamps t1, t2, t3, and t4 are collected
-   by the probes.
-
 
 
 
@@ -897,6 +897,9 @@ Gandhi, et al.          Expires September 6, 2020              [Page 16]
 
 Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
 
+
+   Reference Topology, all timestamps t1, t2, t3, and t4 are collected
+   by the probes.
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
@@ -939,9 +942,6 @@ Internet-Draft  TWAMP Light and STAMP for Segment Routing     March 2020
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy with SRH is shown in Figure 11.
-
-
-
 
 
 

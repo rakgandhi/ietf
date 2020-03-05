@@ -612,7 +612,7 @@ Loss Measurement Mode  /                  \
    measurement message formats (e.g. location of the Counter and Timestamp) 
    and do not require any backwards
    compatibility or support for the existing DM message formats from
-   <xref target="RFC5357"/>.</t>
+   <xref target="RFC5357"/> as different destination UDP port is used for loss measurement.</t>
 
 	<figure title="TWAMP Light LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -740,9 +740,11 @@ Loss Measurement Mode  /                  \
    message format as the TWAMP Light loss measurement probe query message, 
    except the padding size is 28 bytes in STAMP message in unauthenticated 
    mode (in Figure 7) and no padding is added in authenticated mode (in Figure 8).
-   These messages do not modify the procedure for delay measurement 
-   defined in <xref target="I-D.ietf-ippm-stamp"/>, 
-   as different destination UDP port is used for loss measurement</t>
+   They are similar to the delay
+   measurement message formats (e.g. location of the Counter and Timestamp) 
+   and do not require any backwards
+   compatibility or support for the existing DM message formats from <xref target="I-D.ietf-ippm-stamp"/>,
+   as different destination UDP port is used for loss measurement.</t>
 	</section>
 
 	</section>
