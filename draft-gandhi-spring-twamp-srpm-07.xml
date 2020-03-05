@@ -327,8 +327,9 @@ Loss Measurement Mode  /                  \
    <t>The Simple Two-way Active Measurement Protocol (STAMP)
    <xref target="I-D.ietf-ippm-stamp"/> and the STAMP TLVs <xref target="I-D.ietf-ippm-stamp-option-tlv"/> are
    both equally applicable to the procedures specified in this 
-   document and are within the scope of this document.
-   The delay measurement message formats defined for STAMP are backwards compatible with the 
+   document and are within the scope of this document. 
+   Similarly, the procedure defined in this document is equally applicable to STAMP and STAMP TLVs unless otherwise specified.
+   Recall that the delay measurement message formats defined for STAMP are backwards compatible with the 
    delay measurement message formats defined in <xref target="RFC5357"/>.</t>
 
    <t>The STAMP message with a TLV for "direct measurement" can be used for combined delay + loss
