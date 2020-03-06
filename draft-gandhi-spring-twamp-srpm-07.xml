@@ -1145,7 +1145,7 @@ Loss Measurement Mode  /                  \
    sweeping of Destination Addresses in 127/8 range for IPv4 or
    0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
-   the outer IPv6 header can also be used for sweeping.</t>
+   the IPv6 header can also be used for sweeping.</t>
 
 	<t>
    The considerations for performance loss measurement for different
