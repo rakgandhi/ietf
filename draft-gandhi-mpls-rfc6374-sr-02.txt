@@ -81,9 +81,9 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Probe Query and Response Packets  . . . . . . . . . . . . . .   6
-     4.1.  Probe Packet for SR-MPLS Links  . . . . . . . . . . . . .   6
-     4.2.  Probe Packet for SR-MPLS Policies . . . . . . . . . . . .   6
+   4.  Probe Query and Response Messages . . . . . . . . . . . . . .   6
+     4.1.  Probe Message for SR-MPLS Links . . . . . . . . . . . . .   6
+     4.2.  Probe Message for SR-MPLS Policies  . . . . . . . . . . .   6
      4.3.  Probe Response Message for SR-MPLS Links and Policies . .   7
        4.3.1.  One-way Measurement Mode  . . . . . . . . . . . . . .   7
        4.3.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
@@ -287,19 +287,19 @@ Internet-Draft            RFC 6374 for SR-MPLS                March 2020
    to carry PM information in-band as part of the data traffic packets,
    and are outside the scope of this document.
 
-4.  Probe Query and Response Packets
+4.  Probe Query and Response Messages
 
-4.1.  Probe Packet for SR-MPLS Links
+4.1.  Probe Message for SR-MPLS Links
 
    As described in Section 2.9.1 of [RFC6374], MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe packet for SR-MPLS links contains G-ACh Label (GAL)
-   (with S=1).  The GAL is followed by an Associated Channel Header
-   (ACH), which identifies the message type, and the message payload
-   following the ACH as shown in Figure 2.  The probe messages are
-   routed over the SR Links for both delay and loss measurement.  For
-   SR-MPLS Links, the TTL value is set to 1 in the SR-MPLS header for
-   one-way and two-way measurement modes.
+   (G-ACh).  A probe message for SR-MPLS links contains G-ACh Label
+   (GAL) (with S=1).  The GAL is followed by an Associated Channel
+   Header (ACH), which identifies the message type, and the message
+   payload following the ACH as shown in Figure 2.  The probe messages
+   are routed over the SR Links for both delay and loss measurement.
+   For SR-MPLS Links, the TTL value is set to 1 in the SR-MPLS header
+   for one-way and two-way measurement modes.
 
 
     0                   1                   2                   3
@@ -310,13 +310,13 @@ Internet-Draft            RFC 6374 for SR-MPLS                March 2020
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 2: Probe Packet Header for an SR-MPLS Link
+            Figure 2: Probe Message Header for an SR-MPLS Link
 
-4.2.  Probe Packet for SR-MPLS Policies
+4.2.  Probe Message for SR-MPLS Policies
 
    As described in Section 2.9.1 of [RFC6374], MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe packet for an end-to-end measurement for SR Policy
+   (G-ACh).  A probe message for an end-to-end measurement for SR Policy
    contains SR-MPLS label stack
    [I-D.ietf-spring-segment-routing-policy], with the G-ACh Label (GAL)
    at the bottom of the stack (with S=1).  The GAL is followed by an
@@ -354,7 +354,7 @@ Internet-Draft            RFC 6374 for SR-MPLS                March 2020
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-      Figure 3: Probe Packet Header for an End-to-end SR-MPLS Policy
+      Figure 3: Probe Message Header for an End-to-end SR-MPLS Policy
 
    The SR-MPLS label stack can be empty (as shown in Figure 2) to
    indicate Implicit NULL label case.

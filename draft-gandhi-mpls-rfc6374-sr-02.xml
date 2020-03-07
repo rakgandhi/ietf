@@ -270,19 +270,19 @@
 	</section>
 
 
-	<section title="Probe Query and Response Packets" anchor="sect-4">
+	<section title="Probe Query and Response Messages" anchor="sect-4">
 		
-	<section title="Probe Packet for SR-MPLS Links" anchor="sect-4.2"><t>
+	<section title="Probe Message for SR-MPLS Links" anchor="sect-4.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe packet for SR-MPLS links contains G-ACh Label (GAL)
+   (G-ACh).  A probe message for SR-MPLS links contains G-ACh Label (GAL)
    (with S=1).  The GAL is followed by an Associated Channel Header
    (ACH), which identifies the message type, and the message payload
    following the ACH as shown in Figure 2. The probe messages are routed over the SR Links
    for both delay and loss measurement. 
    For SR-MPLS Links, the TTL value is set to 1 in the SR-MPLS header for one-way and two-way measurement modes.</t>
 
-	<figure title="Probe Packet Header for an SR-MPLS Link" anchor="ure-probe-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
+	<figure title="Probe Message Header for an SR-MPLS Link" anchor="ure-probe-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -295,10 +295,10 @@
 	</figure>
 	</section>
 		
-        <section title="Probe Packet for SR-MPLS Policies" anchor="sect-4.1"><t>
+        <section title="Probe Message for SR-MPLS Policies" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe packet for an end-to-end measurement for SR Policy
+   (G-ACh).  A probe message for an end-to-end measurement for SR Policy
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1).
    The GAL is followed by an Associated Channel Header (ACH), which
@@ -306,7 +306,7 @@
    ACH as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
-	<figure title="Probe Packet Header for an End-to-end SR-MPLS Policy" anchor="ure-probe-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
+	<figure title="Probe Message Header for an End-to-end SR-MPLS Policy" anchor="ure-probe-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
