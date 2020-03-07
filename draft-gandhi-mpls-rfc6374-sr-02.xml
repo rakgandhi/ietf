@@ -79,7 +79,7 @@
    measurement of packet loss, one-way and two-way delay, as well as
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
-   Delay and Loss Measurements in Segment Routing (SR) networks with
+   Delay and Loss Measurements in Segment Routing networks with
    MPLS data plane (SR-MPLS), for both SR Links and end-to-end SR
    Policies.  In addition, this document defines Return Path TLV for
    two-way performance measurement and Block Number TLV for loss
@@ -117,7 +117,7 @@
    defined in <xref target="RFC4656"/> and Two-Way Active Measurement Protocol (TWAMP)
    defined in <xref target="RFC5357"/> provide capabilities for the measurement of
    various performance metrics in IP networks.  However, mechanisms
-   defined in <xref target="RFC6374"/> are more suitable for Segment Routing (SR) when
+   defined in <xref target="RFC6374"/> are more suitable for Segment Routing when
    using MPLS data plane (SR-MPLS).  <xref target="RFC6374"/> also supports 
    "direct mode" Loss Measurement (LM), which is required in SR networks.</t>
 
