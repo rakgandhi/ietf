@@ -258,13 +258,6 @@
       responder node (incoming link or incoming SID needed since the
       responder node does not have PM session state present).</t>
 
-	<t>For SR Policy performance measurement, in order to ensure that the
-      probe query message is processed by the intended responder node,
-      Destination Address TLV (Type 129) <xref target="RFC6374"/> can be sent in the probe query
-      message.  The responder node only replies with Success in Control Code if it is the intended
-      destination for the probe query. 
-      Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier.</t>
-
 	</list>
 	</t>
 
@@ -279,7 +272,7 @@
 
 	<section title="Probe Query and Response Packets" anchor="sect-4">
 		
-	<section title="Probe Packet Header for SR-MPLS Links" anchor="sect-4.2"><t>
+	<section title="Probe Packet for SR-MPLS Links" anchor="sect-4.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A probe packet for SR-MPLS links contains G-ACh Label (GAL)
@@ -302,7 +295,7 @@
 	</figure>
 	</section>
 		
-        <section title="Probe Packet Header for SR-MPLS Policies" anchor="sect-4.1"><t>
+        <section title="Probe Packet for SR-MPLS Policies" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A probe packet for an end-to-end measurement for SR Policy
@@ -335,6 +328,13 @@
 	<t>
    The SR-MPLS label stack can be empty (as shown in Figure 2) to
    indicate Implicit NULL label case.</t>
+
+	<t>For SR Policy performance measurement, in order to ensure that the
+      probe query message is processed by the intended responder node,
+      Destination Address TLV (Type 129) <xref target="RFC6374"/> can be sent in the probe query
+      message.  The responder node only replies with Success in Control Code if it is the intended
+      destination for the probe query. 
+      Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier.</t>
 
 	</section>
 
