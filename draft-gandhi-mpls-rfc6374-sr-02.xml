@@ -118,9 +118,8 @@
    defined in <xref target="RFC5357"/> provide capabilities for the measurement of
    various performance metrics in IP networks.  However, mechanisms
    defined in <xref target="RFC6374"/> are more suitable for Segment Routing (SR) when
-   using MPLS data plane (SR-MPLS).  <xref target="RFC6374"/> also supports IEEE 1588
-   timestamps <xref target="IEEE1588"/> and "direct mode" Loss Measurement (LM), which
-   are required in SR networks.</t>
+   using MPLS data plane (SR-MPLS).  <xref target="RFC6374"/> also supports 
+   "direct mode" Loss Measurement (LM), which is required in SR networks.</t>
 
 	<t>
    <xref target="RFC7876"/> specifies the procedures to be used when sending and

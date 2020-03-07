@@ -142,9 +142,8 @@ Internet-Draft            RFC 6374 for SR-MPLS                March 2020
    defined in [RFC5357] provide capabilities for the measurement of
    various performance metrics in IP networks.  However, mechanisms
    defined in [RFC6374] are more suitable for Segment Routing (SR) when
-   using MPLS data plane (SR-MPLS).  [RFC6374] also supports IEEE 1588
-   timestamps [IEEE1588] and "direct mode" Loss Measurement (LM), which
-   are required in SR networks.
+   using MPLS data plane (SR-MPLS).  [RFC6374] also supports "direct
+   mode" Loss Measurement (LM), which is required in SR networks.
 
    [RFC7876] specifies the procedures to be used when sending and
    processing out-of-band performance measurement probe replies over an
@@ -161,6 +160,7 @@ Internet-Draft            RFC 6374 for SR-MPLS                March 2020
    The Performance Measurements (PM) for SR links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions.
+
 
 
 
