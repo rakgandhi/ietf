@@ -220,12 +220,12 @@
 
 	<figure title="Reference Topology" anchor="ure-reference-topology"><artwork><![CDATA[
 
-          +-------+ t1     Query     t2 +-------+
-          |       | - - - - - - - - - ->|       |
-          |   R1  |---------------------|   R5  |
-          |       |<- - - - - - - - - - |       |
-          +-------+ t4     Response  t3 +-------+
-           Sender                       Responder
+             +-------+ t1     Query     t2 +-------+
+             |       | - - - - - - - - - ->|       |
+             |   R1  |---------------------|   R5  |
+             |       |<- - - - - - - - - - |       |
+             +-------+ t4     Response  t3 +-------+
+              Sender                       Responder
 ]]></artwork>
 	</figure>
 	</section>
@@ -491,14 +491,8 @@
    The Section 3.4 of <xref target="RFC6374"/> defines timestamp format that can be
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format <xref target="IEEE1588"/> is used by default as described in
-   Appendix A of <xref target="RFC6374"/>, preferred with hardware support in Segment
+   Appendix A of <xref target="RFC6374"/>, with hardware support in Segment
    Routing networks.</t>
-
-	<t>
-   Note that for one-way delay measurement mode, clock synchronization
-   between the sender and responder nodes is required.  The two-way
-   delay measurement mode and loopback measurement mode do not require
-   clock synchronization between the sender and responder nodes.</t>
 
 	</section>
 
