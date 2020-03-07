@@ -80,7 +80,7 @@
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing (SR) networks with
-   MPLS data plane (SR-MPLS), for both SR links and end-to-end SR
+   MPLS data plane (SR-MPLS), for both SR Links and end-to-end SR
    Policies.  In addition, this document defines Return Path TLV for
    two-way performance measurement and Block Number TLV for loss
    measurement.</t>
@@ -126,16 +126,16 @@
    processing out-of-band performance measurement probe replies over an
    UDP return path when receiving RFC 6374 based probe queries.  These
    procedures can be used to send out-of-band PM replies for both
-   SR-MPLS links and Policies <xref target="I-D.ietf-spring-segment-routing-policy"/> for
+   SR-MPLS Links and Policies <xref target="I-D.ietf-spring-segment-routing-policy"/> for
    one-way measurement.</t>
 
 	<t>
    This document utilizes the probe-based mechanisms defined in
    <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR links and end-to-end SR Policies.
+   with MPLS data plane, for both SR Links and end-to-end SR Policies.
    In addition, this document defines Return Path TLV for two-way
    performance measurement and Block Number TLV for loss measurement.
-   The Performance Measurements (PM) for SR links are used to compute
+   The Performance Measurements (PM) for SR Links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions.</t>
 
@@ -210,7 +210,7 @@
    initiates a performance measurement probe query and the responder
    node R5 sends a probe response for the query message received.  The
    probe response is typically sent back to the sender node R1.  The
-   nodes R1 and R5 may be directly connected via a link enabled with
+   nodes R1 and R5 may be directly connected via a Link enabled with
    Segment Routing or there exists a Point-to-Point (P2P) SR Policy
    <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 with destination to
    node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
@@ -237,7 +237,7 @@
    measurement procedures defined in <xref target="sect-2.2"/> and Section 2.6 of
    <xref target="RFC6374"/> are used.  One-way loss measurement provides receive packet
    loss whereas two-way loss measurement provides both transmit and
-   receive packet loss.  For both links and end-to-end SR Policies, no
+   receive packet loss.  For both SR Links and end-to-end SR Policies, no
    PM session for delay or loss measurement is created on the responder
    node R5 <xref target="RFC6374"/>.</t>
 
@@ -248,7 +248,7 @@
 	<t><list style="symbols"><t>For Delay Measurement, the probe messages are sent on the
       congruent path of the data traffic by the sender node, and are
       used to measure the delay experienced by the actual data traffic
-      flowing on the links and SR Policies.</t>
+      flowing on the SR Links and SR Policies.</t>
 
 	<t>For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
@@ -274,7 +274,7 @@
 	<section title="Probe Message for SR-MPLS Links" anchor="sect-4.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe message for SR-MPLS links contains G-ACh Label (GAL)
+   (G-ACh).  A probe message for SR-MPLS Links contains G-ACh Label (GAL)
    (with S=1).  The GAL is followed by an Associated Channel Header
    (ACH), which identifies the message type, and the message payload
    following the ACH as shown in Figure 2. The probe messages are routed over the SR Links
@@ -349,7 +349,7 @@
    In this delay measurement mode, as per	
    Reference Topology, timestamps t1 and t2 are collected	
    by the probes. Only timestamps t1 and t2 are used to	
-   measure one-way delay.</t>
+   measure one-way delay. The one-way mode is applicable to both SR-MPLS Links and SR-MPLS Policies.</t>
 
 	</section>
 
@@ -362,7 +362,8 @@
    case, the "control code" in the probe query message is set to "in-band response requested".
    In this delay measurement mode, as per	
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected	
-   by the probes. All four timestamps are used to measure two-way delay.</t>
+   by the probes. All four timestamps are used to measure two-way delay. 
+   The two-way mode is applicable to both SR-MPLS Links and SR-MPLS Policies.</t>
 
    <t>Specifically, the probe response message is sent back on the incoming	
    physical interface where the probe query message is received.  This	
@@ -388,7 +389,7 @@
    response messages. In this delay
    measurement mode, as per Reference Topology, the timestamps t1 and t4
    are collected by the probes.  Both these timestamps are used to
-   measure round-trip delay.</t>
+   measure round-trip delay. The loopback mode for SR-MPLS Links is outside the scope of this document.</t>
 
 	</section>
 
@@ -476,12 +477,12 @@
    As defined in <xref target="RFC6374"/>, MPLS DM probe query and response messages
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
-   message payload following the ACH.  For both SR links and end-to-end
+   message payload following the ACH.  For both SR Links and end-to-end
    measurement for SR-MPLS Policies, the same MPLS DM ACH value is used.</t>
 
 	<t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
-   for SR-MPLS delay measurement, for both SR links and end-to-end SR
+   for SR-MPLS delay measurement, for both SR Links and end-to-end SR
    Policies.</t>
 
 	</section>
@@ -539,12 +540,12 @@
    use Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
-   ACH.  For both SR links and end-to-end measurement for SR-MPLS
+   ACH.  For both SR Links and end-to-end measurement for SR-MPLS
    Policies, the same MPLS LM ACH value is used.</t>
 
 	<t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
-   for SR-MPLS loss measurement, for both SR links and end-to-end SR
+   for SR-MPLS loss measurement, for both SR Links and end-to-end SR
    Policies.</t>
 
 	</section>
@@ -646,7 +647,7 @@
 	</section>
 
 	<section title="SR Link Extended TE Metrics Advertisements" anchor="sect-9"><t>
-   The extended TE metrics for SR link delay and loss computed using the
+   The extended TE metrics for SR Link delay and loss computed using the
    performance measurement procedures described in this document can be
    advertised in the routing domain as follows:</t>
 
@@ -657,7 +658,7 @@
 	<t>The advertised delay-variance metric is computed as specified in
       Section 4.2 of <xref target="RFC5481"/>.</t>
 
-	<t>The extended TE link one-way delay metrics can be computed using
+	<t>The extended TE link one-way delay metrics can also be computed using
       two-way delay measurement or round-trip delay measurement from
       loopback mode by dividing the measured delay values by 2.</t>
 
@@ -673,7 +674,7 @@
 
 	<section title="Security Considerations" anchor="sect-10"><t>
    This document describes the procedures for performance delay and loss
-   measurement for SR-MPLS networks, for both links and end-to-end SR
+   measurement for SR-MPLS networks, for both SR Links and end-to-end SR
    Policies using the mechanisms defined in <xref target="RFC6374"/> and <xref target="RFC7876"/>.
    This document does not introduce any additional security
    considerations other than those covered in <xref target="RFC6374"/>, <xref target="RFC7471"/>,
