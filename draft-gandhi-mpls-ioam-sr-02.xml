@@ -266,12 +266,12 @@
    carry a second label underneath with protocol value 0000b, 20-bit
    Flow Label and 8-bit Block Number.</t>
 
-	<t><list style="symbols"><t>The protocol value 0000b allows to avoid incorrect IP header based
+	<t><list style="symbols"><t>The protocol value 0000b allows to avoid incorrect IP header-based
       hashing over ECMP paths that uses the value 0x4 (for IPv4) and
       value 0x6 (for IPv6) <xref target="RFC4928"/>.</t>
 
 	<t>The Flow Label identifies the traffic flow that can be used for
-      IOAM purpose, monitoring a specific traffic flow for latency.</t>
+      IOAM purpose, e.g. monitoring a specific traffic flow for latency.</t>
 
 	<t>The Block Number can be used to aggregate the IOAM data collected
       in data plane, e.g. compute measurement metrics for each block of
