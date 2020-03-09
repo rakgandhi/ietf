@@ -136,23 +136,23 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
    Abbreviations used in this document:
 
-   ECMP  Equal Cost Multi-Path
+   ECMP      Equal Cost Multi-Path
 
-   IOAM  In-situ Operations, Administration, and Maintenance
+   IOAM      In-situ Operations, Administration, and Maintenance
 
-   MPLS  Multiprotocol Label Switching
+   MPLS      Multiprotocol Label Switching
 
-   OAM  Operations, Administration, and Maintenance
+   OAM       Operations, Administration, and Maintenance
 
-   PM  Performance Measurement
+   PM        Performance Measurement
 
-   POT  Proof-of-Transit
+   POT       Proof-of-Transit
 
-   PSID  Path Segment Identifier
+   PSID      Path Segment Identifier
 
-   SR  Segment Routing
+   SR        Segment Routing
 
-   SR-MPLS  Segment Routing with MPLS Data plane
+   SR-MPLS   Segment Routing with MPLS Data plane
 
 3.  IOAM Data Field Encapsulation in MPLS Header
 

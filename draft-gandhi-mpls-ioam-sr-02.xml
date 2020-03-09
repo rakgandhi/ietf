@@ -115,47 +115,47 @@
 	<section title="Abbreviations" anchor="sect-2.2"><t>
    Abbreviations used in this document:</t>
 
-	<t><list style="hanging" hangIndent="-1"><t hangText="ECMP">
+	<t><list style="hanging" hangIndent="-1"><t hangText="ECMP    ">
 	Equal Cost Multi-Path
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="IOAM">
+	<t hangText="IOAM    ">
 	In-situ Operations, Administration, and Maintenance
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="MPLS">
+	<t hangText="MPLS    ">
 	Multiprotocol Label Switching
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="OAM">
+	<t hangText="OAM     ">
 	Operations, Administration, and Maintenance
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="PM">
+	<t hangText="PM      ">
 	Performance Measurement
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="POT">
+	<t hangText="POT     ">
 	Proof-of-Transit
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="PSID">
+	<t hangText="PSID    ">
 	Path Segment Identifier
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="SR">
+	<t hangText="SR      ">
 	Segment Routing
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="SR-MPLS">
+	<t hangText="SR-MPLS ">
 	Segment Routing with MPLS Data plane
 	<vspace blankLines="0"/>
 	</t>
