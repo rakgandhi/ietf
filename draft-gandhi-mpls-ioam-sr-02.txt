@@ -8,6 +8,7 @@ Intended status: Standards Track                             C. Filsfils
 Expires: September 11, 2020                                 F. Brockners
                                                      Cisco Systems, Inc.
                                                                   B. Wen
+                                                                V. Kozak
                                                                  Comcast
                                                           March 10, 2020
 
@@ -48,7 +49,6 @@ Copyright Notice
 
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
 
 
 
@@ -636,11 +636,6 @@ Contributors
    Email: sagsoni@cisco.com
 
 
-   Voitek Kozak
-   Comcast
-
-   Email: Voitek_Kozak@comcast.com
-
 
 Authors' Addresses
 
@@ -664,16 +659,6 @@ Authors' Addresses
    Email: cf@cisco.com
 
 
-
-
-
-
-
-Gandhi, et al.         Expires September 11, 2020              [Page 12]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    Frank Brockners
    Cisco Systems, Inc.
    Hansaallee 249, 3rd Floor
@@ -683,10 +668,25 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    Email: fbrockne@cisco.com
 
 
+
+Gandhi, et al.         Expires September 11, 2020              [Page 12]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
+
    Bin Wen
    Comcast
 
    Email: Bin_Wen@cable.comcast.com
+
+
+   Voitek Kozak
+   Comcast
+
+   Email: Voitek_Kozak@comcast.com
+
+
+
 
 
 

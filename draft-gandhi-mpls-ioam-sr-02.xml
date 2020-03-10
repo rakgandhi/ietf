@@ -62,6 +62,13 @@
 	</address>
 	</author>
 
+	<author fullname="Voitek Kozak" initials="V." surname="Kozak">
+	<organization>Comcast</organization>
+	<address><email>Voitek_Kozak@comcast.com</email>
+	</address>
+	</author>
+
+
 	<date day="10" month="March" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
@@ -535,11 +542,6 @@ Cisco Systems, Inc.
 
 Email: sagsoni@cisco.com
 
-
-Voitek Kozak
-Comcast
-
-Email: Voitek_Kozak@comcast.com
 
 ]]></artwork>
 	</figure>
