@@ -5,11 +5,11 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                                    Z. Ali
 Intended status: Standards Track                             C. Filsfils
-Expires: September 10, 2020                                 F. Brockners
+Expires: September 11, 2020                                 F. Brockners
                                                      Cisco Systems, Inc.
                                                                   B. Wen
                                                                  Comcast
-                                                           March 9, 2020
+                                                          March 10, 2020
 
 
 Segment Routing with MPLS Data Plane Encapsulation for In-situ OAM Data
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 10, 2020.
+   This Internet-Draft will expire on September 11, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 1]
+Gandhi, et al.         Expires September 11, 2020               [Page 1]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -92,31 +92,31 @@ Table of Contents
 
 1.  Introduction
 
+   Segment Routing (SR) technology leverages the source routing paradigm
+   [RFC8660].  A node steers a packet through a controlled set of
+   instructions, called segments, by pre-pending the packet with an SR
+   header.  In the MPLS data plane, the SR header is instantiated
+   through a label stack.
+
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information within the packet while the
    packet traverses a particular network domain.  The term "in-situ"
    refers to the fact that the IOAM data fields are added to the data
    packets rather than being sent within the probe packets specifically
-   dedicated to OAM or Performance Measurement (PM).  The IOAM data
-   fields are defined in [I-D.ietf-ippm-ioam-data], and can be used for
-   various use-cases for OAM and PM.  The IOAM data fields are further
-   updated in [I-D.ietf-ippm-ioam-direct-export] for direct export use-
-   cases and in [I-D.ietf-ippm-ioam-flags] for loopback, active
-   measurement, etc.
-
-   Segment Routing (SR) technology leverages the source routing paradigm
-   [RFC8660].  A node steers a packet through a controlled set of
+   dedicated to OAM or Performance Measurement (PM)
+   [I-D.gandhi-mpls-rfc6374-sr].  The IOAM data fields are defined in
+   [I-D.ietf-ippm-ioam-data], and can be used for various use-cases for
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 2]
+Gandhi, et al.         Expires September 11, 2020               [Page 2]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
-   instructions, called segments, by pre-pending the packet with an SR
-   header.  In the MPLS data plane, the SR header is instantiated
-   through a label stack.
+   OAM and PM.  The IOAM data fields are further updated in
+   [I-D.ietf-ippm-ioam-direct-export] for direct export use-cases and in
+   [I-D.ietf-ippm-ioam-flags] for loopback, active measurement, etc.
 
    This document defines how IOAM data fields are transported using the
    SR with MPLS data plane (SR-MPLS) encapsulation.  The procedures
@@ -165,7 +165,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 3]
+Gandhi, et al.         Expires September 11, 2020               [Page 3]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -221,7 +221,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 4]
+Gandhi, et al.         Expires September 11, 2020               [Page 4]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -255,12 +255,12 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    carry a second label underneath with protocol value 0000b, 20-bit
    Flow Label and 8-bit Block Number.
 
-   o  The protocol value 0000b allows to avoid incorrect IP header based
+   o  The protocol value 0000b allows to avoid incorrect IP header-based
       hashing over ECMP paths that uses the value 0x4 (for IPv4) and
       value 0x6 (for IPv6) [RFC4928].
 
    o  The Flow Label identifies the traffic flow that can be used for
-      IOAM purpose, monitoring a specific traffic flow for latency.
+      IOAM purpose, e.g. monitoring a specific traffic flow for latency.
 
    o  The Block Number can be used to aggregate the IOAM data collected
       in data plane, e.g. compute measurement metrics for each block of
@@ -277,7 +277,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 5]
+Gandhi, et al.         Expires September 11, 2020               [Page 5]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -333,7 +333,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 6]
+Gandhi, et al.         Expires September 11, 2020               [Page 6]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -389,7 +389,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 7]
+Gandhi, et al.         Expires September 11, 2020               [Page 7]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -445,7 +445,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 8]
+Gandhi, et al.         Expires September 11, 2020               [Page 8]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -501,7 +501,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020               [Page 9]
+Gandhi, et al.         Expires September 11, 2020               [Page 9]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -511,7 +511,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
               Leddy, J., Youell, S., Mizrahi, T., Mozes, D., Lapukhov,
               P., remy@barefootnetworks.com, r., daniel.bernier@bell.ca,
               d., and J. Lemon, "Data Fields for In-situ OAM", draft-
-              ietf-ippm-ioam-data-08 (work in progress), October 2019.
+              ietf-ippm-ioam-data-09 (work in progress), March 2020.
 
    [I-D.ietf-ippm-ioam-direct-export]
               Song, H., Gafni, B., Zhou, T., Li, Z., Brockners, F.,
@@ -542,25 +542,31 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 11.2.  Informative References
 
+   [I-D.gandhi-mpls-rfc6374-sr]
+              Gandhi, R., Filsfils, C., Voyer, D., Salsano, S., and M.
+              Chen, "Performance Measurement for Segment Routing
+              Networks with MPLS Data Plane", draft-gandhi-mpls-
+              rfc6374-sr-02 (work in progress), March 2020.
+
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-01 (work in progress), November 2019.
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020              [Page 10]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
-
-
-
-
-
-Gandhi, et al.         Expires September 10, 2020              [Page 10]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
 
    [RFC4385]  Bryant, S., Swallow, G., Martini, L., and D. McPherson,
               "Pseudowire Emulation Edge-to-Edge (PWE3) Control Word for
@@ -607,13 +613,7 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-Gandhi, et al.         Expires September 10, 2020              [Page 11]
+Gandhi, et al.         Expires September 11, 2020              [Page 11]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
@@ -669,4 +669,4 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 10, 2020              [Page 12]
+Gandhi, et al.         Expires September 11, 2020              [Page 12]
