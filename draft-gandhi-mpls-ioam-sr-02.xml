@@ -65,12 +65,13 @@
 	<date day="10" month="March" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
+   Segment Routing (SR) technology leverages the source routing paradigm.
+   In the SR with MPLS data plane (SR-MPLS), the SR header is instantiated through a label stack.
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information in the data packet while the
-   packet traverses a path between two nodes in the network.  Segment
-   Routing (SR) technology leverages the source routing paradigm.  This
+   packet traverses a path between two nodes in the network.  This
    document defines how IOAM data fields are transported using the
-   Segment Routing with MPLS data plane (SR-MPLS) encapsulation.  The
+   SR with MPLS data plane encapsulation.  The
    procedures defined are also equally applicable to all other MPLS data
    plane encapsulations.</t>
 
@@ -82,7 +83,7 @@
    Segment Routing (SR) technology leverages the source routing paradigm
    <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
    instructions, called segments, by pre-pending the packet with an SR
-   header.  In the MPLS data plane, the SR header is instantiated
+   header.  In the SR with MPLS data plane (SR-MPLS), the SR header is instantiated
    through a label stack.</t>
 
    <t>
@@ -100,7 +101,7 @@
 
    <t>
    This document defines how IOAM data fields are transported using the
-   SR with MPLS data plane (SR-MPLS) encapsulation.  The procedures
+   SR with MPLS data plane encapsulation.  The procedures
    defined are also equally applicable to all other MPLS data plane
    encapsulations.</t>
 

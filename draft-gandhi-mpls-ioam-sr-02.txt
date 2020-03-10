@@ -17,14 +17,15 @@ Segment Routing with MPLS Data Plane Encapsulation for In-situ OAM Data
 
 Abstract
 
-   In-situ Operations, Administration, and Maintenance (IOAM) records
-   operational and telemetry information in the data packet while the
-   packet traverses a path between two nodes in the network.  Segment
-   Routing (SR) technology leverages the source routing paradigm.  This
-   document defines how IOAM data fields are transported using the
-   Segment Routing with MPLS data plane (SR-MPLS) encapsulation.  The
-   procedures defined are also equally applicable to all other MPLS data
-   plane encapsulations.
+   Segment Routing (SR) technology leverages the source routing
+   paradigm.  In the SR with MPLS data plane (SR-MPLS), the SR header is
+   instantiated through a label stack.  In-situ Operations,
+   Administration, and Maintenance (IOAM) records operational and
+   telemetry information in the data packet while the packet traverses a
+   path between two nodes in the network.  This document defines how
+   IOAM data fields are transported using the SR with MPLS data plane
+   encapsulation.  The procedures defined are also equally applicable to
+   all other MPLS data plane encapsulations.
 
 Status of This Memo
 
@@ -48,8 +49,7 @@ Copyright Notice
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
+
 
 
 
@@ -58,6 +58,8 @@ Gandhi, et al.         Expires September 11, 2020               [Page 1]
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -73,30 +75,30 @@ Table of Contents
      2.1.  Requirement Language  . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
    3.  IOAM Data Field Encapsulation in MPLS Header  . . . . . . . .   3
-     3.1.  Indicator Labels  . . . . . . . . . . . . . . . . . . . .   5
-     3.2.  Data Packets with SR-MPLS Header  . . . . . . . . . . . .   5
-   4.  Procedure for Edge-to-Edge IOAM . . . . . . . . . . . . . . .   6
+     3.1.  Indicator Labels  . . . . . . . . . . . . . . . . . . . .   6
+     3.2.  Data Packets with SR-MPLS Header  . . . . . . . . . . . .   6
+   4.  Procedure for Edge-to-Edge IOAM . . . . . . . . . . . . . . .   7
      4.1.  Edge-to-Edge IOAM Indicator Label Allocation  . . . . . .   7
-   5.  Procedure for Hop-by-Hop IOAM . . . . . . . . . . . . . . . .   7
+   5.  Procedure for Hop-by-Hop IOAM . . . . . . . . . . . . . . . .   8
      5.1.  Hop-by-Hop IOAM Indicator Label Allocation  . . . . . . .   8
-   6.  Considerations for ECMP . . . . . . . . . . . . . . . . . . .   8
-   7.  Node Capability . . . . . . . . . . . . . . . . . . . . . . .   8
+   6.  Considerations for ECMP . . . . . . . . . . . . . . . . . . .   9
+   7.  Node Capability . . . . . . . . . . . . . . . . . . . . . . .   9
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   9
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .   9
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  10
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  10
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  11
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
    Segment Routing (SR) technology leverages the source routing paradigm
    [RFC8660].  A node steers a packet through a controlled set of
    instructions, called segments, by pre-pending the packet with an SR
-   header.  In the MPLS data plane, the SR header is instantiated
-   through a label stack.
+   header.  In the SR with MPLS data plane (SR-MPLS), the SR header is
+   instantiated through a label stack.
 
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information within the packet while the
@@ -104,8 +106,6 @@ Table of Contents
    refers to the fact that the IOAM data fields are added to the data
    packets rather than being sent within the probe packets specifically
    dedicated to OAM or Performance Measurement (PM)
-   [I-D.gandhi-mpls-rfc6374-sr].  The IOAM data fields are defined in
-   [I-D.ietf-ippm-ioam-data], and can be used for various use-cases for
 
 
 
@@ -114,14 +114,15 @@ Gandhi, et al.         Expires September 11, 2020               [Page 2]
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
+   [I-D.gandhi-mpls-rfc6374-sr].  The IOAM data fields are defined in
+   [I-D.ietf-ippm-ioam-data], and can be used for various use-cases for
    OAM and PM.  The IOAM data fields are further updated in
    [I-D.ietf-ippm-ioam-direct-export] for direct export use-cases and in
    [I-D.ietf-ippm-ioam-flags] for loopback, active measurement, etc.
 
    This document defines how IOAM data fields are transported using the
-   SR with MPLS data plane (SR-MPLS) encapsulation.  The procedures
-   defined are also equally applicable to all other MPLS data plane
-   encapsulations.
+   SR with MPLS data plane encapsulation.  The procedures defined are
+   also equally applicable to all other MPLS data plane encapsulations.
 
 2.  Conventions
 
@@ -160,8 +161,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    IOAM data fields are carried in the MPLS header as shown in Figure 1
    and Figure 2.  More than one trace options can be present in the IOAM
    data fields.  The Indicator Label is added at the bottom of the MPLS
-   label stack (S flag set to 1) to indicate the presence of the IOAM
-   data field(s) in the MPLS header.
+
 
 
 
@@ -169,6 +169,9 @@ Gandhi, et al.         Expires September 11, 2020               [Page 3]
 
 Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
+
+   label stack (S flag set to 1) to indicate the presence of the IOAM
+   data field(s) in the MPLS header.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -192,6 +195,36 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                 Figure 1: IOAM Encapsulation in MPLS Header
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 4]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -218,14 +251,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
         Figure 2: IOAM Encapsulation with Flow Label in MPLS Header
 
-
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 4]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    IOAM Indicator Label (IIL) and IOAM and Flow Indicator Label (IFIL)
    used are defined in this document.
 
@@ -244,6 +269,18 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    IOAM Option and Data Space:  IOAM option header and data is present
      as defined by the IOAM-Type field, and is defined in Section 4 of
      [I-D.ietf-ippm-ioam-data].
+
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 5]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
 3.1.  Indicator Labels
 
@@ -274,14 +311,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    allows to identify the associated SR path (e.g.  SR Policy) on the
    egress node being monitored for IOAM.
 
-
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 5]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -300,6 +329,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
     +---------------------------------------------------------------+
 
                  Figure 3: Data Packet with SR-MPLS Header
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 6]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
    The data packets with IOAM data fields carry only one Indicator Label
    in the MPLS header.  Any intermediate node that adds additional MPLS
@@ -330,14 +367,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
       IOAM processing may be to export the data fields, send data fields
       via Telemetry, etc.
 
-
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 6]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    o  The decapsulating node also pops the Indicator Label and the IOAM
       data fields from the MPLS header.
 
@@ -355,6 +384,15 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    o  Labels allocated by a Controller from the global table of the
       decapsulating node.  The Controller provisions the label on both
       encapsulating and decapsulating nodes.
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 7]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
    o  Labels allocated by the decapsulating node.  The signaling
       extension for this is outside the scope of this document.
@@ -385,15 +423,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
       [I-D.ietf-ippm-ioam-data].  An example of IOAM processing may be
       to export the data fields, send data fields via Telemetry, etc.
 
-
-
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 7]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    o  The decapsulating node pops the Indicator Label and the IOAM data
       fields from the MPLS header.
 
@@ -411,6 +440,15 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    o  Labels allocated by a Controller from the network-wide global
       table.  The Controller provisions the labels on all nodes
       participating in IOAM functions along the data traffic path.
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 8]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
 6.  Considerations for ECMP
 
@@ -443,13 +481,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    defined in this document, can simply skip the IOAM processing of the
    MPLS header.
 
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 8]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
 8.  IANA Considerations
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
@@ -457,6 +488,23 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    mpls-label-values/mpls-label-values.xml>).  IANA is requested to
    allocate IOAM Indicator Label value and IOAM and Flow Indicator value
    from the "Extended Special-Purpose MPLS Label Values" registry:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020               [Page 9]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
        +-------+-----------------------------------+---------------+
        | Value | Description                       | Reference     |
@@ -493,19 +541,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 11.1.  Normative References
 
-
-
-
-
-
-
-
-
-Gandhi, et al.         Expires September 11, 2020               [Page 9]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., Pignataro, C., Gredler, H.,
               Leddy, J., Youell, S., Mizrahi, T., Mozes, D., Lapukhov,
@@ -518,6 +553,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
               Bhandari, S., Sivakolundu, R., and T. Mizrahi, "In-situ
               OAM Direct Exporting", draft-ietf-ippm-ioam-direct-
               export-00 (work in progress), February 2020.
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020              [Page 10]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
    [I-D.ietf-ippm-ioam-flags]
               Mizrahi, T., Brockners, F., Bhandari, S., Sivakolundu, R.,
@@ -553,15 +596,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-01 (work in progress), November 2019.
 
-
-
-
-
-Gandhi, et al.         Expires September 11, 2020              [Page 10]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
@@ -572,6 +606,17 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
               "Pseudowire Emulation Edge-to-Edge (PWE3) Control Word for
               Use over an MPLS PSN", RFC 4385, DOI 10.17487/RFC4385,
               February 2006, <https://www.rfc-editor.org/info/rfc4385>.
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020              [Page 11]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
+
 
    [RFC4928]  Swallow, G., Bryant, S., and L. Andersson, "Avoiding Equal
               Cost Multipath Treatment in MPLS Networks", BCP 128,
@@ -612,17 +657,21 @@ Authors' Addresses
    Email: zali@cisco.com
 
 
-
-Gandhi, et al.         Expires September 11, 2020              [Page 11]
-
-Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
-
-
    Clarence Filsfils
    Cisco Systems, Inc.
    Belgium
 
    Email: cf@cisco.com
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020              [Page 12]
+
+Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
    Frank Brockners
@@ -669,4 +718,11 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
 
 
 
-Gandhi, et al.         Expires September 11, 2020              [Page 12]
+
+
+
+
+
+
+
+Gandhi, et al.         Expires September 11, 2020              [Page 13]
