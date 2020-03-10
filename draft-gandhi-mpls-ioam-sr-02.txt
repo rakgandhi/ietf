@@ -457,9 +457,9 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    0x6 for IPv6) as it can alter the hashing function for ECMP that uses
    the IP header.  This can be achieved by using the IOAM and Flow
    Indicator Label (value TBA2 and TBA4) that follows by protocol value
-   0000b.  This approach is consistent with the use of utilizing 0000b
-   as the first nibble after the MPLS label stack, as described in
-   [RFC4928] [RFC4385].
+   0000b.  This approach is consistent with utilizing 0000b as the first
+   nibble after the MPLS label stack, as described in [RFC4928]
+   [RFC4385].
 
    Note that the hashing function for ECMP that uses the labels from the
    MPLS header may now include the Indicator Label.
