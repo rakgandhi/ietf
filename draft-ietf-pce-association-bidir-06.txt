@@ -587,12 +587,12 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 5.4.  Bidirectional (B) Flag
 
    As defined in [RFC5440], the Bidirectional (B) flag in the Request
-   Parameters (RP) object MUST be set when the PCC specifies that the
-   path computation request is for a bidirectional TE LSP with the same
-   TE requirements in each direction.  For an associated bidirectional
-   LSP, the B-flag also MUST be set when the PCC makes the path
-   computation request for the same TE requirements for the forward and
-   reverse direction LSPs.
+   Parameters (RP) object is set when the PCC specifies that the path
+   computation request is for a bidirectional TE LSP with the same TE
+   requirements in each direction.  For an associated bidirectional LSP,
+   the B-flag is also set when the PCC makes the path computation
+   request for the same TE requirements for the forward and reverse
+   direction LSPs.
 
    Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
    object [I-D.ietf-pce-pcep-stateful-pce-gmpls] to indicate

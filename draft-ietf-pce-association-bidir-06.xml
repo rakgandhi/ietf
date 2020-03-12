@@ -524,10 +524,10 @@
 
       <section anchor="sect-5.4" title="Bidirectional (B) Flag">
         <t>As defined in <xref target="RFC5440"/>, the Bidirectional (B) flag
-        in the Request Parameters (RP) object MUST be set when the PCC specifies
+        in the Request Parameters (RP) object is set when the PCC specifies
         that the path computation request is for a bidirectional TE LSP with the 
         same TE requirements in each direction. For an
-        associated bidirectional LSP, the B-flag also MUST be set when the PCC makes
+        associated bidirectional LSP, the B-flag is also set when the PCC makes
         the path computation request for the same TE requirements for the
         forward and reverse direction LSPs.</t>
 
