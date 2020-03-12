@@ -172,7 +172,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
 1.1.  Summary of PCEP Extensions
 
-   The PCEP extensions cover the following cases:
+   The PCEP extensions defined in this document cover the following
+   cases:
 
    o  A PCC initiates the forward and/ or reverse LSP of a single-sided
       or double-sided bidirectional LSP and retains the control of the
@@ -215,7 +216,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
    The reader is assumed to be familiar with the terminology defined in
    [RFC5440], [RFC7551], [RFC8231], and [RFC8697].
-
 
 
 

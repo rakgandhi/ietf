@@ -133,7 +133,7 @@
       Reservation Protocol (RSVP) for signaling <xref target="RFC3209"/>.</t>
 	      
       <section anchor="sect-1.1" title="Summary of PCEP Extensions"><t>
-      The PCEP extensions cover the following cases:</t>
+      The PCEP extensions defined in this document cover the following cases:</t>
 
       <t><list style="symbols">
           <t>A PCC initiates the forward and/ or reverse LSP of a single-sided
