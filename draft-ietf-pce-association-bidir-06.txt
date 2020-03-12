@@ -596,8 +596,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
    Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
    object [I-D.ietf-pce-pcep-stateful-pce-gmpls] to indicate
-   'bidirectional co-routed LSP' is used for GMPLS signaled LSPs and is
-   not applicable to the associated bidirectional LSPs.
+   'bidirectional co-routed LSP' is used for GMPLS signaled bidiectional
+   LSPs and is not applicable to the associated bidirectional LSPs.
 
 5.5.  PLSP-ID Usage
 
