@@ -70,7 +70,7 @@
       </address>
     </author>
 
-    <date day="11" month="March" year="2020"/>
+    <date day="12" month="March" year="2020"/>
 
     <workgroup>PCE Working Group</workgroup>
 
@@ -130,8 +130,10 @@
       and double-sided initiation cases when using a Stateful PCE for both
       PCE-Initiated and PCC-Initiated LSPs as well as when using a Stateless
       PCE. The procedures defined are applicable to the LSPs using Resource
-      Reservation Protocol (RSVP) for signaling <xref target="RFC3209"/>. The
-      PCEP extensions cover the following cases:</t>
+      Reservation Protocol (RSVP) for signaling <xref target="RFC3209"/>.</t>
+	      
+      <section anchor="sect-1.1" title="Summary of PCEP Extensions"><t>
+      The PCEP extensions cover the following cases:</t>
 
       <t><list style="symbols">
           <t>A PCC initiates the forward and/ or reverse LSP of a single-sided
@@ -160,7 +162,9 @@
           <t>A PCC requests co-routed or non co-routed paths for forward and
           reverse LSPs of a bidirectional LSP from a Stateless PCE <xref
           target="RFC5440"/>.</t>
-        </list></t>
+	</list></t>
+    </section>
+
     </section>
 
     <section anchor="sect-2" title="Conventions Used in This Document">
@@ -437,7 +441,7 @@
 </artwork>
         </figure>
 
-        <t>Flags for Bidirectional LSP Association Group are defined as following.</t>
+        <t>Flags for Bidirectional LSP Association Group TLV are defined as following.</t>
 
         <t>F (Forward LSP, 1 bit) - Indicates whether the LSP associated is
         the forward LSP of the bidirectional LSP. If this flag is set, the LSP
@@ -521,15 +525,16 @@
       <section anchor="sect-5.4" title="Bidirectional (B) Flag">
         <t>As defined in <xref target="RFC5440"/>, the Bidirectional (B) flag
         in the Request Parameters (RP) object MUST be set when the PCC specifies
-        that the path computation request is for a bidirectional TE LSP. For an
+        that the path computation request is for a bidirectional TE LSP with the 
+        same TE requirements in each direction. For an
         associated bidirectional LSP, the B-flag also MUST be set when the PCC makes
-        the path computation request for the same TE requirements in the
-        forward and reverse directions.</t>
+        the path computation request for the same TE requirements for the
+        forward and reverse direction LSPs.</t>
 
         <t>Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
-        object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> is not required for the
-        associated bidirectional LSPs as association group is used to
-        indicate that the path is bidirectional.</t>
+        object <xref target="I-D.ietf-pce-pcep-stateful-pce-gmpls"/> to 
+	indicate 'bidirectional co-routed LSP' is used for GMPLS signaled LSPs 
+	and is not applicable to the associated bidirectional LSPs.</t>
       </section>
 
       <section anchor="sect-5.5" title="PLSP-ID Usage">
@@ -583,8 +588,8 @@
         <t>The PCEP Path Setup Type (PST) for RSVP is set to
         'Path is set up using the RSVP-TE signaling protocol' (Value 0) 
         <xref target="RFC8408"/>. If a PCEP speaker receives a
- different PST value for Bidirectional LSP Association Groups 
- defined in this document and
+        different PST value for the Bidirectional LSP Association Groups 
+        defined in this document and
         it does not support; it MUST return a PCErr message with Error-Type =
         26 (Association Error) and Error-Value = TBD6 (Bidirectional LSP
         Association - Path Setup Type Not Supported).</t>
