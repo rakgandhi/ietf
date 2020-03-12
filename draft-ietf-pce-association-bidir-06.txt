@@ -198,7 +198,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
       well as the association group identifying the bidirectional LSP.
       This is the PCE-Initiated mode defined in [RFC8281].
 
-   o  A PCC requests co-routed or non co-routed paths for forward and
+   o  A PCC requests co-routed or non-co-routed paths for forward and
       reverse LSPs of a bidirectional LSP from a Stateless PCE
       [RFC5440].
 
@@ -412,7 +412,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
    A member of the Bidirectional LSP Association Group can take the role
    of a forward or reverse LSP and follows the following rules:
 
-   o  An LSP (forward or reverse) can not be part of more than one
+   o  An LSP (forward or reverse) cannot be part of more than one
       Bidirectional LSP Association Group.  More than one forward LSP
       and/ or reverse LSP can be part of a Bidirectional LSP Association
       Group.
@@ -580,7 +580,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
    For a stateless PCE, it might be useful to associate a path
    computation request to an association group, thus enabling it to
    associate a common set of configuration parameters or behaviors with
-   the request.  A PCC can request co-routed or non co-routed forward
+   the request.  A PCC can request co-routed or non-co-routed forward
    and reverse direction paths from a stateless PCE for a Bidirectional
    LSP Association Group.
 
@@ -596,8 +596,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
    Note that the B-flag defined in Stateful PCE Request Parameter (SRP)
    object [I-D.ietf-pce-pcep-stateful-pce-gmpls] to indicate
-   'bidirectional co-routed LSP' is used for GMPLS signaled bidiectional
-   LSPs and is not applicable to the associated bidirectional LSPs.
+   'bidirectional co-routed LSP' is used for GMPLS signaled
+   bidirectional LSPs and is not applicable to the associated
+   bidirectional LSPs.
 
 5.5.  PLSP-ID Usage
 
@@ -609,7 +610,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
    LSP of a bidirectional LSP created on the originating node is
    identified by the PCE using 2 different PLSP-IDs based on the PCEP
    session on the ingress or egress nodes for the LSP.  In other words,
-   the reverse LSP on the originating node will have a PLSP-ID A at the
 
 
 
@@ -618,6 +618,7 @@ Gandhi, et al.         Expires September 13, 2020              [Page 11]
 Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
 
+   the reverse LSP on the originating node will have a PLSP-ID A at the
    ingress node while it will have a PLSP-ID B at the egress node.  This
    is not the case for the forward LSP of the Single-sided Bidirectional
    LSP on the originating node and there is no change in the PLSP-ID
@@ -637,7 +638,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
 5.7.  Error Handling
 
-   An LSP (forward or reverse) can not be part of more than one
+   An LSP (forward or reverse) cannot be part of more than one
    Bidirectional LSP Association Group.  If a PCE attempts to add an LSP
    not complying to this rule, the PCC MUST send PCErr with Error-Type =
    26 (Association Error) and Error-Value = TBD4 (Bidirectional LSP
@@ -665,7 +666,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP       March 2020
 
    The processing rules as specified in Section 6.4 of [RFC8697]
    continue to apply to the Association Types defined in this document.
-
 
 
 
