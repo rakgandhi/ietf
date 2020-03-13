@@ -203,21 +203,21 @@ Internet-Draft PCEP for Associated Bidirectional SR Paths     March 2020
    SR Paths can also be associated using similar technique.  This
    document extends these association mechanisms for bidirectional SR
    Paths.  Two unidirectional SR Paths (one in each direction in the
-   network) can be associated together by using the 'Double-sided
-   Bidirectional with Reverse LSP Association Group' defined in this
-   document for PCEP messages.
+   network) can be associated together by using the association group
+   defined in this document for PCEP messages.
 
-   Note that the Bidirectional Association Group defined in this
-   document is specific to the associated bidirectional SR Paths.  The
-   procedure for this association group specified in this document is
-   different than the Bidirectional Association Groups defined in
-   [I-D.ietf-pce-association-bidir] which are for associated
-   bidirectional RSVP-TE LSPs.
+   Note that the procedure for using the association group defined in
+   this document is specific to the associated bidirectional SR Paths.
+   The procedure for this association group is different than the
+   bidirectional association groups defined in
+   [I-D.ietf-pce-association-bidir] for associated bidirectional RSVP-TE
+   LSPs.
 
    [I-D.ietf-pce-sr-path-segment] defines a mechanism for communicating
    Path Segment Identifier (PSID) in PCEP for SR.  The PSID is defined
    for SR-MPLS in [I-D.ietf-spring-mpls-path-segment].  The PSID can be
    used for identifying an SR Path of an associated bidirectional SR
+   Path.  The PATH-SEGMENT TLV MAY be included for each SR Path in the
 
 
 
@@ -226,7 +226,6 @@ Li, et al.             Expires September 14, 2020               [Page 4]
 Internet-Draft PCEP for Associated Bidirectional SR Paths     March 2020
 
 
-   Path.  The PATH-SEGMENT TLV MAY be included for each SR Path in the
    LSP object to support required use-cases.  The PATH-SEGMENT TLV MUST
    be handled as defined in [I-D.ietf-pce-sr-path-segment] and is not
    modified for associated bidirectional SR Path.
@@ -270,6 +269,7 @@ Internet-Draft PCEP for Associated Bidirectional SR Paths     March 2020
    path, it uses the Bidirectional LSP Association Group TLV defined in
    [I-D.ietf-pce-association-bidir].  All fields and processing rules
    are as per [I-D.ietf-pce-association-bidir].
+
 
 
 
