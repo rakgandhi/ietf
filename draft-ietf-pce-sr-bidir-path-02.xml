@@ -282,19 +282,19 @@
         </list></t>
 
         <t>Similar to RSVP-TE bidirectional LSP associations, this Association Type
-        is operator-configured in nature and statically created by the
-        operator on the PCEP peers. The paths belonging to this association is
-        conveyed via PCEP messages to the PCEP peer. Operator-configured
-        Association Range TLV <xref target="RFC8697"/>
-        MUST NOT be sent for these Association Types, and MUST be ignored, so
-        that the entire range of association ID can be used for them. The
-        handling of the Association ID, Association Source, optional Global
+        is also operator-configured in nature and statically created by the
+        operator on the PCEP peers.  'Operator-configured
+        Association Range' TLV (Value 29) <xref target="RFC8697"/>
+        MUST NOT be sent for this Association Type, and MUST be ignored, so
+	that the entire range of association ID can be used for it.</t>
+
+       <t>The handling of the Association ID, Association Source, optional Global
         Association Source and optional Extended Association ID in this
         association are set in the same way as <xref
         target="I-D.ietf-pce-association-bidir"/>.</t>
 
         <t>A member of the 'Double-sided Bidirectional with Reverse LSP Association
-        Group' can take the role of a forward or reverse SR Path and follow
+        Group' can take the role of a forward or reverse direction SR Path and follow
         the similar rules defined in <xref
         target="I-D.ietf-pce-association-bidir"/> for LSPs.</t>
 
@@ -302,7 +302,7 @@
             <t>An SR Path (forward or reverse) cannot be part of more than
             one 'Double-sided Bidirectional with Reverse LSP Association Group'.</t>
 
-            <t>The endpoints of the SR Paths in this associations cannot be
+            <t>The endpoints of the SR Paths in 'Double-sided Bidirectional with Reverse LSP Association Group' cannot be
             different.</t>
           </list></t>
 

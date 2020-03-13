@@ -241,26 +241,27 @@ Internet-Draft PCEP for Associated Bidirectional SR Paths     March 2020
       Bidirectional with Reverse LSP Association Group
 
    Similar to RSVP-TE bidirectional LSP associations, this Association
-   Type is operator-configured in nature and statically created by the
-   operator on the PCEP peers.  The paths belonging to this association
-   is conveyed via PCEP messages to the PCEP peer.  Operator-configured
-   Association Range TLV [RFC8697] MUST NOT be sent for these
-   Association Types, and MUST be ignored, so that the entire range of
-   association ID can be used for them.  The handling of the Association
-   ID, Association Source, optional Global Association Source and
-   optional Extended Association ID in this association are set in the
-   same way as [I-D.ietf-pce-association-bidir].
+   Type is also operator-configured in nature and statically created by
+   the operator on the PCEP peers.  'Operator-configured Association
+   Range' TLV (Value 29) [RFC8697] MUST NOT be sent for this Association
+   Type, and MUST be ignored, so that the entire range of association ID
+   can be used for it.
+
+   The handling of the Association ID, Association Source, optional
+   Global Association Source and optional Extended Association ID in
+   this association are set in the same way as
+   [I-D.ietf-pce-association-bidir].
 
    A member of the 'Double-sided Bidirectional with Reverse LSP
-   Association Group' can take the role of a forward or reverse SR Path
-   and follow the similar rules defined in
+   Association Group' can take the role of a forward or reverse
+   direction SR Path and follow the similar rules defined in
    [I-D.ietf-pce-association-bidir] for LSPs.
 
    o  An SR Path (forward or reverse) cannot be part of more than one
       'Double-sided Bidirectional with Reverse LSP Association Group'.
 
-   o  The endpoints of the SR Paths in this associations cannot be
-      different.
+   o  The endpoints of the SR Paths in 'Double-sided Bidirectional with
+      Reverse LSP Association Group' cannot be different.
 
 3.1.1.  Bidirectional LSP Association Group TLV
 
@@ -269,7 +270,6 @@ Internet-Draft PCEP for Associated Bidirectional SR Paths     March 2020
    path, it uses the Bidirectional LSP Association Group TLV defined in
    [I-D.ietf-pce-association-bidir].  All fields and processing rules
    are as per [I-D.ietf-pce-association-bidir].
-
 
 
 
