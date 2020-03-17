@@ -100,8 +100,8 @@ Table of Contents
    fields are defined in [I-D.ietf-ippm-ioam-data], and can be used for
    various use-cases for OAM and PM.  The IOAM data fields are further
    updated in [I-D.ietf-ippm-ioam-direct-export] for direct export use-
-   cases and in [I-D.ietf-ippm-ioam-flags] for loopback and active
-   measurement.
+   cases and in [I-D.ietf-ippm-ioam-flags] for Loopback and Active
+   flags.
 
    This document defines how IOAM data fields are transported using the
    MPLS data plane encapsulations, including Segment Routing (SR) with
