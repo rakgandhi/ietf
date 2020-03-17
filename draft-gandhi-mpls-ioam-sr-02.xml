@@ -354,7 +354,7 @@
       Label is outside the scope of this document.</t>
 
 	<t>
-      The transit and decapsulating node enabled with IOAM functions
+      The intermediate and decapsulating node enabled with IOAM functions
       "forwards and punts the timestamped copy" of the data packet
       including IOAM data fields when the node recognizes the IOAM
       Indicator Label and IOAM Flow Indicator Label.  The copy of the
@@ -362,7 +362,7 @@
       not necessarily punted to the control-plane.  The receive
       timestamp is required by various hop-by-hop OAM use-cases.</t>
 
-      <t>The transit and decapsulating node processes the IOAM data
+      <t>The intermediate and decapsulating node processes the IOAM data
       field(s) using the procedures defined in <xref target="I-D.ietf-ippm-ioam-data"/>.  An
       example of IOAM processing may be to export the data fields, send
       data fields via Telemetry, etc.</t>
@@ -424,7 +424,7 @@
    document.</t>
 
 	<t>
-   The transit node that is not capable of supporting the IOAM functions
+   The intermediate node that is not capable of supporting the IOAM functions
    defined in this document, can simply skip the IOAM processing of the
    MPLS header.</t>
 

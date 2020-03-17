@@ -341,15 +341,15 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
       field(s) in the MPLS header.  The procedure to generate the Flow
       Label is outside the scope of this document.
 
-   o  The transit and decapsulating node enabled with IOAM functions
-      "forwards and punts the timestamped copy" of the data packet
-      including IOAM data fields when the node recognizes the IOAM
-      Indicator Label and IOAM Flow Indicator Label.  The copy of the
-      data packet is punted to the slow path for OAM processing and is
-      not necessarily punted to the control-plane.  The receive
+   o  The intermediate and decapsulating node enabled with IOAM
+      functions "forwards and punts the timestamped copy" of the data
+      packet including IOAM data fields when the node recognizes the
+      IOAM Indicator Label and IOAM Flow Indicator Label.  The copy of
+      the data packet is punted to the slow path for OAM processing and
+      is not necessarily punted to the control-plane.  The receive
       timestamp is required by various hop-by-hop OAM use-cases.
 
-   o  The transit and decapsulating node processes the IOAM data
+   o  The intermediate and decapsulating node processes the IOAM data
       field(s) using the procedures defined in
       [I-D.ietf-ippm-ioam-data].  An example of IOAM processing may be
       to export the data fields, send data fields via Telemetry, etc.
@@ -407,9 +407,9 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    extension for this capability exchange is outside the scope of this
    document.
 
-   The transit node that is not capable of supporting the IOAM functions
-   defined in this document, can simply skip the IOAM processing of the
-   MPLS header.
+   The intermediate node that is not capable of supporting the IOAM
+   functions defined in this document, can simply skip the IOAM
+   processing of the MPLS header.
 
 8.  Data Packets with SR-MPLS Header
 
