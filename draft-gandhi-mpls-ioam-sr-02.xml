@@ -23,7 +23,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="In-situ OAM for MPLS Data plane">Segment Routing with MPLS Data Plane Encapsulation for In-situ OAM Data</title>
+	<title abbrev="In-situ OAM for MPLS Data plane">MPLS Data Plane Encapsulation for In-situ OAM Data</title>
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
 	<address><postal><street>Canada</street>
@@ -69,38 +69,28 @@
 	</author>
 
 
-	<date day="10" month="March" year="2020"/>
+	<date day="17" month="March" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
-   Segment Routing (SR) technology leverages the source routing paradigm.
-   In the SR with MPLS data plane (SR-MPLS), the SR header is instantiated through a label stack.
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information in the data packet while the
    packet traverses a path between two nodes in the network.  This
    document defines how IOAM data fields are transported using the
-   SR with MPLS data plane encapsulation.  The
-   procedures defined are also equally applicable to all other MPLS data
-   plane encapsulations.</t>
+   MPLS data plane encapsulation, including Segment Routing (SR) 
+   with MPLS data plane (SR-MPLS).</t>
 
 	</abstract>
 	</front>
 
 	<middle>
-	<section title="Introduction" anchor="sect-1"><t>
-   Segment Routing (SR) technology leverages the source routing paradigm
-   <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
-   instructions, called segments, by pre-pending the packet with an SR
-   header.  In the SR with MPLS data plane (SR-MPLS), the SR header is instantiated
-   through a label stack.</t>
-
+       <section title="Introduction" anchor="sect-1">
    <t>
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information within the packet while the
    packet traverses a particular network domain.  The term "in-situ"
    refers to the fact that the IOAM data fields are added to the data
    packets rather than being sent within the probe packets specifically
-   dedicated to OAM or Performance Measurement (PM) <xref target="I-D.gandhi-mpls-rfc6374-sr"/>.  
-   The IOAM data
+   dedicated to OAM or Performance Measurement (PM). The IOAM data
    fields are defined in <xref target="I-D.ietf-ippm-ioam-data"/>, and can be used for
    various use-cases for OAM and PM.  The IOAM data fields are further
    updated in <xref target="I-D.ietf-ippm-ioam-direct-export"/> for direct export use-cases and
@@ -108,9 +98,7 @@
 
    <t>
    This document defines how IOAM data fields are transported using the
-   SR with MPLS data plane encapsulation.  The procedures
-   defined are also equally applicable to all other MPLS data plane
-   encapsulations.</t>
+   MPLS data plane encapsulations, including Segment Routing (SR) with MPLS data plane (SR-MPLS).</t>
 
 	</section>
 
@@ -184,6 +172,12 @@
    data fields.  The Indicator Label is added at the bottom of the MPLS
    label stack (S flag set to 1) to indicate the presence of the IOAM
    data field(s) in the MPLS header.</t>
+
+   <t>
+   The data packets with IOAM data fields carry only one Indicator Label
+   in the MPLS header.  Any intermediate node that adds additional MPLS
+   encapsulation in the MPLS header may further update the IOAM data
+   fields in the header without inserting another Indicator Label.</t>
 
 	<figure title="IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header"><artwork><![CDATA[
  0                   1                   2                   3
@@ -289,40 +283,6 @@
 
 	</list>
 	</t>
-
-	</section>
-
-	<section title="Data Packets with SR-MPLS Header" anchor="sect-3.2"><t>
-   An example of data packet carrying the SR-MPLS header with Path
-   Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> with IOAM
-   encapsulation is shown in Figure 3.  The Path Segment Identifier
-   allows to identify the associated SR path (e.g. SR Policy)
-   on the egress node being monitored for IOAM.</t>
-
-	<figure title="Data Packet with SR-MPLS Header" anchor="ure-data-packet-with-sr-mpls-header"><artwork><![CDATA[
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                Label(1)               | TC  |S|      TTL      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- .                                                               .
- .                                                               .
- .                                                               .
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                Label(n)               | TC  |S|      TTL      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                PSID                   | TC  |S|      TTL      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                Packet as shown in Figure 1 or Figure 2        |
- .                                                               .
- +---------------------------------------------------------------+
-]]></artwork>
-	</figure>
-	<t>
-   The data packets with IOAM data fields carry only one Indicator Label
-   in the MPLS header.  Any intermediate node that adds additional MPLS
-   encapsulation in the MPLS header may further update the IOAM data
-   fields in the header without inserting another Indicator Label.</t>
 
 	</section>
 
@@ -470,7 +430,57 @@
 
 	</section>
 
-	<section title="IANA Considerations" anchor="sect-8"><t>
+	<section title="Data Packets with SR-MPLS Header" anchor="sect-8"><t>
+   Segment Routing (SR) technology leverages the source routing paradigm
+   <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
+   instructions, called segments, by pre-pending the packet with an SR
+   header.  In the SR with MPLS data plane (SR-MPLS), the SR header is instantiated
+   through a label stack.</t>
+
+   <t>
+   An example of data packet carrying the SR-MPLS header with Path
+   Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> with IOAM
+   encapsulation is shown in Figure 3.  The Path Segment Identifier
+   allows to identify the path associated with the data traffic 
+   on the decapsulating node being monitored for IOAM.</t>
+
+	<figure title="Data Packet with SR-MPLS Header" anchor="ure-data-packet-with-sr-mpls-header"><artwork><![CDATA[
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                Label(1)               | TC  |S|      TTL      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ .                                                               .
+ .                                                               .
+ .                                                               .
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                Label(n)               | TC  |S|      TTL      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                PSID                   | TC  |S|      TTL      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                Packet as shown in Figure 1 or Figure 2        |
+ .                                                               .
+ +---------------------------------------------------------------+
+]]></artwork>
+	</figure>
+
+	</section>
+
+        <section title="Security Considerations" anchor="sect-9"><t>
+   The security considerations of SR-MPLS are discussed in <xref target="RFC8660"/>,
+   and the security considerations of IOAM in general are discussed in
+   <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
+
+	<t>
+   IOAM is considered a "per domain" feature, where one or several
+   operators decide on leveraging and configuring IOAM according to
+   their needs.  Still, operators need to properly secure the IOAM
+   domain to avoid malicious configuration and use, which could include
+   injecting malicious IOAM packets into a domain.</t>
+
+	</section>
+
+	<section title="IANA Considerations" anchor="sect-10"><t>
    IANA maintains the "Special-Purpose Multiprotocol Label Switching (MPLS) Label Values" registry (see
    <eref target="https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml"/>).  
    IANA is requested to allocate IOAM Indicator Label
@@ -494,27 +504,6 @@
 	</texttable>
 	</section>
 
-	<section title="Security Considerations" anchor="sect-9"><t>
-   The security considerations of SR-MPLS are discussed in <xref target="RFC8660"/>,
-   and the security considerations of IOAM in general are discussed in
-   <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
-
-	<t>
-   IOAM is considered a "per domain" feature, where one or several
-   operators decide on leveraging and configuring IOAM according to
-   their needs.  Still, operators need to properly secure the IOAM
-   domain to avoid malicious configuration and use, which could include
-   injecting malicious IOAM packets into a domain.</t>
-
-	</section>
-
-	<section title="Acknowledgements" anchor="sect-10"><t>
-   The authors would like to thank Patrick Khordoc, Shwetha Bhandari and Vengada Prasad
-   Govindan for the discussions on IOAM.  The authors would also like to
-   thank Tarek Saad, Loa Andersson and Cheng Li for providing many
-   useful comments.</t>
-
-	</section>
 
 	</middle>
 
@@ -533,8 +522,15 @@
 	&RFC6790;
 	&I-D.ietf-mpls-spl-terminology;
 	&I-D.ietf-spring-mpls-path-segment;
-        &I-D.gandhi-mpls-rfc6374-sr; 
 	</references>
+
+	<section title="Acknowledgements" numbered="no"><t>
+   The authors would like to thank Patrick Khordoc, Shwetha Bhandari and Vengada Prasad
+   Govindan for the discussions on IOAM.  The authors would also like to
+   thank Tarek Saad, Loa Andersson and Cheng Li for providing many
+   useful comments.</t>
+
+	</section>
 
 	<section title="Contributors" numbered="no" anchor="contributors"><figure><artwork><![CDATA[
 Sagar Soni
