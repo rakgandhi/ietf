@@ -94,7 +94,7 @@
    fields are defined in <xref target="I-D.ietf-ippm-ioam-data"/>, and can be used for
    various use-cases for OAM and PM.  The IOAM data fields are further
    updated in <xref target="I-D.ietf-ippm-ioam-direct-export"/> for direct export use-cases and
-   in <xref target="I-D.ietf-ippm-ioam-flags"/> for loopback, active measurement, etc.</t>
+   in <xref target="I-D.ietf-ippm-ioam-flags"/> for loopback and active measurement.</t>
 
    <t>
    This document defines how IOAM data fields are transported using the
