@@ -442,7 +442,7 @@
    Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> with IOAM
    encapsulation is shown in Figure 3.  The Path Segment Identifier
    allows to identify the path associated with the data traffic 
-   on the decapsulating node being monitored for IOAM.</t>
+   being monitored for IOAM on the decapsulating node.</t>
 
 	<figure title="Data Packet with SR-MPLS Header" anchor="ure-data-packet-with-sr-mpls-header"><artwork><![CDATA[
   0                   1                   2                   3

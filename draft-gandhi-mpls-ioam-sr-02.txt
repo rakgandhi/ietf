@@ -422,8 +422,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane          March 2020
    An example of data packet carrying the SR-MPLS header with Path
    Segment Identifier (PSID) [I-D.ietf-spring-mpls-path-segment] with
    IOAM encapsulation is shown in Figure 3.  The Path Segment Identifier
-   allows to identify the path associated with the data traffic on the
-   decapsulating node being monitored for IOAM.
+   allows to identify the path associated with the data traffic being
+   monitored for IOAM on the decapsulating node.
 
 
 
