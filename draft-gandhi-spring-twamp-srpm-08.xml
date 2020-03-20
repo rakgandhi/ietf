@@ -482,7 +482,6 @@ Loss Measurement Mode   /                \
  |                           SRH                                 |
  .                                                               .
  +---------------------------------------------------------------+
-
  |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
  .   (Using IPv6 Source and Destination Addresses)               .
  .                                                               .
@@ -506,8 +505,7 @@ Loss Measurement Mode   /                \
 	<section title="Control Code Field TWAMP Light Message" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for delay and loss measurement probe query and response messages
-   for both TWAMP Light message format in unauthenticated 
-   and authenticated modes.  
+   for both TWAMP Light message format in unauthenticated and authenticated modes.  
    The modified delay measurement probe query and response message format is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in <xref target="RFC5357"/> as its reflector MUST
@@ -563,8 +561,6 @@ Loss Measurement Mode   /                \
    Reserved: Reserved for future use.</t>
 
 	</section>
-
-
 
 	<section title="Loss Measurement Query Message Formats for TWAMP Light" anchor="sect-4.1.6">
    <t> In this document, TWAMP Light probe query message formats are defined for

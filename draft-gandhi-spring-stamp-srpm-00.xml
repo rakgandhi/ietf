@@ -2,7 +2,6 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC0768 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.0768.xml">
 <!ENTITY RFC2119 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC5357 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5357.xml">
 <!ENTITY RFC8174 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8762 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml">
 <!ENTITY I-D.ietf-ippm-stamp-option-tlv SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp-option-tlv.xml">
@@ -118,7 +117,7 @@
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
    defines TLV extensions for STAMP messages.</t>
 
-   <t>The STAMP message with a TLV for "direct measurement" can be used for combined delay + loss
+   <t>The STAMP message with a TLV for "direct measurement" can be used for combined Delay + Loss
    measurement <xref target="I-D.ietf-ippm-stamp-option-tlv"/>. However,  in 
    order to use only for loss measurement purpose, it requires the node to 
    support the delay measurement STAMP messages and timestamp the packets. 
@@ -203,9 +202,6 @@
 
 	<t>
    TC: Traffic Class.</t>
-
-	<t>
-   TWAMP: Two-Way Active Measurement Protocol.</t>
 
 	</section>
 
@@ -359,7 +355,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port for Delay Measurement.
  .                                                               .
  +---------------------------------------------------------------+
- . Payload = Message specified in Section 4.2 of RFC 8762        .
+ | Payload = Message specified in Section 4.2 of RFC 8762        |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -518,7 +514,7 @@ Loss Measurement Mode   /                \
    ignore the received field (identified as MBZ).
    The usage of the Control Code is not limited to the SR networks and can be used for various bidirectional paths in a network.</t>
 
-   <figure title="Control Code in STAMP DM Message" anchor="ure-control-code-in-twamp-and-stamp-message"><artwork><![CDATA[
+   <figure title="Control Code in STAMP DM Message" anchor="ure-control-code-in-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -725,7 +721,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = Source Port from Query                    .
  .                                                               .
  +---------------------------------------------------------------+
- . DM payload as specified in Section 4.3 of RFC 8762 |          .
+ | DM payload as specified in Section 4.3 of RFC 8762 |          |
  . LM Payload as specified in Figure 12 or 13                    .
  .                                                               .
  +---------------------------------------------------------------+
@@ -917,8 +913,8 @@ Loss Measurement Mode   /                \
 
 	<section title="Node Address TLV for STAMP Message" anchor="sect-4.3">
 
-        <t>The Node Address TLV is defined for STAMP message <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
-        in this document and has the following format shown in Figure 14:</t>
+        <t>In this document, Node Address TLV is defined for STAMP message <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
+        and has the following format shown in Figure 14:</t>
 
 
 	<figure title="Node Address TLV Format" anchor="ure-node-address-tlv-format"><artwork><![CDATA[
@@ -935,7 +931,7 @@ Loss Measurement Mode   /                \
    <t>The Address Family field indicates the type of the address, and it
    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.</t>
 
-   <t>The following Type is defined in this document and it contains Node Address TLV:</t>
+   <t>The following Type is defined and it contains Node Address TLV:</t>
 
    <t>Destination Node Address (value TBA1):</t>
    <t>
@@ -1225,7 +1221,6 @@ Loss Measurement Mode   /                \
 	<references title="Normative References">
 	&RFC0768;
 	&RFC2119;
-	&RFC5357;
 	&RFC8174;
 	&RFC8762;
 	&I-D.ietf-6man-spring-srv6-oam;
