@@ -310,7 +310,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    Timestamp Format          /            \    Loss Measurement Mode
    Delay Measurement Mode   /              \
    Loss Measurement Mode   /                \
-                          v                   v
+                          v                  v
                      +-------+            +-------+
                      |       |            |       |
                      |   R1  |------------|   R5  |
@@ -535,11 +535,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as defined in [I-D.ietf-6man-segment-routing-header].
-   For SRv6, network programming is defined in
-   [I-D.ietf-spring-srv6-network-programming].  The probe query messages
-   for end-to-end performance measurement of an SRv6 Policy is sent
-   using its SRH with Segment List as shown in Figure 5.
+   a Segment List as defined in [RFC8754].  For SRv6, network
+   programming is defined in [I-D.ietf-spring-srv6-network-programming].
+   The probe query messages for end-to-end performance measurement of an
+   SRv6 Policy is sent using its SRH with Segment List as shown in
+   Figure 5.
 
     +---------------------------------------------------------------+
     |                           SRH                                 |
@@ -1195,11 +1195,10 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the probe messages.  SRv6 has HMAC protection
-   authentication defined for SRH
-   [I-D.ietf-6man-segment-routing-header].  Hence, PM probe messages for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
+   authentication defined for SRH [RFC8754].  Hence, PM probe messages
+   for SRv6 may not need authentication mode.  Cryptographic measures
+   may be enhanced by the correct configuration of access-control lists
+   and firewalls.
 
 9.  IANA Considerations
 
@@ -1223,9 +1222,10 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               (OWAMP)", RFC 4656, DOI 10.17487/RFC4656, September 2006,
               <https://www.rfc-editor.org/info/rfc4656>.
 
-
-
-
+   [RFC5357]  Hedayat, K., Krzanowski, R., Morton, A., Yum, K., and J.
+              Babiarz, "A Two-Way Active Measurement Protocol (TWAMP)",
+              RFC 5357, DOI 10.17487/RFC5357, October 2008,
+              <https://www.rfc-editor.org/info/rfc5357>.
 
 
 
@@ -1233,11 +1233,6 @@ Gandhi, et al.         Expires September 21, 2020              [Page 22]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
-
-   [RFC5357]  Hedayat, K., Krzanowski, R., Morton, A., Yum, K., and J.
-              Babiarz, "A Two-Way Active Measurement Protocol (TWAMP)",
-              RFC 5357, DOI 10.17487/RFC5357, October 2008,
-              <https://www.rfc-editor.org/info/rfc5357>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1281,7 +1276,12 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               Features", RFC 6038, DOI 10.17487/RFC6038, October 2010,
               <https://www.rfc-editor.org/info/rfc6038>.
 
-
+   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
+              Cheshire, "Internet Assigned Numbers Authority (IANA)
+              Procedures for the Management of the Service Name and
+              Transport Protocol Port Number Registry", BCP 165,
+              RFC 6335, DOI 10.17487/RFC6335, August 2011,
+              <https://www.rfc-editor.org/info/rfc6335>.
 
 
 
@@ -1289,13 +1289,6 @@ Gandhi, et al.         Expires September 21, 2020              [Page 23]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
-
-   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
-              Cheshire, "Internet Assigned Numbers Authority (IANA)
-              Procedures for the Management of the Service Name and
-              Transport Protocol Port Number Registry", BCP 165,
-              RFC 6335, DOI 10.17487/RFC6335, August 2011,
-              <https://www.rfc-editor.org/info/rfc6335>.
 
    [RFC6437]  Amante, S., Carpenter, B., Jiang, S., and J. Rajahalme,
               "IPv6 Flow Label Specification", RFC 6437,
@@ -1338,6 +1331,13 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
 
+   [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
+              L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
+              "Alternate-Marking Method for Passive and Hybrid
+              Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
+              January 2018, <https://www.rfc-editor.org/info/rfc8321>.
+
+
 
 
 
@@ -1346,16 +1346,15 @@ Gandhi, et al.         Expires September 21, 2020              [Page 24]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
-   [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
-              L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
-              "Alternate-Marking Method for Passive and Hybrid
-              Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
-              January 2018, <https://www.rfc-editor.org/info/rfc8321>.
-
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
+
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
@@ -1375,12 +1374,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
 
-   [I-D.ietf-6man-segment-routing-header]
-              Filsfils, C., Dukes, D., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", draft-ietf-6man-segment-routing-header-26 (work in
-              progress), October 2019.
-
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
@@ -1390,6 +1383,13 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    [BBF.TR-390]
               "Performance Measurement from IP Edge to Customer
               Equipment using TWAMP Light", BBF TR-390, May 2017.
+
+   [I-D.gandhi-spring-ioam-sr-mpls]
+              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
+              and V. Kozak, "Segment Routing with MPLS Data Plane
+              Encapsulation for In-situ OAM Data", draft-gandhi-spring-
+              ioam-sr-mpls-02 (work in progress), August 2019.
+
 
 
 
@@ -1401,12 +1401,6 @@ Gandhi, et al.         Expires September 21, 2020              [Page 25]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
-
-   [I-D.gandhi-spring-ioam-sr-mpls]
-              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
-              and V. Kozak, "Segment Routing with MPLS Data Plane
-              Encapsulation for In-situ OAM Data", draft-gandhi-spring-
-              ioam-sr-mpls-02 (work in progress), August 2019.
 
    [I-D.ali-spring-ioam-srv6]
               Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
@@ -1449,6 +1443,12 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
+
+
 
 
 
@@ -1456,12 +1456,6 @@ Authors' Addresses
 Gandhi, et al.         Expires September 21, 2020              [Page 26]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
-
-
-   Daniel Voyer
-   Bell Canada
-
-   Email: daniel.voyer@bell.ca
 
 
    Mach(Guoyi) Chen
@@ -1474,6 +1468,12 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
 
 
 

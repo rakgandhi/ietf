@@ -22,10 +22,10 @@
 <!ENTITY RFC8200 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
+<!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
 <!ENTITY I-D.ietf-spring-segment-routing-policy SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-segment-routing-policy.xml">
 <!ENTITY I-D.voyer-spring-sr-replication-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.voyer-spring-sr-replication-segment.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
-<!ENTITY I-D.ietf-6man-segment-routing-header SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-segment-routing-header.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
 <!ENTITY I-D.gandhi-spring-ioam-sr-mpls SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-ioam-sr-mpls.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
@@ -290,7 +290,7 @@ Authentication Mode & Key  /          \     Authentication Mode & Key
 Timestamp Format          /            \    Loss Measurement Mode
 Delay Measurement Mode   /              \
 Loss Measurement Mode   /                \
-                       v                   v
+                       v                  v
                   +-------+            +-------+
                   |       |            |       |
                   |   R1  |------------|   R5  |
@@ -470,7 +470,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.4.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>. 
+   a Segment List as defined in <xref target="RFC8754"/>. 
    For SRv6, network programming is defined in 
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The probe query messages for end-to-end performance measurement of an
@@ -1047,7 +1047,7 @@ Loss Measurement Mode   /                \
 	<t>
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the probe messages.  SRv6 has HMAC protection
-   authentication defined for SRH <xref target="I-D.ietf-6man-segment-routing-header"/>.
+   authentication defined for SRH <xref target="RFC8754"/>.
    Hence, PM probe messages for SRv6 may not need authentication mode.
    Cryptographic measures may be enhanced by the correct configuration
    of access-control lists and firewalls.</t>
@@ -1097,10 +1097,10 @@ Loss Measurement Mode   /                \
 	&RFC8200;
 	&RFC8321;
 	&RFC8402;
+	&RFC8754;
 	&I-D.ietf-spring-segment-routing-policy;
 	&I-D.voyer-spring-sr-replication-segment;
 	&I-D.ietf-spring-mpls-path-segment;
-	&I-D.ietf-6man-segment-routing-header;
 	&I-D.ietf-spring-srv6-network-programming;
 	<reference anchor="BBF.TR-390"><front>
 	<title>Performance Measurement from IP Edge to Customer Equipment using TWAMP Light</title>
