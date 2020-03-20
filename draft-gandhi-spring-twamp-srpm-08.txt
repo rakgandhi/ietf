@@ -325,9 +325,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    or direct mode.  The mechanisms to provision the sender and reflector
    nodes are outside the scope of this document.
 
-   The reflector node R5 uses the parameters for the timestamp format,
-   delay measurement mode (i.e. one-way, two-way or loopback mode) and
-   packet padding size from the received probe query message.
+   The reflector node R5 uses the parameters for the timestamp format
+   and delay measurement mode (i.e. one-way, two-way or loopback mode)
+   from the received probe query message.
 
 
 
@@ -463,7 +463,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Message as specified in Figure 7 or 8               |
-    .           for TWAMP Light                                     .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -494,6 +493,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    The probe query messages for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 4.
+
 
 
 
@@ -1424,15 +1424,15 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for TWAMP Light in Segment Routing.  The authors
-   would also like to thank Greg Mirsky for reviewing this document and
-   providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu, both from Cisco Systems have helped significantly improve
-   the mechanisms defined in this document.  The authors would like to
-   acknowledge the earlier work on the loss measurement using TWAMP
-   described in draft-xiao-ippm-twamp-ext-direct-loss.  The authors
-   would also like to thank Sam Aldrin for the discussions to check for
-   broken path.
+   on the use-cases for Performance Measurement in Segment Routing.  The
+   authors would also like to thank Greg Mirsky for reviewing this
+   document and providing useful comments and suggestions.  Patrick
+   Khordoc and Radu Valceanu, both from Cisco Systems have helped
+   significantly improve the mechanisms defined in this document.  The
+   authors would like to acknowledge the earlier work on the loss
+   measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
+   direct-loss.  The authors would also like to thank Sam Aldrin for the
+   discussions to check for broken path.
 
 Authors' Addresses
 

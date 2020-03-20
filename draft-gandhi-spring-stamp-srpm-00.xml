@@ -311,9 +311,9 @@ Loss Measurement Mode   /                \
    mode is inferred or direct mode. The mechanisms to provision the
    sender and reflector nodes are outside the scope of this document.</t>
 
-   <t>The reflector node R5 uses the parameters for the timestamp format,
-   delay measurement mode (i.e. one-way, two-way or loopback mode) and
-   packet padding size from the received probe query message.</t>
+   <t>The reflector node R5 uses the parameters for the timestamp format and
+   delay measurement mode (i.e. one-way, two-way or loopback mode)
+   from the received probe query message.</t>
 	</section>
 
 	</section>
@@ -413,7 +413,6 @@ Loss Measurement Mode   /                \
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Message as specified in Figure 7 or 8               |
- .           for STAMP                           .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -488,7 +487,6 @@ Loss Measurement Mode   /                \
  |                           SRH                                 |
  .                                                               .
  +---------------------------------------------------------------+
-
  |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
  .   (Using IPv6 Source and Destination Addresses)               .
  .                                                               .
@@ -593,8 +591,12 @@ Loss Measurement Mode   /                \
  |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
- .                        Packet Padding                         .
- .                                                               .
+ |                        MBZ (28 octets)                        |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ |                                                               |
+ |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
@@ -614,16 +616,12 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (4 octets)                         |
+ |                        MBZ (68 octets)                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
  |                        HMAC (16 octets)                       |
  |                                                               |
  |                                                               |
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- .                        Packet Padding                         .
- .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
@@ -727,9 +725,8 @@ Loss Measurement Mode   /                \
  .  Destination Port = Source Port from Query                    .
  .                                                               .
  +---------------------------------------------------------------+
- . DM payload as specified in Section 4.3 of ietf-ippm-stamp |   .
+ . DM payload as specified in Section 4.3 of RFC 8762 |          .
  . LM Payload as specified in Figure 12 or 13                    .
- .               for STAMP                       .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -856,10 +853,7 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B| Reserved  |Sender Block Nu| MBZ                           |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Sender TTL   |                                               |
- +-+-+-+-+-+-+-+-+                                               +
- |                        Packet Padding                         |
- .                                                               .
+ |  Sender TTL   |      MBZ                                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
@@ -911,16 +905,11 @@ Loss Measurement Mode   /                \
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- .                        Packet Padding                         .
- .                                                               .
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
 
 
-	<t>The STAMP loss measurement probe response message 
-   does not require any backwards
+	<t>The STAMP loss measurement probe response message does not require any backwards
    compatibility or support for the existing DM message formats from  <xref target="RFC8762"/>,
    as different user-configured destination UDP port is used for loss measurement.</t> 
         </section>
@@ -1046,15 +1035,13 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-
 	</section>
 
 	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-5">
 	<t>
    The procedures for delay and loss measurement described in this
    document for Point-to-Point (P2P) SR Policies <xref target="I-D.ietf-spring-segment-routing-policy"/> 
-   are also equally applicable to
-   the Point-to-Multipoint (P2MP) SR Policies as following:</t>
+   are also equally applicable to the Point-to-Multipoint (P2MP) SR Policies as following:</t>
 
 	<t><list style="symbols"><t>The sender root node sends probe query messages using the
    Replication Segment defined in <xref target="I-D.voyer-spring-sr-replication-segment"/> for the
