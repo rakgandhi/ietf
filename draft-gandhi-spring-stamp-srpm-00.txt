@@ -639,9 +639,10 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B| Reserved  | Block Number  | Session ID                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |Se Control Code|  MBZ                                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
-    |                        MBZ (28 octets)                        |
-    |                                                               |
+    |                        MBZ (24 octets)                        |
     |                                                               |
     |                                                               |
     |                                                               |
@@ -649,7 +650,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                Figure 7: STAMP LM Probe Query Message Format
-
 
 
 
@@ -688,7 +688,10 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B| Reserved  | Block Number  | Session ID                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (68 octets)                        |
+    |Se Control Code|  MBZ                                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (64 octets)                        |
+    .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
     |                        HMAC (16 octets)                       |
@@ -719,9 +722,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
 
    LM Flags: The meanings of the Flag bits are:
 
-      X: Extended counter format indicator.  Indicates the use of
-      extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of an LM Query and copied from an LM
 
 
 
@@ -730,6 +730,9 @@ Gandhi, et al.         Expires September 21, 2020              [Page 13]
 Internet-Draft          STAMP for Segment Routing             March 2020
 
 
+      X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an LM Query and copied from an LM
       Query to an LM response.  Set to 0 when the LM message is
       transmitted or received over an interface that writes 32-bit
       counter values.
@@ -775,9 +778,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
    message is shown in Figure 9.
-
-
-
 
 
 
@@ -940,7 +940,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ                           |
+    |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |  Sender TTL   |      MBZ                                      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -985,7 +985,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ                           |
+    |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
