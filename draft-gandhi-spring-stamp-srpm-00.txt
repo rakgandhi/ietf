@@ -570,7 +570,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |         Error Estimate        | Session ID                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |Se Control Code|  MBZ                                          |
+    |         MBZ                                   |Se Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     .                                                               .
     .                                                               .
@@ -580,7 +580,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     .                                                               .
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | Session-Sender Error Estimate |Re Control Code|  MBZ          |
+    | Session-Sender Error Estimate | MBZ           |Re Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |Ses-Sender TTL |                 MBZ                           |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -639,7 +639,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B| Reserved  | Block Number  | Session ID                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |Se Control Code|  MBZ                                          |
+    |         MBZ                                   |Se Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
     |                        MBZ (24 octets)                        |
@@ -649,7 +649,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-               Figure 7: STAMP LM Probe Query Message Format
+   Figure 7: STAMP LM Probe Query Message Format - Unauthenticated Mode
 
 
 
@@ -688,7 +688,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B| Reserved  | Block Number  | Session ID                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |Se Control Code|  MBZ                                          |
+    |         MBZ                                   |Se Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (64 octets)                        |
     .                                                               .
@@ -940,7 +940,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
+    |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |  Sender TTL   |      MBZ                                      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -985,7 +985,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
+    |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

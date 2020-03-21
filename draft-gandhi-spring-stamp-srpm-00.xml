@@ -521,7 +521,7 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         Error Estimate        | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Se Control Code|  MBZ                                          |
+ |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  .                                                               .
  .                                                               .
@@ -531,7 +531,7 @@ Loss Measurement Mode   /                \
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Session-Sender Error Estimate |Re Control Code|  MBZ          |
+ | Session-Sender Error Estimate | MBZ           |Re Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Ses-Sender TTL |                 MBZ                           |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -590,7 +590,7 @@ Loss Measurement Mode   /                \
    compatibility or support for the existing DM message formats from
    <xref target="RFC8762"/> as different user-configured destination UDP port is used for loss measurement.</t>
 
-	<figure title="STAMP LM Probe Query Message Format" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
+	<figure title="STAMP LM Probe Query Message Format - Unauthenticated Mode" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -601,7 +601,7 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Se Control Code|  MBZ                                          |
+ |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
  |                        MBZ (24 octets)                        |
@@ -628,7 +628,7 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Se Control Code|  MBZ                                          |
+ |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (64 octets)                        |
  .                                                               .
@@ -866,7 +866,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
+ |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |      MBZ                                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -905,7 +905,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu|Re Control Code|  MBZ          |
+ |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
