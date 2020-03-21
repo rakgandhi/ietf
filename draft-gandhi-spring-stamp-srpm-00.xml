@@ -10,7 +10,6 @@
 <!ENTITY RFC2113 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2113.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
 <!ENTITY RFC5884 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5884.xml">
-<!ENTITY RFC6038 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6038.xml">
 <!ENTITY RFC6335 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
 <!ENTITY RFC6437 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!ENTITY RFC6936 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6936.xml">
@@ -336,11 +335,8 @@ Loss Measurement Mode   /                \
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the message
    does not have any indication to distinguish between the query and
-   response message.  The DM probe query message contains the payload for delay
-   measurement defined in <xref target="RFC8762"/>.  For symmetrical
-   size query and response messages <xref target="RFC6038"/>, the DM probe query
-   message contains the payload format defined in 
-   <xref target="RFC8762"/>.</t>
+   response message.  The payload of the DM probe query message contains the delay
+   measuremen message defined in <xref target="RFC8762"/>.</t> 
 
 	<figure title="DM Probe Query Message" anchor="ure-dm-probe-query-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -1260,7 +1256,6 @@ Loss Measurement Mode   /                \
 	&RFC2113;
 	&RFC4868;
 	&RFC5884;
-	&RFC6038;
 	&RFC6335;
 	&RFC6437;
 	&RFC6936;
