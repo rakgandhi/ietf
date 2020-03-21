@@ -575,7 +575,6 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-
 	<section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.6">
    <t> In this document, STAMP probe query message formats are defined for
    loss measurement as shown in Figure 7 and Figure 8. The message
@@ -903,6 +902,7 @@ Loss Measurement Mode   /                \
  |  Sender TTL   |                                               |
  +-+-+-+-+-+-+-+-+                                               |
  |                        MBZ (15 octets)                        |
+ |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
