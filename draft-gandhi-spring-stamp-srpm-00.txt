@@ -854,7 +854,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     |                Segment(1)             | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     .                                                               .
-
     .                                                               .
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -889,6 +888,7 @@ Internet-Draft          STAMP for Segment Routing             March 2020
     +---------------------------------------------------------------+
 
              Figure 11: Probe Response Message for SRv6 Policy
+
 
 
 
