@@ -79,7 +79,7 @@
 	</address>
 	</author>
 
-	<date day="5" month="March" year="2020"/>
+	<date day="20" month="March" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -369,7 +369,6 @@ Loss Measurement Mode   /                \
    in Segment Routing networks.</t>
 
 
-
 	<section title="Delay Measurement Authentication Mode" anchor="sect-4.1.1.1"><t>
    When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
@@ -506,30 +505,44 @@ Loss Measurement Mode   /                \
 	<section title="Control Code Field in STAMP Message Formats" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for delay and loss measurement probe query and response messages
-   for STAMP message formats in unauthenticated 
-   and authenticated modes.  
-   The modified delay measurement probe query and response message format for STAMP is shown in Figure 6. 
+   for STAMP message formats in unauthenticated and authenticated modes.  
+   The modified delay measurement probe query and response message formats for STAMP is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in STAMP <xref target="RFC8762"/> as its reflector MUST
-   ignore the received field (identified as MBZ).
+   ignore the received field (previously identified as MBZ).
    The usage of the Control Code is not limited to the SR networks and can be used for various bidirectional paths in a network.</t>
 
-   <figure title="Control Code in STAMP DM Message" anchor="ure-control-code-in-stamp-message"><artwork><![CDATA[
+   <figure title="Sender and Reflector Control Code in STAMP DM Message" anchor="ure-se-control-code-in-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                          Timestamp                            |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Error Estimate        | Reserved      |  Control Code |
+ |         Error Estimate        | Session ID                    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |Se Control Code|  MBZ                                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  .                                                               .
  .                                                               .
+
+
+
+ .                                                               .
+ .                                                               .
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Session-Sender Error Estimate |Re Control Code|  MBZ          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |Ses-Sender TTL |                 MBZ                           |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ .                                                               .
+ .                                                               . 
+
 ]]></artwork>
 	</figure>
 
    <t>
-	Control Code: Set as follows in STAMP probe query and response messages.</t>
+   Sender Control Code: Set as follows in STAMP probe query message.</t>
    <t>  </t>
    <t>
    For a Query:</t>
@@ -549,6 +562,11 @@ Loss Measurement Mode   /                \
 	</list>
 	</t>
 
+
+   <t>
+   Reflector Control Code: Set as follows in STAMP probe response message.</t>
+   <t>  </t>
+
 	<t><list style="hanging" hangIndent="4"><t hangText="For a Response:">
 	<vspace blankLines="1"/>
        0x1: Error - Invalid Message.  Indicates that the operation
@@ -558,9 +576,6 @@ Loss Measurement Mode   /                \
 
 	</list>
 	</t>
-
-	<t>
-   Reserved: Reserved for future use.</t>
 
 	</section>
 
@@ -584,7 +599,7 @@ Loss Measurement Mode   /                \
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+ |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
  |                        MBZ (28 octets)                        |
@@ -610,7 +625,7 @@ Loss Measurement Mode   /                \
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+ |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (68 octets)                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -730,7 +745,7 @@ Loss Measurement Mode   /                \
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way performance measurement mode, the probe response message
    as defined in Figure 9 is sent back out-of-band to the sender node,
-   for both Links and SR Policies. The Control Code is set to
+   for both Links and SR Policies. The Sender Control Code is set to
    "Out-of-band Response Requested". 
    In this delay measurement mode, as per Reference Topology, 
    all timestamps t1, t2, t3, and t4 are collected by the probes.
@@ -742,7 +757,7 @@ Loss Measurement Mode   /                \
    path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction Link or associated reverse SR Policy
-   <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Control Code is 
+   <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Sender Control Code is 
    set to "In-band Response Requested".
    In this delay measurement mode, as per Reference Topology, 
    all timestamps t1, t2, t3, and t4 are collected by the probes.
@@ -837,7 +852,7 @@ Loss Measurement Mode   /                \
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+ |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter                        |
  |                                                               |
@@ -867,7 +882,7 @@ Loss Measurement Mode   /                \
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | Reserved      | Control Code  |
+ |X|B| Reserved  | Block Number  | Session ID                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
