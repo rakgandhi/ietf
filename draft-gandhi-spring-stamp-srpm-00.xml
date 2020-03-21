@@ -579,7 +579,7 @@ Loss Measurement Mode   /                \
 	<section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.6">
    <t> In this document, STAMP probe query message formats are defined for
    loss measurement as shown in Figure 7 and Figure 8. The message
-   formats are hardware efficient due to the small size payload and
+   formats are hardware efficient due to the 
    well-known locations of the counters.  They are similar to the delay
    measurement message formats (e.g. location of the Counter and Timestamp) 
    and do not require any backwards
@@ -709,11 +709,6 @@ Loss Measurement Mode   /                \
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.</t>
 
-   <t>The STAMP loss measurement probe query message are similar to the delay
-   measurement message formats (e.g. location of the Counter and Timestamp) 
-   and do not require any backwards
-   compatibility or support for the existing DM message formats from <xref target="RFC8762"/>,
-   as different user-configured destination UDP port is used for loss measurement.</t>
 	</section>
 
 	</section>
@@ -838,12 +833,12 @@ Loss Measurement Mode   /                \
 	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.4"><t>
    In this document, STAMP probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.  The message formats are
-   hardware efficient due to the small size payload and well-known
+   hardware efficient due to the well-known
    locations of the counters.  They do not require any backwards
    compatibility or support for the existing DM message formats from
    <xref target="RFC8762"/>, as different user-configured destination UDP port is used for loss measurement.</t>
 
-	<figure title="STAMP LM Probe Response Message Format" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
+	<figure title="STAMP LM Probe Response Message Format - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -906,13 +901,12 @@ Loss Measurement Mode   /                \
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |                                               |
- +-+-+-+-+-+-+-+-+                                               +
+ +-+-+-+-+-+-+-+-+                                               |
  |                        MBZ (15 octets)                        |
  |                                                               |
- |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        HMAC (16 octets)                       |
  |                                                               |
+ |                        HMAC (16 octets)                       |
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -920,9 +914,6 @@ Loss Measurement Mode   /                \
 	</figure>
 
 
-	<t>The STAMP loss measurement probe response message does not require any backwards
-   compatibility or support for the existing DM message formats from  <xref target="RFC8762"/>,
-   as different user-configured destination UDP port is used for loss measurement.</t> 
         </section>
         </section>
 
