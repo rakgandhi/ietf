@@ -125,7 +125,7 @@
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
    networks.  The procedure uses the messages defined in <xref target="RFC5357"/>
-   (TWAMP) for Delay Measurement (DM), and uses the
+   for Delay Measurement (DM), and uses the
    messages defined in this document for Loss Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    are used for both Links and end-to-end SR Policies.  This document
@@ -498,7 +498,7 @@ Loss Measurement Mode   /                \
 	<section title="Control Code Field TWAMP Light Message Format" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for delay and loss measurement probe query and response messages
-   for TWAMP message format in unauthenticated and authenticated modes.  
+   for TWAMP Light message format in unauthenticated and authenticated modes.  
    The modified delay measurement probe query and response message format is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in <xref target="RFC5357"/> as its reflector MUST

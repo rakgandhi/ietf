@@ -146,14 +146,14 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
-   networks.  The procedure uses the messages defined in [RFC5357]
-   (TWAMP) for Delay Measurement (DM), and uses the messages defined in
-   this document for Loss Measurement.  The procedure specified is
-   applicable to SR-MPLS and SRv6 data planes and are used for both
-   Links and end-to-end SR Policies.  This document also defines
-   mechanisms for handling ECMPs of SR Policies for performance delay
-   measurement.  Unless otherwise specified, the messages defined in
-   [RFC5357] are not modified by this document.
+   networks.  The procedure uses the messages defined in [RFC5357] for
+   Delay Measurement (DM), and uses the messages defined in this
+   document for Loss Measurement.  The procedure specified is applicable
+   to SR-MPLS and SRv6 data planes and are used for both Links and end-
+   to-end SR Policies.  This document also defines mechanisms for
+   handling ECMPs of SR Policies for performance delay measurement.
+   Unless otherwise specified, the messages defined in [RFC5357] are not
+   modified by this document.
 
 2.  Conventions Used in This Document
 
@@ -536,7 +536,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 4.1.5.  Control Code Field TWAMP Light Message Format
 
    The Control Code field is defined for delay and loss measurement
-   probe query and response messages for TWAMP message format in
+   probe query and response messages for TWAMP Light message format in
    unauthenticated and authenticated modes.  The modified delay
    measurement probe query and response message format is shown in
    Figure 6.  This message format is backwards compatible with the
