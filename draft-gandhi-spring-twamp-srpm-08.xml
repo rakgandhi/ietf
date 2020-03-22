@@ -27,7 +27,7 @@
 <!ENTITY I-D.voyer-spring-sr-replication-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.voyer-spring-sr-replication-segment.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
-<!ENTITY I-D.gandhi-spring-ioam-sr-mpls SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-ioam-sr-mpls.xml">
+<!ENTITY I-D.gandhi-mpls-ioam-sr SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-mpls-ioam-sr.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
 ]>
@@ -263,7 +263,7 @@
 
 	<t>
    The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in <xref target="I-D.gandhi-spring-ioam-sr-mpls"/> and for
+   mechanisms for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> and for
    SRv6 defined in <xref target="I-D.ali-spring-ioam-srv6"/> are used to carry PM
    information such as timestamp in-band as part of the data packets,
    and are outside the scope of this document.</t>
@@ -1121,7 +1121,7 @@ Loss Measurement Mode   /                \
 
 	<seriesInfo name="BBF" value="TR-390"/>
 	</reference>
-	&I-D.gandhi-spring-ioam-sr-mpls;
+	&I-D.gandhi-mpls-ioam-sr;
 	&I-D.ali-spring-ioam-srv6;
 	&I-D.ietf-pce-sr-bidir-path;
 	</references>

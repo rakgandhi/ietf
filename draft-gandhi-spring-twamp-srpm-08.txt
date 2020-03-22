@@ -272,8 +272,8 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
       reflector node does not have PM session state present).
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in [I-D.gandhi-spring-ioam-sr-mpls]
-   and for SRv6 defined in [I-D.ali-spring-ioam-srv6] are used to carry
+   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] and for
+   SRv6 defined in [I-D.ali-spring-ioam-srv6] are used to carry PM
 
 
 
@@ -282,7 +282,7 @@ Gandhi, et al.         Expires September 23, 2020               [Page 5]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
-   PM information such as timestamp in-band as part of the data packets,
+   information such as timestamp in-band as part of the data packets,
    and are outside the scope of this document.
 
 3.1.  Example Provisioning Model
@@ -1384,11 +1384,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               "Performance Measurement from IP Edge to Customer
               Equipment using TWAMP Light", BBF TR-390, May 2017.
 
-   [I-D.gandhi-spring-ioam-sr-mpls]
+   [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
-              and V. Kozak, "Segment Routing with MPLS Data Plane
-              Encapsulation for In-situ OAM Data", draft-gandhi-spring-
-              ioam-sr-mpls-02 (work in progress), August 2019.
+              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
+              OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
+              progress), March 2020.
 
 
 
