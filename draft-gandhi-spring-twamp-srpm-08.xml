@@ -238,8 +238,8 @@
    messages defined in this document are used.  Separate
    UDP destination port numbers are user-configured for delay and loss
    measurements.  As specified in [RFC8545], the reflector supports the destination
-   UDP port 862 for delay measurement probe messages by default. This port however, is 
-   not used for loss measurement probe messages. The
+   UDP port 862 for delay measurement probe messages by default. This UDP port however, is 
+   not used for direct-mode loss measurement probe messages defined in this document. The
    sender uses the UDP port number following the guidelines specified in
    <xref target="sect-6"/> in <xref target="RFC6335"/>.  
    For both Links and end-to-end SR Policies,
