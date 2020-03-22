@@ -317,9 +317,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
                    Figure 1: Example Provisioning Model
 
    Example of Measurement Protocol is TWAMP Light, the Timestamp Format
-   is PTPv2 [IEEE1588] or NTP and the Loss Measurement mode is inferred
-   or direct mode.  The mechanisms to provision the sender and reflector
-   nodes are outside the scope of this document.
+   is PTPv2 [IEEE1588] or NTP and the Loss Measurement mode is inferred-
+   mode or direct-mode.  The mechanisms to provision the sender and
+   reflector nodes are outside the scope of this document.
 
    The reflector node R5 uses the parameters for the timestamp format
    and delay measurement mode (i.e. one-way, two-way or loopback mode)
