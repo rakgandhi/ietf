@@ -330,9 +330,9 @@ Loss Measurement Mode   /                \
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the message
    does not have any indication to distinguish between the query and
-   response message.  The DM probe query message contains the payload for delay
-   measurement defined in Section 4.1.2 of <xref target="RFC5357"/>.  For symmetrical
-   size query and response messages <xref target="RFC6038"/>, the DM probe query
+   response message.  The payload of the DM probe query message contains the delay
+   measurement message defined in Section 4.1.2 of <xref target="RFC5357"/>. For symmetrical
+   size query and response messages as defined in <xref target="RFC6038"/>, the DM probe query
    message contains the payload format defined in Section 4.2.1 of
    <xref target="RFC5357"/>.</t>
 
@@ -360,8 +360,8 @@ Loss Measurement Mode   /                \
    Timestamp field is eight bytes and use the format defined in Section
    4.2.1 of <xref target="RFC5357"/>.  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
-   <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with hardware support
-   in Segment Routing networks.</t>
+   <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with 
+   hardware support in Segment Routing networks.</t>
 
 
 	<section title="Delay Measurement Authentication Mode" anchor="sect-4.1.1.1"><t>

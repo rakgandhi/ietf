@@ -356,11 +356,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
    the message does not have any indication to distinguish between the
-   query and response message.  The DM probe query message contains the
-   payload for delay measurement defined in Section 4.1.2 of [RFC5357].
-   For symmetrical size query and response messages [RFC6038], the DM
-   probe query message contains the payload format defined in
-   Section 4.2.1 of [RFC5357].
+   query and response message.  The payload of the DM probe query
+   message contains the delay measurement message defined in
+   Section 4.1.2 of [RFC5357].  For symmetrical size query and response
+   messages as defined in [RFC6038], the DM probe query message contains
+   the payload format defined in Section 4.2.1 of [RFC5357].
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
