@@ -25,10 +25,10 @@ Abstract
    and processing probe query and response messages for Performance
    Measurement (PM) in Segment Routing networks.  The procedure uses the
    messages defined in RFC 5357 (Two-Way Active Measurement Protocol
-   (TWAMP)) for Delay Measurement, and uses the messages defined in this
-   document for Loss Measurement.  The procedure specified is applicable
-   to SR-MPLS and SRv6 data planes and is used for both Links and end-
-   to-end SR Policies.
+   (TWAMP Light)) for Delay Measurement, and uses the messages defined
+   in this document for Loss Measurement.  The procedure specified is
+   applicable to SR-MPLS and SRv6 data planes and is used for both Links
+   and end-to-end SR Policies.
 
 Status of This Memo
 
@@ -146,14 +146,14 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
-   networks.  The procedure uses the messages defined in [RFC5357] for
-   Delay Measurement (DM), and uses the messages defined in this
-   document for Loss Measurement.  The procedure specified is applicable
-   to SR-MPLS and SRv6 data planes and are used for both Links and end-
-   to-end SR Policies.  This document also defines mechanisms for
-   handling ECMPs of SR Policies for performance delay measurement.
-   Unless otherwise specified, the messages defined in [RFC5357] are not
-   modified by this document.
+   networks.  The procedure uses the messages defined in [RFC5357]
+   (TWAMP Light) for Delay Measurement (DM), and uses the messages
+   defined in this document for Loss Measurement.  The procedure
+   specified is applicable to SR-MPLS and SRv6 data planes and are used
+   for both Links and end-to-end SR Policies.  This document also
+   defines mechanisms for handling ECMPs of SR Policies for performance
+   delay measurement.  Unless otherwise specified, the messages defined
+   in [RFC5357] are not modified by this document.
 
 2.  Conventions Used in This Document
 
@@ -253,8 +253,8 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    user-configured for delay and loss measurements.  As specified in
    [RFC8545], the reflector supports the destination UDP port 862 for
    delay measurement probe messages by default.  This UDP port however,
-   is not used for direct-mode loss measurement probe messages defined
-   in this document.  The sender uses the UDP port number following the
+   is not used for loss measurement probe messages defined in this
+   document.  The sender uses the UDP port number following the
    guidelines specified in Section 6 in [RFC6335].  For both Links and
    end-to-end SR Policies, no PM session for delay or loss measurement
    is created on the reflector node R5 [RFC5357].
@@ -568,7 +568,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
     |                          Timestamp                            |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         Error Estimate        | Session ID                    |
+    |         Error Estimate        |  MBZ                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |         MBZ                                   |Se Control Code|
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -800,7 +800,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
     +---------------------------------------------------------------+
     | DM Payload as specified in Section 4.2.1 of RFC 5357 |        |
     . LM Payload as specified in Figure 12 or 13                    .
-    .               for TWAMP Light                                 .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -832,6 +831,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    physical interface where the probe query message is received.  This
    is useful for example, in case of two-way measurement mode for Link
    delay.
+
 
 
 
@@ -919,11 +919,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    In this document, TWAMP Light probe response message formats are
    defined for loss measurement as shown in Figure 12 and Figure 13.
-   The message formats are hardware efficient due to the well-known
-   locations of the counters.  They do not require any backwards
-   compatibility or support for the existing DM message formats from
-   [RFC5357], as different user-configured destination UDP port is used
-   for loss measurement.
+
+
+
+
+
 
 
 
@@ -1054,7 +1054,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    o  The sender root node sends probe query messages using the
       Replication Segment defined in
       [I-D.voyer-spring-sr-replication-segment] for the P2MP SR Policy
-      as shown in Figure 17.
+      as shown in Figure 14.
 
    o  Each reflector leaf node sends its IP address in the Source
       Address of the probe response messages as shown in Figure 9.  This

@@ -833,12 +833,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.4"><t>
    In this document, STAMP probe response message formats are defined for loss
-   measurement as shown in Figure 12 and Figure 13.  The message formats are
-   hardware efficient due to the well-known
-   locations of the counters.  They do not require any backwards
-   compatibility or support for the existing DM message formats from
-   <xref target="RFC8762"/>, as different user-configured destination 
-   UDP port is used for loss measurement.</t>
+   measurement as shown in Figure 12 and Figure 13.</t>
 
 	<figure title="STAMP LM Probe Response Message Format - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
