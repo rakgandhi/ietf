@@ -22,6 +22,7 @@
 <!ENTITY RFC8200 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
+<!ENTITY RFC8545 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8545.xml">
 <!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
 <!ENTITY I-D.ietf-spring-segment-routing-policy SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-segment-routing-policy.xml">
 <!ENTITY I-D.voyer-spring-sr-replication-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.voyer-spring-sr-replication-segment.xml">
@@ -236,9 +237,12 @@
    inferred-mode loss measurements in Segment Routing networks, the
    messages defined in this document are used.  Separate
    UDP destination port numbers are user-configured for delay and loss
-   measurements.  The
+   measurements.  As specified in [RFC8545], the reflector supports the destination
+   UDP port 862 for delay measurement probe messages by default. This port however, is 
+   not used for loss measurement probe messages. The
    sender uses the UDP port number following the guidelines specified in
-   <xref target="sect-6"/> in <xref target="RFC6335"/>.  For both Links and end-to-end SR Policies,
+   <xref target="sect-6"/> in <xref target="RFC6335"/>.  
+   For both Links and end-to-end SR Policies,
    no PM session for delay or loss measurement is created on the
    reflector node R5 <xref target="RFC5357"/>.</t>
 
@@ -1106,6 +1110,7 @@ Loss Measurement Mode   /                \
 	&RFC8200;
 	&RFC8321;
 	&RFC8402;
+	&RFC8545;
 	&RFC8754;
 	&I-D.ietf-spring-segment-routing-policy;
 	&I-D.voyer-spring-sr-replication-segment;

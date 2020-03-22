@@ -83,7 +83,7 @@ Table of Contents
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  Probe Messages  . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   6
+     4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   7
        4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   7
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   8
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
@@ -250,7 +250,10 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    For one-way and two-way direct-mode and inferred-mode loss
    measurements in Segment Routing networks, the messages defined in
    this document are used.  Separate UDP destination port numbers are
-   user-configured for delay and loss measurements.  The sender uses the
+   user-configured for delay and loss measurements.  As specified in
+   [RFC8545], the reflector supports the destination UDP port 862 for
+   delay measurement probe messages by default.  This port however, is
+   not used for loss measurement probe messages.  The sender uses the
    UDP port number following the guidelines specified in Section 6 in
    [RFC6335].  For both Links and end-to-end SR Policies, no PM session
    for delay or loss measurement is created on the reflector node R5
@@ -271,9 +274,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
       reflector node (incoming link or incoming SID needed since the
       reflector node does not have PM session state present).
 
-   The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] and for
-   SRv6 defined in [I-D.ali-spring-ioam-srv6] are used to carry PM
 
 
 
@@ -282,6 +282,9 @@ Gandhi, et al.         Expires September 23, 2020               [Page 5]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+   The In-Situ Operations, Administration, and Maintenance (IOAM)
+   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] and for
+   SRv6 defined in [I-D.ali-spring-ioam-srv6] are used to carry PM
    information such as timestamp in-band as part of the data packets,
    and are outside the scope of this document.
 
@@ -324,11 +327,8 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 4.  Probe Messages
 
-4.1.  Probe Query Message
 
-   In this document, the probe messages defined in [RFC5357] are used
-   for Delay Measurement for Links and end-to-end SR Policies.  The
-   user-configured destination UDP ports (separate UDP ports for
+
 
 
 
@@ -338,6 +338,11 @@ Gandhi, et al.         Expires September 23, 2020               [Page 6]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+4.1.  Probe Query Message
+
+   In this document, the probe messages defined in [RFC5357] are used
+   for Delay Measurement for Links and end-to-end SR Policies.  The
+   user-configured destination UDP ports (separate UDP ports for
    different delay and loss message formats) are used for identifying
    the PM probe messages.
 
@@ -381,11 +386,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 2: DM Probe Query Message
 
-   Timestamp field is eight bytes and use the format defined in
-   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
-   Precision Time Protocol (PTP) truncated 64-bit timestamp format
-   [IEEE1588] as specified in [RFC8186], with hardware support in
-   Segment Routing networks.
 
 
 
@@ -393,6 +393,12 @@ Gandhi, et al.         Expires September 23, 2020               [Page 7]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+   Timestamp field is eight bytes and use the format defined in
+   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
+   Precision Time Protocol (PTP) truncated 64-bit timestamp format
+   [IEEE1588] as specified in [RFC8186], with hardware support in
+   Segment Routing networks.
 
 4.1.1.1.  Delay Measurement Authentication Mode
 
@@ -433,13 +439,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 3: LM Probe Query Message
 
-4.1.2.1.  Loss Measurement Authentication Mode
 
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the loss measurement in
-   authentication mode due to the different message format.
 
 
 
@@ -449,6 +449,14 @@ Gandhi, et al.         Expires September 23, 2020               [Page 8]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+4.1.2.1.  Loss Measurement Authentication Mode
+
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
+   destination UDP port is used for the loss measurement in
+   authentication mode due to the different message format.
 
 4.1.3.  Probe Query for Links
 
@@ -490,14 +498,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.
 
-   The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
-   accounting received traffic on the egress node for loss measurement.
-
-
-
-
-
 
 
 
@@ -505,6 +505,10 @@ Gandhi, et al.         Expires September 23, 2020               [Page 9]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+   The Path Segment Identifier (PSID)
+   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
+   accounting received traffic on the egress node for loss measurement.
 
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
@@ -544,10 +548,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    received field (previously identified as MBZ).  The usage of the
    Control Code is not limited to the SR networks and can be used for
    various bidirectional paths in a network.
-
-
-
-
 
 
 
@@ -1351,6 +1351,12 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
 
+   [RFC8545]  Morton, A., Ed. and G. Mirsky, Ed., "Well-Known Port
+              Assignments for the One-Way Active Measurement Protocol
+              (OWAMP) and the Two-Way Active Measurement Protocol
+              (TWAMP)", RFC 8545, DOI 10.17487/RFC8545, March 2019,
+              <https://www.rfc-editor.org/info/rfc8545>.
+
    [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
@@ -1384,12 +1390,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
               "Performance Measurement from IP Edge to Customer
               Equipment using TWAMP Light", BBF TR-390, May 2017.
 
-   [I-D.gandhi-mpls-ioam-sr]
-              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
-              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
-              OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
-              progress), March 2020.
-
 
 
 
@@ -1401,6 +1401,12 @@ Gandhi, et al.         Expires September 23, 2020              [Page 25]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+   [I-D.gandhi-mpls-ioam-sr]
+              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
+              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
+              OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
+              progress), March 2020.
 
    [I-D.ali-spring-ioam-srv6]
               Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
@@ -1442,12 +1448,6 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
-   Daniel Voyer
-   Bell Canada
-
-   Email: daniel.voyer@bell.ca
-
-
 
 
 
@@ -1456,6 +1456,12 @@ Authors' Addresses
 Gandhi, et al.         Expires September 23, 2020              [Page 26]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
+
+
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
 
 
    Mach(Guoyi) Chen
@@ -1468,12 +1474,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
 
 
 
