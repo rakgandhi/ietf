@@ -120,7 +120,7 @@
    measurement <xref target="I-D.ietf-ippm-stamp-option-tlv"/>. However,  in 
    order to use only for loss measurement purpose, it requires the node to 
    support the delay measurement STAMP messages and timestamp the packets. 
-   Furthermore, for hardware-based counter collection, 
+   Furthermore, for hardware-based counter collection for direct-mode loss meaurement, 
    the optional TLV based processing adds unnecessary overhead (as counters are not at well-known locations).</t>
 
    <t>
@@ -237,9 +237,7 @@
    Routing networks, STAMP protocol defined in
    <xref target="RFC8762"/> is used.  For one-way and two-way direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
-   messages defined in this document are used.  One-way loss
-   measurement provides receive packet loss whereas two-way loss
-   measurement provides both transmit and receive packet loss.  Separate
+   messages defined in this document are used. Separate
    UDP destination port numbers are user-configured for delay and loss
    measurements from the range specified in <xref target="RFC8762"/>.  The
    sender uses the UDP port number following the guidelines specified in
@@ -303,7 +301,7 @@ Loss Measurement Mode   /                \
 
    <t>Example of Measurement Protocol is STAMP, the 
    Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP and the Loss Measurement
-   mode is inferred or direct mode. The mechanisms to provision the
+   mode is inferred or direct-mode. The mechanisms to provision the
    sender and reflector nodes are outside the scope of this document.</t>
 
    <t>The reflector node R5 uses the parameters for the timestamp format and
@@ -420,7 +418,8 @@ Loss Measurement Mode   /                \
     </section>
 
 	<section title="Probe Query for Links" anchor="sect-4.1.3"><t>
-   The probe query message as defined in Figure 2 for delay measurement and Figure 3 for loss measurement is sent on the
+   The probe query message as defined in Figure 2 for delay measurement and 
+   Figure 3 for loss measurement is sent on the
    congruent path of the data traffic.  The probe messages are routed 
    over the Link for both delay and loss measurement.</t> 
 	</section>
@@ -583,7 +582,8 @@ Loss Measurement Mode   /                \
    measurement message formats (e.g. location of the Counter and Timestamp) 
    and do not require any backwards
    compatibility or support for the existing DM message formats from
-   <xref target="RFC8762"/> as different user-configured destination UDP port is used for loss measurement.</t>
+   <xref target="RFC8762"/> as different user-configured destination UDP 
+   port is used for loss measurement.</t>
 
 	<figure title="STAMP LM Probe Query Message - Unauthenticated Mode" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -837,7 +837,8 @@ Loss Measurement Mode   /                \
    hardware efficient due to the well-known
    locations of the counters.  They do not require any backwards
    compatibility or support for the existing DM message formats from
-   <xref target="RFC8762"/>, as different user-configured destination UDP port is used for loss measurement.</t>
+   <xref target="RFC8762"/>, as different user-configured destination 
+   UDP port is used for loss measurement.</t>
 
 	<figure title="STAMP LM Probe Response Message Format - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3

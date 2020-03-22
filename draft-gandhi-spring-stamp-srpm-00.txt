@@ -144,8 +144,9 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    However, in order to use only for loss measurement purpose, it
    requires the node to support the delay measurement STAMP messages and
    timestamp the packets.  Furthermore, for hardware-based counter
-   collection, the optional TLV based processing adds unnecessary
-   overhead (as counters are not at well-known locations).
+   collection for direct-mode loss meaurement, the optional TLV based
+   processing adds unnecessary overhead (as counters are not at well-
+   known locations).
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
@@ -158,7 +159,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    performance delay measurement.  Unless otherwise specified, the
    mechanisms defined in [RFC8762], and [I-D.ietf-ippm-stamp-option-tlv]
    are not modified by this document.
-
 
 
 
@@ -254,11 +254,9 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    Routing networks, STAMP protocol defined in [RFC8762] is used.  For
    one-way and two-way direct-mode and inferred-mode loss measurements
    in Segment Routing networks, the messages defined in this document
-   are used.  One-way loss measurement provides receive packet loss
-   whereas two-way loss measurement provides both transmit and receive
-   packet loss.  Separate UDP destination port numbers are user-
-   configured for delay and loss measurements from the range specified
-   in [RFC8762].  The sender uses the UDP port number following the
+   are used.  Separate UDP destination port numbers are user-configured
+   for delay and loss measurements from the range specified in
+   [RFC8762].  The sender uses the UDP port number following the
    guidelines specified in Section 6 in [RFC6335].  For both Links and
    end-to-end SR Policies, no PM session for delay or loss measurement
    is created on the reflector node R5 [RFC8762].
@@ -274,6 +272,8 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    o  For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
       collect the receive traffic counters for the incoming link or
+      incoming SID where the probe query messages are received at the
+
 
 
 
@@ -282,7 +282,6 @@ Gandhi, et al.         Expires September 23, 2020               [Page 5]
 Internet-Draft          STAMP for Segment Routing             March 2020
 
 
-      incoming SID where the probe query messages are received at the
       reflector node (incoming link or incoming SID needed since the
       reflector node does not have PM session state present).
 
@@ -322,12 +321,13 @@ Internet-Draft          STAMP for Segment Routing             March 2020
 
    Example of Measurement Protocol is STAMP, the Timestamp Format is
    PTPv2 [IEEE1588] or NTP and the Loss Measurement mode is inferred or
-   direct mode.  The mechanisms to provision the sender and reflector
+   direct-mode.  The mechanisms to provision the sender and reflector
    nodes are outside the scope of this document.
 
    The reflector node R5 uses the parameters for the timestamp format
    and delay measurement mode (i.e. one-way, two-way or loopback mode)
    from the received probe query message.
+
 
 
 
