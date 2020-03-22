@@ -78,7 +78,7 @@
 	</address>
 	</author>
 
-	<date day="21" month="March" year="2020"/>
+	<date day="22" month="March" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -564,6 +564,7 @@ Loss Measurement Mode   /                \
        0x1: Error - Invalid Message.  Indicates that the operation
        failed because the received query message could not be processed.
 	</t>
+	<t>Additional Error Codes to be definied in future.</t>
 
 	</list>
 	</t>
@@ -817,6 +818,9 @@ Loss Measurement Mode   /                \
    reverse path label stack for SR-MPLS) as part of the SR header.  The
    probe messages are not punted at the reflector node and it does 
    not process them and generate response messages.
+   The Sender Control Code is set to the default value of 0.
+   In this mode, as the probe packet is not punted on the reflector node for processing, 
+   the querier copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly.
    In this delay measurement mode, as per Reference Topology, 
    the timestamps t1 and t4 are collected by the probes.
    Both these timestamps are needed to measure round-trip delay.</t>
