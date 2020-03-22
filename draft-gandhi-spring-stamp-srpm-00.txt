@@ -24,11 +24,11 @@ Abstract
    (SRv6) data planes.  This document specifies procedure for sending
    and processing probe query and response messages for Performance
    Measurement (PM) in Segment Routing networks.  The procedure uses the
-   mechanisms defined in Simple Two-Way Active Measurement Protocol
-   (STAMP) for Delay Measurement, and uses the mechanisms defined in
-   this document for Loss Measurement.  The procedure specified is
-   applicable to SR-MPLS and SRv6 data planes and is used for both Links
-   and end-to-end SR Policies.
+   mechanisms defined in RFC 8762 (Simple Two-Way Active Measurement
+   Protocol (STAMP)) for Delay Measurement, and uses the mechanisms
+   defined in this document for Loss Measurement.  The procedure
+   specified is applicable to SR-MPLS and SRv6 data planes and is used
+   for both Links and end-to-end SR Policies.
 
 Status of This Memo
 
@@ -150,15 +150,15 @@ Internet-Draft          STAMP for Segment Routing             March 2020
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
-   networks.  The procedure uses the mechanisms defined in STAMP
-   (including the TLV extensions) for Delay Measurement (DM), and uses
-   the mechanisms defined in this document for Loss Measurement.  The
-   procedure specified is applicable to SR-MPLS and SRv6 data planes and
-   are used for both Links and end-to-end SR Policies.  This document
-   also defines mechanisms for handling ECMPs of SR Policies for
-   performance delay measurement.  Unless otherwise specified, the
-   mechanisms defined in [RFC8762], and [I-D.ietf-ippm-stamp-option-tlv]
-   are not modified by this document.
+   networks.  The procedure uses the mechanisms defined in [RFC8762]
+   (STAMP) (including the TLV extensions) for Delay Measurement (DM),
+   and uses the mechanisms defined in this document for Loss
+   Measurement.  The procedure specified is applicable to SR-MPLS and
+   SRv6 data planes and are used for both Links and end-to-end SR
+   Policies.  This document also defines mechanisms for handling ECMPs
+   of SR Policies for performance delay measurement.  Unless otherwise
+   specified, the mechanisms defined in [RFC8762], and
+   [I-D.ietf-ippm-stamp-option-tlv] are not modified by this document.
 
 
 
