@@ -247,17 +247,17 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    For one-way, two-way and round-trip delay measurements in Segment
    Routing networks, the probe messages defined in [RFC5357] are used.
-   For one-way and two-way direct-mode and inferred-mode loss
-   measurements in Segment Routing networks, the messages defined in
-   this document are used.  Separate UDP destination port numbers are
-   user-configured for delay and loss measurements.  As specified in
-   [RFC8545], the reflector supports the destination UDP port 862 for
-   delay measurement probe messages by default.  This UDP port however,
-   is not used for loss measurement probe messages defined in this
-   document.  The sender uses the UDP port number following the
-   guidelines specified in Section 6 in [RFC6335].  For both Links and
-   end-to-end SR Policies, no PM session for delay or loss measurement
-   is created on the reflector node R5 [RFC5357].
+   For direct-mode and inferred-mode loss measurements in Segment
+   Routing networks, the messages defined in this document are used.
+   Separate UDP destination port numbers are user-configured for delay
+   and loss measurements.  As specified in [RFC8545], the reflector
+   supports the destination UDP port 862 for delay measurement probe
+   messages by default.  This UDP port however, is not used for loss
+   measurement probe messages defined in this document.  The sender uses
+   the UDP port number following the guidelines specified in Section 6
+   in [RFC6335].  For both Links and end-to-end SR Policies, no PM
+   session for delay or loss measurement is created on the reflector
+   node R5 [RFC5357].
 
    For Performance Measurement, probe query and response messages are
    sent as following:

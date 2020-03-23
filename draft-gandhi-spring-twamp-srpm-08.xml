@@ -233,7 +233,7 @@
 	<section title="Overview" anchor="sect-3"><t>
    For one-way, two-way and round-trip delay measurements in Segment
    Routing networks, the probe messages defined in 
-   <xref target="RFC5357"/> are used.  For one-way and two-way direct-mode and
+   <xref target="RFC5357"/> are used.  For direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
    messages defined in this document are used.  Separate
    UDP destination port numbers are user-configured for delay and loss

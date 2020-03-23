@@ -142,11 +142,12 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    The STAMP message with a TLV for "direct measurement" can be used for
    combined Delay + Loss measurement [I-D.ietf-ippm-stamp-option-tlv].
    However, in order to use only for loss measurement purpose, it
-   requires the node to support the delay measurement STAMP messages and
-   timestamp the packets.  Furthermore, for hardware-based counter
-   collection for direct-mode loss meaurement, the optional TLV based
-   processing adds unnecessary overhead (as counters are not at well-
-   known locations).
+   requires the node to support the delay measurement messages and
+   support timestamp for these messages (which may also require clock
+   synchronization).  Furthermore, for hardware-based counter collection
+   for direct-mode loss meaurement, the optional TLV based processing
+   adds unnecessary overhead (as counters are not at well-known
+   locations).
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
@@ -159,7 +160,6 @@ Internet-Draft          STAMP for Segment Routing             March 2020
    of SR Policies for performance delay measurement.  Unless otherwise
    specified, the mechanisms defined in [RFC8762] and
    [I-D.ietf-ippm-stamp-option-tlv] are not modified by this document.
-
 
 
 
@@ -251,17 +251,17 @@ Internet-Draft          STAMP for Segment Routing             March 2020
 3.  Overview
 
    For one-way, two-way and round-trip delay measurements in Segment
-   Routing networks, probe messages defined in [RFC8762] are used.  For
-   direct-mode and inferred-mode loss measurements in Segment Routing
-   networks, the messages defined in this document are used.  Separate
-   UDP destination port numbers are user-configured for delay and loss
-   measurements from the range specified in [RFC8762].  The sender uses
-   the UDP port number following the guidelines specified in Section 6
-   in [RFC6335].  The UDP destination port 862 can be used for delay
-   measurement probes by default except for the case where the reflector
-   needs to process STAMP TLVs.  For both Links and end-to-end SR
-   Policies, no PM session for delay or loss measurement is created on
-   the reflector node R5 [RFC8762].
+   Routing networks, the probe messages defined in [RFC8762] are used.
+   For direct-mode and inferred-mode loss measurements in Segment
+   Routing networks, the messages defined in this document are used.
+   Separate UDP destination port numbers are user-configured for delay
+   and loss measurements from the range specified in [RFC8762].  The
+   sender uses the UDP port number following the guidelines specified in
+   Section 6 in [RFC6335].  The UDP destination port 862 can be used for
+   delay measurement probes by default except for the case where the
+   reflector needs to process STAMP TLVs.  For both Links and end-to-end
+   SR Policies, no PM session for delay or loss measurement is created
+   on the reflector node R5 [RFC8762].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
