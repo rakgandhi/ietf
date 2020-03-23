@@ -77,12 +77,12 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
-   4.  Probe Messages  . . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  Probe Messages  . . . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Probe Query Message . . . . . . . . . . . . . . . . . . .   7
        4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   7
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   8
@@ -140,9 +140,10 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    path.  The TWAMP Light [Appendix I in RFC5357] [BBF.TR-390] provides
    simplified mechanisms for active performance measurement in Customer
    IP networks by provisioning UDP paths and eliminates the control-
-   channel signaling.  These protocols lack support for direct-mode Loss
-   Measurement (LM) to detect actual Customer data traffic loss which is
-   required in SR networks.
+   channel signaling.  As described in Appendix A of [RFC8545], TWAMP
+   Light mechanism is informative only.  These protocols lack support
+   for direct-mode Loss Measurement (LM) to detect actual Customer data
+   traffic loss which is required in SR networks.
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
@@ -157,10 +158,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 2.  Conventions Used in This Document
 
-2.1.  Requirements Language
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+
+
 
 
 
@@ -170,6 +170,10 @@ Gandhi, et al.         Expires September 24, 2020               [Page 3]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
@@ -213,11 +217,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    TWAMP: Two-Way Active Measurement Protocol.
 
-2.3.  Reference Topology
 
-   In the reference topology shown below, the sender node R1 initiates a
-   probe query for performance measurement and the reflector node R5
-   sends a probe response for the query message received.  The probe
 
 
 
@@ -226,6 +226,11 @@ Gandhi, et al.         Expires September 24, 2020               [Page 4]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+2.3.  Reference Topology
+
+   In the reference topology shown below, the sender node R1 initiates a
+   probe query for performance measurement and the reflector node R5
+   sends a probe response for the query message received.  The probe
    response is sent to the sender node R1.  The nodes R1 and R5 may be
    directly connected via a Link or there exists a Point-to-Point (P2P)
    SR Policy [I-D.ietf-spring-segment-routing-policy] on node R1 with
@@ -269,11 +274,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
    o  For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
-      collect the receive traffic counters for the incoming link or
-      incoming SID where the probe query messages are received at the
-      reflector node (incoming link or incoming SID needed since the
-      reflector node does not have PM session state present).
-
 
 
 
@@ -281,6 +281,11 @@ Gandhi, et al.         Expires September 24, 2020               [Page 5]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+      collect the receive traffic counters for the incoming link or
+      incoming SID where the probe query messages are received at the
+      reflector node (incoming link or incoming SID needed since the
+      reflector node does not have PM session state present).
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] and for
@@ -325,11 +330,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    and delay measurement mode (i.e. one-way, two-way or loopback mode)
    from the received probe query message.
 
-4.  Probe Messages
-
-
-
-
 
 
 
@@ -337,6 +337,8 @@ Gandhi, et al.         Expires September 24, 2020               [Page 6]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+4.  Probe Messages
 
 4.1.  Probe Query Message
 
@@ -384,8 +386,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 2: DM Probe Query Message
 
-   Timestamp field is eight bytes and use the format defined in
-   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
 
 
 
@@ -394,6 +394,8 @@ Gandhi, et al.         Expires September 24, 2020               [Page 7]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+   Timestamp field is eight bytes and use the format defined in
+   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
    [IEEE1588] as specified in [RFC8186], with hardware support in
    Segment Routing networks.
@@ -437,11 +439,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 3: LM Probe Query Message
 
-4.1.2.1.  Loss Measurement Authentication Mode
 
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
+
+
 
 
 
@@ -450,6 +450,11 @@ Gandhi, et al.         Expires September 24, 2020               [Page 8]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
+4.1.2.1.  Loss Measurement Authentication Mode
+
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
    destination UDP port is used for the loss measurement in
    authentication mode due to the different message format.
 
@@ -493,11 +498,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.
 
-   The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
-   accounting received traffic on the egress node for loss measurement.
-
-
 
 
 
@@ -505,6 +505,10 @@ Gandhi, et al.         Expires September 24, 2020               [Page 9]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
+
+   The Path Segment Identifier (PSID)
+   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
+   accounting received traffic on the egress node for loss measurement.
 
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
@@ -544,10 +548,6 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    identified as MBZ).  The usage of the Control Code is not limited to
    the SR networks and can be used for various bidirectional paths in a
    network.
-
-
-
-
 
 
 
