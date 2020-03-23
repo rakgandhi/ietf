@@ -340,11 +340,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 4.1.  Probe Query Message
 
-   In this document, the probe messages defined in [RFC5357] are used
-   for Delay Measurement for Links and end-to-end SR Policies.  The
-   user-configured destination UDP ports (separate UDP ports for
-   different delay and loss message formats) are used for identifying
-   the PM probe messages.
+   The probe messages defined in [RFC5357] are used for Delay
+   Measurement for Links and end-to-end SR Policies.  For Loss
+   Measurements, the probe messages defined in this document are used.
 
    The Sender IPv4 or IPv6 address is used as the source address.  When
    known, the reflector IPv4 or IPv6 address is used as the destination
@@ -357,7 +355,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 4.1.1.  Delay Measurement Query Message
 
    The message content for Delay Measurement probe query message using
-   UDP header [RFC0768], is shown in Figure 2.  The DM probe query
+   UDP header [RFC0768] is shown in Figure 2.  The DM probe query
    message is sent with user-configured Destination UDP port number for
    DM.  The Destination UDP port cannot be used as Source port, since
    the message does not have any indication to distinguish between the
@@ -386,6 +384,8 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 2: DM Probe Query Message
 
+   Timestamp field is eight bytes and use the format defined in
+   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
 
 
 
@@ -394,8 +394,6 @@ Gandhi, et al.         Expires September 23, 2020               [Page 7]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
-   Timestamp field is eight bytes and use the format defined in
-   Section 4.2.1 of [RFC5357].  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
    [IEEE1588] as specified in [RFC8186], with hardware support in
    Segment Routing networks.
@@ -439,9 +437,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
                      Figure 3: LM Probe Query Message
 
+4.1.2.1.  Loss Measurement Authentication Mode
 
-
-
+   When using the authenticated mode for loss measurement, the matching
+   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
+   on both the sender and reflector nodes.  A separate user-configured
 
 
 
@@ -450,11 +450,6 @@ Gandhi, et al.         Expires September 23, 2020               [Page 8]
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 
-4.1.2.1.  Loss Measurement Authentication Mode
-
-   When using the authenticated mode for loss measurement, the matching
-   authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the sender and reflector nodes.  A separate user-configured
    destination UDP port is used for the loss measurement in
    authentication mode due to the different message format.
 
@@ -498,6 +493,11 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.
 
+   The Path Segment Identifier (PSID)
+   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
+   accounting received traffic on the egress node for loss measurement.
+
+
 
 
 
@@ -505,10 +505,6 @@ Gandhi, et al.         Expires September 23, 2020               [Page 9]
 
 Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
-
-   The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
-   accounting received traffic on the egress node for loss measurement.
 
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
@@ -548,6 +544,10 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    identified as MBZ).  The usage of the Control Code is not limited to
    the SR networks and can be used for various bidirectional paths in a
    network.
+
+
+
+
 
 
 

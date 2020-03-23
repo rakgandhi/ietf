@@ -314,11 +314,9 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Probe Messages" anchor="sect-4"><section title="Probe Query Message" anchor="sect-4.1"><t>
-   In this document, the probe messages defined in <xref target="RFC5357"/> are used
+   The probe messages defined in <xref target="RFC5357"/> are used
    for Delay Measurement for Links and end-to-end SR
-   Policies.  The user-configured destination UDP ports (separate UDP
-   ports for different delay and loss message formats) are used for
-   identifying the PM probe messages.</t>
+   Policies. For Loss Measurements, the probe messages defined in this document are used.</t>
 
 	<t>
    The Sender IPv4 or IPv6 address is used as the source address.  When
@@ -331,7 +329,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
-   UDP header <xref target="RFC0768"/>, is shown in Figure 2.  The DM probe query message
+   UDP header <xref target="RFC0768"/> is shown in Figure 2.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the message
    does not have any indication to distinguish between the query and
