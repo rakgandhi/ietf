@@ -118,7 +118,9 @@
    path. The TWAMP Light [Appendix I in RFC5357] <xref target="BBF.TR-390"/> provides simplified
    mechanisms for active performance measurement in Customer IP networks
    by provisioning UDP paths and eliminates the control-channel
-   signaling. These protocols lack support for direct-mode Loss Measurement
+   signaling. As described in Appendix A of <xref target="RFC8545"/>, TWAMP Light 
+   mechanism is informative only.
+   These protocols lack support for direct-mode Loss Measurement
    (LM) to detect actual Customer data traffic loss which is required in SR
    networks.</t>
 
