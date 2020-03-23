@@ -78,7 +78,7 @@
 	</address>
 	</author>
 
-	<date day="22" month="March" year="2020"/>
+	<date day="23" month="March" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -121,7 +121,8 @@
    order to use only for loss measurement purpose, it requires the node to 
    support the delay measurement STAMP messages and timestamp the packets. 
    Furthermore, for hardware-based counter collection for direct-mode loss meaurement, 
-   the optional TLV based processing adds unnecessary overhead (as counters are not at well-known locations).</t>
+   the optional TLV based processing adds unnecessary overhead
+   (as counters are not at well-known locations).</t>
 
    <t>
    This document specifies procedures for sending and processing probe
@@ -133,7 +134,7 @@
    are used for both Links and end-to-end SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Policies for
    performance delay measurement.  Unless otherwise specified, the mechanisms 
-   defined in <xref target="RFC8762"/>, and <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
+   defined in <xref target="RFC8762"/> and <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
    are not modified by this document.</t>
 	</section>
 
@@ -234,14 +235,17 @@
 
 	<section title="Overview" anchor="sect-3"><t>
    For one-way, two-way and round-trip delay measurements in Segment
-   Routing networks, STAMP protocol defined in
-   <xref target="RFC8762"/> is used.  For one-way and two-way direct-mode and
+   Routing networks, probe messages defined in
+   <xref target="RFC8762"/> are used.  For direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
    messages defined in this document are used. Separate
    UDP destination port numbers are user-configured for delay and loss
    measurements from the range specified in <xref target="RFC8762"/>.  The
    sender uses the UDP port number following the guidelines specified in
-   <xref target="sect-6"/> in <xref target="RFC6335"/>.  For both Links and end-to-end SR Policies,
+   <xref target="sect-6"/> in <xref target="RFC6335"/>. The UDP destination port
+   862 can be used for delay measurement probes by default except for the case
+   where the reflector needs to process STAMP TLVs. 
+   For both Links and end-to-end SR Policies,
    no PM session for delay or loss measurement is created on the
    reflector node R5 <xref target="RFC8762"/>.</t>
 
@@ -301,7 +305,7 @@ Loss Measurement Mode   /                \
 
    <t>Example of Measurement Protocol is STAMP, the 
    Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP and the Loss Measurement
-   mode is inferred or direct-mode. The mechanisms to provision the
+   mode is inferred-mode or direct-mode. The mechanisms to provision the
    sender and reflector nodes are outside the scope of this document.</t>
 
    <t>The reflector node R5 uses the parameters for the timestamp format and
@@ -312,11 +316,10 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Probe Messages" anchor="sect-4"><section title="Probe Query Message" anchor="sect-4.1"><t>
-   In this document, the probe messages defined in <xref target="RFC8762"/> are used
+   The probe messages defined in <xref target="RFC8762"/> are used
    for Delay Measurement for Links and end-to-end SR
-   Policies.  The user-configured destination UDP ports (separate UDP
-   ports for different delay and loss message formats) are used for
-   identifying the PM probe messages.</t>
+   Policies. For Loss Measurement, the probe messages defined in this document 
+   are used.</t>
 
 	<t>
    The Sender IPv4 or IPv6 address is used as the source address.  When
@@ -329,7 +332,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
-   UDP header <xref target="RFC0768"/>, is shown in Figure 2.  The DM probe query message
+   UDP header <xref target="RFC0768"/> is shown in Figure 2.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the message
    does not have any indication to distinguish between the query and
@@ -497,11 +500,11 @@ Loss Measurement Mode   /                \
 
 </section>
 
-	<section title="Control Code Field in STAMP Message Formats" anchor="sect-4.1.5">
+	<section title="Control Code Field for STAMP Messages" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for delay and loss measurement probe query and response messages
-   for STAMP message formats in unauthenticated and authenticated modes.  
-   The modified delay measurement probe query and response message formats for STAMP is shown in Figure 6. 
+   for STAMP protocol in unauthenticated and authenticated modes.  
+   The modified delay measurement probe query and response message format for STAMP is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in STAMP <xref target="RFC8762"/> as its reflector MUST
    ignore the received field (previously identified as MBZ).
@@ -575,7 +578,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.6">
-   <t> In this document, STAMP probe query message formats are defined for
+   <t>In this document, STAMP probe query message formats are defined for
    loss measurement as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to the 
    well-known locations of the counters.  They are similar to the delay
@@ -835,7 +838,7 @@ Loss Measurement Mode   /                \
    In this document, STAMP probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.</t>
 
-	<figure title="STAMP LM Probe Response Message Format - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
+	<figure title="STAMP LM Probe Response Message - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -861,7 +864,7 @@ Loss Measurement Mode   /                \
 ]]></artwork>
 	</figure>
 
-	<figure title="STAMP LM Probe Response Message Format - Authenticated Mode" anchor="ure-lm-probe-response-message-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="STAMP LM Probe Response Message - Authenticated Mode" anchor="ure-lm-probe-response-message-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1097,7 +1100,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
-   The processing rules defined in this section are applicable to 
+   The processing rules defined in this section are applicable to the
    STAMP messages for delay and loss measurement for Links and end-to-end SR Policies.</t>		
 		
         <section title="TTL and Hop Limit" anchor="sect-7.1"><t>
