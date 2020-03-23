@@ -232,12 +232,12 @@
 
 	<section title="Overview" anchor="sect-3"><t>
    For one-way, two-way and round-trip delay measurements in Segment
-   Routing networks, the TWAMP messages defined in 
+   Routing networks, the probe messages defined in 
    <xref target="RFC5357"/> are used.  For one-way and two-way direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
    messages defined in this document are used.  Separate
    UDP destination port numbers are user-configured for delay and loss
-   measurements.  As specified in [RFC8545], the reflector supports the destination
+   measurements. As specified in <xref target="RFC8545"/>, the reflector supports the destination
    UDP port 862 for delay measurement probe messages by default. This UDP port however, is 
    not used for loss measurement probe messages defined in this document. The
    sender uses the UDP port number following the guidelines specified in
@@ -273,7 +273,8 @@
    and are outside the scope of this document.</t>
 
 	<section title="Example Provisioning Model" anchor="sect-3.1"><t>
-   An example of a provisioning model and typical measurement parameters for each user-configured destination UDP port 
+   An example of a provisioning model and typical measurement parameters 
+   for each user-configured destination UDP port 
    for performance delay and loss measurements is shown in the following
    Figure 1:</t>
 
@@ -499,10 +500,10 @@ Loss Measurement Mode   /                \
 	</section>
      </section>
 
-	<section title="Control Code Field TWAMP Light Message Format" anchor="sect-4.1.5">
+	<section title="Control Code Field for TWAMP Light Messages" anchor="sect-4.1.5">
 	<t>
    The Control Code field is defined for delay and loss measurement probe query and response messages
-   for TWAMP Light message format in unauthenticated and authenticated modes.  
+   for TWAMP Light in unauthenticated and authenticated modes.  
    The modified delay measurement probe query and response message format is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in <xref target="RFC5357"/> as its reflectors
@@ -981,7 +982,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
-   The processing rules defined in this section are applicable to both TWAMP 
+   The processing rules defined in this section are applicable to TWAMP 
    Light messages for delay and loss measurement for Links and end-to-end SR Policies.</t>		
 		
         <section title="TTL and Hop Limit" anchor="sect-7.1"><t>

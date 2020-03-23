@@ -88,7 +88,7 @@ Table of Contents
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   8
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
        4.1.4.  Probe Query for End-to-end Measurement for SR Policy    9
-       4.1.5.  Control Code Field TWAMP Light Message Format . . . .  10
+       4.1.5.  Control Code Field for TWAMP Light Messages . . . . .  10
        4.1.6.  Loss Measurement Query Message Formats for TWAMP
                Light . . . . . . . . . . . . . . . . . . . . . . . .  12
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  14
@@ -246,7 +246,7 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 3.  Overview
 
    For one-way, two-way and round-trip delay measurements in Segment
-   Routing networks, the TWAMP messages defined in [RFC5357] are used.
+   Routing networks, the probe messages defined in [RFC5357] are used.
    For one-way and two-way direct-mode and inferred-mode loss
    measurements in Segment Routing networks, the messages defined in
    this document are used.  Separate UDP destination port numbers are
@@ -537,17 +537,17 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
    [I-D.ietf-6man-spring-srv6-oam] is used with target SRv6 SID to punt
    probe messages on the target node.
 
-4.1.5.  Control Code Field TWAMP Light Message Format
+4.1.5.  Control Code Field for TWAMP Light Messages
 
    The Control Code field is defined for delay and loss measurement
-   probe query and response messages for TWAMP Light message format in
-   unauthenticated and authenticated modes.  The modified delay
-   measurement probe query and response message format is shown in
-   Figure 6.  This message format is backwards compatible with the
-   message format defined in [RFC5357] as its reflectors ignore the
-   received field (previously identified as MBZ).  The usage of the
-   Control Code is not limited to the SR networks and can be used for
-   various bidirectional paths in a network.
+   probe query and response messages for TWAMP Light in unauthenticated
+   and authenticated modes.  The modified delay measurement probe query
+   and response message format is shown in Figure 6.  This message
+   format is backwards compatible with the message format defined in
+   [RFC5357] as its reflectors ignore the received field (previously
+   identified as MBZ).  The usage of the Control Code is not limited to
+   the SR networks and can be used for various bidirectional paths in a
+   network.
 
 
 
@@ -1106,9 +1106,9 @@ Internet-Draft       TWAMP Light for Segment Routing          March 2020
 
 7.  Additional Message Processing Rules
 
-   The processing rules defined in this section are applicable to both
-   TWAMP Light messages for delay and loss measurement for Links and
-   end-to-end SR Policies.
+   The processing rules defined in this section are applicable to TWAMP
+   Light messages for delay and loss measurement for Links and end-to-
+   end SR Policies.
 
 
 
