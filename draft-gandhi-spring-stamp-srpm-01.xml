@@ -353,7 +353,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port for Delay Measurement.
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message specified in Section 4.2 of RFC 8762     |
+ | Payload = DM Message as specified in Section 4.2 of RFC 8762  |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -484,7 +484,7 @@ Loss Measurement Mode   /                \
  .  Next Header = 43 (Routing Header)                            .
  .                                                               .
  +---------------------------------------------------------------+
- | SRH specified in RFC 8754                                     |
+ | SRH as specified in RFC 8754                                  |
  .  Next Header = 17 (UDP)                                       .
  .                                                               .
  +---------------------------------------------------------------+
@@ -493,8 +493,8 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message specified in Section 4.2 of RFC 8762 |   |
- . Payload = LM Message specified in Figure 7 or 8               .
+ | Payload = DM Message as specified in Section 4.2 of RFC 8762| |
+ . Payload = LM Message as specified in Figure 7 or 8            .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -822,7 +822,7 @@ Loss Measurement Mode   /                \
  .  Next Header = 43 (Routing Header)                            .
  .                                                               .
  +---------------------------------------------------------------+
- | SRH specified in RFC 8754                                     |
+ | SRH as specified in RFC 8754                                  |
  .  Next Header = 17 (UDP)                                       .
  .                                                               .
  +---------------------------------------------------------------+

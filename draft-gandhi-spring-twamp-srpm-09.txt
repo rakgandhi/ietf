@@ -406,8 +406,8 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
     .  Destination Port = User-configured Port for Delay Measurement.
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = DM Message specified in Section 4.2.1 of RFC 5357 | |
-    . Payload = DM Message specified in Section 4.1.2 of RFC 5357   .
+    | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
+    . Payload = DM Message as specified in Section 4.1.2 of RFC 5357.
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -569,7 +569,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
     .  Next Header = 43 (Routing Header)                            .
     .                                                               .
     +---------------------------------------------------------------+
-    | SRH specified in RFC 8754                                     |
+    | SRH as specified in RFC 8754                                  |
     .  Next Header = 17 (UDP)                                       .
     .                                                               .
     +---------------------------------------------------------------+
@@ -578,9 +578,9 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = DM Message specified in Section 4.2.1 of RFC 5357 | |
-    . Payload = DM Message specified in Section 4.1.2 of RFC 5357 | .
-    . Payload = LM Message specified in Figure 7 or 8               .
+    | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
+    . Payload = DM Message as specified in Section 4.1.2 of RFC 5357.
+    . Payload = LM Message as specified in Figure 7 or 8            .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -961,7 +961,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
     .  Next Header = 43 (Routing Header)                            .
     .                                                               .
     +---------------------------------------------------------------+
-    | SRH specified in RFC 8754                                     |
+    | SRH as specified in RFC 8754                                  |
     .  Next Header = 17 (UDP)                                       .
     .                                                               .
     +---------------------------------------------------------------+
