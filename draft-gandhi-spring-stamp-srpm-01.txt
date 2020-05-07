@@ -105,7 +105,7 @@ Table of Contents
      7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  24
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  25
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
 
 
 
@@ -114,10 +114,10 @@ Gandhi, et al.          Expires November 8, 2020                [Page 2]
 Internet-Draft          STAMP for Segment Routing               May 2020
 
 
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  25
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  26
      10.2.  Informative References . . . . . . . . . . . . . . . . .  26
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 1.  Introduction
 
@@ -1348,20 +1348,43 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 9.  IANA Considerations
 
-   IANA is requested to allocate a value for the following optional
-   Destination Address TLV Type for [I-D.ietf-ippm-stamp-option-tlv] to
-   be carried in PM probe messages:
+   IANA will create a "STAMP TLV Type" registry for
+   [I-D.ietf-ippm-stamp-option-tlv].  IANA is requested to allocate a
+   value for the following mandatory Destination Address TLV Type from
+   this registry.  This TLV is to be carried in PM probe messages.
 
    o  Type TBA1: Destination Node Address TLV
 
-   IANA is also requested to allocate a value for the following optional
-   Return Path TLV Type for [I-D.ietf-ippm-stamp-option-tlv] to be
-   carried in PM probe query messages:
+   IANA is also requested to allocate a value for the following
+   mandatory Return Path TLV Type from the same registry.  This TLV is
+   to be carried in PM probe query messages.
 
    o  Type TBA2: Return Path TLV
 
-   IANA is also requested to allocate the values for the following Sub-
-   TLV Types for the Return Path TLV.
+   IANA is requested to create a sub-registry for "Return Path Sub-TLV
+   Type".  All code points in the range 1 through 32759 in this registry
+   shall be allocated according to the "IETF Review" procedure as
+   specified in [RFC8126].  Code points in the range 32760 through 65279
+   in this registry shall be allocated according to the "First Come
+   First Served" procedure as specified in [RFC8126].  Remaining code
+   points are allocated according to Table 1:
+
+   +---------------+-------------------------+-------------------------+
+   | Value         |       Description       | Reference               |
+   +---------------+-------------------------+-------------------------+
+   | 0- 32767      |      Mandatory TLV,     | IETF Review             |
+   |               |        unassigned       |                         |
+   | 32768 - 65279 |      Optional TLV,      | First Come First Served |
+   |               |        unassigned       |                         |
+   | 65280 - 65519 |       Experimental      | This document           |
+   | 65520 - 65534 |       Private Use       | This document           |
+   | 65535         |         Reserved        | This document           |
+   +---------------+-------------------------+-------------------------+
+
+                Table 1: Return Path Sub-TLV Type Registry
+
+   IANA is requested to allocate the values for the following Sub-TLV
+   Types from this registry.
 
    o  Type (value 0): Return Address
 
@@ -1371,6 +1394,13 @@ Internet-Draft          STAMP for Segment Routing               May 2020
       [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
 
    o  Type (value 3): SRv6 Segment List of the Reverse SR Path
+
+
+
+Gandhi, et al.          Expires November 8, 2020               [Page 25]
+
+Internet-Draft          STAMP for Segment Routing               May 2020
+
 
    o  Type (value 4): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
       of the Reverse SR Policy
@@ -1391,16 +1421,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
-
-Gandhi, et al.          Expires November 8, 2020               [Page 25]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
@@ -1427,6 +1447,17 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
 
+
+
+
+
+
+
+Gandhi, et al.          Expires November 8, 2020               [Page 26]
+
+Internet-Draft          STAMP for Segment Routing               May 2020
+
+
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
               Hashing for Message Authentication", RFC 2104,
               DOI 10.17487/RFC2104, February 1997,
@@ -1445,18 +1476,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
               Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
               June 2010, <https://www.rfc-editor.org/info/rfc5884>.
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 8, 2020               [Page 26]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
@@ -1486,6 +1505,15 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               DOI 10.17487/RFC7820, March 2016,
               <https://www.rfc-editor.org/info/rfc7820>.
 
+
+
+
+
+Gandhi, et al.          Expires November 8, 2020               [Page 27]
+
+Internet-Draft          STAMP for Segment Routing               May 2020
+
+
    [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
               Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
               Switched (MPLS) Data-Plane Failures", RFC 8029,
@@ -1505,14 +1533,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               (IPv6) Specification", STD 86, RFC 8200,
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
-
-
-
-
-Gandhi, et al.          Expires November 8, 2020               [Page 27]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -1542,6 +1562,14 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               Delivery", draft-voyer-spring-sr-replication-segment-02
               (work in progress), November 2019.
 
+
+
+
+Gandhi, et al.          Expires November 8, 2020               [Page 28]
+
+Internet-Draft          STAMP for Segment Routing               May 2020
+
+
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
@@ -1559,16 +1587,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
               in PCE-based Networks.", draft-ietf-pce-binding-label-
               sid-02 (work in progress), March 2020.
-
-
-
-
-
-
-Gandhi, et al.          Expires November 8, 2020               [Page 28]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -1599,6 +1617,15 @@ Acknowledgments
    significantly improve the mechanisms defined in this document.  The
    authors would like to acknowledge the earlier work on the loss
    measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
+
+
+
+
+Gandhi, et al.          Expires November 8, 2020               [Page 29]
+
+Internet-Draft          STAMP for Segment Routing               May 2020
+
+
    direct-loss.  The authors would also like to thank Sam Aldrin for the
    discussions to check for broken path.
 
@@ -1617,15 +1644,6 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
-
-
-
-
-Gandhi, et al.          Expires November 8, 2020               [Page 29]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
    Daniel Voyer
    Bell Canada
 
@@ -1642,24 +1660,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

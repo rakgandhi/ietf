@@ -1208,9 +1208,10 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="IANA Considerations" anchor="sect-9"><t>
-   IANA is requested to allocate a value for the following optional
-   Destination Address TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be
-   carried in PM probe messages:</t>
+   IANA will create a "STAMP TLV Type" registry for <xref target="I-D.ietf-ippm-stamp-option-tlv"/>. 
+   IANA is requested to allocate a value for the following mandatory
+   Destination Address TLV Type from this registry. This TLV is to be
+   carried in PM probe messages.</t>
 
 	<t><list style="symbols"><t>Type TBA1: Destination Node Address TLV</t>
 
@@ -1218,17 +1219,48 @@ Loss Measurement Mode   /                \
 	</t>
 
    <t>
-   IANA is also requested to allocate a value for the following optional
-   Return Path TLV Type for <xref target="I-D.ietf-ippm-stamp-option-tlv"/> to be carried in
-   PM probe query messages:</t>
+   IANA is also requested to allocate a value for the following mandatory
+   Return Path TLV Type from the same registry. This TLV is to be carried in
+   PM probe query messages.</t>
 
 	<t><list style="symbols"><t>Type TBA2: Return Path TLV</t>
 
 	</list>
 	</t>
 
-	<t>
-   IANA is also requested to allocate the values for the following Sub-TLV Types for the Return Path TLV.</t>
+   <t>
+   IANA is requested to create a sub-registry for "Return Path Sub-TLV Type".
+   All code points in the range 1 through 32759 in this registry shall be
+   allocated according to the "IETF Review" procedure as specified in
+   [RFC8126].  Code points in the range 32760 through 65279 in this
+   registry shall be allocated according to the "First Come First
+   Served" procedure as specified in [RFC8126]. Remaining code points are allocated according to <xref target="iana-return-path-tbl"/>:
+   </t>
+
+     <texttable anchor="iana-return-path-tbl" title="Return Path Sub-TLV Type Registry">
+    <ttcol align="left">Value</ttcol>
+    <ttcol align="center">Description</ttcol>
+    <ttcol align="left">Reference</ttcol>
+     <c>0- 32767</c>
+    <c>Mandatory TLV, unassigned</c>
+    <c>IETF Review</c>
+     <c>32768 - 65279</c>
+    <c>Optional TLV, unassigned</c>
+    <c>First Come First Served</c>
+     <c>65280 - 65519</c>
+    <c>Experimental</c>
+    <c>This document</c>
+     <c>65520 - 65534</c>
+    <c>Private Use</c>
+    <c>This document</c>
+         <c>65535</c>
+    <c>Reserved</c>
+    <c>This document</c>
+   </texttable> 
+
+ 
+   <t>
+   IANA is requested to allocate the values for the following Sub-TLV Types from this registry.</t>
 
 	<t><list style="symbols"><t>Type (value 0): Return Address</t>
 
