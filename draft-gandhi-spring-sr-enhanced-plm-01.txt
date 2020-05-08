@@ -228,7 +228,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
                +-------+       Probe         +-------+
                |       | - - - - - - - - - - |       |
-               |   R1  |--------------------||   R5  |
+               |   R1  |====================||   R5  |
                |       |<- - - - - - - - - - |       |
                +-------+                     +-------+
                 Sender                       Reflector
@@ -240,7 +240,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    For loopback mode, the probe messages defined in [RFC8762] are used.
    UDP destination port number is user-configured from the range
    specified in [RFC8762].  No PM session is created on the reflector
-   node R5 [RFC8762].
+   node R5 [RFC8762].  The IPv4 Time To Live (TTL) and IPv6 Hop Limit
+   (HL) are set to 255.
 
    The probe messages are sent on the congruent path of the data traffic
    by the sender node, and are used to measure the delay experienced by
@@ -266,7 +267,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    An example of a provisioning model and typical measurement parameters
    for each user-configured destination UDP port is shown in the
    following Figure 1:
-
 
 
 
@@ -310,17 +310,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 4.  Liveness Monitoring
 
-   For liveness monitoring for an SR Policy, the loopback mode as
-   defined in Section 4.2.3 of [I-D.gandhi-spring-twamp-srpm] is used.
+   For liveness monitoring for an SR Policy, the loopback mode is used.
    The TWAMP Light probe messages for delay measurement defined in
    Section 4.2.1 of [RFC5357] or STAMP probe messages as defined in
-   [RFC8762] are sent by the sender (head-end) node R1 to the reflector
-   endpoint node R5 of the SR Policy using the user-configured IP/UDP
-   path as shown in Figure 1.
+   [RFC8762] are sent by the sender node R1 to the reflector endpoint
+   node R5 of the SR Policy using the user-configured IP/UDP path as
+   shown in Figure 1.
 
                   +-------+ t1     Probe        +-------+
                   |       | - - - - - - - - - - |       |
-                  |   R1  |--------------------||  R5   |
+                  |   R1  |====================||  R5   |
                   |       |<- - - - - - - - - - |       |
                   +-------+ t4   Return Probe   +-------+
                    Sender                       Reflector Endpoint
@@ -330,6 +329,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The probe messages are sent using the Segment List (SL) of the SR
    Policy.  When an SR Policy has more than one Segment List, multiple
+   probe messages are sent, one using each Segment List.  The Source and
 
 
 
@@ -338,13 +338,9 @@ Gandhi, et al.          Expires November 9, 2020                [Page 6]
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
-   probe messages are sent, one using each Segment List.  The Source and
    Destination IP addresses in the probe messages are set to the
    reflector endpoint and the sender head-end node addresses,
-   respectively.  The IPv4 Time To Live (TTL), IPv6 Hop Limit (HL),
-   Router Alert (RA) Option and UDP checksum fields in the probe
-   messages are set using the procedures defined in
-   [I-D.gandhi-spring-twamp-srpm].
+   respectively.
 
    The probe packets are not punted on the reflector node but are simply
    forwarded just like data traffic.  The probe messages are received
@@ -367,6 +363,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    specified in [I-D.gandhi-spring-twamp-srpm].  The label stack can
    contain a reverse SR-MPLS path to receive the reply on a specific
    path.
+
+
+
+
 
 
 
@@ -508,7 +508,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
                   +-------+ t1    Probe      t2 +-------+
                   |       | - - - - - - - - - - |       |
-                  |   R1  |--------------------||  R5   |
+                  |   R1  |====================||  R5   |
                   |       |<- - - - - - - - - - |       |
                   +-------+     Return Probe    +-------+
                    Sender                       Reflector Endpoint

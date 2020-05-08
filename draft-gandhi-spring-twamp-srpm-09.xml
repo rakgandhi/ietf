@@ -244,7 +244,7 @@
    not used for loss measurement probe messages defined in this document. The
    sender uses the UDP port number following the guidelines specified in
    <xref target="sect-6"/> in <xref target="RFC6335"/>.  
-   For both Links and end-to-end SR Policies,
+   For both Links and end-to-end SR Paths including SR Policies,
    no PM session for delay or loss measurement is created on the
    reflector node R5 <xref target="RFC5357"/>.</t>
 
@@ -997,7 +997,8 @@ Loss Measurement Mode   /                \
 
 	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
    The processing rules defined in this section are applicable to TWAMP 
-   Light messages for delay and loss measurement for Links and end-to-end SR Policies.</t>		
+   Light messages for delay and loss measurement for Links and 
+   end-to-end SR Paths including SR Policies.</t>		
 		
         <section title="TTL and Hop Limit" anchor="sect-7.1"><t>
    The TTL field in the IPv4 and MPLS headers of the

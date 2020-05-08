@@ -246,7 +246,7 @@
    <xref target="sect-6"/> in <xref target="RFC6335"/>. The UDP destination port
    862 can be used for delay measurement probes by default except for the case
    where the reflector needs to process STAMP TLVs. 
-   For both Links and end-to-end SR Paths,
+   For both Links and end-to-end SR Paths including SR Policies,
    no PM session for delay or loss measurement is created on the
    reflector node R5 <xref target="RFC8762"/>.</t>
 
@@ -1115,7 +1115,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
    The processing rules defined in this section are applicable to the
-   STAMP messages for delay and loss measurement for Links and end-to-end SR Policies.</t>		
+   STAMP messages for delay and loss measurement for Links and end-to-end SR Paths including SR Policies.</t>		
 		
         <section title="TTL and Hop Limit" anchor="sect-7.1"><t>
    The TTL field in the IPv4 and MPLS headers of the

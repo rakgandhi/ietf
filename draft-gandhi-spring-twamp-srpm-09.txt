@@ -256,9 +256,9 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
    default.  This UDP port however, is not used for loss measurement
    probe messages defined in this document.  The sender uses the UDP
    port number following the guidelines specified in Section 6 in
-   [RFC6335].  For both Links and end-to-end SR Policies, no PM session
-   for delay or loss measurement is created on the reflector node R5
-   [RFC5357].
+   [RFC6335].  For both Links and end-to-end SR Paths including SR
+   Policies, no PM session for delay or loss measurement is created on
+   the reflector node R5 [RFC5357].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
@@ -1107,7 +1107,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
 
    The processing rules defined in this section are applicable to TWAMP
    Light messages for delay and loss measurement for Links and end-to-
-   end SR Policies.
+   end SR Paths including SR Policies.
 
 7.1.  TTL and Hop Limit
 

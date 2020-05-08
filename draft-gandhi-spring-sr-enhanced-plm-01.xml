@@ -212,7 +212,7 @@
 
             +-------+       Probe         +-------+
             |       | - - - - - - - - - - |       |
-            |   R1  |--------------------||   R5  |
+            |   R1  |====================||   R5  |
             |       |<- - - - - - - - - - |       |
             +-------+                     +-------+
              Sender                       Reflector
@@ -230,7 +230,8 @@
    <xref target="RFC8762"/> are used.  
    UDP destination port number is user-configured 
    from the range specified in <xref target="RFC8762"/>. 
-   No PM session is created on the reflector node R5 <xref target="RFC8762"/>.</t>
+   No PM session is created on the reflector node R5 <xref target="RFC8762"/>.
+   The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
    <t>The probe messages are sent on the
    congruent path of the data traffic by the sender node, and are
@@ -288,11 +289,10 @@
 	</section>
 
     <section anchor="sect-4" title="Liveness Monitoring">
-      <t>For liveness monitoring for an SR Policy, the loopback mode as
-      defined in Section 4.2.3 of <xref target="I-D.gandhi-spring-twamp-srpm"/> is used. The
+      <t>For liveness monitoring for an SR Policy, the loopback mode is used. The
       TWAMP Light probe messages for delay measurement defined in Section 4.2.1 of <xref
       target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
-      are sent by the sender (head-end) node R1 to the reflector endpoint
+      are sent by the sender node R1 to the reflector endpoint
       node R5 of the SR Policy using the user-configured IP/UDP path as shown
       in Figure 1.</t>
 	     
@@ -300,7 +300,7 @@
         <artwork>
                +-------+ t1     Probe        +-------+
                |       | - - - - - - - - - - |       |
-               |   R1  |--------------------||  R5   |
+               |   R1  |====================||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+ t4   Return Probe   +-------+
                 Sender                       Reflector Endpoint
@@ -312,10 +312,7 @@
       When an SR Policy has more than one Segment List, multiple
       probe messages are sent, one using each Segment List. The Source and
       Destination IP addresses in the probe messages are set to the reflector endpoint
-      and the sender head-end node addresses, respectively. 
-      The IPv4 Time To Live (TTL), IPv6 Hop Limit (HL), Router Alert (RA) Option 
-      and UDP checksum fields in the probe messages are set using
-      the procedures defined in <xref target="I-D.gandhi-spring-twamp-srpm"/>.</t>
+      and the sender head-end node addresses, respectively.</t>
 
       <t>The probe packets are not 
       punted on the reflector node but are simply forwarded just like data traffic. 
@@ -421,7 +418,7 @@
         <artwork>
                +-------+ t1    Probe      t2 +-------+
                |       | - - - - - - - - - - |       |
-               |   R1  |--------------------||  R5   |
+               |   R1  |====================||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
                 Sender                       Reflector Endpoint
