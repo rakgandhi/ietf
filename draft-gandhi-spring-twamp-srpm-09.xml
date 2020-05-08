@@ -317,7 +317,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Probe Messages" anchor="sect-4"><section title="Probe Query Message" anchor="sect-4.1"><t>
    The probe messages defined in <xref target="RFC5357"/> are used
-   for Delay Measurement for Links and end-to-end SR
+   for Delay Measurement for Links and end-to-end SR Paths including SR
    Policies. For Loss Measurement, the probe messages defined in this document are used.</t>
 
 	<t>

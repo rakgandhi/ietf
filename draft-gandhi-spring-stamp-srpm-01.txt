@@ -343,8 +343,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 4.1.  Probe Query Message
 
    The probe messages defined in [RFC8762] are used for Delay
-   Measurement for Links and end-to-end SR Paths.  For Loss Measurement,
-   the probe messages defined in this document are used.
+   Measurement for Links and end-to-end SR Paths including SR Policies.
+   For Loss Measurement, the probe messages defined in this document are
+   used.
 
    The Sender IPv4 or IPv6 address is used as the source address.  When
    known, the reflector IPv4 or IPv6 address is used as the destination
@@ -384,8 +385,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    Timestamp field is eight bytes and use the format defined in
    Section 4.2.1 of [RFC8762].  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
-   [IEEE1588] as specified in [RFC8186], with hardware support in
-   Segment Routing networks.
+
 
 
 
@@ -393,6 +393,9 @@ Gandhi, et al.          Expires November 8, 2020                [Page 7]
 
 Internet-Draft          STAMP for Segment Routing               May 2020
 
+
+   [IEEE1588] as specified in [RFC8186], with hardware support in
+   Segment Routing networks.
 
 4.1.1.1.  Delay Measurement Authentication Mode
 
@@ -438,9 +441,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    When using the authenticated mode for loss measurement, the matching
    authentication type (e.g.  HMAC-SHA-256) and key are user-configured
    on both the sender and reflector nodes.  A separate user-configured
-   destination UDP port is used for the loss measurement in
-   authentication mode due to the different message format.
-
 
 
 
@@ -449,6 +449,9 @@ Gandhi, et al.          Expires November 8, 2020                [Page 8]
 
 Internet-Draft          STAMP for Segment Routing               May 2020
 
+
+   destination UDP port is used for the loss measurement in
+   authentication mode due to the different message format.
 
 4.1.3.  Probe Query for Links
 
@@ -493,9 +496,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    The Path Segment Identifier (PSID)
    [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
    accounting received traffic on the egress node for loss measurement.
-
-
-
 
 
 
