@@ -235,7 +235,7 @@
 	</section>
 
 	<section title="Overview" anchor="sect-3"><t>
-   For one-way, two-way and round-trip delay measurements in Segment
+   For one-way and two-way delay measurements in Segment
    Routing networks, the probe messages defined in
    <xref target="RFC8762"/> are used.  For direct-mode and
    inferred-mode loss measurements in Segment Routing networks, the
