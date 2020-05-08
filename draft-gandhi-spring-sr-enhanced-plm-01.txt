@@ -125,8 +125,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    [I-D.gandhi-spring-twamp-srpm] defines procedure for using TWAMP
    Light messages with user-defined IP/UDP paths in SR networks and is
    applicable to both SR-MPLS and SRv6 data planes.
-   [I-D.gandhi-spring-stamp-srpm] defines similar procedures using STAMP
-   messages
+   [I-D.gandhi-spring-stamp-srpm] defines similar procedure using STAMP
+   messages.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in Segment Routing networks.  However,
@@ -345,7 +345,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
      | SRH as specified in RFC 8754                                  |
-     .     <Segment List>                                      .
+     .     <Segment List>                                            .
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -569,7 +569,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
      | SRH as specified in RFC 8754                                  |
-     .     <Segment List>                                      .
+     .     <Segment List>                                            .
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -597,12 +597,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    monitor the liveness for an SR Policy.
 
    Forwarding plane has various hashing functions available to forward
-   packets on specific ECMP paths.  In the IP header of the PM probe
-   messages, sweeping of Destination Addresses in 127/8 range for IPv4
-   or 0:0:0:0:0:FFFF:7F00/104 range for IPv6 can be used to exercise
-   different ECMP paths in loopback mode as long as the reverse path is
-   also an SR-MPLS or SRv6 path.  The Flow Label field in the outer IPv6
-   header can also be used for sweeping ECMP paths.
+   packets on specific ECMP paths.  In IPv4 header of the PM probe
+   messages, sweeping of Destination Address in 127/8 range can be used
+   to exercise different ECMP paths in the loopback mode as long as the
+   return path is also SR-MPLS.  The Flow Label field in the outer IPv6
+   header can also be used for sweeping to exercise different ECMP
+   paths.
 
 6.  Security Considerations
 
