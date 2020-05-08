@@ -242,7 +242,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
                +-------+ t1     Query     t2 +-------+
                |       | - - - - - - - - - ->|       |
-               |   R1  |---------------------|   R5  |
+               |   R1  |=====================|   R5  |
                |       |<- - - - - - - - - - |       |
                +-------+ t4     Response  t3 +-------+
                 Sender                       Reflector
@@ -314,7 +314,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
                           v                  v
                      +-------+            +-------+
                      |       |            |       |
-                     |   R1  |------------|   R5  |
+                     |   R1  |============|   R5  |
                      |       |            |       |
                      +-------+            +-------+
                       Sender              Reflector

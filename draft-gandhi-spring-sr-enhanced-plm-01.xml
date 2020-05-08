@@ -289,7 +289,7 @@
 	</section>
 
     <section anchor="sect-4" title="Liveness Monitoring">
-      <t>For liveness monitoring for an SR Policy, the loopback mode is used. The
+      <t>For liveness monitoring for an SR Path including SR Policy, the loopback mode is used. The
       TWAMP Light probe messages for delay measurement defined in Section 4.2.1 of <xref
       target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
       are sent by the sender node R1 to the reflector endpoint
@@ -404,7 +404,7 @@
 
     <section anchor="sect-5"
              title="Enhanced Performance and Liveness Monitoring">
-      <t>The enhanced performance and liveness monitoring for an SR Policy is
+      <t>The enhanced performance and liveness monitoring for an SR Path including SR Policy is
       defined using the loopback mode enabled with network programming.
       The network programming function optimizes the "operations of punt, 
       add receive timestamp and inject the probe packet" on the reflector node and is implemented in hardware. In this
@@ -436,7 +436,7 @@
       adds the receive timestamp if the source address in the probe message matches
       the local node address to ensure that the receive timestamp is returned by the 
       intended endpoint node. In addition, the UDP port in the probe message must be
-      locally programmed for adding the timestamp in the probe message. The end-to-end one-way delay 
+      locally programmed for adding the timestamp in the probe message. The one-way delay 
       is measured using the receive (t2) and transmit (t1) timestamps in the probe message.</t>
 
       <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as

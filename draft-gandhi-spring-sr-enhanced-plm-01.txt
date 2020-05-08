@@ -310,12 +310,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 4.  Liveness Monitoring
 
-   For liveness monitoring for an SR Policy, the loopback mode is used.
-   The TWAMP Light probe messages for delay measurement defined in
-   Section 4.2.1 of [RFC5357] or STAMP probe messages as defined in
-   [RFC8762] are sent by the sender node R1 to the reflector endpoint
-   node R5 of the SR Policy using the user-configured IP/UDP path as
-   shown in Figure 1.
+   For liveness monitoring for an SR Path including SR Policy, the
+   loopback mode is used.  The TWAMP Light probe messages for delay
+   measurement defined in Section 4.2.1 of [RFC5357] or STAMP probe
+   messages as defined in [RFC8762] are sent by the sender node R1 to
+   the reflector endpoint node R5 of the SR Policy using the user-
+   configured IP/UDP path as shown in Figure 1.
 
                   +-------+ t1     Probe        +-------+
                   |       | - - - - - - - - - - |       |
@@ -479,15 +479,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 5.  Enhanced Performance and Liveness Monitoring
 
-   The enhanced performance and liveness monitoring for an SR Policy is
-   defined using the loopback mode enabled with network programming.
-   The network programming function optimizes the "operations of punt,
-   add receive timestamp and inject the probe packet" on the reflector
-   node and is implemented in hardware.  In this mode, both transmit
-   (t1) and receive (t2) timestamps in data plane are collected by the
-   probe messages sent in loopback mode as shown in Figure 4.  The
-   payload of the probe message is not modified by any intermediate
-   nodes.
+   The enhanced performance and liveness monitoring for an SR Path
+   including SR Policy is defined using the loopback mode enabled with
+   network programming.  The network programming function optimizes the
+   "operations of punt, add receive timestamp and inject the probe
+   packet" on the reflector node and is implemented in hardware.  In
+   this mode, both transmit (t1) and receive (t2) timestamps in data
+   plane are collected by the probe messages sent in loopback mode as
+   shown in Figure 4.  The payload of the probe message is not modified
+   by any intermediate nodes.
 
 
 
@@ -527,9 +527,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    in the probe message matches the local node address to ensure that
    the receive timestamp is returned by the intended endpoint node.  In
    addition, the UDP port in the probe message must be locally
-   programmed for adding the timestamp in the probe message.  The end-
-   to-end one-way delay is measured using the receive (t2) and transmit
-   (t1) timestamps in the probe message.
+   programmed for adding the timestamp in the probe message.  The one-
+   way delay is measured using the receive (t2) and transmit (t1)
+   timestamps in the probe message.
 
    Timestamp format recommended is 64-bit PTPv2 [IEEE1588] as specified
    in [RFC8186] implemented in hardware.  Note that the timestamp format
