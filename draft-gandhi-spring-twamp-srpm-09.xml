@@ -321,15 +321,15 @@ Loss Measurement Mode   /                \
    Policies. For Loss Measurement, the probe messages defined in this document are used.</t>
 
 	<t>
-   The Sender IPv4 or IPv6 address is used as the source address.  When
-   known, the reflector IPv4 or IPv6 address is used as the destination
+   The Sender IPv4 or IPv6 address is used as the source address. 
+   The reflector IPv4 or IPv6 address is used as the destination
    address.  In the case of SR Policy with IPv4 endpoint
    of 0.0.0.0 or IPv6 endpoint of ::0
    <xref target="I-D.ietf-spring-segment-routing-policy"/>, 
    the address in the range of 127/8 for IPv4 or
-   ::FFFF:127/104 for IPv6 is used as the destination address.</t>
+   ::FFFF:127/104 for IPv6 is used as the destination address, respectively.</t>
 
-	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
+   <section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
    UDP header <xref target="RFC0768"/> is shown in Figure 2.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
