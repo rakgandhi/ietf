@@ -117,7 +117,7 @@
    control-channel signaling to establish a test-channel over an UDP
    path. The TWAMP Light [Appendix I in RFC5357] <xref target="BBF.TR-390"/> provides simplified
    mechanisms for active performance measurement in Customer IP networks
-   by provisioning UDP paths and eliminates the control-channel
+   by provisioning UDP paths and eliminates the need for control-channel
    signaling. As described in Appendix A of <xref target="RFC8545"/>, TWAMP Light 
    mechanism is informative only.
    These protocols lack support for direct-mode Loss Measurement
@@ -309,7 +309,7 @@ Loss Measurement Mode   /                \
    sender and reflector nodes are outside the scope of this document.</t>
 
    <t>The reflector node R5 uses the parameters for the timestamp format and
-   delay measurement mode (i.e. one-way, two-way or loopback mode) 
+   delay measurement mode (i.e. one-way or two-way) 
    from the received probe query message.</t>
 	</section>
 
@@ -845,23 +845,6 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loopback Measurement Mode" anchor="sect-4.2.3"><t>
-   The Loopback measurement mode can be used to measure round-trip delay
-   for a bidirectional SR Path.  The IP header of the probe query
-   message contains the destination address equals to the sender address
-   and the source address equals to the reflector address.  Optionally,
-   the probe query message can carry the reverse path information (e.g.
-   reverse path label stack for SR-MPLS) as part of the SR header.  The
-   probe messages are not punted at the reflector node and it does 
-   not process them and generate response messages.
-   The Sender Control Code is set to the default value of 0.
-   In this mode, as the probe packet is not punted on the reflector node for processing, 
-   the querier copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly.
-   In this delay measurement mode, as per Reference Topology, 
-   the timestamps t1 and t4 are collected by the probes.
-   Both these timestamps are needed to measure round-trip delay.</t>
-	</section>
-
 	<section title="Loss Measurement Response Message Formats for TWAMP Light" anchor="sect-4.2.4"><t>
    In this document, TWAMP Light probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.</t> 
@@ -1001,8 +984,8 @@ Loss Measurement Mode   /                \
    packets on specific ECMP paths.  The mechanisms described in
    <xref target="RFC8029"/> and <xref target="RFC5884"/> for 
    handling ECMPs are also applicable to the
-   performance measurement.  In the IPv4 header of the PM probe messages,
-   sweeping of Destination Addresses in 127/8 range can be used to exercise
+   performance measurement.  In IPv4 header of the PM probe messages,
+   sweeping of Destination Address in 127/8 range can be used to exercise
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping.</t>
 

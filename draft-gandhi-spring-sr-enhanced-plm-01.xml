@@ -237,6 +237,22 @@
    used to measure the delay experienced by the actual data traffic
    flowing on the SR Path.</t>
 
+   <t>The Loopback measurement mode can be used to measure round-trip delay
+   for a bidirectional SR Path.  The IP header of the probe query
+   message contains the destination address equals to the sender address
+   and the source address equals to the reflector address.  Optionally,
+   the probe query message can carry the reverse path information (e.g.
+   reverse path label stack for SR-MPLS) as part of the SR header.  The
+   probe messages are not punted at the reflector node and it does 
+   not process them and generate response messages.
+   The Sender Control Code is set to the default value of 0.
+   In this mode, as the probe packet is not punted on the reflector node for processing, 
+   the querier copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly.
+   In this delay measurement mode, as per Reference Topology, 
+   the timestamps t1 and t4 are collected by the probes.
+   Both these timestamps are needed to measure round-trip delay.</t>
+
+
    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for each user-configured destination UDP port 
    is shown in the following Figure 1:</t>

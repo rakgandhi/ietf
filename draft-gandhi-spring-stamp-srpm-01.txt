@@ -93,19 +93,19 @@ Table of Contents
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  14
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  15
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  15
-       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  17
-       4.2.4.  Loss Measurement Response Message Formats for STAMP .  17
+       4.2.3.  Loss Measurement Response Message Formats for STAMP .  17
      4.3.  Node Address TLV for STAMP Message  . . . . . . . . . . .  20
      4.4.  Return Path TLV for STAMP Message . . . . . . . . . . . .  20
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  22
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  23
    7.  Additional Message Processing Rules . . . . . . . . . . . . .  23
      7.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . . . .  23
-     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  24
+     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  23
      7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  24
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  25
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  26
 
 
 
@@ -114,7 +114,6 @@ Gandhi, et al.          Expires November 9, 2020                [Page 2]
 Internet-Draft          STAMP for Segment Routing               May 2020
 
 
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  26
      10.2.  Informative References . . . . . . . . . . . . . . . . .  26
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
@@ -134,10 +133,11 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
    The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance metrics in IP
-   networks using probe messages [RFC8762].  It eliminates the control-
-   channel signaling by using configuration data model to provision a
-   test-channel (e.g.  UDP paths).  [I-D.ietf-ippm-stamp-option-tlv]
-   defines TLV extensions for STAMP messages.
+   networks using probe messages [RFC8762].  It eliminates the need for
+   control-channel signaling by using configuration data model to
+   provision a test-channel (e.g.  UDP paths).
+   [I-D.ietf-ippm-stamp-option-tlv] defines TLV extensions for STAMP
+   messages.
 
    The STAMP message with a TLV for "direct measurement" can be used for
    combined Delay + Loss measurement [I-D.ietf-ippm-stamp-option-tlv].
@@ -327,8 +327,8 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    reflector nodes are outside the scope of this document.
 
    The reflector node R5 uses the parameters for the timestamp format
-   and delay measurement mode (i.e. one-way, two-way or loopback mode)
-   from the received probe query message.
+   and delay measurement mode (i.e. one-way or two-way mode) from the
+   received probe query message.
 
 
 
@@ -924,27 +924,27 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
          Figure 11: Example Probe Response Message for SRv6 Policy
 
-4.2.3.  Loopback Measurement Mode
-
-   The Loopback measurement mode can be used to measure round-trip delay
-   for a bidirectional SR Path.  The IP header of the probe query
-   message contains the destination address equals to the sender address
-   and the source address equals to the reflector address.  Optionally,
-   the probe query message can carry the reverse path information (e.g.
-   reverse path label stack for SR-MPLS) as part of the SR header.  The
-   probe messages are not punted at the reflector node and it does not
-   process them and generate response messages.  The Sender Control Code
-   is set to the default value of 0.  In this mode, as the probe packet
-   is not punted on the reflector node for processing, the querier
-   copies the 'Sequence Number' in 'Session-Sender Sequence Number'
-   directly.  In this delay measurement mode, as per Reference Topology,
-   the timestamps t1 and t4 are collected by the probes.  Both these
-   timestamps are needed to measure round-trip delay.
-
-4.2.4.  Loss Measurement Response Message Formats for STAMP
+4.2.3.  Loss Measurement Response Message Formats for STAMP
 
    In this document, STAMP probe response message formats are defined
    for loss measurement as shown in Figure 12 and Figure 13.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1246,11 +1246,10 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  The mechanisms described in
    [RFC8029] and [RFC5884] for handling ECMPs are also applicable to the
-   performance measurement.  In the IPv4 header of the PM probe
-   messages, sweeping of Destination Addresses in 127/8 range can be
-   used to exercise particular ECMP paths.  As specified in [RFC6437],
-   Flow Label field in the outer IPv6 header can also be used for
-   sweeping.
+   performance measurement.  In IPv4 header of the PM probe messages,
+   sweeping of Destination Address in 127/8 range can be used to
+   exercise particular ECMP paths.  As specified in [RFC6437], Flow
+   Label field in the outer IPv6 header can also be used for sweeping.
 
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.
@@ -1278,9 +1277,10 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    Limit field in the probe message is set to 1 in both one-way and two-
    way measurement modes.
 
+7.2.  Router Alert Option
 
-
-
+   The Router Alert IP option is not set when using the routable
+   Destination IP Address in the probe messages.
 
 
 
@@ -1289,11 +1289,6 @@ Gandhi, et al.          Expires November 9, 2020               [Page 23]
 
 Internet-Draft          STAMP for Segment Routing               May 2020
 
-
-7.2.  Router Alert Option
-
-   The Router Alert IP option is not set when using the routable
-   Destination IP Address in the probe messages.
 
    When using the Destination IPv4 Address from the 127/8 range, to be
    able to punt probe packets on the reflector node, the Router Alert IP
@@ -1338,6 +1333,11 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    for SRv6 may not need authentication mode.  Cryptographic measures
    may be enhanced by the correct configuration of access-control lists
    and firewalls.
+
+
+
+
+
 
 
 

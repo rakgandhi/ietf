@@ -77,20 +77,20 @@ Table of Contents
      3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   5
    4.  Liveness Monitoring . . . . . . . . . . . . . . . . . . . . .   6
      4.1.  Loopback Mode for SR-MPLS . . . . . . . . . . . . . . . .   7
-     4.2.  Loopback Mode for SRv6  . . . . . . . . . . . . . . . . .   7
-   5.  Enhanced Performance and Liveness Monitoring  . . . . . . . .   8
+     4.2.  Loopback Mode for SRv6  . . . . . . . . . . . . . . . . .   8
+   5.  Enhanced Performance and Liveness Monitoring  . . . . . . . .   9
      5.1.  Loopback Mode Enabled with Network Programming for SR-
-           MPLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-       5.1.1.  Node Capability for Timestamp Label . . . . . . . . .  11
-     5.2.  Loopback Mode Enabled with Network Programming for SRv6 .  11
-   6.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  12
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  14
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+           MPLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
+       5.1.1.  Node Capability for Timestamp Label . . . . . . . . .  12
+     5.2.  Loopback Mode Enabled with Network Programming for SRv6 .  12
+   6.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  13
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  15
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -246,11 +246,40 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    by the sender node, and are used to measure the delay experienced by
    the actual data traffic flowing on the SR Path.
 
+   The Loopback measurement mode can be used to measure round-trip delay
+   for a bidirectional SR Path.  The IP header of the probe query
+   message contains the destination address equals to the sender address
+   and the source address equals to the reflector address.  Optionally,
+   the probe query message can carry the reverse path information (e.g.
+   reverse path label stack for SR-MPLS) as part of the SR header.  The
+   probe messages are not punted at the reflector node and it does not
+   process them and generate response messages.  The Sender Control Code
+   is set to the default value of 0.  In this mode, as the probe packet
+   is not punted on the reflector node for processing, the querier
+   copies the 'Sequence Number' in 'Session-Sender Sequence Number'
+   directly.  In this delay measurement mode, as per Reference Topology,
+   the timestamps t1 and t4 are collected by the probes.  Both these
+   timestamps are needed to measure round-trip delay.
+
 3.1.  Example Provisioning Model
 
    An example of a provisioning model and typical measurement parameters
    for each user-configured destination UDP port is shown in the
    following Figure 1:
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires November 9, 2020                [Page 5]
+
+Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
                                 +------------+
@@ -273,14 +302,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                          Sender              Reflector
 
                    Figure 1: Example Provisioning Model
-
-
-
-
-Gandhi, et al.          Expires November 9, 2020                [Page 5]
-
-Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
-
 
    Example of Measurement Protocol is STAMP and TWAMP Light, the
    Timestamp Format is PTPv2 [IEEE1588] or NTP.  The mechanisms to
@@ -309,6 +330,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The probe messages are sent using the Segment List (SL) of the SR
    Policy.  When an SR Policy has more than one Segment List, multiple
+
+
+
+Gandhi, et al.          Expires November 9, 2020                [Page 6]
+
+Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
+
+
    probe messages are sent, one using each Segment List.  The Source and
    Destination IP addresses in the probe messages are set to the
    reflector endpoint and the sender head-end node addresses,
@@ -331,13 +360,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    messages are not received back at the sender, where N is locally
    provisioned value.
 
-
-
-Gandhi, et al.          Expires November 9, 2020                [Page 6]
-
-Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
-
-
 4.1.  Loopback Mode for SR-MPLS
 
    The TWAMP Light or STAMP probe messages are sent using the label
@@ -345,6 +367,32 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    specified in [I-D.gandhi-spring-twamp-srpm].  The label stack can
    contain a reverse SR-MPLS path to receive the reply on a specific
    path.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires November 9, 2020                [Page 7]
+
+Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
+
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -389,7 +437,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020                [Page 7]
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires November 9, 2020                [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -445,7 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020                [Page 8]
+Gandhi, et al.          Expires November 9, 2020                [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -501,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020                [Page 9]
+Gandhi, et al.          Expires November 9, 2020               [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -557,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 10]
+Gandhi, et al.          Expires November 9, 2020               [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -613,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 11]
+Gandhi, et al.          Expires November 9, 2020               [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -669,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 12]
+Gandhi, et al.          Expires November 9, 2020               [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -725,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 13]
+Gandhi, et al.          Expires November 9, 2020               [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -781,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 14]
+Gandhi, et al.          Expires November 9, 2020               [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -837,7 +893,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 15]
+Gandhi, et al.          Expires November 9, 2020               [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -893,4 +949,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 9, 2020               [Page 16]
+Gandhi, et al.          Expires November 9, 2020               [Page 17]
