@@ -323,11 +323,11 @@ Loss Measurement Mode   /                \
 	<t>
    The Sender IPv4 or IPv6 address is used as the source address.  When
    known, the reflector IPv4 or IPv6 address is used as the destination
-   address.  If not known, the address in the range of 127/8 for IPv4 or
-   ::FFFF:127/104 for IPv6 is used as destination address.
-   This is the case for example, when using SR Policy with IPv4 endpoint
+   address.  In the case of SR Policy with IPv4 endpoint
    of 0.0.0.0 or IPv6 endpoint of ::0
-   <xref target="I-D.ietf-spring-segment-routing-policy"/>.</t>
+   <xref target="I-D.ietf-spring-segment-routing-policy"/>, 
+   the address in the range of 127/8 for IPv4 or
+   ::FFFF:127/104 for IPv6 is used as the destination address.</t>
 
 	<section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
    The message content for Delay Measurement probe query message using
