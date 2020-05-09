@@ -252,16 +252,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.
 
    No PM session is created on the reflector node R5.  As the probe
-   message is not punted on the reflector node for processing, the
-   Sender Sequence Number, Sender Timestamp, Sender Error Estimate and
-   Sender TTL fields [RFC5357] [RFC8762] in the probe message are not
-   used.
+   packet is not punted on the reflector node for processing, the Sender
+   copies the 'Sequence Number' in 'Session-Sender Sequence Number'
+   field directly.  Also, the Sender Timestamp, Sender Error Estimate
+   and Sender TTL fields [RFC5357] [RFC8762] in the probe message are
+   not used.
 
 3.1.  Example Provisioning Model
 
    An example of a provisioning model and typical measurement parameters
    for the user-configured destination UDP port is shown in Figure 2:
-
 
 
 

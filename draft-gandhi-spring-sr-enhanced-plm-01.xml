@@ -242,8 +242,9 @@
    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
    <t>No PM session is created on the reflector node R5.
-   As the probe message is not punted on the reflector node for processing, 
-   the Sender Sequence Number, Sender Timestamp, Sender Error 
+   As the probe packet is not punted on the reflector node for processing, the Sender
+   copies the 'Sequence Number' in 'Session-Sender Sequence Number' field directly.  
+   Also, the Sender Timestamp, Sender Error 
    Estimate and Sender TTL fields <xref target="RFC5357"/>  <xref target="RFC8762"/> 
    in the probe message are not used.</t>
 
