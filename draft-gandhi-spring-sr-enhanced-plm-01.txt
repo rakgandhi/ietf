@@ -231,7 +231,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                   |   R1  |====================||  R5   |
                   |       |<- - - - - - - - - - |       |
                   +-------+ t4   Return Probe   +-------+
-                   Sender                       Reflector Endpoint
+                   Sender                       Reflector
                                                 (Simply Forward)
 
                        Figure 1: Reference Topology
@@ -361,7 +361,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      |            Label(n)                   | TC  |S|      TTL      |
      +---------------------------------------------------------------+
      | IP Header                                                     |
-     .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
+     .  Source IP Address = Reflector IPv4 or IPv6 Address           .
      .  Destination IP Address = Sender IPv4 or IPv6 Address         .
      .  Protocol = UDP                                               .
      .                                                               .
@@ -405,7 +405,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
-     .  Source IP Address = Endpoint IPv6 Address                    .
+     .  Source IP Address = Reflector IPv6 Address                   .
      .  Destination IP Address = Sender IPv6 Address                 .
      .                                                               .
      +---------------------------------------------------------------+
@@ -455,7 +455,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                   |   R1  |====================||  R5   |
                   |       |<- - - - - - - - - - |       |
                   +-------+     Return Probe    +-------+
-                   Sender                       Reflector Endpoint
+                   Sender                       Reflector
                                                 (Timestamp,
                                                  Pop and Forward)
 
@@ -535,7 +535,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
      +---------------------------------------------------------------+
      | IP Header                                                     |
-     .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
+     .  Source IP Address = Reflector IPv4 or IPv6 Address           .
      .  Destination IP Address = Sender IPv4 or IPv6 Address         .
      .  Protocol = UDP                                               .
      .                                                               .
@@ -629,7 +629,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
-     .  Source IP Address = Endpoint IPv6 Address                    .
+     .  Source IP Address = Reflector IPv6 Address                   .
      .  Destination IP Address = Sender IPv6 Address                 .
      .                                                               .
      +---------------------------------------------------------------+

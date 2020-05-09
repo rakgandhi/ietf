@@ -220,7 +220,7 @@
                |   R1  |====================||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+ t4   Return Probe   +-------+
-                Sender                       Reflector Endpoint
+                Sender                       Reflector
                                              (Simply Forward)
        </artwork>
       </figure>
@@ -325,7 +325,7 @@
   |            Label(n)                   | TC  |S|      TTL      |
   +---------------------------------------------------------------+
   | IP Header                                                     |
-  .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
+  .  Source IP Address = Reflector IPv4 or IPv6 Address           .
   .  Destination IP Address = Sender IPv4 or IPv6 Address         .
   .  Protocol = UDP                                               .
   .                                                               .
@@ -361,7 +361,7 @@
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
-  .  Source IP Address = Endpoint IPv6 Address                    .
+  .  Source IP Address = Reflector IPv6 Address                   .
   .  Destination IP Address = Sender IPv6 Address                 .
   .                                                               .
   +---------------------------------------------------------------+
@@ -398,7 +398,7 @@
                |   R1  |====================||  R5   |
                |       |&lt;- - - - - - - - - - |       |
                +-------+     Return Probe    +-------+
-                Sender                       Reflector Endpoint
+                Sender                       Reflector
                                              (Timestamp, 
                                               Pop and Forward)
       </artwork>
@@ -468,7 +468,7 @@
   |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
   +---------------------------------------------------------------+
   | IP Header                                                     |
-  .  Source IP Address = Endpoint IPv4 or IPv6 Address            .
+  .  Source IP Address = Reflector IPv4 or IPv6 Address           .
   .  Destination IP Address = Sender IPv4 or IPv6 Address         .
   .  Protocol = UDP                                               .
   .                                                               .
@@ -530,7 +530,7 @@
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
-  .  Source IP Address = Endpoint IPv6 Address                    .
+  .  Source IP Address = Reflector IPv6 Address                   .
   .  Destination IP Address = Sender IPv6 Address                 .
   .                                                               .
   +---------------------------------------------------------------+
