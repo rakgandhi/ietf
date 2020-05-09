@@ -376,7 +376,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-                Figure 3: Probe Message Header for SR-MPLS
+                Figure 3: Example Probe Message for SR-MPLS
 
 4.2.  Loopback Mode for SRv6
 
@@ -419,7 +419,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-                  Figure 4: Probe Message Header for SRv6
+                 Figure 4: Example Probe Message for SRv6
 
 5.  Enhanced Performance and Liveness Monitoring
 
@@ -550,7 +550,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-      Figure 6: Probe Message Header for SR-MPLS with Timestamp Label
+     Figure 6: Example Probe Message for SR-MPLS with Timestamp Label
 
 
 
@@ -643,7 +643,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-      Figure 7: Probe Message Header for SRv6 with Endpoint Function
+      Figure 7: Example Probe Message for SRv6 with Endpoint Function
 
 6.  ECMP Handling
 

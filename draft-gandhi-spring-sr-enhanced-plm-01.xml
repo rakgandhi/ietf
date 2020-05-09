@@ -311,7 +311,7 @@
      path to receive the reply on a specific path.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
-                title="Probe Message Header for SR-MPLS">
+                title="Example Probe Message for SR-MPLS">
           <artwork>  0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -347,7 +347,7 @@
         The SID List can contain a reverse SRv6 path to receive the reply on a specific path.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
-                title="Probe Message Header for SRv6">
+                title="Example Probe Message for SRv6">
           <artwork>  
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -451,7 +451,7 @@
         data packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
-                title="Probe Message Header for SR-MPLS with Timestamp Label">
+                title="Example Probe Message for SR-MPLS with Timestamp Label">
           <artwork>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -516,7 +516,7 @@
         (just like the packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
-                title="Probe Message Header for SRv6 with Endpoint Function">
+                title="Example Probe Message for SRv6 with Endpoint Function">
           <artwork>
   +---------------------------------------------------------------+
   | IP Header                                                     |
