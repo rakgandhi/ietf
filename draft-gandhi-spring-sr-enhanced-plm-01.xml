@@ -143,7 +143,7 @@
       capability today to enable performance delay and loss monitoring in SR
       networks. Enabling multiple protocols in SR networks, S-BFD for liveness
       monitoring and TWAMP Light or STAMP for performance delay and loss monitoring increases
-      the operational complexity in SR networks.</t>
+      the deployment and operational complexities in SR networks.</t>
 
       <t>This document defines procedure for Enhanced 
       Performance and Liveness Monitoring (PLM) in Segment Routing networks.
@@ -250,8 +250,8 @@
    the sender copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly.</t>
 
    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
-   An example of a provisioning model and typical measurement parameters for each 
-   user-configured destination UDP port is shown in the following Figure 2:</t>
+   An example of a provisioning model and typical measurement parameters for the 
+   user-configured destination UDP port is shown in Figure 2:</t>
 
    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
@@ -277,15 +277,15 @@
 	</figure>
 
    <t>Example of Measurement Protocol is STAMP and TWAMP Light, the 
-   Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP, etc.. The mechanisms to provision the
+   Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP, etc. The mechanisms to provision the
    sender and reflector nodes are outside the scope of this document.</t>
 	</section>
 
 	</section>
 
-    <section anchor="sect-4" title="Liveness Monitoring">
-      <t>For liveness monitoring for an SR Path including SR Policy, the loopback mode is used. 
-      The probe messages for delay measurement 
+    <section anchor="sect-4" title="Performance and Liveness Monitoring">
+      <t>For performance and liveness monitoring for an SR Path including SR Policy, 
+      loopback mode is used.  The probe messages for delay measurement 
       are sent by the sender head-end node R1 to the reflector endpoint
       node R5 of the SR Policy using the user-configured IP/UDP path as shown
       in Figure 1.</t>
@@ -302,13 +302,13 @@
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
       provisioned value. For delay measurement, as per Reference Topology, 
-      the timestamps t1 and t4 are collected by the probes to measure round-trip delay.</t>
+      the timestamps t1 and t4 collected by the probes are used to measure round-trip delay.</t>
 
-      <section anchor="sect-4.1" title="Loopback Mode for SR-MPLS">
-        <t>The TWAMP Light or STAMP probe messages are sent using the label stack of the SR
-        Policy as shown in Figure 3 using the procedure specified in <xref target="I-D.gandhi-spring-twamp-srpm"/>.
-        The label stack can contain a reverse SR-MPLS 
-        path to receive the reply on a specific path.</t>
+    <section anchor="sect-4.1" title="Loopback Mode for SR-MPLS">
+     <t>The TWAMP Light or STAMP probe messages are sent using the label stack of the SR
+     Policy as shown in Figure 3.
+     The label stack can contain a reverse SR-MPLS 
+     path to receive the reply on a specific path.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
                 title="Probe Message Header for SR-MPLS">
@@ -343,7 +343,7 @@
 
       <section anchor="sect-4.2" title="Loopback Mode for SRv6">
         <t>The TWAMP Light or STAMP probe messages are sent using the SRH containing the Segment Identifier (SID)
-        List of the SR Policy as shown in Figure 4 using the procedure specified in <xref target="I-D.gandhi-spring-twamp-srpm"/>.
+        List of the SR Policy as shown in Figure 4.
         The SID List can contain a reverse SRv6 path to receive the reply on a specific path.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
