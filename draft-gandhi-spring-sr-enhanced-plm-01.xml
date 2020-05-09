@@ -242,7 +242,7 @@
    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
    <t>No PM session is created on the reflector node R5.
-   As the probe packet is not punted on the reflector node for processing, the Sender
+   As the probe message is not punted on the reflector node for processing, the Sender
    copies the 'Sequence Number' in 'Session-Sender Sequence Number' field directly.  
    Also, the Sender Timestamp, Sender Error 
    Estimate and Sender TTL fields <xref target="RFC5357"/>  <xref target="RFC8762"/> 
@@ -448,7 +448,7 @@
         target="RFC5357"/> or STAMP probe message. When a node receives a message with
         Timestamp Label, other than timestamping the message at a fixed location, 
         the node pops the Timestamp Label and forwards the
-        packet using the next label or IP header in the packet (just like the 
+        message using the next label or IP header in the message (just like the 
         data packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"

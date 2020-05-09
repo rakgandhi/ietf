@@ -252,11 +252,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.
 
    No PM session is created on the reflector node R5.  As the probe
-   packet is not punted on the reflector node for processing, the Sender
-   copies the 'Sequence Number' in 'Session-Sender Sequence Number'
-   field directly.  Also, the Sender Timestamp, Sender Error Estimate
-   and Sender TTL fields [RFC5357] [RFC8762] in the probe message are
-   not used.
+   message is not punted on the reflector node for processing, the
+   Sender copies the 'Sequence Number' in 'Session-Sender Sequence
+   Number' field directly.  Also, the Sender Timestamp, Sender Error
+   Estimate and Sender TTL fields [RFC5357] [RFC8762] in the probe
+   message are not used.
 
 3.1.  Example Provisioning Model
 
@@ -517,8 +517,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    collect "Receive Timestamp" field in the payload of the TWAMP Light
    [RFC5357] or STAMP probe message.  When a node receives a message
    with Timestamp Label, other than timestamping the message at a fixed
-   location, the node pops the Timestamp Label and forwards the packet
-   using the next label or IP header in the packet (just like the data
+   location, the node pops the Timestamp Label and forwards the message
+   using the next label or IP header in the message (just like the data
    packets for the normal traffic).
 
      0                   1                   2                   3
