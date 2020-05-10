@@ -78,7 +78,7 @@
 	</address>
 	</author>
 
-	<date day="8" month="May" year="2020"/>
+	<date day="10" month="May" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -307,14 +307,17 @@ Loss Measurement Mode   /                \
 ]]></artwork>
 	</figure>
 
-   <t>Example of Measurement Protocol is STAMP, the 
-   Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP and the Loss Measurement
-   mode is inferred-mode or direct-mode. The mechanisms to provision the
-   sender and reflector nodes are outside the scope of this document.</t>
+    <t>Example of Measurement Protocol is STAMP, 
+    example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP 
+    and example of the Loss Measurement
+    mode is inferred-mode or direct-mode.</t>
 
-   <t>The reflector node R5 uses the parameters for the timestamp format and
-   delay measurement mode (i.e. one-way or two-way mode)
-   from the received probe query message.</t>
+    <t>The mechanisms to provision the
+    sender and reflector nodes are outside the scope of this document.</t>
+
+    <t>The reflector node R5 uses the parameters for the timestamp format and
+    delay measurement mode (i.e. one-way or two-way mode)
+    from the received probe query message.</t>
 	</section>
 
 	</section>
@@ -1154,7 +1157,7 @@ Loss Measurement Mode   /                \
    ::FFFF:127/104 range, the Router Alert IP Option of value 69
    <xref target="RFC7506"/> for IPv6 MAY be added in the destination option header, 
    Section 4.6 of <xref target="RFC8200"/>.  For SRv6
-   Policy using SRH, it is added in the inner IPv6 header.</t>
+   Policy using SRH, it is added after the inner IPv6 header.</t>
 
 	</section>
 
