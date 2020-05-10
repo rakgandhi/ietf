@@ -359,9 +359,9 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
    The message content for Delay Measurement probe query message using
    UDP header [RFC0768] is shown in Figure 2.  The DM probe query
    message is sent with user-configured Destination UDP port number for
-   DM.  The Destination UDP port cannot be used as Source port, since
-   the message does not have any indication to distinguish between the
-   query and response message.  The payload of the DM probe query
+   DM.  The Destination UDP port cannot be used as Source port for DM,
+   since the message does not have any indication to distinguish between
+   the query and response message.  The payload of the DM probe query
    message contains the delay measurement message defined in
    Section 4.1.2 of [RFC5357].  For symmetrical size query and response
    messages as defined in [RFC6038], the DM probe query message contains
@@ -416,7 +416,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
    LM, which is a different Destination UDP port number than DM.
    Separate Destination UDP ports are used for direct-mode and inferred-
    mode loss measurements.  The Destination UDP port cannot be used as
-   Source port, since the message does not have any indication to
+   Source port for LM, since the message does not have any indication to
    distinguish between the query and response message.  The LM probe
    query message contains the payload for loss measurement as defined in
    Figure 7 and Figure 8.
@@ -571,8 +571,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
    format is backwards compatible with the message format defined in
    [RFC5357] as its reflectors ignore the received field (previously
    identified as MBZ).  The usage of the Control Code is not limited to
-   the SR networks and can be used for various bidirectional paths in a
-   network.
+   the SR networks and can be used for non-SR paths in a network.
 
     .                                                               .
     .                                                               .
@@ -613,6 +612,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
 
 
 
+
 Gandhi, et al.          Expires November 11, 2020              [Page 11]
 
 Internet-Draft       TWAMP Light for Segment Routing            May 2020
@@ -620,8 +620,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
 
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is
-       required over the same path in the reverse direction.  The
-       bidirectional path does not have to be an SR path.
+       required over the same path in the reverse direction.
 
    Reflector Control Code: Set as follows in TWAMP Light probe response
    message.
@@ -638,12 +637,12 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
    In this document, TWAMP Light probe query messages for loss
    measurement are defined as shown in Figure 7 and Figure 8.  The
    message formats are hardware efficient due to well-known locations of
-   the counters and small in size.  They are stand-alone and similar to
-   the delay measurement message formats (e.g. location of the Counter
-   and Timestamp).  They also do not require backwards compatibility and
-   support for the existing DM message formats from [RFC5357] as
-   different user-configured destination UDP port is used for loss
-   measurement.
+   the counters and payload small in size.  They are stand-alone and
+   similar to the delay measurement message formats (e.g. location of
+   the Counter and Timestamp).  They also do not require backwards
+   compatibility and support for the existing DM message formats from
+   [RFC5357] as different user-configured destination UDP port is used
+   for loss measurement.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -663,6 +662,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
     Figure 7: TWAMP Light LM Probe Query Message - Unauthenticated Mode
+
 
 
 
@@ -829,7 +829,7 @@ Internet-Draft       TWAMP Light for Segment Routing            May 2020
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
-   is useful for example, in case of two-way measurement mode for Link
+   is required for example, in case of two-way measurement mode for Link
    delay.
 
 

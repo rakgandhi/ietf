@@ -336,7 +336,7 @@ Loss Measurement Mode   /                \
    The message content for Delay Measurement probe query message using
    UDP header <xref target="RFC0768"/> is shown in Figure 2.  The DM probe query message
    is sent with user-configured Destination UDP port number for DM.  The
-   Destination UDP port cannot be used as Source port, since the message
+   Destination UDP port cannot be used as Source port for DM, since the message
    does not have any indication to distinguish between the query and
    response message.  The payload of the DM probe query message contains the delay
    measurement message defined in Section 4.1.2 of <xref target="RFC5357"/>. For symmetrical
@@ -391,7 +391,7 @@ Loss Measurement Mode   /                \
    which is a different Destination UDP port number than DM.
    Separate Destination UDP ports are used for direct-mode and
    inferred-mode loss measurements.  The Destination UDP port cannot be
-   used as Source port, since the message does not have any indication
+   used as Source port for LM, since the message does not have any indication
    to distinguish between the query and response message.  The LM probe query
    message contains the payload for loss measurement as defined in
    Figure 7 and Figure 8.</t>
@@ -528,7 +528,7 @@ Loss Measurement Mode   /                \
    This message format is backwards
    compatible with the message format defined in <xref target="RFC5357"/> as its reflectors
    ignore the received field (previously identified as MBZ).
-   The usage of the Control Code is not limited to the SR networks and can be used for various bidirectional paths in a network.</t>
+   The usage of the Control Code is not limited to the SR networks and can be used for non-SR paths in a network.</t>
 
    <figure title="Control Code in TWAMP Light Message" anchor="ure-control-code-in-twamp-message"><artwork><![CDATA[
  .                                                               .
@@ -575,7 +575,7 @@ Loss Measurement Mode   /                \
 	<t><list hangIndent="4" style="hanging"><t>
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is required
-       over the same path in the reverse direction. The bidirectional path does not have to be an SR path.</t>
+       over the same path in the reverse direction.</t>
 	</list>
 	</t>
 
@@ -600,7 +600,7 @@ Loss Measurement Mode   /                \
    <t> In this document, TWAMP Light probe query messages for
    loss measurement are defined as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to 
-   well-known locations of the counters and small in size.  They are stand-alone and similar to the delay
+   well-known locations of the counters and payload small in size.  They are stand-alone and similar to the delay
    measurement message formats (e.g. location of the Counter and Timestamp). They also  
    do not require backwards
    compatibility and support for the existing DM message formats from
@@ -780,7 +780,7 @@ Loss Measurement Mode   /                \
 
 	<t>
    Specifically, the probe response message is sent back on the incoming physical
-   interface where the probe query message is received. This is useful
+   interface where the probe query message is received. This is required
    for example, in case of two-way measurement mode for Link delay.</t>
 
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>

@@ -572,7 +572,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    the message format defined in STAMP [RFC8762] as its reflector MUST
    ignore the received field (previously identified as MBZ).  The usage
    of the Control Code is not limited to the SR networks and can be used
-   for various bidirectional paths in a network.
+   for non-SR paths in a network.
 
     .                                                               .
     .                                                               .
@@ -620,8 +620,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is
-       required over the same path in the reverse direction.  The
-       bidirectional path does not have to be an SR path.
+       required over the same path in the reverse direction.
 
    Reflector Control Code: Set as follows in STAMP probe response
    message.
@@ -638,7 +637,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    In this document, STAMP probe query messages for loss measurement are
    defined as shown in Figure 7 and Figure 8.  The message formats are
    hardware efficient due to well-known locations of the counters and
-   small in size.  They are stand-alone and similar to the delay
+   payload small in size.  They are stand-alone and similar to the delay
    measurement message formats (e.g. location of the Counter and
    Timestamp).  They also do not require backwards compatibility and
    support for the existing DM message formats from [RFC8762] as
@@ -666,6 +665,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
        Figure 7: STAMP LM Probe Query Message - Unauthenticated Mode
+
 
 
 
@@ -829,7 +829,7 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
-   is useful for example, in case of two-way measurement mode for Link
+   is required for example, in case of two-way measurement mode for Link
    delay.
 
 
