@@ -199,6 +199,9 @@
    SRv6: Segment Routing with IPv6 data plane.</t>
 
 	<t>
+   SSID: STAMP Session Identifier.</t>
+
+	<t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
 
 	<t>
@@ -483,6 +486,7 @@ Loss Measurement Mode   /                \
  .                                                               .
  +---------------------------------------------------------------+
  | SRH as specified in RFC 8754                                  |
+ .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | IP Header (Optional)                                          |
@@ -824,6 +828,7 @@ Loss Measurement Mode   /                \
  .                                                               .
  +---------------------------------------------------------------+
  | SRH as specified in RFC 8754                                  |
+ .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | IP Header (Optional)                                          |

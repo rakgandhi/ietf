@@ -383,9 +383,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The TWAMP Light or STAMP probe messages for SRv6 data plane are sent
    using the Segment Routing Header (SRH) [RFC8754] containing the
-   Segment List of the SR Policy as shown in Figure 4.  The SID List can
-   contain a reverse SRv6 path to receive the reply on a specific path.
-
+   Segment List of the SR Policy as shown in Figure 4.  The Segment List
+   can contain a reverse SRv6 path to receive the reply on a specific
+   path.
 
 
 
@@ -582,13 +582,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    timestamp and forward the received message.
 
    In the probe message with network programming for SRv6, END.TSF
-   function is added for the Endpoint SID in SRH [RFC8754] as shown in
-   Figure 7, to collect "Receive Timestamp" field in the payload of the
-   TWAMP Light [RFC5357] or STAMP probe message.  When a node receives a
-   packet with END.TSF function for the target SID which is local, other
-   than timestamping the packet at a fixed location, the node forwards
-   the packet using the next SID or IP header in the packet (just like
-   the packets for the normal traffic).
+   function is added for the Endpoint Segment Identifier (SID) in SRH
+   [RFC8754] as shown in Figure 7, to collect "Receive Timestamp" field
+   in the payload of the TWAMP Light [RFC5357] or STAMP probe message.
+   When a node receives a packet with END.TSF function for the target
+   SID which is local, other than timestamping the packet at a fixed
+   location, the node forwards the packet using the next SID or IP
+   header in the packet (just like the packets for the normal traffic).
 
 
 
