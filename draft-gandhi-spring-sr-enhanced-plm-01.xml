@@ -230,10 +230,10 @@
      </section>
  
     <section title="Protocol Overview" anchor="sect-3"><t>
-    In loopback mode, the TWAMP Light probe messages for delay measurement as defined in <xref
+    The TWAMP Light probe messages for delay measurement as defined in <xref
     target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
     are sent by the sender node R1 to the reflector 
-    node R5 as shown in Figure 1. The probe messages are sent by the sender node on the
+    node R5 in loopback mode as shown in Figure 1. The probe messages are sent by the sender node on the
     congruent path of the data traffic flowing on the SR Path.</t>
  
     <t>The UDP destination port number in the probe message is user-configured 
@@ -260,7 +260,7 @@
                              +------------+
   Destination UDP Port            /  \      Network Programming Label
   Measurement Protocol           /    \     Timestamp2 Offset
-  PDLM Type                     /      \    Timestamp Format
+  PDLM Mode                     /      \    Timestamp Format
      LB or Enhanced LB         /        \
   Authentication Mode & Key   /          \     
   Network Programming Label  /            \
@@ -276,16 +276,18 @@
 ]]></artwork>
 	</figure>
 
-    <t>Example of Measurement Protocol is STAMP and TWAMP Light, the 
-    Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP, etc. The mechanisms to provision the
+    <t>Example of Measurement Protocol is TWAMP Light and STAMP, example of  
+    Timestamp Format is PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
+    
+    <t>The mechanisms to provision the
     sender and reflector nodes are outside the scope of this document.</t>
-	</section>
+    </section>
 
-	</section>
+    </section>
 
      <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
-      <t>For performance and liveness monitoring for an SR Path including SR Policy, 
-      loopback mode is used.  The probe messages for delay measurement 
+      <t>For performance delay and liveness monitoring of an SR Path including SR Policy, 
+      loopback mode is used.  The PM probe messages 
       are sent by the sender head-end node R1 to the reflector endpoint
       node R5 of the SR Policy as shown in Figure 1.</t>
 
@@ -308,7 +310,7 @@
       where M is also locally provisioned value.</t>
 
     <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
-     <t>The TWAMP Light or STAMP probe messages for SR-MPLS data-plane are sent using the label stack of the SR
+     <t>The TWAMP Light or STAMP probe messages for SR-MPLS data plane are sent using the label stack of the SR
      Policy as shown in Figure 3. The label stack can contain a reverse SR-MPLS 
      path to receive the reply on a specific path.</t>
 
@@ -344,7 +346,7 @@
       </section>
 
      <section anchor="sect-4.2" title="Probe Message for SRv6">
-      <t>The TWAMP Light or STAMP probe messages for SRv6 data-plane are sent using the 
+      <t>The TWAMP Light or STAMP probe messages for SRv6 data plane are sent using the 
       Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
       the Segment List of the SR Policy as shown in Figure 4.
       The SID List can contain a reverse SRv6 path to receive the reply on a specific path.</t>
@@ -382,7 +384,7 @@
 
     <section anchor="sect-5"
              title="Enhanced Performance Delay and Liveness Monitoring">
-      <t>The enhanced performance and liveness monitoring for an SR Path including SR Policy is
+      <t>The enhanced performance delay and liveness monitoring of an SR Path including SR Policy is
       defined using the loopback mode enabled with network programming.
       The network programming function optimizes the "operations of punt, 
       add receive timestamp and inject the probe packet" on the reflector 
@@ -441,7 +443,7 @@
                title="Probe Message with Network Programming for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label (special purpose label with
-      value TBD1) is defined for SR-MPLS data-plane to enable network programming
+      value TBD1) is defined for SR-MPLS data plane to enable network programming
       function for timestamp, pop and forward the received packet.</t>
 
       <t>In the probe message with network programming for SR-MPLS,
@@ -504,7 +506,7 @@
                title="Probe Message with Network Programming for SRv6">
       <t>In this document, new Endpoint function "Timestamp and Forward
       (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
-      target="RFC8754"/> for SRv6 data-plane to enable
+      target="RFC8754"/> for SRv6 data plane to enable
       network programming function for timestamp and forward the received
       message.</t>
 

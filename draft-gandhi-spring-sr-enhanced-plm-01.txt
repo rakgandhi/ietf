@@ -238,12 +238,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 3.  Protocol Overview
 
-   In loopback mode, the TWAMP Light probe messages for delay
-   measurement as defined in [RFC5357] or STAMP probe messages as
-   defined in [RFC8762] are sent by the sender node R1 to the reflector
-   node R5 as shown in Figure 1.  The probe messages are sent by the
-   sender node on the congruent path of the data traffic flowing on the
-   SR Path.
+   The TWAMP Light probe messages for delay measurement as defined in
+   [RFC5357] or STAMP probe messages as defined in [RFC8762] are sent by
+   the sender node R1 to the reflector node R5 in loopback mode as shown
+   in Figure 1.  The probe messages are sent by the sender node on the
+   congruent path of the data traffic flowing on the SR Path.
 
    The UDP destination port number in the probe message is user-
    configured from the range specified in [RFC8762].  The Source and
@@ -277,6 +276,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
+
 Gandhi, et al.          Expires November 11, 2020               [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
@@ -287,7 +287,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                                 +------------+
      Destination UDP Port            /  \      Network Programming Label
      Measurement Protocol           /    \     Timestamp2 Offset
-     PDLM Type                     /      \    Timestamp Format
+     PDLM Mode                     /      \    Timestamp Format
         LB or Enhanced LB         /        \
      Authentication Mode & Key   /          \
      Network Programming Label  /            \
@@ -303,17 +303,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
                    Figure 2: Example Provisioning Model
 
-   Example of Measurement Protocol is STAMP and TWAMP Light, the
-   Timestamp Format is PTPv2 [IEEE1588] or NTP, etc.  The mechanisms to
-   provision the sender and reflector nodes are outside the scope of
-   this document.
+   Example of Measurement Protocol is TWAMP Light and STAMP, example of
+   Timestamp Format is PTPv2 [IEEE1588] and NTP, etc.
+
+   The mechanisms to provision the sender and reflector nodes are
+   outside the scope of this document.
 
 4.  Performance Delay and Liveness Monitoring
 
-   For performance and liveness monitoring for an SR Path including SR
-   Policy, loopback mode is used.  The probe messages for delay
-   measurement are sent by the sender head-end node R1 to the reflector
-   endpoint node R5 of the SR Policy as shown in Figure 1.
+   For performance delay and liveness monitoring of an SR Path including
+   SR Policy, loopback mode is used.  The PM probe messages are sent by
+   the sender head-end node R1 to the reflector endpoint node R5 of the
+   SR Policy as shown in Figure 1.
 
    The probe messages are sent using the Segment List (SL) of the
    Candidate-paths of the SR Policy
@@ -329,7 +330,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    Liveness failure is notified when consecutive N number of probe
    messages are not received back at the sender, where N is locally
    provisioned value.  For delay measurement, the timestamps t1 and t4
-   collected by the probes are used to measure round-trip delay.  The
 
 
 
@@ -338,13 +338,14 @@ Gandhi, et al.          Expires November 11, 2020               [Page 6]
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
+   collected by the probes are used to measure round-trip delay.  The
    delay metrics are notified when consecutive M number of probe
    messages have measured delay values violate user-configured
    threshold, where M is also locally provisioned value.
 
 4.1.  Probe Message for SR-MPLS
 
-   The TWAMP Light or STAMP probe messages for SR-MPLS data-plane are
+   The TWAMP Light or STAMP probe messages for SR-MPLS data plane are
    sent using the label stack of the SR Policy as shown in Figure 3.
    The label stack can contain a reverse SR-MPLS path to receive the
    reply on a specific path.
@@ -380,11 +381,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 4.2.  Probe Message for SRv6
 
-   The TWAMP Light or STAMP probe messages for SRv6 data-plane are sent
+   The TWAMP Light or STAMP probe messages for SRv6 data plane are sent
    using the Segment Routing Header (SRH) [RFC8754] containing the
    Segment List of the SR Policy as shown in Figure 4.  The SID List can
    contain a reverse SRv6 path to receive the reply on a specific path.
-
 
 
 
@@ -423,7 +423,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 5.  Enhanced Performance Delay and Liveness Monitoring
 
-   The enhanced performance and liveness monitoring for an SR Path
+   The enhanced performance delay and liveness monitoring of an SR Path
    including SR Policy is defined using the loopback mode enabled with
    network programming.  The network programming function optimizes the
    "operations of punt, add receive timestamp and inject the probe
@@ -509,7 +509,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 5.1.  Probe Message with Network Programming for SR-MPLS
 
    In this document, new Timestamp Label (special purpose label with
-   value TBD1) is defined for SR-MPLS data-plane to enable network
+   value TBD1) is defined for SR-MPLS data plane to enable network
    programming function for timestamp, pop and forward the received
    packet.
 
@@ -578,7 +578,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    In this document, new Endpoint function "Timestamp and Forward (TSF)"
    (value TBD2) is defined for Segment Routing Header (SRH) [RFC8754]
-   for SRv6 data-plane to enable network programming function for
+   for SRv6 data plane to enable network programming function for
    timestamp and forward the received message.
 
    In the probe message with network programming for SRv6, END.TSF
