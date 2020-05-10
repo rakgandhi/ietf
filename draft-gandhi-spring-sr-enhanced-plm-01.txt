@@ -346,9 +346,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 4.1.  Probe Message for SR-MPLS
 
    The TWAMP Light or STAMP probe messages for SR-MPLS data plane are
-   sent using the label stack of the SR Policy as shown in Figure 3.
-   The label stack can contain a reverse SR-MPLS path to receive the
-   reply on a specific path.
+   sent using the MPLS header containing the label stack of the SR
+   Policy as shown in Figure 3.  In case of IP/UDP return path, the MPLS
+   header is removed by the reflector node.  The label stack can contain
+   a reverse SR-MPLS path to receive the reply on a specific path.  In
+   this case, the MLS header will not be removed by the reflector node.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -383,9 +385,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The TWAMP Light or STAMP probe messages for SRv6 data plane are sent
    using the Segment Routing Header (SRH) [RFC8754] containing the
-   Segment List of the SR Policy as shown in Figure 4.  The Segment List
-   can contain a reverse SRv6 path to receive the reply on a specific
-   path.
+   Segment List of the SR Policy as shown in Figure 4.  In case of IP/
 
 
 
@@ -393,6 +393,11 @@ Gandhi, et al.          Expires November 11, 2020               [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
+
+   UDP return path, the SRH is removed by the reflector node.  The
+   Segment List can contain a reverse SRv6 path to receive the reply on
+   a specific path.  In this case, the SRH will not be removed by the
+   reflector node.
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -432,11 +437,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    plane are collected by the probe messages sent in loopback mode as
    shown in Figure 5.  The payload of the probe message is not modified
    by any intermediate nodes.
-
-
-
-
-
 
 
 

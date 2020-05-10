@@ -310,9 +310,14 @@
       where M is also locally provisioned value.</t>
 
     <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
-     <t>The TWAMP Light or STAMP probe messages for SR-MPLS data plane are sent using the label stack of the SR
-     Policy as shown in Figure 3. The label stack can contain a reverse SR-MPLS 
-     path to receive the reply on a specific path.</t>
+     <t>The TWAMP Light or STAMP probe messages for SR-MPLS data plane are 
+     sent using the MPLS header containing the label stack of the SR
+     Policy as shown in Figure 3. In case of IP/UDP
+     return path, the MPLS header is removed by the reflector node.
+     The label stack can contain a reverse SR-MPLS 
+     path to receive the reply on a specific path. 
+     In this case, the MLS header will not be removed
+     by the reflector node.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
                 title="Example Probe Message for SR-MPLS">
@@ -348,8 +353,11 @@
      <section anchor="sect-4.2" title="Probe Message for SRv6">
       <t>The TWAMP Light or STAMP probe messages for SRv6 data plane are sent using the 
       Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
-      the Segment List of the SR Policy as shown in Figure 4.
-      The SID List can contain a reverse SRv6 path to receive the reply on a specific path.</t>
+      the Segment List of the SR Policy as shown in Figure 4. In case of IP/UDP
+      return path, the SRH is removed by the reflector node.
+      The Segment List can contain a reverse SRv6 path to receive 
+      the reply on a specific path. In this case, the SRH will not be removed
+      by the reflector node.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
                 title="Example Probe Message for SRv6">
@@ -511,8 +519,8 @@
       message.</t>
 
       <t>In the probe message with network programming for SRv6,
-      END.TSF function is added for the Endpoint SID in SRH <xref
-      target="RFC8754"/> as shown in Figure 7,
+      END.TSF function is added for the Endpoint Segment Identifier (SID) in SRH 
+      <xref target="RFC8754"/> as shown in Figure 7,
       to collect "Receive Timestamp" field in the payload of the TWAMP Light <xref
       target="RFC5357"/> or STAMP probe message. When a node receives a packet with
       END.TSF function for the target SID which is local, 
