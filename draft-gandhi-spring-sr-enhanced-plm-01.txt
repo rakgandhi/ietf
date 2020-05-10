@@ -74,7 +74,7 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
      2.4.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
-   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   3.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   5
    4.  Performance Delay and Liveness Monitoring . . . . . . . . . .   6
      4.1.  Probe Message for SR-MPLS . . . . . . . . . . . . . . . .   7
@@ -236,7 +236,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    loopback probe messages, for example, due to a local policy
    provisioned on the node.
 
-3.  Overview
+3.  Protocol Overview
 
    In loopback mode, the TWAMP Light probe messages for delay
    measurement as defined in [RFC5357] or STAMP probe messages as

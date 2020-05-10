@@ -229,7 +229,7 @@
      </section>
      </section>
  
-    <section title="Overview" anchor="sect-3"><t>
+    <section title="Protocol Overview" anchor="sect-3"><t>
     In loopback mode, the TWAMP Light probe messages for delay measurement as defined in <xref
     target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
     are sent by the sender node R1 to the reflector 
