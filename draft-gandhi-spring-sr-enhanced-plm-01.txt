@@ -12,7 +12,8 @@ Expires: November 11, 2020                                  N. Vaghamshi
                                                             May 10, 2020
 
 
-Enhanced Performance and Liveness Monitoring in Segment Routing Networks
+ Enhanced Performance Delay and Liveness Monitoring in Segment Routing
+                                Networks
                  draft-gandhi-spring-sr-enhanced-plm-01
 
 Abstract
@@ -20,7 +21,7 @@ Abstract
    Segment Routing (SR) leverages the source routing paradigm.  SR is
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
-   Performance and Liveness Monitoring (PLM) in Segment Routing
+   Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
    networks.  The procedure uses the probe messages defined in RFC 5357
    (Two-Way Active Measurement Protocol (TWAMP) Light) and RFC 8762
    (Simple Two-Way Active Measurement Protocol (STAMP)) for SR Paths
@@ -48,8 +49,7 @@ Copyright Notice
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
+
 
 
 
@@ -58,6 +58,8 @@ Gandhi, et al.          Expires November 11, 2020               [Page 1]
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -71,15 +73,15 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
      2.4.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   5
-   4.  Performance and Liveness Monitoring . . . . . . . . . . . . .   6
+   4.  Performance Delay and Liveness Monitoring . . . . . . . . . .   6
      4.1.  Probe Message for SR-MPLS . . . . . . . . . . . . . . . .   7
      4.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   7
-   5.  Enhanced Performance and Liveness Monitoring  . . . . . . . .   8
+   5.  Enhanced Performance Delay and Liveness Monitoring  . . . . .   8
      5.1.  Probe Message with Network Programming for SR-MPLS  . . .  10
        5.1.1.  Node Capability for Timestamp Label . . . . . . . . .  11
      5.2.  Probe Message with Network Programming for SRv6 . . . . .  11
@@ -104,8 +106,6 @@ Table of Contents
    used to steer traffic through a specific, user-defined paths using a
    stack of Segments.  Built-in Liveness Monitoring for detecting faults
    as well as Performance Delay Measurement (DM) and Loss Measurement
-   (LM) are essential requirements to provide Service Level Agreements
-   (SLAs) in SR networks.
 
 
 
@@ -113,6 +113,9 @@ Gandhi, et al.          Expires November 11, 2020               [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
+
+   (LM) are essential requirements to provide Service Level Agreements
+   (SLAs) in SR networks.
 
    The One-Way Active Measurement Protocol (OWAMP) defined in [RFC4656]
    and Two-Way Active Measurement Protocol (TWAMP) defined in [RFC5357]
@@ -142,11 +145,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    delay and loss monitoring increases the deployment and operational
    complexities in SR networks.
 
-   This document defines procedure for Enhanced Performance and Liveness
-   Monitoring (PLM) in Segment Routing networks.  The procedure uses the
-   probe messages defined in [RFC5357] (TWAMP Light) and [RFC8762]
-   (STAMP) for SR Paths including SR Policies with both SR-MPLS and SRv6
-   data planes.
+   This document defines procedure for Enhanced Performance Delay and
+   Liveness Monitoring (PDLM) in Segment Routing networks.  The
+   procedure uses the probe messages defined in [RFC5357] (TWAMP Light)
+   and [RFC8762] (STAMP) for SR Paths including SR Policies with both
+   SR-MPLS and SRv6 data planes.
 
 2.  Conventions Used in This Document
 
@@ -157,11 +160,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
-2.2.  Abbreviations
 
-   BFD: Bidirectional Forwarding Detection.
 
-   BSID: Binding Segment ID.
 
 
 
@@ -169,6 +169,12 @@ Gandhi, et al.          Expires November 11, 2020               [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
+
+2.2.  Abbreviations
+
+   BFD: Bidirectional Forwarding Detection.
+
+   BSID: Binding Segment ID.
 
    DM: Delay Measurement.
 
@@ -180,7 +186,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    OWAMP: One-Way Active Measurement Protocol.
 
-   PLM: Performance and Liveness Monitoring.
+   PDLM: Performance Delay and Liveness Monitoring.
 
    PM: Performance Measurement.
 
@@ -209,6 +215,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    [I-D.ietf-spring-segment-routing-policy] originating on node R1 with
    endpoint on node R5.
 
+
+
+
+
+
+
+Gandhi, et al.          Expires November 11, 2020               [Page 4]
+
+Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
+
+
                   +-------+ t1   Probe          +-------+
                   |       | - - - - - - - - - - |       |
                   |   R1  |====================||  R5   |
@@ -218,13 +235,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                                                 (Simply Forward)
 
                        Figure 1: Reference Topology
-
-
-
-Gandhi, et al.          Expires November 11, 2020               [Page 4]
-
-Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
-
 
 2.4.  Loopback Mode
 
@@ -267,16 +277,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
 Gandhi, et al.          Expires November 11, 2020               [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
@@ -287,7 +287,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                                 +------------+
      Destination UDP Port            /  \      Network Programming Label
      Measurement Protocol           /    \     Timestamp2 Offset
-     PLM Type                      /      \    Timestamp Format
+     PDLM Type                     /      \    Timestamp Format
         LB or Enhanced LB         /        \
      Authentication Mode & Key   /          \
      Network Programming Label  /            \
@@ -308,7 +308,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    provision the sender and reflector nodes are outside the scope of
    this document.
 
-4.  Performance and Liveness Monitoring
+4.  Performance Delay and Liveness Monitoring
 
    For performance and liveness monitoring for an SR Path including SR
    Policy, loopback mode is used.  The probe messages for delay
@@ -317,7 +317,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The probe messages are sent using the Segment List (SL) of the
    Candidate-paths of the SR Policy
-   [I-D.ietf-spring-segment-routing-policy].  When a Cnadidate-path has
+   [I-D.ietf-spring-segment-routing-policy].  When a Candidate-path has
    more than one Segment Lists, multiple probe messages are sent, one
    using each Segment List.  The probe messages are received back by the
    sender node via IP/UDP [RFC0768] return path by default.  The Segment
@@ -421,7 +421,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
                  Figure 4: Example Probe Message for SRv6
 
-5.  Enhanced Performance and Liveness Monitoring
+5.  Enhanced Performance Delay and Liveness Monitoring
 
    The enhanced performance and liveness monitoring for an SR Path
    including SR Policy is defined using the loopback mode enabled with
@@ -513,7 +513,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    programming function for timestamp, pop and forward the received
    packet.
 
-   In the probe mnessage with network programming for SR-MPLS, Timestamp
+   In the probe message with network programming for SR-MPLS, Timestamp
    Label is added in the MPLS header as shown in Figure 6, to collect
    "Receive Timestamp" field in the payload of the TWAMP Light [RFC5357]
    or STAMP probe message.  When a node receives a message with
@@ -551,7 +551,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-     Figure 6: Example Probe Message for SR-MPLS with Timestamp Label
+     Figure 6: Example Probe Message with Timestamp Label for SR-MPLS
 
 
 
@@ -643,7 +643,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
      .                                                               .
      +---------------------------------------------------------------+
 
-      Figure 7: Example Probe Message for SRv6 with Endpoint Function
+      Figure 7: Example Probe Message with Endpoint Function for SRv6
 
 6.  ECMP Handling
 
@@ -662,10 +662,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 7.  Security Considerations
 
-   The Performance and Liveness Monitoring is intended for deployment in
-   the well-managed private and service provider networks.  As such, it
-   assumes that a node involved in a monitoring operation has previously
-   verified the integrity of the path and the identity of the far-end
+   The Performance Delay and Liveness Monitoring is intended for
+   deployment in the well-managed private and service provider networks.
+   As such, it assumes that a node involved in a monitoring operation
+   has previously verified the integrity of the path and the identity of
 
 
 
@@ -674,15 +674,15 @@ Gandhi, et al.          Expires November 11, 2020              [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
-   reflector node.  If desired, attacks can be mitigated by performing
-   basic validation and sanity checks, at the sender, of the counter or
-   timestamp fields in received measurement response messages.  The
-   minimal state associated with these protocols also limits the extent
-   of disruption that can be caused by a corrupt or invalid message to a
-   single query/response cycle.  Use of HMAC-SHA-256 in the
-   authenticated mode protects the data integrity of the probe messages.
-   Cryptographic measures may be enhanced by the correct configuration
-   of access-control lists and firewalls.
+   the far-end reflector node.  If desired, attacks can be mitigated by
+   performing basic validation and sanity checks, at the sender, of the
+   counter or timestamp fields in received measurement response
+   messages.  The minimal state associated with these protocols also
+   limits the extent of disruption that can be caused by a corrupt or
+   invalid message to a single query/response cycle.  Use of HMAC-
+   SHA-256 in the authenticated mode protects the data integrity of the
+   probe messages.  Cryptographic measures may be enhanced by the
+   correct configuration of access-control lists and firewalls.
 
 8.  IANA Considerations
 

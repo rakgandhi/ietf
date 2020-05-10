@@ -48,7 +48,7 @@
 
   <front>
     <title abbrev="Performance and Liveness Monitoring in SR">Enhanced
-    Performance and Liveness Monitoring in Segment Routing Networks</title>
+    Performance Delay and Liveness Monitoring in Segment Routing Networks</title>
 
     <author fullname="Rakesh Gandhi" initials="R." role="editor"
             surname="Gandhi">
@@ -95,7 +95,7 @@
       <t>Segment Routing (SR) leverages the source routing paradigm. SR is
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for Enhanced 
-      Performance and Liveness Monitoring (PLM) in Segment Routing networks.
+      Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure uses the probe messages defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) for SR Paths including 
@@ -146,7 +146,7 @@
       the deployment and operational complexities in SR networks.</t>
 
       <t>This document defines procedure for Enhanced 
-      Performance and Liveness Monitoring (PLM) in Segment Routing networks.
+      Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure uses the probe messages defined in  <xref target="RFC5357"/> (TWAMP Light) and 
       <xref target="RFC8762"/> (STAMP) for SR Paths including SR Policies with both
       SR-MPLS and SRv6 data planes.</t>
@@ -176,7 +176,7 @@
 
         <t>OWAMP: One-Way Active Measurement Protocol.</t>
 
-        <t>PLM: Performance and Liveness Monitoring.</t>
+        <t>PDLM: Performance Delay and Liveness Monitoring.</t>
 
         <t>PM: Performance Measurement.</t>
 
@@ -199,11 +199,11 @@
         <t>TWAMP: Two-Way Active Measurement Protocol.</t>
       </section>
 
-   <section title="Reference Topology" anchor="sect-2.3"><t>
-   In the reference topology shown below, the nodes R1 and R5 are connected via 
-   Point-to-Point (P2P) SR Path such as SR Policy
-   <xref target="I-D.ietf-spring-segment-routing-policy"/> 
-   originating on node R1 with endpoint on node R5.</t>
+    <section title="Reference Topology" anchor="sect-2.3"><t>
+    In the reference topology shown below, the nodes R1 and R5 are connected via 
+    Point-to-Point (P2P) SR Path such as SR Policy
+    <xref target="I-D.ietf-spring-segment-routing-policy"/> 
+    originating on node R1 with endpoint on node R5.</t>
 
       <figure anchor="ure-reference-topology" title="Reference Topology">
         <artwork>
@@ -229,7 +229,6 @@
      </section>
      </section>
  
-
     <section title="Overview" anchor="sect-3"><t>
     In loopback mode, the TWAMP Light probe messages for delay measurement as defined in <xref
     target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
@@ -261,7 +260,7 @@
                              +------------+
   Destination UDP Port            /  \      Network Programming Label
   Measurement Protocol           /    \     Timestamp2 Offset
-  PLM Type                      /      \    Timestamp Format
+  PDLM Type                     /      \    Timestamp Format
      LB or Enhanced LB         /        \
   Authentication Mode & Key   /          \     
   Network Programming Label  /            \
@@ -284,7 +283,7 @@
 
 	</section>
 
-     <section anchor="sect-4" title="Performance and Liveness Monitoring">
+     <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
       <t>For performance and liveness monitoring for an SR Path including SR Policy, 
       loopback mode is used.  The probe messages for delay measurement 
       are sent by the sender head-end node R1 to the reflector endpoint
@@ -292,7 +291,7 @@
 
       <t>The probe messages are sent using the Segment List (SL) of the Candidate-paths of the SR Policy
       <xref target="I-D.ietf-spring-segment-routing-policy"/>.
-      When a Cnadidate-path has more than one Segment Lists, multiple
+      When a Candidate-path has more than one Segment Lists, multiple
       probe messages are sent, one using each Segment List. The probe messages are received back by
       the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
       The Segment List of the return SR path can be added in the probe message header
@@ -382,7 +381,7 @@
     </section>
 
     <section anchor="sect-5"
-             title="Enhanced Performance and Liveness Monitoring">
+             title="Enhanced Performance Delay and Liveness Monitoring">
       <t>The enhanced performance and liveness monitoring for an SR Path including SR Policy is
       defined using the loopback mode enabled with network programming.
       The network programming function optimizes the "operations of punt, 
@@ -445,7 +444,7 @@
       value TBD1) is defined for SR-MPLS data-plane to enable network programming
       function for timestamp, pop and forward the received packet.</t>
 
-      <t>In the probe mnessage with network programming for SR-MPLS,
+      <t>In the probe message with network programming for SR-MPLS,
       Timestamp Label is added in the MPLS header as shown in Figure 6, to
       collect "Receive Timestamp" field in the payload of the TWAMP Light <xref
       target="RFC5357"/> or STAMP probe message. When a node receives a message with
@@ -455,7 +454,7 @@
       data packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls-with-timestamp-label"
-                title="Example Probe Message for SR-MPLS with Timestamp Label">
+                title="Example Probe Message with Timestamp Label for SR-MPLS">
           <artwork>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -520,7 +519,7 @@
       (just like the packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
-                title="Example Probe Message for SRv6 with Endpoint Function">
+                title="Example Probe Message with Endpoint Function for SRv6">
           <artwork>
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -566,7 +565,7 @@
    </section>
 
    <section anchor="sect-7" title="Security Considerations" toc="default">
-      <t>The Performance and Liveness Monitoring is intended for deployment in
+      <t>The Performance Delay and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
       the integrity of the path and the identity of the far-end reflector
