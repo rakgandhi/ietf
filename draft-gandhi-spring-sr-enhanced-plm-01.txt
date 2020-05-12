@@ -285,15 +285,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                                +------------+
                                | Controller |
                                +------------+
-    Destination UDP Port            /  \      Network Programming Label
-    Measurement Protocol           /    \     Timestamp2 Offset
-    PDLM Mode                     /      \    Timestamp Format
-       LB or Enhanced LB         /        \
-    Authentication Mode & Key   /          \
+    Destination UDP Port           /    \     Network Programming Label
+    Measurement Protocol          /      \    Timestamp2 Offset
+    PDLM Mode                    /        \   Timestamp Format
+       LB or Enhanced LB        /          \
     Network Programming Label  /            \
     Timestamp Format          /              \
                              /                \
-                            v                  v
+                            /                  \
+                           v                    v
                        +-------+            +-------+
                        |       |  SR Path   |       |
                        |   R1  |============|   R5  |
