@@ -5,11 +5,11 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: November 11, 2020                                  N. Vaghamshi
+Expires: November 12, 2020                                  N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
-                                                            May 10, 2020
+                                                            May 11, 2020
 
 
  Performance Delay and Liveness Monitoring in Segment Routing Networks
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 11, 2020.
+   This Internet-Draft will expire on November 12, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 1]
+Gandhi, et al.          Expires November 12, 2020               [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 2]
+Gandhi, et al.          Expires November 12, 2020               [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -165,7 +165,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 3]
+Gandhi, et al.          Expires November 12, 2020               [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -221,7 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 4]
+Gandhi, et al.          Expires November 12, 2020               [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -277,29 +277,29 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 5]
+Gandhi, et al.          Expires November 12, 2020               [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
-                                +------------+
-                                | Controller |
-                                +------------+
-     Destination UDP Port            /  \      Network Programming Label
-     Measurement Protocol           /    \     Timestamp2 Offset
-     PDLM Mode                     /      \    Timestamp Format
-        LB or Enhanced LB         /        \
-     Authentication Mode & Key   /          \
-     Network Programming Label  /            \
-     Timestamp Format          /              \
-                              /                \
-                             v                  v
-                        +-------+            +-------+
-                        |       |  SR Path   |       |
-                        |   R1  |============|   R5  |
-                        |       |            |       |
-                        +-------+            +-------+
-                         Sender              Reflector
+                               +------------+
+                               | Controller |
+                               +------------+
+    Destination UDP Port            /  \      Network Programming Label
+    Measurement Protocol           /    \     Timestamp2 Offset
+    PDLM Mode                     /      \    Timestamp Format
+       LB or Enhanced LB         /        \
+    Authentication Mode & Key   /          \
+    Network Programming Label  /            \
+    Timestamp Format          /              \
+                             /                \
+                            v                  v
+                       +-------+            +-------+
+                       |       |  SR Path   |       |
+                       |   R1  |============|   R5  |
+                       |       |            |       |
+                       +-------+            +-------+
+                        Sender              Reflector
 
                    Figure 2: Example Provisioning Model
 
@@ -312,9 +312,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 4.  Performance Delay and Liveness Monitoring
 
    For performance delay and liveness monitoring of an SR Path including
-   SR Policy, loopback mode is used.  The PM probe messages are sent by
-   the sender head-end node R1 to the reflector endpoint node R5 of the
-   SR Policy as shown in Figure 1.
+   SR Policy, PM probes in loopback mode is used.  The PM probe messages
+   are sent by the sender (head-end) node R1 to the reflector (endpoint)
+   node R5 of the SR Policy as shown in Figure 1.
 
    The probe messages are sent using the Segment List (SL) of the
    Candidate-paths of the SR Policy
@@ -333,7 +333,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 6]
+Gandhi, et al.          Expires November 12, 2020               [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -389,7 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 7]
+Gandhi, et al.          Expires November 12, 2020               [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -429,14 +429,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 5.  Enhanced Performance Delay and Liveness Monitoring
 
    The enhanced performance delay and liveness monitoring of an SR Path
-   including SR Policy is defined using the loopback mode enabled with
-   network programming.  The network programming function optimizes the
-   "operations of punt, add receive timestamp and inject the probe
-   packet" on the reflector node and is implemented in hardware.  In
-   this mode, both transmit (t1) and receive (t2) timestamps in data
-   plane are collected by the probe messages sent in loopback mode as
-   shown in Figure 5.  The payload of the probe message is not modified
-   by any intermediate nodes.
+   including SR Policy is defined using the PM probes in loopback mode
+   enabled with network programming.  The network programming function
+   optimizes the "operations of punt, add receive timestamp and inject
+   the probe packet" on the reflector node and is implemented in
+   hardware.  In this mode, both transmit (t1) and receive (t2)
+   timestamps in data plane are collected by the probe messages sent in
+   loopback mode as shown in Figure 5.  The payload of the probe message
+   is not modified by any intermediate nodes.
 
 
 
@@ -445,7 +445,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 8]
+Gandhi, et al.          Expires November 12, 2020               [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -463,14 +463,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    The sender node adds transmit (t1) timestamp in the payload of the
    TWAMP Light or STAMP probe message and clears the receive (t2)
-   timestamp.  The endpoint node adds the receive timestamp (at the
+   timestamp.  The reflector node adds the receive timestamp (at the
    fixed location locally provisioned consistently in the network) in
    the payload of the received TWAMP Light or STAMP probe message
    without punting the probe message in control-plane.  The reflector
-   endpoint node only adds the receive timestamp if the source address
-   in the probe message matches the local node address to ensure that
-   the receive timestamp is returned by the intended endpoint node.  In
-   addition, the UDP port in the probe message must be locally
+   node only adds the receive timestamp if the source or destination
+   address in the probe message matches the local node address to ensure
+   that the receive timestamp is returned by the intended reflector
+   node.  In addition, the UDP port in the probe message must be locally
    programmed for adding the timestamp in the probe message.  The one-
    way delay is measured using the receive (t2) and transmit (t1)
    timestamps in the probe message.
@@ -501,7 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 9]
+Gandhi, et al.          Expires November 12, 2020               [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -557,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 10]
+Gandhi, et al.          Expires November 12, 2020              [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 11]
+Gandhi, et al.          Expires November 12, 2020              [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -669,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 12]
+Gandhi, et al.          Expires November 12, 2020              [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -725,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 13]
+Gandhi, et al.          Expires November 12, 2020              [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -781,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 14]
+Gandhi, et al.          Expires November 12, 2020              [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -837,7 +837,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 15]
+Gandhi, et al.          Expires November 12, 2020              [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
@@ -893,4 +893,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 16]
+Gandhi, et al.          Expires November 12, 2020              [Page 16]

@@ -87,7 +87,7 @@
       </address>
     </author>
 
-    <date day="10" month="May" year="2020"/>
+    <date day="11" month="May" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -255,24 +255,24 @@
  
     <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
-                             +------------+
-                             | Controller |
-                             +------------+
-  Destination UDP Port            /  \      Network Programming Label
-  Measurement Protocol           /    \     Timestamp2 Offset
-  PDLM Mode                     /      \    Timestamp Format
-     LB or Enhanced LB         /        \
-  Authentication Mode & Key   /          \     
-  Network Programming Label  /            \
-  Timestamp Format          /              \
-                           /                \ 
-                          v                  v
-                     +-------+            +-------+
-                     |       |  SR Path   |       |
-                     |   R1  |============|   R5  |
-                     |       |            |       |
-                     +-------+            +-------+
-                      Sender              Reflector
+                            +------------+
+                            | Controller |
+                            +------------+
+ Destination UDP Port            /  \      Network Programming Label
+ Measurement Protocol           /    \     Timestamp2 Offset
+ PDLM Mode                     /      \    Timestamp Format
+    LB or Enhanced LB         /        \
+ Authentication Mode & Key   /          \     
+ Network Programming Label  /            \
+ Timestamp Format          /              \
+                          /                \ 
+                         v                  v
+                    +-------+            +-------+
+                    |       |  SR Path   |       |
+                    |   R1  |============|   R5  |
+                    |       |            |       |
+                    +-------+            +-------+
+                     Sender              Reflector
 ]]></artwork>
 	</figure>
 
@@ -287,8 +287,8 @@
 
      <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
       <t>For performance delay and liveness monitoring of an SR Path including SR Policy, 
-      loopback mode is used.  The PM probe messages 
-      are sent by the sender head-end node R1 to the reflector endpoint
+      PM probes in loopback mode is used.  The PM probe messages 
+      are sent by the sender (head-end) node R1 to the reflector (endpoint)
       node R5 of the SR Policy as shown in Figure 1.</t>
 
       <t>The probe messages are sent using the Segment List (SL) of the Candidate-paths of the SR Policy
@@ -393,7 +393,7 @@
     <section anchor="sect-5"
              title="Enhanced Performance Delay and Liveness Monitoring">
       <t>The enhanced performance delay and liveness monitoring of an SR Path including SR Policy is
-      defined using the loopback mode enabled with network programming.
+      defined using the PM probes in loopback mode enabled with network programming.
       The network programming function optimizes the "operations of punt, 
       add receive timestamp and inject the probe packet" on the reflector 
       node and is implemented in hardware. In this
@@ -418,13 +418,13 @@
    
       <t> The sender node adds transmit (t1)
       timestamp in the payload of the TWAMP Light or STAMP probe message and clears the receive (t2) timestamp. 
-      The endpoint node adds the receive timestamp (at the fixed location 
+      The reflector node adds the receive timestamp (at the fixed location 
       locally provisioned consistently in the network) in the 
       payload of the received TWAMP Light or STAMP probe 
-      message without punting the probe message in control-plane. The reflector endpoint node only
-      adds the receive timestamp if the source address in the probe message matches
+      message without punting the probe message in control-plane. The reflector node only
+      adds the receive timestamp if the source or destination address in the probe message matches
       the local node address to ensure that the receive timestamp is returned by the 
-      intended endpoint node. In addition, the UDP port in the probe message must be
+      intended reflector node. In addition, the UDP port in the probe message must be
       locally programmed for adding the timestamp in the probe message. The one-way delay 
       is measured using the receive (t2) and transmit (t1) timestamps in the probe message.</t>
 
