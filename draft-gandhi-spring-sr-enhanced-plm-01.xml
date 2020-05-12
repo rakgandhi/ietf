@@ -24,6 +24,7 @@
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
+<!ENTITY I-D.ietf-mpls-spl-terminology SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mpls-spl-terminology.xml">
 <!ENTITY I-D.gandhi-spring-twamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-twamp-srpm.xml">
 <!ENTITY I-D.gandhi-spring-stamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-stamp-srpm.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
@@ -507,6 +508,27 @@
       MUST make sure (e.g., by some capability discovery mechanisms outside
       the scope of this document) that the egress node can process the Timestamp Label.</t>
       </section>
+
+	<section title="Timestamp Label Allocation" anchor="sect-5.1.2" toc="default"><t>
+      Timestamp Label (value TBA1) can be allocated using one of the following
+      methods:</t>
+
+	<t><list style="symbols"><t>Labels assigned by IANA with value TBA1 from the Extended
+      Special-Purpose MPLS Values <xref target="I-D.ietf-mpls-spl-terminology"/>.</t>
+
+	<t>Labels allocated by a Controller from the global table of the
+      egress node.  The Controller provisions the label on both
+      ingress and egress nodes.</t>
+
+	<t>Labels allocated by the egress node. The signaling or IGP flooding
+      extension for this is outside the scope of this document.</t>
+
+	</list>
+	</t>
+
+	</section>
+
+
       </section>
 
       <section anchor="sect-5.2"
@@ -656,6 +678,7 @@
       &I-D.ietf-spring-segment-routing-policy;
       &I-D.ietf-spring-srv6-network-programming;
       &I-D.ietf-pce-binding-label-sid;
+      &I-D.ietf-mpls-spl-terminology;
       &I-D.ietf-pce-sr-bidir-path;
     </references>
 

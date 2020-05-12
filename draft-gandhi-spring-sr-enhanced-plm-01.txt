@@ -71,7 +71,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
      2.4.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   5
@@ -82,6 +82,7 @@ Table of Contents
    5.  Enhanced Performance Delay and Liveness Monitoring  . . . . .   8
      5.1.  Probe Message with Network Programming for SR-MPLS  . . .  10
        5.1.1.  Node Capability for Timestamp Label . . . . . . . . .  11
+       5.1.2.  Timestamp Label Allocation  . . . . . . . . . . . . .  11
      5.2.  Probe Message with Network Programming for SRv6 . . . . .  11
    6.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  12
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
@@ -90,7 +91,7 @@ Table of Contents
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  14
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -104,8 +105,7 @@ Table of Contents
    used to steer traffic through a specific, user-defined paths using a
    stack of Segments.  Built-in Liveness Monitoring for detecting faults
    as well as Performance Delay Measurement (DM) and Loss Measurement
-   (LM) are essential requirements to provide Service Level Agreements
-   (SLAs) in SR networks.
+
 
 
 
@@ -113,6 +113,9 @@ Gandhi, et al.          Expires November 12, 2020               [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
+
+   (LM) are essential requirements to provide Service Level Agreements
+   (SLAs) in SR networks.
 
    The One-Way Active Measurement Protocol (OWAMP) defined in [RFC4656]
    and Two-Way Active Measurement Protocol (TWAMP) defined in [RFC5357]
@@ -157,11 +160,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
-2.2.  Abbreviations
 
-   BFD: Bidirectional Forwarding Detection.
 
-   BSID: Binding Segment ID.
 
 
 
@@ -169,6 +169,12 @@ Gandhi, et al.          Expires November 12, 2020               [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
+
+2.2.  Abbreviations
+
+   BFD: Bidirectional Forwarding Detection.
+
+   BSID: Binding Segment ID.
 
    DM: Delay Measurement.
 
@@ -209,6 +215,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    [I-D.ietf-spring-segment-routing-policy] originating on node R1 with
    endpoint on node R5.
 
+
+
+
+
+
+
+Gandhi, et al.          Expires November 12, 2020               [Page 4]
+
+Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
+
+
                   +-------+ t1   Probe          +-------+
                   |       | - - - - - - - - - - |       |
                   |   R1  |====================||  R5   |
@@ -218,13 +235,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
                                                 (Simply Forward)
 
                        Figure 1: Reference Topology
-
-
-
-Gandhi, et al.          Expires November 12, 2020               [Page 4]
-
-Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
-
 
 2.4.  Loopback Mode
 
@@ -261,16 +271,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
    An example of a provisioning model and typical measurement parameters
    for the user-configured destination UDP port is shown in Figure 2:
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -574,6 +574,21 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    mechanisms outside the scope of this document) that the egress node
    can process the Timestamp Label.
 
+5.1.2.  Timestamp Label Allocation
+
+   Timestamp Label (value TBA1) can be allocated using one of the
+   following methods:
+
+   o  Labels assigned by IANA with value TBA1 from the Extended Special-
+      Purpose MPLS Values [I-D.ietf-mpls-spl-terminology].
+
+   o  Labels allocated by a Controller from the global table of the
+      egress node.  The Controller provisions the label on both ingress
+      and egress nodes.
+
+   o  Labels allocated by the egress node.  The signaling or IGP
+      flooding extension for this is outside the scope of this document.
+
 5.2.  Probe Message with Network Programming for SRv6
 
    In this document, new Endpoint function "Timestamp and Forward (TSF)"
@@ -589,21 +604,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    SID which is local, other than timestamping the packet at a fixed
    location, the node forwards the packet using the next SID or IP
    header in the packet (just like the packets for the normal traffic).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -816,6 +816,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
               in PCE-based Networks.", draft-ietf-pce-binding-label-
               sid-02 (work in progress), March 2020.
 
+   [I-D.ietf-mpls-spl-terminology]
+              Andersson, L., Kompella, K., and A. Farrel, "Special
+              Purpose Label terminology", draft-ietf-mpls-spl-
+              terminology-02 (work in progress), May 2020.
+
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
               "PCEP Extensions for Associated Bidirectional Segment
@@ -826,13 +831,8 @@ Acknowledgments
 
    TBD
 
-Authors' Addresses
 
-   Rakesh Gandhi (editor)
-   Cisco Systems, Inc.
-   Canada
 
-   Email: rgandhi@cisco.com
 
 
 
@@ -840,6 +840,15 @@ Authors' Addresses
 Gandhi, et al.          Expires November 12, 2020              [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
+
+
+Authors' Addresses
+
+   Rakesh Gandhi (editor)
+   Cisco Systems, Inc.
+   Canada
+
+   Email: rgandhi@cisco.com
 
 
    Clarence Filsfils
@@ -858,15 +867,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    Telstra
 
    Email: Moses.Nagarajah@team.telstra.com
-
-
-
-
-
-
-
-
-
 
 
 
