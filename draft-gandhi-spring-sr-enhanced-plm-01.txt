@@ -470,10 +470,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    node only adds the receive timestamp if the source or destination
    address in the probe message matches the local node address to ensure
    that the receive timestamp is returned by the intended reflector
-   node.  In addition, the UDP port in the probe message must be locally
-   programmed for adding the timestamp in the probe message.  The one-
-   way delay is measured using the receive (t2) and transmit (t1)
-   timestamps in the probe message.
+   node.  The one-way delay is measured using the receive (t2) and
+   transmit (t1) timestamps in the probe message.
 
    Timestamp format recommended is 64-bit PTPv2 [IEEE1588] as specified
    in [RFC8186] implemented in hardware.  Note that the timestamp format
@@ -495,6 +493,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    consecutive M number of probe messages have measured delay values
    violate user-configured threshold, where M is also locally
    provisioned value.
+
+
 
 
 

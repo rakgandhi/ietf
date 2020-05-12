@@ -424,8 +424,7 @@
       message without punting the probe message in control-plane. The reflector node only
       adds the receive timestamp if the source or destination address in the probe message matches
       the local node address to ensure that the receive timestamp is returned by the 
-      intended reflector node. In addition, the UDP port in the probe message must be
-      locally programmed for adding the timestamp in the probe message. The one-way delay 
+      intended reflector node. The one-way delay 
       is measured using the receive (t2) and transmit (t1) timestamps in the probe message.</t>
 
       <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
