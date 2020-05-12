@@ -140,9 +140,9 @@
       the S-BFD packets as packets are punted from forwarding path in order to
       send reply thereby limiting the scale for number of sessions and fault
       detection interval. In addition, S-BFD protocol does not have the
-      capability today to enable performance delay and loss monitoring in SR
+      capability today to enable performance delay monitoring in SR
       networks. Enabling multiple protocols in SR networks, S-BFD for liveness
-      monitoring and TWAMP Light or STAMP for performance delay and loss monitoring increases
+      monitoring and TWAMP Light or STAMP for performance delay monitoring increases
       the deployment and operational complexities in SR networks.</t>
 
       <t>This document defines procedure for 
@@ -194,7 +194,7 @@
 
         <t>SRv6: Segment Routing with IPv6 data plane.</t>
 	
-	   <t>STAMP: Simple Two-way Active Measurement Protocol.</t>
+	<t>STAMP: Simple Two-way Active Measurement Protocol.</t>
 
         <t>TWAMP: Two-Way Active Measurement Protocol.</t>
       </section>
@@ -578,10 +578,10 @@
       <t>The Performance Delay and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
-      the integrity of the path and the identity of the far-end reflector
+      the integrity of the path and the identity of the reflector
       node. If desired, attacks can be mitigated by performing basic
-      validation and sanity checks, at the sender, of the counter or timestamp
-      fields in received measurement response messages. The minimal state
+      validation and sanity checks, at the sender, of the timestamp
+      fields in received probe response messages. The minimal state
       associated with these protocols also limits the extent of disruption
       that can be caused by a corrupt or invalid message to a single
       query/response cycle. Use of HMAC-SHA-256 in the authenticated mode
@@ -599,11 +599,11 @@
 
       <figure>
         <artwork>
-    +-------------+-------------------------+---------------+
-    | Value       | Description             | Reference     |
-    +-------------+-------------------------+---------------+
-    | TBA1        | Timestamp Label         | This document |
-    +-------------+-------------------------+---------------+
+    +-------------+---------------------------------+---------------+
+    | Value       | Description                     | Reference     |
+    +-------------+---------------------------------+---------------+
+    | TBA1        | Timestamp Label                 | This document |
+    +-------------+---------------------------------+---------------+
       </artwork>
       </figure>
 
@@ -611,7 +611,7 @@
       Registry" sub-registry belonging to the top-level "Segment-routing with
       IPv6 data plane (SRv6) Parameters" registry <xref
       target="I-D.ietf-spring-srv6-network-programming"/>, the following
-      allocations:</t>
+      allocation:</t>
 
       <figure>
         <artwork>     

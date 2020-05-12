@@ -136,11 +136,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    S-BFD packets as packets are punted from forwarding path in order to
    send reply thereby limiting the scale for number of sessions and
    fault detection interval.  In addition, S-BFD protocol does not have
-   the capability today to enable performance delay and loss monitoring
-   in SR networks.  Enabling multiple protocols in SR networks, S-BFD
-   for liveness monitoring and TWAMP Light or STAMP for performance
-   delay and loss monitoring increases the deployment and operational
-   complexities in SR networks.
+   the capability today to enable performance delay monitoring in SR
+   networks.  Enabling multiple protocols in SR networks, S-BFD for
+   liveness monitoring and TWAMP Light or STAMP for performance delay
+   monitoring increases the deployment and operational complexities in
+   SR networks.
 
    This document defines procedure for Performance Delay and Liveness
    Monitoring (PDLM) in Segment Routing networks.  The procedure uses
@@ -674,15 +674,15 @@ Gandhi, et al.          Expires November 12, 2020              [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
 
 
-   the far-end reflector node.  If desired, attacks can be mitigated by
+   the reflector node.  If desired, attacks can be mitigated by
    performing basic validation and sanity checks, at the sender, of the
-   counter or timestamp fields in received measurement response
-   messages.  The minimal state associated with these protocols also
-   limits the extent of disruption that can be caused by a corrupt or
-   invalid message to a single query/response cycle.  Use of HMAC-
-   SHA-256 in the authenticated mode protects the data integrity of the
-   probe messages.  Cryptographic measures may be enhanced by the
-   correct configuration of access-control lists and firewalls.
+   timestamp fields in received probe response messages.  The minimal
+   state associated with these protocols also limits the extent of
+   disruption that can be caused by a corrupt or invalid message to a
+   single query/response cycle.  Use of HMAC-SHA-256 in the
+   authenticated mode protects the data integrity of the probe messages.
+   Cryptographic measures may be enhanced by the correct configuration
+   of access-control lists and firewalls.
 
 8.  IANA Considerations
 
@@ -692,17 +692,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
    allocate Timestamp Label value from the "Extended Special-Purpose
    MPLS Label Values" registry:
 
-       +-------------+-------------------------+---------------+
-       | Value       | Description             | Reference     |
-       +-------------+-------------------------+---------------+
-       | TBA1        | Timestamp Label         | This document |
-       +-------------+-------------------------+---------------+
+       +-------------+---------------------------------+---------------+
+       | Value       | Description                     | Reference     |
+       +-------------+---------------------------------+---------------+
+       | TBA1        | Timestamp Label                 | This document |
+       +-------------+---------------------------------+---------------+
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
    Registry" sub-registry belonging to the top-level "Segment-routing
    with IPv6 data plane (SRv6) Parameters" registry
-   [I-D.ietf-spring-srv6-network-programming], the following
-   allocations:
+   [I-D.ietf-spring-srv6-network-programming], the following allocation:
 
        +-------------+---------------------------------+---------------+
        | Value       | Endpoint Behavior               | Reference     |
@@ -722,6 +721,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR       May 2020
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
 
 
 
