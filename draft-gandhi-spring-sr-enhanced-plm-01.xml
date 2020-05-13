@@ -88,7 +88,7 @@
       </address>
     </author>
 
-    <date day="11" month="May" year="2020"/>
+    <date day="13" month="May" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -305,9 +305,9 @@
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
       provisioned value. For delay measurement, 
-      the timestamps t1 and t4 collected by the probes are used to measure round-trip delay.
+      the timestamps t1 and t4 are used to measure round-trip delay.
       The delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values violate user-configured threshold,
+      M number of probe messages have measured delay values exceed user-configured threshold,
       where M is also locally provisioned value.</t>
 
     <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
@@ -417,7 +417,7 @@
       </artwork>
       </figure>
    
-      <t> The sender node adds transmit (t1)
+      <t>The sender node adds transmit (t1)
       timestamp in the payload of the TWAMP Light or STAMP probe message and clears the receive (t2) timestamp. 
       The reflector node adds the receive timestamp (at the fixed location 
       locally provisioned consistently in the network) in the 
@@ -444,15 +444,15 @@
       <t>Liveness failure is notified when consecutive N number of probe
       messages are not received back at the sender, where N is locally
       provisioned value. Similarly, delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values violate user-configured threshold,
+      M number of probe messages have measured delay values exceed user-configured threshold,
       where M is also locally provisioned value.</t>
 
       <section anchor="sect-5.1"
                title="Probe Message with Network Programming for SR-MPLS"
                toc="default">
-      <t>In this document, new Timestamp Label (special purpose label with
-      value TBD1) is defined for SR-MPLS data plane to enable network programming
-      function for timestamp, pop and forward the received packet.</t>
+      <t>In this document, new Timestamp Label 
+      (value TBD1) is defined for SR-MPLS data plane to enable network programming
+      function for "timestamp, pop and forward" the received packet.</t>
 
       <t>In the probe message with network programming for SR-MPLS,
       Timestamp Label is added in the MPLS header as shown in Figure 6, to
@@ -536,7 +536,7 @@
       <t>In this document, new Endpoint function "Timestamp and Forward
       (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
       target="RFC8754"/> for SRv6 data plane to enable
-      network programming function for timestamp and forward the received
+      network programming function for "timestamp and forward" the received
       message.</t>
 
       <t>In the probe message with network programming for SRv6,
