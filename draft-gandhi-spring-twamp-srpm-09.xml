@@ -79,7 +79,7 @@
 	</address>
 	</author>
 
-	<date day="10" month="May" year="2020"/>
+	<date day="4" month="June" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -508,15 +508,6 @@ Loss Measurement Mode   /                \
 ]]></artwork>
 	</figure>
 
-
-	<t>
-   For delay measurement of SRv6 Policy using SRH, END function END.OTP
-   <xref target="I-D.ietf-6man-spring-srv6-oam"/> is used with the target SRv6 SID to punt probe
-   messages on the target node, as shown in Figure 5.  Similarly, for
-   loss measurement of SRv6 Policy, END function END.OP
-   <xref target="I-D.ietf-6man-spring-srv6-oam"/> is used with target SRv6 SID to punt probe
-   messages on the target node.</t>
-
 	</section>
      </section>
 
@@ -545,16 +536,6 @@ Loss Measurement Mode   /                \
  .                                                               .
 
 
-
- .                                                               .
- .                                                               .
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Session-Sender Error Estimate | MBZ           |Re Control Code|
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Ses-Sender TTL |                 MBZ                           |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- .                                                               .
- .                                                               .
 ]]></artwork>
 	</figure>
 
@@ -562,13 +543,12 @@ Loss Measurement Mode   /                \
    Sender Control Code: Set as follows in TWAMP Light probe query message.</t>
    <t>  </t>
    <t>
-   For a Query:</t>
+   In a Query:</t>
 
 	<t><list hangIndent="4" style="hanging"><t>
        0x0: Out-of-band Response Requested.  Indicates that the probe response
        is not required over the same path in the reverse direction.
        This is also the default behavior.</t>
-
 	</list>
 	</t>
 
@@ -579,20 +559,11 @@ Loss Measurement Mode   /                \
 	</list>
 	</t>
 
-
-   <t>
-   Reflector Control Code: Set as follows in TWAMP Light probe response message.</t>
-   <t>  </t>
-
-	<t><list style="hanging" hangIndent="4"><t hangText="For a Response:">
-	<vspace blankLines="1"/>
-       0x1: Error - Invalid Message.  Indicates that the operation
-       failed because the received query message could not be processed.
-	</t>
-	<t>Additional Error Codes to be defined in future.</t>
-
+	<t><list hangIndent="4" style="hanging"><t>
+       0x2: No Response Requested.</t>
 	</list>
 	</t>
+
 
 	</section>
 
@@ -821,7 +792,7 @@ Loss Measurement Mode   /                \
 	<figure title="Example Probe Response Message for SRv6 Policy" anchor="ure-probe-response-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
  | IP Header                                                     |
- .  Source IP Address = Sender IPv6 Address                      .
+ .  Source IP Address = Reflector IPv6 Address                   .
  .  Destination IP Address = Next Hop IPv6 Address               .
  .                                                               .
  +---------------------------------------------------------------+
@@ -1097,7 +1068,6 @@ Loss Measurement Mode   /                \
 	&RFC4656;
 	&RFC5357;
 	&RFC8174;
-	&I-D.ietf-6man-spring-srv6-oam;
 	</references>
 	<references title="Informative References">
 	<reference anchor="IEEE1588"><front>

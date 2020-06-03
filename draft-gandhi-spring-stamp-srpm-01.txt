@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: November 11, 2020                                      D. Voyer
+Expires: December 6, 2020                                       D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                            May 10, 2020
+                                                            June 4, 2020
 
 
     Performance Measurement Using STAMP for Segment Routing Networks
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 11, 2020.
+   This Internet-Draft will expire on December 6, 2020.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 1]
+Gandhi, et al.          Expires December 6, 2020                [Page 1]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 Copyright Notice
@@ -88,35 +88,35 @@ Table of Contents
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   8
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
        4.1.4.  Probe Query for End-to-end Measurement for SR Policy    9
-       4.1.5.  Control Code Field for STAMP Messages . . . . . . . .  11
-       4.1.6.  Loss Measurement Query Message Formats for STAMP  . .  12
+       4.1.5.  Control Code Field for STAMP Messages . . . . . . . .  10
+       4.1.6.  Loss Measurement Query Message Formats for STAMP  . .  11
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  14
-       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  15
+       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  14
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  15
-       4.2.3.  Loss Measurement Response Message Formats for STAMP .  17
-     4.3.  Node Address TLV for STAMP Message  . . . . . . . . . . .  20
-     4.4.  Return Path TLV for STAMP Message . . . . . . . . . . . .  20
-   5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  22
-   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  23
-   7.  Additional Message Processing Rules . . . . . . . . . . . . .  23
-     7.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . . . .  23
-     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  23
-     7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  24
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  25
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  26
+       4.2.3.  Loss Measurement Response Message Formats for STAMP .  16
+     4.3.  Node Address TLV for STAMP Message  . . . . . . . . . . .  19
+     4.4.  Return Path TLV for STAMP Message . . . . . . . . . . . .  19
+   5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  21
+   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  22
+   7.  Additional Message Processing Rules . . . . . . . . . . . . .  22
+     7.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . . . .  22
+     7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  22
+     7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  23
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  25
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 2]
+Gandhi, et al.          Expires December 6, 2020                [Page 2]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  26
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  25
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  28
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 3]
+Gandhi, et al.          Expires December 6, 2020                [Page 3]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 2.  Conventions Used in This Document
@@ -221,9 +221,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 4]
+Gandhi, et al.          Expires December 6, 2020                [Page 4]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    TC: Traffic Class.
@@ -260,11 +260,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    UDP destination port numbers are user-configured for delay and loss
    measurements from the range specified in [RFC8762].  The sender uses
    the UDP port number following the guidelines specified in Section 6
-   in [RFC6335].  The UDP destination port 862 can be used for delay
-   measurement probes by default except for the case where the reflector
-   needs to process STAMP TLVs.  For both Links and end-to-end SR Paths
-   including SR Policies, no PM session for delay or loss measurement is
-   created on the reflector node R5 [RFC8762].
+   in [RFC6335].  For both Links and end-to-end SR Paths including SR
+   Policies, no PM session for delay or loss measurement is created on
+   the reflector node R5 [RFC8762].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
@@ -274,16 +272,16 @@ Internet-Draft          STAMP for Segment Routing               May 2020
       used to measure the delay experienced by the actual data traffic
       flowing on the Links and SR Paths.
 
-
-
-
-Gandhi, et al.          Expires November 11, 2020               [Page 5]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
    o  For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
+
+
+
+Gandhi, et al.          Expires December 6, 2020                [Page 5]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
       collect the receive traffic counters for the incoming link or
       incoming SID where the probe query messages are received at the
       reflector node (incoming link or incoming SID needed since the
@@ -333,9 +331,11 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 6]
+
+
+Gandhi, et al.          Expires December 6, 2020                [Page 6]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    The reflector node R5 uses the parameters for the timestamp format
@@ -389,9 +389,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 7]
+Gandhi, et al.          Expires December 6, 2020                [Page 7]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    Timestamp field is eight bytes and use the format defined in
@@ -445,9 +445,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 8]
+Gandhi, et al.          Expires December 6, 2020                [Page 8]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 4.1.2.1.  Loss Measurement Authentication Mode
@@ -501,9 +501,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020               [Page 9]
+Gandhi, et al.          Expires December 6, 2020                [Page 9]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    The Path Segment Identifier (PSID)
@@ -546,22 +546,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
            Figure 5: Example Probe Query Message for SRv6 Policy
 
-   For delay measurement of SRv6 Policy using SRH, END function END.OTP
-   [I-D.ietf-6man-spring-srv6-oam] is used with the target SRv6 SID to
-   punt probe messages on the target node, as shown in Figure 5.
-   Similarly, for loss measurement of SRv6 Policy, END function END.OP
-   [I-D.ietf-6man-spring-srv6-oam] is used with target SRv6 SID to punt
-   probe messages on the target node.
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 10]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
 4.1.5.  Control Code Field for STAMP Messages
 
    The Control Code field is defined for delay and loss measurement
@@ -570,6 +554,14 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    measurement probe query and response message format for STAMP is
    shown in Figure 6.  This message format is backwards compatible with
    the message format defined in STAMP [RFC8762] as its reflector MUST
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 10]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
    ignore the received field (previously identified as MBZ).  The usage
    of the Control Code is not limited to the SR networks and can be used
    for non-SR paths in a network.
@@ -589,48 +581,21 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-    .                                                               .
-    .                                                               .
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | Session-Sender Error Estimate | MBZ           |Re Control Code|
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |Ses-Sender TTL |                 MBZ                           |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    .                                                               .
-    .                                                               .
-
-
       Figure 6: Sender and Reflector Control Code in STAMP DM Message
 
    Sender Control Code: Set as follows in STAMP probe query message.
 
-   For a Query:
+   In a Query:
 
        0x0: Out-of-band Response Requested.  Indicates that the probe
        response is not required over the same path in the reverse
        direction.  This is also the default behavior.
 
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 11]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
        0x1: In-band Response Requested.  Indicates that this query has
        been sent over a bidirectional path and the probe response is
        required over the same path in the reverse direction.
 
-   Reflector Control Code: Set as follows in STAMP probe response
-   message.
-
-   For a Response:
-
-       0x1: Error - Invalid Message.  Indicates that the operation
-       failed because the received query message could not be processed.
-
-       Additional Error Codes to be defined in future.
+       0x2: No Response Requested.
 
 4.1.6.  Loss Measurement Query Message Formats for STAMP
 
@@ -643,6 +608,15 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    support for the existing DM message formats from [RFC8762] as
    different user-configured destination UDP port is used for loss
    measurement.
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 11]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -665,14 +639,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
        Figure 7: STAMP LM Probe Query Message - Unauthenticated Mode
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 12]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -701,6 +667,13 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
         Figure 8: STAMP LM Probe Query Message - Authenticated Mode
 
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 12]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
    Sequence Number (32-bit): As defined in [RFC8762].
 
    Transmit Counter (64-bit): The number of packets or octets sent by
@@ -721,14 +694,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    Sender TTL: As defined in Section 7.1.
 
    LM Flags: The meanings of the Flag bits are:
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 13]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
       X: Extended counter format indicator.  Indicates the use of
       extended (64-bit) counter values.  Initialized to 1 upon creation
@@ -756,6 +721,15 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    probe query and response messages are authenticated by adding
    Sequence Number with Hashed Message Authentication Code (HMAC) TLV.
    It can use HMAC-SHA-256 truncated to 128 bits (similarly to the use
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 13]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
    of it in IPSec defined in [RFC4868]); hence the length of the HMAC
    field is 16 octets.
 
@@ -772,19 +746,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    The probe response message is sent using the IP/UDP information from
    the received probe query message.  The content of the probe response
    message is shown in Figure 9.
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 14]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -815,6 +776,16 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    collected by the probes.  However, only timestamps t1 and t2 are
    needed to measure one-way delay.
 
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 14]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
 4.2.2.  Two-way Measurement Mode
 
    In two-way performance measurement mode, when using a bidirectional
@@ -831,16 +802,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    physical interface where the probe query message is received.  This
    is required for example, in case of two-way measurement mode for Link
    delay.
-
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 15]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
 
 4.2.2.1.  Probe Response Message for SR-MPLS Policy
 
@@ -872,35 +833,24 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    two-way measurement of SR Policy unless when using STAMP message with
    Return Path TLV.
 
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 15]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
 4.2.2.2.  Probe Response Message for SRv6 Policy
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy with SRH is shown in Figure 11.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 16]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
     +---------------------------------------------------------------+
     | IP Header                                                     |
-    .  Source IP Address = Sender IPv6 Address                      .
+    .  Source IP Address = Reflector IPv6 Address                   .
     .  Destination IP Address = Next Hop IPv6 Address               .
     .                                                               .
     +---------------------------------------------------------------+
@@ -943,15 +893,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 17]
+Gandhi, et al.          Expires December 6, 2020               [Page 16]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
     0                   1                   2                   3
@@ -1005,9 +949,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 18]
+Gandhi, et al.          Expires December 6, 2020               [Page 17]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
     0                   1                   2                   3
@@ -1061,9 +1005,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 19]
+Gandhi, et al.          Expires December 6, 2020               [Page 18]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 4.3.  Node Address TLV for STAMP Message
@@ -1117,9 +1061,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 20]
+Gandhi, et al.          Expires December 6, 2020               [Page 19]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    [I-D.ietf-ippm-stamp-option-tlv] defines STAMP probe query messages
@@ -1173,9 +1117,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 21]
+Gandhi, et al.          Expires December 6, 2020               [Page 20]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    o  Type (value 2): SR-MPLS Binding SID
@@ -1229,9 +1173,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 22]
+Gandhi, et al.          Expires December 6, 2020               [Page 21]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 6.  ECMP Support for SR Policies
@@ -1285,9 +1229,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 23]
+Gandhi, et al.          Expires December 6, 2020               [Page 22]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    When using the Destination IPv4 Address from the 127/8 range, to be
@@ -1341,9 +1285,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 24]
+Gandhi, et al.          Expires December 6, 2020               [Page 23]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
 9.  IANA Considerations
@@ -1397,9 +1341,9 @@ Internet-Draft          STAMP for Segment Routing               May 2020
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 25]
+Gandhi, et al.          Expires December 6, 2020               [Page 24]
 
-Internet-Draft          STAMP for Segment Routing               May 2020
+Internet-Draft          STAMP for Segment Routing              June 2020
 
 
    o  Type (value 4): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
@@ -1427,15 +1371,8 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-   [I-D.ietf-6man-spring-srv6-oam]
-              Ali, Z., Filsfils, C., Matsushima, S., Voyer, D., and M.
-              Chen, "Operations, Administration, and Maintenance (OAM)
-              in Segment Routing Networks with IPv6 Data plane (SRv6)",
-              draft-ietf-6man-spring-srv6-oam-04 (work in progress),
-              March 2020.
-
    [I-D.ietf-ippm-stamp-option-tlv]
-              Mirsky, G., Xiao, M., Nydell, H., Foote, R., Masputra, A.,
+              Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-way Active Measurement
               Protocol Optional Extensions", draft-ietf-ippm-stamp-
               option-tlv-04 (work in progress), March 2020.
@@ -1447,17 +1384,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
 
-
-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 26]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
               Hashing for Message Authentication", RFC 2104,
               DOI 10.17487/RFC2104, February 1997,
@@ -1466,6 +1392,15 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 25]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
               384, and HMAC-SHA-512 with IPsec", RFC 4868,
@@ -1505,15 +1440,6 @@ Internet-Draft          STAMP for Segment Routing               May 2020
               DOI 10.17487/RFC7820, March 2016,
               <https://www.rfc-editor.org/info/rfc7820>.
 
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 27]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
    [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
               Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
               Switched (MPLS) Data-Plane Failures", RFC 8029,
@@ -1523,6 +1449,14 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017, <https://www.rfc-editor.org/info/rfc8085>.
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 26]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -1559,22 +1493,26 @@ Internet-Draft          STAMP for Segment Routing               May 2020
    [I-D.voyer-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-voyer-spring-sr-replication-segment-02
-              (work in progress), November 2019.
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 28]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
+              Delivery", draft-voyer-spring-sr-replication-segment-03
+              (work in progress), June 2020.
 
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 27]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
@@ -1617,17 +1555,20 @@ Acknowledgments
    significantly improve the mechanisms defined in this document.  The
    authors would like to acknowledge the earlier work on the loss
    measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
-
-
-
-
-Gandhi, et al.          Expires November 11, 2020              [Page 29]
-
-Internet-Draft          STAMP for Segment Routing               May 2020
-
-
    direct-loss.  The authors would also like to thank Sam Aldrin for the
    discussions to check for broken path.
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 28]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
 Authors' Addresses
 
@@ -1677,4 +1618,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 11, 2020              [Page 30]
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 29]
