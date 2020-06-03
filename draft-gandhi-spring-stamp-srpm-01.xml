@@ -515,13 +515,13 @@ Loss Measurement Mode   /                \
 
 	<section title="Control Code Field for STAMP Messages" anchor="sect-4.1.5">
 	<t>
-   The Control Code field is defined for delay and loss measurement probe query and response messages
+   The Control Code field is defined for delay and loss measurement probe query messages
    for STAMP protocol in unauthenticated and authenticated modes.  
-   The modified delay measurement probe query and response message format for STAMP is shown in Figure 6. 
+   The modified delay measurement probe query message format for STAMP is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in STAMP <xref target="RFC8762"/> as its reflector MUST
    ignore the received field (previously identified as MBZ).
-   The usage of the Control Code is not limited to the SR networks and can be used for non-SR paths in a network.</t>
+   The usage of the Control Code is not limited to the SR paths and can be used for non-SR paths in a network.</t>
 
    <figure title="Sender and Reflector Control Code in STAMP DM Message" anchor="ure-se-control-code-in-stamp-message"><artwork><![CDATA[
  .                                                               .
@@ -536,8 +536,6 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  .                                                               .
  .                                                               .
-
-
 ]]></artwork>
 	</figure>
 
@@ -849,7 +847,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
+ |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |      MBZ                                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -888,7 +886,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
+ |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

@@ -550,10 +550,10 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
 4.1.5.  Control Code Field for TWAMP Light Messages
 
    The Control Code field is defined for delay and loss measurement
-   probe query and response messages for TWAMP Light in unauthenticated
-   and authenticated modes.  The modified delay measurement probe query
-   and response message format is shown in Figure 6.  This message
-   format is backwards compatible with the message format defined in
+   probe query messages for TWAMP Light in unauthenticated and
+   authenticated modes.  The modified delay measurement probe query
+   message format is shown in Figure 6.  This message format is
+   backwards compatible with the message format defined in [RFC5357] as
 
 
 
@@ -562,9 +562,9 @@ Gandhi, et al.          Expires December 6, 2020               [Page 10]
 Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
 
-   [RFC5357] as its reflectors ignore the received field (previously
-   identified as MBZ).  The usage of the Control Code is not limited to
-   the SR networks and can be used for non-SR paths in a network.
+   its reflectors ignore the received field (previously identified as
+   MBZ).  The usage of the Control Code is not limited to the SR paths
+   and can be used for non-SR paths in a network.
 
     .                                                               .
     .                                                               .
@@ -578,8 +578,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     .                                                               .
     .                                                               .
-
-
 
                Figure 6: Control Code in TWAMP Light Message
 
@@ -609,6 +607,8 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
    compatibility and support for the existing DM message formats from
    [RFC5357] as different user-configured destination UDP port is used
    for loss measurement.
+
+
 
 
 
@@ -916,7 +916,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
+    |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |  Sender TTL   |                                               |
     +-+-+-+-+-+-+-+-+                                               +
@@ -966,7 +966,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ           |Re Control Code|
+    |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
