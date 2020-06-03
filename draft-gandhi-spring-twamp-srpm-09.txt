@@ -114,9 +114,9 @@ Gandhi, et al.          Expires December 6, 2020                [Page 2]
 Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
 
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  22
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  25
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  21
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
 
 1.  Introduction
 
@@ -522,7 +522,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     +---------------------------------------------------------------+
     | IP Header                                                     |
     .  Source IP Address = Sender IPv6 Address                      .
-    .  Destination IP Address = Next Hop IPv6 Address               .
+    .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
     | SRH as specified in RFC 8754                                  |
@@ -845,7 +845,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     +---------------------------------------------------------------+
     | IP Header                                                     |
     .  Source IP Address = Reflector IPv6 Address                   .
-    .  Destination IP Address = Next Hop IPv6 Address               .
+    .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
     | SRH as specified in RFC 8754                                  |
@@ -1081,17 +1081,8 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
 7.2.  Router Alert Option
 
-   The Router Alert IP option is not set when using the routable
-   Destination IP Address in the probe messages.
-
-   When using the Destination IPv4 Address from the 127/8 range, to be
-   able to punt probe packets on the reflector node, the Router Alert IP
-   Option of value 0x0 [RFC2113] for IPv4 may be added [RFC8029].
-   Similarly, when using the Destination IPv6 Address from the
-   ::FFFF:127/104 range, the Router Alert IP Option of value 69
-   [RFC7506] for IPv6 may be added in the destination option header,
-   Section 4.6 of [RFC8200].  For SRv6 Policy using SRH, it is added
-   after the inner IPv6 header.
+   The Router Alert IP option (RAO) [RFC2113] is not set in the probe
+   messages.
 
 7.3.  UDP Checksum
 
@@ -1114,14 +1105,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
    verified the integrity of the path and the identity of the far-end
    reflector node.
 
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 20]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
-
-
    If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the sender, of the counter or timestamp fields
    in received measurement response messages.  The minimal state
@@ -1131,6 +1114,14 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the probe messages.  SRv6 has HMAC protection
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 20]
+
+Internet-Draft       TWAMP Light for Segment Routing           June 2020
+
+
    authentication defined for SRH [RFC8754].  Hence, PM probe messages
    for SRv6 may not need authentication mode.  Cryptographic measures
    may be enhanced by the correct configuration of access-control lists
@@ -1167,17 +1158,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 21]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
-
-
 10.2.  Informative References
 
    [IEEE1588]
@@ -1189,6 +1169,14 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               Hashing for Message Authentication", RFC 2104,
               DOI 10.17487/RFC2104, February 1997,
               <https://www.rfc-editor.org/info/rfc2104>.
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 21]
+
+Internet-Draft       TWAMP Light for Segment Routing           June 2020
+
 
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
@@ -1226,19 +1214,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               RFC 6936, DOI 10.17487/RFC6936, April 2013,
               <https://www.rfc-editor.org/info/rfc6936>.
 
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 22]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
-
-
-   [RFC7506]  Raza, K., Akiya, N., and C. Pignataro, "IPv6 Router Alert
-              Option for MPLS Operations, Administration, and
-              Maintenance (OAM)", RFC 7506, DOI 10.17487/RFC7506, April
-              2015, <https://www.rfc-editor.org/info/rfc7506>.
-
    [RFC7820]  Mizrahi, T., "UDP Checksum Complement in the One-Way
               Active Measurement Protocol (OWAMP) and Two-Way Active
               Measurement Protocol (TWAMP)", RFC 7820,
@@ -1251,6 +1226,14 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               DOI 10.17487/RFC8029, March 2017,
               <https://www.rfc-editor.org/info/rfc8029>.
 
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 22]
+
+Internet-Draft       TWAMP Light for Segment Routing           June 2020
+
+
    [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017, <https://www.rfc-editor.org/info/rfc8085>.
@@ -1259,11 +1242,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               Timestamp Format in a Two-Way Active Measurement Protocol
               (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
               <https://www.rfc-editor.org/info/rfc8186>.
-
-   [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
-              (IPv6) Specification", STD 86, RFC 8200,
-              DOI 10.17487/RFC8200, July 2017,
-              <https://www.rfc-editor.org/info/rfc8200>.
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -1281,14 +1259,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               (OWAMP) and the Two-Way Active Measurement Protocol
               (TWAMP)", RFC 8545, DOI 10.17487/RFC8545, March 2019,
               <https://www.rfc-editor.org/info/rfc8545>.
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 23]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
-
 
    [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
@@ -1313,6 +1283,13 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
 
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 23]
+
+Internet-Draft       TWAMP Light for Segment Routing           June 2020
+
+
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
@@ -1335,16 +1312,6 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               "Segment Routing Header encapsulation for In-situ OAM
               Data", draft-ali-spring-ioam-srv6-02 (work in progress),
               November 2019.
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 24]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
-
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -1373,6 +1340,12 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
+
+Gandhi, et al.          Expires December 6, 2020               [Page 24]
+
+Internet-Draft       TWAMP Light for Segment Routing           June 2020
+
+
    Clarence Filsfils
    Cisco Systems, Inc.
 
@@ -1389,17 +1362,6 @@ Authors' Addresses
    Huawei
 
    Email: mach.chen@huawei.com
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 25]
-
-Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
 
    Bart Janssens
@@ -1435,22 +1397,4 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 26]
+Gandhi, et al.          Expires December 6, 2020               [Page 25]

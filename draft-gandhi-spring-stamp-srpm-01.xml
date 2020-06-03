@@ -13,12 +13,10 @@
 <!ENTITY RFC6335 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
 <!ENTITY RFC6437 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!ENTITY RFC6936 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6936.xml">
-<!ENTITY RFC7506 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7506.xml">
 <!ENTITY RFC7820 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7820.xml">
 <!ENTITY RFC8029 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8029.xml">
 <!ENTITY RFC8085 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8085.xml">
 <!ENTITY RFC8186 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8186.xml">
-<!ENTITY RFC8200 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
 <!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
@@ -486,7 +484,7 @@ Loss Measurement Mode   /                \
  +---------------------------------------------------------------+
  | IP Header                                                     |
  .  Source IP Address = Sender IPv6 Address                      .
- .  Destination IP Address = Next Hop IPv6 Address               .
+ .  Destination IP Address = Destination IPv6 Address            .
  .                                                               .
  +---------------------------------------------------------------+
  | SRH as specified in RFC 8754                                  |
@@ -800,7 +798,7 @@ Loss Measurement Mode   /                \
  +---------------------------------------------------------------+
  | IP Header                                                     |
  .  Source IP Address = Reflector IPv6 Address                   .
- .  Destination IP Address = Next Hop IPv6 Address               .
+ .  Destination IP Address = Destination IPv6 Address            .
  .                                                               .
  +---------------------------------------------------------------+
  | SRH as specified in RFC 8754                                  |
@@ -1119,18 +1117,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Router Alert Option" anchor="sect-7.2"><t>
-   The Router Alert IP option is not set when using the routable
-   Destination IP Address in the probe messages.</t>
-
-	<t>
-   When using the Destination IPv4 Address from the 127/8 range, to be
-   able to punt probe packets on the reflector node, the Router Alert IP
-   Option of value 0x0 <xref target="RFC2113"/> for IPv4 MAY be added <xref target="RFC8029"/>.
-   Similarly, when using the Destination IPv6 Address from the
-   ::FFFF:127/104 range, the Router Alert IP Option of value 69
-   <xref target="RFC7506"/> for IPv6 MAY be added in the destination option header, 
-   Section 4.6 of <xref target="RFC8200"/>.  For SRv6
-   Policy using SRH, it is added after the inner IPv6 header.</t>
+   The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the probe messages.</t>
 
 	</section>
 
@@ -1277,12 +1264,10 @@ Loss Measurement Mode   /                \
 	&RFC6335;
 	&RFC6437;
 	&RFC6936;
-	&RFC7506;
 	&RFC7820;
 	&RFC8029;
 	&RFC8085;
 	&RFC8186;
-	&RFC8200;
 	&RFC8321;
 	&RFC8402;
 	&RFC8754;

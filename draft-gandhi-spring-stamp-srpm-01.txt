@@ -103,9 +103,9 @@ Table of Contents
      7.2.  Router Alert Option . . . . . . . . . . . . . . . . . . .  22
      7.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . . . .  23
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  25
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  24
 
 
 
@@ -116,7 +116,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
      10.2.  Informative References . . . . . . . . . . . . . . . . .  25
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  28
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
 
 1.  Introduction
 
@@ -258,11 +258,14 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    direct-mode and inferred-mode loss measurements in Segment Routing
    networks, the messages defined in this document are used.  Separate
    UDP destination port numbers are user-configured for delay and loss
-   measurements from the range specified in [RFC8762].  The sender uses
-   the UDP port number following the guidelines specified in Section 6
-   in [RFC6335].  For both Links and end-to-end SR Paths including SR
-   Policies, no PM session for delay or loss measurement is created on
-   the reflector node R5 [RFC8762].
+   measurements from the range specified in [RFC8762].  As specified in
+   [RFC8762], the reflector supports the destination UDP port 862 for
+   delay measurement probe messages by default.  This UDP port however,
+   is not used for loss measurement probe messages defined in this
+   document.  The sender uses the UDP port number following the
+   guidelines specified in Section 6 in [RFC6335].  For both Links and
+   end-to-end SR Paths including SR Policies, no PM session for delay or
+   loss measurement is created on the reflector node R5 [RFC8762].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
@@ -272,9 +275,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
       used to measure the delay experienced by the actual data traffic
       flowing on the Links and SR Paths.
 
-   o  For Loss Measurement, the probe messages are sent on the congruent
-      path of the data traffic by the sender node, and are used to
-
 
 
 Gandhi, et al.          Expires December 6, 2020                [Page 5]
@@ -282,6 +282,8 @@ Gandhi, et al.          Expires December 6, 2020                [Page 5]
 Internet-Draft          STAMP for Segment Routing              June 2020
 
 
+   o  For Loss Measurement, the probe messages are sent on the congruent
+      path of the data traffic by the sender node, and are used to
       collect the receive traffic counters for the incoming link or
       incoming SID where the probe query messages are received at the
       reflector node (incoming link or incoming SID needed since the
@@ -327,8 +329,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
    The mechanisms to provision the sender and reflector nodes are
    outside the scope of this document.
-
-
 
 
 
@@ -522,7 +522,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
     +---------------------------------------------------------------+
     | IP Header                                                     |
     .  Source IP Address = Sender IPv6 Address                      .
-    .  Destination IP Address = Next Hop IPv6 Address               .
+    .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
     | SRH as specified in RFC 8754                                  |
@@ -851,7 +851,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
     +---------------------------------------------------------------+
     | IP Header                                                     |
     .  Source IP Address = Reflector IPv6 Address                   .
-    .  Destination IP Address = Next Hop IPv6 Address               .
+    .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
     | SRH as specified in RFC 8754                                  |
@@ -1223,8 +1223,8 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
 7.2.  Router Alert Option
 
-   The Router Alert IP option is not set when using the routable
-   Destination IP Address in the probe messages.
+   The Router Alert IP option (RAO) [RFC2113] is not set in the probe
+   messages.
 
 
 
@@ -1233,15 +1233,6 @@ Gandhi, et al.          Expires December 6, 2020               [Page 22]
 
 Internet-Draft          STAMP for Segment Routing              June 2020
 
-
-   When using the Destination IPv4 Address from the 127/8 range, to be
-   able to punt probe packets on the reflector node, the Router Alert IP
-   Option of value 0x0 [RFC2113] for IPv4 MAY be added [RFC8029].
-   Similarly, when using the Destination IPv6 Address from the
-   ::FFFF:127/104 range, the Router Alert IP Option of value 69
-   [RFC7506] for IPv6 MAY be added in the destination option header,
-   Section 4.6 of [RFC8200].  For SRv6 Policy using SRH, it is added
-   after the inner IPv6 header.
 
 7.3.  UDP Checksum
 
@@ -1278,18 +1269,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    may be enhanced by the correct configuration of access-control lists
    and firewalls.
 
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 23]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
-
 9.  IANA Considerations
 
    IANA will create a "STAMP TLV Type" registry for
@@ -1302,6 +1281,14 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    IANA is also requested to allocate a value for the following
    mandatory Return Path TLV Type from the same registry.  This TLV is
    to be carried in PM probe query messages.
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 23]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    o  Type TBA2: Return Path TLV
 
@@ -1339,13 +1326,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
    o  Type (value 3): SRv6 Segment List of the Reverse SR Path
 
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 24]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
-
    o  Type (value 4): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
       of the Reverse SR Policy
 
@@ -1356,6 +1336,15 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 24]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1393,15 +1382,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
 
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 25]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
-
    [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
               384, and HMAC-SHA-512 with IPsec", RFC 4868,
               DOI 10.17487/RFC4868, May 2007,
@@ -1411,6 +1391,16 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
               Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
               June 2010, <https://www.rfc-editor.org/info/rfc5884>.
+
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 25]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
@@ -1429,11 +1419,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               RFC 6936, DOI 10.17487/RFC6936, April 2013,
               <https://www.rfc-editor.org/info/rfc6936>.
 
-   [RFC7506]  Raza, K., Akiya, N., and C. Pignataro, "IPv6 Router Alert
-              Option for MPLS Operations, Administration, and
-              Maintenance (OAM)", RFC 7506, DOI 10.17487/RFC7506, April
-              2015, <https://www.rfc-editor.org/info/rfc7506>.
-
    [RFC7820]  Mizrahi, T., "UDP Checksum Complement in the One-Way
               Active Measurement Protocol (OWAMP) and Two-Way Active
               Measurement Protocol (TWAMP)", RFC 7820,
@@ -1450,23 +1435,10 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017, <https://www.rfc-editor.org/info/rfc8085>.
 
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 26]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
-
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
               (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
               <https://www.rfc-editor.org/info/rfc8186>.
-
-   [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
-              (IPv6) Specification", STD 86, RFC 8200,
-              DOI 10.17487/RFC8200, July 2017,
-              <https://www.rfc-editor.org/info/rfc8200>.
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -1478,6 +1450,13 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 26]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
 
    [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
@@ -1501,18 +1480,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               "Path Segment in MPLS Based Segment Routing Network",
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 27]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
 
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
@@ -1539,6 +1506,14 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               Data", draft-ali-spring-ioam-srv6-02 (work in progress),
               November 2019.
 
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 27]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
               "PCEP Extensions for Associated Bidirectional Segment
@@ -1557,18 +1532,6 @@ Acknowledgments
    measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
    direct-loss.  The authors would also like to thank Sam Aldrin for the
    discussions to check for broken path.
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 6, 2020               [Page 28]
-
-Internet-Draft          STAMP for Segment Routing              June 2020
-
 
 Authors' Addresses
 
@@ -1597,10 +1560,47 @@ Authors' Addresses
    Email: mach.chen@huawei.com
 
 
+
+
+
+
+
+Gandhi, et al.          Expires December 6, 2020               [Page 28]
+
+Internet-Draft          STAMP for Segment Routing              June 2020
+
+
    Bart Janssens
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
