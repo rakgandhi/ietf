@@ -773,8 +773,8 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    for both Links and SR Policies.  The Sender Control Code is set to
    "Out-of-band Response Requested".  In this delay measurement mode, as
    per Reference Topology, all timestamps t1, t2, t3, and t4 are
-   collected by the probes.  However, only timestamps t1 and t2 are
-   needed to measure one-way delay.
+   collected by the probes.  However, only timestamps t1 and t2 are used
+   to measure one-way delay.
 
 
 
@@ -795,7 +795,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    [I-D.ietf-pce-sr-bidir-path].  The Sender Control Code is set to "In-
    band Response Requested".  In this delay measurement mode, as per
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected
-   by the probes.  All four timestamps are needed to measure two-way
+   by the probes.  All four timestamps are used to measure two-way
    delay.
 
    Specifically, the probe response message is sent back on the incoming

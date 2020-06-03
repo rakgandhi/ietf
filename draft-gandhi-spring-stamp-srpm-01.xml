@@ -737,7 +737,7 @@ Loss Measurement Mode   /                \
    "Out-of-band Response Requested". 
    In this delay measurement mode, as per Reference Topology, 
    all timestamps t1, t2, t3, and t4 are collected by the probes.
-   However, only timestamps t1 and t2 are needed to measure one-way delay.</t>
+   However, only timestamps t1 and t2 are used to measure one-way delay.</t>
 	</section>
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
@@ -749,7 +749,7 @@ Loss Measurement Mode   /                \
    set to "In-band Response Requested".
    In this delay measurement mode, as per Reference Topology, 
    all timestamps t1, t2, t3, and t4 are collected by the probes.
-   All four timestamps are needed to measure two-way delay.</t>
+   All four timestamps are used to measure two-way delay.</t>
 
 	<t>
    Specifically, the probe response message is sent back on the incoming physical
