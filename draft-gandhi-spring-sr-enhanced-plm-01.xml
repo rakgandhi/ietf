@@ -49,7 +49,7 @@
 
   <front>
     <title abbrev="Performance and Liveness Monitoring in SR">
-    Performance Delay and Liveness Monitoring in Segment Routing Networks</title>
+    Enhanced Performance Delay and Liveness Monitoring in Segment Routing Networks</title>
 
     <author fullname="Rakesh Gandhi" initials="R." role="editor"
             surname="Gandhi">
@@ -88,7 +88,7 @@
       </address>
     </author>
 
-    <date day="13" month="May" year="2020"/>
+    <date day="4" month="June" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -237,8 +237,10 @@
     node R5 in loopback mode as shown in Figure 1. The probe messages are sent by the sender node on the
     congruent path of the data traffic flowing on the SR Path.</t>
  
-    <t>The UDP destination port number in the probe message is user-configured 
+    <t>The destination UDP port number in the probe message is user-configured 
     from the range specified in <xref target="RFC8762"/>.
+    As specified in <xref target="RFC8762"/>, the destination
+    UDP port 862 is used in the probe messages by default. 
     The Source and Destination IP addresses in the probe messages are set to the reflector 
     and the sender node addresses, respectively.
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
@@ -250,6 +252,12 @@
     Estimate and Sender TTL fields <xref target="RFC5357"/>  <xref target="RFC8762"/> 
     in the probe message are not used.</t>
  
+    <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
+    specified in <xref target="RFC8186"/> implemented in hardware. Note that the timestamp format can be 
+    locally provisioned as part of enabling the network programming function. In addition to
+    adding the timestamp in the message, the "Error Estimate" field in the payload
+    of the message is updated using the procedure defined in <xref target="RFC4656"/>.</t>
+
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
     An example of a provisioning model and typical measurement parameters for the 
     user-configured destination UDP port is shown in Figure 2:</t>
@@ -269,9 +277,9 @@
                          /                  \
                         v                    v
                     +-------+            +-------+
-                    |       |  SR Path   |       |
-                    |   R1  |============|   R5  |
                     |       |            |       |
+                    |   R1  |============|   R5  |
+                    |       |  SR Path   |       |
                     +-------+            +-------+
                      Sender              Reflector
 ]]></artwork>
@@ -317,7 +325,7 @@
      return path, the MPLS header is removed by the reflector node.
      The label stack can contain a reverse SR-MPLS 
      path to receive the reply on a specific path. 
-     In this case, the MLS header will not be removed
+     In this case, the MPLS header will not be removed
      by the reflector node.</t>
 
         <figure anchor="ure-probe-message-header-for-sr-mpls"
@@ -332,7 +340,7 @@
   .                                                               .
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |            Label(n)                   | TC  |S|      TTL      |
-  +---------------------------------------------------------------+
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   | IP Header                                                     |
   .  Source IP Address = Reflector IPv4 or IPv6 Address           .
   .  Destination IP Address = Sender IPv4 or IPv6 Address         .
@@ -343,7 +351,7 @@
   .  Source Port = As chosen by Sender                            .
   .  Destination Port = User-configured Port                      .
   .                                                               .
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  +---------------------------------------------------------------+
   |  Payload as defined in Section 4.2.1 of RFC 5357 |            |
   |  Payload as defined in Section 4.2 of RFC 8762                |
   .                                                               .
@@ -366,7 +374,7 @@
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Sender IPv6 Address                      .
-  .  Destination IP Address = Next Hop IPv6 Address               .
+  .  Destination IP Address = Destination IPv6 Address            .
   .                                                               .
   +---------------------------------------------------------------+
   | SRH as specified in RFC 8754                                  |
@@ -382,7 +390,7 @@
   .  Source Port = As chosen by Sender                            .
   .  Destination Port = User-configured Port                      .
   .                                                               .
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  +---------------------------------------------------------------+
   |  Payload as defined in Section 4.2.1 of RFC 5357 |            |
   |  Payload as defined in Section 4.2 of RFC 8762                |
   .                                                               .
@@ -394,23 +402,34 @@
     <section anchor="sect-5"
              title="Enhanced Performance Delay and Liveness Monitoring">
       <t>The enhanced performance delay and liveness monitoring of an SR Path including SR Policy is
-      defined using the PM probes in loopback mode enabled with network programming.
+      defined using the PM probes in loopback mode enabled with network programming.</t>
+
+      <t>Liveness failure is notified when consecutive N number of probe
+      messages are not received back at the sender, where N is locally
+      provisioned value. Similarly, delay metrics are notified when consecutive 
+      M number of probe messages have measured delay values exceed user-configured threshold,
+      where M is also locally provisioned value.</t>
+
+      <section anchor="sect-5.1"
+               title="Loopback Mode Enabled with Network Programming"
+               toc="default">
+      <t>In loopback mode enabled with network programming,
+      both transmit (t1) and receive (t2) timestamps in data plane are collected
+      by the probe messages sent in loopback mode as shown in Figure 5.
       The network programming function optimizes the "operations of punt, 
       add receive timestamp and inject the probe packet" on the reflector 
-      node and is implemented in hardware. In this
-      mode, both transmit (t1) and receive (t2) timestamps in data plane are collected
-      by the probe messages sent in loopback mode as shown in Figure 5.
-      The payload of the probe message is not modified by any intermediate nodes.</t>	      
+      node and is implemented in hardware.
+      The payload of the probe message is not modified by any intermediate nodes.</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
               title="Loopback Mode Enabled with Network Programming">
        <artwork>
-               +-------+ t1    Probe      t2 +-------+
+               +-------+ t1   Probe       t2 +-------+
                |       | - - - - - - - - - - |       |
                |   R1  |====================||  R5   |
                |       |&lt;- - - - - - - - - - |       |
-               +-------+     Return Probe    +-------+
+               +-------+      Return Probe   +-------+
                 Sender                       Reflector
                                              (Timestamp, 
                                               Pop and Forward)
@@ -428,12 +447,6 @@
       intended reflector node. The one-way delay 
       is measured using the receive (t2) and transmit (t1) timestamps in the probe message.</t>
 
-      <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
-      specified in <xref target="RFC8186"/> implemented in hardware. Note that the timestamp format can be 
-      locally provisioned as part of enabling the network programming function. In addition to
-      adding the timestamp in the message, the "Error Estimate" field in the payload
-      of the message is updated using the procedure defined in <xref target="RFC4656"/>.</t>
-
       <t>The network programming function is enabled to add receive timestamp
       in the payload of the probe message at a specific location which is also locally
       provisioned. In TWAMP Light message defined in Section 4.2.1 of <xref target="RFC5357"/>  
@@ -441,13 +454,9 @@
       delay measurement, the 64-bit receive timestamp is added at byte-offset 16 which is 
       from the start of the payload.</t>
 
-      <t>Liveness failure is notified when consecutive N number of probe
-      messages are not received back at the sender, where N is locally
-      provisioned value. Similarly, delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values exceed user-configured threshold,
-      where M is also locally provisioned value.</t>
+      </section>
 
-      <section anchor="sect-5.1"
+      <section anchor="sect-5.2"
                title="Probe Message with Network Programming for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label 
@@ -478,7 +487,7 @@
   |            Label(n)                   | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
-  +---------------------------------------------------------------+
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   | IP Header                                                     |
   .  Source IP Address = Reflector IPv4 or IPv6 Address           .
   .  Destination IP Address = Sender IPv4 or IPv6 Address         .
@@ -489,14 +498,14 @@
   .  Source Port = As chosen by Sender                            .
   .  Destination Port = User-configured Port                      .
   .                                                               .
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  +---------------------------------------------------------------+
   |  Payload as defined in Section 4.2.1 of RFC 5357              |
   |  Payload as defined in Section 4.2 of RFC 8762                |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
 
-      <section anchor="sect-5.1.1"
+      <section anchor="sect-5.2.1"
                title="Node Capability for Timestamp Label"
 	       toc="default">
       <t>The ingress node needs 
@@ -528,10 +537,9 @@
 
 	</section>
 
-
       </section>
 
-      <section anchor="sect-5.2"
+      <section anchor="sect-5.3"
                title="Probe Message with Network Programming for SRv6">
       <t>In this document, new Endpoint function "Timestamp and Forward
       (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
@@ -555,7 +563,7 @@
   +---------------------------------------------------------------+
   | IP Header                                                     |
   .  Source IP Address = Sender IPv6 Address                      .
-  .  Destination IP Address = Next Hop IPv6 Address               .
+  .  Destination IP Address = Destination IPv6 Address            .
   .                                                               .
   +---------------------------------------------------------------+
   | SRH as specified in RFC 8754                                  |
@@ -571,7 +579,7 @@
   .  Source Port = As chosen by Sender                            .
   .  Destination Port = User-configured Port                      .
   .                                                               .
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  +---------------------------------------------------------------+
   |  Payload as defined in Section 4.2.1 of RFC 5357 |            |
   |  Payload as defined in Section 4.2 of RFC 8762                |
   .                                                               .
