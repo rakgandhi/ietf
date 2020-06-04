@@ -300,7 +300,7 @@ Loss Measurement Mode   /                \
                   +-------+            +-------+
                   |       |            |       |
                   |   R1  |============|   R5  |
-                  |       |            |       |
+                  |       |  SR Path   |       |
                   +-------+            +-------+
                    Sender              Reflector
 ]]></artwork>
@@ -308,8 +308,7 @@ Loss Measurement Mode   /                \
 
     <t>Example of Measurement Protocol is STAMP, 
     example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP 
-    and example of the Loss Measurement
-    mode is inferred-mode or direct-mode.</t>
+    and example of the Loss Measurement mode is inferred-mode or direct-mode.</t>
 
     <t>The mechanisms to provision the
     sender and reflector nodes are outside the scope of this document.</t>
@@ -567,7 +566,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Query Message Formats for STAMP" anchor="sect-4.1.6">
+	<section title="Loss Measurement Query Message Formats" anchor="sect-4.1.6">
    <t>In this document, STAMP probe query messages for
    loss measurement are defined as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to 
@@ -685,7 +684,7 @@ Loss Measurement Mode   /                \
 
 	<t>
    HMAC: The PM probe message in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) (<xref target="RFC2104"/>) hash.  Each probe
+   Message Authentication Code (HMAC) <xref target="RFC2104"/> hash.  Each probe
    query and response messages are authenticated by adding Sequence
    Number with Hashed Message Authentication Code (HMAC) TLV.  It can
    use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
@@ -824,7 +823,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Response Message Formats for STAMP" anchor="sect-4.2.4"><t>
+	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
    In this document, STAMP probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.</t>
 
@@ -908,7 +907,7 @@ Loss Measurement Mode   /                \
         </section>
         </section>
 
-	<section title="Node Address TLV for STAMP Message" anchor="sect-4.3">
+	<section title="Node Address TLV" anchor="sect-4.3">
 
         <t>In this document, Node Address TLV is defined for STAMP message <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
         and has the following format shown in Figure 14:</t>
@@ -944,7 +943,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Return Path TLV for STAMP Message" anchor="sect-4.4"><t>
+	<section title="Return Path TLV" anchor="sect-4.4"><t>
    For two-way performance measurement, the reflector node needs to send
    the probe response message on a specific reverse path.  The sender
    node can request in the probe query message to the reflector node to

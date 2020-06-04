@@ -89,13 +89,13 @@ Table of Contents
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
        4.1.4.  Probe Query for End-to-end Measurement for SR Policy    9
        4.1.5.  Control Code Field for STAMP Messages . . . . . . . .  10
-       4.1.6.  Loss Measurement Query Message Formats for STAMP  . .  11
+       4.1.6.  Loss Measurement Query Message Formats  . . . . . . .  11
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  14
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  14
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  15
-       4.2.3.  Loss Measurement Response Message Formats for STAMP .  16
-     4.3.  Node Address TLV for STAMP Message  . . . . . . . . . . .  19
-     4.4.  Return Path TLV for STAMP Message . . . . . . . . . . . .  19
+       4.2.3.  Loss Measurement Response Message Formats . . . . . .  16
+     4.3.  Node Address TLV  . . . . . . . . . . . . . . . . . . . .  19
+     4.4.  Return Path TLV . . . . . . . . . . . . . . . . . . . . .  19
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  21
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  22
    7.  Additional Message Processing Rules . . . . . . . . . . . . .  22
@@ -317,7 +317,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
                      +-------+            +-------+
                      |       |            |       |
                      |   R1  |============|   R5  |
-                     |       |            |       |
+                     |       |  SR Path   |       |
                      +-------+            +-------+
                       Sender              Reflector
 
@@ -594,7 +594,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
        0x2: No Response Requested.
 
-4.1.6.  Loss Measurement Query Message Formats for STAMP
+4.1.6.  Loss Measurement Query Message Formats
 
    In this document, STAMP probe query messages for loss measurement are
    defined as shown in Figure 7 and Figure 8.  The message formats are
@@ -717,10 +717,10 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    measurement.
 
    HMAC: The PM probe message in authenticated mode includes a key
-   Hashed Message Authentication Code (HMAC) ([RFC2104]) hash.  Each
-   probe query and response messages are authenticated by adding
-   Sequence Number with Hashed Message Authentication Code (HMAC) TLV.
-   It can use HMAC-SHA-256 truncated to 128 bits (similarly to the use
+   Hashed Message Authentication Code (HMAC) [RFC2104] hash.  Each probe
+   query and response messages are authenticated by adding Sequence
+   Number with Hashed Message Authentication Code (HMAC) TLV.  It can
+   use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
 
 
 
@@ -730,8 +730,8 @@ Gandhi, et al.          Expires December 6, 2020               [Page 13]
 Internet-Draft          STAMP for Segment Routing              June 2020
 
 
-   of it in IPSec defined in [RFC4868]); hence the length of the HMAC
-   field is 16 octets.
+   IPSec defined in [RFC4868]); hence the length of the HMAC field is 16
+   octets.
 
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.
@@ -875,7 +875,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
          Figure 11: Example Probe Response Message for SRv6 Policy
 
-4.2.3.  Loss Measurement Response Message Formats for STAMP
+4.2.3.  Loss Measurement Response Message Formats
 
    In this document, STAMP probe response message formats are defined
    for loss measurement as shown in Figure 12 and Figure 13.
@@ -1010,7 +1010,7 @@ Gandhi, et al.          Expires December 6, 2020               [Page 18]
 Internet-Draft          STAMP for Segment Routing              June 2020
 
 
-4.3.  Node Address TLV for STAMP Message
+4.3.  Node Address TLV
 
    In this document, Node Address TLV is defined for STAMP message
    [I-D.ietf-ippm-stamp-option-tlv] and has the following format shown
@@ -1044,7 +1044,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    Policy when using the destination address in 127/8 range for IPv4 or
    in ::FFFF:127/104 range for IPv6.
 
-4.4.  Return Path TLV for STAMP Message
+4.4.  Return Path TLV
 
    For two-way performance measurement, the reflector node needs to send
    the probe response message on a specific reverse path.  The sender
