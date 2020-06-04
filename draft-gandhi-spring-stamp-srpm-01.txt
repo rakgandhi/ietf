@@ -551,8 +551,8 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    The Control Code field is defined for delay and loss measurement
    probe query messages for STAMP protocol in unauthenticated and
    authenticated modes.  The modified delay measurement probe query
-   message format for STAMP is shown in Figure 6.  This message format
-   is backwards compatible with the message format defined in STAMP
+   message format is shown in Figure 6.  This message format is
+   backwards compatible with the message format defined in STAMP
    [RFC8762] as its reflector MUST ignore the received field (previously
 
 
@@ -578,7 +578,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
     .                                                               .
     .                                                               .
 
-      Figure 6: Sender and Reflector Control Code in STAMP DM Message
+             Figure 6: Sender Control Code in STAMP DM Message
 
    Sender Control Code: Set as follows in STAMP probe query message.
 

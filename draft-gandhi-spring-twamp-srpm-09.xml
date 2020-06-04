@@ -519,7 +519,7 @@ Loss Measurement Mode   /                \
    ignore the received field (previously identified as MBZ).
    The usage of the Control Code is not limited to the SR paths and can be used for non-SR paths in a network.</t>
 
-   <figure title="Control Code in TWAMP Light Message" anchor="ure-control-code-in-twamp-message"><artwork><![CDATA[
+   <figure title="Sender Control Code in TWAMP Light DM Message" anchor="ure-control-code-in-twamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -563,7 +563,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Query Message Formats for TWAMP Light" anchor="sect-4.1.6">
+	<section title="Loss Measurement Query Message Formats" anchor="sect-4.1.6">
    <t> In this document, TWAMP Light probe query messages for
    loss measurement are defined as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to 
@@ -821,7 +821,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Response Message Formats for TWAMP Light" anchor="sect-4.2.4"><t>
+	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
    In this document, TWAMP Light probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.</t> 
 

@@ -516,13 +516,13 @@ Loss Measurement Mode   /                \
 	<t>
    The Control Code field is defined for delay and loss measurement probe query messages
    for STAMP protocol in unauthenticated and authenticated modes.  
-   The modified delay measurement probe query message format for STAMP is shown in Figure 6. 
+   The modified delay measurement probe query message format is shown in Figure 6. 
    This message format is backwards
    compatible with the message format defined in STAMP <xref target="RFC8762"/> as its reflector MUST
    ignore the received field (previously identified as MBZ).
    The usage of the Control Code is not limited to the SR paths and can be used for non-SR paths in a network.</t>
 
-   <figure title="Sender and Reflector Control Code in STAMP DM Message" anchor="ure-se-control-code-in-stamp-message"><artwork><![CDATA[
+   <figure title="Sender Control Code in STAMP DM Message" anchor="ure-se-control-code-in-stamp-message"><artwork><![CDATA[
  .                                                               .
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
