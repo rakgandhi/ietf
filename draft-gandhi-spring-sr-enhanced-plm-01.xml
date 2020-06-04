@@ -310,14 +310,6 @@
       defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
       target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
-      <t>Liveness failure is notified when consecutive N number of probe
-      messages are not received back at the sender, where N is locally
-      provisioned value. For delay measurement, 
-      the timestamps t1 and t4 are used to measure round-trip delay.
-      The delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values exceed user-configured threshold,
-      where M is also locally provisioned value.</t>
-
     <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
      <t>The TWAMP Light or STAMP probe messages for SR-MPLS data plane are 
      sent using the MPLS header containing the label stack of the SR
@@ -404,12 +396,6 @@
       <t>The enhanced performance delay and liveness monitoring of an SR Path including SR Policy is
       defined using the PM probes in loopback mode enabled with network programming.</t>
 
-      <t>Liveness failure is notified when consecutive N number of probe
-      messages are not received back at the sender, where N is locally
-      provisioned value. Similarly, delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values exceed user-configured threshold,
-      where M is also locally provisioned value.</t>
-
       <section anchor="sect-5.1"
                title="Loopback Mode Enabled with Network Programming"
                toc="default">
@@ -444,8 +430,7 @@
       message without punting the probe message in control-plane. The reflector node only
       adds the receive timestamp if the source or destination address in the probe message matches
       the local node address to ensure that the receive timestamp is returned by the 
-      intended reflector node. The one-way delay 
-      is measured using the receive (t2) and transmit (t1) timestamps in the probe message.</t>
+      intended reflector node.</t>
 
       <t>The network programming function is enabled to add receive timestamp
       in the payload of the probe message at a specific location which is also locally
@@ -602,8 +587,22 @@
       The Flow Label field in the outer IPv6 header can also be used for sweeping 
       to exercise different ECMP paths.</t>
    </section>
+ 
+   <section anchor="sect-7" title="Failure Notification" toc="default">
+      <t>Liveness failure for SR Path is notified when consecutive N number of probe
+      messages are not received back at the sender node, where N is locally
+      provisioned value. Similarly, delay metrics are notified when consecutive 
+      M number of probe messages have measured delay values exceed user-configured threshold,
+      where M is also locally provisioned value.</t>
 
-   <section anchor="sect-7" title="Security Considerations" toc="default">
+      <t>In loopback mode, the timestamps t1 and t4 are used to measure round-trip delay.
+      In loopback mode enabled with network programming, the timestamps t1 and t2 are used
+      to measure one-way delay.</t>
+
+   </section>
+
+
+   <section anchor="sect-8" title="Security Considerations" toc="default">
       <t>The Performance Delay and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
@@ -619,7 +618,7 @@
       lists and firewalls.</t>
    </section>
 
-   <section anchor="sect-8" title="IANA Considerations" toc="default">
+   <section anchor="sect-9" title="IANA Considerations" toc="default">
       <t>IANA maintains the "Special-Purpose Multiprotocol Label Switching
       (MPLS) Label Values" registry (see
       &lt;https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml&gt;).
