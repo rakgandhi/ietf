@@ -230,10 +230,10 @@
      </section>
      </section>
  
-    <section title="Protocol Overview" anchor="sect-3"><t>
+    <section title="Probe Messages" anchor="sect-3"><t>
     The TWAMP Light probe messages for delay measurement as defined in <xref
     target="RFC5357"/> or STAMP probe messages as defined in <xref target="RFC8762"/> 
-    are sent by the sender node R1 to the reflector 
+    are sent by the sender node R1 towards the reflector 
     node R5 in loopback mode as shown in Figure 1. The probe messages are sent by the sender node on the
     congruent path of the data traffic flowing on the SR Path.</t>
  
@@ -242,21 +242,21 @@
     As specified in <xref target="RFC8762"/>, the destination
     UDP port 862 is used in the probe messages by default. 
     The Source and Destination IP addresses in the probe messages are set to the reflector 
-    and the sender node addresses, respectively.
+    and the sender node addresses, respectively (representing the reverse path).
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
  
-    <t>No PM session is created on the reflector node R5.
+    <t>No reflector PM session is created on the reflector node R5.
     As the probe message is not punted on the reflector node for processing, the Sender
     copies the 'Sequence Number' in 'Session-Sender Sequence Number' field directly.  
     Also, the Sender Timestamp, Sender Error 
     Estimate and Sender TTL fields <xref target="RFC5357"/>  <xref target="RFC8762"/> 
-    in the probe message are not used.</t>
+    in the probe message are not used. The rest of the fields are set 
+    as defined in <xref target="RFC5357"/>  <xref target="RFC8762"/> </t>
  
     <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
-    specified in <xref target="RFC8186"/> implemented in hardware. Note that the timestamp format can be 
-    locally provisioned as part of enabling the network programming function. In addition to
+    specified in <xref target="RFC8186"/> implemented in hardware. In addition to
     adding the timestamp in the message, the "Error Estimate" field in the payload
-    of the message is updated using the procedure defined in <xref target="RFC4656"/>.</t>
+    of the message can be updated using the procedure defined in <xref target="RFC4656"/>.</t>
 
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
     An example of a provisioning model and typical measurement parameters for the 
@@ -286,7 +286,7 @@
 	</figure>
 
     <t>Example of Measurement Protocol is TWAMP Light and STAMP, example of  
-    Timestamp Format is PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
+    Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
     
     <t>The mechanisms to provision the
     sender and reflector nodes are outside the scope of this document.</t>
@@ -316,7 +316,7 @@
      Policy as shown in Figure 3. In case of IP/UDP
      return path, the MPLS header is removed by the reflector node.
      The label stack can contain a reverse SR-MPLS 
-     path to receive the return probe messgae on a specific path. 
+     path to receive the return probe message on a specific path. 
      In this case, the MPLS header will not be removed
      by the reflector node.</t>
 
