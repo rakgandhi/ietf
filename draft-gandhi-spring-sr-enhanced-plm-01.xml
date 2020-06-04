@@ -424,17 +424,17 @@
    
       <t>The sender node adds transmit (t1)
       timestamp in the payload of the TWAMP Light or STAMP probe message and clears the receive (t2) timestamp. 
-      The reflector node adds the receive timestamp (at the fixed location 
-      locally provisioned consistently in the network) in the 
-      payload of the received TWAMP Light or STAMP probe 
-      message without punting the probe message in control-plane. The reflector node only
+      The reflector node adds the receive timestamp in the 
+      payload of the received probe 
+      message without punting the message to slow-path (or control-plane). The reflector node only
       adds the receive timestamp if the source or destination address in the probe message matches
       the local node address to ensure that the receive timestamp is returned by the 
       intended reflector node.</t>
 
-      <t>The network programming function is enabled to add receive timestamp
-      in the payload of the probe message at a specific location which is also locally
-      provisioned. In TWAMP Light message defined in Section 4.2.1 of <xref target="RFC5357"/>  
+      <t>The network programming function enables the node to add receive timestamp
+      in the payload of the probe message at a specific location which is locally
+      provisioned consistently in the network. 
+      In TWAMP Light message defined in Section 4.2.1 of <xref target="RFC5357"/>  
       or STAMP message defined in <xref target="RFC8762"/> for  
       delay measurement, the 64-bit receive timestamp is added at byte-offset 16 which is 
       from the start of the payload.</t>
@@ -592,7 +592,8 @@
       <t>Liveness failure for SR Path is notified when consecutive N number of probe
       messages are not received back at the sender node, where N is locally
       provisioned value. Similarly, delay metrics are notified when consecutive 
-      M number of probe messages have measured delay values exceed user-configured threshold,
+      M number of probe messages have measured delay values exceed user-configured 
+      thresholds (absolute and percentage),
       where M is also locally provisioned value.</t>
 
       <t>In loopback mode, the timestamps t1 and t4 are used to measure round-trip delay.

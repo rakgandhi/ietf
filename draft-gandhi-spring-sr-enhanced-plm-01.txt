@@ -468,21 +468,20 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
    The sender node adds transmit (t1) timestamp in the payload of the
    TWAMP Light or STAMP probe message and clears the receive (t2)
-   timestamp.  The reflector node adds the receive timestamp (at the
-   fixed location locally provisioned consistently in the network) in
-   the payload of the received TWAMP Light or STAMP probe message
-   without punting the probe message in control-plane.  The reflector
-   node only adds the receive timestamp if the source or destination
-   address in the probe message matches the local node address to ensure
-   that the receive timestamp is returned by the intended reflector
-   node.
+   timestamp.  The reflector node adds the receive timestamp in the
+   payload of the received probe message without punting the message to
+   slow-path (or control-plane).  The reflector node only adds the
+   receive timestamp if the source or destination address in the probe
+   message matches the local node address to ensure that the receive
+   timestamp is returned by the intended reflector node.
 
-   The network programming function is enabled to add receive timestamp
-   in the payload of the probe message at a specific location which is
-   also locally provisioned.  In TWAMP Light message defined in
-   Section 4.2.1 of [RFC5357] or STAMP message defined in [RFC8762] for
-   delay measurement, the 64-bit receive timestamp is added at byte-
-   offset 16 which is from the start of the payload.
+   The network programming function enables the node to add receive
+   timestamp in the payload of the probe message at a specific location
+   which is locally provisioned consistently in the network.  In TWAMP
+   Light message defined in Section 4.2.1 of [RFC5357] or STAMP message
+   defined in [RFC8762] for delay measurement, the 64-bit receive
+   timestamp is added at byte-offset 16 which is from the start of the
+   payload.
 
 5.2.  Probe Message with Network Programming for SR-MPLS
 
@@ -498,6 +497,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    location, the node pops the Timestamp Label and forwards the message
    using the next label or IP header in the message (just like the data
    packets for the normal traffic).
+
 
 
 
@@ -674,8 +674,8 @@ Gandhi, et al.          Expires December 6, 2020               [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
-   values exceed user-configured threshold, where M is also locally
-   provisioned value.
+   values exceed user-configured thresholds (absolute and percentage),
+   where M is also locally provisioned value.
 
    In loopback mode, the timestamps t1 and t4 are used to measure round-
    trip delay.  In loopback mode enabled with network programming, the
