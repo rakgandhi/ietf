@@ -303,10 +303,10 @@
       <t>The probe messages are sent using the Segment List (SL) of the Candidate-paths of the SR Policy
       <xref target="I-D.ietf-spring-segment-routing-policy"/>.
       When a Candidate-path has more than one Segment Lists, multiple
-      probe messages are sent, one using each Segment List. The probe messages are received back by
+      probe messages are sent, one using each Segment List. The return probe messages are received by
       the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
       The Segment List of the return SR path can be added in the probe message header
-      to receive the probe response on a specific path using the mechanisms
+      to receive the return probe message on a specific path using the mechanisms
       defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
       target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
@@ -316,7 +316,7 @@
      Policy as shown in Figure 3. In case of IP/UDP
      return path, the MPLS header is removed by the reflector node.
      The label stack can contain a reverse SR-MPLS 
-     path to receive the reply on a specific path. 
+     path to receive the return probe messgae on a specific path. 
      In this case, the MPLS header will not be removed
      by the reflector node.</t>
 
@@ -357,7 +357,7 @@
       the Segment List of the SR Policy as shown in Figure 4. In case of IP/UDP
       return path, the SRH is removed by the reflector node.
       The Segment List can contain a reverse SRv6 path to receive 
-      the reply on a specific path. In this case, the SRH will not be removed
+      the return probe message on a specific path. In this case, the SRH will not be removed
       by the reflector node.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
@@ -451,8 +451,11 @@
       <t>In the probe message with network programming for SR-MPLS,
       Timestamp Label is added in the MPLS header as shown in Figure 6, to
       collect "Receive Timestamp" field in the payload of the TWAMP Light <xref
-      target="RFC5357"/> or STAMP probe message. When a node receives a message with
-      Timestamp Label, other than timestamping the message at a fixed location, 
+      target="RFC5357"/> or STAMP probe message. 
+      The label stack for the reverse SR-MPLS path can be added after the Timestamp 
+      Label to receive the return probe message on a specific path. 	      
+      When a node receives a message with
+      Timestamp Label, after timestamping the message at a fixed location, 
       the node pops the Timestamp Label and forwards the
       message using the next label or IP header in the message (just like the 
       data packets for the normal traffic).</t>
@@ -589,8 +592,8 @@
    </section>
  
    <section anchor="sect-7" title="Failure Notification" toc="default">
-      <t>Liveness failure for SR Path is notified when consecutive N number of probe
-      messages are not received back at the sender node, where N is locally
+      <t>Liveness failure for SR Path is notified when consecutive N number of return probe
+      messages are not received at the sender node, where N is locally
       provisioned value. Similarly, delay metrics are notified when consecutive 
       M number of probe messages have measured delay values exceed user-configured 
       thresholds (absolute and percentage),
@@ -610,10 +613,10 @@
       the integrity of the path and the identity of the reflector
       node. If desired, attacks can be mitigated by performing basic
       validation and sanity checks, at the sender, of the timestamp
-      fields in received probe response messages. The minimal state
+      fields in received probe  messages. The minimal state
       associated with these protocols also limits the extent of disruption
       that can be caused by a corrupt or invalid message to a single
-      query/response cycle. Use of HMAC-SHA-256 in the authenticated mode
+      probe cycle. Use of HMAC-SHA-256 in the authenticated mode
       protects the data integrity of the probe messages. Cryptographic
       measures may be enhanced by the correct configuration of access-control
       lists and firewalls.</t>
