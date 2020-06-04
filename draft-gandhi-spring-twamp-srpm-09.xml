@@ -588,8 +588,10 @@ Loss Measurement Mode   /                \
  |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
+ .                                                               .
  .                        Packet Padding                         .
  .                                                               .
+ |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
@@ -617,8 +619,10 @@ Loss Measurement Mode   /                \
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
+ .                                                               .
  .                        Packet Padding                         .
  .                                                               .
+ |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
@@ -678,7 +682,7 @@ Loss Measurement Mode   /                \
 
 	<t>
    HMAC: The PM probe message in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) (<xref target="RFC2104"/>) hash.  Each probe
+   Message Authentication Code (HMAC) <xref target="RFC2104"/> hash.  Each probe
    query and response messages are authenticated by adding Sequence
    Number with Hashed Message Authentication Code (HMAC) TLV.  It can
    use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
