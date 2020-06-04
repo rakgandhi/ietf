@@ -916,7 +916,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu|     MBZ                       |
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |  Sender TTL   |      MBZ                                      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -985,7 +985,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu|       MBZ                     |
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1214,10 +1214,9 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    When using the Destination IPv4 Address from the 127/8 range, the TTL
    in the IPv4 header is set to 1 [RFC8029].  Similarly, when using the
    Destination IPv6 Address from the ::FFFF:127/104 range, the Hop Limit
-   field in the inner IPv6 header is set to 1 whereas in the outer IPv6
-   header is set to 255.
+   field in the IPv6 header is set to 1.
 
-   For Link performance delay and loss measurements, the TTL and Hop
+   For Link performance delay and loss measurements, the TTL or Hop
    Limit field in the probe message is set to 1 in both one-way and two-
    way measurement modes.
 
@@ -1225,6 +1224,7 @@ Internet-Draft          STAMP for Segment Routing              June 2020
 
    The Router Alert IP option (RAO) [RFC2113] is not set in the probe
    messages.
+
 
 
 

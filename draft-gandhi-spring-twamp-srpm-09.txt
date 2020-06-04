@@ -972,7 +972,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |  Sender TTL   |                                               |
     +-+-+-+-+-+-+-+-+                                               +
@@ -1025,7 +1025,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
     |                        Sender Counter                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1130,12 +1130,11 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
    [RFC5357].
 
    When using the Destination IPv4 Address from the 127/8 range, the TTL
-   in the IPv4 header is set to 1 [RFC8029].  Similarly, when using the
-   Destination IPv6 Address from the ::FFFF:127/104 range, the Hop Limit
-   field in the inner IPv6 header is set to 1 whereas in the outer IPv6
-   header is set to 255.
+   field in the IPv4 header is set to 1 [RFC8029].  Similarly, when
+   using the Destination IPv6 Address from the ::FFFF:127/104 range, the
+   Hop Limit field in the IPv6 header is set to 1.
 
-   For Link performance delay and loss measurements, the TTL and Hop
+   For Link performance delay and loss measurements, the TTL or Hop
    Limit field in the probe message is set to 1 in both one-way and two-
    way measurement modes.
 
@@ -1169,7 +1168,8 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
    and sanity checks, at the sender, of the counter or timestamp fields
    in received measurement response messages.  The minimal state
    associated with these protocols also limits the extent of measurement
-
+   disruption that can be caused by a corrupt or invalid message to a
+   single query/response cycle.
 
 
 
@@ -1177,9 +1177,6 @@ Gandhi, et al.          Expires December 6, 2020               [Page 21]
 
 Internet-Draft       TWAMP Light for Segment Routing           June 2020
 
-
-   disruption that can be caused by a corrupt or invalid message to a
-   single query/response cycle.
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the probe messages.  SRv6 has HMAC protection
@@ -1225,6 +1222,9 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
+
+
+
 
 
 
