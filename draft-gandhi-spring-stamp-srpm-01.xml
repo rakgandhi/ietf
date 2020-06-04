@@ -130,7 +130,7 @@
    (STAMP) (including the TLV extensions) for Delay Measurement (DM), and uses the
    mechanisms defined in this document for Loss Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
-   are used for both Links and end-to-end SR Paths including SR Policies.  This document
+   is used for both Links and end-to-end SR Paths including SR Policies.  This document
    also defines mechanisms for handling ECMPs of SR Paths for
    performance delay measurement.  Unless otherwise specified, the mechanisms 
    defined in <xref target="RFC8762"/> and <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
@@ -301,7 +301,7 @@ Loss Measurement Mode   /                \
                   |       |            |       |
                   |   R1  |============|   R5  |
                   |       |  SR Path   |       |
-                  +-------+            +-------+
+                  +-------+  Or Link   +-------+
                    Sender              Reflector
 ]]></artwork>
 	</figure>
@@ -846,7 +846,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
+ |X|B| Reserved  |Sender Block Nu|     MBZ                       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |      MBZ                                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -885,7 +885,7 @@ Loss Measurement Mode   /                \
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu| MBZ           | MBZ           |
+ |X|B| Reserved  |Sender Block Nu|       MBZ                     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

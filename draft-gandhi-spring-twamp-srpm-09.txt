@@ -21,12 +21,12 @@ Abstract
 
    Segment Routing (SR) leverages the source routing paradigm.  SR is
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
-   (SRv6) data planes.  This document specifies procedure for sending
+   (SRv6) data planes.  This document describes procedure for sending
    and processing probe query and response messages for Performance
    Measurement (PM) in Segment Routing networks.  The procedure uses the
    messages defined in RFC 5357 (Two-Way Active Measurement Protocol
    (TWAMP) Light) for Delay Measurement, and uses the messages defined
-   in this document for Loss Measurement.  The procedure specified is
+   in this document for Loss Measurement.  The procedure described is
    applicable to SR-MPLS and SRv6 data planes and is used for both Links
    and end-to-end SR Paths including SR Policies.
 
@@ -144,15 +144,15 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
    support for direct-mode Loss Measurement (LM) to detect actual
    Customer data traffic loss which is required in SR networks.
 
-   This document specifies procedures for sending and processing probe
+   This document describes procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
    networks.  The procedure uses the messages defined in [RFC5357]
    (TWAMP Light) for Delay Measurement (DM), and uses the messages
    defined in this document for Loss Measurement.  The procedure
-   specified is applicable to SR-MPLS and SRv6 data planes and are used
+   described is applicable to SR-MPLS and SRv6 data planes and is used
    for both Links and end-to-end SR Paths including SR Policies.  This
    document also defines mechanisms for handling ECMPs of SR Paths for
-   performance delay measurement.  Unless otherwise specified, the
+   performance delay measurement.  Unless otherwise described, the
    messages defined in [RFC5357] are not modified by this document.
 
 2.  Conventions Used in This Document
@@ -311,7 +311,7 @@ Internet-Draft       TWAMP Light for Segment Routing           June 2020
                      |       |            |       |
                      |   R1  |============|   R5  |
                      |       |  SR Path   |       |
-                     +-------+            +-------+
+                     +-------+  Or Link   +-------+
                       Sender              Reflector
 
                    Figure 1: Example Provisioning Model
