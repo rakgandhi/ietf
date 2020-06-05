@@ -16,6 +16,7 @@
 <!ENTITY RFC7820 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7820.xml">
 <!ENTITY RFC8029 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8029.xml">
 <!ENTITY RFC8085 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8085.xml">
+<!ENTITY RFC8126 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml">
 <!ENTITY RFC8186 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8186.xml">
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
@@ -221,11 +222,11 @@
 
 	<figure><artwork><![CDATA[
 
-            +-------+ t1     Query     t2 +-------+
+            +-------+ t1    Query      t2 +-------+
             |       | - - - - - - - - - ->|       |
             |   R1  |=====================|   R5  |
             |       |<- - - - - - - - - - |       |
-            +-------+ t4     Response  t3 +-------+
+            +-------+ t4    Response   t3 +-------+
              Sender                       Reflector
 
                       Reference Topology
@@ -1200,9 +1201,10 @@ Loss Measurement Mode   /                \
    IANA is requested to create a sub-registry for "Return Path Sub-TLV Type".
    All code points in the range 1 through 32759 in this registry shall be
    allocated according to the "IETF Review" procedure as specified in
-   [RFC8126].  Code points in the range 32760 through 65279 in this
+   <xref target="RFC8126"/>.  Code points in the range 32760 through 65279 in this
    registry shall be allocated according to the "First Come First
-   Served" procedure as specified in [RFC8126]. Remaining code points are allocated according to <xref target="iana-return-path-tbl"/>:
+   Served" procedure as specified in <xref target="RFC8126"/>. 
+   Remaining code points are allocated according to <xref target="iana-return-path-tbl"/>:
    </t>
 
      <texttable anchor="iana-return-path-tbl" title="Return Path Sub-TLV Type Registry">
@@ -1279,6 +1281,7 @@ Loss Measurement Mode   /                \
 	&RFC7820;
 	&RFC8029;
 	&RFC8085;
+	&RFC8126;
 	&RFC8186;
 	&RFC8321;
 	&RFC8402;

@@ -242,11 +242,11 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    [I-D.voyer-spring-sr-replication-segment].
 
 
-               +-------+ t1     Query     t2 +-------+
+               +-------+ t1    Query      t2 +-------+
                |       | - - - - - - - - - ->|       |
                |   R1  |=====================|   R5  |
                |       |<- - - - - - - - - - |       |
-               +-------+ t4     Response  t3 +-------+
+               +-------+ t4    Response   t3 +-------+
                 Sender                       Reflector
 
                          Reference Topology
@@ -1445,10 +1445,10 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017, <https://www.rfc-editor.org/info/rfc8085>.
 
-   [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
-              Timestamp Format in a Two-Way Active Measurement Protocol
-              (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
-              <https://www.rfc-editor.org/info/rfc8186>.
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
 
 
 
@@ -1457,6 +1457,11 @@ Gandhi, et al.          Expires December 7, 2020               [Page 26]
 
 Internet-Draft          STAMP for Segment Routing              June 2020
 
+
+   [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
+              Timestamp Format in a Two-Way Active Measurement Protocol
+              (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
+              <https://www.rfc-editor.org/info/rfc8186>.
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -1498,11 +1503,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
               draft-ietf-spring-srv6-network-programming-15 (work in
               progress), March 2020.
 
-   [I-D.ietf-pce-binding-label-sid]
-              Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
-              Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
-              in PCE-based Networks.", draft-ietf-pce-binding-label-
-              sid-02 (work in progress), March 2020.
 
 
 
@@ -1513,6 +1513,12 @@ Gandhi, et al.          Expires December 7, 2020               [Page 27]
 
 Internet-Draft          STAMP for Segment Routing              June 2020
 
+
+   [I-D.ietf-pce-binding-label-sid]
+              Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
+              Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
+              in PCE-based Networks.", draft-ietf-pce-binding-label-
+              sid-02 (work in progress), March 2020.
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -1555,12 +1561,6 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-   Clarence Filsfils
-   Cisco Systems, Inc.
-
-   Email: cfilsfil@cisco.com
-
-
 
 
 
@@ -1568,6 +1568,12 @@ Authors' Addresses
 Gandhi, et al.          Expires December 7, 2020               [Page 28]
 
 Internet-Draft          STAMP for Segment Routing              June 2020
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
 
 
    Daniel Voyer
@@ -1586,12 +1592,6 @@ Internet-Draft          STAMP for Segment Routing              June 2020
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
 
 
 
