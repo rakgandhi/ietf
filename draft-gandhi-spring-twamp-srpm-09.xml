@@ -916,6 +916,52 @@ Loss Measurement Mode   /                \
 	</section>
         </section>
 
+	<section title="Additional Probe Message Processing Rules" anchor="sect-4.3"><t>
+   The processing rules defined in this section are applicable to TWAMP 
+   Light messages for delay and loss measurement for Links and 
+   end-to-end SR Paths including SR Policies.</t>		
+		
+        <section title="TTL and Hop Limit" anchor="sect-4.3.1"><t>
+   The TTL field in the IPv4 and MPLS headers of the
+   probe query messages is set to 255 <xref target="RFC5357"/>.
+   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
+   probe query messages is set to 255 <xref target="RFC5357"/>.</t>
+
+	<t>
+   When using the Destination IPv4 Address from the 127/8 range, the TTL field
+   in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
+   Destination IPv6 Address from the ::FFFF:127/104 range, the
+   Hop Limit field in the IPv6 header is set to 1.</t>
+
+       <t> 
+   For Link performance delay and loss measurements, 
+   the TTL or Hop Limit field in the probe message is set to 1 in both one-way and two-way measurement modes. 
+       </t>
+
+	</section>
+
+	<section title="Router Alert Option" anchor="sect-4.3.2"><t>
+   The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the probe messages.</t>
+
+	</section>
+
+	<section title="UDP Checksum" anchor="sect-4.3.3"><t>
+   The UDP Checksum Complement for delay and loss measurement messages
+   follows the procedure defined in <xref target="RFC7820"/> and can be optionally used
+   with the procedures defined in this document.</t>
+
+	<t>
+   For IPv4 and IPv6 probe messages, where the hardware is not capable
+   of re-computing the UDP checksum or adding checksum complement
+   <xref target="RFC7820"/>, the sender node sets the UDP checksum to 0 <xref target="RFC6936"/>
+   <xref target="RFC8085"/>.  The receiving node bypasses the checksum validation and
+   accepts the packets with UDP checksum value 0 for the UDP port being
+   used for PM delay and loss measurements.</t>
+
+	</section>
+
+	</section>
+
 
 	</section>
 
@@ -976,51 +1022,18 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
-   The processing rules defined in this section are applicable to TWAMP 
-   Light messages for delay and loss measurement for Links and 
-   end-to-end SR Paths including SR Policies.</t>		
-		
-        <section title="TTL and Hop Limit" anchor="sect-7.1"><t>
-   The TTL field in the IPv4 and MPLS headers of the
-   probe query messages is set to 255 <xref target="RFC5357"/>.
-   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
-   probe query messages is set to 255 <xref target="RFC5357"/>.</t>
+   <section title="Performance Delay and Liveness Monitoring" anchor="sect-7"><t>
+    The procedure defined in this document for delay measurement using the TWAMP Light probe 
+    messages can also be applied to liveness monitoring of Links and SR Paths. 
+    The one-way or two-way measurement mode can be used for liveness monitoring.  
+    Liveness failure is notified when consecutive N number of probe response messages are
+    not received back at the sender node, where N is locally provisioned value. 
+    Note that detection interval and scale for number of sessions need to account for 
+    the processing of the probe messages which are punted out of fast path in forwarding 
+    (to slow path or control plane), and re-injected back on the reflector node.</t>
 
-	<t>
-   When using the Destination IPv4 Address from the 127/8 range, the TTL field
-   in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
-   Destination IPv6 Address from the ::FFFF:127/104 range, the
-   Hop Limit field in the IPv6 header is set to 1.</t>
+    </section>
 
-       <t> 
-   For Link performance delay and loss measurements, 
-   the TTL or Hop Limit field in the probe message is set to 1 in both one-way and two-way measurement modes. 
-       </t>
-
-	</section>
-
-	<section title="Router Alert Option" anchor="sect-7.2"><t>
-   The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the probe messages.</t>
-
-	</section>
-
-	<section title="UDP Checksum" anchor="sect-7.3"><t>
-   The UDP Checksum Complement for delay and loss measurement messages
-   follows the procedure defined in <xref target="RFC7820"/> and can be optionally used
-   with the procedures defined in this document.</t>
-
-	<t>
-   For IPv4 and IPv6 probe messages, where the hardware is not capable
-   of re-computing the UDP checksum or adding checksum complement
-   <xref target="RFC7820"/>, the sender node sets the UDP checksum to 0 <xref target="RFC6936"/>
-   <xref target="RFC8085"/>.  The receiving node bypasses the checksum validation and
-   accepts the packets with UDP checksum value 0 for the UDP port being
-   used for PM delay and loss measurements.</t>
-
-	</section>
-
-	</section>
 
 	<section title="Security Considerations" anchor="sect-8"><t>
    The performance measurement is intended for deployment in
