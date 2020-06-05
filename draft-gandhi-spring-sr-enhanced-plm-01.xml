@@ -88,7 +88,7 @@
       </address>
     </author>
 
-    <date day="4" month="June" year="2020"/>
+    <date day="5" month="June" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -245,7 +245,7 @@
     and the sender node addresses, respectively (representing the reverse path).
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
  
-    <t>No reflector PM session is created on the reflector node R5.
+    <t>No PM session is created on the reflector node R5.
     As the probe message is not punted on the reflector node for processing, the Sender
     copies the 'Sequence Number' in 'Session-Sender Sequence Number' field directly.  
     Also, the Sender Timestamp, Sender Error 
