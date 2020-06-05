@@ -24,10 +24,10 @@
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
-<!ENTITY I-D.ietf-mpls-spl-terminology SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mpls-spl-terminology.xml">
 <!ENTITY I-D.gandhi-spring-twamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-twamp-srpm.xml">
 <!ENTITY I-D.gandhi-spring-stamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-stamp-srpm.xml">
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
+<!ENTITY I-D.ietf-mpls-spl-terminology SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mpls-spl-terminology.xml">
 ]>
 <rfc category="std" docName="draft-gandhi-spring-sr-enhanced-plm-01"
      ipr="trust200902" submissionType="IETF">
@@ -128,18 +128,22 @@
       provisioning UDP paths that eliminates the need for control-channel
       signaling. Similarly, the Simple Two-way Active Measurement Protocol (STAMP)
       <xref target="RFC8762"/> alleviates the need for control-channel signaling by using
-      configuration data model to provision a test-channel.  
-      <xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedure
-      for using TWAMP Light messages with user-defined IP/UDP 
-      paths in SR networks and is applicable to both SR-MPLS and SRv6 data planes. 
-      <xref target="I-D.gandhi-spring-stamp-srpm"/> defines similar 
-      procedure using STAMP messages.</t>
+      configuration data model to provision a test-channel.</t>
+
+      <t><xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedure
+      for performance measurement using TWAMP Light messages with user-defined IP/UDP 
+      paths in SR networks. <xref target="I-D.gandhi-spring-stamp-srpm"/> defines similar 
+      procedure using STAMP messages in SR networks. The procedure for one-way and two-way modes 
+      defined for delay measurement can also be applied to liveness monitoring of SR Paths. 
+      However, it limits the scale for number of PM sessions and fault detection interval
+      since the probe query messages need to be punted from the forwarding path
+      (to slow path or control plane) and response messages need to be re-injected.</t>
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in Segment Routing networks.
       However, S-BFD requires protocol support on the reflector node to process
-      the S-BFD packets as packets are punted from forwarding path in order to
-      send reply thereby limiting the scale for number of sessions and fault
+      the S-BFD packets as packets need to be punted from the forwarding path in order to
+      send the reply thereby limiting the scale for number of PM sessions and fault
       detection interval. In addition, S-BFD protocol does not have the
       capability today to enable performance delay monitoring in SR
       networks. Enabling multiple protocols in SR networks, S-BFD for liveness
@@ -148,7 +152,7 @@
 
       <t>This document defines procedure for 
       Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure uses the probe messages defined in  <xref target="RFC5357"/> (TWAMP Light) and 
+      The procedure uses the probe messages defined in <xref target="RFC5357"/> (TWAMP Light) and 
       <xref target="RFC8762"/> (STAMP) for SR Paths including SR Policies with both
       SR-MPLS and SRv6 data planes.</t>
     </section>
@@ -294,21 +298,21 @@
 
     </section>
 
-     <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
-      <t>For performance delay and liveness monitoring of an SR Path including SR Policy, 
-      PM probes in loopback mode is used.  The PM probe messages 
-      are sent by the sender (head-end) node R1 to the reflector (endpoint)
-      node R5 of the SR Policy as shown in Figure 1.</t>
+    <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
+     <t>For performance delay and liveness monitoring of an SR Path including SR Policy, 
+     PM probes in loopback mode is used.  The PM probe messages 
+     are sent by the sender (head-end) node R1 to the reflector (endpoint)
+     node R5 of the SR Policy as shown in Figure 1.</t>
 
-      <t>The probe messages are sent using the Segment List (SL) of the Candidate-paths of the SR Policy
-      <xref target="I-D.ietf-spring-segment-routing-policy"/>.
-      When a Candidate-path has more than one Segment Lists, multiple
-      probe messages are sent, one using each Segment List. The return probe messages are received by
-      the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
-      The Segment List of the return SR path can be added in the probe message header
-      to receive the return probe message on a specific path using the mechanisms
-      defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
-      target="I-D.ietf-pce-sr-bidir-path"/>.</t>
+     <t>The probe messages are sent using the Segment List (SL) of the Candidate-paths of the SR Policy
+     <xref target="I-D.ietf-spring-segment-routing-policy"/>.
+     When a Candidate-path has more than one Segment Lists, multiple
+     probe messages are sent, one using each Segment List. The return probe messages are received by
+     the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
+     The Segment List of the return SR path can be added in the probe message header
+     to receive the return probe message on a specific path using the mechanisms
+     defined in <xref target="I-D.ietf-pce-binding-label-sid"/> and <xref
+     target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
     <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
      <t>The TWAMP Light or STAMP probe messages for SR-MPLS data plane are 
@@ -351,14 +355,14 @@
         </figure>
       </section>
 
-     <section anchor="sect-4.2" title="Probe Message for SRv6">
-      <t>The TWAMP Light or STAMP probe messages for SRv6 data plane are sent using the 
-      Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
-      the Segment List of the SR Policy as shown in Figure 4. In case of IP/UDP
-      return path, the SRH is removed by the reflector node.
-      The Segment List can contain a reverse SRv6 path to receive 
-      the return probe message on a specific path. In this case, the SRH will not be removed
-      by the reflector node.</t>
+   <section anchor="sect-4.2" title="Probe Message for SRv6">
+    <t>The TWAMP Light or STAMP probe messages for SRv6 data plane are sent using the 
+    Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
+    the Segment List of the SR Policy as shown in Figure 4. In case of IP/UDP
+    return path, the SRH is removed by the reflector node.
+    The Segment List can contain a reverse SRv6 path to receive 
+    the return probe message on a specific path. In this case, the SRH will not be removed
+    by the reflector node.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
                 title="Example Probe Message for SRv6">
@@ -448,7 +452,7 @@
       (value TBD1) is defined for SR-MPLS data plane to enable network programming
       function for "timestamp, pop and forward" the received packet.</t>
 
-      <t>In the probe message with network programming for SR-MPLS,
+      <t>In the probe message for SR-MPLS,
       Timestamp Label is added in the MPLS header as shown in Figure 6, to
       collect "Receive Timestamp" field in the payload of the TWAMP Light <xref
       target="RFC5357"/> or STAMP probe message. 
@@ -535,13 +539,13 @@
       network programming function for "timestamp and forward" the received
       message.</t>
 
-      <t>In the probe message with network programming for SRv6,
+      <t>In the probe message for SRv6,
       END.TSF function is added for the Endpoint Segment Identifier (SID) in SRH 
       <xref target="RFC8754"/> as shown in Figure 7,
       to collect "Receive Timestamp" field in the payload of the TWAMP Light <xref
       target="RFC5357"/> or STAMP probe message. When a node receives a packet with
       END.TSF function for the target SID which is local, 
-      other than timestamping the packet at a fixed location,
+      after timestamping the packet at a fixed location,
       the node forwards the packet using the next SID or IP header in the packet 
       (just like the packets for the normal traffic).</t>
 
@@ -688,8 +692,8 @@
       &I-D.gandhi-spring-stamp-srpm;
       &I-D.ietf-spring-segment-routing-policy;
       &I-D.ietf-spring-srv6-network-programming;
-      &I-D.ietf-pce-binding-label-sid;
       &I-D.ietf-mpls-spl-terminology;
+      &I-D.ietf-pce-binding-label-sid;
       &I-D.ietf-pce-sr-bidir-path;
     </references>
 
