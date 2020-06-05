@@ -856,13 +856,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Performance Measurement Using TWAMP Light for
               Segment Routing Networks", draft-gandhi-spring-twamp-
-              srpm-08 (work in progress), March 2020.
+              srpm-09 (work in progress), June 2020.
 
    [I-D.gandhi-spring-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Performance Measurement Using STAMP for Segment
-              Routing Networks", draft-gandhi-spring-stamp-srpm-00 (work
-              in progress), March 2020.
+              Routing Networks", draft-gandhi-spring-stamp-srpm-01 (work
+              in progress), June 2020.
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
