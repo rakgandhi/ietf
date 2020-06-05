@@ -139,7 +139,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    applied to liveness monitoring of SR Paths.  However, it limits the
    scale for number of PM sessions and fault detection interval since
    the probe query messages need to be punted from the forwarding path
-   (to slow path or control plane) and response messages need to be re-
+   (to slow path or control plane) and response messages need to be
    injected.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection

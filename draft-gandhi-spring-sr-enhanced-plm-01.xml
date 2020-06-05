@@ -137,7 +137,7 @@
       defined for delay measurement can also be applied to liveness monitoring of SR Paths. 
       However, it limits the scale for number of PM sessions and fault detection interval
       since the probe query messages need to be punted from the forwarding path
-      (to slow path or control plane) and response messages need to be re-injected.</t>
+      (to slow path or control plane) and response messages need to be injected.</t>
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in Segment Routing networks.
