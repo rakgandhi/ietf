@@ -14,7 +14,7 @@ Expires: December 11, 2020                                      D. Voyer
                                                             June 9, 2020
 
 
-Performance Measurement using RFC 6374 with UDP Path for Segment Routing
+Performance Measurement Using RFC 6374 with UDP Path for Segment Routing
                                 Networks
                 draft-gandhi-spring-rfc6374-srpm-udp-04
 
@@ -55,7 +55,7 @@ Status of This Memo
 
 Gandhi, et al.          Expires December 11, 2020               [Page 1]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
 Copyright Notice
@@ -90,7 +90,7 @@ Table of Contents
        4.4.1.  Probe Query Message for SR-MPLS Policy  . . . . . . .   8
        4.4.2.  Probe Query Message for SRv6 Policy . . . . . . . . .   9
    5.  Probe Response Message  . . . . . . . . . . . . . . . . . . .  10
-     5.1.  One-way Measurement Mode  . . . . . . . . . . . . . . . .  12
+     5.1.  One-way Measurement Mode  . . . . . . . . . . . . . . . .  11
        5.1.1.  SR Links and End-to-end Measurement for SR Policy . .  12
        5.1.2.  Probe Response Message to Controller  . . . . . . . .  12
      5.2.  Two-way Measurement Mode  . . . . . . . . . . . . . . . .  12
@@ -111,7 +111,7 @@ Table of Contents
 
 Gandhi, et al.          Expires December 11, 2020               [Page 2]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  17
@@ -167,7 +167,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 3]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    This document specifies a procedure for sending and processing probe
@@ -223,7 +223,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 4]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    SL: Segment List.
@@ -279,7 +279,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 5]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    Section 2.2 and Section 2.6 of [RFC6374] are used.  Separate UDP
@@ -335,7 +335,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 6]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    DM.  The Destination UDP port can also be used as Source port for
@@ -391,7 +391,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 7]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
     +---------------------------------------------------------------+
@@ -447,7 +447,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 8]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
     0                   1                   2                   3
@@ -503,7 +503,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 9]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
     +---------------------------------------------------------------+
@@ -559,7 +559,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 10]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
     +---------------------------------------------------------------+
@@ -567,7 +567,6 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
     .  Source IP Address = Responder IPv4 or IPv6 Address           .
     .  Destination IP Address = Source IP Address from Query        .
     .  Protocol = UDP                                               .
-    .  Router Alert Option Not Set                                  .
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
@@ -592,7 +591,6 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
     .  Source IP Address = Responder IPv4 or IPv6 Address           .
     .  Destination IP Address = URO.Address                         .
     .  Protocol = UDP                                               .
-    .  Router Alert Option Not Set                                  .
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
@@ -607,6 +605,8 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
         Figure 6: Probe Response Message Using URO from Probe Query
 
+5.1.  One-way Measurement Mode
+
 
 
 
@@ -615,10 +615,8 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 11]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
-
-5.1.  One-way Measurement Mode
 
 5.1.1.  SR Links and End-to-end Measurement for SR Policy
 
@@ -666,16 +664,15 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    For two-way performance measurement, the sender node can request the
    responder node to send a response message back on a given reverse
    path (e.g. co-routed path for two-way measurement).  Return Path TLV
+   defined in [I-D.gandhi-mpls-rfc6374-sr] is used to carry reverse SR
+   path information as part of the payload of the probe query message.
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 12]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
-
-   defined in [I-D.gandhi-mpls-rfc6374-sr] is used to carry reverse SR
-   path information as part of the payload of the probe query message.
 
    Additional Segment List Sub-TLVs are defined in this document for the
    Return Path TLV for the following Types:
@@ -722,16 +719,16 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy is shown in Figure 8.  For SRv6 Policy
    using SRH, the SRv6 SID list in the SRH of the probe response message
+   is built using the SRv6 Segment List received in the Return Path TLV
+   in the probe query message.
+
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 13]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
-
-   is built using the SRv6 Segment List received in the Return Path TLV
-   in the probe query message.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -781,9 +778,12 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 
 
+
+
+
 Gandhi, et al.          Expires December 11, 2020              [Page 14]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
 7.  ECMP Support for SR Policies
@@ -839,7 +839,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 15]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    o  The Sequence Number TLV is optional.
@@ -895,7 +895,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 16]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
     0                   1                   2                   3
@@ -951,7 +951,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 17]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
 11.  IANA Considerations
@@ -1007,7 +1007,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 18]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    [I-D.gandhi-mpls-rfc6374-sr]
@@ -1063,7 +1063,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 19]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    [I-D.voyer-spring-sr-replication-segment]
@@ -1119,7 +1119,7 @@ Contributors
 
 Gandhi, et al.          Expires December 11, 2020              [Page 20]
 
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 
    Sagar Soni

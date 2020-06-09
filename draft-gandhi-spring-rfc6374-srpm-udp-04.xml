@@ -29,7 +29,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="PM Using RFC6374 with UDP Path in SR">Performance Measurement using RFC 6374 with UDP Path for Segment Routing Networks</title>
+	<title abbrev="Using RFC6374 with UDP Path in SR">Performance Measurement Using RFC 6374 with UDP Path for Segment Routing Networks</title>
 
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
@@ -468,7 +468,6 @@
  .  Source IP Address = Responder IPv4 or IPv6 Address           .
  .  Destination IP Address = Source IP Address from Query        .
  .  Protocol = UDP                                               .
- .  Router Alert Option Not Set                                  .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
@@ -494,7 +493,6 @@
  .  Source IP Address = Responder IPv4 or IPv6 Address           .
  .  Destination IP Address = URO.Address                         .
  .  Protocol = UDP                                               .
- .  Router Alert Option Not Set                                  .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
