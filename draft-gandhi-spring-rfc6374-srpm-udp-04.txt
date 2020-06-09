@@ -55,7 +55,7 @@ Status of This Memo
 
 Gandhi, et al.          Expires December 11, 2020               [Page 1]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
 Copyright Notice
@@ -111,7 +111,7 @@ Table of Contents
 
 Gandhi, et al.          Expires December 11, 2020               [Page 2]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    10. Performance Delay and Liveness Monitoring . . . . . . . . . .  17
@@ -167,7 +167,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 3]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    This document specifies a procedure for sending and processing probe
@@ -223,7 +223,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 4]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    SL: Segment List.
@@ -265,7 +265,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
              |   R1  |---------------------|   R5  |
              |       |<- - - - - - - - - - |       |
              +-------+       Response      +-------+
-              Querier                       Responder
+              Querier                      Responder
 
                        Reference Topology
 
@@ -279,7 +279,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 5]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    Section 2.2 and Section 2.6 of [RFC6374] are used.  Separate UDP
@@ -335,7 +335,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 6]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    DM.  The Destination UDP port can also be used as Source port for
@@ -391,7 +391,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 7]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     +---------------------------------------------------------------+
@@ -447,7 +447,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 8]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     0                   1                   2                   3
@@ -503,7 +503,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020               [Page 9]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     +---------------------------------------------------------------+
@@ -559,7 +559,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 10]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     +---------------------------------------------------------------+
@@ -615,7 +615,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 11]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
 5.1.1.  Links and End-to-end Measurement for SR Policy
@@ -671,7 +671,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 12]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    Additional Segment List Sub-TLVs are defined in this document for the
@@ -727,7 +727,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 13]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     +---------------------------------------------------------------+
@@ -783,7 +783,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 14]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
 7.  ECMP Support for SR Policies
@@ -839,7 +839,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 15]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    o  The Sequence Number TLV is optional.
@@ -895,7 +895,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 16]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
     0                   1                   2                   3
@@ -951,7 +951,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 17]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
    If desired, attacks can be mitigated by performing basic validation
@@ -971,7 +971,10 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 12.  IANA Considerations
 
    IANA is requested to allocate the values for the following Sub-TLV
-   Types for the Return Path TLV for RFC 6374.
+   Types for the Return Path TLV for RFC 6374 from the sub-registry
+   "Return Path Sub-TLV Type" of the "MPLS Loss/Delay Measurement TLV
+   Object" registry contained within the "Generic Associated Channel
+   (G-ACh) Parameters" registry set:
 
    o  Type TBA1: SRv6 Segment List of the Reverse SR Path
 
@@ -979,7 +982,9 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
    IANA is also requested to allocate the values for the following
    Sequence Number TLV Types for RFC 6374 to be carried in the PM probe
-   query and response messages for delay and loss measurement:
+   query and response messages for delay and loss measurement from the
+   "MPLS Loss/Delay Measurement TLV Object" registry contained within
+   the "Generic Associated Channel (G-ACh) Parameters" registry set:
 
    o  Type TBA3: Sequence Number TLV in Unauthenticated Mode
 
@@ -998,17 +1003,17 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
-              Measurement for MPLS Networks", RFC 6374,
-              DOI 10.17487/RFC6374, September 2011,
-              <https://www.rfc-editor.org/info/rfc6374>.
-
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 18]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
+              Measurement for MPLS Networks", RFC 6374,
+              DOI 10.17487/RFC6374, September 2011,
+              <https://www.rfc-editor.org/info/rfc6374>.
 
    [RFC7876]  Bryant, S., Sivabalan, S., and S. Soni, "UDP Return Path
               for Packet Loss and Delay Measurement for MPLS Networks",
@@ -1050,11 +1055,6 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
               <https://www.rfc-editor.org/info/rfc6335>.
 
-   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
-              <https://www.rfc-editor.org/info/rfc8754>.
-
 
 
 
@@ -1063,8 +1063,13 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 Gandhi, et al.          Expires December 11, 2020              [Page 19]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
 
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
@@ -1107,20 +1112,22 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
               progress), March 2020.
 
-   [I-D.ali-spring-ioam-srv6]
-              Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
-              N., Pignataro, C., Li, C., Chen, M., and G. Dawra,
-              "Segment Routing Header encapsulation for In-situ OAM
-              Data", draft-ali-spring-ioam-srv6-02 (work in progress),
-              November 2019.
+
 
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 20]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [I-D.ali-spring-ioam-srv6]
+              Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
+              N., Pignataro, C., Li, C., Chen, M., and G. Dawra,
+              "Segment Routing Header encapsulation for In-situ OAM
+              Data", draft-ali-spring-ioam-srv6-02 (work in progress),
+              November 2019.
 
 Acknowledgments
 
@@ -1162,20 +1169,19 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
-   Daniel Voyer
-   Bell Canada
-
-   Email: daniel.voyer@bell.ca
-
-
-
 
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 21]
 
-Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
+
+
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
 
 
    Stefano Salsano
@@ -1189,12 +1195,6 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
    Huawei
 
    Email: mach.chen@huawei.com
-
-
-
-
-
-
 
 
 

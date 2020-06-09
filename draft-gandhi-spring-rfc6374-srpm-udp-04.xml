@@ -30,7 +30,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="Using RFC6374 with UDP Path in SR">Performance Measurement Using RFC 6374 with UDP Path for Segment Routing Networks</title>
+	<title abbrev="Using RFC 6374 with UDP Path for SR">Performance Measurement Using RFC 6374 with UDP Path for Segment Routing Networks</title>
 
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
@@ -236,7 +236,7 @@
           |   R1  |---------------------|   R5  |
           |       |<- - - - - - - - - - |       |
           +-------+       Response      +-------+
-           Querier                       Responder
+           Querier                      Responder
 
                     Reference Topology
 ]]></artwork>
@@ -831,7 +831,9 @@
 
 	<section title="IANA Considerations" anchor="sect-12"><t>
    IANA is requested to allocate the values for the following Sub-TLV
-   Types for the Return Path TLV for RFC 6374.</t>
+   Types for the Return Path TLV for RFC 6374 from the sub-registry "Return Path Sub-TLV Type" 
+   of the "MPLS Loss/Delay Measurement TLV Object" registry 
+   contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
 
 	<t><list style="symbols"><t>Type TBA1: SRv6 Segment List of the Reverse SR Path</t>
 
@@ -843,7 +845,8 @@
 	<t>
    IANA is also requested to allocate the values for the following
    Sequence Number TLV Types for RFC 6374 to be carried in the PM probe
-   query and response messages for delay and loss measurement:</t>
+   query and response messages for delay and loss measurement from the "MPLS Loss/Delay Measurement TLV Object" registry 
+   contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
 
 	<t><list style="symbols"><t>Type TBA3: Sequence Number TLV in Unauthenticated Mode</t>
 
