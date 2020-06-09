@@ -68,7 +68,7 @@
 	</address>
 	</author>
 
-	<date day="8" month="June" year="2020"/>
+	<date day="9" month="June" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  Segment
@@ -105,7 +105,7 @@
    protocols as specified in Section 1 of <xref target="RFC6374"/>.  The <xref target="RFC6374"/>
    requires data plane to support MPLS Generic Associated Channel Label
    (GAL) and Generic Associated Channel (G-Ach), which may not be
-   supported on all nodes in the network.</t>
+   supported on all nodes in the segment routing network.</t>
 
 	<t>
    <xref target="RFC7876"/> specifies the procedures to be used when sending and
@@ -230,7 +230,7 @@
                                             ^
                                             | Response
                                             |
-          +-------+        Query        +-------+
+          +-------+       Query         +-------+
           |       | - - - - - - - - - ->|       |
           |   R1  |---------------------|   R5  |
           |       |<- - - - - - - - - - |       |
@@ -290,14 +290,14 @@
 
 	</section>
 
-	<section title="Probe Messages" anchor="sect-4"><section title="Probe Query Message" anchor="sect-4.1"><t>
+	<section title="Probe Query Message" anchor="sect-4"><t>
    In this document, UDP path is used for Delay and Loss measurements
    for SR links and end-to-end SR Policies for the probe messages
    defined in <xref target="RFC6374"/>.  The user-configured destination UDP ports
    (separate UDP ports for different delay and loss message formats) are
    used for identifying the PM probe packets.</t>
 
-	<section title="Delay Measurement Probe Query Message" anchor="sect-4.1.1"><t>
+	<section title="Delay Measurement Probe Query Message" anchor="sect-4.1"><t>
    The message content for Delay Measurement for probe query message
    using UDP header <xref target="RFC0768"/> is shown in Figure 1.  The DM probe query
    message is sent with user-configured Destination UDP port number for
@@ -334,7 +334,7 @@
 
 	</section>
 
-	<section title="Loss Measurement Probe Query Message" anchor="sect-4.1.2"><t>
+	<section title="Loss Measurement Probe Query Message" anchor="sect-4.2"><t>
    The message content for Loss measurement probe query message using
    UDP header [RFC768] is shown in Figure 2.  As shown, the LM probe
    query message is sent with user-configured Destination UDP port
@@ -365,7 +365,7 @@
 	</figure>
 	</section>
 
-	<section title="Probe Query for SR Links" anchor="sect-4.1.3"><t>
+	<section title="Probe Query for SR Links" anchor="sect-4.3"><t>
 	The probe query message as defined in Figure 1 is sent on the
 	congruent path of the data traffic for performance Delay measurement.
         Similarly, the probe query message as defined in Figure 2 is sent on
@@ -374,11 +374,11 @@
 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.4"><t>
+	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.4"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.</t>
 
-	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
+	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.4.1"><t>
    The probe query message for end-to-end performance measurement of an
    SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 3.</t>
@@ -414,7 +414,7 @@
 
 	</section>
 
-	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.4.2"><t>
+	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.4.2"><t>
    An SRv6 Policy is setup using the SRv6 Segment Routing Header (SRH)
    and a Segment List as defined in <xref target="RFC8754"/>.
    The probe query messages using UDP header for end-to-end performance
@@ -456,7 +456,7 @@
 
 	</section>
 
-	<section title="Probe Response Message" anchor="sect-4.2"><t>
+	<section title="Probe Response Message" anchor="sect-5"><t>
    When the received probe query message does not contain any UDP Return
    Object (URO) TLV <xref target="RFC7876"/>, the probe response message is sent using
    the IP/UDP information from the received probe query message.  The
@@ -508,7 +508,7 @@
  +---------------------------------------------------------------+
 ]]></artwork>
 	</figure>
-	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><section title="SR Links and End-to-end Measurement for SR Policy" anchor="sect-4.2.1.1"><t>
+	<section title="One-way Measurement Mode" anchor="sect-5.1"><section title="SR Links and End-to-end Measurement for SR Policy" anchor="sect-5.1.1"><t>
    In one-way performance measurement mode, the probe response message
    as defined in Figure 5 or Figure 6 is sent out-of-band to the sender
    node, for both SR links and SR Policies.</t>
@@ -518,12 +518,13 @@
    its own IP address as Source Address of the header or by adding URO
    TLV in the probe query message and setting its own IP address in the
    IP Address in the URO TLV (Type=131) <xref target="RFC7876"/>.  The "control code"
-   in the probe query message is set to "out-of-band response requested".  The "Source Address" TLV (Type 130), and "Return Address" TLV (Type 1), if present in the probe query message, are not
+   in the probe query message is set to "out-of-band response requested".  
+   The "Source Address" TLV (Type 130), and "Return Address" TLV (Type 1), if present in the probe query message, are not
    used to send probe response message.</t>
 
 	</section>
 
-	<section title="Probe Response Message to Controller" anchor="sect-4.2.1.2"><t>
+	<section title="Probe Response Message to Controller" anchor="sect-5.1.2"><t>
    As shown in the Reference Topology, if the sender node requires the
    probe response message to be sent to the controller R100, it adds URO
    TLV in the probe query message and sets the IP address of R100 in the
@@ -534,7 +535,7 @@
 
 	</section>
 
-	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><section title="SR Links" anchor="sect-4.2.2.1"><t>
+	<section title="Two-way Measurement Mode" anchor="sect-5.2"><section title="SR Links" anchor="sect-5.2.1"><t>
    In two-way performance measurement mode, when using a bidirectional
    link, the probe response message as defined in Figure 5 or Figure 6
    is sent back on the congruent path of the data traffic to the sender
@@ -543,7 +544,7 @@
 
 	</section>
 
-	<section title="End-to-end Measurement for SR Policy" anchor="sect-4.2.2.2"><t>
+	<section title="End-to-end Measurement for SR Policy" anchor="sect-5.2.2"><t>
    In two-way performance measurement mode, when using a bidirectional
    path, the probe response message is sent back on the congruent path
    of the data traffic to the sender node for end-to-end measurement of
@@ -552,7 +553,7 @@
 
 	</section>
 
-	<section title="Return Path TLV" anchor="sect-4.2.2.3"><t>
+	<section title="Return Path TLV" anchor="sect-5.2.3"><t>
    For two-way performance measurement, the sender node can request the
    responder node to send a response message back on a given reverse
    path (e.g. co-routed path for two-way measurement).  Return Path TLV
@@ -563,9 +564,9 @@
    Additional Segment List Sub-TLVs are defined in this document for the
    Return Path TLV for the following Types:</t>
 
-	<t><list style="symbols"><t>Type (value TBA3): SRv6 Segment List of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type (value TBA1): SRv6 Segment List of the Reverse SR Path</t>
 
-	<t>Type (value TBA4): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
+	<t>Type (value TBA2): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
       the Reverse SR Policy</t>
 
 	</list>
@@ -573,7 +574,7 @@
 
 	</section>
 
-	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.4"><t>
+	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-5.2.4"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SR-MPLS Policy is shown in Figure 7.  The SR-MPLS
@@ -605,7 +606,7 @@
 
 	</section>
 
-	<section title="Probe Response Message for SRv6 Policy" anchor="sect-4.2.2.5"><t>
+	<section title="Probe Response Message for SRv6 Policy" anchor="sect-5.2.5"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
    measurement of an SRv6 Policy is shown in Figure 8.  For SRv6 Policy
@@ -620,7 +621,7 @@
  .  Destination IP Address = Destination IPv6 Address            .
  .                                                               .
  +---------------------------------------------------------------+
- | SRH as specified in RFC 8754 (Optional)                       |
+ | SRH as specified in RFC 8754                                  |
  .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
@@ -645,7 +646,7 @@
 
 	</section>
 
-	<section title="Loopback Measurement Mode" anchor="sect-4.2.3"><t>
+	<section title="Loopback Measurement Mode" anchor="sect-5.3"><t>
    The Loopback measurement mode defined in Section 2.8 of <xref target="RFC6374"/> can
    be used to measure round-trip delay of a bidirectional SR Path.  The
    IP header of the probe query message contains the destination address
@@ -659,30 +660,28 @@
 
 	</section>
 
-	</section>
-
-	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-5"><t>
+	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-6"><t>
    For P2MP SR Policies <xref target="I-D.voyer-spring-sr-replication-segment"/>, the
-   procedure defined in Section 5 of <xref target="I-D.gandhi-spring-twamp-srpm"/> is also
-   applicable to the procedures defined in this document.</t>
+   procedure defined in <xref target="I-D.gandhi-spring-twamp-srpm"/> is also
+   applicable to the procedures defined in this document; using the RFC 6374 messages in the payload.</t>
 
 	</section>
 
-	<section title="ECMP Support for SR Policies" anchor="sect-6"><t>
-   For handling ECMP of SR Policies, the procedure defined in Section 6
-   of <xref target="I-D.gandhi-spring-twamp-srpm"/> is also applicable to the procedure
+	<section title="ECMP Support for SR Policies" anchor="sect-7"><t>
+   For handling ECMP of SR Policies, the procedure defined in
+   <xref target="I-D.gandhi-spring-twamp-srpm"/> is also applicable to the procedure
    defined in this document.</t>
 
 	</section>
 
-	<section title="Additional Message Processing Rules" anchor="sect-7"><t>
-   The additional message processing rules defined in Section 7 of
+	<section title="Additional Message Processing Rules" anchor="sect-8"><t>
+   The additional message processing rules defined in
    <xref target="I-D.gandhi-spring-twamp-srpm"/> are also applicable to the procedures defined
    in this document.</t>
 
 	</section>
 
-	<section title="Sequence Numbers" anchor="sect-8"><t>
+	<section title="Sequence Numbers" anchor="sect-9"><t>
    The message formats for DM and LM <xref target="RFC6374"/> can carry either
    timestamp or sequence number but not both.  There are case where both
    timestamp and sequence number are desired for both DM and LM.
@@ -691,9 +690,9 @@
    can be useful for detecting denial-of-service (DoS) attacks on UDP
    ports.</t>
 
-	<section title="Sequence Number TLV in Unauthenticated Mode" anchor="sect-8.1"><t>
+	<section title="Sequence Number TLV in Unauthenticated Mode" anchor="sect-9.1"><t>
    <xref target="RFC6374"/> defines DM and LM probe query and response messages that
-   can include one or more optional TLVs.  New TLV Type (value TBA1) is
+   can include one or more optional TLVs.  New TLV Type (value TBA3) is
    defined in this document to carry sequence number for probe query and
    response messages for delay and loss measurement.  The format of the
    Sequence Number TLV in unauthenticated mode is shown in Figure 9.</t>
@@ -702,7 +701,7 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Type TBA1   |    Length     |      Reserved                 |
+ |   Type TBA3   |    Length     |      Reserved                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                    Sequence Number                            |
  ~                                                               ~
@@ -733,7 +732,7 @@
 
 	</section>
 
-	<section title="Sequence Number TLV in Authenticated Mode" anchor="sect-8.2"><t>
+	<section title="Sequence Number TLV in Authenticated Mode" anchor="sect-9.2"><t>
    The PM probe query and response packet format in authenticated mode
    includes a key Hashed Message Authentication Code (HMAC) (<xref target="RFC2104"/>)
    hash.  Each probe query and response messages are authenticated by
@@ -763,7 +762,7 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Type TBA2   |    Length     |      Reserved                 |
+ |   Type TBA4   |    Length     |      Reserved                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                    Sequence Number                            |
  ~                                                               ~
@@ -791,7 +790,7 @@
 
 	</section>
 
-	<section title="Security Considerations" anchor="sect-9"><t>
+	<section title="Security Considerations" anchor="sect-10"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
@@ -818,14 +817,14 @@
    firewalls.</t>
 	</section>
 
-	<section title="IANA Considerations" anchor="sect-10"><t>
+	<section title="IANA Considerations" anchor="sect-11"><t>
    IANA is requested to allocate the values for the following Sub-TLV
    Types for the Return Path TLV for RFC 6374.</t>
 
 	<t><list style="empty" hangIndent="3">
-	<t><list style="symbols"><t>Type TBA3: SRv6 Segment List of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type TBA1: SRv6 Segment List of the Reverse SR Path</t>
 
-	<t>Type TBA4: SRv6 Binding SID of the Reverse SR Policy</t>
+	<t>Type TBA2: SRv6 Binding SID of the Reverse SR Policy</t>
 
 	</list>
 	</t>
@@ -839,9 +838,9 @@
    query and response messages for delay and loss measurement:</t>
 
 	<t><list style="empty" hangIndent="3">
-	<t><list style="symbols"><t>Type TBA1: Sequence Number TLV in Unauthenticated Mode</t>
+	<t><list style="symbols"><t>Type TBA3: Sequence Number TLV in Unauthenticated Mode</t>
 
-	<t>Type TBA2: Sequence Number TLV in Authenticated Mode</t>
+	<t>Type TBA4: Sequence Number TLV in Authenticated Mode</t>
 
 	</list>
 	</t>
