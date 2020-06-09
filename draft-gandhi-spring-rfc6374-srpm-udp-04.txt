@@ -104,7 +104,7 @@ Table of Contents
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
      11.2.  Informative References . . . . . . . . . . . . . . . . .  19
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  21
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 
@@ -255,7 +255,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
              |   R1  |---------------------|   R5  |
              |       |<- - - - - - - - - - |       |
              +-------+       Response      +-------+
-              Sender                       Responder
+              Querier                       Responder
 
                        Reference Topology
 
@@ -340,13 +340,13 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
-    .  Source IP Address = Sender IPv4 or IPv6 Address              .
+    .  Source IP Address = Querier IPv4 or IPv6 Address             .
     .  Destination IP Address = Responder IPv4 or IPv6 Address      .
     .  Protocol = UDP                                               .
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
-    .  Source Port = As chosen by Sender                            .
+    .  Source Port = As chosen by Querier                           .
     .  Destination Port = User-configured Port for Delay Measurement.
     .                                                               .
     +---------------------------------------------------------------+
@@ -396,13 +396,13 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
-    .  Source IP Address = Sender IPv4 or IPv6 Address              .
+    .  Source IP Address = Querier IPv4 or IPv6 Address             .
     .  Destination IP Address = Responder IPv4 or IPv6 Address      .
     .  Protocol = UDP                                               .
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
-    .  Source Port = As chosen by Sender                            .
+    .  Source Port = As chosen by Querier                           .
     .  Destination Port = User-configured Port for Loss Measurement .
     .                                                               .
     +---------------------------------------------------------------+
@@ -480,11 +480,11 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 4.1.4.2.  Probe Query Message for SRv6 Policy
 
    An SRv6 Policy is setup using the SRv6 Segment Routing Header (SRH)
-   and a Segment List as defined in
-   [I-D.ietf-6man-segment-routing-header].  The probe query messages
+   and a Segment List as defined in [RFC8754].  The probe query messages
    using UDP header for end-to-end performance measurement of an SRv6
    Policy is sent using its SRv6 Segment Routing Header (SRH) and
    Segment List as shown in Figure 4.
+
 
 
 
@@ -508,7 +508,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
-    .  Source IP Address = Sender IPv6 Address                      .
+    .  Source IP Address = Querier IPv6 Address                     .
     .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
@@ -517,12 +517,12 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
     .                                                               .
     +---------------------------------------------------------------+
     | IP Header (Optional)                                          |
-    .  Source IP Address = Sender IPv6 Address                      .
-    .  Destination IP Address = Reflector IPv6 Address              .
+    .  Source IP Address = Querier IPv6 Address                     .
+    .  Destination IP Address = Responder IPv6 Address              .
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
-    .  Source Port = As chosen by Sender                            .
+    .  Source Port = As chosen by Querier                           .
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
@@ -680,16 +680,16 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    Additional Segment List Sub-TLVs are defined in this document for the
    Return Path TLV for the following Types:
 
-   o  Type (value TBD3): SRv6 Segment List of the Reverse SR Path
+   o  Type (value TBA3): SRv6 Segment List of the Reverse SR Path
 
-   o  Type (value TBD4): SRv6 Binding SID
+   o  Type (value TBA4): SRv6 Binding SID
       [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
 
 4.2.2.4.  Probe Response Message for SR-MPLS Policy
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SR-MPLS Policy is shown in Figure 8.  The SR-MPLS
+   measurement of an SR-MPLS Policy is shown in Figure 7.  The SR-MPLS
    label stack in the packet header is built using the Segment List
    received in the Return Path TLV in the probe query message.
 
@@ -720,7 +720,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy is shown in Figure 9.  For SRv6 Policy
+   measurement of an SRv6 Policy is shown in Figure 8.  For SRv6 Policy
    using SRH, the SRv6 SID list in the SRH of the probe response message
 
 
@@ -739,7 +739,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
     .  Destination IP Address = Destination IPv6 Address            .
     .                                                               .
     +---------------------------------------------------------------+
-    | SRH as specified in RFC 8754                                  |
+    | SRH as specified in RFC 8754 (Optional)                       |
     .  <Segment List>                                               .
     .                                                               .
     +---------------------------------------------------------------+
@@ -814,7 +814,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    can include one or more optional TLVs.  New TLV Type (value TBA1) is
    defined in this document to carry sequence number for probe query and
    response messages for delay and loss measurement.  The format of the
-   Sequence Number TLV in unauthenticated mode is shown in Figure 10.
+   Sequence Number TLV in unauthenticated mode is shown in Figure 9.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -875,7 +875,7 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    user-configured on both the sender and responder nodes.
 
    The format of the Sequence Number TLV in authentication mode is shown
-   in Figure 11.
+   in Figure 10.
 
 
 
@@ -940,12 +940,12 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    disruption that can be caused by a corrupt or invalid message to a
    single query/response cycle.
 
-
-
-
-
-
-
+   Use of HMAC-SHA-256 in the authenticated mode defined in this
+   document protects the data integrity of the probe messages.  SRv6 has
+   HMAC protection authentication defined for SRH [RFC8754].  Hence, PM
+   probe messages for SRv6 may not need authentication mode.
+   Cryptographic measures may be enhanced by the correct configuration
+   of access-control lists and firewalls.
 
 
 
@@ -954,14 +954,6 @@ Gandhi, et al.          Expires December 10, 2020              [Page 17]
 Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 
-   Use of HMAC-SHA-256 in the authenticated mode defined in this
-   document protects the data integrity of the probe messages.  SRv6 has
-   HMAC protection authentication defined for SRH
-   [I-D.6man-segment-routing-header].  Hence, PM probe messages for SRv6
-   may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
-
 10.  IANA Considerations
 
    IANA is requested to allocate the values for the following Sub-TLV
@@ -969,9 +961,9 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 
 
-      o  Type TBD3: SRv6 Segment List of the Reverse SR Path
+      o  Type TBA3: SRv6 Segment List of the Reverse SR Path
 
-      o  Type TBD4: SRv6 Binding SID of the Reverse SR Policy
+      o  Type TBA4: SRv6 Binding SID of the Reverse SR Policy
 
    IANA is also requested to allocate the values for the following
    Sequence Number TLV Types for RFC 6374 to be carried in the PM probe
@@ -1001,15 +993,6 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
               DOI 10.17487/RFC6374, September 2011,
               <https://www.rfc-editor.org/info/rfc6374>.
 
-
-
-
-
-Gandhi, et al.          Expires December 10, 2020              [Page 18]
-
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
-
-
    [RFC7876]  Bryant, S., Sivabalan, S., and S. Soni, "UDP Return Path
               for Packet Loss and Delay Measurement for MPLS Networks",
               RFC 7876, DOI 10.17487/RFC7876, July 2016,
@@ -1018,6 +1001,14 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+Gandhi, et al.          Expires December 10, 2020              [Page 18]
+
+Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
+
 
    [I-D.gandhi-mpls-rfc6374-sr]
               Gandhi, R., Filsfils, C., Voyer, D., Salsano, S., and M.
@@ -1050,12 +1041,21 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
               <https://www.rfc-editor.org/info/rfc6335>.
 
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
+
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-
+   [I-D.ietf-spring-segment-routing-policy]
+              Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
+              P. Mattes, "Segment Routing Policy Architecture", draft-
+              ietf-spring-segment-routing-policy-07 (work in progress),
+              May 2020.
 
 
 
@@ -1066,23 +1066,11 @@ Gandhi, et al.          Expires December 10, 2020              [Page 19]
 Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 
-   [I-D.ietf-spring-segment-routing-policy]
-              Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
-              P. Mattes, "Segment Routing Policy Architecture", draft-
-              ietf-spring-segment-routing-policy-07 (work in progress),
-              May 2020.
-
    [I-D.voyer-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
               Delivery", draft-voyer-spring-sr-replication-segment-03
               (work in progress), June 2020.
-
-   [I-D.ietf-6man-segment-routing-header]
-              Filsfils, C., Dukes, D., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", draft-ietf-6man-segment-routing-header-26 (work in
-              progress), October 2019.
 
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
@@ -1114,6 +1102,18 @@ Acknowledgments
    The authors would like to thank Patrick Khordoc, Nagendra Kumar and
    Carlos Pignataro for the discussion on SRv6 Performance Measurement.
    The authors would like to thank Thierry Couture for the discussions
+   on the use-cases for the performance measurement in segment routing
+   networks.  The authors would also like to thank Stewart Bryant for
+   the discussion on UDP port allocation for Performance Measurement and
+   Greg Mirsky for providing useful comments and suggestions.
+
+Contributors
+
+
+
+
+
+
 
 
 
@@ -1121,13 +1121,6 @@ Gandhi, et al.          Expires December 10, 2020              [Page 20]
 
 Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
-
-   on the use-cases for the performance measurement in segment routing
-   networks.  The authors would also like to thank Stewart Bryant for
-   the discussion on UDP port allocation for Performance Measurement and
-   Greg Mirsky for providing useful comments and suggestions.
-
-Contributors
 
    Sagar Soni
    Cisco Systems, Inc.
@@ -1170,14 +1163,6 @@ Authors' Addresses
    Email: stefano.salsano@uniroma2.it
 
 
-
-
-
-Gandhi, et al.          Expires December 10, 2020              [Page 21]
-
-Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
-
-
    Mach(Guoyi) Chen
    Huawei
 
@@ -1188,45 +1173,4 @@ Internet-Draft    PM Using RFC6374 with UDP Path in SR         June 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 10, 2020              [Page 22]
+Gandhi, et al.          Expires December 10, 2020              [Page 21]

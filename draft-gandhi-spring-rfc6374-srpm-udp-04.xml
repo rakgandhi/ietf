@@ -10,10 +10,10 @@
 <!ENTITY RFC2104 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2104.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
 <!ENTITY RFC6335 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
+<!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
 <!ENTITY RFC8762 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml">
 <!ENTITY I-D.ietf-spring-segment-routing-policy SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-segment-routing-policy.xml">
 <!ENTITY I-D.voyer-spring-sr-replication-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.voyer-spring-sr-replication-segment.xml">
-<!ENTITY I-D.ietf-6man-segment-routing-header SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-segment-routing-header.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 <!ENTITY I-D.gandhi-mpls-ioam-sr SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-mpls-ioam-sr.xml">
@@ -235,7 +235,7 @@
           |   R1  |---------------------|   R5  |
           |       |<- - - - - - - - - - |       |
           +-------+       Response      +-------+
-           Sender                       Responder
+           Querier                       Responder
 
                     Reference Topology
 ]]></artwork>
@@ -310,13 +310,13 @@
 	<figure title="DM Probe Query Message" anchor="ure-dm-probe-query-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
  | IP Header                                                     |
- .  Source IP Address = Sender IPv4 or IPv6 Address              .
+ .  Source IP Address = Querier IPv4 or IPv6 Address             .
  .  Destination IP Address = Responder IPv4 or IPv6 Address      .
  .  Protocol = UDP                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
- .  Source Port = As chosen by Sender                            .
+ .  Source Port = As chosen by Querier                           .
  .  Destination Port = User-configured Port for Delay Measurement.
  .                                                               .
  +---------------------------------------------------------------+
@@ -348,13 +348,13 @@
 	<figure title="LM Probe Query Message" anchor="ure-lm-probe-query-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
  | IP Header                                                     |
- .  Source IP Address = Sender IPv4 or IPv6 Address              .
+ .  Source IP Address = Querier IPv4 or IPv6 Address             .
  .  Destination IP Address = Responder IPv4 or IPv6 Address      .
  .  Protocol = UDP                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
- .  Source Port = As chosen by Sender                            .
+ .  Source Port = As chosen by Querier                           .
  .  Destination Port = User-configured Port for Loss Measurement .
  .                                                               .
  +---------------------------------------------------------------+
@@ -416,7 +416,7 @@
 
 	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.1.4.2"><t>
    An SRv6 Policy is setup using the SRv6 Segment Routing Header (SRH)
-   and a Segment List as defined in <xref target="I-D.ietf-6man-segment-routing-header"/>.
+   and a Segment List as defined in <xref target="RFC8754"/>.
    The probe query messages using UDP header for end-to-end performance
    measurement of an SRv6 Policy is sent using its SRv6 Segment Routing
    Header (SRH) and Segment List as shown in Figure 4.</t>
@@ -424,7 +424,7 @@
 	<figure title="Example Probe Query Message for SRv6 Policy" anchor="ure-probe-query-message-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
  | IP Header                                                     |
- .  Source IP Address = Sender IPv6 Address                      .
+ .  Source IP Address = Querier IPv6 Address                     .
  .  Destination IP Address = Destination IPv6 Address            .
  .                                                               .
  +---------------------------------------------------------------+
@@ -433,12 +433,12 @@
  .                                                               .
  +---------------------------------------------------------------+
  | IP Header (Optional)                                          |
- .  Source IP Address = Sender IPv6 Address                      .
- .  Destination IP Address = Reflector IPv6 Address              .
+ .  Source IP Address = Querier IPv6 Address                     .
+ .  Destination IP Address = Responder IPv6 Address              .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
- .  Source Port = As chosen by Sender                            .
+ .  Source Port = As chosen by Querier                           .
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
@@ -563,9 +563,9 @@
    Additional Segment List Sub-TLVs are defined in this document for the
    Return Path TLV for the following Types:</t>
 
-	<t><list style="symbols"><t>Type (value TBD3): SRv6 Segment List of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type (value TBA3): SRv6 Segment List of the Reverse SR Path</t>
 
-	<t>Type (value TBD4): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
+	<t>Type (value TBA4): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
       the Reverse SR Policy</t>
 
 	</list>
@@ -576,7 +576,7 @@
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.4"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SR-MPLS Policy is shown in Figure 8.  The SR-MPLS
+   measurement of an SR-MPLS Policy is shown in Figure 7.  The SR-MPLS
    label stack in the packet header is built using the Segment List
    received in the Return Path TLV in the probe query message.</t>
 
@@ -608,7 +608,7 @@
 	<section title="Probe Response Message for SRv6 Policy" anchor="sect-4.2.2.5"><t>
    The message content for sending probe response message on the
    congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy is shown in Figure 9.  For SRv6 Policy
+   measurement of an SRv6 Policy is shown in Figure 8.  For SRv6 Policy
    using SRH, the SRv6 SID list in the SRH of the probe response message
    is built using the SRv6 Segment List received in the Return Path TLV
    in the probe query message.</t>
@@ -620,7 +620,7 @@
  .  Destination IP Address = Destination IPv6 Address            .
  .                                                               .
  +---------------------------------------------------------------+
- | SRH as specified in RFC 8754                                  |
+ | SRH as specified in RFC 8754 (Optional)                       |
  .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
@@ -696,7 +696,7 @@
    can include one or more optional TLVs.  New TLV Type (value TBA1) is
    defined in this document to carry sequence number for probe query and
    response messages for delay and loss measurement.  The format of the
-   Sequence Number TLV in unauthenticated mode is shown in Figure 10.</t>
+   Sequence Number TLV in unauthenticated mode is shown in Figure 9.</t>
 
 	<figure title="Sequence Number TLV - Unauthenticated Mode" anchor="ure-sequence-number-tlv-unauthenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
@@ -757,7 +757,7 @@
 
 	<t>
    The format of the Sequence Number TLV in authentication mode is shown
-   in Figure 11.</t>
+   in Figure 10.</t>
 
 	<figure title="Sequence Number TLV - Authenticated Mode" anchor="ure-sequence-number-tlv-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
@@ -808,16 +808,14 @@
    disruption that can be caused by a corrupt or invalid message to a
    single query/response cycle.</t>
 
-	<figure><artwork><![CDATA[
-Use of HMAC-SHA-256 in the authenticated mode defined in this
-document protects the data integrity of the probe messages.  SRv6 has
-HMAC protection authentication defined for SRH
-[I-D.6man-segment-routing-header].  Hence, PM probe messages for SRv6
-may not need authentication mode.  Cryptographic measures may be
-enhanced by the correct configuration of access-control lists and
-firewalls.
-]]></artwork>
-	</figure>
+      <t>
+   Use of HMAC-SHA-256 in the authenticated mode defined in this
+   document protects the data integrity of the probe messages.  SRv6 has
+   HMAC protection authentication defined for SRH <xref target="RFC8754"/>.
+   Hence, PM probe messages for SRv6
+   may not need authentication mode.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.</t>
 	</section>
 
 	<section title="IANA Considerations" anchor="sect-10"><t>
@@ -825,9 +823,9 @@ firewalls.
    Types for the Return Path TLV for RFC 6374.</t>
 
 	<t><list style="empty" hangIndent="3">
-	<t><list style="symbols"><t>Type TBD3: SRv6 Segment List of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type TBA3: SRv6 Segment List of the Reverse SR Path</t>
 
-	<t>Type TBD4: SRv6 Binding SID of the Reverse SR Policy</t>
+	<t>Type TBA4: SRv6 Binding SID of the Reverse SR Policy</t>
 
 	</list>
 	</t>
@@ -870,10 +868,10 @@ firewalls.
 	&RFC2104;
 	&RFC4868;
 	&RFC6335;
+	&RFC8754;
 	&RFC8762;
 	&I-D.ietf-spring-segment-routing-policy;
 	&I-D.voyer-spring-sr-replication-segment;
-	&I-D.ietf-6man-segment-routing-header;
 	&I-D.ietf-pce-binding-label-sid;
 	&I-D.ietf-spring-mpls-path-segment;
 	&I-D.gandhi-mpls-ioam-sr;
