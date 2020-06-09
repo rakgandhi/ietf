@@ -16,6 +16,7 @@
 <!ENTITY I-D.voyer-spring-sr-replication-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.voyer-spring-sr-replication-segment.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
+<!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
 <!ENTITY I-D.gandhi-mpls-ioam-sr SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-mpls-ioam-sr.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
 ]>
@@ -102,7 +103,7 @@
    accurate measurement of performance metrics and can be used in SR
    networks with MPLS data plane <xref target="I-D.gandhi-mpls-rfc6374-sr"/>.  <xref target="RFC6374"/>
    addresses the limitations of the IP based performance measurement
-   protocols as specified in Section 1 of <xref target="RFC6374"/>.  The <xref target="RFC6374"/>
+   protocols as specified in Section 1 of <xref target="RFC6374"/>.  <xref target="RFC6374"/>
    requires data plane to support MPLS Generic Associated Channel Label
    (GAL) and Generic Associated Channel (G-Ach), which may not be
    supported on all nodes in the segment routing network.</t>
@@ -414,8 +415,10 @@
 	</section>
 
 	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.4.2"><t>
-   An SRv6 Policy is setup using the SRv6 Segment Routing Header (SRH)
+   An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH)
    and a Segment List as defined in <xref target="RFC8754"/>.
+   For SRv6, network programming is defined in 
+   <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The probe query messages using UDP header for end-to-end performance
    measurement of an SRv6 Policy is sent using its SRv6 Segment Routing
    Header (SRH) and Segment List as shown in Figure 4.</t>
@@ -830,13 +833,9 @@
    IANA is requested to allocate the values for the following Sub-TLV
    Types for the Return Path TLV for RFC 6374.</t>
 
-	<t><list style="empty" hangIndent="3">
 	<t><list style="symbols"><t>Type TBA1: SRv6 Segment List of the Reverse SR Path</t>
 
 	<t>Type TBA2: SRv6 Binding SID of the Reverse SR Policy</t>
-
-	</list>
-	</t>
 
 	</list>
 	</t>
@@ -846,13 +845,9 @@
    Sequence Number TLV Types for RFC 6374 to be carried in the PM probe
    query and response messages for delay and loss measurement:</t>
 
-	<t><list style="empty" hangIndent="3">
 	<t><list style="symbols"><t>Type TBA3: Sequence Number TLV in Unauthenticated Mode</t>
 
 	<t>Type TBA4: Sequence Number TLV in Authenticated Mode</t>
-
-	</list>
-	</t>
 
 	</list>
 	</t>
@@ -881,6 +876,7 @@
 	&I-D.ietf-spring-segment-routing-policy;
 	&I-D.voyer-spring-sr-replication-segment;
 	&I-D.ietf-pce-binding-label-sid;
+	&I-D.ietf-spring-srv6-network-programming;
 	&I-D.ietf-spring-mpls-path-segment;
 	&I-D.gandhi-mpls-ioam-sr;
 	&I-D.ali-spring-ioam-srv6;

@@ -141,7 +141,7 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
    accurate measurement of performance metrics and can be used in SR
    networks with MPLS data plane [I-D.gandhi-mpls-rfc6374-sr].
    [RFC6374] addresses the limitations of the IP based performance
-   measurement protocols as specified in Section 1 of [RFC6374].  The
+   measurement protocols as specified in Section 1 of [RFC6374].
    [RFC6374] requires data plane to support MPLS Generic Associated
    Channel Label (GAL) and Generic Associated Channel (G-Ach), which may
    not be supported on all nodes in the segment routing network.
@@ -478,12 +478,12 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
 4.4.2.  Probe Query Message for SRv6 Policy
 
-   An SRv6 Policy is setup using the SRv6 Segment Routing Header (SRH)
-   and a Segment List as defined in [RFC8754].  The probe query messages
-   using UDP header for end-to-end performance measurement of an SRv6
-   Policy is sent using its SRv6 Segment Routing Header (SRH) and
-   Segment List as shown in Figure 4.
-
+   An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
+   a Segment List as defined in [RFC8754].  For SRv6, network
+   programming is defined in [I-D.ietf-spring-srv6-network-programming].
+   The probe query messages using UDP header for end-to-end performance
+   measurement of an SRv6 Policy is sent using its SRv6 Segment Routing
+   Header (SRH) and Segment List as shown in Figure 4.
 
 
 
@@ -973,21 +973,17 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
    IANA is requested to allocate the values for the following Sub-TLV
    Types for the Return Path TLV for RFC 6374.
 
+   o  Type TBA1: SRv6 Segment List of the Reverse SR Path
 
-
-      o  Type TBA1: SRv6 Segment List of the Reverse SR Path
-
-      o  Type TBA2: SRv6 Binding SID of the Reverse SR Policy
+   o  Type TBA2: SRv6 Binding SID of the Reverse SR Policy
 
    IANA is also requested to allocate the values for the following
    Sequence Number TLV Types for RFC 6374 to be carried in the PM probe
    query and response messages for delay and loss measurement:
 
+   o  Type TBA3: Sequence Number TLV in Unauthenticated Mode
 
-
-      o  Type TBA3: Sequence Number TLV in Unauthenticated Mode
-
-      o  Type TBA4: Sequence Number TLV in Authenticated Mode
+   o  Type TBA4: Sequence Number TLV in Authenticated Mode
 
 13.  References
 
@@ -1002,6 +998,10 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+   [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
+              Measurement for MPLS Networks", RFC 6374,
+              DOI 10.17487/RFC6374, September 2011,
+              <https://www.rfc-editor.org/info/rfc6374>.
 
 
 
@@ -1009,11 +1009,6 @@ Gandhi, et al.          Expires December 11, 2020              [Page 18]
 
 Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
-
-   [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
-              Measurement for MPLS Networks", RFC 6374,
-              DOI 10.17487/RFC6374, September 2011,
-              <https://www.rfc-editor.org/info/rfc6374>.
 
    [RFC7876]  Bryant, S., Sivabalan, S., and S. Soni, "UDP Return Path
               for Packet Loss and Delay Measurement for MPLS Networks",
@@ -1055,6 +1050,11 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
               <https://www.rfc-editor.org/info/rfc6335>.
 
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
+
 
 
 
@@ -1065,11 +1065,6 @@ Gandhi, et al.          Expires December 11, 2020              [Page 19]
 
 Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
 
-
-   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
-              <https://www.rfc-editor.org/info/rfc8754>.
 
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
@@ -1094,6 +1089,12 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               in PCE-based Networks.", draft-ietf-pce-binding-label-
               sid-02 (work in progress), March 2020.
 
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-15 (work in
+              progress), March 2020.
+
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
@@ -1112,7 +1113,6 @@ Internet-Draft      Using RFC6374 with UDP Path in SR          June 2020
               "Segment Routing Header encapsulation for In-situ OAM
               Data", draft-ali-spring-ioam-srv6-02 (work in progress),
               November 2019.
-
 
 
 
