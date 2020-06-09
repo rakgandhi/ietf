@@ -365,7 +365,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    query message.  The responder node only replies with Success in
    Control Code if it is the intended destination for the probe query.
    Otherwise, it MUST return 0x15: Error - Invalid Destination Node
-   Identifier.
+   Identifier [RFC6374].
 
 4.3.  Probe Response Message for SR Links and Policies
 
@@ -597,25 +597,29 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 6.2.  Block Number TLV
 
    The Loss Measurement using Alternate-Marking method defined in
-   [RFC8321] requires to color the data traffic.  To be able to compare
-   the transmit and receive traffic counters of the matching color, the
-   Block Number (or color) of the traffic counters is carried by the
-   probe query and response messages for loss measurement.  Probe query
-   and response messages specified in [RFC6374] for Loss Measurement do
-   not identify the Block Number of the counters.
+   [RFC8321] requires to color the data traffic.  To be able to
+   correlate the transmit and receive traffic counters of the matching
+   color, the Block Number (or color) of the traffic counters is carried
+   by the probe query and response messages for loss measurement.  The
+   probe query and response messages currently specified in [RFC6374]
+   for Loss Measurement do not identify the Block Number of the
+   counters.  The Block Number can also be used to aggregate performance
+   metrics collected.
 
    [RFC6374] defines probe query and response messages that can include
    one or more optional TLVs.  New TLV Type (value TBA2) is defined in
    this document to carry the Block Number (8-bit) of the traffic
    counters in the probe query and response messages for loss
-   measurement.  The format of the Block Number TLV is shown in
-   Figure 7:
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 11]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
+   measurement.  The format of the Block Number TLV is shown in
+   Figure 7:
 
 
     0                   1                   2                   3
@@ -654,10 +658,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    o  The P2MP root node measures the end-to-end delay and loss
       performance for each P2MP leaf node of the P2MP SR Policy.
-
-
-
-
 
 
 
@@ -985,8 +985,8 @@ Acknowledgments
    implementing the mechanisms defined in this document.  The authors
    would like to thank Greg Mirsky for providing many useful comments
    and suggestions.  The authors would also like to thank Stewart
-   Bryant, Sam Aldrin, Tarek Saad, Rajiv Asati, and Huaimo Chen for
-   their review comments.
+   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
+   comments.  Thanks to Huaimo Chen for MPLS-RT expert review.
 
 Contributors
 

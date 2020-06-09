@@ -336,7 +336,7 @@
       Destination Address TLV (Type 129) <xref target="RFC6374"/> can be sent in the probe query
       message.  The responder node only replies with Success in Control Code if it is the intended
       destination for the probe query. 
-      Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier.</t>
+      Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier <xref target="RFC6374"/>.</t>
 
 	</section>
 
@@ -555,12 +555,13 @@
 
 	<section title="Block Number TLV" anchor="sect-6.2"><t>
    The Loss Measurement using Alternate-Marking method defined in
-   <xref target="RFC8321"/> requires to color the data traffic.  To be able to compare
-   the transmit and receive traffic counters of the matching color,  the
+   <xref target="RFC8321"/> requires to color the data traffic.  To be able to correlate
+   the transmit and receive traffic counters of the matching color, the
    Block Number (or color) of the traffic counters is carried by the
-   probe query and response messages for loss measurement.  Probe query
-   and response messages specified in <xref target="RFC6374"/> for Loss Measurement do
-   not identify the Block Number of the counters.</t>
+   probe query and response messages for loss measurement. The probe query
+   and response messages currently specified in <xref target="RFC6374"/> for Loss Measurement do
+   not identify the Block Number of the counters. The Block Number can also be used
+   to aggregate performance metrics collected.</t>
 
 	<t>
    <xref target="RFC6374"/> defines probe query and response messages that can include
@@ -803,8 +804,8 @@
    implementing the mechanisms defined in this document.
    The authors would like to thank Greg Mirsky for providing
    many useful comments and suggestions.  The authors would also like to
-   thank Stewart Bryant, Sam Aldrin, Tarek Saad, Rajiv Asati, and Huaimo Chen for
-   their review comments.</t>
+   thank Stewart Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for
+   their review comments. Thanks to Huaimo Chen for MPLS-RT expert review.</t>
 
 	</section>
 
