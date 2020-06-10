@@ -27,8 +27,8 @@ Abstract
    and response messages for Performance Measurement (PM).  The
    procedure uses the mechanisms defined in RFC 6374 for Performance
    Delay and Loss Measurement.  The procedure specified is applicable to
-   SR-MPLS and SRv6 data planes for both Links and end-to-end
-   measurement for SR Paths including SR Policies.
+   SR-MPLS and SRv6 data planes for both Links and end-to-end SR Paths
+   including SR Policies measurements.
 
 Status of This Memo
 
@@ -87,23 +87,23 @@ Table of Contents
      4.2.  Loss Measurement Probe Query Message  . . . . . . . . . .   7
      4.3.  Combined Loss/Delay Measurement Probe Query Message . . .   8
      4.4.  Probe Query for Links . . . . . . . . . . . . . . . . . .   9
-     4.5.  Probe Query for End-to-end Measurement for SR Policy  . .   9
+     4.5.  Probe Query for End-to-end SR Policy Measurement  . . . .   9
        4.5.1.  Probe Query Message for SR-MPLS Policy  . . . . . . .   9
        4.5.2.  Probe Query Message for SRv6 Policy . . . . . . . . .  10
    5.  Probe Response Message  . . . . . . . . . . . . . . . . . . .  11
      5.1.  One-way Measurement Mode  . . . . . . . . . . . . . . . .  13
-       5.1.1.  Links and End-to-end Measurement for SR Policy  . . .  13
+       5.1.1.  Links and End-to-end SR Policy Measurement  . . . . .  13
        5.1.2.  Probe Response Message to Controller  . . . . . . . .  13
      5.2.  Two-way Measurement Mode  . . . . . . . . . . . . . . . .  13
        5.2.1.  Links . . . . . . . . . . . . . . . . . . . . . . . .  13
-       5.2.2.  End-to-end Measurement for SR Policy  . . . . . . . .  13
+       5.2.2.  End-to-end SR Policy Measurement  . . . . . . . . . .  13
        5.2.3.  Return Path TLV . . . . . . . . . . . . . . . . . . .  13
        5.2.4.  Probe Response Message for SR-MPLS Policy . . . . . .  14
        5.2.5.  Probe Response Message for SRv6 Policy  . . . . . . .  14
      5.3.  Loopback Measurement Mode . . . . . . . . . . . . . . . .  15
    6.  Performance Measurement for P2MP SR Policies  . . . . . . . .  15
    7.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
-   8.  Additional Message Processing Rules . . . . . . . . . . . . .  16
+   8.  Additional Probe Message Processing Rules . . . . . . . . . .  16
    9.  Sequence Numbers  . . . . . . . . . . . . . . . . . . . . . .  16
      9.1.  Sequence Number TLV in Unauthenticated Mode . . . . . . .  16
 
@@ -176,8 +176,8 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    mechanisms for Performance Delay and Loss Measurement and unless
    otherwise specified, the procedures from RFC 6374 are not modified.
    The procedure specified is applicable to both SR-MPLS and SRv6 data
-   planes.  The procedure can be used for both Links and end-to-end
-   performance measurement for SR Paths including SR Policies.
+   planes.  The procedure can be used for both Links and end-to-end SR
+   Paths including SR Policies measurements.
 
 2.  Conventions Used in This Document
 
@@ -477,15 +477,15 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    the congruent path of the data traffic for performance Loss
    measurement.
 
-4.5.  Probe Query for End-to-end Measurement for SR Policy
+4.5.  Probe Query for End-to-end SR Policy Measurement
 
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.
 
 4.5.1.  Probe Query Message for SR-MPLS Policy
 
-   The probe query message for end-to-end performance measurement of an
-   SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
+   The probe query message for end-to-end SR-MPLS Policy performance
+   measurement is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 4.
 
 
@@ -539,9 +539,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in [RFC8754].  For SRv6, network
    programming is defined in [I-D.ietf-spring-srv6-network-programming].
-   The probe query messages using UDP header for end-to-end performance
-   measurement of an SRv6 Policy is sent using its SRv6 Segment Routing
-   Header (SRH) and Segment List as shown in Figure 5.
+   The probe query messages using UDP header for end-to-end SRv6 Policy
+   performance measurement is sent using its SRv6 Segment Routing Header
+   (SRH) and Segment List as shown in Figure 5.
 
 
 
@@ -676,7 +676,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 5.1.  One-way Measurement Mode
 
-5.1.1.  Links and End-to-end Measurement for SR Policy
+5.1.1.  Links and End-to-end SR Policy Measurement
 
    In one-way performance measurement mode, the probe response message
    as defined in Figure 6 or Figure 7 is sent out-of-band to the querier
@@ -709,12 +709,12 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    node for Links.  In this case, the "control code" in the probe query
    message is set to "in-band response requested" [RFC6374].
 
-5.2.2.  End-to-end Measurement for SR Policy
+5.2.2.  End-to-end SR Policy Measurement
 
    In two-way performance measurement mode, when using a bidirectional
    path, the probe response message is sent back on the congruent path
-   of the data traffic to the querier node for end-to-end measurement of
-   SR Policies.  In this case, the "control code" in the probe query
+   of the data traffic to the querier node for end-to-end SR Policies
+   measurements.  In this case, the "control code" in the probe query
    message is set to "in-band response requested" [RFC6374].
 
 5.2.3.  Return Path TLV
@@ -744,8 +744,8 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 5.2.4.  Probe Response Message for SR-MPLS Policy
 
    The message content for sending probe response message on the
-   congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SR-MPLS Policy is shown in Figure 8.  The SR-MPLS
+   congruent path of the data traffic for two-way end-to-end SR-MPLS
+   Policy performance measurement is shown in Figure 8.  The SR-MPLS
    label stack in the packet header is built using the Segment List
    received in the Return Path TLV in the probe query message.
 
@@ -774,9 +774,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 5.2.5.  Probe Response Message for SRv6 Policy
 
    The message content for sending probe response message on the
-   congruent path of the data traffic for two-way end-to-end performance
-   measurement of an SRv6 Policy is shown in Figure 9.  For SRv6 Policy
-   using SRH, the SRv6 SID list in the SRH of the probe response message
+   congruent path of the data traffic for two-way end-to-end SRv6 Policy
+   performance measurement is shown in Figure 9.  For SRv6 Policy using
+   SRH, the SRv6 SID list in the SRH of the probe response message is
 
 
 
@@ -786,8 +786,8 @@ Gandhi, et al.          Expires December 12, 2020              [Page 14]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
-   is built using the SRv6 Segment List received in the Return Path TLV
-   in the probe query message.
+   built using the SRv6 Segment List received in the Return Path TLV in
+   the probe query message.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -851,9 +851,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    [I-D.gandhi-spring-twamp-srpm] is also applicable to the procedure
    defined in this document.
 
-8.  Additional Message Processing Rules
+8.  Additional Probe Message Processing Rules
 
-   The additional message processing rules defined in
+   The additional probe message processing rules defined in
    [I-D.gandhi-spring-twamp-srpm] are also applicable to the procedures
    defined in this document.
 
@@ -989,7 +989,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    the detection interval and scale for number of sessions need to
    account for the processing of the probe messages which are punted out
    of fast path in forwarding (to slow path or control plane), and re-
-   injected back on the responder node.
+   injected on the responder node.
 
 11.  Security Considerations
 
@@ -1187,13 +1187,14 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 Acknowledgments
 
-   The authors would like to thank Patrick Khordoc, Nagendra Kumar and
-   Carlos Pignataro for the discussion on SRv6 Performance Measurement.
-   The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for the performance measurement in segment routing
-   networks.  The authors would also like to thank Stewart Bryant for
-   the discussion on UDP port allocation for Performance Measurement and
-   Greg Mirsky for providing useful comments and suggestions.
+   The authors would like to thank Patrick Khordoc for the discussions
+   and suggestions; Nagendra Kumar and Carlos Pignataro for the
+   discussion on SRv6 Performance Measurement.  The authors would like
+   to thank Thierry Couture for the discussions on the use-cases for the
+   performance measurement in segment routing networks.  The authors
+   would also like to thank Stewart Bryant for the discussion on UDP
+   port allocation for Performance Measurement and Greg Mirsky for
+   providing useful comments and suggestions.
 
 Contributors
 
@@ -1223,7 +1224,6 @@ Authors' Addresses
    Cisco Systems, Inc.
 
    Email: cfilsfil@cisco.com
-
 
 
 
