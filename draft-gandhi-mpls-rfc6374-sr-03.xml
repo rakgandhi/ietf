@@ -217,7 +217,7 @@
    node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
    originating from source node R1 may terminate on multiple destination
    leaf nodes <xref target="I-D.voyer-spring-sr-replication-segment"/>.
-   In all cases, the data plane has MPLS enabled.
+   In all cases, the data plane has MPLS enabled on the nodes.
    </t>
 
 	<figure title="Reference Topology" anchor="ure-reference-topology"><artwork><![CDATA[
@@ -275,7 +275,7 @@
 	<section title="Probe Query and Response Messages" anchor="sect-4">
 		
 	<section title="Probe Message for SR Links" anchor="sect-4.2"><t>
-   As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
+   As described in Section 2.9.1 of <xref target="RFC6374"/>, probe query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A probe message for SR Links contains G-ACh Label (GAL)
    (with S=1).  The GAL is followed by an Associated Channel Header
@@ -298,7 +298,7 @@
 	</section>
 		
         <section title="Probe Message for SR Policies" anchor="sect-4.1"><t>
-   As described in Section 2.9.1 of <xref target="RFC6374"/>, MPLS PM probe query and
+   As described in Section 2.9.1 of <xref target="RFC6374"/>, probe query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A probe message for an end-to-end SR Policy measurement
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
@@ -341,7 +341,7 @@
 	</section>
 
 	<section title="Probe Response Message for SR Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
-   In one-way performance measurement mode <xref target="RFC7679"/>, the PM querier node
+   In one-way performance measurement mode <xref target="RFC7679"/>, the querier node
    can receive "out-of-band" probe replies by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
@@ -388,8 +388,9 @@
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The probe query messages in this case carries the
    reverse SR Path label stack as part of the MPLS header.  The GAL is
    still carried at the bottom of the label stack (with S=1).  The
-   responder node does not process the PM probe messages and generate
-   response messages. In this delay
+   responder node does not process the probe messages and generate
+   response messages, and hence Loopback Request object (Type 3)
+   is not required for SR.  In this delay
    measurement mode, as per Reference Topology, the timestamps t1 and t4
    are collected by the probes.  Both these timestamps are used to
    measure round-trip delay. The loopback mode for SR Links is outside the scope of this document.</t>
@@ -463,9 +464,9 @@
 	</t>
 
 	<t>
-   The Return Path TLV is Mandatory when carried in a probe message. If responder does not support this 
+   The Return Path TLV is Mandatory when carried in a probe query message. If responder does not support this 
    TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object.  
-   The PM querier node MUST only insert
+   The querier node MUST only insert
    one Return Path TLV in the probe query message and the responder node
    MUST only process the first Return Path TLV in the probe query
    message and ignore other Return Path TLVs if present.  The responder
@@ -581,9 +582,9 @@
 ]]></artwork>
 	</figure>
 	<t>
-   The Block Number TLV is Mandatory when carried in a probe message. If responder does not support this 
+   The Block Number TLV is Mandatory when carried in a probe query message. If responder does not support this 
    TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object.  
-   The PM querier node SHOULD only
+   The querier node SHOULD only
    insert one Block Number TLV in the probe query message and the
    responder node in the probe response message SHOULD return the first
    Block Number TLV from the probe query messages and ignore other Block
@@ -637,14 +638,14 @@
    An SR Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.
    Usage of Anycast SID <xref target="RFC8402"/> by an SR Policy can result in ECMP
-   paths via transit nodes part of that Anycast group.  The PM probe
+   paths via transit nodes part of that Anycast group.  The probe
    messages need to be sent to traverse different ECMP paths to measure
    performance delay of each of the ECMP path of an SR Policy.</t>
 
 	<t>
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  For SR Policy, sweeping of
-   entropy label <xref target="RFC6790"/> values can be used in PM probe messages to
+   entropy label <xref target="RFC6790"/> values can be used in probe messages to
    take advantage of the hashing function in forwarding plane to
    influence the ECMP path taken by them.</t>
 
@@ -692,7 +693,7 @@
 
 	<section title="IANA Considerations" anchor="sect-11"><t>
    IANA is requested to allocate a value for the following mandatory
-   Return Path TLV Type for <xref target="RFC6374"/> to be carried in PM probe query
+   Return Path TLV Type for <xref target="RFC6374"/> to be carried in probe query
    message from the "MPLS Loss/Delay Measurement TLV Object" registry 
    contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
 
@@ -746,7 +747,7 @@
 
 	<t>
    IANA is also requested to allocate a value for the following mandatory
-   Block Number TLV Type for RFC 6374 to be carried in the PM probe
+   Block Number TLV Type for RFC 6374 to be carried in the probe
    query and response messages for loss measurement from the "MPLS Loss/Delay Measurement TLV Object" registry 
    contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
 
