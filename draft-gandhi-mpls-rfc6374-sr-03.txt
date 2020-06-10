@@ -95,6 +95,7 @@ Table of Contents
    6.  Performance Loss Measurement  . . . . . . . . . . . . . . . .  10
      6.1.  Loss Measurement Message Format . . . . . . . . . . . . .  11
      6.2.  Block Number TLV  . . . . . . . . . . . . . . . . . . . .  11
+     6.3.  Combined Loss/Delay Measurement Message Format  . . . . .  12
    7.  Performance Measurement for P2MP SR Policies  . . . . . . . .  12
    8.  ECMP for SR Policies  . . . . . . . . . . . . . . . . . . . .  13
    9.  SR Link Extended TE Metrics Advertisements  . . . . . . . . .  13
@@ -105,7 +106,6 @@ Table of Contents
      12.2.  Informative References . . . . . . . . . . . . . . . . .  16
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
@@ -113,6 +113,8 @@ Gandhi, et al.          Expires December 11, 2020               [Page 2]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
+
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -160,8 +162,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    The Performance Measurements (PM) for SR Links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions.
-
-
 
 
 
@@ -527,7 +527,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) [RFC6374], which identifies the message type, and the
    message payload following the ACH.  For both SR Links and end-to-end
-   SR Policies measurements, the same MPLS DM ACH value is used.
+   SR Policies measurements, the same MPLS DM ACH value can be used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR Links and end-to-end SR
@@ -588,7 +588,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR Links and end-to-end SR Policies measurements, the
-   same MPLS LM ACH value is used.
+   same MPLS LM ACH value can be used.
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
    for SR-MPLS loss measurement, for both SR Links and end-to-end SR
@@ -639,6 +639,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    other Block Number TLVs if present.  In probe messages, the counters
    MUST belong to the same Block Number.
 
+6.3.  Combined Loss/Delay Measurement Message Format
+
+   As defined in [RFC6374], Combined DM+LM probe query and response
+   messages use Associated Channel Header (ACH) (value 0x000D for direct
+   loss and delay measurement or value 0x000E for inferred loss and
+   delay measurement), which identifies the message type, and the
+   message payload following the ACH.  For both SR Links and end-to-end
+   SR Policies measurements, the same MPLS ACH value can be used.
+
+   The message payload as defined in Section 3.3 of [RFC6374] is used
+   for SR-MPLS combined delay and loss measurement, for both SR Links
+   and end-to-end SR Policies.
+
 7.  Performance Measurement for P2MP SR Policies
 
    The procedures for one-way delay and loss measurement described in
@@ -653,25 +666,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    o  Each responder leaf node adds the "Source Address" TLV (Type 130)
       [RFC6374] with its IP address in the probe response messages.
-      This TLV allows the querier root node to identify the responder
-      leaf nodes of the P2MP SR Policy.
-
-   o  The P2MP root node measures the end-to-end delay and loss
-      performance for each P2MP leaf node of the P2MP SR Policy.
-
-
-
-
-
-
-
-
 
 
 
 Gandhi, et al.          Expires December 11, 2020              [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
+      This TLV allows the querier root node to identify the responder
+      leaf nodes of the P2MP SR Policy.
+
+   o  The P2MP root node measures the end-to-end delay and loss
+      performance for each P2MP leaf node of the P2MP SR Policy.
 
 
     0                   1                   2                   3
@@ -714,13 +721,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    performance measurement procedures described in this document can be
    advertised in the routing domain as follows:
 
-   o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
-      [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
-      advertising the extended TE link metrics in the network.
-
-   o  The advertised delay-variance metric is computed as specified in
-      Section 4.2 of [RFC5481].
-
 
 
 
@@ -729,6 +729,13 @@ Gandhi, et al.          Expires December 11, 2020              [Page 13]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
+
+   o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
+      [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
+      advertising the extended TE link metrics in the network.
+
+   o  The advertised delay-variance metric is computed as specified in
+      Section 4.2 of [RFC5481].
 
    o  The extended TE link one-way delay metrics can also be computed
       using two-way delay measurement or round-trip delay measurement
@@ -765,13 +772,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    the range 32760 through 65279 in this registry shall be allocated
    according to the "First Come First Served" procedure as specified in
    [RFC8126].  Remaining code points are allocated according to Table 1:
-
-
-
-
-
-
-
 
 
 

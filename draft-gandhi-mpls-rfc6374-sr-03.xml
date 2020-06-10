@@ -482,7 +482,7 @@
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
    message payload following the ACH.  For both SR Links and end-to-end
-   SR Policies measurements, the same MPLS DM ACH value is used.</t>
+   SR Policies measurements, the same MPLS DM ACH value can be used.</t>
 
 	<t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
@@ -545,7 +545,7 @@
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR Links and end-to-end SR
-   Policies measurements, the same MPLS LM ACH value is used.</t>
+   Policies measurements, the same MPLS LM ACH value can be used.</t>
 
 	<t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
@@ -592,6 +592,20 @@
    to the same Block Number.</t>
 
 	</section>
+
+	<section title="Combined Loss/Delay Measurement Message Format" anchor="sect-6.3"><t>
+   As defined in <xref target="RFC6374"/>, Combined DM+LM probe query and response messages
+   use Associated Channel Header (ACH) (value 0x000D for direct loss
+   and delay measurement or value 0x000E for inferred loss and delay measurement), which
+   identifies the message type, and the message payload following the
+   ACH.  For both SR Links and end-to-end SR
+   Policies measurements, the same MPLS ACH value can be used.</t>
+
+	<t>
+   The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
+   for SR-MPLS combined delay and loss measurement, for both SR Links and end-to-end SR
+   Policies.</t>
+        </section>
 
 	</section>
 
