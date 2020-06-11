@@ -241,7 +241,7 @@
 	</section>
 
 	<section title="Overview" anchor="sect-3"><t>
-   One-way delay, two-way and round-trip delay measurement procedures defined in
+   For one-way, two-way and round-trip delay measurements, the procedures defined in
    Section 2.4 and Section 2.6 of <xref target="RFC6374"/> are used.  
    For transmit and receive packet
    loss measurements, the procedures defined in Section 2.2 and Section

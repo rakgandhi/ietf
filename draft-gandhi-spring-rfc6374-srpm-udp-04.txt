@@ -267,13 +267,13 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 3.  Overview
 
-   One-way delay, two-way and round-trip delay measurement procedures
-   defined in Section 2.4 and Section 2.6 of [RFC6374] are used.  For
-   transmit and receive packet loss measurements, the procedures defined
-   in Section 2.2 and Section 2.6 of [RFC6374] are used.  The procedures
-   use probe messages with UDP path and do not use MPLS GAL.  Separate
-   UDP destination port numbers are user-configured for delay and loss
-   measurements from the range specified in [RFC8762].  The querier node
+   For one-way, two-way and round-trip delay measurements, the
+   procedures defined in Section 2.4 and Section 2.6 of [RFC6374] are
+   used.  For transmit and receive packet loss measurements, the
+   procedures defined in Section 2.2 and Section 2.6 of [RFC6374] are
+   used.  The procedures use probe messages with UDP path and do not use
+   MPLS GAL.  Separate UDP destination port numbers are user-configured
+   for delay and loss measurements from the range specified in
 
 
 
@@ -282,10 +282,10 @@ Gandhi, et al.          Expires December 13, 2020               [Page 5]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
-   uses the destination UDP port number following the guidelines
-   specified in Section 6 in [RFC6335].  For both Links and end-to-end
-   SR Policies, no PM session for delay or loss measurement is created
-   on the responder node R5 [RFC6374].
+   [RFC8762].  The querier node uses the destination UDP port number
+   following the guidelines specified in Section 6 in [RFC6335].  For
+   both Links and end-to-end SR Policies, no PM session for delay or
+   loss measurement is created on the responder node R5 [RFC6374].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
@@ -1087,9 +1087,10 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
    [I-D.gandhi-mpls-rfc6374-sr]
               Gandhi, R., Filsfils, C., Voyer, D., Salsano, S., and M.
-              Chen, "Performance Measurement for Segment Routing
-              Networks with MPLS Data Plane", draft-gandhi-mpls-
-              rfc6374-sr-02 (work in progress), March 2020.
+              Chen, "Performance Measurement Using RFC 6374 for 
+              Segment Routing Networks with MPLS Data Plane", 
+              draft-gandhi-mpls-rfc6374-sr-03 (work in progress), 
+              June 2020.
 
    [I-D.gandhi-spring-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
