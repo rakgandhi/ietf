@@ -105,7 +105,7 @@
    addresses the limitations of the IP based performance measurement
    protocols as specified in Section 1 of <xref target="RFC6374"/>.  <xref target="RFC6374"/>
    requires data plane to support MPLS Generic Associated Channel Label
-   (GAL) and Generic Associated Channel (G-Ach), which may not be
+   (GAL) and Generic Associated Channel (G-ACh), which may not be
    supported on all nodes in the segment routing network.</t>
 
 	<t>
@@ -147,14 +147,9 @@
 
 	</section>
 
-	<section title="Abbreviations" anchor="sect-2.2"><t>
-   ACH: Associated Channel Header.</t>
-
+	<section title="Abbreviations" anchor="sect-2.2">
 	<t>
    BSID: Binding Segment ID.</t>
-
-	<t>
-   DFLag: Data Format Flag.</t>
 
 	<t>
    DM: Delay Measurement.</t>
@@ -247,9 +242,11 @@
 
 	<section title="Overview" anchor="sect-3"><t>
    One-way delay, two-way and round-trip delay measurement procedures defined in
-   Section 2.4 of <xref target="RFC6374"/> are used.  For transmit and Receive packet
-   loss, the measurement procedures defined in <xref target="sect-2.2"/> and Section
-   2.6 of <xref target="RFC6374"/> are used.  Separate UDP destination port numbers are
+   Section 2.4 and Section 2.6 of <xref target="RFC6374"/> are used.  
+   For transmit and receive packet
+   loss measurements, the procedures defined in Section 2.2 and Section
+   2.6 of <xref target="RFC6374"/> are used.  The procedures use probe messages with UDP path 
+   and do not use MPLS GAL.  Separate UDP destination port numbers are
    user-configured for delay and loss measurements from the range
    specified in <xref target="RFC8762"/>.  The querier node uses the destination UDP
    port number following the guidelines specified in <xref target="sect-6"/> in

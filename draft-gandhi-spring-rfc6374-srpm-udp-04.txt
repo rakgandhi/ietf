@@ -144,7 +144,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    [RFC6374] addresses the limitations of the IP based performance
    measurement protocols as specified in Section 1 of [RFC6374].
    [RFC6374] requires data plane to support MPLS Generic Associated
-   Channel Label (GAL) and Generic Associated Channel (G-Ach), which may
+   Channel Label (GAL) and Generic Associated Channel (G-ACh), which may
    not be supported on all nodes in the segment routing network.
 
    [RFC7876] specifies the procedures to be used when sending and
@@ -190,11 +190,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 2.2.  Abbreviations
 
-   ACH: Associated Channel Header.
-
    BSID: Binding Segment ID.
-
-   DFLag: Data Format Flag.
 
    DM: Delay Measurement.
 
@@ -218,6 +214,10 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
    SID: Segment ID.
 
+   SL: Segment List.
+
+   SR: Segment Routing.
+
 
 
 
@@ -225,10 +225,6 @@ Gandhi, et al.          Expires December 13, 2020               [Page 4]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
-
-   SL: Segment List.
-
-   SR: Segment Routing.
 
    SRH: Segment Routing Header.
 
@@ -272,8 +268,12 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 3.  Overview
 
    One-way delay, two-way and round-trip delay measurement procedures
-   defined in Section 2.4 of [RFC6374] are used.  For transmit and
-   Receive packet loss, the measurement procedures defined in
+   defined in Section 2.4 and Section 2.6 of [RFC6374] are used.  For
+   transmit and receive packet loss measurements, the procedures defined
+   in Section 2.2 and Section 2.6 of [RFC6374] are used.  The procedures
+   use probe messages with UDP path and do not use MPLS GAL.  Separate
+   UDP destination port numbers are user-configured for delay and loss
+   measurements from the range specified in [RFC8762].  The querier node
 
 
 
@@ -282,9 +282,6 @@ Gandhi, et al.          Expires December 13, 2020               [Page 5]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
-   Section 2.2 and Section 2.6 of [RFC6374] are used.  Separate UDP
-   destination port numbers are user-configured for delay and loss
-   measurements from the range specified in [RFC8762].  The querier node
    uses the destination UDP port number following the guidelines
    specified in Section 6 in [RFC6335].  For both Links and end-to-end
    SR Policies, no PM session for delay or loss measurement is created
@@ -330,6 +327,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    The message content for Delay Measurement for probe query message
    using UDP header [RFC0768] is shown in Figure 1.  The DM probe query
    message is sent with user-configured Destination UDP port number for
+   DM.  The Destination UDP port can also be used as Source port for
+   two-way delay measurement, since the message has a flag to
+   distinguish between query and response.  The DM probe query message
 
 
 
@@ -338,9 +338,6 @@ Gandhi, et al.          Expires December 13, 2020               [Page 6]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
-   DM.  The Destination UDP port can also be used as Source port for
-   two-way delay measurement, since the message has a flag to
-   distinguish between query and response.  The DM probe query message
    contains the payload format for delay measurement defined in
    Section 3.2 of [RFC6374].
 
@@ -379,6 +376,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    the message has a flag to distinguish between query and response.
    The LM probe query message contains the payload format for loss
    measurement defined in Section 3.1 of [RFC6374].
+
+
+
 
 
 
