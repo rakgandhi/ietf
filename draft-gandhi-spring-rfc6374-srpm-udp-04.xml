@@ -69,7 +69,7 @@
 	</address>
 	</author>
 
-	<date day="10" month="June" year="2020"/>
+	<date day="11" month="June" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  Segment
@@ -233,7 +233,7 @@
                                             |
           +-------+       Query         +-------+
           |       | - - - - - - - - - ->|       |
-          |   R1  |---------------------|   R5  |
+          |   R1  |=====================|   R5  |
           |       |<- - - - - - - - - - |       |
           +-------+       Response      +-------+
            Querier                      Responder
@@ -399,7 +399,7 @@
 	</section>
 
 
-   <section title="Probe Query for Links" anchor="sect-4.4"><t>
+   <section title="Probe Query Message for Links" anchor="sect-4.4"><t>
    The probe query message as defined in Figure 1 is sent on the
    congruent path of the data traffic for performance Delay measurement.
    Similarly, the probe query message as defined in Figure 2 is sent on
@@ -408,7 +408,7 @@
 
 	</section>
 
-	<section title="Probe Query for End-to-end SR Policy Measurement" anchor="sect-4.5"><t>
+	<section title="Probe Query Message for SR Policies" anchor="sect-4.5"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both SR-MPLS and SRv6 Policies.</t>
 
@@ -451,7 +451,7 @@
 
 	<section title="Probe Query Message for SRv6 Policy" anchor="sect-4.5.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH)
-   and a Segment List as defined in <xref target="RFC8754"/>.
+   and a Segment List is defined in <xref target="RFC8754"/>.
    For SRv6, network programming is defined in 
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The probe query messages using UDP header for end-to-end 
@@ -545,7 +545,7 @@
  +---------------------------------------------------------------+
 ]]></artwork>
 	</figure>
-	<section title="One-way Measurement Mode" anchor="sect-5.1"><section title="Links and End-to-end SR Policy Measurement" anchor="sect-5.1.1"><t>
+	<section title="One-way Measurement Mode" anchor="sect-5.1"><section title="Links and SR Policies" anchor="sect-5.1.1"><t>
    In one-way performance measurement mode, the probe response message
    as defined in Figure 6 or Figure 7 is sent out-of-band to the querier
    node, for both Links and SR Policies.</t>
@@ -581,7 +581,7 @@
 
 	</section>
 
-	<section title="End-to-end SR Policy Measurement" anchor="sect-5.2.2"><t>
+	<section title="SR Policies" anchor="sect-5.2.2"><t>
    In two-way performance measurement mode, when using a bidirectional
    path, the probe response message is sent back on the congruent path
    of the data traffic to the querier node for end-to-end 
@@ -925,7 +925,7 @@
 	</references>
 
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
-   The authors would like to thank Patrick Khordoc for the discussions and suggestions;
+   The authors would like to thank Patrick Khordoc for the discussions on RFC 6374;
    Nagendra Kumar and Carlos Pignataro
    for the discussion on SRv6 Performance Measurement.  The authors
    would like to thank Thierry Couture for the discussions on the

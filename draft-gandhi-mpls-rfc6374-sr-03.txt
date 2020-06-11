@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: December 12, 2020                                      D. Voyer
+Expires: December 13, 2020                                      D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                           June 10, 2020
+                                                           June 11, 2020
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 12, 2020.
+   This Internet-Draft will expire on December 13, 2020.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 1]
+Gandhi, et al.          Expires December 13, 2020               [Page 1]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -89,10 +89,10 @@ Table of Contents
        4.3.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
        4.3.3.  Loopback Measurement Mode . . . . . . . . . . . . . .   8
      4.4.  Return Path TLV . . . . . . . . . . . . . . . . . . . . .   8
-   5.  Performance Delay Measurement . . . . . . . . . . . . . . . .  10
+   5.  Delay Measurement . . . . . . . . . . . . . . . . . . . . . .  10
      5.1.  Delay Measurement Message Format  . . . . . . . . . . . .  10
      5.2.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . .  10
-   6.  Performance Loss Measurement  . . . . . . . . . . . . . . . .  10
+   6.  Loss Measurement  . . . . . . . . . . . . . . . . . . . . . .  10
      6.1.  Loss Measurement Message Format . . . . . . . . . . . . .  11
      6.2.  Block Number TLV  . . . . . . . . . . . . . . . . . . . .  11
      6.3.  Combined Loss/Delay Measurement Message Format  . . . . .  12
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 2]
+Gandhi, et al.          Expires December 13, 2020               [Page 2]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -165,7 +165,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 3]
+Gandhi, et al.          Expires December 13, 2020               [Page 3]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -221,7 +221,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 4]
+Gandhi, et al.          Expires December 13, 2020               [Page 4]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -243,7 +243,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
                 +-------+ t1    Query      t2 +-------+
                 |       | - - - - - - - - - ->|       |
-                |   R1  |---------------------|   R5  |
+                |   R1  |=====================|   R5  |
                 |       |<- - - - - - - - - - |       |
                 +-------+ t4    Response   t3 +-------+
                  Querier                      Responder
@@ -277,7 +277,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 5]
+Gandhi, et al.          Expires December 13, 2020               [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -333,7 +333,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 6]
+Gandhi, et al.          Expires December 13, 2020               [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -389,7 +389,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 7]
+Gandhi, et al.          Expires December 13, 2020               [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -445,7 +445,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 8]
+Gandhi, et al.          Expires December 13, 2020               [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -501,7 +501,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020               [Page 9]
+Gandhi, et al.          Expires December 13, 2020               [Page 9]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -519,7 +519,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    reverse path specified in the Return Path TLV and MUST NOT add Return
    Path TLV in the probe response message.
 
-5.  Performance Delay Measurement
+5.  Delay Measurement
 
 5.1.  Delay Measurement Message Format
 
@@ -541,7 +541,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    Appendix A of [RFC6374], with hardware support in Segment Routing
    networks.
 
-6.  Performance Loss Measurement
+6.  Loss Measurement
 
    The LM protocol can perform two distinct kinds of loss measurement as
    described in Section 2.9.8 of [RFC6374].
@@ -557,7 +557,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 10]
+Gandhi, et al.          Expires December 13, 2020              [Page 10]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -588,7 +588,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR Links and end-to-end SR Policies measurements, the
-   same MPLS LM ACH value can be used.
+   same MPLS LM ACH value is used.
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
    for SR-MPLS loss measurement, for both SR Links and end-to-end SR
@@ -613,7 +613,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 11]
+Gandhi, et al.          Expires December 13, 2020              [Page 11]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -646,7 +646,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    loss and delay measurement or value 0x000E for inferred loss and
    delay measurement), which identifies the message type, and the
    message payload following the ACH.  For both SR Links and end-to-end
-   SR Policies measurements, the same MPLS ACH value can be used.
+   SR Policies measurements, the same MPLS ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
    for SR-MPLS combined delay and loss measurement, for both SR Links
@@ -669,7 +669,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 12]
+Gandhi, et al.          Expires December 13, 2020              [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -677,8 +677,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
       This TLV allows the querier root node to identify the responder
       leaf nodes of the P2MP SR Policy.
 
-   o  The P2MP root node measures the end-to-end delay and loss
-      performance for each P2MP leaf node of the P2MP SR Policy.
+   o  The P2MP root node measures the delay and loss performance for
+      each P2MP leaf node of the end-to-end P2MP SR Policy.
 
 
     0                   1                   2                   3
@@ -725,7 +725,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 13]
+Gandhi, et al.          Expires December 13, 2020              [Page 13]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -781,7 +781,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 14]
+Gandhi, et al.          Expires December 13, 2020              [Page 14]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -837,7 +837,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 15]
+Gandhi, et al.          Expires December 13, 2020              [Page 15]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -893,7 +893,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 16]
+Gandhi, et al.          Expires December 13, 2020              [Page 16]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -949,7 +949,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 17]
+Gandhi, et al.          Expires December 13, 2020              [Page 17]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -1005,7 +1005,7 @@ Contributors
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 18]
+Gandhi, et al.          Expires December 13, 2020              [Page 18]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -1061,4 +1061,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires December 12, 2020              [Page 19]
+Gandhi, et al.          Expires December 13, 2020              [Page 19]

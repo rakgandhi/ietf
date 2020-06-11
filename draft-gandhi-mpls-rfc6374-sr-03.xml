@@ -72,7 +72,7 @@
 	</address>
 	</author>
 
-	<date day="10" month="June" year="2020"/>
+	<date day="11" month="June" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -224,7 +224,7 @@
 
              +-------+ t1    Query      t2 +-------+
              |       | - - - - - - - - - ->|       |
-             |   R1  |---------------------|   R5  |
+             |   R1  |=====================|   R5  |
              |       |<- - - - - - - - - - |       |
              +-------+ t4    Response   t3 +-------+
               Querier                      Responder
@@ -477,7 +477,7 @@
 
 	</section>
 
-	<section title="Performance Delay Measurement" anchor="sect-5"><section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
+	<section title="Delay Measurement" anchor="sect-5"><section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
    As defined in <xref target="RFC6374"/>, MPLS DM probe query and response messages
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
@@ -502,7 +502,7 @@
 
 	</section>
 
-	<section title="Performance Loss Measurement" anchor="sect-6"><t>
+	<section title="Loss Measurement" anchor="sect-6"><t>
    The LM protocol can perform two distinct kinds of loss measurement as
    described in Section 2.9.8 of <xref target="RFC6374"/>.</t>
 
@@ -545,7 +545,7 @@
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR Links and end-to-end SR
-   Policies measurements, the same MPLS LM ACH value can be used.</t>
+   Policies measurements, the same MPLS LM ACH value is used.</t>
 
 	<t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
@@ -599,7 +599,7 @@
    and delay measurement or value 0x000E for inferred loss and delay measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR Links and end-to-end SR
-   Policies measurements, the same MPLS ACH value can be used.</t>
+   Policies measurements, the same MPLS ACH value is used.</t>
 
 	<t>
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
@@ -623,8 +623,8 @@
       This TLV allows the querier root node to identify the responder
       leaf nodes of the P2MP SR Policy.</t>
 
-	<t>The P2MP root node measures the end-to-end delay and loss
-      performance for each P2MP leaf node of the P2MP SR Policy.</t>
+	<t>The P2MP root node measures the delay and loss
+      performance for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
 
 	</list>
 	</t>
