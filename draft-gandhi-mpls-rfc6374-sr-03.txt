@@ -527,7 +527,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) [RFC6374], which identifies the message type, and the
    message payload following the ACH.  For both SR Links and end-to-end
-   SR Policies measurements, the same MPLS DM ACH value can be used.
+   SR Policies measurements, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR Links and end-to-end SR
