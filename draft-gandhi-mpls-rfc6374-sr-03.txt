@@ -151,8 +151,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    processing out-of-band performance measurement probe replies over an
    UDP return path when receiving RFC 6374 based probe queries.  These
    procedures can be used to send out-of-band PM replies for both SR
-   Links and Policies [I-D.ietf-spring-segment-routing-policy] for one-
-   way measurement.
+   Links and Policies for one-way measurement.
 
    This document utilizes the probe-based mechanisms defined in
    [RFC6374] for Performance Delay and Loss Measurements in SR networks
@@ -162,6 +161,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    The Performance Measurements (PM) for SR Links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions.
+
 
 
 
@@ -252,14 +252,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 3.  Overview
 
-   One-way delay and two-way delay measurement procedure defined in
-   Section 2.4 of [RFC6374] are used.  Transmit and Receive packet loss
-   measurement procedures defined in Section 2.2 and Section 2.6 of
-   [RFC6374] are used.  One-way loss measurement provides receive packet
-   loss whereas two-way loss measurement provides both transmit and
-   receive packet loss.  For both SR Links and end-to-end SR Policies,
-   no PM session for delay or loss measurement is created on the
-   responder node R5 [RFC6374].
+   For one-way, two-way and round-trip delay measurements, the
+   procedures defined in Section 2.4 and Section 2.6 of [RFC6374] are
+   used.  For transmit and receive packet loss measurements, the
+   procedures defined in Section 2.2 and Section 2.6 of [RFC6374] are
+   used.  For both SR Links and end-to-end SR Policies, no PM session
+   for delay or loss measurement is created on the responder node R5
+   [RFC6374].
 
    For Performance Measurement, probe query and response messages are
    sent as following:
@@ -273,7 +272,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
       path of the data traffic by the querier node, and are used to
       collect the receive traffic counters for the incoming link or
       incoming SID where the probe query messages are received at the
-
+      responder node (incoming link or incoming SID needed since the
+      responder node does not have PM session state present).
 
 
 
@@ -281,9 +281,6 @@ Gandhi, et al.          Expires December 13, 2020               [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-      responder node (incoming link or incoming SID needed since the
-      responder node does not have PM session state present).
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
@@ -326,6 +323,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    message type, and the message payload following the ACH as shown in
    Figure 3.  For SR Policies, the TTL value is set to 255 in the SR-
    MPLS header.
+
+
+
 
 
 

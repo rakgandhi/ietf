@@ -127,8 +127,7 @@
    processing out-of-band performance measurement probe replies over an
    UDP return path when receiving RFC 6374 based probe queries.  These
    procedures can be used to send out-of-band PM replies for both
-   SR Links and Policies <xref target="I-D.ietf-spring-segment-routing-policy"/> for
-   one-way measurement.</t>
+   SR Links and Policies for one-way measurement.</t>
 
 	<t>
    This document utilizes the probe-based mechanisms defined in
@@ -235,12 +234,10 @@
 	</section>
 
 	<section title="Overview" anchor="sect-3"><t>
-   One-way delay and two-way delay measurement procedure defined in
-   Section 2.4 of <xref target="RFC6374"/> are used.  Transmit and Receive packet loss
-   measurement procedures defined in <xref target="sect-2.2"/> and Section 2.6 of
-   <xref target="RFC6374"/> are used.  One-way loss measurement provides receive packet
-   loss whereas two-way loss measurement provides both transmit and
-   receive packet loss.  For both SR Links and end-to-end SR Policies, no
+   For one-way, two-way and round-trip delay measurements, the procedures defined in
+   Section 2.4 and Section 2.6 of <xref target="RFC6374"/> are used.  For transmit and receive packet loss
+   measurements, the procedures defined in Section 2.2 and Section 2.6 of
+   <xref target="RFC6374"/> are used.  For both SR Links and end-to-end SR Policies, no
    PM session for delay or loss measurement is created on the responder
    node R5 <xref target="RFC6374"/>.</t>
 
