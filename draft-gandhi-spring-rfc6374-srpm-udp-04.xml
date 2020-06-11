@@ -6,7 +6,7 @@
 <!ENTITY RFC7876 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7876.xml">
 <!ENTITY RFC8174 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY I-D.gandhi-mpls-rfc6374-sr SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-mpls-rfc6374-sr.xml">
-<!ENTITY I-D.gandhi-spring-twamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-twamp-srpm.xml">
+<!ENTITY I-D.gandhi-spring-stamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-stamp-srpm.xml">
 <!ENTITY RFC2104 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2104.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
 <!ENTITY RFC6335 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
@@ -231,11 +231,11 @@
                                             ^
                                             | Response
                                             |
-          +-------+       Query         +-------+
+          +-------+ t1    Query      t2 +-------+
           |       | - - - - - - - - - ->|       |
           |   R1  |=====================|   R5  |
           |       |<- - - - - - - - - - |       |
-          +-------+       Response      +-------+
+          +-------+ t4    Response   t3 +-------+
            Querier                      Responder
 
                     Reference Topology
@@ -284,7 +284,7 @@
    outside the scope of this document.</t>
 
 	<section title="Example Provisioning Model" anchor="sect-3.1"><t>
-   An example provisioning model described in <xref target="I-D.gandhi-spring-twamp-srpm"/> is
+   An example provisioning model described in <xref target="I-D.gandhi-spring-stamp-srpm"/> is
    also applicable to the procedures defined in this document.</t>
 
 	</section>
@@ -337,7 +337,7 @@
 
 	<section title="Loss Measurement Probe Query Message" anchor="sect-4.2"><t>
    The message content for Loss measurement probe query message using
-   UDP header [RFC768] is shown in Figure 2.  As shown, the LM probe
+   UDP header <xref target="RFC0768"/> is shown in Figure 2.  As shown, the LM probe
    query message is sent with user-configured Destination UDP port
    number for LM.  Separate Destination UDP ports are used for
    direct-mode and inferred-mode loss measurements.  The Destination UDP
@@ -368,7 +368,7 @@
 
 	<section title="Combined Loss/Delay Measurement Probe Query Message" anchor="sect-4.3"><t>
    The message content for combined Loss/Delay measurement probe query message using
-   UDP header [RFC768] is shown in Figure 3.  As shown, the probe
+   UDP header <xref target="RFC0768"/> is shown in Figure 3.  As shown, the probe
    query message is sent with user-configured Destination UDP port
    number for combined LM/DM message format.  Separate Destination UDP ports are used for
    direct-mode and inferred-mode loss measurements.  The Destination UDP
@@ -556,8 +556,11 @@
    TLV in the probe query message and setting its own IP address in the
    IP Address in the URO TLV (Type=131) <xref target="RFC7876"/>.  The "control code"
    in the probe query message is set to "out-of-band response requested".  
-   The "Source Address" TLV (Type 130), and "Return Address" TLV (Type 1), if present in the probe query message, are not
-   used to send probe response message.</t>
+   The "Source Address" TLV (Type 130), and "Return Address" TLV (Type 1), 
+   if present in the probe query message, are not
+   used to send probe response message.
+   In this delay measurement mode, as per Reference Topology, timestamps t1 and t2 are
+   collected by the probes to measure one-way delay.</t>
 
 	</section>
 
@@ -577,7 +580,9 @@
    link, the probe response message as defined in Figure 6 or Figure 7
    is sent back on the congruent path of the data traffic to the querier
    node for Links.  In this case, the "control code" in the probe
-   query message is set to "in-band response requested" <xref target="RFC6374"/>.</t>
+   query message is set to "in-band response requested" <xref target="RFC6374"/>.
+   In this delay measurement mode, as per Reference Topology, timestamps t1, t2, t3 and t4 are
+   collected by the probes to measure two-way delay.</t>
 
 	</section>
 
@@ -693,7 +698,9 @@
    reverse path information (e.g. reverse path label stack for SR-MPLS)
    as part of the SR header.  The responder node does not process the 
    probe messages and generate response messages, and hence 
-   Loopback Request object (Type 3) is not required for SR.</t>
+   Loopback Request object (Type 3) is not required for SR.
+   In this delay measurement mode, as per Reference Topology, timestamps t1 and t4 are
+   collected by the probes to measure round-trip delay.</t> 
 
 	</section>
 
@@ -701,21 +708,21 @@
 
 	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-6"><t>
    For P2MP SR Policies <xref target="I-D.voyer-spring-sr-replication-segment"/>, the
-   procedure defined in <xref target="I-D.gandhi-spring-twamp-srpm"/> is also
+   procedure defined in <xref target="I-D.gandhi-spring-stamp-srpm"/> is also
    applicable to the procedures defined in this document (using the RFC 6374 messages in the payload).</t>
 
 	</section>
 
 	<section title="ECMP Support for SR Policies" anchor="sect-7"><t>
    For handling ECMP of SR Policies, the procedure defined in
-   <xref target="I-D.gandhi-spring-twamp-srpm"/> is also applicable to the procedure
+   <xref target="I-D.gandhi-spring-stamp-srpm"/> is also applicable to the procedure
    defined in this document.</t>
 
 	</section>
 
 	<section title="Additional Probe Message Processing Rules" anchor="sect-8"><t>
    The additional probe message processing rules defined in
-   <xref target="I-D.gandhi-spring-twamp-srpm"/> are also applicable to the procedures defined
+   <xref target="I-D.gandhi-spring-stamp-srpm"/> are also applicable to the procedures defined
    in this document.</t>
 
 	</section>
@@ -906,7 +913,7 @@
 	&RFC7876;
 	&RFC8174;
 	&I-D.gandhi-mpls-rfc6374-sr;
-	&I-D.gandhi-spring-twamp-srpm;
+	&I-D.gandhi-spring-stamp-srpm;
 	</references>
 
 	<references title="Informative References">

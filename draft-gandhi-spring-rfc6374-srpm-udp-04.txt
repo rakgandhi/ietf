@@ -97,11 +97,11 @@ Table of Contents
      5.2.  Two-way Measurement Mode  . . . . . . . . . . . . . . . .  13
        5.2.1.  Links . . . . . . . . . . . . . . . . . . . . . . . .  13
        5.2.2.  SR Policies . . . . . . . . . . . . . . . . . . . . .  13
-       5.2.3.  Return Path TLV . . . . . . . . . . . . . . . . . . .  13
+       5.2.3.  Return Path TLV . . . . . . . . . . . . . . . . . . .  14
        5.2.4.  Probe Response Message for SR-MPLS Policy . . . . . .  14
-       5.2.5.  Probe Response Message for SRv6 Policy  . . . . . . .  14
+       5.2.5.  Probe Response Message for SRv6 Policy  . . . . . . .  15
      5.3.  Loopback Measurement Mode . . . . . . . . . . . . . . . .  15
-   6.  Performance Measurement for P2MP SR Policies  . . . . . . . .  15
+   6.  Performance Measurement for P2MP SR Policies  . . . . . . . .  16
    7.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
    8.  Additional Probe Message Processing Rules . . . . . . . . . .  16
    9.  Sequence Numbers  . . . . . . . . . . . . . . . . . . . . . .  16
@@ -260,11 +260,11 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
                                                ^
                                                | Response
                                                |
-             +-------+       Query         +-------+
+             +-------+ t1    Query      t2 +-------+
              |       | - - - - - - - - - ->|       |
              |   R1  |=====================|   R5  |
              |       |<- - - - - - - - - - |       |
-             +-------+       Response      +-------+
+             +-------+ t4    Response   t3 +-------+
               Querier                      Responder
 
                        Reference Topology
@@ -314,7 +314,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 3.1.  Example Provisioning Model
 
    An example provisioning model described in
-   [I-D.gandhi-spring-twamp-srpm] is also applicable to the procedures
+   [I-D.gandhi-spring-stamp-srpm] is also applicable to the procedures
    defined in this document.
 
 4.  Probe Query Message
@@ -371,7 +371,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 4.2.  Loss Measurement Probe Query Message
 
    The message content for Loss measurement probe query message using
-   UDP header [RFC768] is shown in Figure 2.  As shown, the LM probe
+   UDP header [RFC0768] is shown in Figure 2.  As shown, the LM probe
    query message is sent with user-configured Destination UDP port
    number for LM.  Separate Destination UDP ports are used for direct-
    mode and inferred-mode loss measurements.  The Destination UDP port
@@ -415,7 +415,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 4.3.  Combined Loss/Delay Measurement Probe Query Message
 
    The message content for combined Loss/Delay measurement probe query
-   message using UDP header [RFC768] is shown in Figure 3.  As shown,
+   message using UDP header [RFC0768] is shown in Figure 3.  As shown,
    the probe query message is sent with user-configured Destination UDP
    port number for combined LM/DM message format.  Separate Destination
    UDP ports are used for direct-mode and inferred-mode loss
@@ -689,7 +689,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    in the probe query message is set to "out-of-band response
    requested".  The "Source Address" TLV (Type 130), and "Return
    Address" TLV (Type 1), if present in the probe query message, are not
-   used to send probe response message.
+   used to send probe response message.  In this delay measurement mode,
+   as per Reference Topology, timestamps t1 and t2 are collected by the
+   probes to measure one-way delay.
 
 5.1.2.  Probe Response Message to Controller
 
@@ -707,7 +709,9 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    link, the probe response message as defined in Figure 6 or Figure 7
    is sent back on the congruent path of the data traffic to the querier
    node for Links.  In this case, the "control code" in the probe query
-   message is set to "in-band response requested" [RFC6374].
+   message is set to "in-band response requested" [RFC6374].  In this
+   delay measurement mode, as per Reference Topology, timestamps t1, t2,
+   t3 and t4 are collected by the probes to measure two-way delay.
 
 5.2.2.  SR Policies
 
@@ -717,11 +721,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    measurements.  In this case, the "control code" in the probe query
    message is set to "in-band response requested" [RFC6374].
 
-5.2.3.  Return Path TLV
 
-   For two-way performance measurement, the querier node can request the
-   responder node to send a response message back on a given reverse
-   path (e.g. co-routed path for two-way measurement).  Return Path TLV
 
 
 
@@ -730,6 +730,11 @@ Gandhi, et al.          Expires December 13, 2020              [Page 13]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
+5.2.3.  Return Path TLV
+
+   For two-way performance measurement, the querier node can request the
+   responder node to send a response message back on a given reverse
+   path (e.g. co-routed path for two-way measurement).  Return Path TLV
    defined in [I-D.gandhi-mpls-rfc6374-sr] is used to carry reverse SR
    path information as part of the payload of the probe query message.
 
@@ -771,12 +776,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    be used to find the reverse SR-MPLS Policy to send the probe response
    message for two-way measurement in the absence of Return Path TLV.
 
-5.2.5.  Probe Response Message for SRv6 Policy
 
-   The message content for sending probe response message on the
-   congruent path of the data traffic for two-way end-to-end SRv6 Policy
-   performance measurement is shown in Figure 9.  For SRv6 Policy using
-   SRH, the SRv6 SID list in the SRH of the probe response message is
 
 
 
@@ -786,6 +786,12 @@ Gandhi, et al.          Expires December 13, 2020              [Page 14]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
+5.2.5.  Probe Response Message for SRv6 Policy
+
+   The message content for sending probe response message on the
+   congruent path of the data traffic for two-way end-to-end SRv6 Policy
+   performance measurement is shown in Figure 9.  For SRv6 Policy using
+   SRH, the SRv6 SID list in the SRH of the probe response message is
    built using the SRv6 Segment List received in the Return Path TLV in
    the probe query message.
 
@@ -827,13 +833,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    the reverse path information (e.g. reverse path label stack for SR-
    MPLS) as part of the SR header.  The responder node does not process
    the probe messages and generate response messages, and hence Loopback
-   Request object (Type 3) is not required for SR.
-
-6.  Performance Measurement for P2MP SR Policies
-
-   For P2MP SR Policies [I-D.voyer-spring-sr-replication-segment], the
-   procedure defined in [I-D.gandhi-spring-twamp-srpm] is also
-
+   Request object (Type 3) is not required for SR.  In this delay
 
 
 
@@ -842,19 +842,26 @@ Gandhi, et al.          Expires December 13, 2020              [Page 15]
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
 
+   measurement mode, as per Reference Topology, timestamps t1 and t4 are
+   collected by the probes to measure round-trip delay.
+
+6.  Performance Measurement for P2MP SR Policies
+
+   For P2MP SR Policies [I-D.voyer-spring-sr-replication-segment], the
+   procedure defined in [I-D.gandhi-spring-stamp-srpm] is also
    applicable to the procedures defined in this document (using the RFC
    6374 messages in the payload).
 
 7.  ECMP Support for SR Policies
 
    For handling ECMP of SR Policies, the procedure defined in
-   [I-D.gandhi-spring-twamp-srpm] is also applicable to the procedure
+   [I-D.gandhi-spring-stamp-srpm] is also applicable to the procedure
    defined in this document.
 
 8.  Additional Probe Message Processing Rules
 
    The additional probe message processing rules defined in
-   [I-D.gandhi-spring-twamp-srpm] are also applicable to the procedures
+   [I-D.gandhi-spring-stamp-srpm] are also applicable to the procedures
    defined in this document.
 
 9.  Sequence Numbers
@@ -875,6 +882,22 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    response messages for delay and loss measurement.  The format of the
    Sequence Number TLV in unauthenticated mode is shown in Figure 10.
 
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires December 13, 2020              [Page 16]
+
+Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
+
+
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -890,13 +913,6 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
       each subsequent probe query packet.
 
    o  The sequence number are independent for DM and LM messages.
-
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 16]
-
-Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
-
 
    o  The sequence number can be of any length determined by the querier
       node.
@@ -930,22 +946,6 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    The computation of HMAC field using HMAC-SHA1 can be used with the
    procedure defined in this document.  HMAC uses own key and the
    definition of the mechanism to distribute the HMAC key is outside the
-   scope of this document.  Both the authentication type and key can be
-   user-configured on both the querier and responder nodes.
-
-   The format of the Sequence Number TLV in authentication mode is shown
-   in Figure 11.
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -953,6 +953,12 @@ Gandhi, et al.          Expires December 13, 2020              [Page 17]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   scope of this document.  Both the authentication type and key can be
+   user-configured on both the querier and responder nodes.
+
+   The format of the Sequence Number TLV in authentication mode is shown
+   in Figure 11.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -996,12 +1002,6 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    The performance measurement is intended for deployment in well-
    managed private and service provider networks.  As such, it assumes
    that a node involved in a measurement operation has previously
-   verified the integrity of the path and the identity of the far end
-   responder node.  The security considerations described in Section 8
-   of [RFC6374] are applicable to this specification, and particular
-   attention should be paid to the last three paragraphs.
-
-
 
 
 
@@ -1009,6 +1009,11 @@ Gandhi, et al.          Expires December 13, 2020              [Page 18]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   verified the integrity of the path and the identity of the far end
+   responder node.  The security considerations described in Section 8
+   of [RFC6374] are applicable to this specification, and particular
+   attention should be paid to the last three paragraphs.
 
    If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the querier node, of the counter or timestamp
@@ -1054,17 +1059,17 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
 
 
 Gandhi, et al.          Expires December 13, 2020              [Page 19]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
               Measurement for MPLS Networks", RFC 6374,
@@ -1086,11 +1091,11 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
               Networks with MPLS Data Plane", draft-gandhi-mpls-
               rfc6374-sr-02 (work in progress), March 2020.
 
-   [I-D.gandhi-spring-twamp-srpm]
+   [I-D.gandhi-spring-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Performance Measurement Using TWAMP Light for
-              Segment Routing Networks", draft-gandhi-spring-twamp-
-              srpm-09 (work in progress), June 2020.
+              Janssens, "Performance Measurement Using STAMP for Segment
+              Routing Networks", draft-gandhi-spring-stamp-srpm-01 (work
+              in progress), June 2020.
 
 13.2.  Informative References
 
@@ -1104,12 +1109,7 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
               DOI 10.17487/RFC4868, May 2007,
               <https://www.rfc-editor.org/info/rfc4868>.
 
-   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
-              Cheshire, "Internet Assigned Numbers Authority (IANA)
-              Procedures for the Management of the Service Name and
-              Transport Protocol Port Number Registry", BCP 165,
-              RFC 6335, DOI 10.17487/RFC6335, August 2011,
-              <https://www.rfc-editor.org/info/rfc6335>.
+
 
 
 
@@ -1121,6 +1121,13 @@ Gandhi, et al.          Expires December 13, 2020              [Page 20]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
+              Cheshire, "Internet Assigned Numbers Authority (IANA)
+              Procedures for the Management of the Service Name and
+              Transport Protocol Port Number Registry", BCP 165,
+              RFC 6335, DOI 10.17487/RFC6335, August 2011,
+              <https://www.rfc-editor.org/info/rfc6335>.
 
    [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
@@ -1162,13 +1169,6 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
               draft-ietf-spring-mpls-path-segment-02 (work in progress),
               February 2020.
 
-   [I-D.gandhi-mpls-ioam-sr]
-              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
-              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
-              OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
-              progress), March 2020.
-
-
 
 
 
@@ -1177,6 +1177,12 @@ Gandhi, et al.          Expires December 13, 2020              [Page 21]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
 
+
+   [I-D.gandhi-mpls-ioam-sr]
+              Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
+              and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
+              OAM Data", draft-gandhi-mpls-ioam-sr-02 (work in
+              progress), March 2020.
 
    [I-D.ali-spring-ioam-srv6]
               Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
@@ -1220,18 +1226,18 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-   Clarence Filsfils
-   Cisco Systems, Inc.
-
-   Email: cfilsfil@cisco.com
-
-
 
 
 
 Gandhi, et al.          Expires December 13, 2020              [Page 22]
 
 Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
 
 
    Daniel Voyer
@@ -1251,12 +1257,6 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR         June 2020
    Huawei
 
    Email: mach.chen@huawei.com
-
-
-
-
-
-
 
 
 
