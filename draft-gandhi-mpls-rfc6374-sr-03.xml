@@ -351,8 +351,7 @@
    "control code" in the probe query message is set to "out-of-band response requested".
    In this delay measurement mode, as per	
    Reference Topology, timestamps t1 and t2 are collected	
-   by the probes. Only timestamps t1 and t2 are used to	
-   measure one-way delay. The one-way mode is applicable to both SR Links and Policies.</t>
+   by the probes to measure one-way delay. The one-way mode is applicable to both SR Links and Policies.</t>
 
 	</section>
 
