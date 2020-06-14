@@ -74,7 +74,7 @@
 	</address>
 	</author>
 
-	<date day="11" month="June" year="2020"/>
+	<date day="13" month="June" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -84,7 +84,7 @@
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing networks with
    MPLS data plane (SR-MPLS), for both SR Links and end-to-end SR
-   Policies.  In addition, this document defines Return Path TLV for
+   Paths including SR Policies.  In addition, this document defines Return Path TLV for
    two-way performance measurement and Block Number TLV for loss
    measurement.</t>
 
@@ -126,15 +126,15 @@
 
 	<t>
    <xref target="RFC7876"/> specifies the procedures to be used when sending and
-   processing out-of-band performance measurement probe replies over an
+   processing out-of-band performance measurement probe responses over an
    UDP return path when receiving RFC 6374 based probe queries.  These
-   procedures can be used to send out-of-band PM replies for both
+   procedures can be used to send out-of-band probe responses for both
    SR Links and Policies for one-way measurement.</t>
 
 	<t>
    This document utilizes the probe-based mechanisms defined in
    <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR Links and end-to-end SR Policies.
+   with MPLS data plane, for both SR Links and end-to-end SR Paths including SR Policies.
    In addition, this document defines Return Path TLV for two-way
    performance measurement and Block Number TLV for loss measurement.
    The Performance Measurements (PM) for SR Links are used to compute
@@ -338,7 +338,7 @@
 	<t>For SR Policy performance measurement, in order to ensure that the
       probe query message is processed by the intended responder node,
       Destination Address TLV (Type 129) <xref target="RFC6374"/> can be sent in the probe query
-      message.  The responder node only replies with Success in Control Code if it is the intended
+      message.  The responder node only returns Success in Control Code if it is the intended
       destination for the probe query. 
       Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier <xref target="RFC6374"/>.</t>
 
@@ -346,7 +346,7 @@
 
 	<section title="Probe Response Message for SR Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way performance measurement mode <xref target="RFC7679"/>, the querier node
-   can receive "out-of-band" probe replies by properly setting the UDP
+   can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
    UDP-Destination-Port and IP Address.  In particular, if the querier node
@@ -361,7 +361,8 @@
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
    In two-way performance measurement mode <xref target="RFC6374"/>, when using a
-   bidirectional path, the probe response message is sent back to the
+   bidirectional SR path <xref target="I-D.ietf-pce-sr-bidir-path"/>, 
+   the probe response message is sent back to the
    querier node on the congruent path of the data traffic on the reverse
    direction SR Link or associated SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
    message with format similar to their probe query message.  In this
@@ -613,16 +614,17 @@
 	</section>
 
 	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-7"><t>
-   The procedures for one-way delay and loss measurement described in this
+   The procedures for delay and loss measurement described in this
    document for Point-to-Point (P2P) SR Policies  
-   are also equally applicable to the Point-to-Multipoint (P2MP) SR Policies as following:</t>
+   are also equally applicable to the Point-to-Multipoint (P2MP) SR Policies. 
+   The procedure for one-way measurement is defined as following:</t>
 
 	<t><list style="symbols"><t>The querier root node sends probe query messages using the
       Tree-SID defined in <xref target="I-D.voyer-pim-sr-p2mp-policy"/> for the
       P2MP SR Policy as shown in Figure 8.</t>
 
-        <t>The probe query messages can be sent using
-      the replication SID as defined in <xref target="I-D.voyer-spring-sr-replication-segment"/>.</t>
+        <t>The probe query messages can contain
+      the ication SID as defined in <xref target="I-D.voyer-spring-sr-replication-segment"/>.</t>
 
         <t>The probe query messages can be sent using
       the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
@@ -646,6 +648,10 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |              Tree-SID                 | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ .                                                               .
+ .                                                               .
+ .                                                               .
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |              GAL (value 13)           | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |0 0 0 1|Version| Reserved      | GAL Channel Type              |
@@ -654,8 +660,8 @@
 	</figure>
 
 	<t>
-   The considerations for two-way and loopback modes for performance measurement for 
-   P2MP SR Policy are outside the scope of this document.</t>
+   The considerations for two-way mode for performance measurement for 
+   P2MP SR Policy (e.g. for bidirectional SR Path) are outside the scope of this document.</t>
 	</section>
 
 	<section title="ECMP for SR Policies" anchor="sect-8"><t>
@@ -856,4 +862,3 @@ Email: pierluigi.ventre@cnit.it
 	</back>
 
 	</rfc>
-	

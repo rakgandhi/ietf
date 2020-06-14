@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: December 13, 2020                                      D. Voyer
+Expires: December 15, 2020                                      D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                           June 11, 2020
+                                                           June 13, 2020
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -26,9 +26,10 @@ Abstract
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing networks with MPLS
-   data plane (SR-MPLS), for both SR Links and end-to-end SR Policies.
-   In addition, this document defines Return Path TLV for two-way
-   performance measurement and Block Number TLV for loss measurement.
+   data plane (SR-MPLS), for both SR Links and end-to-end SR Paths
+   including SR Policies.  In addition, this document defines Return
+   Path TLV for two-way performance measurement and Block Number TLV for
+   loss measurement.
 
 Status of This Memo
 
@@ -45,15 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 13, 2020.
+   This Internet-Draft will expire on December 15, 2020.
 
 
 
 
 
 
-
-Gandhi, et al.          Expires December 13, 2020               [Page 1]
+Gandhi, et al.          Expires December 15, 2020               [Page 1]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 2]
+Gandhi, et al.          Expires December 15, 2020               [Page 2]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -148,24 +148,24 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    Loss Measurement (LM), which is required in SR networks.
 
    [RFC7876] specifies the procedures to be used when sending and
-   processing out-of-band performance measurement probe replies over an
-   UDP return path when receiving RFC 6374 based probe queries.  These
-   procedures can be used to send out-of-band PM replies for both SR
-   Links and Policies for one-way measurement.
+   processing out-of-band performance measurement probe responses over
+   an UDP return path when receiving RFC 6374 based probe queries.
+   These procedures can be used to send out-of-band probe responses for
+   both SR Links and Policies for one-way measurement.
 
    This document utilizes the probe-based mechanisms defined in
    [RFC6374] for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR Links and end-to-end SR Policies.
-   In addition, this document defines Return Path TLV for two-way
-   performance measurement and Block Number TLV for loss measurement.
-   The Performance Measurements (PM) for SR Links are used to compute
-   extended Traffic Engineering (TE) metrics for delay and loss and can
-   be advertised in the network using the routing protocol extensions.
+   with MPLS data plane, for both SR Links and end-to-end SR Paths
+   including SR Policies.  In addition, this document defines Return
+   Path TLV for two-way performance measurement and Block Number TLV for
+   loss measurement.  The Performance Measurements (PM) for SR Links are
+   used to compute extended Traffic Engineering (TE) metrics for delay
+   and loss and can be advertised in the network using the routing
+   protocol extensions.
 
 
 
-
-Gandhi, et al.          Expires December 13, 2020               [Page 3]
+Gandhi, et al.          Expires December 15, 2020               [Page 3]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -221,7 +221,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 4]
+Gandhi, et al.          Expires December 15, 2020               [Page 4]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -277,7 +277,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 5]
+Gandhi, et al.          Expires December 15, 2020               [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -333,7 +333,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 6]
+Gandhi, et al.          Expires December 15, 2020               [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -362,8 +362,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    For SR Policy performance measurement, in order to ensure that the
    probe query message is processed by the intended responder node,
    Destination Address TLV (Type 129) [RFC6374] can be sent in the probe
-   query message.  The responder node only replies with Success in
-   Control Code if it is the intended destination for the probe query.
+   query message.  The responder node only returns Success in Control
+   Code if it is the intended destination for the probe query.
    Otherwise, it MUST return 0x15: Error - Invalid Destination Node
    Identifier [RFC6374].
 
@@ -372,7 +372,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 4.3.1.  One-way Measurement Mode
 
    In one-way performance measurement mode [RFC7679], the querier node
-   can receive "out-of-band" probe replies by properly setting the UDP
+   can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
    Port and IP Address.  In particular, if the querier node sets its own
@@ -389,7 +389,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 7]
+Gandhi, et al.          Expires December 15, 2020               [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -397,16 +397,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 4.3.2.  Two-way Measurement Mode
 
    In two-way performance measurement mode [RFC6374], when using a
-   bidirectional path, the probe response message is sent back to the
-   querier node on the congruent path of the data traffic on the reverse
-   direction SR Link or associated SR Policy
-   [I-D.ietf-pce-sr-bidir-path] using a message with format similar to
-   their probe query message.  In this case, the "control code" in the
-   probe query message is set to "in-band response requested".  In this
-   delay measurement mode, as per Reference Topology, all timestamps t1,
-   t2, t3, and t4 are collected by the probes.  All four timestamps are
-   used to measure two-way delay.  The two-way mode is applicable to
-   both SR Links and Policies.
+   bidirectional SR path [I-D.ietf-pce-sr-bidir-path], the probe
+   response message is sent back to the querier node on the congruent
+   path of the data traffic on the reverse direction SR Link or
+   associated SR Policy [I-D.ietf-pce-sr-bidir-path] using a message
+   with format similar to their probe query message.  In this case, the
+   "control code" in the probe query message is set to "in-band response
+   requested".  In this delay measurement mode, as per Reference
+   Topology, all timestamps t1, t2, t3, and t4 are collected by the
+   probes.  All four timestamps are used to measure two-way delay.  The
+   two-way mode is applicable to both SR Links and Policies.
 
    Specifically, the probe response message is sent back on the incoming
    physical interface where the probe query message is received.  This
@@ -445,7 +445,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 8]
+Gandhi, et al.          Expires December 15, 2020               [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -501,7 +501,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020               [Page 9]
+Gandhi, et al.          Expires December 15, 2020               [Page 9]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -557,7 +557,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020              [Page 10]
+Gandhi, et al.          Expires December 15, 2020              [Page 10]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -613,7 +613,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 13, 2020              [Page 11]
+Gandhi, et al.          Expires December 15, 2020              [Page 11]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -654,22 +654,22 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 7.  Performance Measurement for P2MP SR Policies
 
-   The procedures for one-way delay and loss measurement described in
-   this document for Point-to-Point (P2P) SR Policies are also equally
-   applicable to the Point-to-Multipoint (P2MP) SR Policies as
-   following:
+   The procedures for delay and loss measurement described in this
+   document for Point-to-Point (P2P) SR Policies are also equally
+   applicable to the Point-to-Multipoint (P2MP) SR Policies.  The
+   procedure for one-way measurement is defined as following:
 
    o  The querier root node sends probe query messages using the Tree-
       SID defined in [I-D.voyer-pim-sr-p2mp-policy] for the P2MP SR
       Policy as shown in Figure 8.
 
-   o  The probe query messages can be sent using the replication SID as
-      defined in [I-D.voyer-spring-sr-replication-segment].
+   o  The probe query messages can contain the ication SID as defined in
+      [I-D.voyer-spring-sr-replication-segment].
 
 
 
 
-Gandhi, et al.          Expires December 13, 2020              [Page 12]
+Gandhi, et al.          Expires December 15, 2020              [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -692,6 +692,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |              Tree-SID                 | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    .                                                               .
+    .                                                               .
+    .                                                               .
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |              GAL (value 13)           | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
@@ -699,9 +703,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
          Figure 8: Example Probe Query with Tree-SID for SR Policy
 
-   The considerations for two-way and loopback modes for performance
-   measurement for P2MP SR Policy are outside the scope of this
-   document.
+   The considerations for two-way mode for performance measurement for
+   P2MP SR Policy (e.g. for bidirectional SR Path) are outside the scope
+   of this document.
 
 8.  ECMP for SR Policies
 
@@ -718,17 +722,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    advantage of the hashing function in forwarding plane to influence
    the ECMP path taken by them.
 
-   The considerations for performance loss measurement for different
-   ECMP paths of an SR Policy are outside the scope of this document.
 
 
 
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 13]
+Gandhi, et al.          Expires December 15, 2020              [Page 13]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
+
+   The considerations for performance loss measurement for different
+   ECMP paths of an SR Policy are outside the scope of this document.
 
 9.  SR Link Extended TE Metrics Advertisements
 
@@ -775,16 +778,17 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    Type" for the Return Path TLV.  All code points in the range 1
    through 32759 in this registry shall be allocated according to the
    "IETF Review" procedure as specified in [RFC8126].  Code points in
-   the range 32760 through 65279 in this registry shall be allocated
-   according to the "First Come First Served" procedure as specified in
-   [RFC8126].  Remaining code points are allocated according to Table 1:
 
 
 
-Gandhi, et al.          Expires December 13, 2020              [Page 14]
+Gandhi, et al.          Expires December 15, 2020              [Page 14]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
+
+   the range 32760 through 65279 in this registry shall be allocated
+   according to the "First Come First Served" procedure as specified in
+   [RFC8126].  Remaining code points are allocated according to Table 1:
 
    +---------------+-------------------------+-------------------------+
    | Value         |       Description       | Reference               |
@@ -830,17 +834,18 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               DOI 10.17487/RFC6374, September 2011,
               <https://www.rfc-editor.org/info/rfc6374>.
 
+
+
+
+Gandhi, et al.          Expires December 15, 2020              [Page 15]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
    [RFC7876]  Bryant, S., Sivabalan, S., and S. Soni, "UDP Return Path
               for Packet Loss and Delay Measurement for MPLS Networks",
               RFC 7876, DOI 10.17487/RFC7876, July 2016,
               <https://www.rfc-editor.org/info/rfc7876>.
-
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 15]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -882,21 +887,21 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
               <https://www.rfc-editor.org/info/rfc7471>.
 
+
+
+
+
+
+
+Gandhi, et al.          Expires December 15, 2020              [Page 16]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/info/rfc8126>.
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 16]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -937,22 +942,23 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               draft-voyer-pim-sr-p2mp-policy-01 (work in progress),
               April 2020.
 
+
+
+
+
+
+
+
+Gandhi, et al.          Expires December 15, 2020              [Page 17]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
    [I-D.voyer-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
               Delivery", draft-voyer-spring-sr-replication-segment-03
               (work in progress), June 2020.
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 17]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -996,19 +1002,17 @@ Acknowledgments
    networks.  Authors would like to thank Patrick Khordoc for
    implementing the mechanisms defined in this document.  The authors
    would like to thank Greg Mirsky for providing many useful comments
-   and suggestions.  The authors would also like to thank Stewart
-   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
-   comments.  Thanks to Huaimo Chen for MPLS-RT expert review.
 
 
 
-
-
-
-Gandhi, et al.          Expires December 13, 2020              [Page 18]
+Gandhi, et al.          Expires December 15, 2020              [Page 18]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
+
+   and suggestions.  The authors would also like to thank Stewart
+   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
+   comments.  Thanks to Huaimo Chen for MPLS-RT expert review.
 
 Contributors
 
@@ -1053,6 +1057,15 @@ Authors' Addresses
    Email: stefano.salsano@uniroma2.it
 
 
+
+
+
+
+Gandhi, et al.          Expires December 15, 2020              [Page 19]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
    Mach(Guoyi) Chen
    Huawei
 
@@ -1061,4 +1074,47 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires December 13, 2020              [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires December 15, 2020              [Page 20]
