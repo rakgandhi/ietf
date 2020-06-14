@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: December 15, 2020                                      D. Voyer
+Expires: December 16, 2020                                      D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                           June 13, 2020
+                                                           June 14, 2020
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 15, 2020.
+   This Internet-Draft will expire on December 16, 2020.
 
 
 
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 1]
+Gandhi, et al.          Expires December 16, 2020               [Page 1]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 2]
+Gandhi, et al.          Expires December 16, 2020               [Page 2]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -165,7 +165,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 3]
+Gandhi, et al.          Expires December 16, 2020               [Page 3]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -221,7 +221,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 4]
+Gandhi, et al.          Expires December 16, 2020               [Page 4]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -234,10 +234,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    probe response is typically sent back to the querier node R1.  The
    nodes R1 and R5 may be directly connected via a Link enabled with SR
    or there exists a Point-to-Point (P2P) SR Path e.g.  SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 with destination
-   to node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
-   originating from source node R1 may terminate on multiple destination
-   leaf nodes (e.g.[I-D.voyer-pim-sr-p2mp-policy],
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (head-end) with
+   destination to node R5 (tail-end).  In case of Point-to-Multipoint
+   (P2MP), SR Path originating from source node R1 (root node) may
+   terminate on multiple destinations (leaf nodes) (e.g.  P2MP SR Policy
+   [I-D.voyer-pim-sr-p2mp-policy] or P2MP Transport
    [I-D.shen-spring-p2mp-transport-chain]).  In all cases, the data
    plane has MPLS enabled on the nodes.
 
@@ -276,8 +277,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-
-Gandhi, et al.          Expires December 15, 2020               [Page 5]
+Gandhi, et al.          Expires December 16, 2020               [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -333,7 +333,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 6]
+Gandhi, et al.          Expires December 16, 2020               [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -389,7 +389,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 7]
+Gandhi, et al.          Expires December 16, 2020               [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -445,7 +445,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 8]
+Gandhi, et al.          Expires December 16, 2020               [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -501,7 +501,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020               [Page 9]
+Gandhi, et al.          Expires December 16, 2020               [Page 9]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -557,7 +557,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 10]
+Gandhi, et al.          Expires December 16, 2020              [Page 10]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -613,7 +613,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 11]
+Gandhi, et al.          Expires December 16, 2020              [Page 11]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -663,20 +663,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
       SID defined in [I-D.voyer-pim-sr-p2mp-policy] for the P2MP SR
       Policy as shown in Figure 8.
 
-   o  The probe query messages can contain the ication SID as defined in
-      [I-D.voyer-spring-sr-replication-segment].
+   o  The probe query messages can contain the replication SID as
+      defined in [I-D.voyer-spring-sr-replication-segment].
 
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 12]
+Gandhi, et al.          Expires December 16, 2020              [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   o  The probe query messages can be sent using the scheme defined for
-      P2MP Transport using Chain Replication that may contain Bud SID as
-      defined in [I-D.shen-spring-p2mp-transport-chain].
 
    o  Each responder leaf node adds the "Source Address" TLV (Type 130)
       [RFC6374] with its IP address in the probe response messages.
@@ -703,6 +699,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
          Figure 8: Example Probe Query with Tree-SID for SR Policy
 
+   The probe query messages can also be sent using the scheme defined
+   for P2MP Transport using Chain Replication that may contain Bud SID
+   as defined in [I-D.shen-spring-p2mp-transport-chain].
+
    The considerations for two-way mode for performance measurement for
    P2MP SR Policy (e.g. for bidirectional SR Path) are outside the scope
    of this document.
@@ -725,7 +725,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 13]
+Gandhi, et al.          Expires December 16, 2020              [Page 13]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -781,7 +781,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 14]
+Gandhi, et al.          Expires December 16, 2020              [Page 14]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -837,7 +837,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 15]
+Gandhi, et al.          Expires December 16, 2020              [Page 15]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -893,7 +893,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 16]
+Gandhi, et al.          Expires December 16, 2020              [Page 16]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -949,7 +949,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 17]
+Gandhi, et al.          Expires December 16, 2020              [Page 17]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -1005,7 +1005,7 @@ Acknowledgments
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 18]
+Gandhi, et al.          Expires December 16, 2020              [Page 18]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -1061,7 +1061,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 19]
+Gandhi, et al.          Expires December 16, 2020              [Page 19]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
@@ -1117,4 +1117,4 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-Gandhi, et al.          Expires December 15, 2020              [Page 20]
+Gandhi, et al.          Expires December 16, 2020              [Page 20]

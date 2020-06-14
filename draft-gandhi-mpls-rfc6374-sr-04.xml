@@ -74,7 +74,7 @@
 	</address>
 	</author>
 
-	<date day="13" month="June" year="2020"/>
+	<date day="14" month="June" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -214,13 +214,12 @@
    probe response is typically sent back to the querier node R1.  The
    nodes R1 and R5 may be directly connected via a Link enabled with
    SR or there exists a Point-to-Point (P2P) SR Path e.g. SR Policy
-   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 with destination to
-   node R5.  In case of Point-to-Multipoint (P2MP), SR Policy
-   originating from source node R1 may terminate on multiple destination
-   leaf nodes (e.g.<xref target="I-D.voyer-pim-sr-p2mp-policy"/>, 
+   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 (head-end) with destination to
+   node R5 (tail-end).  In case of Point-to-Multipoint (P2MP), SR Path
+   originating from source node R1 (root node) may terminate on multiple destinations 
+   (leaf nodes) (e.g. P2MP SR Policy <xref target="I-D.voyer-pim-sr-p2mp-policy"/> or P2MP Transport  
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>).
-   In all cases, the data plane has MPLS enabled on the nodes.
-   </t>
+   In all cases, the data plane has MPLS enabled on the nodes.</t>
 
 	<figure title="Reference Topology" anchor="ure-reference-topology"><artwork><![CDATA[
 
@@ -624,11 +623,7 @@
       P2MP SR Policy as shown in Figure 8.</t>
 
         <t>The probe query messages can contain
-      the ication SID as defined in <xref target="I-D.voyer-spring-sr-replication-segment"/>.</t>
-
-        <t>The probe query messages can be sent using
-      the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
-      <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
+      the replication SID as defined in <xref target="I-D.voyer-spring-sr-replication-segment"/>.</t>
 
 	<t>Each responder leaf node adds the "Source Address" TLV (Type 130)
       <xref target="RFC6374"/> with its IP address in the probe response messages.
@@ -659,9 +654,16 @@
 ]]></artwork>
 	</figure>
 
-	<t>
+
+    <t>
+   The probe query messages can also be sent using
+   the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
+   <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
+
+    <t>
    The considerations for two-way mode for performance measurement for 
    P2MP SR Policy (e.g. for bidirectional SR Path) are outside the scope of this document.</t>
+
 	</section>
 
 	<section title="ECMP for SR Policies" anchor="sect-8"><t>
