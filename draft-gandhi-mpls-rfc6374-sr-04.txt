@@ -26,8 +26,8 @@ Abstract
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing networks with MPLS
-   data plane (SR-MPLS), for both SR-MPLS Links and end-to-end SR-MPLS
-   Paths including SR-MPLS Policies.  In addition, this document defines
+   data plane (SR-MPLS), for both SR-MPLS Links and end-to-end Paths
+   including SR-MPLS Policies.  In addition, this document defines
    Return Path TLV for two-way performance measurement and Block Number
    TLV for loss measurement.
 
@@ -156,11 +156,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    This document utilizes the probe-based mechanisms defined in
    [RFC6374] for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR-MPLS Links and end-to-end SR-MPLS
-   Paths including Policies.  In addition, this document defines Return
-   Path TLV for two-way performance measurement and Block Number TLV for
-   loss measurement.  The Performance Measurements (PM) for SR-MPLS
-   Links are used to compute extended Traffic Engineering (TE) metrics
+   with MPLS data plane, for both SR-MPLS Links and end-to-end Paths
+   including SR-MPLS Policies.  In addition, this document defines
+   Return Path TLV for two-way performance measurement and Block Number
+   TLV for loss measurement.  The Performance Measurements (PM) for SR-
+   MPLS Links are used to compute extended Traffic Engineering (TE)
 
 
 
@@ -170,8 +170,8 @@ Gandhi, et al.          Expires December 17, 2020               [Page 3]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
-   for delay and loss and can be advertised in the network using the
-   routing protocol extensions.
+   metrics for delay and loss and can be advertised in the network using
+   the routing protocol extensions.
 
 2.  Conventions Used in This Document
 
