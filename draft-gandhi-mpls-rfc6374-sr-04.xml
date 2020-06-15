@@ -74,7 +74,7 @@
 	</address>
 	</author>
 
-	<date day="14" month="June" year="2020"/>
+	<date day="15" month="June" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -83,8 +83,8 @@
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing networks with
-   MPLS data plane (SR-MPLS), for both SR Links and end-to-end SR
-   Paths including SR Policies.  In addition, this document defines Return Path TLV for
+   MPLS data plane (SR-MPLS), for both SR-MPLS Links and end-to-end SR-MPLS
+   Paths including SR-MPLS Policies.  In addition, this document defines Return Path TLV for
    two-way performance measurement and Block Number TLV for loss
    measurement.</t>
 
@@ -129,15 +129,15 @@
    processing out-of-band performance measurement probe responses over an
    UDP return path when receiving RFC 6374 based probe queries.  These
    procedures can be used to send out-of-band probe responses for both
-   SR Links and Policies for one-way measurement.</t>
+   SR-MPLS Links and Policies for one-way measurement.</t>
 
 	<t>
    This document utilizes the probe-based mechanisms defined in
    <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR Links and end-to-end SR Paths including SR Policies.
+   with MPLS data plane, for both SR-MPLS Links and end-to-end SR-MPLS Paths including Policies.
    In addition, this document defines Return Path TLV for two-way
    performance measurement and Block Number TLV for loss measurement.
-   The Performance Measurements (PM) for SR Links are used to compute
+   The Performance Measurements (PM) for SR-MPLS Links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions.</t>
 
@@ -212,14 +212,15 @@
    initiates a performance measurement probe query and the responder
    node R5 sends a probe response for the query message received.  The
    probe response is typically sent back to the querier node R1.  The
-   nodes R1 and R5 may be directly connected via a Link enabled with
-   SR or there exists a Point-to-Point (P2P) SR Path e.g. SR Policy
-   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 (head-end) with destination to
-   node R5 (tail-end).  In case of Point-to-Multipoint (P2MP), SR Path
+   nodes R1 and R5 enabled with SR may be directly connected via a Link enabled with
+   MPLS or there exists a Point-to-Point (P2P) SR-MPLS Path e.g. Policy
+   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 
+   (head-end) with destination to
+   node R5 (tail-end).  In case of Point-to-Multipoint (P2MP), SR-MPLS Path
    originating from source node R1 (root node) may terminate on multiple destinations 
-   (leaf nodes) (e.g. P2MP SR Policy <xref target="I-D.voyer-pim-sr-p2mp-policy"/> or P2MP Transport  
-   <xref target="I-D.shen-spring-p2mp-transport-chain"/>).
-   In all cases, the data plane has MPLS enabled on the nodes.</t>
+   (leaf nodes) (e.g. P2MP SR-MPLS Policy <xref target="I-D.voyer-pim-sr-p2mp-policy"/> 
+   or P2MP Transport <xref target="I-D.shen-spring-p2mp-transport-chain"/>).
+   In all cases, the data plane has MPLS enabled on the nodes R1 and R5.</t>
 
 	<figure title="Reference Topology" anchor="ure-reference-topology"><artwork><![CDATA[
 
@@ -243,7 +244,7 @@
    For one-way, two-way and round-trip delay measurements, the procedures defined in
    Section 2.4 and Section 2.6 of <xref target="RFC6374"/> are used.  For transmit and receive packet loss
    measurements, the procedures defined in Section 2.2 and Section 2.6 of
-   <xref target="RFC6374"/> are used.  For both SR Links and end-to-end SR Policies, no
+   <xref target="RFC6374"/> are used.  For both SR-MPLS Links and end-to-end Policies, no
    PM session for delay or loss measurement is created on the responder
    node R5 <xref target="RFC6374"/>.</t>
 
@@ -254,7 +255,7 @@
 	<t><list style="symbols"><t>For Delay Measurement, the probe messages are sent on the
       congruent path of the data traffic by the querier node, and are
       used to measure the delay experienced by the actual data traffic
-      flowing on the SR Links and SR Policies.</t>
+      flowing on the SR-MPLS Links and Policies.</t>
 
 	<t>For Loss Measurement, the probe messages are sent on the congruent
       path of the data traffic by the querier node, and are used to
@@ -277,17 +278,17 @@
 
 	<section title="Probe Query and Response Messages" anchor="sect-4">
 		
-	<section title="Probe Message for SR Links" anchor="sect-4.2"><t>
+	<section title="Probe Message for SR-MPLS Links" anchor="sect-4.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe message for SR Links contains G-ACh Label (GAL)
+   (G-ACh).  A probe message for SR-MPLS Links contains G-ACh Label (GAL)
    (with S=1).  The GAL is followed by an Associated Channel Header
    (ACH), which identifies the message type, and the message payload
-   following the ACH as shown in Figure 2. The probe messages are routed over the SR Links
-   for both delay and loss measurement. 
-   For SR Links, the TTL value is set to 1 in the SR-MPLS header for one-way and two-way measurement modes.</t>
+   following the ACH as shown in Figure 2. The probe messages are routed over the Links
+   for both delay and loss measurement using the same procedure described in <xref target="RFC6374"/>. 
+   For SR-MPLS Links, the TTL value is set to 1 in the SR-MPLS header for one-way and two-way measurement modes.</t>
 
-	<figure title="Probe Message Header for an SR Link" anchor="ure-probe-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
+	<figure title="Probe Message Header for an SR-MPLS Link" anchor="ure-probe-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -300,18 +301,18 @@
 	</figure>
 	</section>
 		
-        <section title="Probe Message for SR Policies" anchor="sect-4.1"><t>
+        <section title="Probe Message for SR-MPLS Policies" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, probe query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe message for an end-to-end SR Policy measurement
+   (G-ACh).  A probe message for an end-to-end SR-MPLS Policy measurement
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1).
    The GAL is followed by an Associated Channel Header (ACH), which
    identifies the message type, and the message payload following the
    ACH as shown in Figure 3.
-   For SR Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
+   For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
-	<figure title="Example Probe Message Header for an End-to-end SR Policy" anchor="ure-probe-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
+	<figure title="Example Probe Message Header for an End-to-end SR-MPLS Policy" anchor="ure-probe-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -334,7 +335,7 @@
    The SR-MPLS label stack can be empty (as shown in Figure 2) to
    indicate Implicit NULL label case.</t>
 
-	<t>For SR Policy performance measurement, in order to ensure that the
+	<t>For SR-MPLS Policy performance measurement, in order to ensure that the
       probe query message is processed by the intended responder node,
       Destination Address TLV (Type 129) <xref target="RFC6374"/> can be sent in the probe query
       message.  The responder node only returns Success in Control Code if it is the intended
@@ -343,7 +344,7 @@
 
 	</section>
 
-	<section title="Probe Response Message for SR Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
+	<section title="Probe Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way performance measurement mode <xref target="RFC7679"/>, the querier node
    can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
@@ -354,7 +355,7 @@
    "control code" in the probe query message is set to "out-of-band response requested".
    In this delay measurement mode, as per	
    Reference Topology, timestamps t1 and t2 are collected	
-   by the probes to measure one-way delay. The one-way mode is applicable to both SR Links and Policies.</t>
+   by the probes to measure one-way delay. The one-way mode is applicable to both SR-MPLS Links and Policies.</t>
 
 	</section>
 
@@ -363,13 +364,13 @@
    bidirectional SR path <xref target="I-D.ietf-pce-sr-bidir-path"/>, 
    the probe response message is sent back to the
    querier node on the congruent path of the data traffic on the reverse
-   direction SR Link or associated SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
+   direction SR-MPLS Link or associated SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
    message with format similar to their probe query message.  In this
    case, the "control code" in the probe query message is set to "in-band response requested".
    In this delay measurement mode, as per	
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected	
    by the probes. All four timestamps are used to measure two-way delay. 
-   The two-way mode is applicable to both SR Links and Policies.</t>
+   The two-way mode is applicable to both SR-MPLS Links and Policies.</t>
 
    <t>Specifically, the probe response message is sent back on the incoming	
    physical interface where the probe query message is received.  This	
@@ -377,26 +378,26 @@
 
    <t>
    The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> 
-   of the forward SR Policy in the
-   probe query can be used to find the associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> 
+   of the forward SR-MPLS Policy in the
+   probe query can be used to find the associated reverse SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> 
    to send the probe response message for
-   two-way measurement of SR Policy unless when using the 
+   two-way measurement of SR-MPLS Policy unless when using the 
    Return Path TLV.</t>
 
 	</section>
 
 	<section title="Loopback Measurement Mode" anchor="sect-4.3.3"><t>
    The Loopback measurement mode defined in Section 2.8 of <xref target="RFC6374"/> can
-   be used to measure round-trip delay for a bidirectional SR Path
+   be used to measure round-trip delay for a bidirectional SR-MPLS Path
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The probe query messages in this case carries the
-   reverse SR Path label stack as part of the MPLS header.  The GAL is
+   reverse Path label stack as part of the MPLS header.  The GAL is
    still carried at the bottom of the label stack (with S=1).  The
    responder node does not process the probe messages and generate
    response messages, and hence Loopback Request object (Type 3)
    is not required for SR.  In this delay
    measurement mode, as per Reference Topology, the timestamps t1 and t4
    are collected by the probes.  Both these timestamps are used to
-   measure round-trip delay. The loopback mode for SR Links is outside the scope of this document.</t>
+   measure round-trip delay. The loopback mode for SR-MPLS Links is outside the scope of this document.</t>
 
 	</section>
 
@@ -408,7 +409,7 @@
    node can request in the probe query message to the responder node to
    send a response message back on a given reverse path (e.g. co-routed
    path for two-way measurement).  This way the destination node does
-   not require any additional SR Policy state.</t>
+   not require any additional SR-MPLS Policy state.</t>
 
 	<t>
    For one-way performance measurement, the querier node address may not
@@ -419,8 +420,8 @@
 	<t>
    <xref target="RFC6374"/> defines DM and LM probe query messages that can include one
    or more optional TLVs.  New TLV Type (TBA1) is defined in this
-   document for Return Path to carry reverse path for probe response
-   messages (in the payload of the message).  The format of the Return
+   document for Return Path to carry reverse path information in the probe query
+   messages (in the payload).  The format of the Return
    Path TLV is shown in Figure 4 and Figure 5:</t>
 
 	<figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
@@ -458,7 +459,7 @@
    The Segment List Sub-TLV in the Return Path TLV can be one of the
    following Types:</t>
 
-	<t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Reverse Path</t>
 
 	<t>Type (value 2): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
                       the Reverse SR Policy</t>
@@ -467,9 +468,10 @@
 	</t>
 
 	<t>
-   The Return Path TLV is Mandatory when carried in a probe query message. If responder does not support this 
-   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object.  
-   The querier node MUST only insert
+   The Return Path TLV is a Mandatory TLV Type. 
+   If the responder does not support the Mandatory 
+   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object as 
+   described in <xref target="RFC6374"/>.  The querier node MUST only insert
    one Return Path TLV in the probe query message and the responder node
    MUST only process the first Return Path TLV in the probe query
    message and ignore other Return Path TLVs if present.  The responder
@@ -484,13 +486,12 @@
    As defined in <xref target="RFC6374"/>, MPLS DM probe query and response messages
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
-   message payload following the ACH.  For both SR Links and end-to-end
-   SR Policies measurements, the same MPLS DM ACH value is used.</t>
+   message payload following the ACH.  For both SR-MPLS Links and end-to-end
+   Policies measurements, the same MPLS DM ACH value is used.</t>
 
 	<t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
-   for SR-MPLS delay measurement, for both SR Links and end-to-end SR
-   Policies.</t>
+   for SR-MPLS delay measurement, for both SR-MPLS Links and end-to-end Policies.</t>
 
 	</section>
 
@@ -524,12 +525,12 @@
 	<t>
    For both of these modes of LM, Path Segment Identifier (PSID)
    <xref target="I-D.ietf-spring-mpls-path-segment"/> is used for accounting received
-   traffic on the egress node of the SR Policy as shown in Figure
+   traffic on the egress node of the SR-MPLS Policy as shown in Figure
    6.  Different values of PSID can be used to measure packet loss per
-   SR Policy, per Candidate Path or per Segment List of the SR
+   SR-MPLS Policy, per Candidate Path or per Segment List of the SR
    Policy.</t>
 
-	<figure title="Example With Path Segment Identifier for SR Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
+	<figure title="Example With Path Segment Identifier for SR-MPLS Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -547,12 +548,12 @@
    use Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
-   ACH.  For both SR Links and end-to-end SR
+   ACH.  For both SR-MPLS Links and end-to-end 
    Policies measurements, the same MPLS LM ACH value is used.</t>
 
 	<t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
-   for SR-MPLS loss measurement, for both SR Links and end-to-end SR
+   for SR-MPLS loss measurement, for both SR-MPLS Links and end-to-end 
    Policies.</t>
 
 	</section>
@@ -585,8 +586,9 @@
 ]]></artwork>
 	</figure>
 	<t>
-   The Block Number TLV is Mandatory when carried in a probe query message. If responder does not support this 
-   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object.  
+   The Block Number TLV is a Mandatory TLV Type. 
+   If the responder does not support the Mandatory 
+   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object <xref target="RFC6374"/>.  
    The querier node SHOULD only
    insert one Block Number TLV in the probe query message and the
    responder node in the probe response message SHOULD return the first
@@ -601,26 +603,26 @@
    use Associated Channel Header (ACH) (value 0x000D for direct loss
    and delay measurement or value 0x000E for inferred loss and delay measurement), which
    identifies the message type, and the message payload following the
-   ACH.  For both SR Links and end-to-end SR
+   ACH.  For both SR-MPLS Links and end-to-end 
    Policies measurements, the same MPLS ACH value is used.</t>
 
 	<t>
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
-   for SR-MPLS combined delay and loss measurement, for both SR Links and end-to-end SR
+   for SR-MPLS combined delay and loss measurement, for both SR-MPLS Links and end-to-end 
    Policies.</t>
         </section>
 
 	</section>
 
-	<section title="Performance Measurement for P2MP SR Policies" anchor="sect-7"><t>
+	<section title="Performance Measurement for P2MP SR-MPLS Policies" anchor="sect-7"><t>
    The procedures for delay and loss measurement described in this
-   document for Point-to-Point (P2P) SR Policies  
-   are also equally applicable to the Point-to-Multipoint (P2MP) SR Policies. 
+   document for Point-to-Point (P2P) SR-MPLS Policies  
+   are also equally applicable to the Point-to-Multipoint (P2MP) SR-MPLS Policies. 
    The procedure for one-way measurement is defined as following:</t>
 
 	<t><list style="symbols"><t>The querier root node sends probe query messages using the
       Tree-SID defined in <xref target="I-D.voyer-pim-sr-p2mp-policy"/> for the
-      P2MP SR Policy as shown in Figure 8.</t>
+      P2MP SR-MPLS Policy as shown in Figure 8.</t>
 
         <t>The probe query messages can contain
       the replication SID as defined in <xref target="I-D.voyer-spring-sr-replication-segment"/>.</t>
@@ -628,15 +630,15 @@
 	<t>Each responder leaf node adds the "Source Address" TLV (Type 130)
       <xref target="RFC6374"/> with its IP address in the probe response messages.
       This TLV allows the querier root node to identify the responder
-      leaf nodes of the P2MP SR Policy.</t>
+      leaf nodes of the P2MP SR-MPLS Policy.</t>
 
 	<t>The P2MP root node measures the delay and loss
-      performance for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
+      performance for each P2MP leaf node of the end-to-end P2MP SR-MPLS Policy.</t>
 
 	</list>
 	</t>
 
-	<figure title="Example Probe Query with Tree-SID for SR Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
+	<figure title="Example Probe Query with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -662,33 +664,33 @@
 
     <t>
    The considerations for two-way mode for performance measurement for 
-   P2MP SR Policy (e.g. for bidirectional SR Path) are outside the scope of this document.</t>
+   P2MP SR-MPLS Policy (e.g. for bidirectional SR-MPLS Path) are outside the scope of this document.</t>
 
 	</section>
 
-	<section title="ECMP for SR Policies" anchor="sect-8"><t>
-   An SR Policy can have ECMPs between the source and transit nodes,
+	<section title="ECMP for SR-MPLS Policies" anchor="sect-8"><t>
+   An SR-MPLS Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.
-   Usage of Anycast SID <xref target="RFC8402"/> by an SR Policy can result in ECMP
+   Usage of Anycast SID <xref target="RFC8402"/> by an SR-MPLS Policy can result in ECMP
    paths via transit nodes part of that Anycast group.  The probe
    messages need to be sent to traverse different ECMP paths to measure
-   performance delay of each of the ECMP path of an SR Policy.</t>
+   performance delay of each of the ECMP path of an SR-MPLS Policy.</t>
 
 	<t>
    Forwarding plane has various hashing functions available to forward
-   packets on specific ECMP paths.  For SR Policy, sweeping of
+   packets on specific ECMP paths.  For SR-MPLS Policy, sweeping of
    entropy label <xref target="RFC6790"/> values can be used in probe messages to
    take advantage of the hashing function in forwarding plane to
    influence the ECMP path taken by them.</t>
 
 	<t>
    The considerations for performance loss measurement for different
-   ECMP paths of an SR Policy are outside the scope of this document.</t>
+   ECMP paths of an SR-MPLS Policy are outside the scope of this document.</t>
 
 	</section>
 
-	<section title="SR Link Extended TE Metrics Advertisements" anchor="sect-9"><t>
-   The extended TE metrics for SR Link delay and loss computed using the
+	<section title="SR-MPLS Link Extended TE Metrics Advertisements" anchor="sect-9"><t>
+   The extended TE metrics for SR-MPLS Link delay and loss computed using the
    performance measurement procedures described in this document can be
    advertised in the routing domain as follows:</t>
 
@@ -713,9 +715,16 @@
 
 	</section>
 
-	<section title="Security Considerations" anchor="sect-10"><t>
+	<section title="Compatibility" anchor="sect-10"><t>
+   The procedures defined in this document are backwards compatible with 
+   the procedures defined in <xref target="RFC6374"/> at both querier and responder nodes. 
+   </t>
+
+	</section>
+
+	<section title="Security Considerations" anchor="sect-11"><t>
    This document describes the procedures for performance delay and loss
-   measurement for SR-MPLS networks, for both SR Links and end-to-end SR
+   measurement for SR-MPLS networks, for both SR-MPLS Links and end-to-end 
    Policies using the mechanisms defined in <xref target="RFC6374"/> and <xref target="RFC7876"/>.
    This document does not introduce any additional security
    considerations other than those covered in <xref target="RFC6374"/>, <xref target="RFC7471"/>,
@@ -723,8 +732,8 @@
 
 	</section>
 
-	<section title="IANA Considerations" anchor="sect-11"><t>
-   IANA is requested to allocate a value for the following mandatory
+	<section title="IANA Considerations" anchor="sect-12"><t>
+   IANA is requested to allocate a value for the following Mandatory
    Return Path TLV Type for <xref target="RFC6374"/> to be carried in probe query
    message from the "MPLS Loss/Delay Measurement TLV Object" registry 
    contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
@@ -769,7 +778,7 @@
    <t>IANA is requested to allocate the values for the following Sub-TLV
    Types from this registry.</t>
 
-	<t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Reverse SR Path</t>
+	<t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Reverse Path</t>
 
 	<t>Type (value 2): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
                       the Reverse SR Policy</t>
@@ -778,7 +787,7 @@
 	</t>
 
 	<t>
-   IANA is also requested to allocate a value for the following mandatory
+   IANA is also requested to allocate a value for the following Mandatory
    Block Number TLV Type for RFC 6374 to be carried in the probe
    query and response messages for loss measurement from the "MPLS Loss/Delay Measurement TLV Object" registry 
    contained within the "Generic Associated Channel (G-ACh) Parameters" registry set:</t>
@@ -840,7 +849,7 @@
    The authors would like to thank Greg Mirsky for providing
    many useful comments and suggestions.  The authors would also like to
    thank Stewart Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for
-   their review comments. Thanks to Huaimo Chen for MPLS-RT expert review.</t>
+   their review comments. Thanks to Huaimo Chen and Yimin Shen for MPLS-RT expert review.</t>
 
 	</section>
 
