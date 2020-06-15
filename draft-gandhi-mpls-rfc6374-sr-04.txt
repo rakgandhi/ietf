@@ -236,15 +236,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    received.  The probe response message is typically sent back to the
    querier node R1.
 
-   The nodes R1 and R5 may be directly connected via a Link enabled with
-   MPLS in data plane or there exists a Point-to-Point (P2P) SR-MPLS
-   Path e.g.  Policy [I-D.ietf-spring-segment-routing-policy] on node R1
-   (head-end) with destination to node R5 (tail-end).  In case of Point-
-   to-Multipoint (P2MP), SR-MPLS Path originating from source node R1
-   (root node) may terminate on multiple destinations (leaf nodes) (e.g.
-   P2MP SR-MPLS Policy [I-D.voyer-pim-sr-p2mp-policy] or P2MP Transport
-   [I-D.shen-spring-p2mp-transport-chain]).  Also, SR is enabled with
-   MPLS data plane on nodes R1 and R5.
+   SR is enabled with MPLS data plane on nodes R1 and R5.  The nodes R1
+   and R5 may be directly connected via a Link enabled with MPLS or
+   there exists a Point-to-Point (P2P) SR-MPLS Path e.g.  Policy
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (head-end) with
+   destination to node R5 (tail-end).  In case of Point-to-Multipoint
+   (P2MP), SR-MPLS Path originating from source node R1 (root node) may
+   terminate on multiple destinations (leaf nodes) (e.g.  P2MP SR-MPLS
+   Policy [I-D.voyer-pim-sr-p2mp-policy] or P2MP Transport
+   [I-D.shen-spring-p2mp-transport-chain]).
 
 
                           t1                t2
