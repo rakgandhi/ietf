@@ -232,17 +232,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    In the reference topology shown in Figure 1, the querier node R1
    initiates a performance measurement probe query and the responder
-   node R5 sends a probe response for the query message received.  The
-   probe response is typically sent back to the querier node R1.  The
-   nodes R1 and R5 enabled with SR may be directly connected via a Link
-   enabled with MPLS or there exists a Point-to-Point (P2P) SR-MPLS Path
-   e.g.  Policy [I-D.ietf-spring-segment-routing-policy] on node R1
+   node R5 sends a probe response message for the query message
+   received.  The probe response message is typically sent back to the
+   querier node R1.
+
+   The nodes R1 and R5 may be directly connected via a Link enabled with
+   MPLS in data plane or there exists a Point-to-Point (P2P) SR-MPLS
+   Path e.g.  Policy [I-D.ietf-spring-segment-routing-policy] on node R1
    (head-end) with destination to node R5 (tail-end).  In case of Point-
    to-Multipoint (P2MP), SR-MPLS Path originating from source node R1
    (root node) may terminate on multiple destinations (leaf nodes) (e.g.
    P2MP SR-MPLS Policy [I-D.voyer-pim-sr-p2mp-policy] or P2MP Transport
-   [I-D.shen-spring-p2mp-transport-chain]).  In all cases, the data
-   plane has MPLS enabled on the nodes R1 and R5.
+   [I-D.shen-spring-p2mp-transport-chain]).  Also, SR is enabled with
+   MPLS data plane on nodes R1 and R5.
 
 
                           t1                t2
@@ -271,8 +273,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    For Performance Measurement, probe query and response messages are
    sent as following:
 
-   o  For Delay Measurement, the probe messages are sent on the
-      congruent path of the data traffic by the querier node, and are
 
 
 
@@ -282,6 +282,8 @@ Gandhi, et al.          Expires December 17, 2020               [Page 5]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
+   o  For Delay Measurement, the probe messages are sent on the
+      congruent path of the data traffic by the querier node, and are
       used to measure the delay experienced by the actual data traffic
       flowing on the SR-MPLS Links and Policies.
 
@@ -328,8 +330,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    messages flow over the MPLS Generic Associated Channel (G-ACh).  A
    probe message for an end-to-end SR-MPLS Policy measurement contains
    SR-MPLS label stack [I-D.ietf-spring-segment-routing-policy], with
-   the G-ACh Label (GAL) at the bottom of the stack (with S=1).  The GAL
-   is followed by an Associated Channel Header (ACH), which identifies
 
 
 
@@ -338,6 +338,8 @@ Gandhi, et al.          Expires December 17, 2020               [Page 6]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
+   the G-ACh Label (GAL) at the bottom of the stack (with S=1).  The GAL
+   is followed by an Associated Channel Header (ACH), which identifies
    the message type, and the message payload following the ACH as shown
    in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
    the SR-MPLS header.
@@ -384,8 +386,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    Port and IP Address.  In particular, if the querier node sets its own
    IP address in the URO TLV, the probe response is sent back by the
    responder node to the querier node.  In addition, the "control code"
-   in the probe query message is set to "out-of-band response
-   requested".  In this delay measurement mode, as per Reference
 
 
 
@@ -394,6 +394,8 @@ Gandhi, et al.          Expires December 17, 2020               [Page 7]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
+   in the probe query message is set to "out-of-band response
+   requested".  In this delay measurement mode, as per Reference
    Topology, timestamps t1 and t2 are collected by the probes to measure
    one-way delay.  The one-way mode is applicable to both SR-MPLS Links
    and Policies.
@@ -438,8 +440,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    Topology, the timestamps t1 and t4 are collected by the probes.  Both
    these timestamps are used to measure round-trip delay.  The loopback
    mode for SR-MPLS Links is outside the scope of this document.
-
-
 
 
 

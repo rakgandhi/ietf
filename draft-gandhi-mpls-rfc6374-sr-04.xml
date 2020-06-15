@@ -210,17 +210,18 @@
 	<section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown in Figure 1, the querier node R1
    initiates a performance measurement probe query and the responder
-   node R5 sends a probe response for the query message received.  The
-   probe response is typically sent back to the querier node R1.  The
-   nodes R1 and R5 enabled with SR may be directly connected via a Link enabled with
-   MPLS or there exists a Point-to-Point (P2P) SR-MPLS Path e.g. Policy
+   node R5 sends a probe response message for the query message received.  The
+   probe response message is typically sent back to the querier node R1.</t> 
+
+   <t>The nodes R1 and R5 may be directly connected via a Link enabled with
+   MPLS in data plane or there exists a Point-to-Point (P2P) SR-MPLS Path e.g. Policy
    <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 
    (head-end) with destination to
    node R5 (tail-end).  In case of Point-to-Multipoint (P2MP), SR-MPLS Path
    originating from source node R1 (root node) may terminate on multiple destinations 
    (leaf nodes) (e.g. P2MP SR-MPLS Policy <xref target="I-D.voyer-pim-sr-p2mp-policy"/> 
    or P2MP Transport <xref target="I-D.shen-spring-p2mp-transport-chain"/>).
-   In all cases, the data plane has MPLS enabled on the nodes R1 and R5.</t>
+   Also, SR is enabled with MPLS data plane on nodes R1 and R5.</t>
 
 	<figure title="Reference Topology" anchor="ure-reference-topology"><artwork><![CDATA[
 
