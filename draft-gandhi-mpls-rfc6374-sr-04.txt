@@ -93,13 +93,13 @@ Table of Contents
      5.1.  Delay Measurement Message Format  . . . . . . . . . . . .  10
      5.2.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . .  11
    6.  Loss Measurement  . . . . . . . . . . . . . . . . . . . . . .  11
-     6.1.  Loss Measurement Message Format . . . . . . . . . . . . .  12
+     6.1.  Loss Measurement Message Format . . . . . . . . . . . . .  11
      6.2.  Block Number TLV  . . . . . . . . . . . . . . . . . . . .  12
-     6.3.  Combined Loss/Delay Measurement Message Format  . . . . .  13
+     6.3.  Combined Loss/Delay Measurement Message Format  . . . . .  12
    7.  Performance Measurement for P2MP SR-MPLS Policies . . . . . .  13
    8.  ECMP for SR-MPLS Policies . . . . . . . . . . . . . . . . . .  14
-   9.  SR-MPLS Link Extended TE Metrics Advertisements . . . . . . .  15
-   10. Compatibility . . . . . . . . . . . . . . . . . . . . . . . .  15
+   9.  SR-MPLS Link Extended TE Metrics Advertisements . . . . . . .  14
+   10. Backwards Compatibility . . . . . . . . . . . . . . . . . . .  15
    11. Security Considerations . . . . . . . . . . . . . . . . . . .  15
    12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
@@ -532,11 +532,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    o  Type (value 2): SR-MPLS Binding SID
       [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
 
-   The Return Path TLV is a Mandatory TLV Type.  If the responder does
-   not support the Mandatory TLV, it MUST return Error 0x17: Unsupported
-   Mandatory TLV Object as described in [RFC6374].  The querier node
-   MUST only insert one Return Path TLV in the probe query message and
-   the responder node MUST only process the first Return Path TLV in the
+   The Return Path TLV is a Mandatory TLV Type.  The querier node MUST
+   only insert one Return Path TLV in the probe query message and the
+   responder node MUST only process the first Return Path TLV in the
    probe query message and ignore other Return Path TLVs if present.
    The responder node MUST send probe response message back on the
    reverse path specified in the Return Path TLV and MUST NOT add Return
@@ -552,7 +550,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    message payload following the ACH.  For both SR-MPLS Links and end-
    to-end Policies measurements, the same MPLS DM ACH value is used.
 
-
+   The DM message payload as defined in Section 3.2 of [RFC6374] is used
+   for SR-MPLS delay measurement, for both SR-MPLS Links and end-to-end
+   Policies.
 
 
 
@@ -561,10 +561,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 10]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   The DM message payload as defined in Section 3.2 of [RFC6374] is used
-   for SR-MPLS delay measurement, for both SR-MPLS Links and end-to-end
-   Policies.
 
 5.2.  Timestamps
 
@@ -608,8 +604,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
      Figure 6: Example With Path Segment Identifier for SR-MPLS Policy
 
+6.1.  Loss Measurement Message Format
 
-
+   As defined in [RFC6374], MPLS LM probe query and response messages
+   use Associated Channel Header (ACH) (value 0x000A for direct loss
+   measurement or value 0x000B for inferred loss measurement), which
+   identifies the message type, and the message payload following the
 
 
 
@@ -618,12 +618,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 11]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
-6.1.  Loss Measurement Message Format
-
-   As defined in [RFC6374], MPLS LM probe query and response messages
-   use Associated Channel Header (ACH) (value 0x000A for direct loss
-   measurement or value 0x000B for inferred loss measurement), which
-   identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS Links and end-to-end Policies measurements,
    the same MPLS LM ACH value is used.
 
@@ -659,13 +653,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
                         Figure 7: Block Number TLV
 
-   The Block Number TLV is a Mandatory TLV Type.  If the responder does
-   not support the Mandatory TLV, it MUST return Error 0x17: Unsupported
-   Mandatory TLV Object [RFC6374].  The querier node SHOULD only insert
-   one Block Number TLV in the probe query message and the responder
-   node in the probe response message SHOULD return the first Block
-   Number TLV from the probe query messages and ignore other Block
+   The Block Number TLV is a Mandatory TLV Type.  The querier node
+   SHOULD only insert one Block Number TLV in the probe query message
+   and the responder node in the probe response message SHOULD return
+   the first Block Number TLV from the probe query messages and ignore
+   other Block Number TLVs if present.  In probe messages, the counters
+   MUST belong to the same Block Number.
 
+6.3.  Combined Loss/Delay Measurement Message Format
+
+   As defined in [RFC6374], Combined DM+LM probe query and response
+   messages use Associated Channel Header (ACH) (value 0x000D for direct
+   loss and delay measurement or value 0x000E for inferred loss and
+   delay measurement), which identifies the message type, and the
 
 
 
@@ -674,15 +674,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 12]
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
-   Number TLVs if present.  In probe messages, the counters MUST belong
-   to the same Block Number.
-
-6.3.  Combined Loss/Delay Measurement Message Format
-
-   As defined in [RFC6374], Combined DM+LM probe query and response
-   messages use Associated Channel Header (ACH) (value 0x000D for direct
-   loss and delay measurement or value 0x000E for inferred loss and
-   delay measurement), which identifies the message type, and the
    message payload following the ACH.  For both SR-MPLS Links and end-
    to-end Policies measurements, the same MPLS ACH value is used.
 
@@ -713,23 +704,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
       each P2MP leaf node of the end-to-end P2MP SR-MPLS Policy.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 17, 2020              [Page 13]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
-
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -745,6 +719,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
       Figure 8: Example Probe Query with Tree-SID for SR-MPLS Policy
+
+
+
+
+
+
+Gandhi, et al.          Expires December 17, 2020              [Page 13]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
 
    The probe query messages can also be sent using the scheme defined
    for P2MP Transport using Chain Replication that may contain Bud SID
@@ -774,18 +758,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
    ECMP paths of an SR-MPLS Policy are outside the scope of this
    document.
 
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 17, 2020              [Page 14]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
-
 9.  SR-MPLS Link Extended TE Metrics Advertisements
 
    The extended TE metrics for SR-MPLS Link delay and loss computed
@@ -805,14 +777,25 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    o  The extended TE link delay and loss metrics are advertised for
       Layer 2 bundle members in OSPF [I-D.ketant-lsr-ospf-l2bundles] and
+
+
+
+
+Gandhi, et al.          Expires December 17, 2020              [Page 14]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
+
       ISIS [RFC8668] using the same mechanisms defined in [RFC7471] and
       [RFC8570], respectively.
 
-10.  Compatibility
+10.  Backwards Compatibility
 
    The procedures defined in this document are backwards compatible with
    the procedures defined in [RFC6374] at both querier and responder
-   nodes.
+   nodes.  If the responder does not support the new Mandatory TLV Types
+   defined in this document, it MUST return Error 0x17: Unsupported
+   Mandatory TLV Object as per [RFC6374].
 
 11.  Security Considerations
 
@@ -833,6 +816,23 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
    o  Type TBA1: Return Path TLV
 
+   IANA is requested to create a sub-registry for "Return Path Sub-TLV
+   Type" for the Return Path TLV.  All code points in the range 1
+   through 32759 in this registry shall be allocated according to the
+   "IETF Review" procedure as specified in [RFC8126].  Code points in
+   the range 32760 through 65279 in this registry shall be allocated
+   according to the "First Come First Served" procedure as specified in
+   [RFC8126].  Remaining code points are allocated according to Table 1:
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -841,14 +841,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 15]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   IANA is requested to create a sub-registry for "Return Path Sub-TLV
-   Type" for the Return Path TLV.  All code points in the range 1
-   through 32759 in this registry shall be allocated according to the
-   "IETF Review" procedure as specified in [RFC8126].  Code points in
-   the range 32760 through 65279 in this registry shall be allocated
-   according to the "First Come First Served" procedure as specified in
-   [RFC8126].  Remaining code points are allocated according to Table 1:
 
    +---------------+-------------------------+-------------------------+
    | Value         |       Description       | Reference               |
@@ -889,15 +881,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-Gandhi, et al.          Expires December 17, 2020              [Page 16]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
-
    [RFC6374]  Frost, D. and S. Bryant, "Packet Loss and Delay
               Measurement for MPLS Networks", RFC 6374,
               DOI 10.17487/RFC6374, September 2011,
@@ -907,6 +890,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               for Packet Loss and Delay Measurement for MPLS Networks",
               RFC 7876, DOI 10.17487/RFC7876, July 2016,
               <https://www.rfc-editor.org/info/rfc7876>.
+
+
+
+Gandhi, et al.          Expires December 17, 2020              [Page 16]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
+
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -943,6 +933,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               (IPPM)", STD 81, RFC 7679, DOI 10.17487/RFC7679, January
               2016, <https://www.rfc-editor.org/info/rfc7679>.
 
+   [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
+              Previdi, "OSPF Traffic Engineering (TE) Metric
+              Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
+              <https://www.rfc-editor.org/info/rfc7471>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
+
 
 
 
@@ -953,16 +953,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 17]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
-              Previdi, "OSPF Traffic Engineering (TE) Metric
-              Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
-              <https://www.rfc-editor.org/info/rfc7471>.
-
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/info/rfc8126>.
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -1003,18 +993,22 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
               draft-voyer-pim-sr-p2mp-policy-01 (work in progress),
               April 2020.
 
+   [I-D.voyer-spring-sr-replication-segment]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "SR Replication Segment for Multi-point Service
+              Delivery", draft-voyer-spring-sr-replication-segment-03
+              (work in progress), June 2020.
+
+
+
+
+
 
 
 Gandhi, et al.          Expires December 17, 2020              [Page 18]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   [I-D.voyer-spring-sr-replication-segment]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-voyer-spring-sr-replication-segment-03
-              (work in progress), June 2020.
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -1058,6 +1052,12 @@ Acknowledgments
    networks.  Authors would like to thank Patrick Khordoc for
    implementing the mechanisms defined in this document.  The authors
    would like to thank Greg Mirsky for providing many useful comments
+   and suggestions.  The authors would also like to thank Stewart
+   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
+   comments.  Thanks to Huaimo Chen and Yimin Shen for MPLS-RT expert
+   review.
+
+
 
 
 
@@ -1065,11 +1065,6 @@ Gandhi, et al.          Expires December 17, 2020              [Page 19]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
-
-   and suggestions.  The authors would also like to thank Stewart
-   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
-   comments.  Thanks to Huaimo Chen and Yimin Shen for MPLS-RT expert
-   review.
 
 Contributors
 
@@ -1114,14 +1109,6 @@ Authors' Addresses
    Email: stefano.salsano@uniroma2.it
 
 
-
-
-
-Gandhi, et al.          Expires December 17, 2020              [Page 20]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
-
-
    Mach(Guoyi) Chen
    Huawei
 
@@ -1130,47 +1117,4 @@ Internet-Draft         Using RFC 6374 for SR-MPLS              June 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 17, 2020              [Page 21]
+Gandhi, et al.          Expires December 17, 2020              [Page 20]
