@@ -470,9 +470,7 @@
 
 	<t>
    The Return Path TLV is a Mandatory TLV Type. 
-   If the responder does not support the Mandatory 
-   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object as 
-   described in <xref target="RFC6374"/>.  The querier node MUST only insert
+   The querier node MUST only insert
    one Return Path TLV in the probe query message and the responder node
    MUST only process the first Return Path TLV in the probe query
    message and ignore other Return Path TLVs if present.  The responder
@@ -588,8 +586,6 @@
 	</figure>
 	<t>
    The Block Number TLV is a Mandatory TLV Type. 
-   If the responder does not support the Mandatory 
-   TLV, it MUST return Error 0x17: Unsupported Mandatory TLV Object <xref target="RFC6374"/>.  
    The querier node SHOULD only
    insert one Block Number TLV in the probe query message and the
    responder node in the probe response message SHOULD return the first
@@ -716,9 +712,12 @@
 
 	</section>
 
-	<section title="Compatibility" anchor="sect-10"><t>
+	<section title="Backwards Compatibility" anchor="sect-10"><t>
    The procedures defined in this document are backwards compatible with 
    the procedures defined in <xref target="RFC6374"/> at both querier and responder nodes. 
+   If the responder does not support the new Mandatory 
+   TLV Types defined in this document, 
+   it MUST return Error 0x17: Unsupported Mandatory TLV Object as per <xref target="RFC6374"/>.
    </t>
 
 	</section>
