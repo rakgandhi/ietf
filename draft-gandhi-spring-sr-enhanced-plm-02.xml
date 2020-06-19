@@ -212,7 +212,7 @@
 
       <figure anchor="ure-reference-topology" title="Reference Topology">
         <artwork>
-                        t1
+                         t1
                         /
                +-------+      Probe          +-------+
                |       | - - - - - - - - - - |       |
@@ -220,7 +220,7 @@
                |       |&lt;- - - - - - - - - - |       |
                +-------+      Return Probe   +-------+
                         \
-                        t4
+                         t4
                 Sender                       Reflector
                                              (Simply Forward)
        </artwork>

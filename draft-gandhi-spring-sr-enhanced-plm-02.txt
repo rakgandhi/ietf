@@ -233,7 +233,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    [I-D.ietf-spring-segment-routing-policy] originating on node R1 with
    endpoint on node R5.
 
-                           t1
+                            t1
                            /
                   +-------+      Probe          +-------+
                   |       | - - - - - - - - - - |       |
@@ -241,7 +241,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
                   |       |<- - - - - - - - - - |       |
                   +-------+      Return Probe   +-------+
                            \
-                           t4
+                            t4
                    Sender                       Reflector
                                                 (Simply Forward)
 
