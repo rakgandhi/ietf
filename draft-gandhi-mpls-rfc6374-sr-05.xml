@@ -74,7 +74,7 @@
 	</address>
 	</author>
 
-	<date day="18" month="June" year="2020"/>
+	<date day="25" month="June" year="2020"/>
 	<workgroup>MPLS Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -139,7 +139,8 @@
    performance measurement and Block Number TLV for loss measurement.
    The Performance Measurements (PM) for SR-MPLS Links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
-   be advertised in the network using the routing protocol extensions.</t>
+   be advertised in the network using the routing protocol extensions
+   defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
 
 	</section>
 
@@ -250,12 +251,12 @@
    For Performance Measurement, probe query and response messages are
    sent as following:</t>
 
-	<t><list style="symbols"><t>For Delay Measurement, the probe messages are sent on the
+	<t><list style="symbols"><t>For delay measurement, the probe messages are sent on the
       congruent path of the data traffic by the querier node, and are
       used to measure the delay experienced by the actual data traffic
       flowing on the SR-MPLS Links and Policies.</t>
 
-	<t>For Loss Measurement, the probe messages are sent on the congruent
+	<t>For loss measurement, the probe messages are sent on the congruent
       path of the data traffic by the querier node, and are used to
       collect the receive traffic counters for the incoming link or
       incoming SID where the probe query messages are received at the
@@ -401,7 +402,7 @@
 
 	</section>
 
-	<section title="Return Path TLV" anchor="sect-4.4"><t>
+	<section title="Return Path TLV Extensions" anchor="sect-4.4"><t>
    For two-way performance measurement, the responder node needs to send
    the probe response message on a specific reverse path.  The querier
    node can request in the probe query message to the responder node to
@@ -554,13 +555,13 @@
 
 	</section>
 
-	<section title="Block Number TLV" anchor="sect-6.2"><t>
-   The Loss Measurement using Alternate-Marking method defined in
+	<section title="Block Number TLV Extensions" anchor="sect-6.2"><t>
+   The loss measurement using Alternate-Marking method defined in
    <xref target="RFC8321"/> requires to color the data traffic.  To be able to correlate
    the transmit and receive traffic counters of the matching color, the
    Block Number (or color) of the traffic counters is carried by the
    probe query and response messages for loss measurement. The probe query
-   and response messages currently specified in <xref target="RFC6374"/> for Loss Measurement do
+   and response messages currently specified in <xref target="RFC6374"/> for loss measurement do
    not identify the Block Number of the counters. The Block Number can also be used
    to aggregate performance metrics collected.</t>
 
