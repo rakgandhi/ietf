@@ -88,7 +88,15 @@
       </address>
     </author>
 
-    <date day="20" month="June" year="2020"/>
+    <author fullname="Richard Foote" initials="R." surname="Foote">
+      <organization>Nokia</organization>
+
+      <address>
+        <email>footer.foote@nokia.com</email>
+      </address>
+    </author>
+
+    <date day="11" month="July" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -123,13 +131,12 @@
       target="RFC4656"/> and Two-Way Active Measurement Protocol (TWAMP)
       defined in <xref target="RFC5357"/> provide capabilities for the
       measurement of various performance metrics in IP networks using probe
-      messages. The TWAMP Light [Appendix I in RFC 5357] provides simplified
-      mechanisms for active performance measurement in Customer IP networks by
-      provisioning UDP paths that eliminates the need for control-channel
-      signaling. Similarly, the Simple Two-way Active Measurement Protocol (STAMP)
-      <xref target="RFC8762"/> alleviates the need for control-channel signaling by using
-      configuration data model to provision a test-channel.</t>
-
+      messages. The TWAMP Light [Appendix I in RFC5357] and the 
+      Simple Two-way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provide 
+      simplified mechanisms for active performance measurement in IP networks, 
+      alleviating the need for control-channel signaling by using configuration 
+      data model to provision a test-channel.</t>
+      
       <t><xref target="I-D.gandhi-spring-twamp-srpm"/> defines procedure
       for performance measurement using TWAMP Light messages with user-defined IP/UDP 
       paths in SR networks. <xref target="I-D.gandhi-spring-stamp-srpm"/> defines similar 
@@ -245,8 +252,9 @@
     node R5 in loopback mode as shown in Figure 1. The probe messages are sent by the sender node on the
     congruent path of the data traffic flowing on the SR Path.</t>
  
-    <t>Both the Source and the Destination UDP ports in the probe messages are dynamically allocated 
-    from the range specified in <xref target="RFC8762"/>.
+    <t>Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
+    from the range specified in <xref target="RFC8762"/> and are different than the ports
+    used for TWAMP Light and STAMP sessions.
     The Source and Destination IP addresses in the probe messages are set to the reflector 
     and the sender node addresses, respectively (representing the reverse path).
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
@@ -259,8 +267,11 @@
     in the probe message are not used. The rest of the fields are set 
     as defined in <xref target="RFC5357"/>  <xref target="RFC8762"/> </t>
  
-    <t>Timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/> as
-    specified in <xref target="RFC8186"/> implemented in hardware. In addition to
+    <t>Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/> as
+    specified in <xref target="RFC8186"/>, implemented in hardware. 
+    The NTP timestamp format MUST be supported <xref target="RFC5357"/>, 
+    however, since PTPv2 is widely used, it   
+    SHOULD also be supported.  In addition to
     adding the timestamp in the message, the "Error Estimate" field in the payload
     of the message can be updated using the procedure defined in <xref target="RFC4656"/>.</t>
 
@@ -279,8 +290,8 @@
   Missed Probe Message Count /          \
   Network Programming Label /            \
   Timestamp Format         /              \
-                          /                \
-                         /                  \
+  Delay Threshold/Count   /                \
+  Source/Dest UDP Ports  /                  \
                         v                    v
                     +-------+            +-------+
                     |       |            |       |

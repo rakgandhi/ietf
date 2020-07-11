@@ -5,11 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: December 22, 2020                                  N. Vaghamshi
+Expires: January 12, 2021                                   N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
-                                                           June 20, 2020
+                                                                R. Foote
+                                                                   Nokia
+                                                           July 11, 2020
 
 
  Enhanced Performance Delay and Liveness Monitoring in Segment Routing
@@ -43,20 +45,23 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 22, 2020.
+   This Internet-Draft will expire on January 12, 2021.
+
+
+
+
+
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 1]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
 
 Copyright Notice
 
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 1]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
@@ -70,7 +75,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
@@ -97,6 +102,18 @@ Table of Contents
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
+
+
+
+
+
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 2]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
+
 1.  Introduction
 
    Segment Routing (SR) leverages the source routing paradigm and
@@ -106,14 +123,6 @@ Table of Contents
    the Equal-Cost Multipaths (ECMPs) between source and transit nodes,
    between transit nodes and between transit and destination nodes.  SR
    Policies as defined in [I-D.ietf-spring-segment-routing-policy] are
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 2]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
-
    used to steer traffic through a specific, user-defined paths using a
    stack of Segments.  Built-in Liveness Monitoring for detecting faults
    as well as Performance Delay Measurement (DM) and Loss Measurement
@@ -124,12 +133,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    and Two-Way Active Measurement Protocol (TWAMP) defined in [RFC5357]
    provide capabilities for the measurement of various performance
    metrics in IP networks using probe messages.  The TWAMP Light
-   [Appendix I in RFC 5357] provides simplified mechanisms for active
-   performance measurement in Customer IP networks by provisioning UDP
-   paths that eliminates the need for control-channel signaling.
-   Similarly, the Simple Two-way Active Measurement Protocol (STAMP)
-   [RFC8762] alleviates the need for control-channel signaling by using
-   configuration data model to provision a test-channel.
+   [Appendix I in RFC5357] and the Simple Two-way Active Measurement
+   Protocol (STAMP) [RFC8762] provide simplified mechanisms for active
+   performance measurement in IP networks, alleviating the need for
+   control-channel signaling by using configuration data model to
+   provision a test-channel.
 
    [I-D.gandhi-spring-twamp-srpm] defines procedure for performance
    measurement using TWAMP Light messages with user-defined IP/UDP paths
@@ -154,21 +162,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    performance delay monitoring increases the deployment and operational
    complexities in SR networks.
 
+
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 3]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
+
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
    procedure uses the probe messages defined in [RFC5357] (TWAMP Light)
    and [RFC8762] (STAMP) for end-to-end SR Paths including SR Policies
    with both SR-MPLS and SRv6 data planes.
-
-
-
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 3]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
 
 2.  Conventions Used in This Document
 
@@ -213,18 +219,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
    SRv6: Segment Routing with IPv6 data plane.
 
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 4]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
+
    STAMP: Simple Two-way Active Measurement Protocol.
 
    TWAMP: Two-Way Active Measurement Protocol.
-
-
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 4]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
 
 2.3.  Reference Topology
 
@@ -265,34 +269,36 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    shown in Figure 1.  The probe messages are sent by the sender node on
    the congruent path of the data traffic flowing on the SR Path.
 
-   Both the Source and the Destination UDP ports in the probe messages
-   are dynamically allocated from the range specified in [RFC8762].  The
-   Source and Destination IP addresses in the probe messages are set to
-   the reflector and the sender node addresses, respectively
-   (representing the reverse path).  The IPv4 Time To Live (TTL) and
-   IPv6 Hop Limit (HL) are set to 255.
+   Both Source and Destination UDP ports in the probe messages are
+   allocated dynamically or user-configured from the range specified in
+   [RFC8762] and are different than the ports used for TWAMP Light and
+   STAMP sessions.  The Source and Destination IP addresses in the probe
+   messages are set to the reflector and the sender node addresses,
+
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 5]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
+
+   respectively (representing the reverse path).  The IPv4 Time To Live
+   (TTL) and IPv6 Hop Limit (HL) are set to 255.
 
    No PM session is created on the reflector node R5.  As the probe
    message is not punted on the reflector node for processing, the
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 5]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
-
    Sender copies the 'Sequence Number' in 'Session-Sender Sequence
    Number' field directly.  Also, the Sender Timestamp, Sender Error
    Estimate and Sender TTL fields [RFC5357] [RFC8762] in the probe
    message are not used.  The rest of the fields are set as defined in
    [RFC5357] [RFC8762]
 
-   Timestamp format recommended is 64-bit PTPv2 [IEEE1588] as specified
-   in [RFC8186] implemented in hardware.  In addition to adding the
-   timestamp in the message, the "Error Estimate" field in the payload
-   of the message can be updated using the procedure defined in
-   [RFC4656].
+   Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as specified in
+   [RFC8186], implemented in hardware.  The NTP timestamp format MUST be
+   supported [RFC5357], however, since PTPv2 is widely used, it SHOULD
+   also be supported.  In addition to adding the timestamp in the
+   message, the "Error Estimate" field in the payload of the message can
+   be updated using the procedure defined in [RFC4656].
 
 3.1.  Example Provisioning Model
 
@@ -309,8 +315,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
      Missed Probe Message Count /          \
      Network Programming Label /            \
      Timestamp Format         /              \
-                             /                \
-                            /                  \
+     Delay Threshold/Count   /                \
+     Source/Dest UDP Ports  /                  \
                            v                    v
                        +-------+            +-------+
                        |       |            |       |
@@ -324,19 +330,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
    Example of Measurement Protocol is TWAMP Light and STAMP, example of
    Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP, etc.
 
+
+
+
+Gandhi, et al.          Expires January 12, 2021                [Page 6]
+
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
+
+
    The mechanisms to provision the sender and reflector nodes are
    outside the scope of this document.
-
-
-
-
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 6]
-
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
-
 
 4.  Performance Delay and Liveness Monitoring
 
@@ -386,12 +389,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-
-
-
-Gandhi, et al.          Expires December 22, 2020               [Page 7]
+Gandhi, et al.          Expires January 12, 2021                [Page 7]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
      0                   1                   2                   3
@@ -445,9 +445,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020               [Page 8]
+Gandhi, et al.          Expires January 12, 2021                [Page 8]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
      +---------------------------------------------------------------+
@@ -501,9 +501,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020               [Page 9]
+Gandhi, et al.          Expires January 12, 2021                [Page 9]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
                             t1                t2
@@ -557,9 +557,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 10]
+Gandhi, et al.          Expires January 12, 2021               [Page 10]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
      0                   1                   2                   3
@@ -613,9 +613,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 11]
+Gandhi, et al.          Expires January 12, 2021               [Page 11]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
    o  Labels assigned by IANA with value TBA1 from the Extended Special-
@@ -669,9 +669,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 12]
+Gandhi, et al.          Expires January 12, 2021               [Page 12]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
      +---------------------------------------------------------------+
@@ -725,9 +725,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 13]
+Gandhi, et al.          Expires January 12, 2021               [Page 13]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
    probe messages have measured delay values exceed user-configured
@@ -781,9 +781,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 14]
+Gandhi, et al.          Expires January 12, 2021               [Page 14]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
 10.  References
@@ -837,9 +837,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 15]
+Gandhi, et al.          Expires January 12, 2021               [Page 15]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
@@ -865,16 +865,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
               in progress), June 2020.
 
    [I-D.ietf-spring-segment-routing-policy]
-              Filsfils, C., Sivabalan, S., Voyer, D., Bogdanov, A., and
+              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
               P. Mattes, "Segment Routing Policy Architecture", draft-
-              ietf-spring-segment-routing-policy-07 (work in progress),
-              May 2020.
+              ietf-spring-segment-routing-policy-08 (work in progress),
+              July 2020.
 
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-15 (work in
-              progress), March 2020.
+              draft-ietf-spring-srv6-network-programming-16 (work in
+              progress), June 2020.
 
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
@@ -882,10 +882,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
               terminology-02 (work in progress), May 2020.
 
    [I-D.ietf-pce-binding-label-sid]
-              Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
+              Filsfils, C., Sivabalan, S., Tantsura, J., Hardwick, J.,
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
               in PCE-based Networks.", draft-ietf-pce-binding-label-
-              sid-02 (work in progress), March 2020.
+              sid-03 (work in progress), June 2020.
 
 
 
@@ -893,9 +893,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
 
 
 
-Gandhi, et al.          Expires December 22, 2020              [Page 16]
+Gandhi, et al.          Expires January 12, 2021               [Page 16]
 
-Internet-Draft  Performance and Liveness Monitoring in SR      June 2020
+Internet-Draft  Performance and Liveness Monitoring in SR      July 2020
 
 
    [I-D.ietf-pce-sr-bidir-path]
@@ -935,6 +935,10 @@ Authors' Addresses
    Email: Moses.Nagarajah@team.telstra.com
 
 
+   Richard Foote
+   Nokia
+
+   Email: footer.foote@nokia.com
 
 
 
@@ -945,8 +949,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Gandhi, et al.          Expires December 22, 2020              [Page 17]
+Gandhi, et al.          Expires January 12, 2021               [Page 17]
