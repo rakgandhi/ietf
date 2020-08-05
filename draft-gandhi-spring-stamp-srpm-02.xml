@@ -440,7 +440,7 @@ Loss Measurement Mode   /                \
    over the Link for both delay and loss measurement.</t> 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.4"><t>
+	<section title="Probe Query for SR Policy" anchor="sect-4.1.4"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
@@ -945,6 +945,8 @@ Loss Measurement Mode   /                \
    <t>The Address Family field indicates the type of the address, and it
    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.</t>
 
+   <t>The STAMP TLV Flags are set using the procedures described in <xref target="I-D.ietf-ippm-stamp-option-tlv"/>.</t>
+
    <t>The following Type is defined and it contains Node Address TLV:</t>
 
    <t>Destination Node Address (value TBA1):</t>
@@ -992,7 +994,11 @@ Loss Measurement Mode   /                \
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
 	</figure>
-	<t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV using the format shown in Figure 14:</t>
+
+
+   <t>The STAMP TLV Flags are set using the procedures described in <xref target="I-D.ietf-ippm-stamp-option-tlv"/>.</t>
+
+   <t>The following Type defined for the Return Path TLV contains the Node Address sub-TLV using the format shown in Figure 14:</t>
 
 	<t><list style="symbols"><t>Type (value 0): Return Address. Target node address of the
       response message different than the Source Address in the query</t>
