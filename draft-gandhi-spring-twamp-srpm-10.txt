@@ -87,7 +87,7 @@ Table of Contents
        4.1.1.  Delay Measurement Query Message . . . . . . . . . . .   7
        4.1.2.  Loss Measurement Query Message  . . . . . . . . . . .   8
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
-       4.1.4.  Probe Query for End-to-end Measurement for SR Policy    9
+       4.1.4.  Probe Query for SR Policy . . . . . . . . . . . . . .   9
        4.1.5.  Control Code Field for TWAMP Light Messages . . . . .  11
        4.1.6.  Loss Measurement Query Message Formats  . . . . . . .  12
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  15
@@ -253,26 +253,26 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    For one-way and two-way delay measurements in Segment Routing
    networks, the probe messages defined in [RFC5357] are used.  For
    direct-mode and inferred-mode loss measurements, the messages defined
-   in this document are used.  Separate UDP destination port numbers are
-   user-configured for delay and loss measurements.  As specified in
-   [RFC8545], the reflector supports the destination UDP port 862 for
-   delay measurement probe messages by default.  This UDP port however,
-   is not used for loss measurement probe messages defined in this
-   document.  The sender uses the UDP port number following the
-   guidelines specified in Section 6 in [RFC6335].  The same destination
-   UDP port is used for Links and SR Paths and the reflector is unaware
-   if the query is for the Links or SR Paths.  For both Links and end-
-   to-end SR Paths including SR Policies, no PM state for delay or loss
-   measurement is created on the reflector node R5 [RFC5357].
+   in this document are used.  For both Links and end-to-end SR Paths
+   including SR Policies and Flex-Algo IGP Paths, no PM state for delay
+   or loss measurement need to be created on the reflector node R5.
+
+   Separate UDP destination port numbers are user-configured for delay
+   and loss measurements.  As specified in [RFC8545], the reflector
+   supports the destination UDP port 862 for delay measurement probe
+   messages by default.  This UDP port however, is not used for loss
+   measurement probe messages defined in this document.  The sender uses
+   the UDP port number following the guidelines specified in Section 6
+   in [RFC6335].  The same destination UDP port is used for Links and SR
+   Paths and the reflector is unaware if the query is for the Links or
+   SR Paths.  The number of UDP ports with timestamping functionality
+   needs to be minimized due to hardware resoucres.
 
    For Performance Measurement, probe query and response messages are
    sent as following:
 
    o  For delay measurement, the probe messages are sent on the
       congruent path of the data traffic by the sender node, and are
-      used to measure the delay experienced by the actual data traffic
-      flowing on the Links and SR Policies.
-
 
 
 
@@ -281,6 +281,9 @@ Gandhi, et al.          Expires February 6, 2021                [Page 5]
 
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
+
+      used to measure the delay experienced by the actual data traffic
+      flowing on the Links and SR Policies.
 
    o  For loss measurement, the probe messages are sent on the congruent
       path of the data traffic by the sender node, and are used to
@@ -327,9 +330,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    Timestamp Format is PTPv2 [IEEE1588] or NTP and example of the Loss
    Measurement mode is inferred-mode or direct-mode.
 
-   The mechanisms to provision the sender and reflector nodes are
-   outside the scope of this document.  The provisioning model is not
-
 
 
 
@@ -338,6 +338,8 @@ Gandhi, et al.          Expires February 6, 2021                [Page 6]
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
 
+   The mechanisms to provision the sender and reflector nodes are
+   outside the scope of this document.  The provisioning model is not
    used for signaling PM parameters between the reflector and sender
    nodes in SR networks.
 
@@ -373,8 +375,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    Section 4.1.2 of [RFC5357].  For symmetrical size query and response
    messages as defined in [RFC6038], the DM probe query message contains
    the payload format defined in Section 4.2.1 of [RFC5357].
-
-
 
 
 
@@ -484,7 +484,7 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    unnumbered Links.  The probe messages are pre-routed over the Link
    for both delay and loss measurement.
 
-4.1.4.  Probe Query for End-to-end Measurement for SR Policy
+4.1.4.  Probe Query for SR Policy
 
    The performance delay and loss measurement for segment routing is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.

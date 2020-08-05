@@ -239,8 +239,13 @@
    Routing networks, the probe messages defined in 
    <xref target="RFC5357"/> are used.  For direct-mode and
    inferred-mode loss measurements, the
-   messages defined in this document are used.  Separate
-   UDP destination port numbers are user-configured for delay and loss
+   messages defined in this document are used.  
+   For both Links and end-to-end SR Paths including SR Policies and Flex-Algo IGP Paths,
+   no PM state for delay or loss measurement need to be created on the
+   reflector node R5.</t> 
+ 
+   
+   <t>Separate UDP destination port numbers are user-configured for delay and loss
    measurements. As specified in <xref target="RFC8545"/>, the reflector supports the destination
    UDP port 862 for delay measurement probe messages by default. This UDP port however, is 
    not used for loss measurement probe messages defined in this document. The
@@ -248,9 +253,8 @@
    <xref target="sect-6"/> in <xref target="RFC6335"/>.  
    The same destination UDP 
    port is used for Links and SR Paths and the reflector is unaware if the query is for the Links or SR Paths.
-   For both Links and end-to-end SR Paths including SR Policies,
-   no PM state for delay or loss measurement is created on the
-   reflector node R5 <xref target="RFC5357"/>.</t>
+   The number of UDP ports with 
+   timestamping functionality needs to be minimized due to hardware resoucres.</t>
 
 	<t>
    For Performance Measurement, probe query and response messages are
@@ -438,7 +442,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.4"><t>
+	<section title="Probe Query for SR Policy" anchor="sect-4.1.4"><t>
    The performance delay and loss measurement for segment routing is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
