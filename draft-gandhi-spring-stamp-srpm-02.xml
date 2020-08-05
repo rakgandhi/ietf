@@ -61,7 +61,7 @@
 	<author fullname="Daniel Voyer" initials="D." surname="Voyer">
 	<organization>Bell Canada</organization>
         <address>
-        <email>daniel.ietf@bell.ca</email>
+        <email>daniel.voyer@bell.ca</email>
 	</address>
 	</author>
 
@@ -253,7 +253,8 @@
    UDP port 862 for delay measurement probe messages by default. This UDP port however, is 
    not used for loss measurement probe messages defined in this document. The
    sender uses the UDP port number following the guidelines specified in
-   <xref target="sect-6"/> in <xref target="RFC6335"/>. The same destination UDP port is used for Links and SR Paths.
+   <xref target="sect-6"/> in <xref target="RFC6335"/>. The same destination UDP 
+   port is used for Links and SR Paths and the reflector is unaware if the query is for the Links or SR Paths.
    For both Links and end-to-end SR Paths including SR Policies,
    no PM state for delay or loss measurement is created on the
    reflector node R5 <xref target="RFC8762"/>.</t> 
@@ -959,7 +960,7 @@ Loss Measurement Mode   /                \
    node can request in the probe query message to the reflector node to
    send a response message back on a given reverse path (e.g. co-routed
    bidirectional path).  This way the reflector node does not require
-   any additional SR Policy state for PM (in SR, the state is in the probe packet).</t>
+   any additional SR Policy state for PM (in SR networks, the state is in the probe packet).</t>
 
 	<t>
    For one-way performance measurement, the sender node address may not
@@ -1270,12 +1271,12 @@ Loss Measurement Mode   /                \
 
 	<t><list style="symbols"><t>Type (value 1): Return Address</t>
 
-	<t>Type (value 2): SR-MPLS Label Stack of the Reverse SR Path</t>
+	<t>Type (value 2): SR-MPLS Label Stack of the Reverse Path</t>
 
 	<t>Type (value 3): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/>
                          of the Reverse SR Policy</t>
 
-	<t>Type (value 4): SRv6 Segment List of the Reverse SR Path</t>
+	<t>Type (value 4): SRv6 Segment List of the Reverse Path</t>
 
 	<t>Type (value 5): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
                          the Reverse SR Policy</t>
