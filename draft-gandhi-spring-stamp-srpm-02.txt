@@ -5,16 +5,17 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: February 5, 2021                                       D. Voyer
+Expires: February 6, 2021                                       D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                          August 4, 2020
+                                                          August 5, 2020
 
 
-Performance Measurement Using Simple TWAMP for Segment Routing Networks
+ Performance Measurement Using Simple TWAMP (STAMP) for Segment Routing
+                                Networks
                    draft-gandhi-spring-stamp-srpm-02
 
 Abstract
@@ -45,15 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 5, 2021.
+   This Internet-Draft will expire on February 6, 2021.
 
 
 
 
 
 
-
-Gandhi, et al.          Expires February 5, 2021                [Page 1]
+Gandhi, et al.          Expires February 6, 2021                [Page 1]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 2]
+Gandhi, et al.          Expires February 6, 2021                [Page 2]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -157,15 +157,15 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    and uses the mechanisms defined in this document for Loss Measurement
    (LM).  The procedure specified is applicable to SR-MPLS and SRv6 data
    planes and is used for both Links and end-to-end SR Paths including
-   SR Policies.  This document also defines mechanisms for handling
-   ECMPs of SR Paths for performance delay measurement.  Unless
-   otherwise specified, the mechanisms defined in [RFC8762] and
-   [I-D.ietf-ippm-stamp-option-tlv] are not modified by this document.
+   SR Policies and Flex-Algo IGP Paths.  This document also defines
+   mechanisms for handling ECMPs of SR Paths for performance delay
+   measurement.  Unless otherwise specified, the mechanisms defined in
+   [RFC8762] and [I-D.ietf-ippm-stamp-option-tlv] are not modified by
+   this document.
 
 
 
-
-Gandhi, et al.          Expires February 5, 2021                [Page 3]
+Gandhi, et al.          Expires February 6, 2021                [Page 3]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -221,7 +221,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 4]
+Gandhi, et al.          Expires February 6, 2021                [Page 4]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -277,7 +277,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 5]
+Gandhi, et al.          Expires February 6, 2021                [Page 5]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -316,7 +316,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
      Delay/Loss                /        \        Delay/Loss
    Authentication Mode & Key  /          \     Authentication Mode & Key
    Timestamp Format          /            \    Loss Measurement Mode
-   Delay Measurement Mode   /              \   Session ID (Wildcard)
+   Delay Measurement Mode   /              \   SSID (Wildcard)
    Loss Measurement Mode   /                \
                           v                  v
                      +-------+            +-------+
@@ -333,7 +333,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 6]
+Gandhi, et al.          Expires February 6, 2021                [Page 6]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -343,7 +343,9 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    mode is inferred-mode or direct-mode.
 
    The mechanisms to provision the sender and reflector nodes are
-   outside the scope of this document.
+   outside the scope of this document.  The provisioning model is not
+   used for signaling PM parameters between the reflector and sender
+   nodes in SR networks.
 
    The reflector node R5 uses the parameters for the timestamp format
    and delay measurement mode (i.e. one-way or two-way mode) from the
@@ -387,9 +389,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-
-
-Gandhi, et al.          Expires February 5, 2021                [Page 7]
+Gandhi, et al.          Expires February 6, 2021                [Page 7]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -445,7 +445,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 8]
+Gandhi, et al.          Expires February 6, 2021                [Page 8]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -487,7 +487,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 4.1.4.  Probe Query for End-to-end Measurement for SR Policy
 
    The performance delay and loss measurement for segment routing is
-   applicable to both SR-MPLS and SRv6 Policies.
+   applicable to both end-to-end SR-MPLS and SRv6 Policies.
 
 4.1.4.1.  Probe Query Message for SR-MPLS Policy
 
@@ -501,7 +501,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021                [Page 9]
+Gandhi, et al.          Expires February 6, 2021                [Page 9]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -557,7 +557,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 10]
+Gandhi, et al.          Expires February 6, 2021               [Page 10]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -572,7 +572,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
     .  <Segment List>                                               .
     .                                                               .
     +---------------------------------------------------------------+
-    | IP Header (if needed)                                         |
+    | IP Header (as needed)                                         |
     .  Source IP Address = Sender IPv6 Address                      .
     .  Destination IP Address = Reflector IPv6 Address              .
     .                                                               .
@@ -597,8 +597,11 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    message format is shown in Figure 6.  This message format is
    backwards compatible with the message format defined in STAMP
    [RFC8762] as its reflector MUST ignore the received field (previously
-   identified as MBZ).  The usage of the Control Code is not limited to
-   the SR paths and can be used for non-SR paths in a network.
+   identified as MBZ).  With this field, the reflector node does not
+   require any additional SR state for PM (recall that in SR networks,
+   the state is in the probe packet and signaling of the parameters is
+   avoided).  The usage of the Control Code is not limited to the SR
+   paths and can be used for non-SR paths in a network.
 
 
 
@@ -610,10 +613,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-
-
-
-Gandhi, et al.          Expires February 5, 2021               [Page 11]
+Gandhi, et al.          Expires February 6, 2021               [Page 11]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -669,7 +669,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 12]
+Gandhi, et al.          Expires February 6, 2021               [Page 12]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -725,7 +725,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 13]
+Gandhi, et al.          Expires February 6, 2021               [Page 13]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -781,7 +781,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 14]
+Gandhi, et al.          Expires February 6, 2021               [Page 14]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -837,7 +837,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 15]
+Gandhi, et al.          Expires February 6, 2021               [Page 15]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -893,7 +893,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 16]
+Gandhi, et al.          Expires February 6, 2021               [Page 16]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -917,7 +917,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
     .  <Segment List>                                               .
     .                                                               .
     +---------------------------------------------------------------+
-    | IP Header (if needed)                                         |
+    | IP Header (as needed)                                         |
     .  Source IP Address = Reflector IPv6 Address                   .
     .  Destination IP Address = Source IPv6 Address from Query      .
     .                                                               .
@@ -949,7 +949,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 17]
+Gandhi, et al.          Expires February 6, 2021               [Page 17]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 18]
+Gandhi, et al.          Expires February 6, 2021               [Page 18]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 19]
+Gandhi, et al.          Expires February 6, 2021               [Page 19]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1107,8 +1107,8 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    node can request in the probe query message to the reflector node to
    send a response message back on a given reverse path (e.g. co-routed
    bidirectional path).  This way the reflector node does not require
-   any additional SR Policy state for PM (in SR networks, the state is
-   in the probe packet).
+   any additional SR state for PM (recall that in SR networks, the state
+   is in the probe packet and signaling of the parameters is avoided).
 
    For one-way performance measurement, the sender node address may not
    be reachable via IP route from the reflector node.  The sender node
@@ -1117,7 +1117,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 20]
+Gandhi, et al.          Expires February 6, 2021               [Page 20]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 21]
+Gandhi, et al.          Expires February 6, 2021               [Page 21]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 22]
+Gandhi, et al.          Expires February 6, 2021               [Page 22]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 23]
+Gandhi, et al.          Expires February 6, 2021               [Page 23]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 24]
+Gandhi, et al.          Expires February 6, 2021               [Page 24]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1349,10 +1349,10 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    be used for liveness monitoring.  Liveness failure is notified when
    consecutive N number of probe response messages are not received back
    at the sender node, where N is locally provisioned value.  Note that
-   detection interval and scale for number of sessions need to account
-   for the processing of the probe query messages which need to be
-   punted from the forwarding path (to slow path or control plane) and
-   response messages need to be injected on the reflector node.
+   detection interval and scale for number of probes need to account for
+   the processing of the probe query messages which need to be punted
+   from the forwarding path (to slow path or control plane) and response
+   messages need to be injected on the reflector node.
 
 8.  Security Considerations
 
@@ -1397,7 +1397,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 25]
+Gandhi, et al.          Expires February 6, 2021               [Page 25]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 26]
+Gandhi, et al.          Expires February 6, 2021               [Page 26]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1471,7 +1471,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
               Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-way Active Measurement
               Protocol Optional Extensions", draft-ietf-ippm-stamp-
-              option-tlv-07 (work in progress), July 2020.
+              option-tlv-08 (work in progress), August 2020.
 
 10.2.  Informative References
 
@@ -1509,7 +1509,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 27]
+Gandhi, et al.          Expires February 6, 2021               [Page 27]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 28]
+Gandhi, et al.          Expires February 6, 2021               [Page 28]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 29]
+Gandhi, et al.          Expires February 6, 2021               [Page 29]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1677,7 +1677,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 30]
+Gandhi, et al.          Expires February 6, 2021               [Page 30]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
@@ -1733,4 +1733,4 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 
 
-Gandhi, et al.          Expires February 5, 2021               [Page 31]
+Gandhi, et al.          Expires February 6, 2021               [Page 31]

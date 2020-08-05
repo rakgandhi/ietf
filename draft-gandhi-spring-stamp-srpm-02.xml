@@ -5,7 +5,6 @@
 <!ENTITY RFC8174 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8762 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml">
 <!ENTITY I-D.ietf-ippm-stamp-option-tlv SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp-option-tlv.xml">
-<!ENTITY I-D.ietf-6man-spring-srv6-oam SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-spring-srv6-oam.xml">
 <!ENTITY RFC2104 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2104.xml">
 <!ENTITY RFC2113 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2113.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
@@ -42,7 +41,7 @@
 	<?rfc strict="yes"?>
 	<?rfc toc="yes"?>
 	<front>
-	<title abbrev="STAMP for Segment Routing">Performance Measurement Using Simple TWAMP for Segment Routing Networks</title>
+	<title abbrev="STAMP for Segment Routing">Performance Measurement Using Simple TWAMP (STAMP) for Segment Routing Networks</title>
 	<author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
 	<organization>Cisco Systems, Inc.</organization>
 	<address><postal><street>Canada</street>
@@ -79,7 +78,7 @@
 	</address>
 	</author>
 
-	<date day="4" month="August" year="2020"/>
+	<date day="5" month="August" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -133,7 +132,7 @@
    (STAMP) (including the TLV extensions) for Delay Measurement (DM), and uses the
    mechanisms defined in this document for Loss Measurement (LM).  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
-   is used for both Links and end-to-end SR Paths including SR Policies.  This document
+   is used for both Links and end-to-end SR Paths including SR Policies and Flex-Algo IGP Paths.  This document
    also defines mechanisms for handling ECMPs of SR Paths for
    performance delay measurement.  Unless otherwise specified, the mechanisms 
    defined in <xref target="RFC8762"/> and <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
@@ -301,7 +300,7 @@ Measurement Type             /      \       Measurement Type
   Delay/Loss                /        \        Delay/Loss
 Authentication Mode & Key  /          \     Authentication Mode & Key
 Timestamp Format          /            \    Loss Measurement Mode
-Delay Measurement Mode   /              \   Session ID (Wildcard)
+Delay Measurement Mode   /              \   SSID (Wildcard)
 Loss Measurement Mode   /                \
                        v                  v
                   +-------+            +-------+
@@ -318,7 +317,10 @@ Loss Measurement Mode   /                \
     and example of the Loss Measurement mode is inferred-mode or direct-mode.</t>
 
     <t>The mechanisms to provision the
-    sender and reflector nodes are outside the scope of this document.</t>
+    sender and reflector nodes are outside the scope of this document. 
+    The provisioning model is not used for signaling PM parameters between the 
+    reflector and sender nodes in SR networks.</t>
+
 
     <t>The reflector node R5 uses the parameters for the timestamp format and
     delay measurement mode (i.e. one-way or two-way mode)
@@ -440,7 +442,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Probe Query for End-to-end Measurement for SR Policy" anchor="sect-4.1.4"><t>
    The performance delay and loss measurement for segment routing is
-   applicable to both SR-MPLS and SRv6 Policies.</t>
+   applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
 	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
    The probe query messages for performance measurement of an
@@ -498,7 +500,7 @@ Loss Measurement Mode   /                \
  .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
- | IP Header (if needed)                                         |
+ | IP Header (as needed)                                         |
  .  Source IP Address = Sender IPv6 Address                      .
  .  Destination IP Address = Reflector IPv6 Address              .
  .                                                               .
@@ -528,6 +530,9 @@ Loss Measurement Mode   /                \
    This message format is backwards
    compatible with the message format defined in STAMP <xref target="RFC8762"/> as its reflector MUST
    ignore the received field (previously identified as MBZ).
+   With this field, the reflector node does not require
+   any additional SR state for PM (recall that in SR networks, 
+   the state is in the probe packet and signaling of the parameters is avoided).   
    The usage of the Control Code is not limited to the SR paths and can be used for non-SR paths in a network.</t>
 
    <figure title="Sender Control Code in STAMP DM Message" anchor="ure-se-control-code-in-stamp-message"><artwork><![CDATA[
@@ -686,7 +691,7 @@ Loss Measurement Mode   /                \
    Block Number (8-bit): The Loss Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to color the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
-   matching color,  the Block Number (or color) of the traffic counters
+   matching color, the Block Number (or color) of the traffic counters
    is carried by the probe query and response messages for loss
    measurement. The Block Number can also be used to aggregate 
    performance metrics collected.</t>
@@ -813,7 +818,7 @@ Loss Measurement Mode   /                \
  .  <Segment List>                                               .
  .                                                               .
  +---------------------------------------------------------------+
- | IP Header (if needed)                                         |
+ | IP Header (as needed)                                         |
  .  Source IP Address = Reflector IPv6 Address                   .
  .  Destination IP Address = Source IPv6 Address from Query      .
  .                                                               .
@@ -960,7 +965,8 @@ Loss Measurement Mode   /                \
    node can request in the probe query message to the reflector node to
    send a response message back on a given reverse path (e.g. co-routed
    bidirectional path).  This way the reflector node does not require
-   any additional SR Policy state for PM (in SR networks, the state is in the probe packet).</t>
+   any additional SR state for PM (recall that in SR networks, 
+   the state is in the probe packet and signaling of the parameters is avoided).</t>
 
 	<t>
    For one-way performance measurement, the sender node address may not
@@ -1179,7 +1185,7 @@ Loss Measurement Mode   /                \
     The one-way or two-way measurement mode can be used for liveness monitoring.  
     Liveness failure is notified when consecutive N number of probe response messages are
     not received back at the sender node, where N is locally provisioned value. 
-    Note that detection interval and scale for number of sessions need to account for 
+    Note that detection interval and scale for number of probes need to account for 
     the processing of the probe query messages which need to be punted from the forwarding path
     (to slow path or control plane) and response messages need to be injected on the reflector node.</t>
     </section>
