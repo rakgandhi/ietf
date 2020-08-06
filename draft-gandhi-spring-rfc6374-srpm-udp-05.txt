@@ -987,19 +987,19 @@ Internet-Draft     Using RFC 6374 with UDP Path for SR       August 2020
 
 10.  Performance Delay and Liveness Monitoring
 
-   The procedure defined in this document for one-way, two-way and
-   loopback mode for delay measurement can also be applied to liveness
-   monitoring of Links and SR Paths.  Liveness failure is notified when
-   consecutive N number of probe response messages are not received back
-   at the querier node, where N is locally provisioned value.  Note that
-   for one-way and two-way modes, the detection interval and scale for
-   number of probe messages need to account for the processing of the
-   probe query messages which need to be punted from the forwarding fast
-   path (to slow path or control plane), and response messages need to
-   be injected on the responder node.  Hence, loopback mode is more
-   suitbale for liveness monitoring.
-
-
+   Liveness monitoring is required for connectivity verification and
+   continuity check in an SR network.  The procedure defined in this
+   document for one-way, two-way and loopback mode for delay measurement
+   can also be applied to liveness monitoring of Links and SR Paths.
+   Liveness failure is notified when consecutive N number of probe
+   response messages are not received back at the querier node, where N
+   is locally provisioned value.  Note that for one-way and two-way
+   modes, the detection interval and scale for number of probe messages
+   need to account for the processing of the probe query messages which
+   need to be punted from the forwarding fast path (to slow path or
+   control plane), and response messages need to be injected on the
+   responder node.  Hence, loopback mode is more suitbale for liveness
+   monitoring.
 
 
 

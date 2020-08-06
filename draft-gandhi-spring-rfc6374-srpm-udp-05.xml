@@ -858,6 +858,7 @@
 	</section>
 
     <section title="Performance Delay and Liveness Monitoring" anchor="sect-10"><t>
+    Liveness monitoring is required for connectivity verification and continuity check in an SR network.
     The procedure defined in this document for one-way, two-way and loopback mode for delay measurement  
     can also be applied to liveness monitoring of Links and SR Paths. 
     Liveness failure is notified when consecutive N number of probe response messages are

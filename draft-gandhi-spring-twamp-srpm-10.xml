@@ -1071,6 +1071,7 @@ Loss Measurement Mode   /                \
 	</section>
 
    <section title="Performance Delay and Liveness Monitoring" anchor="sect-7"><t>
+    Liveness monitoring is required for connectivity verification and continuity check in an SR network.
     The procedure defined in this document for delay measurement using the TWAMP Light probe 
     messages can also be applied to liveness monitoring of Links and SR Paths. 
     The one-way or two-way measurement mode can be used for liveness monitoring.  

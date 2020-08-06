@@ -1359,17 +1359,19 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 7.  Performance Delay and Liveness Monitoring
 
-   The procedure defined in this document for delay measurement using
-   the STAMP probe messages can also be applied to liveness monitoring
-   of Links and SR Paths.  The one-way or two-way measurement mode can
-   be used for liveness monitoring.  Liveness failure is notified when
-   consecutive N number of probe response messages are not received back
-   at the sender node, where N is locally provisioned value.  Note that
-   for one-way and two-way modes, the detection interval and scale for
-   number of probe messages need to account for the processing of the
-   probe query messages which need to be punted from the forwarding fast
-   path (to slow path or control plane) and response messages need to be
-   injected on the reflector node.
+   Liveness monitoring is required for connectivity verification and
+   continuity check in an SR network.  The procedure defined in this
+   document for delay measurement using the STAMP probe messages can
+   also be applied to liveness monitoring of Links and SR Paths.  The
+   one-way or two-way measurement mode can be used for liveness
+   monitoring.  Liveness failure is notified when consecutive N number
+   of probe response messages are not received back at the sender node,
+   where N is locally provisioned value.  Note that for one-way and two-
+   way modes, the detection interval and scale for number of probe
+   messages need to account for the processing of the probe query
+   messages which need to be punted from the forwarding fast path (to
+   slow path or control plane) and response messages need to be injected
+   on the reflector node.
 
 8.  Security Considerations
 
@@ -1392,8 +1394,6 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
-
-
 
 
 
