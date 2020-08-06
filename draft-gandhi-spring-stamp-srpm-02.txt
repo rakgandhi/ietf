@@ -116,7 +116,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  27
      10.2.  Informative References . . . . . . . . . . . . . . . . .  27
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  30
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  31
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
 1.  Introduction
@@ -1371,7 +1371,8 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    messages need to account for the processing of the probe query
    messages which need to be punted from the forwarding fast path (to
    slow path or control plane) and response messages need to be injected
-   on the reflector node.
+   on the reflector node.  This is enhanced by using the probes in
+   loopback mode as described in [I-D.gandhi-spring-sr-enhanced-plm].
 
 8.  Security Considerations
 
@@ -1392,8 +1393,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    integrity of the probe messages.  SRv6 has HMAC protection
    authentication defined for SRH [RFC8754].  Hence, probe messages for
    SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
+
 
 
 
@@ -1401,6 +1401,9 @@ Gandhi, et al.          Expires February 7, 2021               [Page 25]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
+
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
 
 9.  IANA Considerations
 
@@ -1446,10 +1449,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
    o  Type (value 2): SR-MPLS Label Stack of the Reverse Path
 
-   o  Type (value 3): SR-MPLS Binding SID
-      [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
 
-   o  Type (value 4): SRv6 Segment List of the Reverse Path
 
 
 
@@ -1457,6 +1457,11 @@ Gandhi, et al.          Expires February 7, 2021               [Page 26]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
+
+   o  Type (value 3): SR-MPLS Binding SID
+      [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
+
+   o  Type (value 4): SRv6 Segment List of the Reverse Path
 
    o  Type (value 5): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
       of the Reverse SR Policy
@@ -1501,11 +1506,6 @@ Internet-Draft          STAMP for Segment Routing            August 2020
               DOI 10.17487/RFC2104, February 1997,
               <https://www.rfc-editor.org/info/rfc2104>.
 
-   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
-              DOI 10.17487/RFC2113, February 1997,
-              <https://www.rfc-editor.org/info/rfc2113>.
-
-
 
 
 
@@ -1513,6 +1513,10 @@ Gandhi, et al.          Expires February 7, 2021               [Page 27]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
+
+   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
+              DOI 10.17487/RFC2113, February 1997,
+              <https://www.rfc-editor.org/info/rfc2113>.
 
    [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
               384, and HMAC-SHA-512 with IPsec", RFC 4868,
@@ -1557,10 +1561,6 @@ Internet-Draft          STAMP for Segment Routing            August 2020
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
               March 2017, <https://www.rfc-editor.org/info/rfc8085>.
 
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/info/rfc8126>.
 
 
 
@@ -1569,6 +1569,11 @@ Gandhi, et al.          Expires February 7, 2021               [Page 28]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -1609,11 +1614,6 @@ Internet-Draft          STAMP for Segment Routing            August 2020
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-02 (work in progress), April 2020.
 
-   [I-D.ietf-pim-sr-p2mp-policy]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "Segment Routing Point-to-Multipoint Policy",
-              draft-ietf-pim-sr-p2mp-policy-00 (work in progress), July
-              2020.
 
 
 
@@ -1625,6 +1625,12 @@ Gandhi, et al.          Expires February 7, 2021               [Page 29]
 
 Internet-Draft          STAMP for Segment Routing            August 2020
 
+
+   [I-D.ietf-pim-sr-p2mp-policy]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "Segment Routing Point-to-Multipoint Policy",
+              draft-ietf-pim-sr-p2mp-policy-00 (work in progress), July
+              2020.
 
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
@@ -1663,6 +1669,19 @@ Internet-Draft          STAMP for Segment Routing            August 2020
               Routing (SR) Paths", draft-ietf-pce-sr-bidir-path-02 (work
               in progress), March 2020.
 
+   [I-D.gandhi-spring-sr-enhanced-plm]
+              Gandhi, R., Filsfils, C., Vaghamshi, N., Nagarajah, M.,
+              and R. Foote, "Enhanced Performance Delay and Liveness
+              Monitoring in Segment Routing Networks", draft-gandhi-
+              spring-sr-enhanced-plm-02 (work in progress), July 2020.
+
+
+
+Gandhi, et al.          Expires February 7, 2021               [Page 30]
+
+Internet-Draft          STAMP for Segment Routing            August 2020
+
+
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -1673,15 +1692,6 @@ Acknowledgments
    significantly improve the mechanisms defined in this document.  The
    authors would like to acknowledge the earlier work on the loss
    measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
-
-
-
-
-Gandhi, et al.          Expires February 7, 2021               [Page 30]
-
-Internet-Draft          STAMP for Segment Routing            August 2020
-
-
    direct-loss.  The authors would also like to thank Sam Aldrin for the
    discussions to check for broken path.
 
@@ -1716,16 +1726,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -114,7 +114,7 @@ Gandhi, et al.          Expires February 7, 2021                [Page 2]
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
 
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  27
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  28
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
 
 1.  Introduction
@@ -1258,7 +1258,9 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    and scale for number of probes need to account for the processing of
    the probe query messages which need to be punted from the forwarding
    fast path (to slow path or control plane) and response messages need
-   to be injected on the reflector node.
+   to be injected on the reflector node.  This is enhanced by using the
+   probes in loopback mode as described in
+   [I-D.gandhi-spring-sr-enhanced-plm].
 
 8.  Security Considerations
 
@@ -1279,8 +1281,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
    integrity of the probe messages.  SRv6 has HMAC protection
    authentication defined for SRH [RFC8754].  Hence, probe messages for
    SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
 
 
 
@@ -1289,6 +1289,9 @@ Gandhi, et al.          Expires February 7, 2021               [Page 23]
 
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
+
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
 
 9.  IANA Considerations
 
@@ -1333,9 +1336,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
               DOI 10.17487/RFC2104, February 1997,
               <https://www.rfc-editor.org/info/rfc2104>.
 
-   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
-              DOI 10.17487/RFC2113, February 1997,
-              <https://www.rfc-editor.org/info/rfc2113>.
 
 
 
@@ -1345,6 +1345,10 @@ Gandhi, et al.          Expires February 7, 2021               [Page 24]
 
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
+
+   [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
+              DOI 10.17487/RFC2113, February 1997,
+              <https://www.rfc-editor.org/info/rfc2113>.
 
    [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
               384, and HMAC-SHA-512 with IPsec", RFC 4868,
@@ -1390,10 +1394,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
               DOI 10.17487/RFC8029, March 2017,
               <https://www.rfc-editor.org/info/rfc8029>.
 
-   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
-              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
-              March 2017, <https://www.rfc-editor.org/info/rfc8085>.
-
 
 
 
@@ -1401,6 +1401,10 @@ Gandhi, et al.          Expires February 7, 2021               [Page 25]
 
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
+
+   [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
+              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
+              March 2017, <https://www.rfc-editor.org/info/rfc8085>.
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -1446,10 +1450,6 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
               Kamite, "Point-to-Multipoint Transport Using Chain
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-02 (work in progress), April 2020.
-
-
-
-
 
 
 
@@ -1499,13 +1499,13 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
               Routing (SR) Paths", draft-ietf-pce-sr-bidir-path-02 (work
               in progress), March 2020.
 
-Acknowledgments
+   [I-D.gandhi-spring-sr-enhanced-plm]
+              Gandhi, R., Filsfils, C., Vaghamshi, N., Nagarajah, M.,
+              and R. Foote, "Enhanced Performance Delay and Liveness
+              Monitoring in Segment Routing Networks", draft-gandhi-
+              spring-sr-enhanced-plm-02 (work in progress), July 2020.
 
-   The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for Performance Measurement in Segment Routing.  The
-   authors would also like to thank Greg Mirsky for reviewing this
-   document and providing useful comments and suggestions.  Patrick
-   Khordoc and Radu Valceanu, both from Cisco Systems have helped
+
 
 
 
@@ -1514,6 +1514,13 @@ Gandhi, et al.          Expires February 7, 2021               [Page 27]
 Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
 
+Acknowledgments
+
+   The authors would like to thank Thierry Couture for the discussions
+   on the use-cases for Performance Measurement in Segment Routing.  The
+   authors would also like to thank Greg Mirsky for reviewing this
+   document and providing useful comments and suggestions.  Patrick
+   Khordoc and Radu Valceanu, both from Cisco Systems have helped
    significantly improve the mechanisms defined in this document.  The
    authors would like to acknowledge the earlier work on the loss
    measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
@@ -1550,13 +1557,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
 
 
 
