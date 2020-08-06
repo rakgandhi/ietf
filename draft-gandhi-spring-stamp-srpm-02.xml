@@ -78,7 +78,7 @@
 	</address>
 	</author>
 
-	<date day="5" month="August" year="2020"/>
+	<date day="6" month="August" year="2020"/>
 	<workgroup>SPRING Working Group</workgroup>
 	<abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -259,7 +259,7 @@
    <xref target="sect-6"/> in <xref target="RFC6335"/>. The same destination UDP 
    port is used for Links and SR Paths and the reflector is 
    unaware if the query is for the Links or SR Paths. The number of UDP ports with 
-   timestamping functionality needs to be minimized due to hardware resoucres.</t>
+   PM functionality needs to be minimized due to limited hardware resoucres.</t>
 
 	<t>
    For Performance Measurement, probe query and response messages are
@@ -321,7 +321,7 @@ Loss Measurement Mode   /                \
 
     <t>The mechanisms to provision the
     sender and reflector nodes are outside the scope of this document. 
-    The provisioning model is not used for signaling PM parameters between the 
+    The provisioning model is not used for signaling the PM parameters between the 
     reflector and sender nodes in SR networks.</t>
 
 
@@ -525,9 +525,9 @@ Loss Measurement Mode   /                \
 
 </section>
 
-	<section title="Control Code Field for STAMP Messages" anchor="sect-4.1.5">
+	<section title="Control Code Field Extension for STAMP Messages" anchor="sect-4.1.5">
 	<t>
-   The Control Code field is defined for delay and loss measurement probe query messages
+   The Control Code field is newly defined for delay and loss measurement probe query messages
    for STAMP protocol in unauthenticated and authenticated modes.  
    The modified delay measurement probe query message format is shown in Figure 6. 
    This message format is backwards
@@ -1194,8 +1194,8 @@ Loss Measurement Mode   /                \
     The one-way or two-way measurement mode can be used for liveness monitoring.  
     Liveness failure is notified when consecutive N number of probe response messages are
     not received back at the sender node, where N is locally provisioned value. 
-    Note that detection interval and scale for number of probes need to account for 
-    the processing of the probe query messages which need to be punted from the forwarding path
+    Note that for one-way and two-way modes, the detection interval and scale for number of probe messages need to account for 
+    the processing of the probe query messages which need to be punted from the forwarding fast path
     (to slow path or control plane) and response messages need to be injected on the reflector node.</t>
     </section>
 
