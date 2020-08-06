@@ -527,7 +527,7 @@ Loss Measurement Mode   /                \
 
 	<section title="Control Code Field Extension for TWAMP Light Messages" anchor="sect-4.1.5">
 	<t>
-   The Control Code field is newly defined for delay and loss measurement probe query messages
+   In this document, the Control Code field is defined for delay and loss measurement probe query messages
    for TWAMP Light in unauthenticated and authenticated modes.  
    The modified delay measurement probe query message format is shown in Figure 6. 
    This message format is backwards
@@ -582,8 +582,8 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Query Message Formats" anchor="sect-4.1.6">
-   <t> In this document, TWAMP Light probe query messages for
+	<section title="Loss Measurement Query Message Extensions" anchor="sect-4.1.6">
+   <t>In this document, TWAMP Light probe query messages for
    loss measurement are defined as shown in Figure 7 and Figure 8. The message
    formats are hardware efficient due to 
    well-known locations of the counters and payload small in size.  They are stand-alone and similar to the delay
@@ -844,7 +844,7 @@ Loss Measurement Mode   /                \
 
 	</section>
 
-	<section title="Loss Measurement Response Message Formats" anchor="sect-4.2.4"><t>
+	<section title="Loss Measurement Response Message Extensions" anchor="sect-4.2.4"><t>
    In this document, TWAMP Light probe response message formats are defined for loss
    measurement as shown in Figure 12 and Figure 13.</t> 
 

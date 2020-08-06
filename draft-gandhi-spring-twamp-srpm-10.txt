@@ -89,11 +89,11 @@ Table of Contents
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
        4.1.4.  Probe Query for SR Policy . . . . . . . . . . . . . .   9
        4.1.5.  Control Code Field Extension for TWAMP Light Messages  11
-       4.1.6.  Loss Measurement Query Message Formats  . . . . . . .  12
+       4.1.6.  Loss Measurement Query Message Extensions . . . . . .  12
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  15
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  16
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  16
-       4.2.3.  Loss Measurement Response Message Formats . . . . . .  18
+       4.2.3.  Loss Measurement Response Message Extensions  . . . .  18
      4.3.  Additional Probe Message Processing Rules . . . . . . . .  20
        4.3.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . .  21
        4.3.2.  Router Alert Option . . . . . . . . . . . . . . . . .  21
@@ -592,17 +592,17 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
 4.1.5.  Control Code Field Extension for TWAMP Light Messages
 
-   The Control Code field is newly defined for delay and loss
-   measurement probe query messages for TWAMP Light in unauthenticated
-   and authenticated modes.  The modified delay measurement probe query
-   message format is shown in Figure 6.  This message format is
-   backwards compatible with the message format defined in [RFC5357] as
-   its reflectors ignore the received field (previously identified as
-   MBZ).  With this field, the reflector node does not require any
-   additional SR state for PM (recall that in SR networks, the state is
-   in the probe packet and signaling of the parameters is avoided).  The
-   usage of the Control Code is not limited to the SR paths and can be
-   used for non-SR paths in a network.
+   In this document, the Control Code field is defined for delay and
+   loss measurement probe query messages for TWAMP Light in
+   unauthenticated and authenticated modes.  The modified delay
+   measurement probe query message format is shown in Figure 6.  This
+   message format is backwards compatible with the message format
+   defined in [RFC5357] as its reflectors ignore the received field
+   (previously identified as MBZ).  With this field, the reflector node
+   does not require any additional SR state for PM (recall that in SR
+   networks, the state is in the probe packet and signaling of the
+   parameters is avoided).  The usage of the Control Code is not limited
+   to the SR paths and can be used for non-SR paths in a network.
 
 
 
@@ -648,7 +648,7 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
        0x2: No Response Requested.
 
-4.1.6.  Loss Measurement Query Message Formats
+4.1.6.  Loss Measurement Query Message Extensions
 
    In this document, TWAMP Light probe query messages for loss
    measurement are defined as shown in Figure 7 and Figure 8.  The
@@ -981,7 +981,7 @@ Internet-Draft       TWAMP Light for Segment Routing         August 2020
 
          Figure 11: Example Probe Response Message for SRv6 Policy
 
-4.2.3.  Loss Measurement Response Message Formats
+4.2.3.  Loss Measurement Response Message Extensions
 
    In this document, TWAMP Light probe response message formats are
    defined for loss measurement as shown in Figure 12 and Figure 13.

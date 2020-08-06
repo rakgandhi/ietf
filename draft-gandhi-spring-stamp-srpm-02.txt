@@ -89,11 +89,11 @@ Table of Contents
        4.1.3.  Probe Query for Links . . . . . . . . . . . . . . . .   9
        4.1.4.  Probe Query for SR Policy . . . . . . . . . . . . . .   9
        4.1.5.  Control Code Field Extension for STAMP Messages . . .  11
-       4.1.6.  Loss Measurement Query Message Formats  . . . . . . .  12
+       4.1.6.  Loss Measurement Query Message Extensions . . . . . .  12
      4.2.  Probe Response Message  . . . . . . . . . . . . . . . . .  15
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  15
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  16
-       4.2.3.  Loss Measurement Response Message Formats . . . . . .  17
+       4.2.3.  Loss Measurement Response Message Extensions  . . . .  17
      4.3.  Node Address TLV Extensions . . . . . . . . . . . . . . .  20
      4.4.  Return Path TLV Extensions  . . . . . . . . . . . . . . .  20
      4.5.  Additional Probe Message Processing Rules . . . . . . . .  22
@@ -591,8 +591,8 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 4.1.5.  Control Code Field Extension for STAMP Messages
 
-   The Control Code field is newly defined for delay and loss
-   measurement probe query messages for STAMP protocol in
+   In this document, the Control Code field is newly defined for delay
+   and loss measurement probe query messages for STAMP protocol in
    unauthenticated and authenticated modes.  The modified delay
    measurement probe query message format is shown in Figure 6.  This
    message format is backwards compatible with the message format
@@ -647,7 +647,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
        0x2: No Response Requested.
 
-4.1.6.  Loss Measurement Query Message Formats
+4.1.6.  Loss Measurement Query Message Extensions
 
    In this document, STAMP probe query messages for loss measurement are
    defined as shown in Figure 7 and Figure 8.  The message formats are
@@ -934,7 +934,7 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
          Figure 11: Example Probe Response Message for SRv6 Policy
 
-4.2.3.  Loss Measurement Response Message Formats
+4.2.3.  Loss Measurement Response Message Extensions
 
    In this document, STAMP probe response message formats are defined
    for loss measurement as shown in Figure 12 and Figure 13.
