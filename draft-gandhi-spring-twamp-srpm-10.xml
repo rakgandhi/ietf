@@ -750,7 +750,7 @@ Loss Measurement Mode   /                \
 ]]></artwork>
 	</figure>
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
-   In one-way performance measurement mode, the probe response message
+   In one-way measurement mode, the probe response message
    as defined in Figure 9 is sent back out-of-band to the sender node,
    for both Links and SR Policies. The Sender Control Code is set to
    "Out-of-band Response Requested". 
@@ -760,7 +760,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
-   In two-way performance measurement mode, when using a bidirectional
+   In two-way measurement mode, when using a bidirectional
    path, the probe response message as defined in Figure 9 is sent back
    to the sender node on the congruent path of the data traffic on the
    same reverse direction Link or associated reverse SR Policy
@@ -1078,7 +1078,7 @@ Loss Measurement Mode   /                \
     The one-way or two-way measurement mode can be used for liveness monitoring.  
     Liveness failure is notified when consecutive N number of probe response messages are
     not received back at the sender node, where N is locally provisioned value. 
-    Note that detection interval and scale for number of probes need to account for 
+    Note that failure detection interval and scale for number of probes need to account for 
     the processing of the probe query messages which need to be punted from the forwarding fast path
     (to slow path or control plane) and response messages need to be injected on the reflector node.
     This is enhanced by using the probes in loopback mode as described in <xref target="I-D.gandhi-spring-sr-enhanced-plm"/>.

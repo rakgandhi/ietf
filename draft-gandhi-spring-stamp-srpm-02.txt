@@ -824,13 +824,13 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 4.2.1.  One-way Measurement Mode
 
-   In one-way performance measurement mode, the probe response message
-   as defined in Figure 9 is sent back out-of-band to the sender node,
-   for both Links and SR Policies.  The Sender Control Code is set to
-   "Out-of-band Response Requested".  In this delay measurement mode, as
-   per Reference Topology, all timestamps t1, t2, t3, and t4 are
-   collected by the probes.  However, only timestamps t1 and t2 are used
-   to measure one-way delay as (t2 - t1).
+   In one-way measurement mode, the probe response message as defined in
+   Figure 9 is sent back out-of-band to the sender node, for both Links
+   and SR Policies.  The Sender Control Code is set to "Out-of-band
+   Response Requested".  In this delay measurement mode, as per
+   Reference Topology, all timestamps t1, t2, t3, and t4 are collected
+   by the probes.  However, only timestamps t1 and t2 are used to
+   measure one-way delay as (t2 - t1).
 
 
 
@@ -844,10 +844,10 @@ Internet-Draft          STAMP for Segment Routing            August 2020
 
 4.2.2.  Two-way Measurement Mode
 
-   In two-way performance measurement mode, when using a bidirectional
-   path, the probe response message as defined in Figure 9 is sent back
-   to the sender node on the congruent path of the data traffic on the
-   same reverse direction Link or associated reverse SR Policy
+   In two-way measurement mode, when using a bidirectional path, the
+   probe response message as defined in Figure 9 is sent back to the
+   sender node on the congruent path of the data traffic on the same
+   reverse direction Link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Sender Control Code is set to "In-
    band Response Requested".  In this delay measurement mode, as per
    Reference Topology, all timestamps t1, t2, t3, and t4 are collected
@@ -1367,8 +1367,8 @@ Internet-Draft          STAMP for Segment Routing            August 2020
    monitoring.  Liveness failure is notified when consecutive N number
    of probe response messages are not received back at the sender node,
    where N is locally provisioned value.  Note that for one-way and two-
-   way modes, the detection interval and scale for number of probe
-   messages need to account for the processing of the probe query
+   way modes, the failure detection interval and scale for number of
+   probe messages need to account for the processing of the probe query
    messages which need to be punted from the forwarding fast path (to
    slow path or control plane) and response messages need to be injected
    on the reflector node.  This is enhanced by using the probes in

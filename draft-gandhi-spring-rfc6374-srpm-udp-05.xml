@@ -863,7 +863,7 @@
     can also be applied to liveness monitoring of Links and SR Paths. 
     Liveness failure is notified when consecutive N number of probe response messages are
     not received back at the querier node, where N is locally provisioned value. 
-    Note that for one-way and two-way modes, the detection interval 
+    Note that for one-way and two-way modes, the failure detection interval 
     and scale for number of probe messages need to account for 
     the processing of the probe query messages which need to be punted from the forwarding fast path 
     (to slow path or control plane), and response messages need to be injected on the responder node.
