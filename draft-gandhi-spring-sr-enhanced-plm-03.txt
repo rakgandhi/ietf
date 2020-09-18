@@ -88,18 +88,18 @@ Table of Contents
      4.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   9
    5.  Enhanced Performance Delay and Liveness Monitoring  . . . . .   9
      5.1.  Loopback Mode Enabled with Network Programming Function .   9
-     5.2.  Probe Message with Network Programming Function for SR-
-           MPLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     5.2.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  10
        5.2.1.  Node Capability for Timestamp Label . . . . . . . . .  11
        5.2.2.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
-     5.3.  Probe Message with Network Programming Function for SRv6   12
+     5.3.  Probe Message with Timestamp Endpoint Function for SRv6 .  12
+       5.3.1.  Timestamp Endpoint Function Signaling . . . . . . . .  13
    6.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  13
-   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  13
+   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  15
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  16
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
@@ -541,7 +541,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    receive timestamp is added at byte-offset 16 which is from the start
    of the payload.
 
-5.2.  Probe Message with Network Programming Function for SR-MPLS
+5.2.  Probe Message with Timestamp Label for SR-MPLS
 
    In this document, new Timestamp Label (value TBD1) is defined for SR-
    MPLS data plane to enable network programming function for
@@ -623,10 +623,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Timestamp Label (value TBA1) can be allocated using one of the
    following methods:
 
-   o  Label assigned by IANA with value TBA1 from the "Extended Special-
-      Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
-      timestamp offset is fixed at byte-offset 16 and timestamp format
-      is PTPv2 for this label.
+   o  Label assigned by IANA from the "Extended Special-Purpose MPLS
+      Values" [I-D.ietf-mpls-spl-terminology].  The timestamp offset is
+      fixed at byte-offset 16 and timestamp format is PTPv2 for this
+      label.
 
    o  Label allocated by a Controller from the global table of the
       egress node.  The Controller provisions the label on both ingress
@@ -637,11 +637,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
       flooding extension for the label (including timestamp offset and
       timestamp format) are outside the scope of this document.
 
-5.3.  Probe Message with Network Programming Function for SRv6
+5.3.  Probe Message with Timestamp Endpoint Function for SRv6
 
    In this document, new Endpoint function "Timestamp and Forward (TSF)"
    (value TBD2) is defined for Segment Routing Header (SRH) [RFC8754]
-   for SRv6 data plane to enable network programming function for
+   for SRv6 data plane to enable network programming function to
    "timestamp and forward" the received packet.
 
    In the probe message for SRv6, End.TSF function is added for the
@@ -700,10 +700,36 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
       Figure 8: Example Probe Message with Endpoint Function for SRv6
 
+5.3.1.  Timestamp Endpoint Function Signaling
+
+   Endpoint function "Timestamp and Forward" (value TBA2) can be
+   signaled using one of the following methods:
+
+   o  Timestamp endpoint function assigned by IANA from the "SRv6
+      Endpoint Behaviors Registry".
+
+   o  Timestamp endpoint function allocated by a Controller.  The
+      Controller provisions the value on both ingress and egress nodes,
+      as well as timestamp offset and timestamp format.
+
+   o  Timestamp endpoint function allocated by the egress node.  The
+      signaling and IGP flooding extension for the endpoint function
+      (including timestamp offset and timestamp format) are outside the
+      scope of this document.
+
 6.  ECMP Handling
 
    An SR Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.  The
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 13]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    PM probe messages need to be sent to traverse different ECMP paths to
    monitor the liveness for an end-to-end SR Policy.
 
@@ -722,14 +748,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    Liveness failure for SR Path is notified when consecutive N number of
    return probe messages are not received at the sender node, where N
-
-
-
-Gandhi, et al.           Expires March 22, 2021                [Page 13]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    (Missed Probe Message Count) is locally provisioned value.
    Similarly, delay metrics are notified when consecutive M number of
    probe messages have measured delay values exceed user-configured
@@ -756,6 +774,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
+
+
+
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 14]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
 9.  IANA Considerations
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
@@ -774,17 +804,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Registry" sub-registry belonging to the top-level "Segment Routing
    Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
    following allocation:
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 22, 2021                [Page 14]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
 
        +-------------+---------------------------------+---------------+
        | Value       | Endpoint Behavior               | Reference     |
@@ -815,6 +834,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               RFC 5357, DOI 10.17487/RFC5357, October 2008,
               <https://www.rfc-editor.org/info/rfc5357>.
 
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 15]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -830,17 +857,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 22, 2021                [Page 15]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
 
    [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
               Pallagatti, "Seamless Bidirectional Forwarding Detection
@@ -874,6 +890,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               (STAMP) for Segment Routing Networks", draft-gandhi-
               spring-stamp-srpm-02 (work in progress), August 2020.
 
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 16]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
               P. Mattes, "Segment Routing Policy Architecture", draft-
@@ -891,13 +915,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-03 (work in progress), August 2020.
 
-
-
-Gandhi, et al.           Expires March 22, 2021                [Page 16]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    [I-D.ietf-pce-binding-label-sid]
               Filsfils, C., Sivabalan, S., Tantsura, J., Hardwick, J.,
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
@@ -912,8 +929,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 Acknowledgments
 
-   The authors would like to thank Greg Mirsky, and Adrian Farrel for
-   providing the review comments.
+   The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
+   Kompella, and Adrian Farrel for providing the review comments.
 
 Authors' Addresses
 
@@ -928,6 +945,13 @@ Authors' Addresses
    Cisco Systems, Inc.
 
    Email: cfilsfil@cisco.com
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 17]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
    Navin Vaghamshi
@@ -949,4 +973,36 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 18]
