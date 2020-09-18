@@ -591,7 +591,7 @@
 
       <section anchor="sect-5.3"
                title="Probe Message with Timestamp Endpoint Function for SRv6">
-      <t>In this document, new Endpoint function "Timestamp and Forward
+      <t>In this document, Timestamp Endpoint function for "Timestamp and Forward
       (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
       target="RFC8754"/> for SRv6 data plane to enable
       network programming function to "timestamp and forward" the received
@@ -643,7 +643,7 @@
         </figure>
 
 	<section title="Timestamp Endpoint Function Signaling" anchor="sect-5.3.1" toc="default"><t>
-      Endpoint function "Timestamp and Forward" (value TBA2) can be signaled using one of the following
+      Timestamp endpoint function for "Timestamp and Forward" (value TBA2) can be signaled using one of the following
       methods:</t>
 
 	<t><list style="symbols"><t>Timestamp endpoint function assigned by IANA from 
@@ -720,11 +720,11 @@
 
       <figure>
         <artwork>
-    +-------------+---------------------------------+---------------+
-    | Value       | Description                     | Reference     |
-    +-------------+---------------------------------+---------------+
-    | TBA1        | Timestamp Label                 | This document |
-    +-------------+---------------------------------+---------------+
+  +-------------+---------------------------------+---------------+
+  | Value       | Description                     | Reference     |
+  +-------------+---------------------------------+---------------+
+  | TBA1        | Timestamp Label                 | This document |
+  +-------------+---------------------------------+---------------+
       </artwork>
       </figure>
 
@@ -736,11 +736,11 @@
 
       <figure>
         <artwork>     
-    +-------------+---------------------------------+---------------+
-    | Value       | Endpoint Behavior               | Reference     |
-    +-------------+---------------------------------+---------------+
-    | TBA2        | End.TSF (Timestamp and Forward) | This document |
-    +-------------+---------------------------------+---------------+</artwork>
+  +-------------+---------------------------------+---------------+
+  | Value       | Endpoint Behavior               | Reference     |
+  +-------------+---------------------------------+---------------+
+  | TBA2        | End.TSF (Timestamp and Forward) | This document |
+  +-------------+---------------------------------+---------------+</artwork>
       </figure>
    </section>
   </middle>

@@ -639,10 +639,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 5.3.  Probe Message with Timestamp Endpoint Function for SRv6
 
-   In this document, new Endpoint function "Timestamp and Forward (TSF)"
-   (value TBD2) is defined for Segment Routing Header (SRH) [RFC8754]
-   for SRv6 data plane to enable network programming function to
-   "timestamp and forward" the received packet.
+   In this document, Timestamp Endpoint function for "Timestamp and
+   Forward (TSF)" (value TBD2) is defined for Segment Routing Header
+   (SRH) [RFC8754] for SRv6 data plane to enable network programming
+   function to "timestamp and forward" the received packet.
 
    In the probe message for SRv6, End.TSF function is added for the
    target Segment Identifier (SID) in SRH [RFC8754] as shown in
@@ -702,8 +702,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 5.3.1.  Timestamp Endpoint Function Signaling
 
-   Endpoint function "Timestamp and Forward" (value TBA2) can be
-   signaled using one of the following methods:
+   Timestamp endpoint function for "Timestamp and Forward" (value TBA2)
+   can be signaled using one of the following methods:
 
    o  Timestamp endpoint function assigned by IANA from the "SRv6
       Endpoint Behaviors Registry".
@@ -794,22 +794,22 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    allocate Timestamp Label value from the "Extended Special-Purpose
    MPLS Label Values" registry:
 
-       +-------------+---------------------------------+---------------+
-       | Value       | Description                     | Reference     |
-       +-------------+---------------------------------+---------------+
-       | TBA1        | Timestamp Label                 | This document |
-       +-------------+---------------------------------+---------------+
+     +-------------+---------------------------------+---------------+
+     | Value       | Description                     | Reference     |
+     +-------------+---------------------------------+---------------+
+     | TBA1        | Timestamp Label                 | This document |
+     +-------------+---------------------------------+---------------+
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
    Registry" sub-registry belonging to the top-level "Segment Routing
    Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
    following allocation:
 
-       +-------------+---------------------------------+---------------+
-       | Value       | Endpoint Behavior               | Reference     |
-       +-------------+---------------------------------+---------------+
-       | TBA2        | End.TSF (Timestamp and Forward) | This document |
-       +-------------+---------------------------------+---------------+
+     +-------------+---------------------------------+---------------+
+     | Value       | Endpoint Behavior               | Reference     |
+     +-------------+---------------------------------+---------------+
+     | TBA2        | End.TSF (Timestamp and Forward) | This document |
+     +-------------+---------------------------------+---------------+
 
 10.  References
 
