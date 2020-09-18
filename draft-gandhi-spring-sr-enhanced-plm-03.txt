@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: March 21, 2021                                     N. Vaghamshi
+Expires: March 22, 2021                                     N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
                                                                 R. Foote
                                                                    Nokia
-                                                      September 17, 2020
+                                                      September 18, 2020
 
 
  Enhanced Performance Delay and Liveness Monitoring in Segment Routing
@@ -24,10 +24,11 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
-   networks.  The procedure uses RFC 5357 (Two-Way Active Measurement
-   Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way Active
-   Measurement Protocol (STAMP)) compatible probe messages for end-to-
-   end SR Paths including SR Policies with both SR-MPLS and SRv6 data
+   networks.  The procedure uses probe messages compatible with the
+   delay measurement packet formats defined in RFC 5357 (Two-Way Active
+   Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
+   Active Measurement Protocol (STAMP)) and are applicable to end-to-end
+   SR Paths including SR Policies with both SR-MPLS and SRv6 data
    planes.
 
 Status of This Memo
@@ -45,15 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 21, 2021.
+   This Internet-Draft will expire on March 22, 2021.
 
 
 
 
 
 
-
-Gandhi, et al.           Expires March 21, 2021                 [Page 1]
+Gandhi, et al.           Expires March 22, 2021                 [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 2]
+Gandhi, et al.           Expires March 22, 2021                 [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -124,10 +124,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    between transit nodes and between transit and destination nodes.  SR
    Policies as defined in [I-D.ietf-spring-segment-routing-policy] are
    used to steer traffic through a specific, user-defined paths using a
-   stack of Segments.  Built-in Liveness Monitoring for detecting faults
-   as well as Performance Delay Measurement (DM) and Loss Measurement
-   (LM) are essential requirements to provide Service Level Agreements
-   (SLAs) in SR networks.
+   stack of Segments.  Built-in Performance Delay Measurement (DM) as
+   well as Liveness Monitoring for Connectivity Verification (CV) and
+   Continuity Check (CC) are essential requirements to provide Service
+   Level Agreements (SLAs) in SR networks.
 
    The One-Way Active Measurement Protocol (OWAMP) defined in [RFC4656]
    and Two-Way Active Measurement Protocol (TWAMP) defined in [RFC5357]
@@ -165,17 +165,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 3]
+Gandhi, et al.           Expires March 22, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
-   procedure uses RFC 5357 (Two-Way Active Measurement Protocol (TWAMP)
-   Light) and RFC 8762 (Simple Two-Way Active Measurement Protocol
-   (STAMP)) compatible probe messages for end-to-end SR Paths including
-   SR Policies with both SR-MPLS and SRv6 data planes.
+   procedure uses probe messages compatible with the delay measurement
+   packet formats defined in RFC 5357 (Two-Way Active Measurement
+   Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way Active
+   Measurement Protocol (STAMP)) and are applicable to end-to-end SR
+   Paths including SR Policies with both SR-MPLS and SRv6 data planes.
 
 2.  Conventions Used in This Document
 
@@ -220,8 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-Gandhi, et al.           Expires March 21, 2021                 [Page 4]
+Gandhi, et al.           Expires March 22, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -256,70 +256,72 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 2.4.  Loopback Mode
 
    In loopback mode, the sender node R1 initiates probe messages and the
-   reflector node R5 forwards them back to the sender node R1 just like
-   data packets for the normal traffic.  The probe messages are not
+   reflector node R5 forwards them just like data packets for the normal
+   traffic back to the sender node R1.  The probe messages are not
    punted at the reflector node and it does not process them and
    generate response messages.  The reflector node must not drop the
    loopback probe messages, for example, due to a local policy
-   provisioned on the node.
+   provisioned on the node.  No PM session is created on the reflector
+   node.
 
 3.  Probe Messages
 
-   The TWAMP [RFC5357] and STAMP [RFC8762] compatible probe messages for
-   delay measurement are defined as shown in Figure 2.  The probe
-   messages are sent by the sender node R1 towards the reflector node R5
-   in loopback mode as shown in Figure 1.  The probe messages are sent
-   by the sender node on the congruent path of the data traffic flowing
-   on the SR Path.  No PM session is created on the reflector node and
-   the probe messages are not punted on the reflector node.
+   The probe messages compatible with the delay measurement packet
+   formats defined in TWAMP [RFC5357] and STAMP [RFC8762] are specified
+   in Figure 2.  The probe messages are sent by the sender node R1
+   towards the reflector node R5 in loopback mode as shown in Figure 1.
+   The probe messages are sent on the congruent path of the data traffic
+   flowing on the SR Path.
 
 
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 5]
+Gandhi, et al.           Expires March 22, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Sequence Number                           |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Transmit Timestamp (t1)                   |
-       |                                                               |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |  Error Estimate               |  MBZ                          |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Receive Timestamp (t2)                    |
-       |                                                               |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       .                                                               .
-       ~                     Variable Length Padding                   ~
-       .                                                               .
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Sequence Number                           |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Transmit Timestamp (t1)                   |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Error Estimate               |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Receive Timestamp (t2)                    |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     .                                                               .
+     .                     Variable Length Padding                   .
+     ~                                                               ~
+     .                                                               .
+     .                                                               .
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                      TWAMP Compatible Probe Packet Format
+                    TWAMP Compatible Probe Packet Format
 
 
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Sequence Number                           |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Transmit Timestamp (t1)                   |
-       |                                                               |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |  Error Estimate               |  SSID                         |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                     Receive Timestamp (t2)                    |
-       |                                                               |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                                                               |
-       |                     Fixed Length Padding                      |
-       |                                                               |
-       |                                                               |
-       |                                                               |
-       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Sequence Number                           |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Transmit Timestamp (t1)                   |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Error Estimate               |  SSID                         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Receive Timestamp (t2)                    |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     |                     Fixed Length Padding                      |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                    STAMP Compatible Probe Packet Format
+                  STAMP Compatible Probe Packet Format
 
                       Figure 2: Probe Packet Formats
 
@@ -328,22 +330,22 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    [RFC8762] and are different than the ports used for TWAMP Light and
    STAMP sessions.  The Source and Destination IP addresses in the probe
    messages are set to the reflector and the sender node addresses,
-   respectively (representing the reverse path).  The IPv4 Time To Live
-   (TTL) and IPv6 Hop Limit (HL) are set to 255.
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 6]
+Gandhi, et al.           Expires March 22, 2021                 [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
+   respectively (representing the reverse path).  The IPv4 Time To Live
+   (TTL) and IPv6 Hop Limit (HL) are set to 255.
+
    Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as specified in
-   [RFC8186], implemented in hardware.  The NTP timestamp format MUST be
-   supported [RFC5357], however, since PTPv2 is widely used, it SHOULD
-   also be supported.  In addition to adding the timestamp in the
-   message, the "Error Estimate" field in the payload of the message can
-   be updated using the procedure defined in [RFC4656].
+   [RFC8186], implemented in hardware.  In addition to adding the
+   timestamp in the message, the "Error Estimate" field in the payload
+   of the message can be updated using the procedure defined in
+   [RFC4656].
 
 3.1.  Example Provisioning Model
 
@@ -354,11 +356,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
                                +------------+
                                | Controller |
                                +------------+
-     PDLM Mode                     /    \      Timestamp Label
+     PDLM Mode                     /    \      Timestamp Label/SRV6 EP
        LB or Enhanced Mode        /      \       Timestamp2 Offset
-     Measurement Protocol        /        \      Timestamp Format
+     Message Format              /        \      Timestamp Format
      Missed Probe Message Count /          \
-     Timestamp Label           /            \
+     Timestamp Label/SRv6 EP   /            \
        Timestamp Format       /              \
      Delay Threshold/Count   /                \
      Source/Dest UDP Ports  /                  \
@@ -372,7 +374,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
                    Figure 3: Example Provisioning Model
 
-   Example of Measurement Protocol is TWAMP Light and STAMP, example of
+   Example of message format is TWAMP Light and STAMP, example of
    Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP, etc.
 
    The mechanisms to provision the sender and reflector nodes are
@@ -387,9 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-
-Gandhi, et al.           Expires March 21, 2021                 [Page 7]
+Gandhi, et al.           Expires March 22, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -407,13 +407,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 4.1.  Probe Message for SR-MPLS
 
-   The TWAMP Light or STAMP probe messages for SR-MPLS data plane are
-   sent using the MPLS header containing the label stack of the SR
-   Policy as shown in Figure 4.  In case of IP/UDP return path, the MPLS
-   header is removed by the reflector node.  The label stack can contain
-   a reverse SR-MPLS path to receive the return probe message on a
-   specific path.  In this case, the MPLS header will not be removed by
-   the reflector node.
+   The probe messages are sent using the MPLS header containing the
+   label stack of the SR Policy as shown in Figure 4.  In case of IP/UDP
+   return path, the MPLS header is removed by the reflector node.  The
+   label stack can contain a reverse SR-MPLS path to receive the return
+   probe message on a specific path.  In this case, the MPLS header will
+   not be removed by the reflector node.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -445,7 +444,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 8]
+
+Gandhi, et al.           Expires March 22, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -497,18 +497,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    In "loopback mode enabled with network programming function", both
    transmit (t1) and receive (t2) timestamps in data plane are collected
    by the probe messages sent in loopback mode as shown in Figure 6.
-   The network programming function optimizes the "operations of punt,
+   The network programming function optimizes the "operations of punt
 
 
 
-Gandhi, et al.           Expires March 21, 2021                 [Page 9]
+Gandhi, et al.           Expires March 22, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-   add receive timestamp and inject the probe packet" on the reflector
-   node and it is implemented in hardware.  The payload of the probe
-   message is not modified by any intermediate nodes.
+   and inject the probe packet" on the reflector node as timestamping is
+   implemented in hardware.  This helps to achieve higher scale and
+   faster packet rate, resulting in faster failure detection.
 
                             t1                t2
                            /                   \
@@ -526,17 +526,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    The sender node adds transmit (t1) timestamp in the payload of the
    probe message and clears the receive (t2) timestamp.  The reflector
    node adds the receive timestamp in the payload of the received probe
-   message without punting the message to slow-path (or control-plane).
-   The reflector node only adds the receive timestamp if the source or
-   destination address in the probe message matches the local node
-   address to ensure that the receive timestamp is returned by the
-   intended reflector node.
+   message in hardware without punting the message to slow-path (or
+   control-plane).  The reflector node only adds the receive timestamp
+   if the source or destination address in the probe message matches the
+   local node address to ensure that the probe message reaches the
+   intended reflector node and the receive timestamp is returned by the
+   that node.  The payload of the probe message is not modified by any
+   intermediate nodes.
 
    The network programming function enables the node to add receive
    timestamp in the payload of the probe message at a specific offset
    which is locally provisioned consistently in the network.  In the
-   probe TWAMP Light message defined in Section 4.2.1 of [RFC5357] or
-   STAMP message defined in [RFC8762] for delay measurement, the 64-bit
+   probe message defined in Figure 2 for delay measurement, the 64-bit
    receive timestamp is added at byte-offset 16 which is from the start
    of the payload.
 
@@ -548,22 +549,21 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    In the probe message for SR-MPLS, Timestamp Label is added in the
    MPLS header as shown in Figure 7, to collect "Receive Timestamp"
-   field in the payload of the TWAMP Light [RFC5357] or STAMP probe
-   message.  The label stack for the reverse SR-MPLS path can be added
-   after the Timestamp Label to receive the return probe message on a
-   specific path.  When a node receives a message with Timestamp Label,
-   after timestamping the message at a specific offset, the node pops
-   the Timestamp Label and forwards the message using the next label or
+   field in the payload of the probe message.  The label stack for the
+   reverse SR-MPLS path can be added after the Timestamp Label to
+   receive the return probe message on a specific path.  When a node
+   receives a message with Timestamp Label, after timestamping the
+   message at a specific offset, the node pops the Timestamp Label and
 
 
 
-Gandhi, et al.           Expires March 21, 2021                [Page 10]
+Gandhi, et al.           Expires March 22, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-   IP header in the message (just like the data packets for the normal
-   traffic).
+   forwards the message using the next label or IP header in the message
+   (just like the data packets for the normal traffic).
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -603,7 +603,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Timestamp Label.  The signaling extension for this capability
    exchange is outside the scope of this document.
 
-   Another way is to leverage a centralized controller (e.g., SDN
+   One way is to leverage a centralized controller (e.g., SDN
    controller) to program the ingress and egress nodes.  In this case,
    the controller MUST make sure (e.g., by some capability discovery
    mechanisms outside the scope of this document) that the egress node
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 21, 2021                [Page 11]
+Gandhi, et al.           Expires March 22, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -623,31 +623,40 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Timestamp Label (value TBA1) can be allocated using one of the
    following methods:
 
-   o  Labels assigned by IANA with value TBA1 from the Extended Special-
-      Purpose MPLS Values [I-D.ietf-mpls-spl-terminology].
+   o  Label assigned by IANA with value TBA1 from the "Extended Special-
+      Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
+      timestamp offset is fixed at byte-offset 16 and timestamp format
+      is PTPv2 for this label.
 
-   o  Labels allocated by a Controller from the global table of the
+   o  Label allocated by a Controller from the global table of the
       egress node.  The Controller provisions the label on both ingress
-      and egress nodes.
+      and egress nodes, as well as timestamp offset and timestamp
+      format.
 
-   o  Labels allocated by the egress node.  The signaling or IGP
-      flooding extension for this is outside the scope of this document.
+   o  Label allocated by the egress node.  The signaling and IGP
+      flooding extension for the label (including timestamp offset and
+      timestamp format) are outside the scope of this document.
 
 5.3.  Probe Message with Network Programming Function for SRv6
 
    In this document, new Endpoint function "Timestamp and Forward (TSF)"
    (value TBD2) is defined for Segment Routing Header (SRH) [RFC8754]
    for SRv6 data plane to enable network programming function for
-   "timestamp and forward" the received message.
+   "timestamp and forward" the received packet.
 
    In the probe message for SRv6, End.TSF function is added for the
-   Endpoint Segment Identifier (SID) in SRH [RFC8754] as shown in
+   target Segment Identifier (SID) in SRH [RFC8754] as shown in
    Figure 8, to collect "Receive Timestamp" field in the payload of the
-   TWAMP Light [RFC5357] or STAMP probe message.  When a node receives a
-   packet with End.TSF function for the target SID which is local, after
-   timestamping the packet at a specific offset, the node forwards the
-   packet using the next SID or IP header in the packet (just like the
-   packets for the normal traffic).
+   probe message.  The Segment List for the reverse path can be added
+   after the target SID to receive the return probe message on a
+   specific path.  When a node receives a message with End.TSF function
+   for the target SID which is local, after timestamping the packet at a
+   specific offset, the node forwards the packet using the next SID or
+   IP header in the message (just like the data packets for the normal
+   traffic).  When the probe return message contains an SRH at the
+   sender node, the procedure defined for upper-layer header processing
+   for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
+   to process the UDP header in the received probe messages.
 
 
 
@@ -660,16 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 21, 2021                [Page 12]
+Gandhi, et al.           Expires March 22, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -717,19 +717,22 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 7.  Failure Notification
 
+   Liveness success for SR Path is notified as soon as one or more
+   return probe messages are received at the sender node.
+
    Liveness failure for SR Path is notified when consecutive N number of
    return probe messages are not received at the sender node, where N
-   (Missed Probe Message Count) is locally provisioned value.
-   Similarly, delay metrics are notified when consecutive M number of
-   probe messages have measured delay values exceed user-configured
 
 
 
-Gandhi, et al.           Expires March 21, 2021                [Page 13]
+Gandhi, et al.           Expires March 22, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
+   (Missed Probe Message Count) is locally provisioned value.
+   Similarly, delay metrics are notified when consecutive M number of
+   probe messages have measured delay values exceed user-configured
    thresholds (absolute and percentage), where M is also locally
    provisioned value.
 
@@ -768,23 +771,26 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
        +-------------+---------------------------------+---------------+
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
-   Registry" sub-registry belonging to the top-level "Segment-routing
-   with IPv6 data plane (SRv6) Parameters" registry
-   [I-D.ietf-spring-srv6-network-programming], the following allocation:
+   Registry" sub-registry belonging to the top-level "Segment Routing
+   Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
+   following allocation:
+
+
+
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 14]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
 
        +-------------+---------------------------------+---------------+
        | Value       | Endpoint Behavior               | Reference     |
        +-------------+---------------------------------+---------------+
        | TBA2        | End.TSF (Timestamp and Forward) | This document |
        +-------------+---------------------------------+---------------+
-
-
-
-
-Gandhi, et al.           Expires March 21, 2021                [Page 14]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
 
 10.  References
 
@@ -825,6 +831,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 15]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
               Pallagatti, "Seamless Bidirectional Forwarding Detection
               (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
@@ -834,13 +851,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               Timestamp Format in a Two-Way Active Measurement Protocol
               (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
               <https://www.rfc-editor.org/info/rfc8186>.
-
-
-
-Gandhi, et al.           Expires March 21, 2021                [Page 15]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
 
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
@@ -881,22 +891,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-03 (work in progress), August 2020.
 
+
+
+Gandhi, et al.           Expires March 22, 2021                [Page 16]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    [I-D.ietf-pce-binding-label-sid]
               Filsfils, C., Sivabalan, S., Tantsura, J., Hardwick, J.,
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
               in PCE-based Networks.", draft-ietf-pce-binding-label-
               sid-03 (work in progress), June 2020.
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 21, 2021                [Page 16]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -906,7 +912,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 Acknowledgments
 
-   TBD
+   The authors would like to thank Greg Mirsky, and Adrian Farrel for
+   providing the review comments.
 
 Authors' Addresses
 
@@ -942,11 +949,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 21, 2021                [Page 17]
+Gandhi, et al.           Expires March 22, 2021                [Page 17]
