@@ -25,7 +25,7 @@ Abstract
    (SRv6) data planes.  This document defines procedure for Enhanced
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
    networks.  The procedure uses probe messages compatible with the
-   delay measurement packet formats defined in RFC 5357 (Two-Way Active
+   delay measurement message formats defined in RFC 5357 (Two-Way Active
    Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
    Active Measurement Protocol (STAMP)) and are applicable to end-to-end
    SR Paths including SR Policies with both SR-MPLS and SRv6 data
@@ -173,7 +173,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
    procedure uses probe messages compatible with the delay measurement
-   packet formats defined in RFC 5357 (Two-Way Active Measurement
+   message formats defined in RFC 5357 (Two-Way Active Measurement
    Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way Active
    Measurement Protocol (STAMP)) and are applicable to end-to-end SR
    Paths including SR Policies with both SR-MPLS and SRv6 data planes.
@@ -266,7 +266,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 3.  Probe Messages
 
-   The probe messages compatible with the delay measurement packet
+   The probe messages compatible with the delay measurement message
    formats defined in TWAMP [RFC5357] and STAMP [RFC8762] are specified
    in Figure 2.  The probe messages are sent by the sender node R1
    towards the reflector node R5 in loopback mode as shown in Figure 1.
@@ -508,7 +508,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    and inject the probe packet" on the reflector node as timestamping is
    implemented in hardware.  This helps to achieve higher scale and
-   faster packet rate, resulting in faster failure detection.
+   faster rate, resulting in faster failure detection.
 
                             t1                t2
                            /                   \
@@ -553,7 +553,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    reverse SR-MPLS path can be added after the Timestamp Label to
    receive the return probe message on a specific path.  When a node
    receives a message with Timestamp Label, after timestamping the
-   message at a specific offset, the node pops the Timestamp Label and
+   packet at a specific offset, the node pops the Timestamp Label and
 
 
 

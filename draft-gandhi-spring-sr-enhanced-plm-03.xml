@@ -106,7 +106,7 @@
       (SRv6) data planes. This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure uses probe messages compatible with the delay measurement 
-      packet formats defined in RFC 5357 (Two-Way
+      message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and are applicable to  
       end-to-end SR Paths including 
@@ -163,7 +163,7 @@
       <t>This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure uses probe messages compatible with the delay measurement 
-      packet formats defined in RFC 5357 (Two-Way
+      message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and are applicable to  
       end-to-end SR Paths including 
@@ -252,7 +252,7 @@
      </section>
  
     <section title="Probe Messages" anchor="sect-3"><t>
-    The probe messages compatible with the delay measurement packet formats defined in 
+    The probe messages compatible with the delay measurement message formats defined in 
     TWAMP <xref target="RFC5357"/> and STAMP <xref target="RFC8762"/> 
     are specified in Figure 2.
     The probe messages are sent by the sender node R1 towards the reflector 
@@ -463,7 +463,7 @@
       The network programming function optimizes the "operations of punt 
       and inject the probe packet" on the reflector 
       node as timestamping is implemented in hardware. This helps to achieve higher scale
-      and faster packet rate, resulting in faster failure detection.</t>
+      and faster rate, resulting in faster failure detection.</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -514,7 +514,7 @@
       The label stack for the reverse SR-MPLS path can be added after the Timestamp 
       Label to receive the return probe message on a specific path.
       When a node receives a message with
-      Timestamp Label, after timestamping the message at a specific offset, 
+      Timestamp Label, after timestamping the packet at a specific offset, 
       the node pops the Timestamp Label and forwards the
       message using the next label or IP header in the message (just like the 
       data packets for the normal traffic).</t>
