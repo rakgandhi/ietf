@@ -469,8 +469,12 @@
     the Segment List of the SR Policy as shown in Figure 6. In case of IP/UDP
     return path, the SRH is removed by the reflector node.
     The Segment List can contain a reverse SRv6 path to receive 
-    the return probe message on a specific path. In this case, the SRH will not be removed
-    by the reflector node.</t>
+    the return probe message on a specific path. In this case, the 
+    SRH will not be removed by the reflector node.
+    When the probe return message contains an SRH at the sender node,
+    the procedure defined for upper-layer header processing for SRv6 SIDs
+    in [I-D.ietf-spring-srv6-network-programming] is used to process the
+    UDP header in the received probe messages.</t>
 
         <figure anchor="ure-probe-message-header-for-srv6"
                 title="Example Probe Message for SRv6">
@@ -607,19 +611,14 @@
       <t>In the probe message for SRv6,
       End.TSF function is added for the target Segment Identifier (SID) in SRH 
       <xref target="RFC8754"/> as shown in Figure 8,
-      to collect "Receive Timestamp" field in the payload of the 
-      probe message. 
+      to collect "Receive Timestamp" field in the payload of the probe message. 
       The Segment List for the reverse path can be added after the target SID 
       to receive the return probe message on a specific path.
-      When a node receives a message with
+      When a reflector node receives a message with
       End.TSF function for the target SID which is local, 
       after timestamping the packet at a specific offset,
       the node forwards the packet using the next SID or IP header in the message 
-      (just like the data packets for the normal traffic).
-      When the probe return message contains an SRH at the sender node,
-      the procedure defined for upper-layer header processing for SRv6 SIDs
-      in [I-D.ietf-spring-srv6-network-programming] is used to process the
-      UDP header in the received probe messages.</t>
+      (just like the data packets for the normal traffic).</t>
 
         <figure anchor="ure-probe-message-header-for-srv6-with-endpoint-function"
                 title="Example Probe Message with Endpoint Function for SRv6">

@@ -508,7 +508,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    reverse SRv6 path to receive the return probe message on a specific
    path.  In this case, the SRH will not be removed by the reflector
-   node.
+   node.  When the probe return message contains an SRH at the sender
+   node, the procedure defined for upper-layer header processing for
+   SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used to
+   process the UDP header in the received probe messages.
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -551,9 +554,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    In the probe message for SR-MPLS, Timestamp Label is added in the
    MPLS header as shown in Figure 7, to collect "Receive Timestamp"
    field in the payload of the probe message.  The label stack for the
-   reverse SR-MPLS path can be added after the Timestamp Label to
-   receive the return probe message on a specific path.  When a node
-   receives a message with Timestamp Label, after timestamping the
 
 
 
@@ -562,6 +562,9 @@ Gandhi, et al.           Expires March 23, 2021                [Page 10]
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
+   reverse SR-MPLS path can be added after the Timestamp Label to
+   receive the return probe message on a specific path.  When a node
+   receives a message with Timestamp Label, after timestamping the
    packet at a specific offset, the node pops the Timestamp Label and
    forwards the message using the next label or IP header in the message
    (just like the data packets for the normal traffic).
@@ -607,9 +610,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    One way is to leverage a centralized controller (e.g., SDN
    controller) to program the ingress and egress nodes.  In this case,
    the controller MUST make sure (e.g., by some capability discovery
-   mechanisms outside the scope of this document) that the egress node
-   can process the Timestamp Label.
-
 
 
 
@@ -617,6 +617,9 @@ Gandhi, et al.           Expires March 23, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   mechanisms outside the scope of this document) that the egress node
+   can process the Timestamp Label.
 
 6.1.2.  Timestamp Label Allocation
 
@@ -649,14 +652,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Figure 8, to collect "Receive Timestamp" field in the payload of the
    probe message.  The Segment List for the reverse path can be added
    after the target SID to receive the return probe message on a
-   specific path.  When a node receives a message with End.TSF function
-   for the target SID which is local, after timestamping the packet at a
-   specific offset, the node forwards the packet using the next SID or
-   IP header in the message (just like the data packets for the normal
-   traffic).  When the probe return message contains an SRH at the
-   sender node, the procedure defined for upper-layer header processing
-   for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
-   to process the UDP header in the received probe messages.
+   specific path.  When a reflector node receives a message with End.TSF
+   function for the target SID which is local, after timestamping the
+   packet at a specific offset, the node forwards the packet using the
+   next SID or IP header in the message (just like the data packets for
+   the normal traffic).
 
 
 
