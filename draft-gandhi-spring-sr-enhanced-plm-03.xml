@@ -218,7 +218,7 @@
       </section>
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
-    In the reference topology shown below, the nodes R1 and R5 are connected via 
+    In the reference topology shown in Figure 1, the nodes R1 and R5 are connected via 
     Point-to-Point (P2P) SR Path such as SR Policy
     <xref target="I-D.ietf-spring-segment-routing-policy"/> 
     originating on node R1 with endpoint on node R5.</t>
@@ -249,12 +249,46 @@
     for example, due to a local policy provisioned on the node. 
     No PM session is created on the reflector node.</t>
      </section>
+
+    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
+    An example provisioning model and typical measurement parameters are shown in Figure 2:</t>
+ 
+    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
+
+                            +------------+
+                            | Controller |
+                            +------------+
+  PDLM Mode                     /    \      Timestamp Label/SRV6 EP
+    LB or Enhanced Mode        /      \       Timestamp2 Offset
+  Message Format              /        \      Timestamp Format
+  Missed Probe Message Count /          \
+  Timestamp Label/SRv6 EP   /            \
+    Timestamp Format       /              \
+  Delay Threshold/Count   /                \
+  Source/Dest UDP Ports  /                  \
+                        v                    v
+                    +-------+            +-------+
+                    |       |            |       |
+                    |   R1  |============|   R5  |
+                    |       |  SR Path   |       |
+                    +-------+            +-------+
+                     Sender              Reflector
+]]></artwork>
+    </figure>
+
+    <t>Example of message format is TWAMP Light and STAMP, example of  
+    Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
+    
+    <t>The mechanisms to provision the
+    sender and reflector nodes are outside the scope of this document.</t>
+    </section>
+
      </section>
  
-    <section title="Probe Messages" anchor="sect-3"><t>
+    <section title="Probe Message Formats" anchor="sect-3"><t>
     The probe messages compatible with the delay measurement message formats defined in 
     TWAMP <xref target="RFC5357"/> and STAMP <xref target="RFC8762"/> 
-    are specified in Figure 2.
+    are specified in Figure 3.
     </t>
 
    <figure title="Probe Packet Formats" anchor="ure-probe-packet-format"><artwork><![CDATA[
@@ -306,39 +340,6 @@
     specified in <xref target="RFC8186"/>, implemented in hardware. 
     In addition to adding the timestamp in the message, the "Error Estimate" field in the payload
     of the message can be updated using the procedure defined in <xref target="RFC4656"/>.</t>
- 
-    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
-    An example provisioning model and typical measurement parameters are shown in Figure 3:</t>
- 
-    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
-
-                            +------------+
-                            | Controller |
-                            +------------+
-  PDLM Mode                     /    \      Timestamp Label/SRV6 EP
-    LB or Enhanced Mode        /      \       Timestamp2 Offset
-  Message Format              /        \      Timestamp Format
-  Missed Probe Message Count /          \
-  Timestamp Label/SRv6 EP   /            \
-    Timestamp Format       /              \
-  Delay Threshold/Count   /                \
-  Source/Dest UDP Ports  /                  \
-                        v                    v
-                    +-------+            +-------+
-                    |       |            |       |
-                    |   R1  |============|   R5  |
-                    |       |  SR Path   |       |
-                    +-------+            +-------+
-                     Sender              Reflector
-]]></artwork>
-    </figure>
-
-    <t>Example of message format is TWAMP Light and STAMP, example of  
-    Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
-    
-    <t>The mechanisms to provision the
-    sender and reflector nodes are outside the scope of this document.</t>
-    </section>
 
     </section>
 
@@ -399,7 +400,7 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 2                               |
+  |  Payload as defined in Figure 3                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -437,7 +438,7 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 2                               |
+  |  Payload as defined in Figure 3                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -490,7 +491,7 @@
       <t>The network programming function enables the node to add receive timestamp
       in the payload of the probe message at a specific offset which is locally
       provisioned consistently in the network. 
-      In the probe message defined in Figure 2 for  
+      In the probe message defined in Figure 3 for  
       delay measurement, the 64-bit receive timestamp is added at byte-offset 16 which is 
       from the start of the payload.</t>
 
@@ -543,7 +544,7 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 2                               |
+  |  Payload as defined in Figure 3                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
@@ -632,7 +633,7 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 2                               |
+  |  Payload as defined in Figure 3                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
