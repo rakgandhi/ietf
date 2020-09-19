@@ -24,11 +24,12 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
-   networks.  The procedure uses probe messages compatible with the
-   delay measurement message formats defined in RFC 5357 (Two-Way Active
-   Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
-   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
-   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+   networks.  The procedure leverages the probe messages compatible with
+   the delay measurement message formats defined in RFC 5357 (Two-Way
+   Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-
+   Way Active Measurement Protocol (STAMP)) and is applicable to end-to-
+   end SR Paths including SR Policies for both SR-MPLS and SRv6 data
+   planes.
 
 Status of This Memo
 
@@ -46,7 +47,6 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on March 23, 2021.
-
 
 
 
@@ -172,11 +172,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
-   procedure uses probe messages compatible with the delay measurement
-   message formats defined in RFC 5357 (Two-Way Active Measurement
-   Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way Active
-   Measurement Protocol (STAMP)) and is applicable to end-to-end SR
-   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+   procedure leverages the probe messages compatible with the delay
+   measurement message formats defined in RFC 5357 (Two-Way Active
+   Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
+   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
+   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 2.  Conventions Used in This Document
 

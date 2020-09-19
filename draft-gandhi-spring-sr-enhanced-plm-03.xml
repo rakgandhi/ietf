@@ -105,7 +105,7 @@
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure uses probe messages compatible with the delay measurement 
+      The procedure leverages the probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
@@ -162,7 +162,7 @@
 
       <t>This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure uses probe messages compatible with the delay measurement 
+      The procedure leverages the probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
