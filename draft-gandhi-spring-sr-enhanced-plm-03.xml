@@ -251,8 +251,6 @@
     for example, due to a local policy provisioned on the node. 
     No PM session is created on the reflector node.</t>
 
-
-
     <t>The Source and Destination IP addresses in the probe messages are set to the reflector 
     and the sender node addresses, respectively (representing the reverse path).
     Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
@@ -261,18 +259,7 @@
     used for TWAMP Light and STAMP sessions.
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
-     <t>For SR Policy, the probe messages are sent using the Segment List (SL) of the Candidate-path 
-     <xref target="I-D.ietf-spring-segment-routing-policy"/>.
-     When a Candidate-path has more than one Segment Lists, multiple
-     probe messages are sent, one using each Segment List. The return probe messages are received by
-     the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
-     The Segment List of the return SR path can be added in the probe message header
-     to receive the return probe message on a specific path using the Binding SID 
-     <xref target="I-D.ietf-pce-binding-label-sid"/> or Segment List of the Reverse SR Policy <xref
-     target="I-D.ietf-pce-sr-bidir-path"/>.</t>
-
      </section>
-
 
       <section anchor="sect-3.2"
                title="Loopback Mode Enabled with Network Programming Function"
@@ -321,8 +308,6 @@
 
       </section>
 
-
-
     <section title="Example Provisioning Model" anchor="sect-3.3"><t>
     An example provisioning model and typical measurement parameters are shown in Figure 3:</t>
  
@@ -357,7 +342,6 @@
 
      </section>
     </section>
-
 
     <section title="Probe Message Formats" anchor="sect-4"><t>
     The probe messages compatible with the delay measurement message formats defined in 
@@ -422,6 +406,15 @@
      PM probes in loopback mode is used.  
      </t>
  
+     <t>For SR Policy, the probe messages are sent using the Segment List (SL) of the Candidate-path 
+     <xref target="I-D.ietf-spring-segment-routing-policy"/>.
+     When a Candidate-path has more than one Segment Lists, multiple
+     probe messages are sent, one using each Segment List. The return probe messages are received by
+     the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
+     The Segment List of the return SR path can be added in the probe message header
+     to receive the return probe message on a specific path using the Binding SID 
+     <xref target="I-D.ietf-pce-binding-label-sid"/> or Segment List of the Reverse SR Policy <xref
+     target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
     <section anchor="sect-5.1" title="Probe Message for SR-MPLS">
      <t>The probe messages are 

@@ -83,27 +83,27 @@ Table of Contents
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
      3.2.  Loopback Mode Enabled with Network Programming Function .   6
-     3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   7
+     3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  Probe Message Formats . . . . . . . . . . . . . . . . . . . .   7
    5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   9
      5.1.  Probe Message for SR-MPLS . . . . . . . . . . . . . . . .   9
-     5.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   9
-   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
-     6.1.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  10
-       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  11
-       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  12
-     6.2.  Probe Message with Timestamp Endpoint Function for SRv6 .  12
-       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  13
-       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  13
-   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  14
-   8.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+     5.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .  10
+   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  11
+     6.1.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  11
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
+       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
+     6.2.  Probe Message with Timestamp Endpoint Function for SRv6 .  13
+       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
+       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  14
+   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  15
+   8.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -282,17 +282,6 @@ Gandhi, et al.           Expires March 23, 2021                 [Page 5]
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-   For SR Policy, the probe messages are sent using the Segment List
-   (SL) of the Candidate-path [I-D.ietf-spring-segment-routing-policy].
-   When a Candidate-path has more than one Segment Lists, multiple probe
-   messages are sent, one using each Segment List.  The return probe
-   messages are received by the sender node via IP/UDP [RFC0768] return
-   path by default.  The Segment List of the return SR path can be added
-   in the probe message header to receive the return probe message on a
-   specific path using the Binding SID [I-D.ietf-pce-binding-label-sid]
-   or Segment List of the Reverse SR Policy
-   [I-D.ietf-pce-sr-bidir-path].
-
 3.2.  Loopback Mode Enabled with Network Programming Function
 
    In "loopback mode enabled with network programming function", both
@@ -330,14 +319,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    The network programming function enables the node to add receive
    timestamp in the payload of the probe message at a specific offset
    which is locally provisioned consistently in the network.  In the
-
-
-
-Gandhi, et al.           Expires March 23, 2021                 [Page 6]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    probe message defined in Figure 4 for delay measurement, the 64-bit
    receive timestamp is added at byte-offset 16 which is from the start
    of the payload.
@@ -346,6 +327,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    An example provisioning model and typical measurement parameters are
    shown in Figure 3:
+
+
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                 [Page 6]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
                                +------------+
@@ -380,6 +370,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    The probe messages compatible with the delay measurement message
    formats defined in TWAMP [RFC5357] and STAMP [RFC8762] are specified
    in Figure 4.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -455,6 +455,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    For performance delay and liveness monitoring of an end-to-end SR
    Path including SR Policy, PM probes in loopback mode is used.
 
+   For SR Policy, the probe messages are sent using the Segment List
+   (SL) of the Candidate-path [I-D.ietf-spring-segment-routing-policy].
+   When a Candidate-path has more than one Segment Lists, multiple probe
+   messages are sent, one using each Segment List.  The return probe
+   messages are received by the sender node via IP/UDP [RFC0768] return
+   path by default.  The Segment List of the return SR path can be added
+   in the probe message header to receive the return probe message on a
+   specific path using the Binding SID [I-D.ietf-pce-binding-label-sid]
+   or Segment List of the Reverse SR Policy
+   [I-D.ietf-pce-sr-bidir-path].
+
 5.1.  Probe Message for SR-MPLS
 
    The probe messages are sent using the MPLS header containing the
@@ -463,6 +474,37 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    label stack can contain a reverse SR-MPLS path to receive the return
    probe message on a specific path.  In this case, the MPLS header will
    not be removed by the reflector node.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                 [Page 9]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -498,20 +540,27 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Routing Header (SRH) [RFC8754] containing the Segment List of the SR
    Policy as shown in Figure 6.  In case of IP/UDP return path, the SRH
    is removed by the reflector node.  The Segment List can contain a
-
-
-
-Gandhi, et al.           Expires March 23, 2021                 [Page 9]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    reverse SRv6 path to receive the return probe message on a specific
    path.  In this case, the SRH will not be removed by the reflector
    node.  When the return probe message contains an SRH at the sender
    node, the procedure defined for upper-layer header processing for
    SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used to
    process the UDP header in the received probe messages.
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                [Page 10]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -554,20 +603,20 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    In the probe message for SR-MPLS, Timestamp Label is added in the
    MPLS header as shown in Figure 7, to collect "Receive Timestamp"
    field in the payload of the probe message.  The label stack for the
-
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 10]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    reverse SR-MPLS path can be added after the Timestamp Label to
    receive the return probe message on a specific path.  When a node
    receives a message with Timestamp Label, after timestamping the
    packet at a specific offset, the node pops the Timestamp Label and
    forwards the message using the next label or IP header in the message
    (just like the data packets for the normal traffic).
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -611,17 +660,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
       fixed at byte-offset 16 and timestamp format is PTPv2 for this
       label.
 
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
    o  Label allocated by a Controller from the global table of the
       egress node.  The Controller provisions the label on both ingress
       and egress nodes, as well as timestamp offset and timestamp
       format.
+
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                [Page 12]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
 
    o  Label allocated by the egress node.  The signaling and IGP
       flooding extension for the label (including timestamp offset and
@@ -669,7 +720,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 12]
+
+
+
+
+
+Gandhi, et al.           Expires March 23, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -725,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 13]
+Gandhi, et al.           Expires March 23, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -781,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 14]
+Gandhi, et al.           Expires March 23, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -837,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 15]
+Gandhi, et al.           Expires March 23, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -893,7 +949,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 16]
+Gandhi, et al.           Expires March 23, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -949,7 +1005,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 17]
+Gandhi, et al.           Expires March 23, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1005,4 +1061,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 18]
+Gandhi, et al.           Expires March 23, 2021                [Page 19]
