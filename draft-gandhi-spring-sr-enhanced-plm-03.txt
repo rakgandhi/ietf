@@ -508,7 +508,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
    reverse SRv6 path to receive the return probe message on a specific
    path.  In this case, the SRH will not be removed by the reflector
-   node.  When the probe return message contains an SRH at the sender
+   node.  When the return probe message contains an SRH at the sender
    node, the procedure defined for upper-layer header processing for
    SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used to
    process the UDP header in the received probe messages.
