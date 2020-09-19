@@ -307,15 +307,6 @@
     In addition to adding the timestamp in the message, the "Error Estimate" field in the payload
     of the message can be updated using the procedure defined in <xref target="RFC4656"/>.</t>
  
-    <t>Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
-    from the range specified in <xref target="RFC8762"/>.  
-    In loopback mode, the UDP ports used are different than the ports
-    used for TWAMP Light and STAMP sessions.
-    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
- 
-    <t>In loopback mode, the Source and Destination IP addresses in the probe messages are set to the reflector 
-    and the sender node addresses, respectively (representing the reverse path).</t>
- 
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
     An example provisioning model and typical measurement parameters are shown in Figure 3:</t>
  
@@ -353,11 +344,16 @@
 
     <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
      <t>For performance delay and liveness monitoring of an end-to-end SR Path including SR Policy, 
-     PM probes in loopback mode is used.  The PM probe messages 
-     are sent by the sender (head-end) node R1 to the reflector (endpoint)
-     node R5 of the SR Policy as shown in Figure 1.
-     The probe messages are sent on the
-     congruent path of the data traffic flowing on the SR Path.</t>
+     PM probes in loopback mode is used.  
+     </t>
+ 
+    <t>The Source and Destination IP addresses in the probe messages are set to the reflector 
+    and the sender node addresses, respectively (representing the reverse path).
+    Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
+    from the range specified in <xref target="RFC8762"/>.  
+    The UDP ports used in loopback mode are different than the ports
+    used for TWAMP Light and STAMP sessions.
+    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
      <t>For SR Policy, the probe messages are sent using the Segment List (SL) of the Candidate-path 
      <xref target="I-D.ietf-spring-segment-routing-policy"/>.
