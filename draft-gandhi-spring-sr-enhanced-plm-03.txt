@@ -80,29 +80,29 @@ Table of Contents
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
-     2.4.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
-     2.5.  Example Provisioning Model  . . . . . . . . . . . . . . .   5
-   3.  Probe Message Formats . . . . . . . . . . . . . . . . . . . .   6
-   4.  Performance Delay and Liveness Monitoring . . . . . . . . . .   8
-     4.1.  Probe Message for SR-MPLS . . . . . . . . . . . . . . . .   8
-     4.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   9
-   5.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
-     5.1.  Loopback Mode Enabled with Network Programming Function .  10
-     5.2.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  11
-       5.2.1.  Node Capability for Timestamp Label . . . . . . . . .  12
-       5.2.2.  Timestamp Label Allocation  . . . . . . . . . . . . .  13
-     5.3.  Probe Message with Timestamp Endpoint Function for SRv6 .  13
-       5.3.1.  Timestamp Endpoint Function Signaling . . . . . . . .  14
-   6.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  14
-   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
-
+   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
+     3.2.  Loopback Mode Enabled with Network Programming Function .   6
+     3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   7
+   4.  Probe Message Formats . . . . . . . . . . . . . . . . . . . .   7
+   5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   9
+     5.1.  Probe Message for SR-MPLS . . . . . . . . . . . . . . . .   9
+     5.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   9
+   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
+     6.1.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  10
+       6.1.1.  Node Capability for Timestamp Label . . . . . . . . .  11
+       6.1.2.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
+     6.2.  Probe Message with Timestamp Endpoint Function for SRv6 .  12
+       6.2.1.  Timestamp Endpoint Function Signaling . . . . . . . .  13
+   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  13
+   8.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  15
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  16
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 
 
@@ -253,7 +253,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
                        Figure 1: Reference Topology
 
-2.4.  Loopback Mode
+3.  Overview
+
+3.1.  Loopback Mode
 
    In loopback mode, the sender node R1 initiates probe messages and the
    reflector node R5 forwards them just like data packets for the normal
@@ -264,22 +266,86 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    provisioned on the node.  No PM session is created on the reflector
    node.
 
-2.5.  Example Provisioning Model
-
-   An example provisioning model and typical measurement parameters are
-   shown in Figure 2:
-
-
-
-
-
-
+   The Source and Destination IP addresses in the probe messages are set
+   to the reflector and the sender node addresses, respectively
+   (representing the reverse path).  Both Source and Destination UDP
+   ports in the probe messages are allocated dynamically or user-
+   configured from the range specified in [RFC8762].  The UDP ports used
+   in loopback mode are different than the ports used for TWAMP Light
+   and STAMP sessions.  The IPv4 Time To Live (TTL) and IPv6 Hop Limit
+   (HL) are set to 255.
 
 
 
 Gandhi, et al.           Expires March 23, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
+   For SR Policy, the probe messages are sent using the Segment List
+   (SL) of the Candidate-path [I-D.ietf-spring-segment-routing-policy].
+   When a Candidate-path has more than one Segment Lists, multiple probe
+   messages are sent, one using each Segment List.  The return probe
+   messages are received by the sender node via IP/UDP [RFC0768] return
+   path by default.  The Segment List of the return SR path can be added
+   in the probe message header to receive the return probe message on a
+   specific path using the Binding SID [I-D.ietf-pce-binding-label-sid]
+   or Segment List of the Reverse SR Policy
+   [I-D.ietf-pce-sr-bidir-path].
+
+3.2.  Loopback Mode Enabled with Network Programming Function
+
+   In "loopback mode enabled with network programming function", both
+   transmit (t1) and receive (t2) timestamps in data plane are collected
+   by the probe messages sent in loopback mode as shown in Figure 2.
+   The network programming function optimizes the "operations of punt
+   and inject the probe packet" on the reflector node as timestamping is
+   implemented in hardware.  This helps to achieve higher scale and
+   faster rate, resulting in faster failure detection.
+
+                            t1                t2
+                           /                   \
+                  +-------+      Probe          +-------+
+                  |       | - - - - - - - - - - |       |
+                  |   R1  |====================||  R5   |
+                  |       |<- - - - - - - - - - |       |
+                  +-------+      Return Probe   +-------+
+                   Sender                       Reflector
+                                                (Timestamp,
+                                                 Pop and Forward)
+
+     Figure 2: Loopback Mode Enabled with Network Programming Function
+
+   The sender node adds transmit (t1) timestamp in the payload of the
+   probe message and clears the receive (t2) timestamp.  The reflector
+   node adds the receive timestamp in the payload of the received probe
+   message in hardware without punting the message to slow-path (or
+   control-plane).  The reflector node only adds the receive timestamp
+   if the source or destination address in the probe message matches the
+   local node address to ensure that the probe message reaches the
+   intended reflector node and the receive timestamp is returned by the
+   that node.  The payload of the probe message is not modified by any
+   intermediate nodes.
+
+   The network programming function enables the node to add receive
+   timestamp in the payload of the probe message at a specific offset
+   which is locally provisioned consistently in the network.  In the
+
+
+
+Gandhi, et al.           Expires March 23, 2021                 [Page 6]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
+   probe message defined in Figure 4 for delay measurement, the 64-bit
+   receive timestamp is added at byte-offset 16 which is from the start
+   of the payload.
+
+3.3.  Example Provisioning Model
+
+   An example provisioning model and typical measurement parameters are
+   shown in Figure 3:
 
 
                                +------------+
@@ -301,7 +367,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
                        +-------+            +-------+
                         Sender              Reflector
 
-                   Figure 2: Example Provisioning Model
+                   Figure 3: Example Provisioning Model
 
    Example of message format is TWAMP Light and STAMP, example of
    Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP, etc.
@@ -309,11 +375,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    The mechanisms to provision the sender and reflector nodes are
    outside the scope of this document.
 
-3.  Probe Message Formats
+4.  Probe Message Formats
 
    The probe messages compatible with the delay measurement message
    formats defined in TWAMP [RFC5357] and STAMP [RFC8762] are specified
-   in Figure 3.
+   in Figure 4.
 
 
 
@@ -323,17 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 23, 2021                 [Page 6]
+Gandhi, et al.           Expires March 23, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -379,7 +435,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
                    STAMP Compatible Probe Packet Format
 
-                      Figure 3: Probe Packet Formats
+                      Figure 4: Probe Packet Formats
 
    Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as specified in
    [RFC8186], implemented in hardware.  In addition to adding the
@@ -389,66 +445,24 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                 [Page 7]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
-4.  Performance Delay and Liveness Monitoring
-
-   For performance delay and liveness monitoring of an end-to-end SR
-   Path including SR Policy, PM probes in loopback mode is used.
-
-   The Source and Destination IP addresses in the probe messages are set
-   to the reflector and the sender node addresses, respectively
-   (representing the reverse path).  Both Source and Destination UDP
-   ports in the probe messages are allocated dynamically or user-
-   configured from the range specified in [RFC8762].  The UDP ports used
-   in loopback mode are different than the ports used for TWAMP Light
-   and STAMP sessions.  The IPv4 Time To Live (TTL) and IPv6 Hop Limit
-   (HL) are set to 255.
-
-   For SR Policy, the probe messages are sent using the Segment List
-   (SL) of the Candidate-path [I-D.ietf-spring-segment-routing-policy].
-   When a Candidate-path has more than one Segment Lists, multiple probe
-   messages are sent, one using each Segment List.  The return probe
-   messages are received by the sender node via IP/UDP [RFC0768] return
-   path by default.  The Segment List of the return SR path can be added
-   in the probe message header to receive the return probe message on a
-   specific path using the Binding SID [I-D.ietf-pce-binding-label-sid]
-   or Segment List of the Reverse SR Policy
-   [I-D.ietf-pce-sr-bidir-path].
-
-4.1.  Probe Message for SR-MPLS
-
-   The probe messages are sent using the MPLS header containing the
-   label stack of the SR Policy as shown in Figure 4.  In case of IP/UDP
-   return path, the MPLS header is removed by the reflector node.  The
-   label stack can contain a reverse SR-MPLS path to receive the return
-   probe message on a specific path.  In this case, the MPLS header will
-   not be removed by the reflector node.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Gandhi, et al.           Expires March 23, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+5.  Performance Delay and Liveness Monitoring
+
+   For performance delay and liveness monitoring of an end-to-end SR
+   Path including SR Policy, PM probes in loopback mode is used.
+
+5.1.  Probe Message for SR-MPLS
+
+   The probe messages are sent using the MPLS header containing the
+   label stack of the SR Policy as shown in Figure 5.  In case of IP/UDP
+   return path, the MPLS header is removed by the reflector node.  The
+   label stack can contain a reverse SR-MPLS path to receive the return
+   probe message on a specific path.  In this case, the MPLS header will
+   not be removed by the reflector node.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -472,32 +486,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      .  Destination Port = As chosen by Sender                       .
      .                                                               .
      +---------------------------------------------------------------+
-     |  Payload as defined in Figure 3                               |
+     |  Payload as defined in Figure 4                               |
      .                                                               .
      +---------------------------------------------------------------+
 
-                Figure 4: Example Probe Message for SR-MPLS
+                Figure 5: Example Probe Message for SR-MPLS
 
-4.2.  Probe Message for SRv6
+5.2.  Probe Message for SRv6
 
    The probe messages for SRv6 data plane are sent using the Segment
    Routing Header (SRH) [RFC8754] containing the Segment List of the SR
-   Policy as shown in Figure 5.  In case of IP/UDP return path, the SRH
+   Policy as shown in Figure 6.  In case of IP/UDP return path, the SRH
    is removed by the reflector node.  The Segment List can contain a
-   reverse SRv6 path to receive the return probe message on a specific
-   path.  In this case, the SRH will not be removed by the reflector
-   node.
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -505,6 +505,10 @@ Gandhi, et al.           Expires March 23, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   reverse SRv6 path to receive the return probe message on a specific
+   path.  In this case, the SRH will not be removed by the reflector
+   node.
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -526,74 +530,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      .  Destination Port = As chosen by Sender                       .
      .                                                               .
      +---------------------------------------------------------------+
-     |  Payload as defined in Figure 3                               |
+     |  Payload as defined in Figure 4                               |
      .                                                               .
      +---------------------------------------------------------------+
 
-                 Figure 5: Example Probe Message for SRv6
+                 Figure 6: Example Probe Message for SRv6
 
-5.  Enhanced Performance Delay and Liveness Monitoring
+6.  Enhanced Performance Delay and Liveness Monitoring
 
    The enhanced performance delay and liveness monitoring of an end-to-
    end SR Path including SR Policy is defined using the PM probes in
    "loopback mode enabled with network programming function".
 
-5.1.  Loopback Mode Enabled with Network Programming Function
-
-   In "loopback mode enabled with network programming function", both
-   transmit (t1) and receive (t2) timestamps in data plane are collected
-   by the probe messages sent in loopback mode as shown in Figure 6.
-   The network programming function optimizes the "operations of punt
-   and inject the probe packet" on the reflector node as timestamping is
-   implemented in hardware.  This helps to achieve higher scale and
-   faster rate, resulting in faster failure detection.
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 10]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
-                            t1                t2
-                           /                   \
-                  +-------+      Probe          +-------+
-                  |       | - - - - - - - - - - |       |
-                  |   R1  |====================||  R5   |
-                  |       |<- - - - - - - - - - |       |
-                  +-------+      Return Probe   +-------+
-                   Sender                       Reflector
-                                                (Timestamp,
-                                                 Pop and Forward)
-
-     Figure 6: Loopback Mode Enabled with Network Programming Function
-
-   The sender node adds transmit (t1) timestamp in the payload of the
-   probe message and clears the receive (t2) timestamp.  The reflector
-   node adds the receive timestamp in the payload of the received probe
-   message in hardware without punting the message to slow-path (or
-   control-plane).  The reflector node only adds the receive timestamp
-   if the source or destination address in the probe message matches the
-   local node address to ensure that the probe message reaches the
-   intended reflector node and the receive timestamp is returned by the
-   that node.  The payload of the probe message is not modified by any
-   intermediate nodes.
-
-   The network programming function enables the node to add receive
-   timestamp in the payload of the probe message at a specific offset
-   which is locally provisioned consistently in the network.  In the
-   probe message defined in Figure 3 for delay measurement, the 64-bit
-   receive timestamp is added at byte-offset 16 which is from the start
-   of the payload.
-
-5.2.  Probe Message with Timestamp Label for SR-MPLS
+6.1.  Probe Message with Timestamp Label for SR-MPLS
 
    In this document, new Timestamp Label (value TBD1) is defined for SR-
    MPLS data plane to enable network programming function for
@@ -605,18 +554,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    reverse SR-MPLS path can be added after the Timestamp Label to
    receive the return probe message on a specific path.  When a node
    receives a message with Timestamp Label, after timestamping the
-   packet at a specific offset, the node pops the Timestamp Label and
-   forwards the message using the next label or IP header in the message
-   (just like the data packets for the normal traffic).
 
 
 
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 11]
+Gandhi, et al.           Expires March 23, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   packet at a specific offset, the node pops the Timestamp Label and
+   forwards the message using the next label or IP header in the message
+   (just like the data packets for the normal traffic).
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -644,13 +592,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      .  Destination Port = As chosen by Sender                       .
      .                                                               .
      +---------------------------------------------------------------+
-     |  Payload as defined in Figure 3                               |
+     |  Payload as defined in Figure 4                               |
      .                                                               .
      +---------------------------------------------------------------+
 
      Figure 7: Example Probe Message with Timestamp Label for SR-MPLS
 
-5.2.1.  Node Capability for Timestamp Label
+6.1.1.  Node Capability for Timestamp Label
 
    The ingress node needs to know if the egress node can process the
    Timestamp Label.  The signaling extension for this capability
@@ -665,16 +613,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 12]
+Gandhi, et al.           Expires March 23, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-5.2.2.  Timestamp Label Allocation
+6.1.2.  Timestamp Label Allocation
 
    Timestamp Label (value TBA1) can be allocated using one of the
    following methods:
@@ -693,7 +637,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
       flooding extension for the label (including timestamp offset and
       timestamp format) are outside the scope of this document.
 
-5.3.  Probe Message with Timestamp Endpoint Function for SRv6
+6.2.  Probe Message with Timestamp Endpoint Function for SRv6
 
    In this document, Timestamp Endpoint function for "Timestamp and
    Forward (TSF)" (value TBD2) is defined for Segment Routing Header
@@ -725,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 13]
+Gandhi, et al.           Expires March 23, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -750,13 +694,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      .  Destination Port = As chosen by Sender                       .
      .                                                               .
      +---------------------------------------------------------------+
-     |  Payload as defined in Figure 3                               |
+     |  Payload as defined in Figure 4                               |
      .                                                               .
      +---------------------------------------------------------------+
 
       Figure 8: Example Probe Message with Endpoint Function for SRv6
 
-5.3.1.  Timestamp Endpoint Function Signaling
+6.2.1.  Timestamp Endpoint Function Signaling
 
    Timestamp endpoint function for "Timestamp and Forward" (value TBA2)
    can be signaled using one of the following methods:
@@ -773,7 +717,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
       (including timestamp offset and timestamp format) are outside the
       scope of this document.
 
-6.  ECMP Handling
+7.  ECMP Handling
 
    An SR Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.  The
@@ -781,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 14]
+Gandhi, et al.           Expires March 23, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -797,7 +741,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    header can also be used for sweeping to exercise different ECMP
    paths.
 
-7.  Failure Notification
+8.  Failure Notification
 
    Liveness success for SR Path is initially notified as soon as one or
    more return probe messages are received at the sender node.
@@ -814,7 +758,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    trip delay.  In loopback mode enabled with network programming
    function, the timestamps t1 and t2 are used to measure one-way delay.
 
-8.  Security Considerations
+9.  Security Considerations
 
    The Performance Delay and Liveness Monitoring is intended for
    deployment in the well-managed private and service provider networks.
@@ -837,12 +781,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 15]
+Gandhi, et al.           Expires March 23, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
    (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
@@ -867,9 +811,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      | TBA2        | End.TSF (Timestamp and Forward) | This document |
      +-------------+---------------------------------+---------------+
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
               DOI 10.17487/RFC0768, August 1980,
@@ -893,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 16]
+Gandhi, et al.           Expires March 23, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -907,7 +851,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [IEEE1588]
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
@@ -949,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 17]
+Gandhi, et al.           Expires March 23, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1005,7 +949,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 18]
+Gandhi, et al.           Expires March 23, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1061,4 +1005,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 23, 2021                [Page 19]
+Gandhi, et al.           Expires March 23, 2021                [Page 18]

@@ -239,8 +239,10 @@
        </artwork>
       </figure>
       </section>
+    </section>
  
-    <section title="Loopback Mode" anchor="sect-2.4"><t>
+  <section anchor="sect-3" title="Overview">
+    <section title="Loopback Mode" anchor="sect-3.1"><t>
     In loopback mode, the sender node R1 initiates probe messages and the reflector node R5
     forwards them just like data packets for the normal traffic back to the sender node R1. 
     The probe messages are not punted at the reflector node
@@ -248,10 +250,81 @@
     The reflector node must not drop the loopback probe messages, 
     for example, due to a local policy provisioned on the node. 
     No PM session is created on the reflector node.</t>
+
+
+
+    <t>The Source and Destination IP addresses in the probe messages are set to the reflector 
+    and the sender node addresses, respectively (representing the reverse path).
+    Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
+    from the range specified in <xref target="RFC8762"/>.  
+    The UDP ports used in loopback mode are different than the ports
+    used for TWAMP Light and STAMP sessions.
+    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
+
+     <t>For SR Policy, the probe messages are sent using the Segment List (SL) of the Candidate-path 
+     <xref target="I-D.ietf-spring-segment-routing-policy"/>.
+     When a Candidate-path has more than one Segment Lists, multiple
+     probe messages are sent, one using each Segment List. The return probe messages are received by
+     the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
+     The Segment List of the return SR path can be added in the probe message header
+     to receive the return probe message on a specific path using the Binding SID 
+     <xref target="I-D.ietf-pce-binding-label-sid"/> or Segment List of the Reverse SR Policy <xref
+     target="I-D.ietf-pce-sr-bidir-path"/>.</t>
+
      </section>
 
-    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
-    An example provisioning model and typical measurement parameters are shown in Figure 2:</t>
+
+      <section anchor="sect-3.2"
+               title="Loopback Mode Enabled with Network Programming Function"
+               toc="default">
+      <t>In "loopback mode enabled with network programming function",
+      both transmit (t1) and receive (t2) timestamps in data plane are collected
+      by the probe messages sent in loopback mode as shown in Figure 2.
+      The network programming function optimizes the "operations of punt 
+      and inject the probe packet" on the reflector 
+      node as timestamping is implemented in hardware. This helps to achieve higher scale
+      and faster rate, resulting in faster failure detection.</t>
+
+      <figure align="center"
+              anchor="ure-loopback-mode-enabled-with-network-programming"
+              title="Loopback Mode Enabled with Network Programming Function">
+       <artwork>
+                         t1                t2
+                        /                   \
+               +-------+      Probe          +-------+
+               |       | - - - - - - - - - - |       |
+               |   R1  |====================||  R5   |
+               |       |&lt;- - - - - - - - - - |       |
+               +-------+      Return Probe   +-------+
+                Sender                       Reflector
+                                             (Timestamp, 
+                                              Pop and Forward)
+      </artwork>
+      </figure>
+   
+      <t>The sender node adds transmit (t1)
+      timestamp in the payload of the probe message and clears the receive (t2) timestamp. 
+      The reflector node adds the receive timestamp in the 
+      payload of the received probe 
+      message in hardware without punting the message to slow-path (or control-plane). The reflector node only
+      adds the receive timestamp if the source or destination address in the probe message matches
+      the local node address to ensure that the probe message reaches the 
+      intended reflector node and the receive timestamp is returned by the that node.
+      The payload of the probe message is not modified by any intermediate nodes.</t>
+
+      <t>The network programming function enables the node to add receive timestamp
+      in the payload of the probe message at a specific offset which is locally
+      provisioned consistently in the network. 
+      In the probe message defined in Figure 4 for  
+      delay measurement, the 64-bit receive timestamp is added at byte-offset 16 which is 
+      from the start of the payload.</t>
+
+      </section>
+
+
+
+    <section title="Example Provisioning Model" anchor="sect-3.3"><t>
+    An example provisioning model and typical measurement parameters are shown in Figure 3:</t>
  
     <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
@@ -281,14 +354,15 @@
     
     <t>The mechanisms to provision the
     sender and reflector nodes are outside the scope of this document.</t>
-    </section>
 
      </section>
- 
-    <section title="Probe Message Formats" anchor="sect-3"><t>
+    </section>
+
+
+    <section title="Probe Message Formats" anchor="sect-4"><t>
     The probe messages compatible with the delay measurement message formats defined in 
     TWAMP <xref target="RFC5357"/> and STAMP <xref target="RFC8762"/> 
-    are specified in Figure 3.
+    are specified in Figure 4.
     </t>
 
    <figure title="Probe Packet Formats" anchor="ure-probe-packet-format"><artwork><![CDATA[
@@ -343,33 +417,16 @@
 
     </section>
 
-    <section anchor="sect-4" title="Performance Delay and Liveness Monitoring">
+    <section anchor="sect-5" title="Performance Delay and Liveness Monitoring">
      <t>For performance delay and liveness monitoring of an end-to-end SR Path including SR Policy, 
      PM probes in loopback mode is used.  
      </t>
  
-    <t>The Source and Destination IP addresses in the probe messages are set to the reflector 
-    and the sender node addresses, respectively (representing the reverse path).
-    Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
-    from the range specified in <xref target="RFC8762"/>.  
-    The UDP ports used in loopback mode are different than the ports
-    used for TWAMP Light and STAMP sessions.
-    The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
-     <t>For SR Policy, the probe messages are sent using the Segment List (SL) of the Candidate-path 
-     <xref target="I-D.ietf-spring-segment-routing-policy"/>.
-     When a Candidate-path has more than one Segment Lists, multiple
-     probe messages are sent, one using each Segment List. The return probe messages are received by
-     the sender node via IP/UDP <xref target="RFC0768"/> return path by default. 
-     The Segment List of the return SR path can be added in the probe message header
-     to receive the return probe message on a specific path using the Binding SID 
-     <xref target="I-D.ietf-pce-binding-label-sid"/> or Segment List of the Reverse SR Policy <xref
-     target="I-D.ietf-pce-sr-bidir-path"/>.</t>
-
-    <section anchor="sect-4.1" title="Probe Message for SR-MPLS">
+    <section anchor="sect-5.1" title="Probe Message for SR-MPLS">
      <t>The probe messages are 
      sent using the MPLS header containing the label stack of the SR
-     Policy as shown in Figure 4. In case of IP/UDP
+     Policy as shown in Figure 5. In case of IP/UDP
      return path, the MPLS header is removed by the reflector node.
      The label stack can contain a reverse SR-MPLS 
      path to receive the return probe message on a specific path. 
@@ -400,16 +457,16 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 3                               |
+  |  Payload as defined in Figure 4                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
       </section>
 
-   <section anchor="sect-4.2" title="Probe Message for SRv6">
+   <section anchor="sect-5.2" title="Probe Message for SRv6">
     <t>The probe messages for SRv6 data plane are sent using the 
     Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
-    the Segment List of the SR Policy as shown in Figure 5. In case of IP/UDP
+    the Segment List of the SR Policy as shown in Figure 6. In case of IP/UDP
     return path, the SRH is removed by the reflector node.
     The Segment List can contain a reverse SRv6 path to receive 
     the return probe message on a specific path. In this case, the SRH will not be removed
@@ -438,66 +495,20 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 3                               |
+  |  Payload as defined in Figure 4                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
       </section>
     </section>
 
-    <section anchor="sect-5"
+    <section anchor="sect-6"
              title="Enhanced Performance Delay and Liveness Monitoring">
       <t>The enhanced performance delay and liveness monitoring of an end-to-end SR Path including SR Policy is
       defined using the PM probes in "loopback mode enabled with network programming function".</t>
 
-      <section anchor="sect-5.1"
-               title="Loopback Mode Enabled with Network Programming Function"
-               toc="default">
-      <t>In "loopback mode enabled with network programming function",
-      both transmit (t1) and receive (t2) timestamps in data plane are collected
-      by the probe messages sent in loopback mode as shown in Figure 6.
-      The network programming function optimizes the "operations of punt 
-      and inject the probe packet" on the reflector 
-      node as timestamping is implemented in hardware. This helps to achieve higher scale
-      and faster rate, resulting in faster failure detection.</t>
 
-      <figure align="center"
-              anchor="ure-loopback-mode-enabled-with-network-programming"
-              title="Loopback Mode Enabled with Network Programming Function">
-       <artwork>
-                         t1                t2
-                        /                   \
-               +-------+      Probe          +-------+
-               |       | - - - - - - - - - - |       |
-               |   R1  |====================||  R5   |
-               |       |&lt;- - - - - - - - - - |       |
-               +-------+      Return Probe   +-------+
-                Sender                       Reflector
-                                             (Timestamp, 
-                                              Pop and Forward)
-      </artwork>
-      </figure>
-   
-      <t>The sender node adds transmit (t1)
-      timestamp in the payload of the probe message and clears the receive (t2) timestamp. 
-      The reflector node adds the receive timestamp in the 
-      payload of the received probe 
-      message in hardware without punting the message to slow-path (or control-plane). The reflector node only
-      adds the receive timestamp if the source or destination address in the probe message matches
-      the local node address to ensure that the probe message reaches the 
-      intended reflector node and the receive timestamp is returned by the that node.
-      The payload of the probe message is not modified by any intermediate nodes.</t>
-
-      <t>The network programming function enables the node to add receive timestamp
-      in the payload of the probe message at a specific offset which is locally
-      provisioned consistently in the network. 
-      In the probe message defined in Figure 3 for  
-      delay measurement, the 64-bit receive timestamp is added at byte-offset 16 which is 
-      from the start of the payload.</t>
-
-      </section>
-
-      <section anchor="sect-5.2"
+      <section anchor="sect-6.1"
                title="Probe Message with Timestamp Label for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label 
@@ -544,12 +555,12 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 3                               |
+  |  Payload as defined in Figure 4                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
 
-      <section anchor="sect-5.2.1"
+      <section anchor="sect-6.1.1"
                title="Node Capability for Timestamp Label"
 	       toc="default">
       <t>The ingress node needs 
@@ -585,7 +596,7 @@
 
       </section>
 
-      <section anchor="sect-5.3"
+      <section anchor="sect-6.2"
                title="Probe Message with Timestamp Endpoint Function for SRv6">
       <t>In this document, Timestamp Endpoint function for "Timestamp and Forward
       (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
@@ -633,12 +644,12 @@
   .  Destination Port = As chosen by Sender                       .
   .                                                               .
   +---------------------------------------------------------------+
-  |  Payload as defined in Figure 3                               |
+  |  Payload as defined in Figure 4                               |
   .                                                               .
   +---------------------------------------------------------------+</artwork>
         </figure>
 
-	<section title="Timestamp Endpoint Function Signaling" anchor="sect-5.3.1" toc="default"><t>
+	<section title="Timestamp Endpoint Function Signaling" anchor="sect-6.2.1" toc="default"><t>
       Timestamp endpoint function for "Timestamp and Forward" (value TBA2) can be signaled using one of the following
       methods:</t>
 
@@ -659,7 +670,7 @@
     </section>
    </section>
 
-   <section anchor="sect-6" title="ECMP Handling" toc="default">
+   <section anchor="sect-7" title="ECMP Handling" toc="default">
      <t>An SR Policy can have ECMPs between the source and transit nodes,
       between transit nodes and between transit and destination nodes. 
       The PM probe messages need to be sent to traverse different ECMP 
@@ -673,7 +684,7 @@
       to exercise different ECMP paths.</t>
    </section>
  
-   <section anchor="sect-7" title="Failure Notification" toc="default">
+   <section anchor="sect-8" title="Failure Notification" toc="default">
      <t>Liveness success for SR Path is initially notified as soon as one or more 
       return probe messages are received at the sender node.</t>
 
@@ -691,7 +702,7 @@
    </section>
 
 
-   <section anchor="sect-8" title="Security Considerations" toc="default">
+   <section anchor="sect-9" title="Security Considerations" toc="default">
       <t>The Performance Delay and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
@@ -707,7 +718,7 @@
       lists and firewalls.</t>
    </section>
 
-   <section anchor="sect-9" title="IANA Considerations" toc="default">
+   <section anchor="sect-10" title="IANA Considerations" toc="default">
       <t>IANA maintains the "Special-Purpose Multiprotocol Label Switching
       (MPLS) Label Values" registry (see
       &lt;https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml&gt;).
