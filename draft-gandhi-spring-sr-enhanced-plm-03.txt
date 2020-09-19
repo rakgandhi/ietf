@@ -90,11 +90,12 @@ Table of Contents
      5.2.  Probe Message for SRv6  . . . . . . . . . . . . . . . . .   9
    6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
      6.1.  Probe Message with Timestamp Label for SR-MPLS  . . . . .  10
-       6.1.1.  Node Capability for Timestamp Label . . . . . . . . .  11
-       6.1.2.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  11
+       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  12
      6.2.  Probe Message with Timestamp Endpoint Function for SRv6 .  12
-       6.2.1.  Timestamp Endpoint Function Signaling . . . . . . . .  13
-   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  13
+       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  13
+       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  13
+   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  14
    8.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
@@ -103,7 +104,6 @@ Table of Contents
      11.2.  Informative References . . . . . . . . . . . . . . . . .  16
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
-
 
 
 
@@ -601,27 +601,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
      Figure 7: Example Probe Message with Timestamp Label for SR-MPLS
 
-6.1.1.  Node Capability for Timestamp Label
-
-   The ingress node needs to know if the egress node can process the
-   Timestamp Label.  The signaling extension for this capability
-   exchange is outside the scope of this document.
-
-   One way is to leverage a centralized controller (e.g., SDN
-   controller) to program the ingress and egress nodes.  In this case,
-   the controller MUST make sure (e.g., by some capability discovery
-
-
-
-Gandhi, et al.           Expires March 23, 2021                [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR September 2020
-
-
-   mechanisms outside the scope of this document) that the egress node
-   can process the Timestamp Label.
-
-6.1.2.  Timestamp Label Allocation
+6.1.1.  Timestamp Label Allocation
 
    Timestamp Label (value TBA1) can be allocated using one of the
    following methods:
@@ -631,6 +611,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
       fixed at byte-offset 16 and timestamp format is PTPv2 for this
       label.
 
+
+
+Gandhi, et al.           Expires March 23, 2021                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
    o  Label allocated by a Controller from the global table of the
       egress node.  The Controller provisions the label on both ingress
       and egress nodes, as well as timestamp offset and timestamp
@@ -639,6 +626,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    o  Label allocated by the egress node.  The signaling and IGP
       flooding extension for the label (including timestamp offset and
       timestamp format) are outside the scope of this document.
+
+6.1.2.  Node Capability for Timestamp Label
+
+   The ingress node needs to know if the egress node can process the
+   Timestamp Label to avoid dropping probe packets.  The signaling
+   extension for this capability exchange is outside the scope of this
+   document.
 
 6.2.  Probe Message with Timestamp Endpoint Function for SRv6
 
@@ -657,6 +651,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    packet at a specific offset, the node forwards the packet using the
    next SID or IP header in the message (just like the data packets for
    the normal traffic).
+
+
+
+
+
+
 
 
 
@@ -700,7 +700,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
       Figure 8: Example Probe Message with Endpoint Function for SRv6
 
-6.2.1.  Timestamp Endpoint Function Signaling
+6.2.1.  Timestamp Endpoint Function Assignment
 
    Timestamp endpoint function for "Timestamp and Forward" (value TBA2)
    can be signaled using one of the following methods:
@@ -708,19 +708,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    o  Timestamp endpoint function assigned by IANA from the "SRv6
       Endpoint Behaviors Registry".
 
-   o  Timestamp endpoint function allocated by a Controller.  The
+   o  Timestamp endpoint function assigned by a Controller.  The
       Controller provisions the value on both ingress and egress nodes,
       as well as timestamp offset and timestamp format.
 
-   o  Timestamp endpoint function allocated by the egress node.  The
+   o  Timestamp endpoint function assigned by the egress node.  The
       signaling and IGP flooding extension for the endpoint function
       (including timestamp offset and timestamp format) are outside the
       scope of this document.
 
-7.  ECMP Handling
+6.2.2.  Node Capability for Timestamp Endpoint Function
 
-   An SR Policy can have ECMPs between the source and transit nodes,
-   between transit nodes and between transit and destination nodes.  The
+   The ingress node needs to know if the egress node can process the
+   Timestamp Endpoint Function to enable the monitoring.  The signaling
 
 
 
@@ -730,6 +730,13 @@ Gandhi, et al.           Expires March 23, 2021                [Page 13]
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
+   extension for this capability exchange is outside the scope of this
+   document.
+
+7.  ECMP Handling
+
+   An SR Policy can have ECMPs between the source and transit nodes,
+   between transit nodes and between transit and destination nodes.  The
    PM probe messages need to be sent to traverse different ECMP paths to
    monitor the liveness for an end-to-end SR Policy.
 
@@ -771,13 +778,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    that can be caused by a corrupt or invalid message to a single probe
    cycle.  Use of HMAC-SHA-256 in the authenticated mode protects the
    data integrity of the probe messages.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
-
-
-
-
-
 
 
 
@@ -785,6 +785,9 @@ Gandhi, et al.           Expires March 23, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
 
 10.  IANA Considerations
 
@@ -829,10 +832,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               (OWAMP)", RFC 4656, DOI 10.17487/RFC4656, September 2006,
               <https://www.rfc-editor.org/info/rfc4656>.
 
-   [RFC5357]  Hedayat, K., Krzanowski, R., Morton, A., Yum, K., and J.
-              Babiarz, "A Two-Way Active Measurement Protocol (TWAMP)",
-              RFC 5357, DOI 10.17487/RFC5357, October 2008,
-              <https://www.rfc-editor.org/info/rfc5357>.
+
 
 
 
@@ -841,6 +841,11 @@ Gandhi, et al.           Expires March 23, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   [RFC5357]  Hedayat, K., Krzanowski, R., Morton, A., Yum, K., and J.
+              Babiarz, "A Two-Way Active Measurement Protocol (TWAMP)",
+              RFC 5357, DOI 10.17487/RFC5357, October 2008,
+              <https://www.rfc-editor.org/info/rfc5357>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -884,11 +889,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
               Segment Routing Networks", draft-gandhi-spring-twamp-
               srpm-10 (work in progress), August 2020.
 
-   [I-D.gandhi-spring-stamp-srpm]
-              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Performance Measurement Using Simple TWAMP
-              (STAMP) for Segment Routing Networks", draft-gandhi-
-              spring-stamp-srpm-02 (work in progress), August 2020.
 
 
 
@@ -897,6 +897,12 @@ Gandhi, et al.           Expires March 23, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   [I-D.gandhi-spring-stamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Performance Measurement Using Simple TWAMP
+              (STAMP) for Segment Routing Networks", draft-gandhi-
+              spring-stamp-srpm-02 (work in progress), August 2020.
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
@@ -941,17 +947,17 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-   Clarence Filsfils
-   Cisco Systems, Inc.
-
-   Email: cfilsfil@cisco.com
-
-
 
 
 Gandhi, et al.           Expires March 23, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
 
 
    Navin Vaghamshi
@@ -970,12 +976,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
 
 
 
