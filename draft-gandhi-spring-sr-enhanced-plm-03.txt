@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: March 22, 2021                                     N. Vaghamshi
+Expires: March 23, 2021                                     N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
                                                                 R. Foote
                                                                    Nokia
-                                                      September 18, 2020
+                                                      September 19, 2020
 
 
  Enhanced Performance Delay and Liveness Monitoring in Segment Routing
@@ -27,9 +27,8 @@ Abstract
    networks.  The procedure uses probe messages compatible with the
    delay measurement message formats defined in RFC 5357 (Two-Way Active
    Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
-   Active Measurement Protocol (STAMP)) and are applicable to end-to-end
-   SR Paths including SR Policies with both SR-MPLS and SRv6 data
-   planes.
+   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
+   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -46,14 +45,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 22, 2021.
+   This Internet-Draft will expire on March 23, 2021.
 
 
 
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 1]
+
+Gandhi, et al.           Expires March 23, 2021                 [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 2]
+Gandhi, et al.           Expires March 23, 2021                 [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -165,7 +165,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 3]
+Gandhi, et al.           Expires March 23, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -175,8 +175,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    procedure uses probe messages compatible with the delay measurement
    message formats defined in RFC 5357 (Two-Way Active Measurement
    Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way Active
-   Measurement Protocol (STAMP)) and are applicable to end-to-end SR
-   Paths including SR Policies with both SR-MPLS and SRv6 data planes.
+   Measurement Protocol (STAMP)) and is applicable to end-to-end SR
+   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 2.  Conventions Used in This Document
 
@@ -221,7 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 4]
+Gandhi, et al.           Expires March 23, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -277,7 +277,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 5]
+Gandhi, et al.           Expires March 23, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -333,7 +333,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 6]
+Gandhi, et al.           Expires March 23, 2021                 [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -389,7 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 7]
+Gandhi, et al.           Expires March 23, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -445,7 +445,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 8]
+Gandhi, et al.           Expires March 23, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -501,7 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                 [Page 9]
+Gandhi, et al.           Expires March 23, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -557,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 10]
+Gandhi, et al.           Expires March 23, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 11]
+Gandhi, et al.           Expires March 23, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -669,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 12]
+Gandhi, et al.           Expires March 23, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -725,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 13]
+Gandhi, et al.           Expires March 23, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -781,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 14]
+Gandhi, et al.           Expires March 23, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -837,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 15]
+Gandhi, et al.           Expires March 23, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -893,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 16]
+Gandhi, et al.           Expires March 23, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -949,7 +949,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 17]
+Gandhi, et al.           Expires March 23, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1005,7 +1005,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 18]
+Gandhi, et al.           Expires March 23, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1061,4 +1061,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 22, 2021                [Page 19]
+Gandhi, et al.           Expires March 23, 2021                [Page 19]

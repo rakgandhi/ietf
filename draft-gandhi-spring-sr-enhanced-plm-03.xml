@@ -96,7 +96,7 @@
       </address>
     </author>
 
-    <date day="18" month="September" year="2020"/>
+    <date day="19" month="September" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -108,9 +108,9 @@
       The procedure uses probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
-      Two-Way Active Measurement Protocol (STAMP)) and are applicable to  
+      Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
-      SR Policies with both SR-MPLS and SRv6 data planes.</t>
+      SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </abstract>
   </front>
 
@@ -165,9 +165,9 @@
       The procedure uses probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
       Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
-      Two-Way Active Measurement Protocol (STAMP)) and are applicable to  
+      Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
-      SR Policies with both SR-MPLS and SRv6 data planes.</t>
+      SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </section>
 
     <section anchor="sect-2" title="Conventions Used in This Document">
