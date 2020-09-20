@@ -509,7 +509,7 @@
                title="Probe Message with Timestamp Label for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label 
-      (value TBD1) is defined for SR-MPLS data plane to enable network programming
+      (Extended Special-Purpose value TBD1) is defined for SR-MPLS data plane to enable network programming
       function for "timestamp, pop and forward" the received packet.</t>
 
       <t>In the probe message for SR-MPLS,
@@ -559,10 +559,10 @@
 
 
 	<section title="Timestamp Label Allocation" anchor="sect-6.1.1" toc="default"><t>
-      Timestamp Label (value TBA1) can be allocated using one of the following
+      Timestamp Label can be allocated using one of the following
       methods:</t>
 
-	<t><list style="symbols"><t>Label assigned by IANA from the "Extended
+	<t><list style="symbols"><t>Label (value TBA1) assigned by IANA from the "Extended
       Special-Purpose MPLS Values" <xref target="I-D.ietf-mpls-spl-terminology"/>. 
       The timestamp offset is fixed at byte-offset 16 from the start of the payload and timestamp format is 64-bit PTPv2 for this label.</t>
 
@@ -595,7 +595,7 @@
       <section anchor="sect-6.2"
                title="Probe Message with Timestamp Endpoint Function for SRv6">
       <t>In this document, Timestamp Endpoint function for "Timestamp and Forward
-      (TSF)" (value TBD2) is defined for Segment Routing Header (SRH) <xref
+      (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for Segment Routing Header (SRH) <xref
       target="RFC8754"/> for SRv6 data plane to enable
       network programming function to "timestamp and forward" the received
       packet.</t>
@@ -623,6 +623,7 @@
   +---------------------------------------------------------------+
   | SRH as specified in RFC 8754                                  |
   .     &lt;Segment List&gt;                                            .
+  .     SRv6 Endpoint End.TSF (value TBA2)                        .
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -642,9 +643,9 @@
 
 
 	<section title="Timestamp Endpoint Function Assignment" anchor="sect-6.2.1" toc="default"><t>
-      Timestamp endpoint function for "Timestamp and Forward" (value TBA2) can be signaled using one of the following methods:</t>
+      Timestamp endpoint function for "Timestamp and Forward" can be signaled using one of the following methods:</t>
 
-	<t><list style="symbols"><t>Timestamp endpoint function assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
+	<t><list style="symbols"><t>Timestamp endpoint function (value TBA2) assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
       The timestamp offset is fixed at byte-offset 16 from the start of the payload and timestamp format is 64-bit PTPv2 for this endpoint function.</t>
 
 	<t>Timestamp endpoint function assigned by a Controller.  The Controller provisions the value on both
