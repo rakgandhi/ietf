@@ -731,9 +731,8 @@
       fields in received probe  messages. The minimal state
       associated with these protocols also limits the extent of disruption
       that can be caused by a corrupt or invalid message to a single
-      probe cycle. Use of HMAC-SHA-256 in the authenticated mode
-      protects the data integrity of the probe messages. Cryptographic
-      measures may be enhanced by the correct configuration of access-control
+      probe cycle. Cryptographic
+      measures may be used by the correct configuration of access-control
       lists and firewalls.</t>
    </section>
 

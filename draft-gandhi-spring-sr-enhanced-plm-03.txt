@@ -853,10 +853,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    timestamp fields in received probe messages.  The minimal state
    associated with these protocols also limits the extent of disruption
    that can be caused by a corrupt or invalid message to a single probe
-   cycle.  Use of HMAC-SHA-256 in the authenticated mode protects the
-   data integrity of the probe messages.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
+   cycle.  Cryptographic measures may be used by the correct
+   configuration of access-control lists and firewalls.
 
 10.  IANA Considerations
 
@@ -890,6 +888,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
+
+
 
 
 
