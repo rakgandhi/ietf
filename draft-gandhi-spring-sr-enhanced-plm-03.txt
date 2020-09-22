@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: March 25, 2021                                     N. Vaghamshi
+Expires: March 26, 2021                                     N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
                                                                 R. Foote
                                                                    Nokia
-                                                      September 21, 2020
+                                                      September 22, 2020
 
 
  Enhanced Performance Delay and Liveness Monitoring in Segment Routing
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 25, 2021.
+   This Internet-Draft will expire on March 26, 2021.
 
 
 
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 1]
+Gandhi, et al.           Expires March 26, 2021                 [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 2]
+Gandhi, et al.           Expires March 26, 2021                 [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -165,7 +165,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 3]
+Gandhi, et al.           Expires March 26, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -221,7 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 4]
+Gandhi, et al.           Expires March 26, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -277,7 +277,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 5]
+Gandhi, et al.           Expires March 26, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -333,7 +333,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 6]
+Gandhi, et al.           Expires March 26, 2021                 [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -389,7 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 7]
+Gandhi, et al.           Expires March 26, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -400,12 +400,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      |                     Transmit Timestamp (t1)                   |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |  Error Estimate               |  MBZ                          |
+     |  Transmit Error Estimate      |  MBZ                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Receive Timestamp (t2)                    |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     .                                                               .
+     |  Receive Error Estimate       |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      .                     Variable Length Padding                   .
      ~                                                               ~
      .                                                               .
@@ -421,12 +422,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
      |                     Transmit Timestamp (t1)                   |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |  Error Estimate               |  SSID                         |
+     |  Transmit Error Estimate      |  SSID                         |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Receive Timestamp (t2)                    |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                                                               |
+     |  Receive Error Estimate       |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Fixed Length Padding                      |
      |                                                               |
      |                                                               |
@@ -437,18 +439,25 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
                       Figure 4: Probe Packet Formats
 
-   Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as specified in
-   [RFC8186], implemented in hardware.  In addition to adding the
-   timestamp in the message, the "Error Estimate" field in the payload
-   of the message can be updated using the procedure defined in
-   [RFC4656].
+   Sequence Number is the sequence number of the probe packet according
+   to its transmit order.  It starts with zero and is incremented by one
+   for each subsequent packet.
 
 
 
-Gandhi, et al.           Expires March 25, 2021                 [Page 8]
+Gandhi, et al.           Expires March 26, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
+
+   Transmit Timestamp and Transmit Error Estimate are the Sender's
+   transmit timestamp and error estimate for the probe packet,
+   respectively.  Similarly, Receive Timestamp and Receive Error
+   Estimate are the Reflector's receive timestamp and error estimate,
+   respectively.  The timestamp and error estimate fields follow the
+   definition and formats defined in Section 4.1.2 in [RFC4656].
+   Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as specified in
+   [RFC8186], implemented in hardware.
 
 5.  Performance Delay and Liveness Monitoring
 
@@ -492,16 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires March 25, 2021                 [Page 9]
+Gandhi, et al.           Expires March 26, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -557,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 10]
+Gandhi, et al.           Expires March 26, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 11]
+Gandhi, et al.           Expires March 26, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -669,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 12]
+Gandhi, et al.           Expires March 26, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -725,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 13]
+Gandhi, et al.           Expires March 26, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -781,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 14]
+Gandhi, et al.           Expires March 26, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -837,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 15]
+Gandhi, et al.           Expires March 26, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -893,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 16]
+Gandhi, et al.           Expires March 26, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -949,7 +949,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 17]
+Gandhi, et al.           Expires March 26, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 18]
+Gandhi, et al.           Expires March 26, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1061,4 +1061,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 25, 2021                [Page 19]
+Gandhi, et al.           Expires March 26, 2021                [Page 19]

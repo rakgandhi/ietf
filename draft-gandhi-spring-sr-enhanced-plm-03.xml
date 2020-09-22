@@ -96,7 +96,7 @@
       </address>
     </author>
 
-    <date day="21" month="September" year="2020"/>
+    <date day="22" month="September" year="2020"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -357,12 +357,13 @@
   |                     Transmit Timestamp (t1)                   |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  Error Estimate               |  MBZ                          |
+  |  Transmit Error Estimate      |  MBZ                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                     Receive Timestamp (t2)                    |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  .                                                               .
+  |  Receive Error Estimate       |  MBZ                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   .                     Variable Length Padding                   .
   ~                                                               ~
   .                                                               .
@@ -378,12 +379,13 @@
   |                     Transmit Timestamp (t1)                   |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  Error Estimate               |  SSID                         |
+  |  Transmit Error Estimate      |  SSID                         |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                     Receive Timestamp (t2)                    |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                                                               |
+  |  Receive Error Estimate       |  MBZ                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                     Fixed Length Padding                      |
   |                                                               |
   |                                                               |
@@ -394,12 +396,22 @@
 ]]></artwork>
     </figure>
 
-    <t>Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/> as
-    specified in <xref target="RFC8186"/>, implemented in hardware. 
-    In addition to adding the timestamp in the message, the "Error Estimate" field in the payload
-    of the message can be updated using the procedure defined in <xref target="RFC4656"/>.</t>
+
+   <t>Sequence Number is the sequence number of the probe packet according
+   to its transmit order.  It starts with zero and is incremented by one
+   for each subsequent packet.</t>
+
+   <t>Transmit Timestamp and Transmit Error Estimate are the Sender's transmit
+   timestamp and error estimate for the probe packet,
+   respectively.  Similarly, Receive Timestamp and Receive Error Estimate are 
+   the Reflector's receive timestamp and error estimate, respectively. 
+   The timestamp and error estimate fields
+   follow the definition and formats defined in Section 4.1.2 in
+   [RFC4656].  Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/> as
+   specified in <xref target="RFC8186"/>, implemented in hardware.</t> 
 
     </section>
+
 
     <section anchor="sect-5" title="Performance Delay and Liveness Monitoring">
      <t>For performance delay and liveness monitoring of an end-to-end SR Path including SR Policy, 
