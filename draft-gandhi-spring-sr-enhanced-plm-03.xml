@@ -107,7 +107,7 @@
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure leverages the probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
-      Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
+      Active Measurement Protocol (TWAMP)) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
       SR Policies for both SR-MPLS and SRv6 data planes.</t>
@@ -164,7 +164,7 @@
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
       The procedure leverages the probe messages compatible with the delay measurement 
       message formats defined in RFC 5357 (Two-Way
-      Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple 
+      Active Measurement Protocol (TWAMP)) and RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
       SR Policies for both SR-MPLS and SRv6 data planes.</t>
@@ -256,7 +256,7 @@
     Both Source and Destination UDP ports in the probe messages are allocated dynamically or user-configured  
     from the range specified in <xref target="RFC8762"/>.  
     The UDP ports used in loopback mode are different than the ports
-    used for TWAMP Light and STAMP sessions.
+    used for TWAMP and STAMP sessions.
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
      </section>
@@ -334,7 +334,7 @@
 ]]></artwork>
     </figure>
 
-    <t>Example of message format is TWAMP Light and STAMP, example of  
+    <t>Example of message format is TWAMP and STAMP, example of  
     Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP, etc.</t>
     
     <t>The mechanisms to provision the

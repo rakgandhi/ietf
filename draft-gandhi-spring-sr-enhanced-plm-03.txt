@@ -26,10 +26,9 @@ Abstract
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
    networks.  The procedure leverages the probe messages compatible with
    the delay measurement message formats defined in RFC 5357 (Two-Way
-   Active Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-
-   Way Active Measurement Protocol (STAMP)) and is applicable to end-to-
-   end SR Paths including SR Policies for both SR-MPLS and SRv6 data
-   planes.
+   Active Measurement Protocol (TWAMP)) and RFC 8762 (Simple Two-Way
+   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
+   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -47,6 +46,7 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on March 26, 2021.
+
 
 
 
@@ -174,9 +174,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
    procedure leverages the probe messages compatible with the delay
    measurement message formats defined in RFC 5357 (Two-Way Active
-   Measurement Protocol (TWAMP) Light) and RFC 8762 (Simple Two-Way
-   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
-   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+   Measurement Protocol (TWAMP)) and RFC 8762 (Simple Two-Way Active
+   Measurement Protocol (STAMP)) and is applicable to end-to-end SR
+   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 2.  Conventions Used in This Document
 
@@ -271,9 +271,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    (representing the reverse path).  Both Source and Destination UDP
    ports in the probe messages are allocated dynamically or user-
    configured from the range specified in [RFC8762].  The UDP ports used
-   in loopback mode are different than the ports used for TWAMP Light
-   and STAMP sessions.  The IPv4 Time To Live (TTL) and IPv6 Hop Limit
-   (HL) are set to 255.
+   in loopback mode are different than the ports used for TWAMP and
+   STAMP sessions.  The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL)
+   are set to 255.
 
 
 
@@ -359,8 +359,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
                    Figure 3: Example Provisioning Model
 
-   Example of message format is TWAMP Light and STAMP, example of
-   Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP, etc.
+   Example of message format is TWAMP and STAMP, example of Timestamp
+   Format is 64-bit PTPv2 [IEEE1588] and NTP, etc.
 
    The mechanisms to provision the sender and reflector nodes are
    outside the scope of this document.
