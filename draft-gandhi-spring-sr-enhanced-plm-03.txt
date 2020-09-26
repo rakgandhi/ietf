@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: March 26, 2021                                     N. Vaghamshi
+Expires: March 30, 2021                                     N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
                                                                 R. Foote
                                                                    Nokia
-                                                      September 22, 2020
+                                                      September 26, 2020
 
 
  Enhanced Performance Delay and Liveness Monitoring in Segment Routing
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 26, 2021.
+   This Internet-Draft will expire on March 30, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 1]
+Gandhi, et al.           Expires March 30, 2021                 [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 2]
+Gandhi, et al.           Expires March 30, 2021                 [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -165,7 +165,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 3]
+Gandhi, et al.           Expires March 30, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -221,7 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 4]
+Gandhi, et al.           Expires March 30, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -277,7 +277,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 5]
+Gandhi, et al.           Expires March 30, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -333,7 +333,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 6]
+Gandhi, et al.           Expires March 30, 2021                 [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -389,7 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 7]
+Gandhi, et al.           Expires March 30, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -445,7 +445,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 8]
+Gandhi, et al.           Expires March 30, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -501,7 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                 [Page 9]
+Gandhi, et al.           Expires March 30, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -557,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 10]
+Gandhi, et al.           Expires March 30, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 11]
+Gandhi, et al.           Expires March 30, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -669,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 12]
+Gandhi, et al.           Expires March 30, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -725,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 13]
+Gandhi, et al.           Expires March 30, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -781,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 14]
+Gandhi, et al.           Expires March 30, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -837,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 15]
+Gandhi, et al.           Expires March 30, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -893,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 16]
+Gandhi, et al.           Expires March 30, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -949,7 +949,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 17]
+Gandhi, et al.           Expires March 30, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -980,13 +980,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-19 (work in
+              draft-ietf-spring-srv6-network-programming-21 (work in
               progress), September 2020.
 
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
               Purpose Label terminology", draft-ietf-mpls-spl-
-              terminology-03 (work in progress), August 2020.
+              terminology-04 (work in progress), September 2020.
 
    [I-D.ietf-pce-binding-label-sid]
               Filsfils, C., Sivabalan, S., Tantsura, J., Hardwick, J.,
@@ -1005,7 +1005,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 18]
+Gandhi, et al.           Expires March 30, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR September 2020
 
@@ -1061,4 +1061,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires March 26, 2021                [Page 19]
+Gandhi, et al.           Expires March 30, 2021                [Page 19]
