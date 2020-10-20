@@ -135,8 +135,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    path.  The TWAMP Light [Appendix I in RFC5357] [BBF.TR-390] provides
    simplified mechanisms for active performance measurement in Customer
    IP networks by provisioning UDP paths and eliminates the need for
-   control-channel signaling.  As described in Appendix A of [RFC8545],
-   TWAMP Light mechanism is informative only.
+   control-channel signaling.
 
    This document specifies procedures for sending and processing probe
    query and response messages for Performance Measurement in SR
@@ -144,7 +143,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    (TWAMP Light) and its extensions for Performance Measurement.  The
    procedure specified is applicable to SR-MPLS and SRv6 data planes and
    is used for both Links and end-to-end SR Paths including SR Policies
-   and Flex-Algo IGP Paths.  Unless otherwise described, the mechanisms
+   and Flex-Algo IGP Paths.  Unless otherwise specified, the mechanisms
    defined in [RFC5357] are not modified by this document.
 
 2.  Conventions Used in This Document
@@ -162,6 +161,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
 
    DM: Delay Measurement.
 
+   ECMP: Equal Cost Multi-Path.
 
 
 
@@ -169,8 +169,6 @@ Gandhi, et al.           Expires April 23, 2021                 [Page 3]
 
 Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
 
-
-   ECMP: Equal Cost Multi-Path.
 
    HMAC: Hashed Message Authentication Code.
 
@@ -216,6 +214,8 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    SR Path e.g.  SR Policy [I-D.ietf-spring-segment-routing-policy] on
    node R1 (called head-end) with destination to node R5 (called tail-
    end).
+
+
 
 
 
