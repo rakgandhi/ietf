@@ -244,7 +244,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    For one-way and two-way delay measurements in Segment Routing
    networks, the probe messages defined in [RFC5357] are used.  For
    direct-mode and inferred-mode loss measurements, the probe messages
-   defined in [gandhi-ippm-stamp-srpm] are used.  For both Links and
+   defined in [gandhi-ippm-twamp-srpm] are used.  For both Links and
    end-to-end SR Paths including SR Policies and Flex-Algo IGP Paths, no
    PM state for delay or loss measurement need to be created on the
    reflector node R5.
@@ -345,7 +345,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    The probe messages defined in [RFC5357] are used for delay
    measurement for Links and end-to-end SR Paths including SR Policies.
    For loss measurement, the probe messages defined in [gandhi-ippm-
-   stamp-srpm] are used.
+   twamp-srpm] are used.
 
 4.1.1.  Delay Measurement Query Message
 
@@ -413,7 +413,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    Source port, since the message does not have any indication to
    distinguish between the query and response message.  The LM probe
    query message contains the payload for loss measurement as defined in
-   [gandhi-ippm-stamp-srpm].
+   [gandhi-ippm-twamp-srpm].
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -427,7 +427,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
     .  Destination Port = User-configured Port for Loss Measurement .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] |
+    | Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] |
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -473,10 +473,10 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
    range of 127/8 for IPv4 or ::FFFF:127/104 for IPv6 is used as the
    destination address, respectively.  When using the destination
    address in 127/8 range for IPv4 or in ::FFFF:127/104 range for IPv6,
-   the Node Address TLV [gandhi-ippm-stamp-srpm] can be sent in the
+   the Node Address TLV [gandhi-ippm-twamp-srpm] can be sent in the
    probe query message to identify the intended node.  The reflector
    node MUST NOT send response message if it is not the intended
-   destination node from the Node Address TLV [gandhi-ippm-stamp-srpm].
+   destination node from the Node Address TLV [gandhi-ippm-twamp-srpm].
 
 4.1.4.1.  Probe Query Message for SR-MPLS Policy
 
@@ -584,7 +584,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
     +---------------------------------------------------------------+
     | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
     . Payload = DM Message as specified in Section 4.1.2 of RFC 5357.
-    . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+    . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -631,7 +631,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
-    . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+    . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -751,7 +751,7 @@ Internet-Draft    Using TWAMP Light for Segment Routing     October 2020
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
-    . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+    . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
     .                                                               .
     +---------------------------------------------------------------+
 

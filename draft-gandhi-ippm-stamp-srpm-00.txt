@@ -211,11 +211,11 @@ Internet-Draft    STAMP Extensions for Segment Routing      October 2020
    message format is backwards compatible with the message format
    defined in STAMP [RFC8762] as its reflector MUST ignore the received
    field (previously identified as MBZ).  With this field, the reflector
-   node does not require any additional SR state for PM (recall that in
-   SR networks, the state is in the probe packet and signaling of the
-   parameters is avoided).  The usage of the Control Code is not limited
-   to the SR paths and can be used for non-SR paths in a network.
-
+   node does not require any additional state for PM (recall that in SR
+   networks, the state is in the probe packet and signaling of the
+   parameters is undesired).  The usage of the Control Code is not
+   limited to the SR paths and can be used for non-SR paths in a
+   network.
 
 
 
@@ -548,8 +548,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      October 2020
    node can request in the probe query message to the reflector node to
    send a response message back on a given reverse path (e.g. co-routed
    bidirectional path).  This way the reflector node does not require
-   any additional SR state for PM (recall that in SR networks, the state
-   is in the probe packet and signaling of the parameters is avoided).
+   any additional state for PM (recall that in SR networks, the state is
+   in the probe packet and signaling of the parameters is undesired).
 
    For one-way performance measurement, the sender node address may not
    be reachable via IP route from the reflector node.  The sender node
