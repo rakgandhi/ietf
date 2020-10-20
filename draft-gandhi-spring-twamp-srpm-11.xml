@@ -232,7 +232,7 @@
    Routing networks, the probe messages defined in 
    <xref target="RFC5357"/> are used.  For direct-mode and
    inferred-mode loss measurements, the probe 
-   messages defined in [gandhi-ippm-stamp-srpm] are used.  
+   messages defined in [gandhi-ippm-twamp-srpm] are used.  
    For both Links and end-to-end SR Paths including SR Policies and Flex-Algo IGP Paths,
    no PM state for delay or loss measurement need to be created on the
    reflector node R5.</t> 
@@ -322,7 +322,7 @@ Loss Measurement Mode   /                \
 	<section title="Probe Messages" anchor="sect-4"><section title="Probe Query Message" anchor="sect-4.1"><t>
    The probe messages defined in <xref target="RFC5357"/> are used
    for delay measurement for Links and end-to-end SR Paths including SR
-   Policies. For loss measurement, the probe messages defined in [gandhi-ippm-stamp-srpm] are used.</t>
+   Policies. For loss measurement, the probe messages defined in [gandhi-ippm-twamp-srpm] are used.</t>
 
 
    <section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
@@ -386,7 +386,7 @@ Loss Measurement Mode   /                \
    used as Source port, since the message does not have any indication
    to distinguish between the query and response message.  The LM probe query
    message contains the payload for loss measurement as defined in
-   [gandhi-ippm-stamp-srpm].</t>
+   [gandhi-ippm-twamp-srpm].</t>
 
 	<figure title="LM Probe Query Message" anchor="ure-lm-probe-query-message"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -401,7 +401,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port for Loss Measurement .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] |
+ | Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -438,11 +438,11 @@ Loss Measurement Mode   /                \
    the address in the range of 127/8 for IPv4 or
    ::FFFF:127/104 for IPv6 is used as the destination address, respectively. 
    When using the destination address in 127/8 range for IPv4 or
-   in ::FFFF:127/104 range for IPv6, the Node Address TLV [gandhi-ippm-stamp-srpm] can be sent 
+   in ::FFFF:127/104 range for IPv6, the Node Address TLV [gandhi-ippm-twamp-srpm] can be sent 
    in the probe query message to identify the intended node.
    The reflector node MUST NOT send response message if it
    is not the intended destination node from the Node Address TLV 
-   [gandhi-ippm-stamp-srpm].</t>
+   [gandhi-ippm-twamp-srpm].</t>
 
 	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
    The probe query messages for performance measurement of an
@@ -514,7 +514,7 @@ Loss Measurement Mode   /                \
  +---------------------------------------------------------------+
  | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
  . Payload = DM Message as specified in Section 4.1.2 of RFC 5357.
- . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+ . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -543,7 +543,7 @@ Loss Measurement Mode   /                \
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
- . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+ . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -633,7 +633,7 @@ Loss Measurement Mode   /                \
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = DM Message as specified in Section 4.2.1 of RFC 5357|
- . Payload = LM Message as specified in [gandhi-ippm-stamp-srpm] .
+ . Payload = LM Message as specified in [gandhi-ippm-twamp-srpm] .
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
