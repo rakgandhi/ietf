@@ -436,13 +436,7 @@ Loss Measurement Mode   /                \
    of 0.0.0.0 or IPv6 endpoint of ::0
    <xref target="I-D.ietf-spring-segment-routing-policy"/>, 
    the address in the range of 127/8 for IPv4 or
-   ::FFFF:127/104 for IPv6 is used as the destination address, respectively. 
-   When using the destination address in 127/8 range for IPv4 or
-   in ::FFFF:127/104 range for IPv6, the Node Address TLV [gandhi-ippm-twamp-srpm] can be sent 
-   in the probe query message to identify the intended node.
-   The reflector node MUST NOT send response message if it
-   is not the intended destination node from the Node Address TLV 
-   [gandhi-ippm-twamp-srpm].</t>
+   ::FFFF:127/104 for IPv6 is used as the destination address, respectively.</t>
 
 	<section title="Probe Query Message for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
    The probe query messages for performance measurement of an
@@ -570,8 +564,7 @@ Loss Measurement Mode   /                \
    All four timestamps are used to measure two-way delay as ((t4 - t1) - (t3 - t2)).</t>
 
 	<t>For two-way measurement mode for Links, the probe response message is sent back on the incoming physical
-   interface where the probe query message is received. This is required
-   for example, in case of two-way measurement mode for Link delay.</t>
+   interface where the probe query message is received .</t>
 
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The message content for sending probe response message for two-way

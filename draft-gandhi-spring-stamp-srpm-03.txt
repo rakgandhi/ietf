@@ -92,14 +92,14 @@ Table of Contents
        4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  11
        4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  11
      4.3.  Additional Probe Message Processing Rules . . . . . . . .  13
-       4.3.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . .  14
+       4.3.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . .  13
        4.3.2.  Router Alert Option . . . . . . . . . . . . . . . . .  14
        4.3.3.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  14
    5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  14
    6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
    7.  Performance Delay and Liveness Monitoring . . . . . . . . . .  16
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
@@ -625,8 +625,7 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
 
    For two-way measurement mode for Links, the probe response message is
    sent back on the incoming physical interface where the probe query
-   message is received.  This is required for example, in case of two-
-   way measurement mode for Link delay.
+   message is received.
 
    For two-way measurement mode for SR Policy, the reflector node needs
    to send the probe response message on a specific reverse path.  The
@@ -636,7 +635,7 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    [gandhi-ippm-stamp-srpm].  This way the reflector node does not
    require any additional SR state for PM (recall that in SR networks,
    the state is in the probe packet and signaling of the parameters is
-   avoided).
+   undesired).
 
 4.2.2.1.  Probe Response Message for SR-MPLS Policy
 
@@ -665,7 +664,8 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    [I-D.ietf-spring-mpls-path-segment] of the forward SR Policy in the
    probe query can be used to find the associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path] to send the probe response message for
-
+   two-way measurement of SR Policy unless when using STAMP message with
+   Return Path TLV.
 
 
 
@@ -673,9 +673,6 @@ Gandhi, et al.           Expires April 23, 2021                [Page 12]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
 
-
-   two-way measurement of SR Policy unless when using STAMP message with
-   Return Path TLV.
 
 4.2.2.2.  Probe Response Message for SRv6 Policy
 
@@ -719,9 +716,12 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    STAMP messages for delay and loss measurement for Links and end-to-
    end SR Paths including SR Policies.
 
+4.3.1.  TTL and Hop Limit
 
-
-
+   The TTL field in the IPv4 and MPLS headers of the probe query
+   messages is set to 255 [RFC8762].  Similarly, the Hop Limit field in
+   the IPv6 and SRH headers of the probe query messages is set to 255
+   [RFC8762].
 
 
 
@@ -729,13 +729,6 @@ Gandhi, et al.           Expires April 23, 2021                [Page 13]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
 
-
-4.3.1.  TTL and Hop Limit
-
-   The TTL field in the IPv4 and MPLS headers of the probe query
-   messages is set to 255 [RFC8762].  Similarly, the Hop Limit field in
-   the IPv6 and SRH headers of the probe query messages is set to 255
-   [RFC8762].
 
    When using the Destination IPv4 Address from the 127/8 range, the TTL
    field in the IPv4 header is set to 1 [RFC8029].  Similarly, when
@@ -776,16 +769,6 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    SR Policies.  The procedure for one-way measurement is defined as
    following:
 
-
-
-
-
-
-Gandhi, et al.           Expires April 23, 2021                [Page 14]
-
-Internet-Draft       Using STAMP for Segment Routing        October 2020
-
-
    o  The sender root node sends probe query messages using the Tree-SID
       defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP SR-MPLS
       Policy as shown in Figure 9.
@@ -795,6 +778,13 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
 
    o  The Destination Address is set to the loopback 127.0.0.1/32 for
       IPv4, or the loopback address ::1/128 for IPv6 address [RFC4291].
+
+
+
+Gandhi, et al.           Expires April 23, 2021                [Page 14]
+
+Internet-Draft       Using STAMP for Segment Routing        October 2020
+
 
    o  Each reflector leaf node sends its IP address in the Source
       Address of the probe response messages as shown in Figure 9.  This
@@ -834,14 +824,6 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    between transit nodes and between transit and destination nodes.
    Usage of Anycast SID [RFC8402] by an SR Policy can result in ECMP
    paths via transit nodes part of that Anycast group.  The probe
-
-
-
-Gandhi, et al.           Expires April 23, 2021                [Page 15]
-
-Internet-Draft       Using STAMP for Segment Routing        October 2020
-
-
    messages need to be sent to traverse different ECMP paths to measure
    performance delay of an SR Policy.
 
@@ -852,6 +834,13 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    sweeping of Destination Address in 127/8 range can be used to
    exercise particular ECMP paths.  As specified in [RFC6437], Flow
    Label field in the outer IPv6 header can also be used for sweeping.
+
+
+
+Gandhi, et al.           Expires April 23, 2021                [Page 15]
+
+Internet-Draft       Using STAMP for Segment Routing        October 2020
+
 
    The considerations for performance loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.
@@ -890,14 +879,6 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the probe messages.  SRv6 has HMAC protection
-
-
-
-Gandhi, et al.           Expires April 23, 2021                [Page 16]
-
-Internet-Draft       Using STAMP for Segment Routing        October 2020
-
-
    authentication defined for SRH [RFC8754].  Hence, probe messages for
    SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
@@ -906,6 +887,16 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
 9.  IANA Considerations
 
    This document does not require any IANA action.
+
+
+
+
+
+
+Gandhi, et al.           Expires April 23, 2021                [Page 16]
+
+Internet-Draft       Using STAMP for Segment Routing        October 2020
+
 
 10.  References
 
@@ -946,6 +937,15 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
 
+   [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
+              "Bidirectional Forwarding Detection (BFD) for MPLS Label
+              Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
+              June 2010, <https://www.rfc-editor.org/info/rfc5884>.
+
+
+
+
+
 
 
 
@@ -953,11 +953,6 @@ Gandhi, et al.           Expires April 23, 2021                [Page 17]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
 
-
-   [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
-              "Bidirectional Forwarding Detection (BFD) for MPLS Label
-              Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
-              June 2010, <https://www.rfc-editor.org/info/rfc5884>.
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
@@ -1002,6 +997,11 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
 
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
+
 
 
 
@@ -1009,11 +1009,6 @@ Gandhi, et al.           Expires April 23, 2021                [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
 
-
-   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
-              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
-              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
-              <https://www.rfc-editor.org/info/rfc8754>.
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
@@ -1057,7 +1052,12 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
               OAM Data", draft-gandhi-mpls-ioam-sr-03 (work in
               progress), September 2020.
 
-
+   [I-D.ali-spring-ioam-srv6]
+              Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
+              N., Pignataro, C., Li, C., Chen, M., and G. Dawra,
+              "Segment Routing Header encapsulation for In-situ OAM
+              Data", draft-ali-spring-ioam-srv6-02 (work in progress),
+              November 2019.
 
 
 
@@ -1065,13 +1065,6 @@ Gandhi, et al.           Expires April 23, 2021                [Page 19]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
 
-
-   [I-D.ali-spring-ioam-srv6]
-              Ali, Z., Gandhi, R., Filsfils, C., Brockners, F., Kumar,
-              N., Pignataro, C., Li, C., Chen, M., and G. Dawra,
-              "Segment Routing Header encapsulation for In-situ OAM
-              Data", draft-ali-spring-ioam-srv6-02 (work in progress),
-              November 2019.
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -1112,6 +1105,13 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
+
+
+
 
 
 
@@ -1120,12 +1120,6 @@ Authors' Addresses
 Gandhi, et al.           Expires April 23, 2021                [Page 20]
 
 Internet-Draft       Using STAMP for Segment Routing        October 2020
-
-
-   Daniel Voyer
-   Bell Canada
-
-   Email: daniel.voyer@bell.ca
 
 
    Mach(Guoyi) Chen
@@ -1138,6 +1132,12 @@ Internet-Draft       Using STAMP for Segment Routing        October 2020
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
 
 
 

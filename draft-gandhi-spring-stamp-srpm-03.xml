@@ -569,8 +569,7 @@ Loss Measurement Mode   /                \
    All four timestamps are used to measure two-way delay as ((t4 - t1) - (t3 - t2)).</t>
 
 	<t>For two-way measurement mode for Links, the probe response message is sent back on the incoming physical
-   interface where the probe query message is received. This is required
-   for example, in case of two-way measurement mode for Link delay.</t>
+   interface where the probe query message is received.</t>
 
 	<t>For two-way measurement mode for SR Policy, the reflector node needs to send
    the probe response message on a specific reverse path.  The sender
@@ -579,7 +578,7 @@ Loss Measurement Mode   /                \
    bidirectional path) using Return Path TLV defined in [gandhi-ippm-stamp-srpm].  
    This way the reflector node does not require
    any additional SR state for PM (recall that in SR networks, 
-   the state is in the probe packet and signaling of the parameters is avoided).</t>
+   the state is in the probe packet and signaling of the parameters is undesired).</t>
 
 	<section title="Probe Response Message for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The message content for sending probe response message for two-way
