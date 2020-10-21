@@ -214,8 +214,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      October 2020
    node does not require any additional state for PM (recall that in SR
    networks, the state is in the probe packet and signaling of the
    parameters is undesired).  The usage of the Control Code is not
-   limited to the SR paths and can be used for non-SR paths in a
-   network.
+   limited to the SR and can be used for non-SR network.
+
 
 
 
