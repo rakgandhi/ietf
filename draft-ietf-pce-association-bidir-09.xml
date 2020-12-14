@@ -194,7 +194,7 @@
         reverse LSPs are identified in the Bidirectional LSP Association Group
         TLV of their PCEP ASSOCIATION Objects.</t>
 
-        <t>The originating endpoint node signals the properties for the revere
+        <t>The originating endpoint node signals the properties for the reverse
         LSP in the RSVP REVERSE_LSP Object <xref target="RFC7551"/> of the
         forward LSP Path message. The remote endpoint then creates the
         corresponding reverse tunnel and signals the reverse LSP in response

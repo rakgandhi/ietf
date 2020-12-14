@@ -237,7 +237,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    identified in the Bidirectional LSP Association Group TLV of their
    PCEP ASSOCIATION Objects.
 
-   The originating endpoint node signals the properties for the revere
+   The originating endpoint node signals the properties for the reverse
    LSP in the RSVP REVERSE_LSP Object [RFC7551] of the forward LSP Path
    message.  The remote endpoint then creates the corresponding reverse
    tunnel and signals the reverse LSP in response to the received RSVP-
