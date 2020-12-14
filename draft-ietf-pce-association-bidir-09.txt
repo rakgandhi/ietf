@@ -710,9 +710,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    o  PCC MAY delegate the forward and reverse LSPs independently to a
       Stateful PCE, where PCE would control the LSPs.  For single-sided
-      case, originating (PCC) node can delegate both forward and reverse
-      LSPs of a tunnel together to a Stateful PCE in order to avoid any
-      race condition.
+      case, originating (PCC) node SHOULD delegate both forward and
+      reverse LSPs of a tunnel together to a Stateful PCE in order to
+      avoid any race condition.
 
    o  Stateful PCE updates the LSPs in the Bidirectional LSP Association
       via PCUpd message, using the procedures described in [RFC8697].
