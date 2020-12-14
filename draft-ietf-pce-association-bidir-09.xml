@@ -39,8 +39,7 @@
   <?rfc toc="yes"?>
 
   <front>
-    <title abbrev="PCEP for Associated Bidirectional LSP"> Path Computation Element Communication Protocol (PCEP) Extensions for
-    Associated Bidirectional Label Switched Paths (LSPs)</title>
+    <title abbrev="PCEP for Associated Bidirectional LSP"> Path Computation Element Communication Protocol (PCEP) Extensions for Associated Bidirectional Label Switched Paths (LSPs)</title>
 
     <author fullname="Rakesh Gandhi" initials="R." role="editor"
             surname="Gandhi">
@@ -136,7 +135,7 @@
       Specifically, this document defines two new Association Types, "Single-sided  
       Bidirectional LSP Association" and "Double-sided Bidirectional 
       LSP Association", and a Bidirectional LSP Association Group TLV to carry 
-      additional information for them.</t>
+      additional information for the association.</t>
 
       <t>The procedure for associating two unidirectional Segment Routing (SR) Paths 
       to form an Associated Bidirectional SR Path is defined in 
@@ -203,7 +202,7 @@
         deletes the reverse LSP when it receives the RSVP-TE message to delete the forward LSP
         <xref target="RFC3209"/>.</t>
 
-        <t>The originating endpoint (PCC) node MAY report/ delegate the
+        <t>The originating endpoint (PCC) node may report/ delegate the
         forward and reverse direction LSPs to a PCE. The remote endpoint (PCC)
         node MAY report its forward direction LSP to a PCE.</t>
 
@@ -281,7 +280,7 @@
         are identified in the Bidirectional LSP Association Group TLV of their
         ASSOCIATION Objects.</t>
 
-        <t>The endpoint (PCC) nodes MAY report/ delegate the forward and
+        <t>The endpoint (PCC) nodes may report/ delegate the forward and
         reverse direction LSPs to a PCE.</t>
 
         <figure anchor="ure-example-of-pce-initiated-double-sided-bidirectional-lsp"
@@ -530,14 +529,14 @@
         Associations can be created by a Stateful PCE.</t>
 
         <t><list style="symbols">
-            <t>Stateful PCE can create and update the forward and reverse LSPs
+            <t>Stateful PCE MAY create and update the forward and reverse LSPs
             independently for both Single-sided and Double-sided Bidirectional
             LSP Associations.</t>
 
-            <t>Stateful PCE can establish and remove the association
+            <t>Stateful PCE establishes and removes the association
             relationship on a per LSP basis.</t>
 
-            <t>Stateful PCE can create and update the LSP and the association
+            <t>Stateful PCE creates and updates the LSP and the association
             on a PCC via PCInitiate and PCUpd messages, respectively, using
             the procedures described in <xref target="RFC8697"/>.</t>
           </list></t>
@@ -548,26 +547,26 @@
         Associations can also be created by a PCC.</t>
 
         <t><list style="symbols">
-            <t>PCC can create and update the forward and reverse LSPs
+            <t>PCC MAY create and update the forward and reverse LSPs
             independently for both Single-sided and Double-sided Bidirectional
             LSP Associations.</t>
 
-            <t>PCC can establish and remove the association relationship on a
+            <t>PCC establishes and removes the association relationship on a
             per LSP basis.</t>
 
             <t>PCC MUST report the change in the association group of an LSP
             to PCE(s) via PCRpt message.</t>
 
-            <t>PCC can report the forward and reverse LSPs independently to
+            <t>PCC reports the forward and reverse LSPs independently to
             PCE(s) via PCRpt message.</t>
 
-            <t>PCC can delegate the forward and reverse LSPs independently to
+            <t>PCC MAY delegate the forward and reverse LSPs independently to
             a Stateful PCE, where PCE would control the LSPs. For single-sided
             case, originating (PCC) node can delegate both forward and reverse
             LSPs of a tunnel together to a Stateful PCE in order to avoid any
             race condition.</t>
 
-            <t>Stateful PCE can update the LSPs in the Bidirectional LSP
+            <t>Stateful PCE updates the LSPs in the Bidirectional LSP
             Association via PCUpd message, using the procedures
             described in <xref target="RFC8697"/>.</t>
           </list></t>
@@ -627,13 +626,17 @@
       </section>
 
       <section anchor="sect-5.7" title="Error Handling">
+        <t>If a PCE speaker receives an LSP with a 
+        Bidirectional LSP Association Type that it does not support, 
+        the PCE speaker MUST send PCErr with Error-Type =
+        26 (Association Error) and Error-Value = 1 (Association Type
+	is not supported).</t>
+
         <t>An LSP (forward or reverse) cannot be part of more than one
-        Bidirectional LSP Association. If a PCE peer receives an LSP
-        not complying to this rule, the PCE peer MUST send PCErr with Error-Type =
+        Bidirectional LSP Association. If a PCE speaker receives an LSP
+        not complying to this rule, the PCE speaker MUST send PCErr with Error-Type =
         26 (Association Error) and Error-Value = TBD4 (Bidirectional LSP
-        Association - Group Mismatch). Similarly, if a PCE speaker receives an
-        LSP not complying to this rule, the PCE speaaker MUST send this
-        PCErr.</t>
+        Association - Group Mismatch).</t>
 
         <t>The LSPs (forward or reverse) in a Single-sided Bidirectional
         Association MUST belong to the same TE Tunnel (as defined in
@@ -641,9 +644,7 @@
         Single-sided Bidirectional LSP Association for a different
         Tunnel, the PCE peer MUST send PCErr with Error-Type = 26 (Association
         Error) and Error-Value = TBD5 (Bidirectional Association - Tunnel
-        Mismatch). Similarly, if a PCE speaker receives an LSP for an
-        Single-sided Bidirectional LSP Association not complying
-        to this rule, the PCE speaker MUST send this PCErr.</t>
+        Mismatch).</t>
 
         <t>The PCEP Path Setup Type (PST) for RSVP-TE is set to
         'Path is set up using the RSVP-TE signaling protocol' (Value 0) 
@@ -653,6 +654,26 @@
         it does not support; it MUST return a PCErr message with Error-Type =
         26 (Association Error) and Error-Value = TBD6 (Bidirectional LSP
         Association - Path Setup Type Not Supported).</t>
+
+        <t>A Bidirectional LSP Association cannot have both unidirectional 
+	LSPs identified as Reverse or both LSPs
+	identified as Forward LSPs. If a PCE speaker receives an LSP
+        not complying to this rule, the PCE speaker MUST send PCErr with Error-Type =
+        26 (Association Error) and Error-Value = TBD7 (Bidirectional LSP
+        Association - Direction Mismatch).</t>
+
+        <t>A Bidirectional LSP Association cannot have one unidirectional 
+	LSP co-routed and one non-co-routed. If a PCE speaker receives an LSP
+        not complying to this rule, the PCE speaker MUST send PCErr with Error-Type =
+        26 (Association Error) and Error-Value = TBD8 (Bidirectional LSP
+        Association - Corouted Mismatch).</t>
+
+        <t>The unidirectional LSPs forming the Bidirectional
+	LSP Association MUST have matching endppoint nodes in the reverse directions. 
+	If a PCE speaker receives an LSP
+        not complying to this rule, the PCE speaker MUST send PCErr with Error-Type =
+        26 (Association Error) and Error-Value = TBD9 (Bidirectional LSP
+        Association - Endpoint Mismatch).</t>
 
         <t>The processing rules as specified in Section 6.4 of <xref
         target="RFC8697"/> continue to apply to the Association Types defined
@@ -836,7 +857,15 @@ Error Type  Description                  Reference
             Error value: TBD6            [This document]
             Bidirectional LSP Association - Path Setup Type 
                                             Not Supported
+ 
+            Error value: TBD7            [This document]
+	    Bidirectional LSP Association - Direction Mismatch
 
+            Error value: TBD8            [This document]
+	    Bidirectional LSP Association - Corouted Mismatch
+
+            Error value: TBD9            [This document]
+	    Bidirectional LSP Association - Endpoint Mismatch
 
 </artwork>
         </figure>
