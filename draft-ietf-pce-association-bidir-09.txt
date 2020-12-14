@@ -81,6 +81,8 @@ Table of Contents
      2.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.1.  Single-sided Initiation . . . . . . . . . . . . . . . . .   5
+       3.1.1.  PCE-Initiated Single-sided Bidirectional LSP  . . . .   5
+       3.1.2.  PCC-Initiated Single-sided Bidirectional LSP  . . . .   6
      3.2.  Double-sided Initiation . . . . . . . . . . . . . . . . .   7
      3.3.  Co-routed Associated Bidirectional LSP  . . . . . . . . .   9
      3.4.  Summary of PCEP Extensions  . . . . . . . . . . . . . . .   9
@@ -104,8 +106,6 @@ Table of Contents
      8.3.  Liveness Detection and Monitoring . . . . . . . . . . . .  17
      8.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  17
      8.5.  Requirements On Other Protocols . . . . . . . . . . . . .  17
-     8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  17
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
 
 
 
@@ -114,6 +114,8 @@ Gandhi, et al.            Expires June 18, 2021                 [Page 2]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+     8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  17
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
      9.1.  Association Types . . . . . . . . . . . . . . . . . . . .  17
      9.2.  Bidirectional LSP Association Group TLV . . . . . . . . .  18
        9.2.1.  Flag Field in Bidirectional LSP Association Group TLV  18
@@ -160,8 +162,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    sided and double-sided initiation cases when using a Stateful PCE for
    both PCE-Initiated and PCC-Initiated LSPs as well as when using a
    Stateless PCE.  The procedures defined are applicable to the LSPs
-   using Resource Reservation Protocol - Traffic Engineering (RSVP-TE)
-   for signaling [RFC3209].  Specifically, this document defines two new
 
 
 
@@ -170,6 +170,8 @@ Gandhi, et al.            Expires June 18, 2021                 [Page 3]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+   using Resource Reservation Protocol - Traffic Engineering (RSVP-TE)
+   for signaling [RFC3209].  Specifically, this document defines two new
    Association Types, "Single-sided Bidirectional LSP Association" and
    "Double-sided Bidirectional LSP Association", as well as
    "Bidirectional LSP Association Group TLV" to carry additional
@@ -219,8 +221,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
 
-
-
 Gandhi, et al.            Expires June 18, 2021                 [Page 4]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
@@ -240,16 +240,16 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    The originating endpoint node signals the properties for the reverse
    LSP in the RSVP REVERSE_LSP Object [RFC7551] of the forward LSP Path
    message.  The remote endpoint then creates the corresponding reverse
-   tunnel and signals the reverse LSP in response to the received RSVP-
-   TE Path message.  Similarly, the remote endpoint node deletes the
-   reverse LSP when it receives the RSVP-TE message to delete the
-   forward LSP [RFC3209].
+   tunnel and reverse LSP, and signals the reverse LSP in response to
+   the received RSVP-TE Path message.  Similarly, the remote endpoint
+   node deletes the reverse LSP when it receives the RSVP-TE message to
+   delete the forward LSP [RFC3209].
 
-   The originating endpoint (PCC) node may report/ delegate the forward
-   and reverse direction LSPs to a PCE.  The remote endpoint (PCC) node
-   MAY report its forward direction LSP to a PCE.
+   As specified in [RFC8537], for fast reroute bypass tunnel assignment,
+   the LSP starting from the originating node is identified as the
+   forward LSP of the single-sided initiated bidirectional LSP.
 
-
+3.1.1.  PCE-Initiated Single-sided Bidirectional LSP
 
 
 
@@ -307,8 +307,36 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
        Legends: F = Forward LSP, R = Reverse LSP, 0 = PLSP-ID 0
 
-
      Figure 2: Example of PCE-Initiated Single-sided Bidirectional LSP
+
+   As shown in Figure 2, the forward tunnel and both forward LSP1 and
+   reverse LSP2 are initiated on the originating endpoint node A by the
+   PCE.  PLSP-IDs used are shown in the Figures as P1, P2 and P3.
+
+   The remote endpoint (PCC) node reports its forward direction LSP2 to
+   a PCE.
+
+3.1.2.  PCC-Initiated Single-sided Bidirectional LSP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires June 18, 2021                 [Page 6]
+
+Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
+
 
                                    +-----+
                                    | PCE |
@@ -323,29 +351,16 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
        Legends: F = Forward LSP, R = Reverse LSP, P1 = PLSP-ID P1
 
-
      Figure 3: Example of PCC-Initiated Single-sided Bidirectional LSP
 
-   As shown in Figures 2 and 3, the forward tunnel and both forward LSP1
-   and reverse LSP2 are initiated on the originating endpoint node A,
-   either by the PCE or the originating PCC, respectively.  The
-   originating endpoint node A signals the properties of reverse LSP2 in
+   As shown in Figure 3, the forward tunnel and both forward LSP1 and
+   reverse LSP2 are initiated on the originating endpoint node A by the
+   originating PCC.  PLSP-IDs used are shown in the Figures as P1, P2
+   and P3.
 
-
-
-Gandhi, et al.            Expires June 18, 2021                 [Page 6]
-
-Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
-
-
-   the RSVP REVERSE_LSP Object in the Path message of the forward LSP1.
-   The creation of reverse tunnel and reverse LSP2 on the remote
-   endpoint node D is triggered by the RSVP-TE signaled forward LSP1.
-   PLSP-IDs used are shown in the Figures as P1, P2 and P3.
-
-   As specified in [RFC8537], for fast reroute bypass tunnel assignment,
-   the LSP starting from the originating node is identified as the
-   forward LSP of the single-sided initiated bidirectional LSP.
+   The originating endpoint (PCC) node may delegate or report the
+   forward direction LSP1 to a PCE.  The remote endpoint (PCC) node
+   reports its forward direction LSP2 to a PCE.
 
 3.2.  Double-sided Initiation
 
@@ -359,21 +374,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    The endpoint (PCC) nodes may report/ delegate the forward and reverse
    direction LSPs to a PCE.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -197,14 +197,17 @@
         <t>The originating endpoint node signals the properties for the reverse
         LSP in the RSVP REVERSE_LSP Object <xref target="RFC7551"/> of the
         forward LSP Path message. The remote endpoint then creates the
-        corresponding reverse tunnel and signals the reverse LSP in response
+        corresponding reverse tunnel and reverse LSP, and signals the reverse LSP in response
         to the received RSVP-TE Path message. Similarly, the remote endpoint node
         deletes the reverse LSP when it receives the RSVP-TE message to delete the forward LSP
         <xref target="RFC3209"/>.</t>
 
-        <t>The originating endpoint (PCC) node may report/ delegate the
-        forward and reverse direction LSPs to a PCE. The remote endpoint (PCC)
-        node MAY report its forward direction LSP to a PCE.</t>
+        <t>As specified in <xref target="RFC8537"/>, for fast reroute bypass
+        tunnel assignment, the LSP starting from the originating node is
+        identified as the forward LSP of the single-sided initiated
+        bidirectional LSP.</t>
+
+      <section anchor="sect-3.1.1" title="PCE-Initiated Single-sided Bidirectional LSP">
 
         <figure anchor="ure-example-of-pce-initiated-single-sided-bidirectional-lsp"
                 title="Example of PCE-Initiated Single-sided Bidirectional LSP">
@@ -233,11 +236,21 @@
                               +-----+    +-----+
 
     Legends: F = Forward LSP, R = Reverse LSP, 0 = PLSP-ID 0
-
 </artwork>
         </figure>
 
-        <figure anchor="ure-example-of-pcc-initiated-single-sided-bidirectional-lsp"
+       <t>As shown in Figure 2, the forward tunnel and both forward
+        LSP1 and reverse LSP2 are initiated on the originating endpoint node
+        A by the PCE.  PLSP-IDs used
+        are shown in the Figures as P1, P2 and P3.</t>
+
+        <t>The remote endpoint (PCC) node reports its forward direction LSP2 to a PCE.</t>
+
+      </section>
+
+      <section anchor="sect-3.1.2" title="PCC-Initiated Single-sided Bidirectional LSP">
+
+      <figure anchor="ure-example-of-pcc-initiated-single-sided-bidirectional-lsp"
                 title="Example of PCC-Initiated Single-sided Bidirectional LSP">
           <artwork>
                                 +-----+
@@ -252,23 +265,20 @@
                               +-----+    +-----+
 
     Legends: F = Forward LSP, R = Reverse LSP, P1 = PLSP-ID P1
-
 </artwork>
         </figure>
 
-        <t>As shown in Figures 2 and 3, the forward tunnel and both forward
+        <t>As shown in Figure 3, the forward tunnel and both forward
         LSP1 and reverse LSP2 are initiated on the originating endpoint node
-        A, either by the PCE or the originating PCC, respectively. The
-        originating endpoint node A signals the properties of reverse LSP2 in
-        the RSVP REVERSE_LSP Object in the Path message of the forward LSP1.
-        The creation of reverse tunnel and reverse LSP2 on the remote endpoint
-        node D is triggered by the RSVP-TE signaled forward LSP1. PLSP-IDs used
+        A by the originating PCC. PLSP-IDs used
         are shown in the Figures as P1, P2 and P3.</t>
 
-        <t>As specified in <xref target="RFC8537"/>, for fast reroute bypass
-        tunnel assignment, the LSP starting from the originating node is
-        identified as the forward LSP of the single-sided initiated
-        bidirectional LSP.</t>
+        <t>The originating endpoint (PCC) node may delegate or report the
+        forward direction LSP1 to a PCE. 
+        The remote endpoint (PCC) node reports its forward direction LSP2 to a PCE.</t>
+
+      </section>
+
       </section>
 
       <section anchor="sect-3.2" title="Double-sided Initiation">
