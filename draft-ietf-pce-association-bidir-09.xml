@@ -203,7 +203,7 @@
         <xref target="RFC3209"/>.</t>
 
         <t>As specified in <xref target="RFC8537"/>, for fast reroute bypass
-        tunnel assignment, the LSP starting from the originating node is
+        tunnel assignment, the LSP starting from the originating endpoint node is
         identified as the forward LSP of the single-sided initiated
         bidirectional LSP.</t>
 
@@ -443,7 +443,7 @@
 
             <t>The Tunnel (as defined in <xref target="RFC3209"/>) of forward
             and reverse LSPs of the Single-sided Bidirectional LSP Association
-            on the originating node MUST be the same, albeit with reverse endpoints.</t>
+            on the originating endpoint node MUST be the same, albeit with reverse endpoints.</t>
           </list></t>
 
         <t> This document defines two new Association Types, called
@@ -598,7 +598,7 @@
             <t>PCC for the single-sided case MAY delegate the 
 	    forward and reverse LSPs independently to
             a Stateful PCE, where PCE would control the LSPs. In this case,
-            the originating (PCC) node SHOULD delegate both forward and reverse
+            the originating (PCC) endpoint node SHOULD delegate both forward and reverse
             LSPs of a tunnel together to a Stateful PCE in order to avoid any
             race condition.</t>
 
@@ -641,14 +641,14 @@
         and it remains the same for the lifetime of a PCEP session.</t>
 
         <t>In case of Single-sided Bidirectional LSP Association, the reverse
-        LSP of a bidirectional LSP created on the originating node is
+        LSP of a bidirectional LSP created on the originating endpoint node is
         identified by the PCE using 2 different PLSP-IDs based on the PCEP
         session on the ingress or egress nodes for the LSP. In other words,
         the reverse LSP will have a PLSP-ID P1 at the
         ingress node while it will have a PLSP-ID P3 at the egress node. 
         There is no change in the PLSP-ID
         allocation procedure for the forward LSP of the Single-sided
-        Bidirectional LSP on the originating node. In case of Double-sided Bidirectional LSP
+        Bidirectional LSP on the originating endpoint node. In case of Double-sided Bidirectional LSP
         Association, there is no change in the PLSP-ID allocation
         procedure.</t>
 

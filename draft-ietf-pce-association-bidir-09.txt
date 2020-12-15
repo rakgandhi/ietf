@@ -260,8 +260,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    message to delete the forward LSP [RFC3209].
 
    As specified in [RFC8537], for fast reroute bypass tunnel assignment,
-   the LSP starting from the originating node is identified as the
-   forward LSP of the single-sided initiated bidirectional LSP.
+   the LSP starting from the originating endpoint node is identified as
+   the forward LSP of the single-sided initiated bidirectional LSP.
 
 3.1.1.  PCE-Initiated Single-sided Bidirectional LSP
 
@@ -550,10 +550,10 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    o  The Tunnel (as defined in [RFC3209]) of forward and reverse LSPs
       of the Single-sided Bidirectional LSP Association on the
-      originating node MUST be the same, albeit with reverse endpoints.
+      originating endpoint node MUST be the same, albeit with reverse
+      endpoints.
 
-   This document defines two new Association Types, called "Single-sided
-   Bidirectional LSP" (TBD1) and "Double-sided Bidirectional LSP"
+
 
 
 
@@ -562,6 +562,8 @@ Gandhi, et al.            Expires June 18, 2021                [Page 10]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+   This document defines two new Association Types, called "Single-sided
+   Bidirectional LSP" (TBD1) and "Double-sided Bidirectional LSP"
    (TBD2), based on the generic ASSOCIATION Object ((Object-Class value
    40).
 
@@ -608,8 +610,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    o  For co-routed LSPs, this TLV MUST be present and C flag set.
 
-   o  For reverse LSPs, this TLV MUST be present and R flag set.
-
 
 
 
@@ -617,6 +617,8 @@ Gandhi, et al.            Expires June 18, 2021                [Page 11]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   o  For reverse LSPs, this TLV MUST be present and R flag set.
 
    o  The "Bidirectional LSP Association Group TLV" MUST NOT be present
       more than once.  If it appears more than once, only the first
@@ -664,8 +666,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    o  Neither unidirectional LSP exists, and both must be established.
 
-   o  Both unidirectional LSPs exist, but the association must be
-      established.
 
 
 
@@ -673,6 +673,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 12]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   o  Both unidirectional LSPs exist, but the association must be
+      established.
 
    o  One LSP exists, but the reverse associated LSP must be
       established.
@@ -718,10 +721,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    o  PCC for the single-sided case MAY delegate the forward and reverse
       LSPs independently to a Stateful PCE, where PCE would control the
-      LSPs.  In this case, the originating (PCC) node SHOULD delegate
-      both forward and reverse LSPs of a tunnel together to a Stateful
-      PCE in order to avoid any race condition.
-
+      LSPs.  In this case, the originating (PCC) endpoint node SHOULD
 
 
 
@@ -729,6 +729,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 13]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+      delegate both forward and reverse LSPs of a tunnel together to a
+      Stateful PCE in order to avoid any race condition.
 
    o  PCC for the double-sided case MAY delegate the forward LSP to a
       Stateful PCE, where PCE would control the LSPs.
@@ -768,16 +771,13 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    for the lifetime of a PCEP session.
 
    In case of Single-sided Bidirectional LSP Association, the reverse
-   LSP of a bidirectional LSP created on the originating node is
-   identified by the PCE using 2 different PLSP-IDs based on the PCEP
+   LSP of a bidirectional LSP created on the originating endpoint node
+   is identified by the PCE using 2 different PLSP-IDs based on the PCEP
    session on the ingress or egress nodes for the LSP.  In other words,
    the reverse LSP will have a PLSP-ID P1 at the ingress node while it
    will have a PLSP-ID P3 at the egress node.  There is no change in the
    PLSP-ID allocation procedure for the forward LSP of the Single-sided
-   Bidirectional LSP on the originating node.  In case of Double-sided
-   Bidirectional LSP Association, there is no change in the PLSP-ID
-   allocation procedure.
-
+   Bidirectional LSP on the originating endpoint node.  In case of
 
 
 
@@ -785,6 +785,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 14]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   Double-sided Bidirectional LSP Association, there is no change in the
+   PLSP-ID allocation procedure.
 
    For an Associated Bidirectional LSP, LSP-IDENTIFIERS TLV [RFC8231]
    MUST be included in all forward and reverse LSPs.
@@ -831,9 +834,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    Error-Value = TBD7 (Bidirectional LSP Association - Direction
    Mismatch).
 
-   A Bidirectional LSP Association cannot have one unidirectional LSP
-   identified as co-routed and the other identified as non-co-routed.
-   If a PCE speaker receives an LSP not complying to this rule, the PCE
 
 
 
@@ -842,6 +842,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 15]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+   A Bidirectional LSP Association cannot have one unidirectional LSP
+   identified as co-routed and the other identified as non-co-routed.
+   If a PCE speaker receives an LSP not complying to this rule, the PCE
    speaker MUST send PCErr with Error-Type = 26 (Association Error) and
    Error-Value = TBD8 (Bidirectional LSP Association - Co-routed
    Mismatch).
@@ -886,9 +889,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    The PCEP extensions defined in this document has been implemented by
    a vendor on their product.  No further information is available at
    this time.
-
-
-
 
 
 
