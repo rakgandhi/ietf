@@ -491,7 +491,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    The PCEP extensions defined in this document cover the following
    cases:
 
-   o  A PCC initiates the forward and/ or reverse LSP of a Single-sided
+   o  A PCC initiates the forward and reverse LSP of a Single-sided
       Bidirectional LSP and retains the control of the LSP.  Similarly,
       a PCC initiates the forward and/ or reverse LSP of a Double-sided
       Bidirectional LSP and retains the control of the LSP.  The PCC
@@ -509,7 +509,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       identifying the bidirectional LSP.  This is the Passive Stateful
       mode defined in [RFC8051].
 
-   o  A PCC initiates the forward and/ or reverse LSP of a Single-sided
+   o  A PCC initiates the forward and reverse LSP of a Single-sided
       Bidirectional LSP and delegates the control of the LSP to a
       Stateful PCE.  Similarly, a PCC initiates the forward and/ or
       reverse LSP of a Double-sided Bidirectional LSP and delegates the
@@ -519,7 +519,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       information about the path as long as it controls the LSP.  This
       is the Active Stateful mode defined in [RFC8051].
 
-   o  A PCE initiates the forward and/ or reverse LSP of a Single-sided
+   o  A PCE initiates the forward and reverse LSP of a Single-sided
       Bidirectional LSP on a PCC and retains the control of the LSP.
       Similarly, a PCE initiates the forward and/ or reverse LSP of a
       Double-sided Bidirectional LSP on a PCC and retains the control of
