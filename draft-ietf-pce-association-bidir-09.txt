@@ -719,9 +719,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    o  PCC reports the forward and reverse LSPs independently to PCE(s)
       via PCRpt message.
 
-   o  PCC MAY delegate the forward and reverse LSPs independently to a
-      Stateful PCE, where PCE would control the LSPs.  For single-sided
-      case, originating (PCC) node SHOULD delegate both forward and
+   o  PCC for the single-sided case MAY delegate the forward and reverse
+      LSPs independently to a Stateful PCE, where PCE would control the
+      LSPs.  In this case, the originating (PCC) node SHOULD delegate
 
 
 
@@ -730,8 +730,11 @@ Gandhi, et al.            Expires June 18, 2021                [Page 13]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
-      reverse LSPs of a tunnel together to a Stateful PCE in order to
-      avoid any race condition.
+      both forward and reverse LSPs of a tunnel together to a Stateful
+      PCE in order to avoid any race condition.
+
+   o  PCC for the double-sided case MAY delegate the forward LSP to a
+      Stateful PCE, where PCE would control the LSPs.
 
    o  Stateful PCE updates the LSPs in the Bidirectional LSP Association
       via PCUpd message, using the procedures described in [RFC8697].
@@ -775,9 +778,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    will have a PLSP-ID P3 at the egress node.  There is no change in the
    PLSP-ID allocation procedure for the forward LSP of the Single-sided
    Bidirectional LSP on the originating node.  In case of Double-sided
-   Bidirectional LSP Association, there is no change in the PLSP-ID
-   allocation procedure.
-
 
 
 
@@ -785,6 +785,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 14]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   Bidirectional LSP Association, there is no change in the PLSP-ID
+   allocation procedure.
 
    For an Associated Bidirectional LSP, LSP-IDENTIFIERS TLV [RFC8231]
    MUST be included in all forward and reverse LSPs.
@@ -831,9 +834,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    Error-Value = TBD7 (Bidirectional LSP Association - Direction
    Mismatch).
 
-   A Bidirectional LSP Association cannot have one unidirectional LSP
-   identified as co-routed and the other identified as non-co-routed.
-   If a PCE speaker receives an LSP not complying to this rule, the PCE
 
 
 
@@ -842,6 +842,9 @@ Gandhi, et al.            Expires June 18, 2021                [Page 15]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+   A Bidirectional LSP Association cannot have one unidirectional LSP
+   identified as co-routed and the other identified as non-co-routed.
+   If a PCE speaker receives an LSP not complying to this rule, the PCE
    speaker MUST send PCErr with Error-Type = 26 (Association Error) and
    Error-Value = TBD8 (Bidirectional LSP Association - Co-routed
    Mismatch).
@@ -886,9 +889,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    The PCEP extensions defined in this document has been implemented by
    a vendor on their product.  No further information is available at
    this time.
-
-
-
 
 
 

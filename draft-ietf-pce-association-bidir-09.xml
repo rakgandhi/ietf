@@ -597,11 +597,15 @@
             <t>PCC reports the forward and reverse LSPs independently to
             PCE(s) via PCRpt message.</t>
 
-            <t>PCC MAY delegate the forward and reverse LSPs independently to
-            a Stateful PCE, where PCE would control the LSPs. For single-sided
-            case, originating (PCC) node SHOULD delegate both forward and reverse
+            <t>PCC for the single-sided case MAY delegate the 
+	    forward and reverse LSPs independently to
+            a Stateful PCE, where PCE would control the LSPs. In this case,
+            the originating (PCC) node SHOULD delegate both forward and reverse
             LSPs of a tunnel together to a Stateful PCE in order to avoid any
             race condition.</t>
+
+            <t>PCC for the double-sided case MAY delegate the forward LSP to
+            a Stateful PCE, where PCE would control the LSPs.</t>
 
             <t>Stateful PCE updates the LSPs in the Bidirectional LSP
             Association via PCUpd message, using the procedures
