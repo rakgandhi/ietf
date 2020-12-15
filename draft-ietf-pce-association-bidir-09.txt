@@ -312,11 +312,11 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    As shown in Figure 2, the forward tunnel and both forward LSP1 and
    reverse LSP2 are initiated on the originating endpoint node A by the
    PCE.  PLSP-IDs used are P1 and P2 on the originating node A and P3 on
-   the remote node D.
-
-   Both the endpoint (PCC) nodes may report the LSPs to a PCE.
+   the remote node D.  Both the endpoint (PCC) nodes may report the LSPs
+   to a PCE.
 
 3.1.2.  PCC-Initiated Single-sided Bidirectional LSP
+
 
 
 
@@ -356,11 +356,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    As shown in Figure 3, the forward tunnel and both forward LSP1 and
    reverse LSP2 are initiated on the originating endpoint node A by the
    originating PCC.  PLSP-IDs used are P1 and P2 on the originating node
-   A and P3 on the remote node D.
-
-   The originating endpoint (PCC) node may delegate the forward
-   direction LSP1 to a PCE.  Both the endpoint (PCC) nodes may report
-   the LSPs to a PCE.
+   A and P3 on the remote node D.  The originating endpoint (PCC) node
+   may delegate the forward direction LSP1 to a PCE.  Both the endpoint
+   (PCC) nodes may report the LSPs to a PCE.
 
 3.2.  Double-sided Initiation
 
@@ -377,6 +375,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    forward LSP of the double-sided initiated bidirectional LSP.
 
 3.2.1.  PCE-Initiated Double-sided Bidirectional LSP
+
+
 
 
 
@@ -425,11 +425,11 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    As shown in Figure 4, the forward tunnel and forward LSP1 are
    initiated on the endpoint node A and the reverse tunnel and reverse
    LSP2 are initiated on the endpoint node D by the PCE.  PLSP-IDs used
-   are P4 on the originating node A and P5 on the remote node D.
-
-   Both endpoint (PCC) nodes may report the LSPs to a PCE.
+   are P4 on the originating node A and P5 on the remote node D.  Both
+   endpoint (PCC) nodes may report the LSPs to a PCE.
 
 3.2.2.  PCC-Initiated Double-sided Bidirectional LSP
+
 
 
 
@@ -469,9 +469,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    As shown in Figure 5, the forward tunnel and forward LSP1 are
    initiated on the endpoint node A and the reverse tunnel and reverse
    LSP2 are initiated on the endpoint node D by the PCCs.  PLSP-IDs used
-   are P4 on the originating node A and P5 on the remote node D.
-
-   Both endpoint (PCC) nodes may delegate and report the LSPs to a PCE.
+   are P4 on the originating node A and P5 on the remote node D.  Both
+   endpoint (PCC) nodes may delegate and report the LSPs to a PCE.
 
 3.3.  Co-routed Associated Bidirectional LSP
 
@@ -498,6 +497,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       a PCC initiates the forward and/ or reverse LSP of a Double-sided
       bidirectional LSP and retains the control of the LSP.  The PCC
       computes the path itself or makes a request for path computation
+      to a PCE.  After the path setup, it reports the information and
 
 
 
@@ -506,7 +506,6 @@ Gandhi, et al.            Expires June 18, 2021                 [Page 9]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
-      to a PCE.  After the path setup, it reports the information and
       state of the path to the PCE.  This includes the association group
       identifying the bidirectional LSP.  This is the Passive Stateful
       mode defined in [RFC8051].
@@ -553,6 +552,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    o  The Tunnel (as defined in [RFC3209]) of forward and reverse LSPs
       of the Single-sided Bidirectional LSP Association on the
       originating node MUST be the same, albeit with reverse endpoints.
+
 
 
 
