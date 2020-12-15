@@ -289,9 +289,13 @@
         LSP Association" on both endpoint nodes. The forward and reverse LSPs
         are identified in the Bidirectional LSP Association Group TLV of their
         ASSOCIATION Objects.</t>
+ 
+        <t>As specified in <xref target="RFC8537"/>, for fast reroute bypass
+        tunnel assignment, the LSP with the higher Source Address <xref
+        target="RFC3209"/> is identified as the forward LSP of the
+        double-sided initiated bidirectional LSP.</t>
 
-        <t>The endpoint (PCC) nodes may report/ delegate the forward and
-        reverse direction LSPs to a PCE.</t>
+     <section anchor="sect-3.2.1" title="PCE-Initiated Double-sided Bidirectional LSP">
 
         <figure anchor="ure-example-of-pce-initiated-double-sided-bidirectional-lsp"
                 title="Example of PCE-Initiated Double-sided Bidirectional LSP">
@@ -323,8 +327,19 @@
 
 </artwork>
         </figure>
+        <t>As shown in Figure 4, the forward tunnel and forward LSP1
+        are initiated on the endpoint node A and the reverse tunnel and
+        reverse LSP2 are initiated on the endpoint node D by the PCE.
+        PLSP-IDs used are shown in the Figures as P4 and P5.</t>
 
-        <figure anchor="ure-example-of-pcc-initiated-double-sided-bidirectional-lsp"
+        <t>The PCC nodes may report the forward and
+        reverse direction LSPs to a PCE.</t>
+
+     </section>
+
+     <section anchor="sect-3.2.2" title="PCC-Initiated Double-sided Bidirectional LSP">
+
+       <figure anchor="ure-example-of-pcc-initiated-double-sided-bidirectional-lsp"
                 title="Example of PCC-Initiated Double-sided Bidirectional LSP">
           <artwork>
                             +-----+
@@ -342,17 +357,17 @@
 
 </artwork>
         </figure>
-
-        <t>As shown in Figures 4 and 5, the forward tunnel and forward LSP1
+         <t>As shown in Figure 5, the forward tunnel and forward LSP1
         are initiated on the endpoint node A and the reverse tunnel and
-        reverse LSP2 are initiated on the endpoint node D, either by the PCE
-        or the PCCs, respectively. PLSP-IDs used
+        reverse LSP2 are initiated on the endpoint node D
+        by the PCCs. PLSP-IDs used
         are shown in the Figures as P4 and P5.</t>
 
-        <t>As specified in <xref target="RFC8537"/>, for fast reroute bypass
-        tunnel assignment, the LSP with the higher Source Address <xref
-        target="RFC3209"/> is identified as the forward LSP of the
-        double-sided initiated bidirectional LSP.</t>
+       <t>The endpoint (PCC) nodes may report/ delegate the forward and
+        reverse direction LSPs to a PCE.</t>
+
+     </section>
+
       </section>
 
       <section anchor="sect-3.3"
