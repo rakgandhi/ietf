@@ -391,9 +391,9 @@
 
       <t><list style="symbols">
           <t>A PCC initiates the forward and/ or reverse LSP of a Single-sided
-          bidirectional LSP and retains the control of the
+          Bidirectional LSP and retains the control of the
           LSP. Similarly, a PCC initiates the forward and/ or reverse LSP of a 
-          Double-sided bidirectional LSP and retains the control of the
+          Double-sided Bidirectional LSP and retains the control of the
           LSP. The PCC computes the path itself or makes a request for path
           computation to a PCE. After the path setup, it reports the
           information and state of the path to the PCE. This includes the
@@ -401,9 +401,9 @@
           Passive Stateful mode defined in <xref target="RFC8051"/>.</t>
 
           <t>A PCC initiates the forward and/ or reverse LSP of a Single-sided
-          bidirectional LSP and delegates the control of the
+          Bidirectional LSP and delegates the control of the
           LSP to a Stateful PCE. Similarly, a PCC initiates the forward and/ or reverse LSP of a 
-          Double-sided bidirectional LSP and delegates the control of the
+          Double-sided Bidirectional LSP and delegates the control of the
           LSP to a Stateful PCE. During delegation the association group
           identifying the bidirectional LSP is included. The PCE computes the
           path of the LSP and updates the PCC with the information about the
@@ -411,9 +411,9 @@
           mode defined in <xref target="RFC8051"/>.</t>
 
           <t>A PCE initiates the forward and/ or reverse LSP of a Single-sided
-          bidirectional LSP on a PCC and retains the control
+          Bidirectional LSP on a PCC and retains the control
           of the LSP. Similarly, a PCE initiates the forward and/ or reverse LSP of a 
-          Double-sided bidirectional LSP on a PCC and retains the control
+          Double-sided Bidirectional LSP on a PCC and retains the control
           of the LSP. The PCE is responsible for computing the path of the LSP
           and updating the PCC with the information about the path as well as
           the association group identifying the bidirectional LSP. This is the
@@ -565,7 +565,7 @@
 
             <t>Stateful PCE MAY create and update the forward LSP
             independently for the Double-sided Bidirectional
-            LSP Association on two endpoint nodes.</t>
+            LSP Association on the endpoint nodes.</t>
 
             <t>Stateful PCE establishes and removes the association
             relationship on a per LSP basis.</t>
@@ -584,14 +584,12 @@
             <t>PCC on the originating endpoint node MAY create and update the forward and reverse LSPs
             independently for the Single-sided Bidirectional LSP Association.</t>
 
-            <t>PCC on the two endpoint nodes MAY create and update the forward LSP
+            <t>PCC on the endpoint nodes MAY create and update the forward LSP
             independently for the Double-sided Bidirectional
             LSP Association.</t>
 
-            <t>PCC establishes and removes the association relationship on a
-            per LSP basis.</t>
-
-            <t>PCC MUST report the change in the association group of an LSP
+            <t>PCC establishes and removes the association group on a
+            per LSP basis. PCC MUST report the change in the association group of an LSP
             to PCE(s) via PCRpt message.</t>
 
             <t>PCC reports the forward and reverse LSPs independently to
