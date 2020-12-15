@@ -188,7 +188,7 @@
       <section anchor="sect-3.1" title="Single-sided Initiation">
         <t>As specified in <xref target="RFC7551"/>, in the single-sided case,
         the bidirectional tunnel is provisioned only on one endpoint node
-        (PCC) of the tunnel. Both endpoints act as a PCC. Both forward and reverse LSPs of this tunnel are
+        (PCC) of the tunnel. Both endpoint nodes act as a PCC. Both forward and reverse LSPs of this tunnel are
         initiated with the Association Type set to "Single-sided Bidirectional
         LSP Association" on the originating endpoint node. The forward and
         reverse LSPs are identified in the "Bidirectional LSP Association Group
@@ -196,7 +196,7 @@
 
         <t>The originating endpoint node signals the properties for the reverse
         LSP in the RSVP REVERSE_LSP Object <xref target="RFC7551"/> of the
-        forward LSP Path message. The remote endpoint then creates the
+        forward LSP Path message. The remote endpoint node then creates the
         corresponding reverse tunnel and reverse LSP, and signals the reverse LSP in response
         to the received RSVP-TE Path message. Similarly, the remote endpoint node
         deletes the reverse LSP when it receives the RSVP-TE message to delete the forward LSP
@@ -239,11 +239,12 @@
 </artwork>
         </figure>
 
-       <t>As shown in Figure 2, the forward tunnel and both forward
-        LSP1 and reverse LSP2 are initiated on the originating endpoint node
-        A by the PCE.  PLSP-IDs used are P1 and P2 on the originating node A
-        and P3 on the remote node D. 
-        Both endpoint (PCC) nodes may report the LSPs to a PCE.</t>
+       <t>As shown in Figure 2, the forward tunnel 1 and both forward
+       LSP1 and reverse LSP2 are initiated on the originating endpoint node
+       A by the PCE.  PLSP-IDs used are P1 and P2 on the originating endpoint node A
+       and P3 on the remote endpoint node D. The remote endpoint node D may report
+       the tunnel 2 to a PCE. 
+       Both endpoint (PCC) nodes may report the LSPs to a PCE.</t>
 
       </section>
 
@@ -267,13 +268,14 @@
 </artwork>
         </figure>
 
-        <t>As shown in Figure 3, the forward tunnel and both forward
+        <t>As shown in Figure 3, the forward tunnel 1 and both forward
         LSP1 and reverse LSP2 are initiated on the originating endpoint node
         A by the originating PCC. 
-        PLSP-IDs used are P1 and P2 on the originating node A
-        and P3 on the remote node D.
-        The originating endpoint (PCC) node may delegate the
-        forward direction LSP1 to a PCE. 
+        PLSP-IDs used are P1 and P2 on the originating endpoint node A
+        and P3 on the remote endpoint node D.
+        The originating endpoint (PCC) node A may delegate the
+        forward direction LSP1 to a PCE. The remote endpoint node D may report
+        the tunnel 2 to a PCE.  
         Both endpoint (PCC) nodes may report the LSPs to a PCE.</t>
 
       </section>
@@ -325,11 +327,11 @@
     Legends: F = Forward LSP, R = Reverse LSP, (0, P4, P5) = PLSP-IDs
 </artwork>
         </figure>
-        <t>As shown in Figure 4, the forward tunnel and forward LSP1
-        are initiated on the endpoint node A and the reverse tunnel and
+        <t>As shown in Figure 4, the forward tunnel 1 and forward LSP1
+        are initiated on the endpoint node A and the reverse tunnel 2 and
         reverse LSP2 are initiated on the endpoint node D by the PCE.
-        PLSP-IDs used are P4 on the originating node A
-        and P5 on the remote node D.
+        PLSP-IDs used are P4 on the endpoint node A
+        and P5 on the endpoint node D.
         Both endpoint (PCC) nodes may report the LSPs to a PCE.</t>
 
      </section>
@@ -354,11 +356,11 @@
 </artwork>
         </figure>
 
-       <t>As shown in Figure 5, the forward tunnel and forward LSP1
-        are initiated on the endpoint node A and the reverse tunnel and
+       <t>As shown in Figure 5, the forward tunnel 1 and forward LSP1
+        are initiated on the endpoint node A and the reverse tunnel 2 and
         reverse LSP2 are initiated on the endpoint node D by the PCCs.
-        PLSP-IDs used are P4 on the originating node A
-        and P5 on the remote node D.
+        PLSP-IDs used are P4 on the endpoint node A
+        and P5 on the endpoint node D.
         Both endpoint (PCC) nodes may delegate and/or report the LSPs to a PCE.</t>
 
      </section>
