@@ -560,8 +560,12 @@
 
         <t><list style="symbols">
             <t>Stateful PCE MAY create and update the forward and reverse LSPs
-            independently for both Single-sided and Double-sided Bidirectional
-            LSP Associations.</t>
+            independently for the Single-sided Bidirectional
+            LSP Association on the originating endpoint node.</t>
+
+            <t>Stateful PCE MAY create and update the forward LSP
+            independently for the Double-sided Bidirectional
+            LSP Association on two endpoint nodes.</t>
 
             <t>Stateful PCE establishes and removes the association
             relationship on a per LSP basis.</t>
@@ -577,9 +581,12 @@
         Associations can also be created and updated by a PCC.</t>
 
         <t><list style="symbols">
-            <t>PCC MAY create and update the forward and reverse LSPs
-            independently for both Single-sided and Double-sided Bidirectional
-            LSP Associations.</t>
+            <t>PCC on the originating endpoint node MAY create and update the forward and reverse LSPs
+            independently for the Single-sided Bidirectional LSP Association.</t>
+
+            <t>PCC on the two endpoint nodes MAY create and update the forward LSP
+            independently for the Double-sided Bidirectional
+            LSP Association.</t>
 
             <t>PCC establishes and removes the association relationship on a
             per LSP basis.</t>
