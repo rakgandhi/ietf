@@ -244,7 +244,8 @@
        A by the PCE.  PLSP-IDs used are P1 and P2 on the originating endpoint node A
        and P3 on the remote endpoint node D. The remote endpoint node D reports
        the tunnel 2 to the PCE. 
-       Both endpoint (PCC) nodes report the forward (as shown in the Figure) and reverse LSPs to the PCE.</t>
+       Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
+       and their reverse LSPs to the PCE.</t>
 
       </section>
 
@@ -276,7 +277,8 @@
         The originating endpoint (PCC) node A may delegate the
         LSP1 and LSP2 to the PCE. The remote endpoint node D reports
         the tunnel 2 to the PCE.  
-        Both endpoint (PCC) nodes report the forward (as shown in the Figure) and reverse LSPs to the PCE.</t>
+	Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
+	and their reverse LSPs to the PCE.</t>
 
       </section>
 
@@ -332,7 +334,8 @@
         reverse LSP2 are initiated on the endpoint node D by the PCE.
         PLSP-IDs used are P4 on the endpoint node A
         and P5 on the endpoint node D.
-        Both endpoint (PCC) nodes report the forward (as shown in the Figure) and reverse LSPs to the PCE.</t>
+	Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
+	and their reverse LSPs to the PCE.</t>
 
      </section>
 
@@ -361,8 +364,9 @@
         reverse LSP2 are initiated on the endpoint node D (the PCCs).
         PLSP-IDs used are P4 on the endpoint node A
         and P5 on the endpoint node D.
-        Both endpoint (PCC) nodes may delegate the forward LSPs to the PCE.
-        Both endpoint (PCC) nodes report the forward (as shown in the Figure) and reverse LSPs to the PCE.</t>
+        Both endpoint (PCC) nodes may delegate their forward LSPs LSP1 and LSP2 to the PCE.
+        Both endpoint (PCC) nodes report their forward LSPs (LS1 and LSP2 as shown in the Figure) 
+        and their reverse LSPs to the PCE.</t>
 
      </section>
 
