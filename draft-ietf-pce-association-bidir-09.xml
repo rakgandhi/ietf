@@ -245,7 +245,7 @@
        and P3 on the remote endpoint node D.
        The originating endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2 
        to the PCE. The remote endpoint node D reports
-       the tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
+       tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
        the reverse LSP1 (not shown for simplicity) to the PCE.</t>
 
       </section>
@@ -279,7 +279,7 @@
        forward LSP1 and reverse LSP2 to the PCE. 
        The originating endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2 
        to the PCE. The remote endpoint node D reports
-       the tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
+       tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
        the reverse LSP1 (not shown for simplicity) to the PCE.</t>
 
       </section>
@@ -365,7 +365,8 @@
         are initiated on the endpoint node A and the reverse tunnel 2 and
         reverse LSP2 are initiated on the endpoint node D (the PCCs).
         The PLSP-IDs used are P4 on the endpoint node A and P5 on the endpoint node D.
-	Both endpoint (PCC) nodes report their forward LSP1 and LSP2 to the PCE.
+	Both endpoint (PCC) nodes may delegate the forward LSP1 and LSP2 to the PCE.
+	Both endpoint (PCC) nodes report the forward LSP1 and LSP2 to the PCE.
 	Both endpoint (PCC) nodes also report their reverse LSPs (not shown for simplicity) to the PCE.</t>
 
      </section>

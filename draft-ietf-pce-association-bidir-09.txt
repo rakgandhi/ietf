@@ -94,10 +94,10 @@ Table of Contents
    5.  PCEP Procedure  . . . . . . . . . . . . . . . . . . . . . . .  13
      5.1.  PCE Initiated LSPs  . . . . . . . . . . . . . . . . . . .  13
      5.2.  PCC Initiated LSPs  . . . . . . . . . . . . . . . . . . .  14
-     5.3.  Stateless PCE . . . . . . . . . . . . . . . . . . . . . .  14
+     5.3.  Stateless PCE . . . . . . . . . . . . . . . . . . . . . .  15
      5.4.  Bidirectional (B) Flag  . . . . . . . . . . . . . . . . .  15
      5.5.  PLSP-ID Usage . . . . . . . . . . . . . . . . . . . . . .  15
-     5.6.  State Synchronization . . . . . . . . . . . . . . . . . .  15
+     5.6.  State Synchronization . . . . . . . . . . . . . . . . . .  16
      5.7.  Error Handling  . . . . . . . . . . . . . . . . . . . . .  16
    6.  Implementation Status . . . . . . . . . . . . . . . . . . . .  17
      6.1.  Implementation  . . . . . . . . . . . . . . . . . . . . .  17
@@ -117,15 +117,15 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
      8.4.  Verify Correct Operations . . . . . . . . . . . . . . . .  18
      8.5.  Requirements On Other Protocols . . . . . . . . . . . . .  18
      8.6.  Impact On Network Operations  . . . . . . . . . . . . . .  18
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-     9.1.  Association Types . . . . . . . . . . . . . . . . . . . .  18
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
+     9.1.  Association Types . . . . . . . . . . . . . . . . . . . .  19
      9.2.  Bidirectional LSP Association Group TLV . . . . . . . . .  19
        9.2.1.  Flag Field in Bidirectional LSP Association Group TLV  19
-     9.3.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  19
+     9.3.  PCEP Errors . . . . . . . . . . . . . . . . . . . . . . .  20
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  20
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  21
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  22
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  23
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
 
 1.  Introduction
@@ -314,8 +314,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    PCE.  The PLSP-IDs used are P1 and P2 on the originating endpoint
    node A and P3 on the remote endpoint node D.  The originating
    endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2
-   to the PCE.  The remote endpoint node D reports the tunnel 2 and LSP2
-   to the PCE.  The remote endpoint node D also reports the reverse LSP1
+   to the PCE.  The remote endpoint node D reports tunnel 2 and LSP2 to
+   the PCE.  The remote endpoint node D also reports the reverse LSP1
    (not shown for simplicity) to the PCE.
 
 3.1.2.  PCC-Initiated Single-sided Bidirectional LSP
@@ -360,7 +360,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    originating endpoint (PCC) node A may delegate the forward LSP1 and
    reverse LSP2 to the PCE.  The originating endpoint node A reports
    tunnels 1 and forward LSP1 and reverse LSP2 to the PCE.  The remote
-   endpoint node D reports the tunnel 2 and LSP2 to the PCE.  The remote
+   endpoint node D reports tunnel 2 and LSP2 to the PCE.  The remote
    endpoint node D also reports the reverse LSP1 (not shown for
    simplicity) to the PCE.
 
@@ -469,9 +469,10 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    initiated on the endpoint node A and the reverse tunnel 2 and reverse
    LSP2 are initiated on the endpoint node D (the PCCs).  The PLSP-IDs
    used are P4 on the endpoint node A and P5 on the endpoint node D.
-   Both endpoint (PCC) nodes report their forward LSP1 and LSP2 to the
-   PCE.  Both endpoint (PCC) nodes also report their reverse LSPs (not
-   shown for simplicity) to the PCE.
+   Both endpoint (PCC) nodes may delegate the forward LSP1 and LSP2 to
+   the PCE.  Both endpoint (PCC) nodes report the forward LSP1 and LSP2
+   to the PCE.  Both endpoint (PCC) nodes also report their reverse LSPs
+   (not shown for simplicity) to the PCE.
 
 3.3.  Co-routed Associated Bidirectional LSP
 
@@ -497,7 +498,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       Bidirectional LSP and retains the control of the LSPs.  Similarly,
       both PCCs initiate the forward LSPs of a Double-sided
       Bidirectional LSP and retain the control of the LSPs.  The PCC
-      computes the path itself or makes a request for path computation
 
 
 
@@ -506,6 +506,7 @@ Gandhi, et al.            Expires June 19, 2021                 [Page 9]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+      computes the path itself or makes a request for path computation
       to a PCE.  After the path setup, it reports the information and
       state of the path to the PCE.  This includes the association group
       identifying the bidirectional LSP.  This is the Passive Stateful
@@ -552,8 +553,7 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    o  A Bidirectional LSP Association SHOULD NOT have more than two
       unidirectional LSPs.
 
-   o  The LSPs in a Bidirectional LSP Association MUST have matching
-      endpoint nodes in the reverse directions.
+
 
 
 
@@ -561,6 +561,9 @@ Gandhi, et al.            Expires June 19, 2021                [Page 10]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   o  The LSPs in a Bidirectional LSP Association MUST have matching
+      endpoint nodes in the reverse directions.
 
    o  The Tunnel (as defined in [RFC3209]) of forward and reverse LSPs
       of the Single-sided Bidirectional LSP Association on the
@@ -608,15 +611,15 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    Association Type TBD1 for Single-sided Bidirectional LSP or TBD2 for
    Double-sided Bidirectional LSP).
 
-   o  The "Bidirectional LSP Association Group TLV" follows the PCEP TLV
-      format from [RFC5440].
-
 
 
 Gandhi, et al.            Expires June 19, 2021                [Page 11]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   o  The "Bidirectional LSP Association Group TLV" follows the PCEP TLV
+      format from [RFC5440].
 
    o  The Type (16 bits) of the TLV is TBD3, to be assigned by IANA.
 
@@ -661,9 +664,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    associated is the reverse LSP of the bidirectional LSP.  If this flag
    is set, the LSP is a reverse LSP.
 
-   C (Co-routed Path, 1 bit, Bit number 29) - Indicates whether the
-   bidirectional LSP is co-routed.  This flag MUST be set for both the
-   forward and reverse LSPs of a co-routed bidirectional LSP.
 
 
 
@@ -673,6 +673,10 @@ Gandhi, et al.            Expires June 19, 2021                [Page 12]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   C (Co-routed Path, 1 bit, Bit number 29) - Indicates whether the
+   bidirectional LSP is co-routed.  This flag MUST be set for both the
+   forward and reverse LSPs of a co-routed bidirectional LSP.
 
    The C flag is used by the PCE (for both Stateful and Stateless) to
    compute bidirectional paths of the forward and reverse LSPs of a co-
@@ -717,10 +721,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       for the Double-sided Bidirectional LSP Association on the endpoint
       nodes.
 
-   o  Stateful PCE establishes and removes the association relationship
-      on a per LSP basis.
-
-
 
 
 
@@ -729,6 +729,9 @@ Gandhi, et al.            Expires June 19, 2021                [Page 13]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   o  Stateful PCE establishes and removes the association relationship
+      on a per LSP basis.
 
    o  Stateful PCE creates and updates the LSP and the association on a
       PCC via PCInitiate and PCUpd messages, respectively, using the
@@ -771,12 +774,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    o  Stateful PCE updates the LSPs in the Bidirectional LSP Association
       via PCUpd message, using the procedures described in [RFC8697].
 
-5.3.  Stateless PCE
 
-   For a stateless PCE, it might be useful to associate a path
-   computation request to an association group, thus enabling it to
-   associate a common set of configuration parameters or behaviors with
-   the request [RFC8697].  A PCC can request co-routed or non-co-routed
+
+
 
 
 
@@ -786,6 +786,12 @@ Gandhi, et al.            Expires June 19, 2021                [Page 14]
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
 
+5.3.  Stateless PCE
+
+   For a stateless PCE, it might be useful to associate a path
+   computation request to an association group, thus enabling it to
+   associate a common set of configuration parameters or behaviors with
+   the request [RFC8697].  A PCC can request co-routed or non-co-routed
    forward and reverse direction paths from a stateless PCE for a
    Bidirectional LSP Association.
 
@@ -825,12 +831,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    For an Associated Bidirectional LSP, LSP-IDENTIFIERS TLV [RFC8231]
    MUST be included in all forward and reverse LSPs.
 
-5.6.  State Synchronization
-
-   During state synchronization, a PCC MUST report all the existing
-   Bidirectional LSP Associations to the Stateful PCE as per [RFC8697].
-   After the state synchronization, the PCE MUST remove all stale
-   Bidirectional LSP Associations.
 
 
 
@@ -841,6 +841,13 @@ Gandhi, et al.            Expires June 19, 2021                [Page 15]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+5.6.  State Synchronization
+
+   During state synchronization, a PCC MUST report all the existing
+   Bidirectional LSP Associations to the Stateful PCE as per [RFC8697].
+   After the state synchronization, the PCE MUST remove all stale
+   Bidirectional LSP Associations.
 
 5.7.  Error Handling
 
@@ -884,19 +891,19 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    Error-Value = TBD8 (Bidirectional LSP Association - Co-routed
    Mismatch).
 
-   The unidirectional LSPs forming the Bidirectional LSP Association
-   MUST have matching endpoint nodes in the reverse directions.  If a
-   PCE speaker receives an LSP not complying to this rule, the PCE
-   speaker MUST send PCErr with Error-Type = 26 (Association Error) and
-   Error-Value = TBD9 (Bidirectional LSP Association - Endpoint
-   Mismatch).
-
 
 
 Gandhi, et al.            Expires June 19, 2021                [Page 16]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   The unidirectional LSPs forming the Bidirectional LSP Association
+   MUST have matching endpoint nodes in the reverse directions.  If a
+   PCE speaker receives an LSP not complying to this rule, the PCE
+   speaker MUST send PCErr with Error-Type = 26 (Association Error) and
+   Error-Value = TBD9 (Bidirectional LSP Association - Endpoint
+   Mismatch).
 
    The processing rules as specified in Section 6.4 of [RFC8697]
    continue to apply to the Association Types defined in this document.
@@ -939,13 +946,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
    Two new Association Types for the ASSOCIATION Object, Single-sided
    Bidirectional LSP Association and Double-sided Bidirectional LSP
-   Association are introduced in this document.  Additional security
-   considerations related to LSP associations due to a malicious PCEP
-   speaker is described in [RFC8697] and apply to these Association
-   Types.  Hence, securing the PCEP session using Transport Layer
-   Security (TLS) [RFC8253] is recommended.
-
-
 
 
 
@@ -953,6 +953,12 @@ Gandhi, et al.            Expires June 19, 2021                [Page 17]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+   Association are introduced in this document.  Additional security
+   considerations related to LSP associations due to a malicious PCEP
+   speaker is described in [RFC8697] and apply to these Association
+   Types.  Hence, securing the PCEP session using Transport Layer
+   Security (TLS) [RFC8253] is recommended.
 
 8.  Manageability Considerations
 
@@ -993,14 +999,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    network operations in addition to those already listed in [RFC5440],
    [RFC8231], and [RFC8281].
 
-9.  IANA Considerations
 
-9.1.  Association Types
 
-   This document defines two new Association Types, originally described
-   in [RFC8697].  IANA is requested to assign the following new values
-   in the "ASSOCIATION Type Field" subregistry [RFC8697] within the
-   "Path Computation Element Protocol (PCEP) Numbers" registry:
 
 
 
@@ -1009,6 +1009,15 @@ Gandhi, et al.            Expires June 19, 2021                [Page 18]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+9.  IANA Considerations
+
+9.1.  Association Types
+
+   This document defines two new Association Types, originally described
+   in [RFC8697].  IANA is requested to assign the following new values
+   in the "ASSOCIATION Type Field" subregistry [RFC8697] within the
+   "Path Computation Element Protocol (PCEP) Numbers" registry:
 
    Type Name                                             Reference
    ---------------------------------------------------------------------
@@ -1050,21 +1059,19 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
     29         C - Co-routed Path            [This document]
     0-28       Unassigned
 
-9.3.  PCEP Errors
-
-   This document defines new Error value for Error Type 26 (Association
-   Error).  IANA is requested to allocate new Error value within the
-   "PCEP-ERROR Object Error Types and Values" sub-registry of the PCEP
-   Numbers registry, as follows:
-
-
-
 
 
 Gandhi, et al.            Expires June 19, 2021                [Page 19]
 
 Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 
+
+9.3.  PCEP Errors
+
+   This document defines new Error value for Error Type 26 (Association
+   Error).  IANA is requested to allocate new Error value within the
+   "PCEP-ERROR Object Error Types and Values" sub-registry of the PCEP
+   Numbers registry, as follows:
 
    Error Type  Description                  Reference
    ---------------------------------------------------------
@@ -1104,6 +1111,17 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
               Tunnels", RFC 3209, DOI 10.17487/RFC3209, December 2001,
               <https://www.rfc-editor.org/info/rfc3209>.
 
+
+
+
+
+
+
+Gandhi, et al.            Expires June 19, 2021                [Page 20]
+
+Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
+
+
    [RFC5440]  Vasseur, JP., Ed. and JL. Le Roux, Ed., "Path Computation
               Element (PCE) Communication Protocol (PCEP)", RFC 5440,
               DOI 10.17487/RFC5440, March 2009,
@@ -1113,14 +1131,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
               Extensions for Associated Bidirectional Label Switched
               Paths (LSPs)", RFC 7551, DOI 10.17487/RFC7551, May 2015,
               <https://www.rfc-editor.org/info/rfc7551>.
-
-
-
-
-Gandhi, et al.            Expires June 19, 2021                [Page 20]
-
-Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
-
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
@@ -1156,6 +1166,18 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
               (LSPs)", RFC 8697, DOI 10.17487/RFC8697, January 2020,
               <https://www.rfc-editor.org/info/rfc8697>.
 
+
+
+
+
+
+
+
+Gandhi, et al.            Expires June 19, 2021                [Page 21]
+
+Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
+
+
 10.2.  Informative References
 
    [I-D.ietf-pce-pcep-stateful-pce-gmpls]
@@ -1169,14 +1191,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
               YANG Data Model for Path Computation Element
               Communications Protocol (PCEP)", draft-ietf-pce-pcep-
               yang-15 (work in progress), October 2020.
-
-
-
-
-Gandhi, et al.            Expires June 19, 2021                [Page 21]
-
-Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
-
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -1211,6 +1225,15 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
               RFC 8253, DOI 10.17487/RFC8253, October 2017,
               <https://www.rfc-editor.org/info/rfc8253>.
 
+
+
+
+
+Gandhi, et al.            Expires June 19, 2021                [Page 22]
+
+Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
+
+
    [RFC8408]  Sivabalan, S., Tantsura, J., Minei, I., Varga, R., and J.
               Hardwick, "Conveying Path Setup Type in PCE Communication
               Protocol (PCEP) Messages", RFC 8408, DOI 10.17487/RFC8408,
@@ -1222,17 +1245,6 @@ Acknowledgments
    on association groups and inputs to this document.  The authors would
    also like to thank Mike Taillon, and Marina Fizgeer for reviewing
    this document and providing valuable comments.
-
-
-
-
-
-
-
-Gandhi, et al.            Expires June 19, 2021                [Page 22]
-
-Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
-
 
 Authors' Addresses
 
@@ -1253,18 +1265,6 @@ Authors' Addresses
    Comcast
 
    Email: Bin_Wen@cable.comcast.com
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
