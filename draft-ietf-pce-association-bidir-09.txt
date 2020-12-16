@@ -539,21 +539,21 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
 4.1.  ASSOCIATION Object
 
    As per [RFC8697], LSPs are associated by adding them to a common
-   association group.  This document defines two new Bidirectional LSP
-   Associations, for single-sided and double-sided associated
-   bidirectional LSPs.  A member of the Bidirectional LSP Association
-   can take the role of a forward or reverse LSP and follows the
-   following rules:
+   association group.  This document defines two new Association Types,
+   called "Single-sided Bidirectional LSP" (TBD1) and "Double-sided
+   Bidirectional LSP" (TBD2), based on the generic ASSOCIATION Object
+   ((Object-Class value 40).  A member of the Bidirectional LSP
+   Association can take the role of a forward or reverse LSP and follows
+   the following rules:
 
    o  An LSP (forward or reverse) MUST NOT be part of more than one
       Bidirectional LSP Association.
 
-   o  A Bidirectional LSP Association MUST NOT have more than two
+   o  A Bidirectional LSP Association SHOULD NOT have more than two
       unidirectional LSPs.
 
    o  The LSPs in a Bidirectional LSP Association MUST have matching
       endpoint nodes in the reverse directions.
-
 
 
 
@@ -567,16 +567,17 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
       originating endpoint node MUST be the same, albeit with reverse
       endpoint nodes.
 
-   This document defines two new Association Types, called "Single-sided
-   Bidirectional LSP" (TBD1) and "Double-sided Bidirectional LSP"
-   (TBD2), based on the generic ASSOCIATION Object ((Object-Class value
-   40).
-
-   These Association Types are operator-configured associations in
-   nature and statically created by the operator on the PCEP peers.
+   The Bidirectional LSP Association Types are operator-configured
+   associations in nature and statically created by the operator on the
+   PCEP peers on the originating node of the single-sided case and both
+   endpoint nodes of the double-sided case for the PCC Initiated LSPs.
    'Operator-configured Association Range' TLV (Value 29) [RFC8697] MUST
    NOT be sent for these Association Types, and MUST be ignored, so that
-   the entire range of association ID can be used for them.
+   the entire range of association ID can be used for them.  For the PCE
+   Initiated LSPs, these Assocations are dynamically created by the PCE
+   on the PCE peers.  Similarly, for the single-sided case, these
+   assocations are also dynamically created using the information
+   received from the RSVP message from the originating node.
 
    The Association ID, Association Source, optional Global Association
    Source and optional Extended Association ID in the Bidirectional LSP
@@ -609,7 +610,6 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    o  The value comprises of a single field, the Bidirectional LSP
       Association Flag (32 bits), where each bit represents a flag
       option.
-
 
 
 
