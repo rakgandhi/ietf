@@ -241,11 +241,12 @@
 
        <t>As shown in Figure 2, the forward tunnel 1 and both forward
        LSP1 and reverse LSP2 are initiated on the originating endpoint node
-       A by the PCE.  PLSP-IDs used are P1 and P2 on the originating endpoint node A
-       and P3 on the remote endpoint node D. The remote endpoint node D reports
-       the tunnel 2 to the PCE. 
-       Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
-       and their reverse LSPs (not shown for simplicity) to the PCE.</t>
+       A by the PCE.  The PLSP-IDs used are P1 and P2 on the originating endpoint node A
+       and P3 on the remote endpoint node D.
+       The originating endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2 
+       to the PCE. The remote endpoint node D reports
+       the tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
+       the reverse LSP1 (not shown for simplicity) to the PCE.</t>
 
       </section>
 
@@ -269,16 +270,17 @@
 </artwork>
         </figure>
 
-        <t>As shown in Figure 3, the forward tunnel 1 and both forward
-        LSP1 and reverse LSP2 are initiated on the originating endpoint node
-        A (the originating PCC). 
-        PLSP-IDs used are P1 and P2 on the originating endpoint node A
-        and P3 on the remote endpoint node D.
-        The originating endpoint (PCC) node A may delegate the
-        LSP1 and LSP2 to the PCE. The remote endpoint node D reports
-        the tunnel 2 to the PCE.  
-	Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
-	and their reverse LSPs (not shown for simplicity) to the PCE.</t>
+       <t>As shown in Figure 3, the forward tunnel 1 and both forward
+       LSP1 and reverse LSP2 are initiated on the originating endpoint node
+       A (the originating PCC). 
+       The PLSP-IDs used are P1 and P2 on the originating endpoint node A
+       and P3 on the remote endpoint node D.
+       The originating endpoint (PCC) node A may delegate the
+       forward LSP1 and reverse LSP2 to the PCE. 
+       The originating endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2 
+       to the PCE. The remote endpoint node D reports
+       the tunnel 2 and LSP2 to the PCE.  The remote endpoint node D also reports
+       the reverse LSP1 (not shown for simplicity) to the PCE.</t>
 
       </section>
 
@@ -332,10 +334,10 @@
         <t>As shown in Figure 4, the forward tunnel 1 and forward LSP1
         are initiated on the endpoint node A and the reverse tunnel 2 and
         reverse LSP2 are initiated on the endpoint node D by the PCE.
-        PLSP-IDs used are P4 on the endpoint node A
+        The PLSP-IDs used are P4 on the endpoint node A
         and P5 on the endpoint node D.
-	Both endpoint (PCC) nodes report their forward LSPs (LSP1 and LSP2 as shown in the Figure) 
-	and their reverse LSPs (not shown for simplicity) to the PCE.</t>
+	Both endpoint (PCC) nodes report their forward LSP1 and LSP2 to the PCE.
+	Both endpoint (PCC) nodes also report their reverse LSPs (not shown for simplicity) to the PCE.</t>
 
      </section>
 
@@ -362,11 +364,9 @@
        <t>As shown in Figure 5, the forward tunnel 1 and forward LSP1
         are initiated on the endpoint node A and the reverse tunnel 2 and
         reverse LSP2 are initiated on the endpoint node D (the PCCs).
-        PLSP-IDs used are P4 on the endpoint node A
-        and P5 on the endpoint node D.
-        Both endpoint (PCC) nodes may delegate their forward LSPs LSP1 and LSP2 to the PCE.
-        Both endpoint (PCC) nodes report their forward LSPs (LS1 and LSP2 as shown in the Figure) 
-        and their reverse LSPs (not shown for simplicity) to the PCE.</t>
+        The PLSP-IDs used are P4 on the endpoint node A and P5 on the endpoint node D.
+	Both endpoint (PCC) nodes report their forward LSP1 and LSP2 to the PCE.
+	Both endpoint (PCC) nodes also report their reverse LSPs (not shown for simplicity) to the PCE.</t>
 
      </section>
 
@@ -473,7 +473,8 @@
         <t>Specifically, for the PCE Initiated Bidirectional LSPs, these Associations 
 	are dynamically created by the PCE on the PCE peers. Similarly, 
 	for both PCE Initiated and PCC Initiated single-sided case, 
-        these associations are also dynamically created using the information 
+	these associations are also dynamically created on thee 
+	remote endpoint node using the information 
         received from the RSVP message from the originating node.</t>
 
         <t>The Association ID, Association Source, optional Global Association
