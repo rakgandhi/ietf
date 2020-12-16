@@ -315,8 +315,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    node A and P3 on the remote endpoint node D.  The originating
    endpoint node A reports tunnels 1 and forward LSP1 and reverse LSP2
    to the PCE.  The remote endpoint node D reports tunnel 2 and LSP2 to
-   the PCE.  Both endpoint (PCC) nodes also report the reverse (egress)
-   LSPs (not shown for simplicity) to the PCE.
+   the PCE.  The endpoint (PCC) node D also reports the reverse LSP1
+   (not shown for simplicity) to the PCE.
 
 3.1.2.  PCC-Initiated Single-sided Bidirectional LSP
 
@@ -360,9 +360,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    originating endpoint (PCC) node A may delegate the forward LSP1 and
    reverse LSP2 to the PCE.  The originating endpoint node A reports
    tunnels 1 and forward LSP1 and reverse LSP2 to the PCE.  The remote
-   endpoint node D reports tunnel 2 and LSP2 to the PCE.  Both endpoint
-   (PCC) nodes also report the reverse (egress) LSPs (not shown for
-   simplicity) to the PCE.
+   endpoint node D reports tunnel 2 and LSP2 to the PCE.  The endpoint
+   (PCC) node D also reports the reverse LSP1 (not shown for simplicity)
+   to the PCE.
 
 3.2.  Double-sided Initiation
 
@@ -425,9 +425,9 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    initiated on the endpoint node A and the reverse tunnel 2 and reverse
    LSP2 are initiated on the endpoint node D by the PCE.  The PLSP-IDs
    used are P4 on the endpoint node A and P5 on the endpoint node D.
-   Both endpoint (PCC) nodes report their forward LSP1 and LSP2 to the
-   PCE.  Both endpoint (PCC) nodes also report the reverse (egress) LSPs
-   (not shown for simplicity) to the PCE.
+   Both endpoint (PCC) nodes report the forward LSP1 and LSP2 to the
+   PCE.  Both endpoint (PCC) nodes also report the reverse LSPs (not
+   shown for simplicity) to the PCE.
 
 3.2.2.  PCC-Initiated Double-sided Bidirectional LSP
 
@@ -471,8 +471,8 @@ Internet-Draft    PCEP for Associated Bidirectional LSP    December 2020
    used are P4 on the endpoint node A and P5 on the endpoint node D.
    Both endpoint (PCC) nodes may delegate the forward LSP1 and LSP2 to
    the PCE.  Both endpoint (PCC) nodes report the forward LSP1 and LSP2
-   to the PCE.  Both endpoint (PCC) nodes also report the reverse
-   (egress) LSPs (not shown for simplicity) to the PCE.
+   to the PCE.  Both endpoint (PCC) nodes also report the reverse LSPs
+   (not shown for simplicity) to the PCE.
 
 3.3.  Co-routed Associated Bidirectional LSP
 
