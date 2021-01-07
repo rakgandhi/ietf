@@ -253,8 +253,11 @@
 	</list>
 	</t>
 
+	</section>
 
-	<section title="IOAM Indicator Labels" anchor="sect-3.1"><t>
+	<section title="Procedure for Edge-to-Edge IOAM" anchor="sect-4">
+
+	<section title="IOAM Indicator Labels" anchor="sect-4.1"><t>
    IOAM Indicator Label is used to indicate the presence of the
    IOAM data field in the MPLS header.</t>
 
@@ -270,12 +273,6 @@
    This ensures that the SID stack depth of a computed path does not
    exceed the number of SIDs the node is capable of imposing.  The MSD
    used for path computation MUST include the IOAM Indicator Label.</t>
-
-	</section>
-
-	</section>
-
-	<section title="Procedure for Edge-to-Edge IOAM" anchor="sect-4">
 
 
 	<figure title="E2E IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header-e2e"><artwork><![CDATA[
@@ -298,8 +295,9 @@
 ]]></artwork>
 	</figure>
 
+	</section>
 
-      <t>
+      <section title="IOAM Indicator Labels" anchor="sect-4.2"><t>
       The Edge-to-Edge (E2E) IOAM includes IOAM Option-Type as Edge-to-Edge
       Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.  This section summarizes the
       procedure for data encapsulation and decapsulation for Edge-to-Edge
@@ -326,7 +324,9 @@
 	</list>
 	</t>
 
-	<section title="Edge-to-Edge IOAM Indicator Label Allocation" anchor="sect-4.1"><t>
+	</section>
+
+	<section title="Edge-to-Edge IOAM Indicator Label Allocation" anchor="sect-4.3"><t>
       E2E IOAM Indicator Label is used to indicate the presence of the E2E IOAM data
       field in the MPLS header.  The E2E IOAM Indicator Label 
       can be allocated using one of the following methods:</t>
