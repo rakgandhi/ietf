@@ -254,7 +254,7 @@
 
     <section title="Edge-to-Edge IOAM Indicator Label" anchor="sect-4.1"><t>
    The E2E IOAM Indicator Label is used to indicate the presence of the
-   E2E IOAM data field in the MPLS header.
+   E2E IOAM data field in the MPLS header as shown in Figure 2.
    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
    is used so that transit nodes can ignore it.</t>
 
@@ -337,7 +337,7 @@
         
     <section title="Hop-by-Hop IOAM Indicator Label" anchor="sect-5.1"><t>
    The HbH IOAM Indicator Label is used to indicate the presence of the
-   HbH IOAM data field in the MPLS header.</t>
+   HbH IOAM data field in the MPLS header as shown in Figure 3.</t>
 
    <t>Different IOAM Indicator Labels are used for E2E and HbH IOAM to optimize processing on transit nodes 
    and for checking if IOAM data fields need to be processed on transit nodes.
