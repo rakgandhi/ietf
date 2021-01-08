@@ -593,9 +593,9 @@
     <section title="Acknowledgements" numbered="no"><t>
    The authors would like to thank Patrick Khordoc, Shwetha Bhandari and Vengada Prasad
    Govindan for the discussions on IOAM.  The authors would also like to
-   thank Tarek Saad, Loa Andersson, Greg Mirsky, and Cheng Li for providing many
+   thank Tarek Saad, Loa Andersson, Greg Mirsky, Stewart Bryant, and Cheng Li for providing many
    useful comments. The authors would also like to thank Mach Chen, 
-   Stewart Bryant, Andrew Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT reviews.</t>
+   Andrew Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT reviews.</t>
     </section>
 
     <section title="Contributors" numbered="no" anchor="contributors"><figure><artwork><![CDATA[
