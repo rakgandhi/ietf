@@ -257,9 +257,9 @@
 
 	<section title="Edge-to-Edge IOAM" anchor="sect-4">
 
-	<section title="IOAM Indicator Labels" anchor="sect-4.1"><t>
-   IOAM Indicator Label is used to indicate the presence of the
-   IOAM data field in the MPLS header.
+	<section title="Edge-to-Edge IOAM Indicator Label" anchor="sect-4.1"><t>
+   The E2E IOAM Indicator Label is used to indicate the presence of the
+   E2E IOAM data field in the MPLS header.
    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
    is used so that transit nodes can ignore it.</t>
 
@@ -338,9 +338,9 @@
 
 	<section title="Hop-by-Hop IOAM" anchor="sect-5">
 		
-	<section title="IOAM Indicator Labels" anchor="sect-5.1"><t>
-   IOAM Indicator Label is used to indicate the presence of the
-   IOAM data field in the MPLS header.</t>
+	<section title="Hop-by-Hop IOAM Indicator Label" anchor="sect-5.1"><t>
+   The HbH IOAM Indicator Label is used to indicate the presence of the
+   HbH IOAM data field in the MPLS header.</t>
 
    <t>Different IOAM Indicator Labels are used for E2E and HbH IOAM to optimize processing on transit nodes 
    and for checking if IOAM data fields need to be processed.
@@ -348,12 +348,6 @@
    is used so that transit nodes can ignore it. 
    If both edge and transit nodes need to process IOAM data 
    then HbH IOAM Indicator Label is used. </t>
-
-   <t>The SR path computation needs to know the Maximum SID Depth (MSD)
-   that can be imposed at each node/link of a given SR path <xref target="RFC8664"/>.
-   This ensures that the SID stack depth of a computed path does not
-   exceed the number of SIDs the node is capable of imposing.  The MSD
-   used for path computation MUST include the IOAM Indicator Label.</t>
 
 	<figure title="Example 1 - HbH IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header-1"><artwork><![CDATA[
 0                   1                   2                   3
@@ -375,29 +369,7 @@
 ]]></artwork>
 	</figure>
 
-
 	<figure title="Example 2 - HbH IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header-2"><artwork><![CDATA[
-0                   1                   2                   3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Extension Label (15)                 | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  IOAM Indicator Label                 | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Label(1)                             | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-.                                                               .
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Label(n)                             | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                Packet as shown in Figure 1                    |
-.                                                               .
-+---------------------------------------------------------------+
-]]></artwork>
-	</figure>
-
-
-	<figure title="Example 3 - HbH IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header-3"><artwork><![CDATA[
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -503,7 +475,17 @@
 
 	</section>
 
-	<section title="Data Packets with SR-MPLS Header" anchor="sect-8"><t>
+	<section title="MSD Considerations" anchor="sect-8"><t>
+   The SR path computation needs to know the Maximum SID Depth (MSD)
+   that can be imposed at each node/link of a given SR path <xref target="RFC8664"/>.
+   This ensures that the SID stack depth of a computed path does not
+   exceed the number of SIDs the node is capable of imposing.  The MSD
+   used for path computation MUST include the IOAM Indicator Label.</t>
+
+	</section>
+
+
+	<section title="Data Packets with SR-MPLS Header" anchor="sect-9"><t>
    Segment Routing (SR) technology leverages the source routing paradigm
    <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
    instructions, called segments, by pre-pending the packet with an SR
@@ -539,7 +521,7 @@
 
 	</section>
 
-        <section title="Security Considerations" anchor="sect-9"><t>
+        <section title="Security Considerations" anchor="sect-10"><t>
    The security considerations of SR-MPLS are discussed in <xref target="RFC8660"/>,
    and the security considerations of IOAM in general are discussed in
    <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
@@ -553,7 +535,7 @@
 
 	</section>
 
-	<section title="IANA Considerations" anchor="sect-10"><t>
+	<section title="IANA Considerations" anchor="sect-11"><t>
    IANA maintains the "Special-Purpose Multiprotocol Label Switching (MPLS) Label Values" registry (see
    <eref target="https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml"/>).  
    IANA is requested to allocate IOAM Indicator Label
@@ -611,8 +593,8 @@
    The authors would like to thank Patrick Khordoc, Shwetha Bhandari and Vengada Prasad
    Govindan for the discussions on IOAM.  The authors would also like to
    thank Tarek Saad, Loa Andersson, Greg Mirsky, and Cheng Li for providing many
-   useful comments.</t>
-
+   useful comments. The authors would also like to thank Mach Chen, 
+   Stewart Bryant, Andrew Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT reviews.</t>
 	</section>
 
 	<section title="Contributors" numbered="no" anchor="contributors"><figure><artwork><![CDATA[
