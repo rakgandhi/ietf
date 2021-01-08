@@ -381,7 +381,12 @@
     <t>The intermediate node enabled with HbH IOAM functions
       processes the data packet including IOAM data fields as defined in 
       <xref target="I-D.ietf-ippm-ioam-data"/> when the node recognizes the HbH IOAM
-      Indicator Label present in the MPLS header.</t>
+      Indicator Label present in the MPLS header. The intermediate node 
+      may 'punt the timestamped copy' of the received data packet including the IOAM 
+      data fields as required by the IOAM data field processing. 
+      It is punted with receive timestamp to the slow path for IOAM processing.</t> 
+
+    <t>The intermediate node forwards a copy of the processsed data packet downstream.</t>
 
     <t>The decapsulating node "punts the timestamped copy" of 
       the received data packet as is including IOAM data fields when the node
@@ -390,7 +395,7 @@
       The receive timestamp is required by various E2E OAM use-cases, including streaming telemetry. 
       Note that it is not necessarily punted to the control-plane.</t>
 
-     <t>The intermediate and decapsulating node processes the IOAM data
+     <t>The decapsulating node processes the IOAM data
       field(s) using the procedures defined in <xref target="I-D.ietf-ippm-ioam-data"/>.  An
       example of IOAM processing is to export the data fields, send
       data fields via streaming telemetry, etc.</t>
