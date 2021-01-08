@@ -119,7 +119,7 @@
 	<vspace blankLines="0"/>
 	</t>
 
-	<t hangText="G-ACh    ">
+	<t hangText="G-ACh   ">
 	Generic Associated Channel
 	<vspace blankLines="0"/>
 	</t>
@@ -176,14 +176,9 @@
    data fields are carried in the MPLS header as shown in Figure 1.
    More than one trace options can be present in the IOAM
    data fields. The IOAM G-ACh header is added immediately after the the MPLS
-   label stack as shown in Figure 1 to indicate the presence of the IOAM
+   label stack as shown in Figure 1 to indicate the start of the IOAM
    data field(s) in the MPLS header.</t>
 
-   <t>
-   The data packets with IOAM data fields carry only one IOAM Indicator Label
-   in the MPLS header.  Any intermediate node that adds additional MPLS
-   encapsulation in the MPLS header may further update the IOAM data
-   fields in the header without inserting another IOAM Indicator Label.</t>
 
 	<figure title="IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header"><artwork><![CDATA[
 0                   1                   2                   3
@@ -222,7 +217,7 @@
 	</t>
 
 	<t hangText="IOAM G-ACh:">
-        Generic Associated Channel (G-ACh) Type for IOAM.
+        Generic Associated Channel (G-ACh) Type (value TBA3) for IOAM.
 	</t>
 
 	<t hangText="Block Number:">
@@ -275,7 +270,7 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Extension Label (15)                 | TC  |S|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  IOAM Indicator Label                 | TC  |1|  TTL          |
+|  E2E IOAM Indicator Label             | TC  |1|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Packet as shown in Figure 1                    |
 .                                                               .
@@ -315,11 +310,11 @@
 	</section>
 
 	<section title="Edge-to-Edge IOAM Indicator Label Allocation" anchor="sect-4.3"><t>
-      E2E IOAM Indicator Label is used to indicate the presence of the E2E IOAM data
+      The E2E IOAM Indicator Label is used to indicate the presence of the E2E IOAM data
       field in the MPLS header.  The E2E IOAM Indicator Label 
       can be allocated using one of the following methods:</t>
 
-	<t><list style="symbols"><t>Labels assigned by IANA with value TBA1 and TBA2 from the Extended
+	<t><list style="symbols"><t>Labels assigned by IANA with value TBA1 from the Extended
       Special-Purpose MPLS Values <xref target="I-D.ietf-mpls-spl-terminology"/>.</t>
 
 	<t>Labels allocated by a Controller from the global table of the
@@ -343,7 +338,7 @@
    HbH IOAM data field in the MPLS header.</t>
 
    <t>Different IOAM Indicator Labels are used for E2E and HbH IOAM to optimize processing on transit nodes 
-   and for checking if IOAM data fields need to be processed.
+   and for checking if IOAM data fields need to be processed on transit nodes.
    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
    is used so that transit nodes can ignore it. 
    If both edge and transit nodes need to process IOAM data 
@@ -361,7 +356,7 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Extension Label (15)                 | TC  |S|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  IOAM Indicator Label                 | TC  |1|  TTL          |
+|  HbH IOAM Indicator Label             | TC  |1|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Packet as shown in Figure 1                    |
 .                                                               .
@@ -421,7 +416,7 @@
 	</section>
 
 	<section title="Hop-by-Hop IOAM Indicator Label Allocation" anchor="sect-5.3"><t>
-      HbH IOAM Indicator Label is used to indicate the presence of the HbH IOAM data
+      The HbH IOAM Indicator Label is used to indicate the presence of the HbH IOAM data
       field in the MPLS header.  The HbH IOAM Indicator Label 
       can be allocated using one of the following methods:</t>
 
@@ -439,13 +434,15 @@
 
 	</section>
 
-	<section title="Considerations for ECMP" anchor="sect-6"><t>
+	<section title="Considerations for IOAM Indicator Label" anchor="sect-6">
+
+	<section title="Considerations for ECMP" anchor="sect-6.1"><t>
    The encapsulating node needs to make sure the IOAM data field does
    not start with a well known IP Version Number (e.g. 0x4 for IPv4 and
    0x6 for IPv6) as it can alter the hashing function for ECMP that uses
    the IP header.  This is achieved by using the IOAM 
-   Indicator Label that followed by IP Version Number 
-   0010b.  This approach is consistent with utilizing 0000b or 0001b 
+   G-ACh with IP Version Number 0001b after the MPLS label stack. 
+   This approach is consistent with utilizing 0000b or 0001b 
    as the first nibble for IP Version Number after the MPLS label stack, as described in
    <xref target="RFC4928"/> <xref target="RFC4385"/>.</t>
 
@@ -460,7 +457,7 @@
 
 	</section>
 
-	<section title="Node Capability" anchor="sect-7"><t>
+	<section title="Node Capability" anchor="sect-6.2"><t>
    The decapsulating node that has to pop the IOAM Indicator Label, data
    fields, and perform the IOAM function may not be capable of
    supporting it.  The encapsulating node needs to know if the
@@ -475,7 +472,7 @@
 
 	</section>
 
-	<section title="MSD Considerations" anchor="sect-8"><t>
+	<section title="MSD Considerations" anchor="sect-6.3"><t>
    The SR path computation needs to know the Maximum SID Depth (MSD)
    that can be imposed at each node/link of a given SR path <xref target="RFC8664"/>.
    This ensures that the SID stack depth of a computed path does not
@@ -484,8 +481,19 @@
 
 	</section>
 
+	<section title="Nested MPLS Encapsulation" anchor="sect-6.4"><t>
+   The data packets with IOAM data fields carry only one IOAM Indicator Label
+   in the MPLS header.  Any intermediate node that adds additional MPLS
+   encapsulation in the MPLS header may further update the IOAM data
+   fields in the header without inserting another IOAM Indicator Label.</t>
 
-	<section title="Data Packets with SR-MPLS Header" anchor="sect-9"><t>
+	</section>
+
+
+	</section>
+
+
+	<section title="Data Packets with SR-MPLS Header" anchor="sect-7"><t>
    Segment Routing (SR) technology leverages the source routing paradigm
    <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
    instructions, called segments, by pre-pending the packet with an SR
@@ -521,7 +529,7 @@
 
 	</section>
 
-        <section title="Security Considerations" anchor="sect-10"><t>
+        <section title="Security Considerations" anchor="sect-8"><t>
    The security considerations of SR-MPLS are discussed in <xref target="RFC8660"/>,
    and the security considerations of IOAM in general are discussed in
    <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
@@ -535,7 +543,7 @@
 
 	</section>
 
-	<section title="IANA Considerations" anchor="sect-11"><t>
+	<section title="IANA Considerations" anchor="sect-9"><t>
    IANA maintains the "Special-Purpose Multiprotocol Label Switching (MPLS) Label Values" registry (see
    <eref target="https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml"/>).  
    IANA is requested to allocate IOAM Indicator Label
