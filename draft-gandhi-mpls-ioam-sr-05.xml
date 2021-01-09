@@ -7,8 +7,8 @@
 <!ENTITY I-D.ietf-ippm-ioam-direct-export SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-direct-export.xml">
 <!ENTITY I-D.ietf-ippm-ioam-data SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-data.xml">
 <!ENTITY I-D.ietf-ippm-ioam-flags SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-flags.xml">
+<!ENTITY RFC5586 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5586.xml">
 <!ENTITY RFC4385 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4385.xml">
-<!ENTITY RFC4928 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4928.xml">
 <!ENTITY RFC6790 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6790.xml">
 <!ENTITY I-D.ietf-mpls-spl-terminology SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mpls-spl-terminology.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
@@ -69,7 +69,7 @@
     </author>
 
 
-    <date day="08" month="January" year="2021"/>
+    <date day="09" month="January" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    In-situ Operations, Administration, and Maintenance (IOAM) records
@@ -174,10 +174,12 @@
     <section title="IOAM Data Field Encapsulation in MPLS Header" anchor="sect-3"><t>
    The IOAM data fields defined in <xref target="I-D.ietf-ippm-ioam-data"/> are used.  IOAM
    data fields are carried in the MPLS header as shown in Figure 1.
-   More than one trace options can be present in the IOAM
-   data fields. The IOAM G-ACh header is added immediately after the the MPLS
-   label stack as shown in Figure 1, before the IOAM
-   data field(s) in the MPLS header.</t>
+   More than one trace options can be present in the IOAM data fields. 
+   G-ACh <xref target="RFC5586"/> provides a mechanism to transport OAM and other control
+   messages over MPLS data plane.  The IOAM G-ACh header <xref target="RFC5586"/> 
+   with new IOAM G-ACh type is added immediately after the the MPLS
+   label stack in the MPLS header as shown in Figure 1, before the IOAM
+   data field(s).</t>
 
 
     <figure title="IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header"><artwork><![CDATA[
@@ -210,14 +212,20 @@
 
       <t><list style="hanging" hangIndent="2">
 
-    <t hangText="IP Version Number 0001b:">
-        The IP Version Number Field 0001b allows to avoid incorrect IP header-based
-        hashing over ECMP paths that uses the value 0x4 (for IPv4) and
-        value 0x6 (for IPv6) <xref target="RFC4928"/>.
+     <t hangText="IP Version Number 0001b:">
+	The first four octets are IP Version Field part of a G-ACh header <xref target="RFC5586"/>.
+     </t>
+
+    <t hangText="Version:">
+     The Version field is set to 0, as defined in <xref target="RFC4385"/>.
     </t>
 
     <t hangText="IOAM G-ACh:">
-        Generic Associated Channel (G-ACh) Type (value TBA3) for IOAM.
+        Generic Associated Channel (G-ACh) Type (value TBA3) for IOAM <xref target="RFC5586"/>.
+    </t>
+
+    <t hangText="Reserved:">
+       Reserved Bits MUST be set to zero upon transmission and ignored upon receipt.
     </t>
 
     <t hangText="Block Number:">
@@ -226,22 +234,18 @@
         a flow.  It is also used to correlate the IOAM data on different nodes.
     </t>
 
-    <t hangText="Reserved:">
-    Reserved Bits MUST be set to zero upon transmission and ignored upon receipt.
-    </t>
-
     <t hangText="IOAM-OPT-Type:">
-    8-bit field defining the IOAM Option type, as defined in
-    Section 8.1 of <xref target="I-D.ietf-ippm-ioam-data"/>.
+       8-bit field defining the IOAM Option type, as defined in
+       Section 8.1 of <xref target="I-D.ietf-ippm-ioam-data"/>.
     </t>
 
     <t hangText="IOAM HDR LEN:">
-    8-bit unsigned integer.  Length of the IOAM HDR in 4-octet units.
+       8-bit unsigned integer.  Length of the IOAM HDR in 4-octet units.
     </t>
 
     <t hangText="IOAM Option and Data Space:">
-    IOAM option header and data is present
-    as defined by the IOAM-OPT-Type field, and is defined in Section 5 of
+       IOAM option header and data is present
+       as defined by the IOAM-OPT-Type field, and is defined in Section 5 of
         <xref target="I-D.ietf-ippm-ioam-data"/>.
     </t>
 
@@ -435,10 +439,7 @@
    not start with a well known IP Version Number (e.g. 0x4 for IPv4 and
    0x6 for IPv6) as it can alter the hashing function for ECMP that uses
    the IP header.  This is achieved by using the IOAM 
-   G-ACh with IP Version Number 0001b after the MPLS label stack. 
-   This approach is consistent with utilizing 0000b or 0001b 
-   as the first nibble for IP Version Number after the MPLS label stack, as described in
-   <xref target="RFC4928"/> <xref target="RFC4385"/>.</t>
+   G-ACh with IP Version Number 0001b after the MPLS label stack <xref target="RFC5586"/>.</t> 
 
     <t>
    Note that the hashing function for ECMP that uses the labels from the
@@ -483,9 +484,7 @@
 
     </section>
 
-
     </section>
-
 
     <section title="SR-MPLS Header with IOAM" anchor="sect-7"><t>
    Segment Routing (SR) technology leverages the source routing paradigm
@@ -531,13 +530,15 @@
    The security considerations of SR-MPLS are discussed in <xref target="RFC8660"/>,
    and the security considerations of IOAM in general are discussed in
    <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
-
-    <t>
-   IOAM is considered a "per domain" feature, where one or several
+  
+    <t>IOAM is considered a "per domain" feature, where one or several
    operators decide on leveraging and configuring IOAM according to
    their needs.  Still, operators need to properly secure the IOAM
    domain to avoid malicious configuration and use, which could include
    injecting malicious IOAM packets into a domain.</t>
+
+   <t>Routers that support G-ACh are subject to the same security
+   considerations as defined in <xref target="RFC4385"/> and <xref target="RFC5586"/>.</t>
 
     </section>
 
@@ -580,6 +581,8 @@
     <back>
     <references title="Normative References">
     &RFC2119;
+    &RFC4385;
+    &RFC5586;
     &RFC8174;
     &RFC8660;
     &RFC8664;
@@ -588,8 +591,6 @@
     &I-D.ietf-ippm-ioam-flags;
     </references>
     <references title="Informative References">
-    &RFC4385;
-    &RFC4928;
     &RFC6790;
     &I-D.ietf-mpls-spl-terminology;
     &I-D.ietf-spring-mpls-path-segment;
