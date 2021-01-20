@@ -82,7 +82,7 @@
 	<section title="Introduction" anchor="sect-1"><t>
    The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance
-   metrics in IP networks using probe messages <xref target="RFC8762"/>. 
+   metrics in IP networks using test packets <xref target="RFC8762"/>. 
    It eliminates the need for control-channel signaling by using
    configuration data model to provision a test-channel (e.g. UDP paths). 
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
@@ -112,9 +112,6 @@
 	</section>
 
 	<section title="Abbreviations" anchor="sect-2.2"><t>
-   DM: Delay Measurement.</t>
-
-	<t>
    HMAC: Hashed Message Authentication Code.</t>
 
 	<t>
@@ -165,11 +162,11 @@
    small in size.  They are stand-alone and similar to the delay
    measurement message formats (e.g. location of the Counter and Timestamp). They also  
    do not require backwards
-   compatibility and support for the existing DM message formats from
+   compatibility and support for the existing STAMP test packet formats from
    <xref target="RFC8762"/> as different user-configured destination UDP 
    port is used for direct measurement.</t>
 
-	<figure title="Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-probe-query-message-format"><artwork><![CDATA[
+	<figure title="Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm--query-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -192,7 +189,7 @@
 ]]></artwork>
 	</figure>
 
-	<figure title="Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm-probe-query-message-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm--query-message-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -227,57 +224,22 @@
    Transmit Counter (64-bit): The number of packets or octets sent by
    the session-sender node in the query message and by the session-reflector node in the
    response message.  The counter is always written at the well-known
-   location in the probe query and response messages.</t>
+   location in the test packet and reply test packet.</t>
 
-	<t>
-   Receive Counter (64-bit): The number of packets or octets received at
-   the session-reflector node.  It is written by the session-reflector node in the probe
-   response message.</t>
-
-	<t>
-   Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received query message.  It is written by the
-   session-reflector node in the probe response message.</t>
-
-	<t>
-   Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
-
-	<t>
-   Sender TTL: As defined in <xref target="RFC8762"/>.</t>
-
-	<t><list style="hanging" hangIndent="3"><t hangText="LM Flags: The meanings of the Flag bits are:">
-	<vspace blankLines="1"/>
-	X: Extended counter format indicator.  Indicates the use of
-      extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of an LM query and copied from an LM
-      query to an LM response message.  Set to 0 when the LM message is
-      transmitted or received over an interface that writes 32-bit
-      counter values.
-	<vspace blankLines="1"/>
-	B: Octet (byte) count.  When set to 1, indicates that the Counter
-      1-4 fields represent octet counts.  The octet count applies to all
-      packets within the LM scope, and the octet count of a packet sent
-      or received includes the total length of that packet (but excludes
-      headers, labels, or framing of the channel itself).  When set to
-      0, indicates that the Counter fields represent packet counts.
-	</t>
-
-	</list>
-	</t>
 
 	<t>
    Block Number (8-bit): The Direct Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to color the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
    matching color, the Block Number (or color) of the traffic counters
-   is carried by the probe query and response messages for loss
+   is carried by the test packet and reply test packet for direct
    measurement. The Block Number can also be used to aggregate 
    performance metrics collected.</t>
 
 	<t>
-   HMAC: The probe message in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) <xref target="RFC2104"/> hash.  Each probe
-   query and response messages are authenticated by adding Sequence
+   HMAC: The test packet in authenticated mode includes a key Hashed
+   Message Authentication Code (HMAC) <xref target="RFC2104"/> hash.  Each test
+   packet and reply test packet are authenticated by adding Sequence
    Number with Hashed Message Authentication Code (HMAC) TLV.  It can
    use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
    IPSec defined in <xref target="RFC4868"/>); hence the length of the HMAC field is 16
@@ -289,7 +251,7 @@
 
 	<t>
    In authenticated mode, only the sequence number is encrypted, and the
-   other payload fields are sent in clear text.  The probe message MAY
+   other payload fields are sent in clear text.  The test packet MAY
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.</t>
 
@@ -299,7 +261,7 @@
         <t>In this document, reply test packet formats for direct measurement are defined 
    as shown in Figure 4 and Figure 5.</t>
 
-	<figure title="Direct Measurement Reply Test Packet - Unauthenticated Mode" anchor="ure-lm-probe-response-message-format"><artwork><![CDATA[
+	<figure title="Direct Measurement Reply Test Packet - Unauthenticated Mode" anchor="ure-lm--response-message-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -325,7 +287,7 @@
 ]]></artwork>
 	</figure>
 
-	<figure title="Direct Measurement Reply Test Packet - Authenticated Mode" anchor="ure-lm-probe-response-message-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="Direct Measurement Reply Test Packet - Authenticated Mode" anchor="ure-lm--response-message-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -375,6 +337,41 @@
 ]]></artwork>
 	</figure>
 
+	<t>
+   Receive Counter (64-bit): The number of packets or octets received at
+   the session-reflector node.  It is written by the session-reflector node in the reply test packet.</t>
+
+	<t>
+   Sender Counter (64-bit): This is the exact copy of the transmit
+   counter from the received query message.  It is written by the
+   session-reflector node in the reply test packet.</t>
+
+	<t>
+   Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+
+	<t>
+   Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+
+	<t><list style="hanging" hangIndent="3"><t hangText="LM Flags: The meanings of the Flag bits are:">
+	<vspace blankLines="1"/>
+	X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an LM query and copied from an LM
+      query to an LM response message.  Set to 0 when the LM message is
+      transmitted or received over an interface that writes 32-bit
+      counter values.
+	<vspace blankLines="1"/>
+	B: Octet (byte) count.  When set to 1, indicates that the Counter
+      1-4 fields represent octet counts.  The octet count applies to all
+      packets within the LM scope, and the octet count of a packet sent
+      or received includes the total length of that packet (but excludes
+      headers, labels, or framing of the channel itself).  When set to
+      0, indicates that the Counter fields represent packet counts.
+	</t>
+
+	</list>
+	</t>
+
         </section>
 
 	<section title="Security Considerations" anchor="sect-7"><t>
@@ -394,7 +391,7 @@
 
 	<t>
    Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the probe messages. Cryptographic measures may be enhanced by the correct configuration
+   integrity of the test packets. Cryptographic measures may be enhanced by the correct configuration
    of access-control lists and firewalls.</t>
 
 	</section>
@@ -415,7 +412,7 @@
 	&RFC8321;
 	</references>
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
-   The authors would like to thank Greg Mirsky for the review comments. 
+   The authors would like to thank Greg Mirsky for the comments on direct measurement. 
    The authors would like to
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>

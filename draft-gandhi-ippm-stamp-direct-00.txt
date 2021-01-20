@@ -72,18 +72,18 @@ Table of Contents
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   3
    3.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   3
    4.  Direct Measurement Reply Test Packet  . . . . . . . . . . . .   6
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     6.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
    The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance metrics in IP
-   networks using probe messages [RFC8762].  It eliminates the need for
+   networks using test packets [RFC8762].  It eliminates the need for
    control-channel signaling by using configuration data model to
    provision a test-channel (e.g.  UDP paths).
    [I-D.ietf-ippm-stamp-option-tlv] defines TLV extensions for STAMP
@@ -125,8 +125,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 2.2.  Abbreviations
 
-   DM: Delay Measurement.
-
    HMAC: Hashed Message Authentication Code.
 
    LM: Loss Measurement.
@@ -162,6 +160,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    In this document, STAMP test packet for direct measurement are
    defined as shown in Figure 2 and Figure 3.  The message formats are
    hardware efficient due to well-known locations of the counters and
+   payload small in size.  They are stand-alone and similar to the delay
+   measurement message formats (e.g. location of the Counter and
 
 
 
@@ -170,10 +170,8 @@ Gandhi, et al.            Expires July 24, 2021                 [Page 3]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-   payload small in size.  They are stand-alone and similar to the delay
-   measurement message formats (e.g. location of the Counter and
    Timestamp).  They also do not require backwards compatibility and
-   support for the existing DM message formats from [RFC8762] as
+   support for the existing STAMP test packet formats from [RFC8762] as
    different user-configured destination UDP port is used for direct
    measurement.
 
@@ -198,6 +196,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
       Figure 1: Direct Measurement Test Packet - Unauthenticated Mode
+
+
 
 
 
@@ -258,22 +258,22 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    Transmit Counter (64-bit): The number of packets or octets sent by
    the session-sender node in the query message and by the session-
    reflector node in the response message.  The counter is always
-   written at the well-known location in the probe query and response
-   messages.
+   written at the well-known location in the test packet and reply test
+   packet.
 
-   Receive Counter (64-bit): The number of packets or octets received at
-   the session-reflector node.  It is written by the session-reflector
-   node in the probe response message.
+   Block Number (8-bit): The Direct Measurement using Alternate-Marking
+   method defined in [RFC8321] requires to color the data traffic.  To
+   be able to correlate the transmit and receive traffic counters of the
+   matching color, the Block Number (or color) of the traffic counters
+   is carried by the test packet and reply test packet for direct
+   measurement.  The Block Number can also be used to aggregate
+   performance metrics collected.
 
-   Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received query message.  It is written by the
-   session-reflector node in the probe response message.
-
-   Sender Sequence Number (32-bit): As defined in [RFC8762].
-
-   Sender TTL: As defined in [RFC8762].
-
-   LM Flags: The meanings of the Flag bits are:
+   HMAC: The test packet in authenticated mode includes a key Hashed
+   Message Authentication Code (HMAC) [RFC2104] hash.  Each test packet
+   and reply test packet are authenticated by adding Sequence Number
+   with Hashed Message Authentication Code (HMAC) TLV.  It can use HMAC-
+   SHA-256 truncated to 128 bits (similarly to the use of it in IPSec
 
 
 
@@ -282,33 +282,6 @@ Gandhi, et al.            Expires July 24, 2021                 [Page 5]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-      X: Extended counter format indicator.  Indicates the use of
-      extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of an LM query and copied from an LM
-      query to an LM response message.  Set to 0 when the LM message is
-      transmitted or received over an interface that writes 32-bit
-      counter values.
-
-      B: Octet (byte) count.  When set to 1, indicates that the Counter
-      1-4 fields represent octet counts.  The octet count applies to all
-      packets within the LM scope, and the octet count of a packet sent
-      or received includes the total length of that packet (but excludes
-      headers, labels, or framing of the channel itself).  When set to
-      0, indicates that the Counter fields represent packet counts.
-
-   Block Number (8-bit): The Direct Measurement using Alternate-Marking
-   method defined in [RFC8321] requires to color the data traffic.  To
-   be able to correlate the transmit and receive traffic counters of the
-   matching color, the Block Number (or color) of the traffic counters
-   is carried by the probe query and response messages for loss
-   measurement.  The Block Number can also be used to aggregate
-   performance metrics collected.
-
-   HMAC: The probe message in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) [RFC2104] hash.  Each probe query
-   and response messages are authenticated by adding Sequence Number
-   with Hashed Message Authentication Code (HMAC) TLV.  It can use HMAC-
-   SHA-256 truncated to 128 bits (similarly to the use of it in IPSec
    defined in [RFC4868]); hence the length of the HMAC field is 16
    octets.
 
@@ -316,7 +289,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    outside the scope of this document.
 
    In authenticated mode, only the sequence number is encrypted, and the
-   other payload fields are sent in clear text.  The probe message MAY
+   other payload fields are sent in clear text.  The test packet MAY
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.
 
@@ -324,19 +297,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    In this document, reply test packet formats for direct measurement
    are defined as shown in Figure 4 and Figure 5.
-
-
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 24, 2021                 [Page 6]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -373,23 +333,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 24, 2021                 [Page 7]
+Gandhi, et al.            Expires July 24, 2021                 [Page 6]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -445,10 +389,38 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 24, 2021                 [Page 8]
+Gandhi, et al.            Expires July 24, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   Receive Counter (64-bit): The number of packets or octets received at
+   the session-reflector node.  It is written by the session-reflector
+   node in the reply test packet.
+
+   Sender Counter (64-bit): This is the exact copy of the transmit
+   counter from the received query message.  It is written by the
+   session-reflector node in the reply test packet.
+
+   Sender Sequence Number (32-bit): As defined in [RFC8762].
+
+   Sender TTL: As defined in [RFC8762].
+
+   LM Flags: The meanings of the Flag bits are:
+
+      X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an LM query and copied from an LM
+      query to an LM response message.  Set to 0 when the LM message is
+      transmitted or received over an interface that writes 32-bit
+      counter values.
+
+      B: Octet (byte) count.  When set to 1, indicates that the Counter
+      1-4 fields represent octet counts.  The octet count applies to all
+      packets within the LM scope, and the octet count of a packet sent
+      or received includes the total length of that packet (but excludes
+      headers, labels, or framing of the channel itself).  When set to
+      0, indicates that the Counter fields represent packet counts.
 
 5.  Security Considerations
 
@@ -466,9 +438,17 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    single query/response cycle.
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the probe messages.  Cryptographic measures may be
+   integrity of the test packets.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 8]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
 
 6.  References
 
@@ -494,18 +474,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
               Protocol Optional Extensions", draft-ietf-ippm-stamp-
               option-tlv-10 (work in progress), November 2020.
 
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 24, 2021                 [Page 9]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
-
 6.2.  Informative References
 
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
@@ -526,10 +494,17 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 Acknowledgments
 
-   The authors would like to thank Greg Mirsky for the review comments.
-   The authors would like to acknowledge the earlier work on the loss
-   measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
-   direct-loss.
+   The authors would like to thank Greg Mirsky for the comments on
+   direct measurement.  The authors would like to acknowledge the
+   earlier work on the loss measurement using TWAMP described in draft-
+   xiao-ippm-twamp-ext-direct-loss.
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 9]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
 
 Authors' Addresses
 
@@ -550,16 +525,6 @@ Authors' Addresses
    Bell Canada
 
    Email: daniel.voyer@bell.ca
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 24, 2021                [Page 10]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
    Mach(Guoyi) Chen
@@ -592,25 +557,4 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 24, 2021                [Page 11]
+Gandhi, et al.            Expires July 24, 2021                [Page 10]
