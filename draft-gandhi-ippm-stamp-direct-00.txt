@@ -1,0 +1,616 @@
+
+
+
+
+IPPM Working Group                                        R. Gandhi, Ed.
+Internet-Draft                                               C. Filsfils
+Intended status: Standards Track                     Cisco Systems, Inc.
+Expires: July 24, 2021                                          D. Voyer
+                                                             Bell Canada
+                                                                 M. Chen
+                                                                  Huawei
+                                                             B. Janssens
+                                                                    Colt
+                                                        January 20, 2021
+
+
+         Simple TWAMP (STAMP) Extensions for Direct Measurement
+                   draft-gandhi-ippm-stamp-direct-00
+
+Abstract
+
+   This document specifies RFC 8762 (Simple Two-Way Active Measurement
+   Protocol (STAMP)) extensions for Direct Measurement for detecting
+   packet loss in a network.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on July 24, 2021.
+
+Copyright Notice
+
+   Copyright (c) 2021 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 1]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   3
+   3.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   3
+   4.  Direct Measurement Reply Test Packet  . . . . . . . . . . . .   6
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .  10
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+
+1.  Introduction
+
+   The Simple Two-way Active Measurement Protocol (STAMP) provides
+   capabilities for the measurement of various performance metrics in IP
+   networks using probe messages [RFC8762].  It eliminates the need for
+   control-channel signaling by using configuration data model to
+   provision a test-channel (e.g.  UDP paths).
+   [I-D.ietf-ippm-stamp-option-tlv] defines TLV extensions for STAMP
+   messages.
+
+   The STAMP message with a TLV for "direct measurement" can be used for
+   combined Delay + Loss measurement [I-D.ietf-ippm-stamp-option-tlv].
+   However, in order to use only for direct measurement purpose, it
+   requires the node to support the delay measurement messages and
+   support timestamp for these messages (which may also require clock
+   synchronization).  Furthermore, for hardware-based counter collection
+   for direct-mode measurement, the optional TLV based processing adds
+   unnecessary overhead (as counters are not at well-known locations).
+
+   This document specifies RFC 8762 (Simple Two-Way Active Measurement
+   Protocol (STAMP)) extensions for Direct Measurement for detecting
+   packet loss in a network.
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 2]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+2.  Conventions Used in This Document
+
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119] [RFC8174]
+   when, and only when, they appear in all capitals, as shown here.
+
+2.2.  Abbreviations
+
+   DM: Delay Measurement.
+
+   HMAC: Hashed Message Authentication Code.
+
+   LM: Loss Measurement.
+
+   PM: Performance Measurement.
+
+   SSID: STAMP Session Identifier.
+
+   STAMP: Simple Two-way Active Measurement Protocol.
+
+2.3.  Reference Topology
+
+   In the reference topology shown below, the session-sender node R1
+   initiates a direct measurement test packet and the session-reflector
+   node R3 sends a test packet reply back to the session-sender node R1.
+
+                          C1                C2
+                         /                   \
+                +-------+     Test Packet     +-------+
+                |       | - - - - - - - - - ->|       |
+                |   R1  |=====================|   R3  |
+                |       |<- - - - - - - - - - |       |
+                +-------+     Test Reply      +-------+
+                         \                   /
+                          C4                C3
+
+                Session-Sender                Session-Reflector
+
+                           Reference Topology
+
+3.  Direct Measurement Test Packet
+
+   In this document, STAMP test packet for direct measurement are
+   defined as shown in Figure 2 and Figure 3.  The message formats are
+   hardware efficient due to well-known locations of the counters and
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 3]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+   payload small in size.  They are stand-alone and similar to the delay
+   measurement message formats (e.g. location of the Counter and
+   Timestamp).  They also do not require backwards compatibility and
+   support for the existing DM message formats from [RFC8762] as
+   different user-configured destination UDP port is used for direct
+   measurement.
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | SSID                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |         MBZ                                   |Se Control Code|
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                        MBZ (24 octets)                        |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+      Figure 1: Direct Measurement Test Packet - Unauthenticated Mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 4]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | SSID                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |         MBZ                                   |Se Control Code|
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (64 octets)                        |
+    .                                                               .
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                        HMAC (16 octets)                       |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+       Figure 2: Direct Measurement Test Packet - Authenticated Mode
+
+   Sequence Number (32-bit): As defined in [RFC8762].
+
+   Transmit Counter (64-bit): The number of packets or octets sent by
+   the session-sender node in the query message and by the session-
+   reflector node in the response message.  The counter is always
+   written at the well-known location in the probe query and response
+   messages.
+
+   Receive Counter (64-bit): The number of packets or octets received at
+   the session-reflector node.  It is written by the session-reflector
+   node in the probe response message.
+
+   Sender Counter (64-bit): This is the exact copy of the transmit
+   counter from the received query message.  It is written by the
+   session-reflector node in the probe response message.
+
+   Sender Sequence Number (32-bit): As defined in [RFC8762].
+
+   Sender TTL: As defined in [RFC8762].
+
+   LM Flags: The meanings of the Flag bits are:
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 5]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+      X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an LM query and copied from an LM
+      query to an LM response message.  Set to 0 when the LM message is
+      transmitted or received over an interface that writes 32-bit
+      counter values.
+
+      B: Octet (byte) count.  When set to 1, indicates that the Counter
+      1-4 fields represent octet counts.  The octet count applies to all
+      packets within the LM scope, and the octet count of a packet sent
+      or received includes the total length of that packet (but excludes
+      headers, labels, or framing of the channel itself).  When set to
+      0, indicates that the Counter fields represent packet counts.
+
+   Block Number (8-bit): The Direct Measurement using Alternate-Marking
+   method defined in [RFC8321] requires to color the data traffic.  To
+   be able to correlate the transmit and receive traffic counters of the
+   matching color, the Block Number (or color) of the traffic counters
+   is carried by the probe query and response messages for loss
+   measurement.  The Block Number can also be used to aggregate
+   performance metrics collected.
+
+   HMAC: The probe message in authenticated mode includes a key Hashed
+   Message Authentication Code (HMAC) [RFC2104] hash.  Each probe query
+   and response messages are authenticated by adding Sequence Number
+   with Hashed Message Authentication Code (HMAC) TLV.  It can use HMAC-
+   SHA-256 truncated to 128 bits (similarly to the use of it in IPSec
+   defined in [RFC4868]); hence the length of the HMAC field is 16
+   octets.
+
+   HMAC uses its own key and the mechanism to distribute the HMAC key is
+   outside the scope of this document.
+
+   In authenticated mode, only the sequence number is encrypted, and the
+   other payload fields are sent in clear text.  The probe message MAY
+   include Comp.MBZ (Must Be Zero) variable length field to align the
+   packet on 16 octets boundary.
+
+4.  Direct Measurement Reply Test Packet
+
+   In this document, reply test packet formats for direct measurement
+   are defined as shown in Figure 4 and Figure 5.
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 6]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | SSID                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Receive Counter                        |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sender Sequence Number                 |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sender Counter                         |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Sender TTL   |      MBZ                                      |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+   Figure 3: Direct Measurement Reply Test Packet - Unauthenticated Mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 7]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Transmit Counter                       |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  | Block Number  | SSID                          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (4 octets)                         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Receive Counter                        |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (8 octets)                         |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sender Sequence Number                 |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Sender Counter                         |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |X|B| Reserved  |Sender Block Nu|   MBZ                         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (4 octets)                         |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Sender TTL   |                                               |
+    +-+-+-+-+-+-+-+-+                                               |
+    |                        MBZ (15 octets)                        |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                        HMAC (16 octets)                       |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+    Figure 4: Direct Measurement Reply Test Packet - Authenticated Mode
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 8]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+5.  Security Considerations
+
+   The performance measurement is intended for deployment in well-
+   managed private and service provider networks.  As such, it assumes
+   that a node involved in a measurement operation has previously
+   verified the integrity of the path and the identity of the far-end
+   session-reflector node.
+
+   If desired, attacks can be mitigated by performing basic validation
+   and sanity checks, at the session-sender, of the counter or timestamp
+   fields in received measurement response messages.  The minimal state
+   associated with these protocols also limits the extent of measurement
+   disruption that can be caused by a corrupt or invalid message to a
+   single query/response cycle.
+
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the probe messages.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
+
+6.  References
+
+6.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
+
+   [I-D.ietf-ippm-stamp-option-tlv]
+              Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
+              and E. Ruffini, "Simple Two-way Active Measurement
+              Protocol Optional Extensions", draft-ietf-ippm-stamp-
+              option-tlv-10 (work in progress), November 2020.
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                 [Page 9]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+6.2.  Informative References
+
+   [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
+              Hashing for Message Authentication", RFC 2104,
+              DOI 10.17487/RFC2104, February 1997,
+              <https://www.rfc-editor.org/info/rfc2104>.
+
+   [RFC4868]  Kelly, S. and S. Frankel, "Using HMAC-SHA-256, HMAC-SHA-
+              384, and HMAC-SHA-512 with IPsec", RFC 4868,
+              DOI 10.17487/RFC4868, May 2007,
+              <https://www.rfc-editor.org/info/rfc4868>.
+
+   [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
+              L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
+              "Alternate-Marking Method for Passive and Hybrid
+              Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
+              January 2018, <https://www.rfc-editor.org/info/rfc8321>.
+
+Acknowledgments
+
+   The authors would like to thank Greg Mirsky for the review comments.
+   The authors would like to acknowledge the earlier work on the loss
+   measurement using TWAMP described in draft-xiao-ippm-twamp-ext-
+   direct-loss.
+
+Authors' Addresses
+
+   Rakesh Gandhi (editor)
+   Cisco Systems, Inc.
+   Canada
+
+   Email: rgandhi@cisco.com
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
+
+
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                [Page 10]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
+   Mach(Guoyi) Chen
+   Huawei
+
+   Email: mach.chen@huawei.com
+
+
+   Bart Janssens
+   Colt
+
+   Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 24, 2021                [Page 11]
