@@ -91,7 +91,7 @@
    <t>The STAMP packet with a TLV for "direct measurement" can be used for combined Delay + Loss
    measurement <xref target="I-D.ietf-ippm-stamp-option-tlv"/>. However,  in 
    order to use only for direct measurement purpose, it requires the node to 
-   support the delay measurement packets and support timestamp for these packets 
+   support the STAMP test packets and support timestamp for these packets 
    (which may also require clock synchronization). 
    Furthermore, for hardware-based counter collection for direct-mode measurement, 
    the optional TLV based processing adds unnecessary overhead
@@ -155,18 +155,18 @@
 
 	<section title="Direct Measurement Test Packet" anchor="sect-3">
 
-   <t>In this document, test packet for
+   <t>In this document, test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. The packet
    formats are hardware efficient due to 
    well-known locations of the counters and payload
-   small in size.  They are stand-alone and similar to the delay
-   measurement packet formats (e.g. location of the Counter and Timestamp). They also  
+   small in size.  They are stand-alone and similar to the STAMP test 
+   packet formats (e.g. location of the Counter and Timestamp). They also  
    do not require backwards
    compatibility and support for the existing STAMP test packet formats from
    <xref target="RFC8762"/> as different user-configured destination UDP 
    port is used for direct measurement.</t>
 
-	<figure title="Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm--query-packet-format"><artwork><![CDATA[
+	<figure title="Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -175,7 +175,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | SSID                          |
+ |X|B|T|Send-DSCP  | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -189,7 +189,7 @@
 ]]></artwork>
 	</figure>
 
-	<figure title="Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm--query-packet-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm-test-packet-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -202,7 +202,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | SSID                          |
+ |X|B|T|Send-DSCP  | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   |Se Control Code|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -222,12 +222,35 @@
 
 	<t>
    Transmit Counter (64-bit): The number of packets or octets sent by
-   the session-sender node in the query packet and by the session-reflector node in the
+   the session-sender node in the test packet and by the session-reflector node in the
    reply packet.  The counter is always written at the well-known
    location in the test packet and reply test packet.</t>
 
+   <t><list style="hanging" hangIndent="3"><t hangText="Flags: The meanings of the Flag bits are:">
+	<vspace blankLines="1"/>
+	X: Extended counter format indicator.  Indicates the use of
+      extended (64-bit) counter values.  Initialized to 1 upon creation
+      (and prior to transmission) of an test packet and copied from test packet
+      to test packet reply.  Set to 0 when the test packet is
+      transmitted or received over an interface that writes 32-bit
+      counter values.
+	<vspace blankLines="1"/>
+	B: Octet (byte) count.  When set to 1, indicates that the Counter
+      1-4 fields represent octet counts.  The octet count applies to all
+      packets within the direct measurement scope, and the octet count of a packet sent
+      or received includes the total length of that packet (but excludes
+      headers, labels, or framing of the channel itself).  When set to
+      0, indicates that the Counter fields represent packet counts.
+	</t>
+
+	</list>
+   </t>
+
 	<t>
-   Block Number (8-bit): The Direct Measurement using Alternate-Marking
+   Send-DSCP (6-bit): Session-Sender DSCP of the traffic under direct measurement when T flag is set.</t>
+
+	<t>
+   Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to color the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
    matching color, the Block Number (or color) of the traffic counters
@@ -256,7 +279,6 @@
        0x2: No Reply Requested.</t>
 	</list>
 	</t>
-
 
 	<t>
    HMAC: The test packet in authenticated mode includes a key Hashed
@@ -292,7 +314,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | SSID                          |
+ |X|B|T|Send-DSCP  | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter                        |
  |                                                               |
@@ -322,7 +344,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  | Block Number  | SSID                          |
+ |X|B|T|Send-DSCP  | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -365,7 +387,7 @@
 
 	<t>
    Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received query packet.  It is written by the
+   counter from the received test packet.  It is written by the
    session-reflector node in the reply test packet.</t>
 
 	<t>
@@ -374,25 +396,6 @@
 	<t>
    Sender TTL: As defined in <xref target="RFC8762"/>.</t>
 
-	<t><list style="hanging" hangIndent="3"><t hangText="LM Flags: The meanings of the Flag bits are:">
-	<vspace blankLines="1"/>
-	X: Extended counter format indicator.  Indicates the use of
-      extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of an LM query and copied from an LM
-      query to an LM reply packet.  Set to 0 when the LM packet is
-      transmitted or received over an interface that writes 32-bit
-      counter values.
-	<vspace blankLines="1"/>
-	B: Octet (byte) count.  When set to 1, indicates that the Counter
-      1-4 fields represent octet counts.  The octet count applies to all
-      packets within the LM scope, and the octet count of a packet sent
-      or received includes the total length of that packet (but excludes
-      headers, labels, or framing of the channel itself).  When set to
-      0, indicates that the Counter fields represent packet counts.
-	</t>
-
-	</list>
-	</t>
 
         </section>
 
