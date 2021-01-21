@@ -20,6 +20,7 @@
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
 <!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
+<!ENTITY I-D.ietf-spring-segment-routing-policy SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-segment-routing-policy.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
 ]>
 <rfc submissionType="IETF" docName="draft-gandhi-ippm-stamp-srpm-02" category="std" ipr="trust200902">
@@ -87,7 +88,7 @@
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching
-   (SR-MPLS) and IPv6 (SRv6) data planes.  
+   (SR-MPLS) and IPv6 (SRv6) data planes <xref target="RFC8402"/>.  
    Built-in SR Performance Measurement (PM) is one of the
    essential requirements to provide Service Level Agreements (SLAs).</t>
 
@@ -95,7 +96,7 @@
    capabilities for the measurement of various performance
    metrics in IP networks using test packets <xref target="RFC8762"/>. 
    It eliminates the need for control-channel signaling by using
-   configuration data model to provision a test-channel (e.g. UDP paths). 
+   configuration data model to provision a test-channel. 
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
    defines TLV extensions for STAMP packets.</t>
 
@@ -122,12 +123,6 @@
 
 	<t>
    MPLS: Multiprotocol Label Switching.</t>
-
-	<t>
-   NTP: Network Time Protocol.</t>
-
-	<t>
-   OWAMP: One-Way Active Measurement Protocol.</t>
 
 	<t>
    PM: Performance Measurement.</t>
@@ -158,7 +153,12 @@
 	<section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown below, the session-sender node R1 initiates a
    STAMP test packet and the session-reflector node R3
-   sends reply for the test packet received to the session-sender node R1.</t>  
+   sends reply for the test packet received to the session-sender node R1.
+   The nodes R1 and R3 may be
+   directly connected via a link or there
+   exists a Point-to-Point (P2P) SR path e.g. SR Policy
+   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 (called head-end)
+   with destination to node R3 (called tail-end).</t>		
 
 	<figure><artwork><![CDATA[
                        T1                T2
@@ -167,7 +167,7 @@
              |       | - - - - - - - - - ->|       |
              |   R1  |=====================|   R3  |
              |       |<- - - - - - - - - - |       |
-             +-------+     Reply           +-------+
+             +-------+   Reply Test Packet +-------+
                       \                   /
                        T4                T3
 
@@ -180,6 +180,14 @@
 	</section>
 
 	<section title="Session-Sender Control Code Field Extension" anchor="sect-3">
+
+  <t>The session-reflector node may need to send
+   the test packet reply on the same link in the reverse direction.  The session-sender
+   node can request in the test packet to the session-reflector node to
+   send a test packet reply on the same link where the test packet is received.
+   This way the session-reflector node does not require
+   any additional state for the STAMP session.</t>
+
 	<t>In this document, the Session-Sender Control Code field is defined for test packets
    for STAMP protocol <xref target="RFC8762"/> in unauthenticated and authenticated modes.  
    The modified STAMP test packet format is shown in Figure 1. 
@@ -187,9 +195,7 @@
    compatible with the packet format defined in STAMP <xref target="RFC8762"/> as its session-reflector MUST
    ignore the received field (previously identified as MBZ).
    With this field, the session-reflector node does not require
-   any additional state information for the STAMP session (recall that in SR networks, 
-   the state is in the packet and signaling of the parameters is undesired). 
-   The usage of the Control Code is not limited to the SR and can be used for non-SR network.</t>
+   any additional state information for the STAMP sessions.</t>
 
    <figure title="Control Code in Session-Sender STAMP Test Packet" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  
@@ -239,8 +245,12 @@
 	</section>
 
 	<section title="Destination Node Address TLV Extension" anchor="sect-5">
-        <t>In this document, Destination Node Address TLV (Type TBA1) is defined for STAMP packet <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
-        and has the following format shown in Figure 2:</t>
+    <t>The session-sender may need to send test packets to the session-reflector
+    with destination IPv4 address from 127/8 range.  In error conditions, the session-reflector
+    from an un-intended node may send reply test packet resulting in invalid monitoring metrics.</t>
+
+    <t>In this document, Destination Node Address TLV (Type TBA1) is defined for STAMP packet <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
+       and has the following format shown in Figure 2:</t>
 
 
 	<figure title="Destination Node Address TLV Format" anchor="ure-node-address-tlv-format"><artwork><![CDATA[
@@ -269,7 +279,7 @@
 
 	<section title="Return Path TLV Extension" anchor="sect-6"><t>
    For a bidirectional path, the session-reflector node needs to send
-   the test packet reply on a specific return path.  The session-sender
+   the test packet reply on a specific reverse path.  The session-sender
    node can request in the test packet to the session-reflector node to
    send a test packet reply back on a given return path. 
    This way the session-reflector node does not require
@@ -481,7 +491,9 @@
 	&I-D.ietf-ippm-stamp-option-tlv;
 	</references>
 	<references title="Informative References">
-	&RFC8126;
+	&RFC8402;
+	&RFC8126;	
+	&I-D.ietf-spring-segment-routing-policy;
 	&I-D.ietf-pce-binding-label-sid;
 	</references>
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
