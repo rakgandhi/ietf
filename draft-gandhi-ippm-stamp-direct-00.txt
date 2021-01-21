@@ -285,20 +285,21 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
       itself).  When set to 0, indicates that the Counter fields
       represent packet counts.
 
-      T: Type of Service indicator.  When set to 1, indicates that the
-      Counter fields are for the specified Send-DSCP.  When set to 0,
-      indicates that the Counter is aggregate for all DSCP values.
+      T: Traffic-class-specific measurement indicator.  Set to 1 when
+      the direct measurement operation is scoped to packets of a
+      particular traffic class (DSCP value), and 0 otherwise.  When set
+      to 1, the Send-DSCP field of the test packet indicates the
+      measured traffic class.
 
-   Send-DSCP (6-bit): Session-Sender DSCP of the traffic under direct
-   measurement when T flag is set.
+   Send-DSCP (6-bit): DSCP of the traffic being measured when T flag is
+   set.
 
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in [RFC8321] requires to color the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
-   matching color, the Block Number (or color) of the traffic counters
-   is carried by the test packet and reply test packet for direct
-   measurement.  The Block Number can also be used to aggregate
-   performance metrics collected.
+   matching block number, the Block Number of the traffic counters is
+   carried by the test packet and reply test packet for direct
+   measurement.
 
    Sender Control Code: Set as follows in session-sender test packet.
 
@@ -327,7 +328,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    other payload fields are sent in clear text.  The test packet MAY
    include Comp.MBZ (Must Be Zero) variable length field to align the
    packet on 16 octets boundary.
-
 
 
 

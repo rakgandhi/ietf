@@ -242,25 +242,25 @@
       headers, labels, or framing of the channel itself).  When set to
       0, indicates that the Counter fields represent packet counts.
 	<vspace blankLines="1"/>
-      T: Type of Service indicator. When set to 1, indicates that the Counter
-      fields are for the specified Send-DSCP.  When set to 0, indicates that the Counter
-      is aggregate for all DSCP values. 
+      T: Traffic-class-specific measurement indicator.  Set to 1 when
+      the direct measurement operation is scoped to packets of a particular
+      traffic class (DSCP value), and 0 otherwise.  When set to 1, the
+      Send-DSCP field of the test packet indicates the measured traffic class.
 	</t>
 
 	</list>
    </t>
 
 	<t>
-   Send-DSCP (6-bit): Session-Sender DSCP of the traffic under direct measurement when T flag is set.</t>
+   Send-DSCP (6-bit):  DSCP of the traffic being measured when T flag is set.</t>
 
 	<t>
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to color the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
-   matching color, the Block Number (or color) of the traffic counters
+   matching block number, the Block Number of the traffic counters
    is carried by the test packet and reply test packet for direct
-   measurement. The Block Number can also be used to aggregate 
-   performance metrics collected.</t>
+   measurement.</t>
 
    <t>
    Sender Control Code: Set as follows in session-sender test packet.</t>
