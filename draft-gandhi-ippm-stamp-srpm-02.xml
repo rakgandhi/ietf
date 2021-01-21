@@ -118,9 +118,6 @@
    BSID: Binding Segment ID.</t>
 
 	<t>
-   DM: Delay Measurement.</t>
-
-	<t>
    HMAC: Hashed Packet Authentication Code.</t>
 
 	<t>
@@ -136,9 +133,6 @@
    PM: Performance Measurement.</t>
 
 	<t>
-   PTP: Precision Time Protocol.</t>
-
-	<t>
    SID: Segment ID.</t>
 
 	<t>
@@ -146,9 +140,6 @@
 
 	<t>
    SR: Segment Routing.</t>
-
-	<t>
-   SRH: Segment Routing Header.</t>
 
 	<t>
    SR-MPLS: Segment Routing with MPLS data plane.</t>
@@ -182,7 +173,7 @@
 
              Session-Sender                Session-Reflector
 
-                      Reference Topology
+                       Reference Topology
 ]]></artwork>
 	</figure>
 	</section>
@@ -200,7 +191,7 @@
    the state is in the packet and signaling of the parameters is undesired). 
    The usage of the Control Code is not limited to the SR and can be used for non-SR network.</t>
 
-   <figure title="Session-Sender Control Code in STAMP Test Packet" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
+   <figure title="Control Code in Session-Sender STAMP Test Packet" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Sequence Number                        |
@@ -223,7 +214,7 @@
 	</figure>
 
    <t>
-   Session-Sender Control Code: Set as follows in STAMP test packet.</t>
+   Session-Sender Control Code: Set as follows in STAMP session-sender test packet.</t>
    <t>  </t>
 
 	<t><list hangIndent="4" style="hanging"><t>
@@ -234,7 +225,7 @@
 	</t>
 
 	<t><list hangIndent="4" style="hanging"><t>
-       0x1: In-band Reply Requested.  Indicates that this query has
+       0x1: In-band Reply Requested.  Indicates that this test packet has
        been sent over a bidirectional path and the test packet reply is required
        over the same path in the reverse direction.</t> 
 	</list>
@@ -247,8 +238,8 @@
 
 	</section>
 
-	<section title="Destination Node Address TLV Extensions" anchor="sect-5">
-        <t>In this document, Destination Node Address TLV is defined for STAMP packet <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
+	<section title="Destination Node Address TLV Extension" anchor="sect-5">
+        <t>In this document, Destination Node Address TLV (Type TBA1) is defined for STAMP packet <xref target="I-D.ietf-ippm-stamp-option-tlv"/> 
         and has the following format shown in Figure 2:</t>
 
 
@@ -270,36 +261,26 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="I-D.ietf-ippm-stamp-option-tlv"/>.</t>
 
-   <t>The following Type is defined for Destination Node Address TLV:</t>
-
-   <t>Destination Node Address (value TBA1):</t>
-   <t>
-   The Destination Node Address TLV is optional.  The Destination Node
+   <t>The Destination Node Address TLV is optional.  The Destination Node
    Address TLV indicates the address of the intended recipient node of the
-   test packet.  The session-reflector node MUST NOT send reply packet if it
-   is not the intended destination node of the test packet.</t>
+   test packet.  The session-reflector node MUST NOT send test packet reply if it
+   is not the intended destination node of the received test packet.</t>
 	</section>
 
-	<section title="Return Path TLV Extensions" anchor="sect-6"><t>
-   For two-way performance measurement, the session-reflector node needs to send
-   the test packet reply packet on a specific reverse path.  The session-sender
+	<section title="Return Path TLV Extension" anchor="sect-6"><t>
+   For a bidirectional path, the session-reflector node needs to send
+   the test packet reply on a specific return path.  The session-sender
    node can request in the test packet to the session-reflector node to
-   send a reply packet back on a given reverse path (e.g. co-routed
-   bidirectional path).  This way the session-reflector node does not require
+   send a test packet reply back on a given return path. 
+   This way the session-reflector node does not require
    any additional state for the STAMP session (recall that in SR networks, 
    the state is in the packet and signaling of the parameters is undesired).</t>
 
 	<t>
-   For one-way performance measurement, the session-sender node address may not
-   be reachable via IP route from the session-reflector node.  The session-sender node
-   in this case needs to send its reachability path information to the
-   session-reflector node.</t>
-
-	<t>
    <xref target="I-D.ietf-ippm-stamp-option-tlv"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
-   defined in this document for Return Path that carries reverse path for STAMP
-   test packet reply packets (in the payload of the packet).  The format
+   defined in this document for Return Path that carries return path for STAMP
+   test packet reply.  The format
    of the Return Path TLV is shown in Figure 3:</t>
 
 	<figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
@@ -314,7 +295,11 @@
 ]]></artwork>
 	</figure>
 
-   <t>The following Type defined for the Return Path TLV contains the Return Address sub-TLV using the format shown in Figure 4:</t>
+    <t>The format of the Return Address sub-TLV is shown in Figure 4.
+    The Address Family field indicates the type of the address, and it
+    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.</t>
+ 
+    <t>The Type of the Return Address sub-TLV is defined as following:</t>
 
 	<t><list style="symbols"><t>Type (value 1): Return Address. Target node address of the
       reply packet different than the Source Address in the received test packet.</t>
@@ -336,14 +321,14 @@
 	</figure>
 
 	<t>
-   The Segment List Sub-TLV (format as shown in Figure 5) in the Return Path TLV can be one of the following Types:</t>
+   The Segment List sub-TLV (format as shown in Figure 5) in the Return Path TLV can be one of the following Types:</t>
 
-	<t><list style="symbols"><t>Type (value 2): SR-MPLS Label Stack of the Reverse Path</t>
+	<t><list style="symbols"><t>Type (value 2): SR-MPLS Label Stack of the Return Path</t>
 
 	<t>Type (value 3): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
       the Reverse SR Policy</t>
 
-	<t>Type (value 4): SRv6 Segment List of the Reverse Path</t>
+	<t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
 	<t>Type (value 5): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
       the Reverse SR Policy</t>
@@ -382,7 +367,7 @@
    node MUST only insert one Return Path Sub-TLV in the test packet and the session-reflector
    node MUST only process the first Return Path Sub-TLV in the test packet and ignore other Return
    Path Sub-TLVs if present. The session-reflector
-   node MUST send test packet reply packet back on the reverse path
+   node MUST send test packet reply back on the return path
    specified in the Return Path TLV and MUST NOT add Return Path TLV in
    the test packet reply.</t>
 
@@ -397,16 +382,15 @@
 
 	<t>
    If desired, attacks can be mitigated by performing basic validation
-   and sanity checks, at the session-sender, of the counter or timestamp fields
+   and sanity checks, at the session-sender, of the timestamp fields
    in received measurement reply packets.  The minimal state
    associated with these protocols also limits the extent of measurement
    disruption that can be caused by a corrupt or invalid packet to a
-   single query/reply cycle.</t>
+   single test cycle.</t>
 
-	<t>
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets. Cryptographic measures may be enhanced by the correct configuration
-   of access-control lists and firewalls.</t>
+   <t>The security considerations specified in <xref target="RFC8762"/>
+   and <xref target="I-D.ietf-ippm-stamp-option-tlv"/> also apply to the extensions
+   defined in this document.</t> 
 
 	</section>
 
@@ -471,12 +455,12 @@
 
 	<t><list style="symbols"><t>Type (value 1): Return Address</t>
 
-	<t>Type (value 2): SR-MPLS Label Stack of the Reverse Path</t>
+	<t>Type (value 2): SR-MPLS Label Stack of the Return Path</t>
 
 	<t>Type (value 3): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/>
                          of the Reverse SR Policy</t>
 
-	<t>Type (value 4): SRv6 Segment List of the Reverse Path</t>
+	<t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
 	<t>Type (value 5): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
                          the Reverse SR Policy</t>
