@@ -303,7 +303,7 @@
 
 	<section title="Direct Measurement Reply Test Packet" anchor="sect-4">
         <t>In this document, reply test packet formats for direct measurement are defined 
-   as shown in Figure 4 and Figure 5.</t>
+   as shown in Figure 3 and Figure 4.</t>
 
 	<figure title="Direct Measurement Reply Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -324,7 +324,7 @@
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu|   MBZ                         |
+ |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Sender TTL   |      MBZ                                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -363,7 +363,7 @@
  |                        Sender Counter                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B| Reserved  |Sender Block Nu|   MBZ                         |
+ |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
