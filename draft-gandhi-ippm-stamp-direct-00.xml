@@ -140,7 +140,7 @@
              |       | - - - - - - - - - ->|       |
              |   R1  |=====================|   R3  |
              |       |<- - - - - - - - - - |       |
-             +-------+     Test Reply      +-------+
+             +-------+  Reply Test Packet  +-------+
                       \                   /
                        C4                C3
 
@@ -155,18 +155,18 @@
 
 	<section title="Direct Measurement Test Packet" anchor="sect-3">
 
-   <t>In this document, test packet formats for
+   <t>In this document, session-sender test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. The packet
    formats are hardware efficient due to 
    well-known locations of the counters and payload
    small in size.  They are stand-alone and similar to the STAMP test 
-   packet formats (e.g. location of the Counter and Timestamp). They also  
+   packet formats (for example location of the Counter and Timestamp). The test packets also  
    do not require backwards
-   compatibility and support for the existing STAMP test packet formats from
+   compatibility and support for the existing STAMP test packet formats defined in
    <xref target="RFC8762"/> as different user-configured destination UDP 
    port is used for direct measurement.</t>
 
-	<figure title="Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
+	<figure title="Session-Sender Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -189,7 +189,7 @@
 ]]></artwork>
 	</figure>
 
-	<figure title="Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm-test-packet-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="Session-Sender Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm-test-packet-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -224,7 +224,8 @@
    Transmit Counter (64-bit): The number of packets or octets sent by
    the session-sender node in the test packet and by the session-reflector node in the
    reply packet.  The counter is always written at the well-known
-   location in the test packet and reply test packet.</t>
+   location in the test packet and reply test packet.  Counter is for the traffic flow
+   under measurement.</t>
 
    <t><list style="hanging" hangIndent="3"><t hangText="Flags: The meanings of the Flag bits are:">
 	<vspace blankLines="1"/>
@@ -305,11 +306,11 @@
 
 	</section>
 
-	<section title="Direct Measurement Reply Test Packet" anchor="sect-4">
-        <t>In this document, reply test packet formats for direct measurement are defined 
+	<section title="Session-Reflector Direct Measurement Test Packet" anchor="sect-4">
+        <t>In this document, reply test packet formats for direct measurement sent by session-reflector are defined 
    as shown in Figure 3 and Figure 4.</t>
 
-	<figure title="Direct Measurement Reply Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
+	<figure title="Session-Reflector Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -335,7 +336,7 @@
 ]]></artwork>
 	</figure>
 
-	<figure title="Direct Measurement Reply Test Packet - Authenticated Mode" anchor="ure-lm--reply-packet-format-authenticated-mode"><artwork><![CDATA[
+	<figure title="Session-Reflector Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm--reply-packet-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -387,7 +388,8 @@
 
 	<t>
    Receive Counter (64-bit): The number of packets or octets received at
-   the session-reflector node.  It is written by the session-reflector node in the reply test packet.</t>
+   the session-reflector node.  It is written by the session-reflector node in the reply test packet.
+   Counter is for the traffic flow under measurement.</t>
 
 	<t>
    Sender Counter (64-bit): This is the exact copy of the transmit
@@ -400,10 +402,9 @@
 	<t>
    Sender TTL: As defined in <xref target="RFC8762"/>.</t>
 
-
         </section>
 
-	<section title="Security Considerations" anchor="sect-7"><t>
+	<section title="Security Considerations" anchor="sect-5"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
@@ -423,6 +424,10 @@
    integrity of the test packets. Cryptographic measures may be enhanced by the correct configuration
    of access-control lists and firewalls.</t>
 
+   <t>The security considerations specified in <xref target="RFC8762"/>
+   and <xref target="I-D.ietf-ippm-stamp-option-tlv"/> also apply to the extensions
+   defined in this document.</t> 
+
 	</section>
 
 
@@ -441,7 +446,8 @@
 	&RFC8321;
 	</references>
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
-   The authors would like to thank Greg Mirsky for the comments on direct measurement. 
+   The authors would like to thank Greg Mirsky, Tianran Zhou, Zhenqiang Li, Reshad Rahman, Cheng Li, 
+   and Yali Wang for the comments on direct measurement. 
    The authors would like to
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>
