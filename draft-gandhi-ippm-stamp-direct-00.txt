@@ -89,22 +89,22 @@ Table of Contents
    control protocol by using configuration data model to provision test
    sessions.  [RFC8972] defines optional extensions for STAMP.
 
-   The STAMP packet with a TLV for "direct measurement" can be used for
-   combined Delay + Packet Loss measurement [RFC8972].  However, in
-   order to use only for direct measurement purpose, it requires the
-   node to support the STAMP test packets and support timestamp for
-   these packets, in addition to counters.  Furthermore, for hardware-
-   based counter collection for direct measurement, the optional TLV
-   based processing adds unnecessary overhead (as counters are not at
-   well-known locations).  In addition, it does not support 64-bit
-   counters, counters for Bytes, as well as counters per traffic class.
-   It also does not identify the Block Number required for Alternate-
-   Marking Method [RFC8321] for loss measurement.
+   Many Service Provider Service Level Agreements (SLAs) depend on the
+   ability to measure performance loss metric experienced by Customer
+   data traffic.  The STAMP packet with a TLV for "direct measurement"
+   can be used for combined Delay + Packet Loss measurement [RFC8972].
+   However, in order to use only for direct measurement purpose, it
+   requires the node to support the STAMP test packets and support
+   timestamp for these packets, in addition to counters.  Furthermore,
+   for hardware-based counter collection for direct measurement, the
+   optional TLV based processing adds unnecessary overhead (as counters
+   are not at well-known locations).  In addition, it does not support
+   64-bit counters, counters for Bytes, as well as counters per traffic
+   class.  It also does not identify the Block Number required for
+   Alternate-Marking Method [RFC8321] for loss measurement.
 
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
-   packet loss in a network those are efficient for hardware-based
-   implementation.
 
 
 
@@ -113,6 +113,9 @@ Gandhi, et al.            Expires July 26, 2021                 [Page 2]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   packet loss in a network those are efficient for hardware-based
+   implementation.
 
 2.  Conventions Used in This Document
 
@@ -158,10 +161,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
                            Reference Topology
 
-   The direct measurement test packets carry user-configured destination
-   UDP port.  The UDP port 862 is not used for direct measurement test
-   packets defined in this document.  The user-configured destination
-   UDP port follows the guidelines defined in [RFC8762].  Different
+
 
 
 
@@ -170,6 +170,10 @@ Gandhi, et al.            Expires July 26, 2021                 [Page 3]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   The direct measurement test packets carry user-configured destination
+   UDP port.  The UDP port 862 is not used for direct measurement test
+   packets defined in this document.  The user-configured destination
+   UDP port follows the guidelines defined in [RFC8762].  Different
    destination UDP port is used for direct measurement than the STAMP
    test packets defined in [RFC8762].
 
@@ -206,10 +210,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
          Figure 1: Session-Sender Direct Measurement Test Packet -
                            Unauthenticated Mode
-
-
-
-
 
 
 
@@ -363,7 +363,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |  Sender TTL   |      MBZ                                      |
+    |  Sender TTL   |        MBZ                                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
        Figure 3: Session-Reflector Direct Measurement Test Packet -
