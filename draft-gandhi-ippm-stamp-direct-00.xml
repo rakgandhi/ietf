@@ -4,7 +4,7 @@
 <!ENTITY RFC2119 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC8174 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8762 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml">
-<!ENTITY I-D.ietf-ippm-stamp-option-tlv SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp-option-tlv.xml">
+<!ENTITY RFC8972 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8972.xml">
 <!ENTITY RFC2104 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2104.xml">
 <!ENTITY RFC2113 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2113.xml">
 <!ENTITY RFC4868 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4868.xml">
@@ -68,7 +68,7 @@
 	</address>
 	</author>
 
-	<date day="20" month="January" year="2021"/>
+	<date day="22" month="January" year="2021"/>
 	<workgroup>IPPM Working Group</workgroup>
 	<abstract><t>
    This document specifies RFC 8762 
@@ -85,14 +85,13 @@
    metrics in IP networks using test packets <xref target="RFC8762"/>. 
    It eliminates the need for control-channel signaling by using
    configuration data model to provision a test-channel (e.g. UDP paths). 
-   <xref target="I-D.ietf-ippm-stamp-option-tlv"/>
+   <xref target="RFC8972"/>
    defines TLV extensions for STAMP packets.</t>
 
    <t>The STAMP packet with a TLV for "direct measurement" can be used for combined Delay + Loss
-   measurement <xref target="I-D.ietf-ippm-stamp-option-tlv"/>. However,  in 
+   measurement <xref target="RFC8972"/>. However,  in 
    order to use only for direct measurement purpose, it requires the node to 
-   support the STAMP test packets and support timestamp for these packets 
-   (which may also require clock synchronization). 
+   support the STAMP test packets and support timestamp for these packets. 
    Furthermore, for hardware-based counter collection for direct-mode measurement, 
    the optional TLV based processing adds unnecessary overhead
    (as counters are not at well-known locations).</t>
@@ -129,9 +128,11 @@
 	</section>
 
 	<section title="Reference Topology" anchor="sect-2.3"><t>
-   In the reference topology shown below, the session-sender node R1 initiates a
-   direct measurement test packet and the session-reflector node R3
-   sends a reply test packet back to the session-sender node R1.</t>
+   As shown in the reference topology blow, the STAMP Session-Sender R1 
+   transmits direct measurement test packets over UDP transport
+   toward the STAMP Session-Reflector R2.  The STAMP Session-Reflector R2
+   receives the Session-Sender's packet and acts according to the
+   configuration. The Session-Reflector R2 sends Reply Test Packet to Session-Sender R1.</t> 
 
 	<figure><artwork><![CDATA[
                        C1                C2
@@ -149,12 +150,17 @@
                         Reference Topology
 ]]></artwork>
 	</figure>
+
+    <t>The direct measurement test packets carry user-configured destination UDP port. The UDP port 
+    862 is not used for direct measurement test packets defined in this document. The user-configured
+    destination UDP port follows the guidelines defined in <xref target="RFC8762"/>. Different destination UDP port is used for
+    direct measurement than the STAMP test packets defined in <xref target="RFC8762"/>.</t>
+
 	</section>
 	</section>
 
 
 	<section title="Direct Measurement Test Packet" anchor="sect-3">
-
    <t>In this document, session-sender test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. The packet
    formats are hardware efficient due to 
@@ -222,7 +228,7 @@
 
 	<t>
    Transmit Counter (64-bit): The number of packets or octets sent by
-   the session-sender node in the test packet and by the session-reflector node in the
+   the session-sender in the test packet and by the session-reflector in the
    reply packet.  The counter is always written at the well-known
    location in the test packet and reply test packet.  Counter is for the traffic flow
    under measurement.</t>
@@ -285,24 +291,16 @@
 	</list>
 	</t>
 
+   <t>The MBZ fields are used to achieve alignment of fields within the
+   packet on a four-octet boundary.  The value of each MBZ field MUST
+   be zeroed on transmission and MUST be ignored on receipt.</t>
+
 	<t>
-   HMAC: The test packet in authenticated mode includes a key Hashed
-   Message Authentication Code (HMAC) <xref target="RFC2104"/> hash.  Each test
-   packet and reply test packet are authenticated by adding Sequence
-   Number with Hashed Message Authentication Code (HMAC) TLV.  It can
-   use HMAC-SHA-256 truncated to 128 bits (similarly to the use of it in
-   IPSec defined in <xref target="RFC4868"/>); hence the length of the HMAC field is 16
-   octets.</t>
+   The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
 	<t>
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.</t>
-
-	<t>
-   In authenticated mode, only the sequence number is encrypted, and the
-   other payload fields are sent in clear text.  The test packet MAY
-   include Comp.MBZ (Must Be Zero) variable length field to align the
-   packet on 16 octets boundary.</t>
 
 	</section>
 
@@ -388,13 +386,13 @@
 
 	<t>
    Receive Counter (64-bit): The number of packets or octets received at
-   the session-reflector node.  It is written by the session-reflector node in the reply test packet.
+   the session-reflector.  It is written by the session-reflector in the reply test packet.
    Counter is for the traffic flow under measurement.</t>
 
 	<t>
    Sender Counter (64-bit): This is the exact copy of the transmit
    counter from the received test packet.  It is written by the
-   session-reflector node in the reply test packet.</t>
+   session-reflector in the reply test packet.</t>
 
 	<t>
    Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
@@ -409,7 +407,7 @@
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
    previously verified the integrity of the path and the identity of the
-   far-end session-reflector node.</t>
+   far-end session-reflector.</t>
 
 	<t>
    If desired, attacks can be mitigated by performing basic validation
@@ -425,7 +423,7 @@
    of access-control lists and firewalls.</t>
 
    <t>The security considerations specified in <xref target="RFC8762"/>
-   and <xref target="I-D.ietf-ippm-stamp-option-tlv"/> also apply to the extensions
+   and <xref target="RFC8972"/> also apply to the extensions
    defined in this document.</t> 
 
 	</section>
@@ -438,11 +436,9 @@
 	&RFC2119;
 	&RFC8174;
 	&RFC8762;
-	&I-D.ietf-ippm-stamp-option-tlv;
+	&RFC8972;
 	</references>
 	<references title="Informative References">
-	&RFC2104;
-	&RFC4868;
 	&RFC8321;
 	</references>
 	<section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
