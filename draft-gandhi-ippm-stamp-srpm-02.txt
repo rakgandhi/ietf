@@ -147,7 +147,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
    In the reference topology shown below, the session-sender R1
    initiates a STAMP test packet and the session-reflector R3 sends
-   reply for the test packet received to the session-sender R1.  The
+   reply to the session-sender R1 for the test packet received.  The
    nodes R1 and R3 may be directly connected via a link or there exists
    a Point-to-Point (P2P) SR path e.g.  SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
@@ -187,11 +187,11 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 3.  Session-Sender Control Code Field Extension
 
    The session-reflector may need to send the reply test packet on the
-   same link in the reverse direction.  The session-sender node can
-   request in the test packet to the session-reflector to send a reply
-   test packet on the same link where the test packet is received.  This
-   way the session-reflector does not require any additional state for
-   the STAMP session.
+   same link in the reverse direction.  The session-sender can request
+   in the test packet to the session-reflector to send a reply test
+   packet on the same link where the test packet is received.  This way
+   the session-reflector does not require any additional state for the
+   STAMP session.
 
    In this document, the Control Code field is defined for session-
    sender test packets for STAMP protocol [RFC8762] in unauthenticated
@@ -338,8 +338,8 @@ Gandhi, et al.            Expires July 26, 2021                 [Page 6]
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
-   reflector on an un-intended node may send reply test packet resulting
-   in reporting of invalid measurement metrics.
+   reflector on an un-intended node may send reply test packets
+   resulting in reporting of invalid measurement metrics.
 
    In this document, Destination Node Address TLV (Type TBA1) is defined
    for STAMP test packet [RFC8972] and has the following format shown in
@@ -365,7 +365,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    [RFC8972].
 
    The Destination Node Address TLV is optional.  The Destination Node
-   Address TLV indicates the address of the intended recipient node of
+   Address TLV indicates the address of the intended destination node of
    the test packet.  The session-reflector MUST NOT send reply test
    packet if it is not the intended destination node of the received
    test packet.
@@ -373,12 +373,12 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 5.  Return Path TLV Extension
 
    For a bidirectional path, the session-reflector needs to send the
-   reply test packet on a specific reverse path.  The session-sender
-   node can request in the test packet to the session-reflector to send
-   a reply test packet back on a given return path.  This way the
-   session-reflector does not require any additional state for the STAMP
-   session (recall that in SR networks, the state is in the packet and
-   signaling of the parameters is undesired).
+   reply test packet on a specific reverse path.  The session-sender can
+   request in the test packet to the session-reflector to send a reply
+   test packet back on a given return path.  This way the session-
+   reflector does not require any additional state for the STAMP session
+   (recall that in SR networks, the state is in the packet and signaling
+   of the parameters is undesired).
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
@@ -405,14 +405,14 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
                          Figure 4: Return Path TLV
 
-   The format of the Return Address sub-TLV is shown in Figure 5.  The
+   The format of the Return Address Sub-TLV is shown in Figure 5.  The
    Address Family field indicates the type of the address, and it SHALL
    be set to one of the assigned values in the "IANA Address Family
    Numbers" registry.
 
-   The Type of the Return Address sub-TLV is defined as following:
+   The Type of the Return Address Sub-TLV is defined as following:
 
-   o  Type (value 1): Return Address.  Target node address of the
+   o  Type (value 1): Return Address.  Destination node address of the
       session-reflector test packet different than the Source Address in
       the received test packet.
 
@@ -428,9 +428,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
             Figure 5: Return Address Sub-TLV in Return Path TLV
 
-   The format of the Segment List sub-TLV in the Return Path TLV is
+   The format of the Segment List Sub-TLV in the Return Path TLV is
    shown in Figure 6.  The segment entries MUST be in network order.
-   The Segment List sub-TLV can be one of the following Types:
+   The Segment List Sub-TLV can be one of the following Types:
 
    o  Type (value 2): SR-MPLS Label Stack of the Return Path
 
@@ -475,12 +475,12 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    one Return Path TLV in the STAMP test packet and the session-
    reflector MUST only process the first Return Path TLV in the test
    packet and ignore other Return Path TLVs if present.  Similarly, the
-   session-sender node MUST only insert one Return Path Sub-TLV in the
-   test packet and the session-reflector node MUST only process the
-   first Return Path Sub-TLV in the test packet and ignore other Return
-   Path Sub-TLVs if present.  The session-reflector node MUST send reply
-   test packet back on the return path specified in the Return Path TLV
-   and MUST NOT add Return Path TLV in the reply test packet.
+   session-sender MUST only insert one Return Path Sub-TLV in the test
+   packet and the session-reflector MUST only process the first Return
+   Path Sub-TLV in the test packet and ignore other Return Path Sub-TLVs
+   if present.  The session-reflector MUST send reply test packet back
+   on the return path specified in the Return Path TLV and MUST NOT add
+   Return Path TLV in the reply test packet.
 
 6.  Security Considerations
 

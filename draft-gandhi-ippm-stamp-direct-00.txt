@@ -92,18 +92,18 @@ Table of Contents
 
    Many Service Provider Service Level Agreements (SLAs) depend on the
    ability to measure performance loss metric experienced by Customer
-   data traffic.  The STAMP packet with a TLV for "direct measurement"
-   can be used for combined Delay + Packet Loss measurement [RFC8972].
-   However, in order to use only for direct measurement purpose, it
-   requires the node to support the STAMP test packets and support
-   timestamp for these packets, in addition to counters.  Furthermore,
-   for hardware-based counter collection for direct measurement, the
-   optional TLV based processing adds unnecessary overhead (as counters
-   are not at well-known locations).  In addition, it does not support
-   64-bit counters, counters for Bytes, as well as counters per traffic
-   class.  It also does not identify the Block Number of the direct
-   measurement required for Alternate-Marking Method [RFC8321] for loss
-   measurement.
+   data traffic.  The STAMP test packet with a TLV for "direct
+   measurement" can be used for combined Delay + Packet Loss measurement
+   [RFC8972].  However, in order to use only for direct measurement
+   purpose, it requires the node to support the STAMP test packets and
+   support timestamp for these packets, in addition to counters.
+   Furthermore, for hardware-based counter collection for direct
+   measurement, the optional TLV based processing adds unnecessary
+   overhead (as counters are not at well-known locations).  In addition,
+   it does not support 64-bit counters, counters for Bytes, as well as
+   counters per traffic class.  It also does not identify the Block
+   Number of the direct measurement required for Alternate-Marking
+   Method [RFC8321] for loss measurement.
 
 
 

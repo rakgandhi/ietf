@@ -90,7 +90,7 @@
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
    ability to measure performance loss metric experienced by Customer data traffic. 
-   The STAMP packet with a TLV for "direct measurement" can be used for combined Delay + Packet Loss
+   The STAMP test packet with a TLV for "direct measurement" can be used for combined Delay + Packet Loss
    measurement <xref target="RFC8972"/>.  However, in 
    order to use only for direct measurement purpose, it requires the node to 
    support the STAMP test packets and support timestamp for these packets, in addition to counters. 
