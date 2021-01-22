@@ -125,8 +125,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 2.2.  Abbreviations
 
-   BSID: Binding Segment ID.
-
    HMAC: Hashed Packet Authentication Code.
 
    MPLS: Multiprotocol Label Switching.
@@ -165,6 +163,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
+
+
 Gandhi, et al.            Expires July 25, 2021                 [Page 3]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
@@ -176,7 +176,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
                 |       | - - - - - - - - - ->|       |
                 |   R1  |=====================|   R3  |
                 |       |<- - - - - - - - - - |       |
-                +-------+   Reply Test Packet +-------+
+                +-------+  Reply Test Packet  +-------+
                          \                   /
                           T4                T3
 
@@ -405,7 +405,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
     .                                                               .
     .                                                               .
     .                                                               .
-
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                    Segment(n)                                 |
     .                                                               .
@@ -441,6 +440,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    with these protocols also limits the extent of measurement disruption
    that can be caused by a corrupt or invalid packet to a single test
    cycle.
+
 
 
 
