@@ -179,14 +179,15 @@
    This way the session-reflector does not require
    any additional state for the STAMP session.</t>
 
-   <t>In this document, the Control Code field is defined for session-sender test packets
+   <t>In this document, the Control Code field with flags is defined for session-sender test packets
    for STAMP protocol <xref target="RFC8762"/> in unauthenticated and authenticated modes.  
    The modified session-sender STAMP test packet formats are shown in Figure 1 and Figure 2. 
    The session-sender test packet formats are backwards
    compatible with the session-sender test packet formats defined in STAMP <xref target="RFC8762"/> and
    updated in <xref target="RFC8972"/> as session-reflector MUST
    ignore the received field (previously identified as MBZ).
-   The Control Code field is optional and MAY be ignored by the session-reflector.
+   The Control Code field is optional and MAY be ignored by the session-reflector. The session-reflector 
+   test packet formats are not affected due to the Control Code.
    With this field carried in the session-sender test packet, the session-reflector does not require
    any additional per STAMP session state.</t>
 
@@ -245,12 +246,11 @@
     </figure>
 
    <t>
-   Session-Sender Control Code: Set as follows in STAMP session-sender test packet.</t>
+   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP session-sender test packet.</t>
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x0: The existing default behaviour as defined in 
-        <xref target="RFC8762"/>.</t>
+       0x0: The existing default behaviour as defined in <xref target="RFC8762"/>.</t>
     </list>
     </t>
 

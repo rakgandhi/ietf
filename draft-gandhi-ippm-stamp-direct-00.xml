@@ -19,6 +19,7 @@
 <!ENTITY RFC8321 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8321.xml">
 <!ENTITY RFC8402 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml">
 <!ENTITY RFC8754 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8754.xml">
+<!ENTITY I-D.gandhi-ippm-stamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-ippm-stamp-srpm.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
 ]>
 <rfc submissionType="IETF" docName="draft-gandhi-ippm-stamp-direct-00" category="std" ipr="trust200902">
@@ -188,7 +189,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| Se-DSCP   | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -215,7 +216,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| Se-DSCP   | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -260,33 +261,31 @@
       T: Traffic-class-specific measurement indicator.  Set to 1 when
       the direct measurement operation is scoped to data packets of a particular
       traffic class (DSCP value), and 0 otherwise.  When set to 1, the
-      Se-DSCP field of the test packet indicates the measured traffic class.
+      DSCP field of the test packet indicates the measured traffic class.
     </t>
 
     </list>
    </t>
 
     <t>
-   Se-DSCP (6-bit): DSCP of the traffic being measured when T flag is set.</t>
+   DSCP (6-bit): DSCP of the traffic being measured when T flag is set.</t>
 
     <t>
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to collect Block Number for the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
    matching block number, the Block Number of the traffic counters
-   is carried by the test packet and reply test packet for direct
-   measurement.</t>
+   is carried by the test packet and reply test packet for direct measurement.</t>
 
     <t>
    SSID (16-bit): As defined in <xref target="RFC8972"/>.</t>
 
    <t>
-   Session-Sender Control Code: Set as follows in STAMP session-sender test packet.</t>
+   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP session-sender test packet <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x0: The existing default behaviour as defined in 
-        <xref target="RFC8762"/>.</t>
+       0x0: The existing default behaviour as defined in <xref target="RFC8762"/>.</t>
     </list>
     </t>
 
@@ -328,7 +327,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| Se-DSCP   | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter                        |
  |                                                               |
@@ -358,7 +357,7 @@
  |                        Transmit Counter                       |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| Se-DSCP   | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -467,6 +466,7 @@
     &RFC8174;
     &RFC8762;
     &RFC8972;
+    &I-D.gandhi-ippm-stamp-srpm;
     </references>
     <references title="Informative References">
     &RFC8321;
@@ -474,8 +474,7 @@
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Tianran Zhou, Zhenqiang Li, Reshad Rahman, Cheng Li, 
    and Yali Wang for the comments on direct measurement. 
-   The authors would like to
-   acknowledge the earlier work on the loss measurement using TWAMP
+   The authors would like to acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>
 
     </section>
