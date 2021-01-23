@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="22" month="January" year="2021"/>
+    <date day="23" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -201,7 +201,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         Error Estimate        | SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         MBZ                                   |Se Control Code|
+ |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
  |                        MBZ  (24 octets)                       |
@@ -229,7 +229,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         Error Estimate        | SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         MBZ                                   |Se Control Code|
+ |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  ~                                                               ~
  |                      MBZ (64 octets)                          |
@@ -314,7 +314,7 @@
    <xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
    defined in this document for Return Path TLV that carries return path for STAMP
-   test packet. The Return Path TLV contains a Sub-TLV to carry the return path. The format
+   test packet. The format
    of the Return Path TLV is shown in Figure 4:</t>
 
     <figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
@@ -329,7 +329,17 @@
 ]]></artwork>
     </figure>
 
-    <t>The format of the Return Address Sub-TLV is shown in Figure 5.
+   <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
+
+   <t>The Return Path TLV is optional. The session-sender MUST only insert
+    one Return Path TLV in the STAMP test packet and the session-reflector
+    MUST only process the first Return Path TLV in the test
+    packet and ignore other Return Path TLVs if present. </t>
+
+   <section title="Return Path Sub-TLV" anchor="sect-5.1">
+   <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
+    The Sub-TLV can ether carry Return Address or Return Segment List.
+    The format of the Return Address Sub-TLV is shown in Figure 5.
     The Address Family field indicates the type of the address, and it
     SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.</t>
  
@@ -394,18 +404,15 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-    <t>
-   The Return Path TLV is optional. The session-sender MUST only insert
-   one Return Path TLV in the STAMP test packet and the session-reflector
-   MUST only process the first Return Path TLV in the test
-   packet and ignore other Return Path TLVs if present. Similarly, the session-sender
-   MUST only insert one Return Path Sub-TLV in the test packet and the session-reflector
-   MUST only process the first Return Path Sub-TLV in the test packet and ignore other Return
-   Path Sub-TLVs if present. The session-reflector
-   MUST send reply test packet back on the return path
-   specified in the Return Path TLV and MUST NOT add Return Path TLV in
-   the reply test packet.</t>
+   <t>The session-sender
+    MUST only insert one Return Path Sub-TLV in the test packet and the session-reflector
+    MUST only process the first Return Path Sub-TLV in the test packet and ignore other Return
+    Path Sub-TLVs if present. The session-reflector
+    MUST send reply test packet on the return path
+    specified in the Return Path Sub-TLV and MUST NOT add Return Path TLV in
+    the reply test packet.</t>
 
+    </section>
     </section>
 
     <section title="Security Considerations" anchor="sect-6"><t>
