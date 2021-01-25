@@ -212,7 +212,7 @@
    with destination to node R3 (called tail-end).</t>
 
 	<figure><artwork><![CDATA[
-                       t1                t2
+                       T1                T2
                       /                   \
              +-------+    Test Packet      +-------+
              |       | - - - - - - - - - ->|       |
@@ -220,8 +220,9 @@
              |       |<- - - - - - - - - - |       |
              +-------+  Reply Test Packet  +-------+
                       \                   /
-                       t4                t3
-              Session-Sender                        Session-Reflector
+                       T4                T3
+
+              Session-Sender               Session-Reflector
 
                       Reference Topology
 ]]></artwork>
@@ -235,16 +236,13 @@
    Routing networks, the test packets defined in
    <xref target="RFC8762"/> are used.  For direct-mode and
    inferred-mode loss measurements, the test 
-   packets defined in [I-D.gandhi-ippm-stamp-srpm] are used. 
-   For both links and end-to-end SR paths including SR Policies and Flex-Algo IGP Paths,
-   no PM state for delay or loss measurement need to be created on the
-   session-reflector R3.</t> 
+   packets defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/> are used.</t> 
    
-   <t>Separate UDP destination port numbers are user-configured for delay and loss
+   <t>Separate UDP destination port numbers are user-configured for delay and direct-mode loss
    measurements from the range specified in <xref target="RFC8762"/>. 
    As specified in <xref target="RFC8762"/>, the session-reflector supports the destination
-   UDP port 862 for delay measurement test packets by default. This UDP port however, is 
-   not used for loss measurement test packets. The
+   UDP port 862 for STAMP test packets by default. This UDP port however, is 
+   not used for direct-mode loss measurement test packets. The
    session-sender uses the UDP port number following the guidelines specified in
    <xref target="sect-6"/> in <xref target="RFC6335"/>. The same destination UDP 
    port is used for links and SR paths and the session-reflector is 
@@ -254,12 +252,12 @@
    <t>For Performance Measurement, test packet and reply test packets are
    sent as following:</t>
 
-	<t><list style="symbols"><t>For delay measurement, the test packets are sent on the
+	<t><list style="symbols"><t>For delay measurement, the STAMP test packets are sent on the
       congruent path of the data traffic by the session-sender, and are
       used to measure the delay experienced by the actual data traffic
       flowing on the links and SR paths.</t>
 
-	<t>For loss measurement, the test packets are sent on the congruent
+	<t>For direct-mode loss measurement, the test packets are sent on the congruent
       path of the data traffic by the session-sender, and are used to
       collect the receive traffic counters for the incoming link or
       incoming SID where the test packets are received at the
@@ -278,7 +276,7 @@
 
 	<section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for each user-configured destination UDP port 
-   for performance delay and loss measurements is shown in the following
+   for performance delay and direct-mode loss measurements is shown in the following
    Figure 1:</t>
 
    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
@@ -322,19 +320,19 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Test Packets" anchor="sect-4"><section title="Session-Sender Test Packet" anchor="sect-4.1"><t>
-   The test packets defined in <xref target="RFC8762"/> are used
+   The STAMP test packets defined in <xref target="RFC8762"/> are used
    for delay measurement for links and end-to-end SR paths including SR 
-   Policies. For loss measurement, the test packets defined in [I-D.gandhi-ippm-stamp-srpm] are used.</t>
+   Policies. For direct-mode loss measurement, the test packets defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
 
-   <section title="Delay Measurement Query Message" anchor="sect-4.1.1"><t>
-   The packet content for delay measurement test packet using
-   UDP header <xref target="RFC0768"/> is shown in Figure 2.  The DM test packet
+   <section title="Delay Measurement Session-Sender Test Packet" anchor="sect-4.1.1"><t>
+   The packet content for STAMP test packet using
+   UDP header <xref target="RFC0768"/> is shown in Figure 2.  The STAMP test packet
    is sent with user-configured Destination UDP port number for DM.  The
    Destination UDP port cannot be used as Source port, since the packet
    does not have any indication to distinguish between the test packet and
-   reply test packet.  The payload of the DM test packet contains the delay
-   measurement packet defined in <xref target="RFC8762"/>.</t> 
+   reply test packet.  The payload contains the test packet 
+   defined in <xref target="RFC8762"/>.</t> 
 
 	<figure title="DM Session-Sender Test Packet" anchor="ure-dm-sender-test-packet"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -349,7 +347,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port for Delay Measurement.
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message as specified in Section 4.2 of RFC 8762  |
+ | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -365,16 +363,14 @@ Loss Measurement Mode   /                \
 	<section title="Delay Measurement Authentication Mode" anchor="sect-4.1.1.1"><t>
    When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the session-sender and session-reflectors.  A separate user-configured
-   destination UDP port is used for the delay measurement in
-   authentication mode due to the different test packet format.</t>
+   on both the session-sender and session-reflectors.</t>
 
 	</section>
 	</section>
 
 
-	<section title="Loss Measurement Query Message" anchor="sect-4.1.2"><t>
-   The packet content for loss measurement test packet using
+	<section title="Loss Measurement Session-Sender Test Packet" anchor="sect-4.1.2"><t>
+   The packet content for direct-mode loss measurement test packet using
    UDP header <xref target="RFC0768"/> is shown in Figure 3. The LM test packet
    is sent with user-configured Destination UDP port number for LM, 
    which is a different Destination UDP port number than DM.
@@ -382,10 +378,10 @@ Loss Measurement Mode   /                \
    inferred-mode loss measurements.  The Destination UDP port cannot be
    used as Source port, since the packet does not have any indication
    to distinguish between the test packet and reply test packet.  The LM test packet
-   packet contains the payload for loss measurement as defined in
-   [I-D.gandhi-ippm-stamp-srpm].</t>
+   packet contains the payload for direct-mode loss measurement as defined in
+   <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
-	<figure title="LM Session-Sender Test Packet" anchor="ure-lm-sender-test-packet1"><artwork><![CDATA[
+	<figure title="LM Session-Sender Test Packet" anchor="ure-lm-sender-test-packeT1"><artwork><![CDATA[
  +---------------------------------------------------------------+
  | IP Header                                                     |
  .  Source IP Address = Session-Sender IPv4 or IPv6 Address      .
@@ -405,26 +401,26 @@ Loss Measurement Mode   /                \
 	</figure>
 
 	<section title="Loss Measurement Authentication Mode" anchor="sect-4.1.2.1"><t>
-   When using the authenticated mode for loss measurement, the matching
+   When using the authenticated mode for direct-mode loss measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
    on both the session-sender and session-reflectors.  A separate user-configured
-   destination UDP port is used for the loss measurement in
+   destination UDP port is used for the direct-mode loss measurement in
    authentication mode due to the different packet format.</t>
 
     </section>
     </section>
 
-	<section title="Probe Query for links" anchor="sect-4.1.3"><t>
+	<section title="Session-Sender Test Packet for links" anchor="sect-4.1.3"><t>
    The test packet as defined in Figure 2 for delay measurement and 
-   Figure 3 for loss measurement are used for links which may be physical, virtual 
+   Figure 3 for direct-mode loss measurement are used for links which may be physical, virtual 
    or LAG (bundle), LAG (bundle) member, numbered/unnumbered links.  The test packets are routed 
-   over the link for both delay and loss measurement. 
+   over the link for both delay and direct-mode loss measurement. 
    The local and remote IP addresses of the link are used as Source and Destination Addresses. 
    They can also be IPv6 link local address as test packets are routed.</t>
 	</section>
 
-	<section title="Probe Query for SR Policy" anchor="sect-4.1.4"><t>
-   The performance delay and loss measurement for segment routing is
+	<section title="Session-Sender Test Packet for SR Policy" anchor="sect-4.1.4"><t>
+   The performance delay and direct-mode loss measurement for segment routing is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
 	<t>The session-sender IPv4 or IPv6 address is used as the source address. 
@@ -434,11 +430,10 @@ Loss Measurement Mode   /                \
    <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    the loopback address from range 127/8 for IPv4, or the loopback address ::1/128 
    for IPv6 is used as the destination address, respectively. 
-   In this case, Node Address TLV [I-D.gandhi-ippm-stamp-srpm] can be sent 
+   In this case, Node Address TLV  <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be sent 
    in the test packet to identify the intended destination node.
    The session-reflector MUST NOT send reply test packet if it
-   is not the intended destination node in the Node Address TLV 
-   [I-D.gandhi-ippm-stamp-srpm].</t>
+   is not the intended destination node in the Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
 	<section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.4.1"><t>
    The test packets for performance measurement of an
@@ -471,7 +466,7 @@ Loss Measurement Mode   /                \
 	<t>
    The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
    the SR-MPLS Policy is used for accounting received traffic on the
-   egress node for loss measurement.</t>
+   egress node for direct-mode loss measurement.</t>
 
 	</section>
 
@@ -506,7 +501,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message as specified in Section 4.2 of RFC 8762  |
+ | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
  . Payload = LM Message specified in [I-D.gandhi-ippm-stamp-srpm].
  .                                                               .
  +---------------------------------------------------------------+
@@ -519,7 +514,7 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Session-Reflector Test Packet" anchor="sect-4.2"><t>
-   The test reply test packet is sent using the IP/UDP information from
+   The replytest packet is sent using the IP/UDP information from
    the received test packet.  The content of the reply test
    packet is shown in Figure 6.</t>
 
@@ -527,62 +522,61 @@ Loss Measurement Mode   /                \
  +---------------------------------------------------------------+
  | IP Header                                                     |
  .  Source IP Address = Session-Reflector IPv4 or IPv6 Address   .
- .  Destination IP Address = Source IP Address from Query        .
+ .  Destination IP Address = Source IP Address from Test Packet  .
  .  Protocol = UDP                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Reflector                 .
- .  Destination Port = Source Port from Query                    .
+ .  Destination Port = Source Port from Test Packet              .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message as specified in Section 4.3 of RFC 8762  |
+ | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
  . Payload = LM Message specified in [I-D.gandhi-ippm-stamp-srpm].
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
 	</figure>
 	<section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
-   In one-way measurement mode, the test reply test packet
+   In one-way measurement mode, the replytest packet
    as defined in Figure 6 is sent back out-of-band to the session-sender,
-   for both links and SR Policies. The Session-Sender Control Code is set to
-   "Out-of-band Response Requested". 
+   for both links and SR Policies. The Session-Sender Control Code is set to 0.
    In this delay measurement mode, as per Reference Topology, 
-   all timestamps t1, t2, t3, and t4 are collected by the tests.
-   However, only timestamps t1 and t2 are used to measure one-way delay as (t2 - t1).</t>
+   all timestamps T1, T2, T3, and T4 are collected by the tests.
+   However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
 
 	<t> For one-way performance measurement, the session-sender address may not
    be reachable via IP route from the session-reflector.  The session-sender
    in this case needs to send its reachability path information to the
-   session-reflector using Return Path TLV defined in [I-D.gandhi-ippm-stamp-srpm].</t>
+   session-reflector using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
 	</section>
 
 	<section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way measurement mode, when using a bidirectional
-   path, the test reply test packet as defined in Figure 6 is sent back
+   path, the replytest packet as defined in Figure 6 is sent back
    to the session-sender on the congruent path of the data traffic on the
    same reverse direction link or associated reverse SR Policy
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Session-Sender Control Code is 
    set to "In-band Response Requested".
    In this delay measurement mode, as per Reference Topology, 
-   all timestamps t1, t2, t3, and t4 are collected by the tests.
-   All four timestamps are used to measure two-way delay as ((t4 - t1) - (t3 - t2)).</t>
+   all timestamps T1, T2, T3, and T4 are collected by the tests.
+   All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
-	<t>For two-way measurement mode for links, the test reply test packet is sent back on the incoming physical
+	<t>For two-way measurement mode for links, the replytest packet is sent back on the incoming physical
    interface where the test packet is received.</t>
 
 	<t>For two-way measurement mode for SR Policy, the session-reflector needs to send
-   the test reply test packet on a specific reverse path.  The session-sender
+   the replytest packet on a specific reverse path.  The session-sender
    node can request in the test packet to the session-reflector to
    send a reply test packet back on a given reverse path (e.g. co-routed
-   bidirectional path) using Return Path TLV defined in [I-D.gandhi-ippm-stamp-srpm].  
+   bidirectional path) using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
    This way the session-reflector does not require
    any additional SR state for PM (recall that in SR networks, 
    the state is in the test packet and signaling of the parameters is undesired).</t>
 
 	<section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
-   The packet content for sending test reply test packet for two-way
+   The packet content for sending replytest packet for two-way
    performance measurement of an end-to-end SR-MPLS Policy is shown in
    Figure 7.</t>
 
@@ -613,11 +607,11 @@ Loss Measurement Mode   /                \
 	</section>
 
 	<section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
-   The packet content for sending test reply test packet on the
+   The packet content for sending replytest packet on the
    congruent path of the data traffic for two-way performance
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 8.
    The procedure defined for upper-layer header processing for SRv6 SIDs in <xref target="I-D.ietf-spring-srv6-network-programming"/>
-   is used to process the UDP header in the received test reply test packets.</t>
+   is used to process the UDP header in the received replytest packets.</t>
 
 	<figure title="Example Session-Reflector Test Packet for SRv6 Policy" anchor="ure-test-response-packet-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -632,7 +626,7 @@ Loss Measurement Mode   /                \
  +---------------------------------------------------------------+
  | IP Header (as needed)                                         |
  .  Source IP Address = Session-Reflector IPv6 Address           .
- .  Destination IP Address = Source IPv6 Address from Query      .
+ .  Destination IP Address = Source IPv6 Address from Test Packet.
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
@@ -640,7 +634,7 @@ Loss Measurement Mode   /                \
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
- | Payload = DM Message as specified in Section 4.3 of RFC 8762  |
+ | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -662,14 +656,14 @@ Loss Measurement Mode   /                \
    In this mode, as the test packet is not punted on the session-reflector for processing,
    the querier copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly.
    In this delay measurement mode, as per Reference Topology,
-   the timestamps t1 and t4 are collected by the tests.
-   Both these timestamps are used to measure round-trip delay as (t4 - t1).</t>
+   the timestamps T1 and T4 are collected by the tests.
+   Both these timestamps are used to measure round-trip delay as (T4 - t1).</t>
         </section>
 	</section>
 
 	<section title="Additional Test Packet Processing Rules" anchor="sect-4.5"><t>
    The processing rules defined in this section are applicable to the
-   STAMP packets for delay and loss measurement for links and end-to-end SR paths including SR Policies.</t>		
+   STAMP packets for delay and direct-mode loss measurement for links and end-to-end SR paths including SR Policies.</t>		
 		
         <section title="TTL and Hop Limit" anchor="sect-4.5.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
@@ -682,7 +676,7 @@ Loss Measurement Mode   /                \
    Destination IPv6 Address from the ::FFFF:127/104 range, the
    Hop Limit field in the IPv6 header is set to 1.</t>
 
-        <t>For link performance delay and loss measurements, 
+        <t>For link performance delay and direct-mode loss measurements, 
    the TTL or Hop Limit field in the test packet is set to 1 in both one-way and two-way measurement modes. 
        </t>
 
@@ -702,7 +696,7 @@ Loss Measurement Mode   /                \
    (e.g. P2MP SR Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/> 
    or P2MP Transport <xref target="I-D.shen-spring-p2mp-transport-chain"/>).</t>
 
-   <t>The procedures for delay and loss measurement described in this
+   <t>The procedures for delay and direct-mode loss measurement described in this
    document for P2P SR Policies are also equally applicable to the P2MP SR Policies. 
    The procedure for one-way measurement is defined as following:</t>
 
@@ -717,7 +711,7 @@ Loss Measurement Mode   /                \
       address from range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 address.</t>
 
 	<t>Each session-reflector leaf node sends its IP address in the Source
-      Address of the test reply test packets as shown in Figure 9.  This
+      Address of the replytest packets as shown in Figure 9.  This
       allows the session-sender root node to identify the session-reflector leaf nodes
       of the P2MP SR Policy.</t>
 
@@ -727,7 +721,7 @@ Loss Measurement Mode   /                \
 	</list>
 	</t>
 
-	<figure title="Example Probe Query with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
+	<figure title="Example Test Packet with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -771,7 +765,7 @@ Loss Measurement Mode   /                \
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping.</t>
 
-	<t>The considerations for performance loss measurement for different
+	<t>The considerations for performance direct-mode loss measurement for different
    ECMP paths of an SR Policy are outside the scope of this document.</t>
 
 	</section>
@@ -782,7 +776,7 @@ Loss Measurement Mode   /                \
     The procedure defined in this document for delay measurement using the STAMP test 
     packets can also be applied to liveness monitoring of links and SR paths. 
     The one-way or two-way measurement mode can be used for liveness monitoring.  
-    Liveness failure is notified when consecutive N number of test reply test packets are
+    Liveness failure is notified when consecutive N number of replytest packets are
     not received back at the session-sender, where N is locally provisioned value. 
     Note that for one-way and two-way modes, the failure detection interval and scale for number of test packets need to account for 
     the processing of the test packets which need to be punted from the forwarding fast path
