@@ -226,7 +226,7 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For delay measurements in Segment Routing networks, the STAMP test packets defined in
+   For delay measurement in Segment Routing networks, the STAMP test packets defined in
    <xref target="RFC8762"/> are used.</t> 
    
    <t>A UDP destination port number is selected using 
@@ -248,28 +248,28 @@
    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for a 
    user-configured destination UDP port 
-   for performance delay measurement is shown in the following Figure 1:</t>
+   for delay measurement is shown in the following Figure 1:</t>
 
    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
-                            +------------+
-                            | Controller |
-                            +------------+
-                                /    \
-  Destination UDP Port         /      \    Destination UDP port
-  Authentication Mode & Key   /        \   Authentication Mode & Key
-  Delay Measurement Mode     /          \  Synthetic Loss Type`
-      Timestamp Format      /            \    
-  Synthetic Loss Type      /              \
-                          /                \
-                         v                  v
-                     +-------+            +-------+
-                     |       |            |       |
-                     |   R1  |============|   R3  |
-                     |       |  SR path   |       |
-                     +-------+  Or link   +-------+
+                           +------------+
+                           | Controller |
+                           +------------+
+                               /    \
+  Destination UDP Port        /      \    Destination UDP port
+  Authentication Mode & Key  /        \   Authentication Mode & Key
+  Delay Measurement Mode    /          \  Synthetic Loss Type`
+      Timestamp Format     /            \    
+  Synthetic Loss Type     /              \
+                         /                \
+                        v                  v
+                    +-------+            +-------+
+                    |       |            |       |
+                    |   R1  |============|   R3  |
+                    |       |  SR path   |       |
+                    +-------+  Or link   +-------+
 
-                   Session-Sender      Session-Reflector
+                  Session-Sender      Session-Reflector
 ]]></artwork>
     </figure>
 
@@ -279,11 +279,11 @@
     <t>The mechanisms to provision the
     session-sender and session-reflector are outside the scope of this document. 
     The provisioning model is not used for signaling the PM parameters between the 
-    session-reflector and session-senders in SR networks.</t>
+    session-sender and session-reflector in SR networks.</t>
 
     <t>The session-reflector R3 uses the parameters for the timestamp format and
     delay measurement mode (i.e. one-way or two-way mode)
-    from the received test packet.</t>
+    from the received STAMP test packet.</t>
     </section>
 
     </section>
@@ -323,34 +323,29 @@
 
    <t>When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the session-sender and session-reflector <xref target="RFC8762"/>.</t>
+   on both the STAMP session-sender and session-reflector <xref target="RFC8762"/>.</t>
 
    <section title="Session-Sender Test Packet for links" anchor="sect-4.1.1"><t>
-   The test packet as defined in Figure 2 for delay measurement 
-   is used for links which may be physical, virtual 
-   or LAG (bundle), LAG (bundle) member, numbered/unnumbered links.  The test packets are sent 
-   over the link for delay measurement. 
+   The STAMP test packet as shown in Figure 2 
+   are sent over the link for delay measurement which may be physical, virtual 
+   or LAG (bundle), LAG (bundle) member, numbered/unnumbered link. 
    The local and remote IP addresses of the link are used as Source and Destination Addresses. 
    They can also be IPv6 link local address.</t>
     </section>
 
    <section title="Session-Sender Test Packet for SR Policy" anchor="sect-4.1.2"><t>
-   The performance delay measurement for segment routing is
+   The delay measurement for end-to-end SR path in segment routing is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
    <t>The session-sender IPv4 or IPv6 address is used as the source address. 
    The endpoint IPv4 or IPv6 address is used as the destination
    address.  In the case of SR Policy with IPv4 endpoint
    of 0.0.0.0 or IPv6 endpoint of ::0 <xref target="I-D.ietf-spring-segment-routing-policy"/>,
-   the loopback address from range 127/8 for IPv4, or the loopback address ::1/128 
-   for IPv6 is used as the destination address, respectively. 
-   In this case, Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be sent 
-   in the test packet to identify the intended destination node.
-   The session-reflector MUST NOT send reply test packet if it
-   is not the intended destination node in the Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
+   the loopback address from the range 127/8 for IPv4, or the loopback address ::1/128 
+   for IPv6 is used as the destination address, respectively.</t>
 
-   <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
-   The test packets for performance measurement of an
+    <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
+   The test packets for delay measurement of an
    end-to-end SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    segment list as shown in Figure 3.</t>
 
@@ -386,7 +381,7 @@
    a Segment List as defined in <xref target="RFC8754"/>. 
    The SRv6 network programming is defined in 
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
-   The test packets for performance measurement of an end-to-end 
+   The test packets for delay measurement of an end-to-end 
    SRv6 Policy is sent using its SRH with Segment List as shown in Figure 4.
    The procedure defined for upper-layer header processing for SRv6 SIDs in <xref target="I-D.ietf-spring-srv6-network-programming"/>
    is used to process the UDP header in the received test packets.</t>
@@ -447,14 +442,14 @@
     </figure>
  
    <section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
-   In one-way measurement mode, the reply test packet
+   In one-way delay measurement mode, the reply test packet
    as defined in Figure 5 is sent back out-of-band to the session-sender,
    for both links and SR Policies. The Session-Sender Control Code is set to the default value of 0 <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
    In this delay measurement mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
 
-   <t> For one-way performance measurement, the session-sender address may not
+   <t> For one-way delay measurement, the session-sender address may not
    be reachable via IP route from the session-reflector.  The session-sender
    in this case needs to send its reachability path information to the
    session-reflector using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
@@ -462,7 +457,7 @@
     </section>
 
    <section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
-   In two-way measurement mode, when using a bidirectional
+   In two-way delay measurement mode, when using a bidirectional
    path, the reply test packet as defined in Figure 5 is sent back
    to the session-sender on the same path (in-band) as the data traffic on the
    same reverse direction link or associated reverse SR Policy
@@ -483,7 +478,7 @@
 
    <section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The packet content for sending reply test packet for two-way
-   performance measurement of an end-to-end SR-MPLS Policy is shown in
+   delay measurement of an end-to-end SR-MPLS Policy is shown in
    Figure 6.</t>
 
     <figure title="Example Session-Reflector Test Packet for SR-MPLS Policy" anchor="ure-test-reply-packet-for-sr-mpls-policy"><artwork><![CDATA[
@@ -551,7 +546,7 @@
     </section>
 
    <section title="Loopback Measurement Mode" anchor="sect-4.2.3"><t>
-   The Loopback measurement mode can be used to measure round-trip delay
+   The loopback measurement mode can be used to measure round-trip delay
    of a bidirectional SR path.  The IP header of the session-sender test 
    packet contains the destination address equals to the session-sender address
    and the source address equals to the session-reflector address. Optionally,
@@ -583,7 +578,7 @@
    Destination IPv6 Address from the ::FFFF:127/104 range, the
    Hop Limit field in the IPv6 header is set to 1.</t>
 
-   <t>For link performance delay, 
+   <t>For link delay, 
    the TTL or Hop Limit field in the test packet is set to 1 in both one-way and two-way measurement modes. 
        </t>
 
@@ -621,7 +616,7 @@
       of the P2MP SR Policy.</t>
 
       <t>The P2MP root node measures the delay 
-      performance for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
+       for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
 
     </list>
     </t>
@@ -648,7 +643,7 @@
    the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
-   <t>The considerations for two-way mode for performance measurement for 
+   <t>The considerations for two-way mode for 
    P2MP SR Policy (e.g. for bidirectional SR path) are outside the scope of this document.</t>
 
     </section>
@@ -660,16 +655,21 @@
    Usage of Anycast SID <xref target="RFC8402"/> by an SR Policy can result in ECMP
    paths via transit nodes part of that Anycast group.  The test
    packets need to be sent to traverse different ECMP paths to measure
-   performance delay of an SR Policy.</t>
+   delay of an SR Policy.</t>
 
    <t>Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  The mechanisms described in
    <xref target="RFC8029"/> and <xref target="RFC5884"/> for 
    handling ECMPs are also applicable to the
-   performance measurement.  In IPv4 header of the test packets,
+   delay measurement.  In IPv4 header of the test packets,
    sweeping of Destination Address from range 127/8 can be used to exercise
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping.</t>
+
+   <t>The Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be sent 
+   in the session-sender test packet to identify the intended destination node.
+   The session-reflector MUST NOT send reply test packet if it
+   is not the intended destination node in the Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
     </section>
 
