@@ -197,7 +197,8 @@
    In the reference topology shown below, the session-sender R1 initiates a
    STAMP test packet and the session-reflector R3
    sends a reply test packet.  The 
-   reply test packet is sent back to the session-sender R1.</t>  
+   reply test packet is sent back to the session-sender R1 
+   on the same path in the reverse direction or a different path.</t>  
 
    <t>SR is enabled on nodes R1 and R3. The nodes R1 and R3 may be
    directly connected via a link or there
@@ -226,8 +227,7 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For one-way and two-way delay measurements in Segment
-   Routing networks, the STAMP test packets defined in
+   For delay measurements in Segment Routing networks, the STAMP test packets defined in
    <xref target="RFC8762"/> are used.</t> 
    
    <t>A UDP destination port number is selected using 
@@ -235,19 +235,12 @@
    port is used for links and SR paths and the session-reflector is 
    unaware if the received STAMP test packet is for the links or SR paths.</t>
 
-   <t>For Performance Measurement, test packet and reply test packets are
-   sent as following:</t>
+   <t>For delay measurement, the STAMP test packets are sent on the
+   same path (in-band) as the customr data traffic by the session-sender, and are
+   used to measure the delay experienced by the customr data traffic
+   flowing on the links and SR paths.</t>
 
-    <t><list style="symbols"><t>For delay measurement, the STAMP test packets are sent on the
-    same path (in-band) as the data traffic by the session-sender, and are
-    used to measure the delay experienced by the actual data traffic
-    flowing on the links and SR paths.</t>
-
-    </list>
-    </t>
-
-   <t>
-   The In-Situ Operations, Administration, and Maintenance (IOAM)
+   <t>The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> and for
    SRv6 defined in <xref target="I-D.ali-spring-ioam-srv6"/> are used to carry PM
    information such as timestamp in-band as part of the data packets,
@@ -301,9 +294,8 @@
    The STAMP test packets defined in <xref target="RFC8762"/> are used
    for delay measurement for links and end-to-end SR paths including SR 
    Policies. The packet content for STAMP test packet using
-   UDP header <xref target="RFC0768"/> is shown in Figure 2. The STAMP test packet
-   is sent with user-configured Destination UDP port number. 
-   The payload contains the test packet defined in <xref target="RFC8762"/>.</t> 
+   UDP header <xref target="RFC0768"/> is shown in Figure 2. 
+   The payload contains the session-sender test packet defined in <xref target="RFC8762"/>.</t> 
 
     <figure title="Session-Sender Test Packet" anchor="ure-dm-sender-test-packet"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -332,8 +324,7 @@
 
    <t>When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the session-sender and session-reflector.</t>
-
+   on both the session-sender and session-reflector <xref target="RFC8762"/>.</t>
 
    <section title="Session-Sender Test Packet for links" anchor="sect-4.1.1"><t>
    The test packet as defined in Figure 2 for delay measurement 
@@ -384,12 +375,10 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-   <t>
-   The Segment List (SL) can be empty to indicate Implicit NULL label
+   <t>The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.</t>
 
-   <t>
-   The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
+   <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
    the SR-MPLS Policy can be used as shown in Figure 3.</t>
 
     </section>
@@ -430,7 +419,6 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-
 
     </section>
     </section>
@@ -533,7 +521,8 @@
    The packet content for sending reply test packet on the
    same path (in-band) as the data traffic for two-way performance
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 7.
-   The procedure defined for upper-layer header processing for SRv6 SIDs in <xref target="I-D.ietf-spring-srv6-network-programming"/>
+   The procedure defined for upper-layer header processing for SRv6 SIDs
+   in <xref target="I-D.ietf-spring-srv6-network-programming"/>
    is used to process the UDP header in the received reply test packets.</t>
 
     <figure title="Example Session-Reflector Test Packet for SRv6 Policy" anchor="ure-test-response-packet-for-srv6-policy"><artwork><![CDATA[
