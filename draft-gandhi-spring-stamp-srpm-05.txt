@@ -81,30 +81,30 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
-   4.  Test Packets  . . . . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Session-Sender Test Packet  . . . . . . . . . . . . . . .   7
-       4.1.1.  Delay Measurement Session-Sender Test Packet  . . . .   7
-       4.1.2.  Loss Measurement Session-Sender Test Packet . . . . .   8
-       4.1.3.  Session-Sender Test Packet for links  . . . . . . . .   8
-       4.1.4.  Session-Sender Test Packet for SR Policy  . . . . . .   9
-     4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .  10
-       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  11
-       4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  11
-       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  13
-     4.3.  Additional Test Packet Processing Rules . . . . . . . . .  14
-       4.3.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . .  14
-       4.3.2.  Router Alert Option . . . . . . . . . . . . . . . . .  14
-   5.  Performance Measurement for P2MP SR Policies  . . . . . . . .  14
-   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
-   7.  Performance Delay and Liveness Monitoring . . . . . . . . . .  16
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+     3.1.  Example Provisioning Model  . . . . . . . . . . . . . . .   5
+   4.  Delay Measurement . . . . . . . . . . . . . . . . . . . . . .   6
+     4.1.  Delay Measuerement Session-Sender Test Packet . . . . . .   6
+       4.1.1.  Session-Sender Test Packet  . . . . . . . . . . . . .   6
+       4.1.2.  Session-Sender Test Packet for links  . . . . . . . .   7
+       4.1.3.  Session-Sender Test Packet for SR Policy  . . . . . .   7
+     4.2.  Delay Measurement Session-Reflector Test Packet . . . . .   9
+       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .  10
+       4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .  10
+       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  12
+     4.3.  Additional Test Packet Processing Rules . . . . . . . . .  13
+       4.3.1.  TTL and Hop Limit . . . . . . . . . . . . . . . . . .  13
+       4.3.2.  Router Alert Option . . . . . . . . . . . . . . . . .  13
+   5.  Delay Measurement for P2MP SR Policies  . . . . . . . . . . .  13
+   6.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  14
+   7.  Performance Delay and Liveness Monitoring . . . . . . . . . .  15
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  16
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+
 
 
 
@@ -161,7 +161,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    HMAC: Hashed Message Authentication Code.
 
-   LM: Loss Measurement.
+   MPLS: Multiprotocol Label Switching.
 
 
 
@@ -169,8 +169,6 @@ Gandhi, et al.            Expires July 29, 2021                 [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
-
-   MPLS: Multiprotocol Label Switching.
 
    NTP: Network Time Protocol.
 
@@ -221,6 +219,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
+
+
 Gandhi, et al.            Expires July 29, 2021                 [Page 4]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
@@ -238,49 +238,25 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
                  Session-Sender               Session-Reflector
 
-                         Reference Topology
+                          Reference Topology
 
 3.  Overview
 
    For one-way and two-way delay measurements in Segment Routing
-   networks, the test packets defined in [RFC8762] are used.  For
-   direct-mode and inferred-mode loss measurements, the test packets
-   defined in [I-D.gandhi-ippm-stamp-srpm] are used.
+   networks, the STAMP test packets defined in [RFC8762] are used.
 
-   Separate UDP destination port numbers are user-configured for delay
-   and direct-mode loss measurements from the range specified in
-   [RFC8762].  As specified in [RFC8762], the session-reflector supports
-   the destination UDP port 862 for STAMP test packets by default.  This
-   UDP port however, is not used for direct-mode loss measurement test
-   packets.  The session-sender uses the UDP port number following the
-   guidelines specified in Section 6 in [RFC6335].  The same destination
-   UDP port is used for links and SR paths and the session-reflector is
-   unaware if the test packet is for the links or SR paths.  The number
-   of UDP ports with PM functionality needs to be minimized due to
-   limited hardware resources.
+   A UDP destination port number is selected using the guidelines deined
+   in [RFC8762].  The same destination UDP port is used for links and SR
+   paths and the session-reflector is unaware if the STAMP test packet
+   is for the links or SR paths.
 
    For Performance Measurement, test packet and reply test packets are
    sent as following:
 
-   o  For delay measurement, the STAMP test packets are sent on the
-      congruent path of the data traffic by the session-sender, and are
+   o  For delay measurement, the STAMP test packets are sent on the same
+      path (in-band) as the data traffic by the session-sender, and are
       used to measure the delay experienced by the actual data traffic
       flowing on the links and SR paths.
-
-   o  For direct-mode loss measurement, the test packets are sent on the
-      congruent path of the data traffic by the session-sender, and are
-      used to collect the receive traffic counters for the incoming link
-      or incoming SID where the test packets are received at the
-      session-reflector (incoming link or incoming SID needed since the
-      session-reflector does not have PM state present).
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                 [Page 5]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] and for
@@ -292,36 +268,45 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    An example of a provisioning model and typical measurement parameters
    for each user-configured destination UDP port for performance delay
-   and direct-mode loss measurements is shown in the following Figure 1:
+   measssurement is shown in the following Figure 1:
 
 
-                             +------------+
-                             | Controller |
-                             +------------+
-   Destination UDP Port           /  \         Destination UDP port
-   Measurement Protocol          /    \        Measurement Protocol
-   Measurement Type             /      \       Measurement Type
-     Delay/Loss                /        \        Delay/Loss
-   Authentication Mode & Key  /          \     Authentication Mode & Key
-   Timestamp Format          /            \    Loss Measurement Mode
-   Delay Measurement Mode   /              \
-   Loss Measurement Mode   /                \
-                          v                  v
-                     +-------+            +-------+
-                     |       |            |       |
-                     |   R1  |============|   R3  |
-                     |       |  SR path   |       |
-                     +-------+  Or link   +-------+
 
-                     Session-Sender       Session-Reflector
+
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                 [Page 5]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
+                               +------------+
+                               | Controller |
+                               +------------+
+                                   /    \
+     Destination UDP Port         /      \    Destination UDP port
+     Authentication Mode & Key   /        \   Authentication Mode & Key
+     Delay Measurement Mode     /          \  Synthetic Loss
+         Timestamp Format      /            \ Direct Measurement Mode
+     Synthetic Loss           /              \
+     Direct Measurement Mode /                \
+                            v                  v
+                        +-------+            +-------+
+                        |       |            |       |
+                        |   R1  |============|   R3  |
+                        |       |  SR path   |       |
+                        +-------+  Or link   +-------+
+
+                      Session-Sender      Session-Reflector
 
                    Figure 1: Example Provisioning Model
 
    Example of Measurement Protocol is STAMP, example of the Timestamp
-   Format is PTPv2 [IEEE1588] or NTP and example of the Loss Measurement
-   mode is inferred-mode or direct-mode.
+   Format is PTPv2 [IEEE1588] or NTP.
 
-   The mechanisms to provision the session-sender and session-reflectors
+   The mechanisms to provision the session-sender and session-reflector
    are outside the scope of this document.  The provisioning model is
    not used for signaling the PM parameters between the session-
    reflector and session-senders in SR networks.
@@ -329,6 +314,21 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    The session-reflector R3 uses the parameters for the timestamp format
    and delay measurement mode (i.e. one-way or two-way mode) from the
    received test packet.
+
+4.  Delay Measurement
+
+4.1.  Delay Measuerement Session-Sender Test Packet
+
+   The STAMP test packets defined in [RFC8762] are used for delay
+   measurement for links and end-to-end SR paths including SR Policies.
+
+4.1.1.  Session-Sender Test Packet
+
+   The packet content for STAMP test packet using UDP header [RFC0768]
+   is shown in Figure 2.  The STAMP test packet is sent with user-
+   configured Destination UDP port number.  The payload contains the
+   test packet defined in [RFC8762].
+
 
 
 
@@ -338,24 +338,6 @@ Gandhi, et al.            Expires July 29, 2021                 [Page 6]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
-4.  Test Packets
-
-4.1.  Session-Sender Test Packet
-
-   The STAMP test packets defined in [RFC8762] are used for delay
-   measurement for links and end-to-end SR paths including SR Policies.
-   For direct-mode loss measurement, the test packets defined in
-   [I-D.gandhi-ippm-stamp-srpm].
-
-4.1.1.  Delay Measurement Session-Sender Test Packet
-
-   The packet content for STAMP test packet using UDP header [RFC0768]
-   is shown in Figure 2.  The STAMP test packet is sent with user-
-   configured Destination UDP port number for DM.  The Destination UDP
-   port cannot be used as Source port, since the packet does not have
-   any indication to distinguish between the test packet and reply test
-   packet.  The payload contains the test packet defined in [RFC8762].
-
     +---------------------------------------------------------------+
     | IP Header                                                     |
     .  Source IP Address = Session-Sender IPv4 or IPv6 Address      .
@@ -365,14 +347,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     +---------------------------------------------------------------+
     | UDP Header                                                    |
     .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port for Delay Measurement.
+    .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
     .                                                               .
     +---------------------------------------------------------------+
 
-                  Figure 2: DM Session-Sender Test Packet
+                   Figure 2: Session-Sender Test Packet
 
    Timestamp field is eight bytes and use the format defined in
    Section 4.2.1 of [RFC8762].  It is recommended to use the IEEE 1588v2
@@ -380,12 +362,30 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    [IEEE1588] as specified in [RFC8186], with hardware support in
    Segment Routing networks.
 
-4.1.1.1.  Delay Measurement Authentication Mode
-
    When using the authenticated mode for delay measurement, the matching
    authentication type (e.g.  HMAC-SHA-256) and key are user-configured
-   on both the session-sender and session-reflectors.
+   on both the session-sender and session-reflector.
 
+4.1.2.  Session-Sender Test Packet for links
+
+   The test packet as defined in Figure 2 for delay measurement is used
+   for links which may be physical, virtual or LAG (bundle), LAG
+   (bundle) member, numbered/unnumbered links.  The test packets are
+   routed over the link for delay measurement.  The local and remote IP
+   addresses of the link are used as Source and Destination Addresses.
+   They can also be IPv6 link local address as test packets are routed.
+
+4.1.3.  Session-Sender Test Packet for SR Policy
+
+   The performance delay measurement for segment routing is applicable
+   to both end-to-end SR-MPLS and SRv6 Policies.
+
+   The session-sender IPv4 or IPv6 address is used as the source
+   address.  The endpoint IPv4 or IPv6 address is used as the
+   destination address.  In the case of SR Policy with IPv4 endpoint of
+   0.0.0.0 or IPv6 endpoint of ::0
+   [I-D.ietf-spring-segment-routing-policy], the loopback address from
+   range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
 
 
 
@@ -394,76 +394,6 @@ Gandhi, et al.            Expires July 29, 2021                 [Page 7]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
-4.1.2.  Loss Measurement Session-Sender Test Packet
-
-   The packet content for direct-mode loss measurement test packet using
-   UDP header [RFC0768] is shown in Figure 3.  The LM test packet is
-   sent with user-configured Destination UDP port number for LM, which
-   is a different Destination UDP port number than DM.  Separate
-   Destination UDP ports are used for direct-mode and inferred-mode loss
-   measurements.  The Destination UDP port cannot be used as Source
-   port, since the packet does not have any indication to distinguish
-   between the test packet and reply test packet.  The LM test packet
-   packet contains the payload for direct-mode loss measurement as
-   defined in [I-D.gandhi-ippm-stamp-srpm].
-
-    +---------------------------------------------------------------+
-    | IP Header                                                     |
-    .  Source IP Address = Session-Sender IPv4 or IPv6 Address      .
-    .  Destination IP Address=Session-Reflector IPv4 or IPv6 Address.
-    .  Protocol = UDP                                               .
-    .                                                               .
-    +---------------------------------------------------------------+
-    | UDP Header                                                    |
-    .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port for Loss Measurement .
-    .                                                               .
-    +---------------------------------------------------------------+
-    | Payload = LM Message specified in [I-D.gandhi-ippm-stamp-srpm]|
-    .                                                               .
-    +---------------------------------------------------------------+
-
-                  Figure 3: LM Session-Sender Test Packet
-
-4.1.2.1.  Loss Measurement Authentication Mode
-
-   When using the authenticated mode for direct-mode loss measurement,
-   the matching authentication type (e.g.  HMAC-SHA-256) and key are
-   user-configured on both the session-sender and session-reflectors.  A
-   separate user-configured destination UDP port is used for the direct-
-   mode loss measurement in authentication mode due to the different
-   packet format.
-
-4.1.3.  Session-Sender Test Packet for links
-
-   The test packet as defined in Figure 2 for delay measurement and
-   Figure 3 for direct-mode loss measurement are used for links which
-   may be physical, virtual or LAG (bundle), LAG (bundle) member,
-   numbered/unnumbered links.  The test packets are routed over the link
-   for both delay and direct-mode loss measurement.  The local and
-   remote IP addresses of the link are used as Source and Destination
-
-
-
-Gandhi, et al.            Expires July 29, 2021                 [Page 8]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
-   Addresses.  They can also be IPv6 link local address as test packets
-   are routed.
-
-4.1.4.  Session-Sender Test Packet for SR Policy
-
-   The performance delay and direct-mode loss measurement for segment
-   routing is applicable to both end-to-end SR-MPLS and SRv6 Policies.
-
-   The session-sender IPv4 or IPv6 address is used as the source
-   address.  The endpoint IPv4 or IPv6 address is used as the
-   destination address.  In the case of SR Policy with IPv4 endpoint of
-   0.0.0.0 or IPv6 endpoint of ::0
-   [I-D.ietf-spring-segment-routing-policy], the loopback address from
-   range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
    used as the destination address, respectively.  In this case, Node
    Address TLV [I-D.gandhi-ippm-stamp-srpm] can be sent in the test
    packet to identify the intended destination node.  The session-
@@ -471,11 +401,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    destination node in the Node Address TLV
    [I-D.gandhi-ippm-stamp-srpm].
 
-4.1.4.1.  Session-Sender Test Packet for SR-MPLS Policy
+4.1.3.1.  Session-Sender Test Packet for SR-MPLS Policy
 
    The test packets for performance measurement of an end-to-end SR-MPLS
    Policy is sent using its SR-MPLS header containing the MPLS segment
-   list as shown in Figure 4.
+   list as shown in Figure 3.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -490,35 +420,36 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                PSID                   | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
+    |   Test Packet as shown in Figure 2                            |
     .                                                               .
     +---------------------------------------------------------------+
 
-      Figure 4: Example Session-Sender Test Packet for SR-MPLS Policy
+      Figure 3: Example Session-Sender Test Packet for SR-MPLS Policy
 
    The Segment List (SL) can be empty to indicate Implicit NULL label
    case for a single-hop SR Policy.
 
-
-
-Gandhi, et al.            Expires July 29, 2021                 [Page 9]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used for
-   accounting received traffic on the egress node for direct-mode loss
-   measurement.
+   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy is used as
+   shown in Figure 3.
 
-4.1.4.2.  Session-Sender Test Packet for SRv6 Policy
+4.1.3.2.  Session-Sender Test Packet for SRv6 Policy
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
    a Segment List as defined in [RFC8754].  The SRv6 network programming
    is defined in [I-D.ietf-spring-srv6-network-programming].  The test
    packets for performance measurement of an end-to-end SRv6 Policy is
-   sent using its SRH with Segment List as shown in Figure 5.  The
+   sent using its SRH with Segment List as shown in Figure 4.  The
    procedure defined for upper-layer header processing for SRv6 SIDs in
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                 [Page 8]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
    [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
    header in the received test packets.
 
@@ -532,7 +463,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .  <Segment List>                                               .
     .                                                               .
     +---------------------------------------------------------------+
-    | IP Header (as needed)                                         |
+    | IP Header                                                     |
     .  Source IP Address = Session-Sender IPv6 Address              .
     .  Destination IP Address = Session-Reflector IPv6 Address      .
     .                                                               .
@@ -542,22 +473,35 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
-    . Payload = LM Message specified in [I-D.gandhi-ippm-stamp-srpm].
+    |   Test Packet as shown in Figure 2                            |
     .                                                               .
     +---------------------------------------------------------------+
 
-       Figure 5: Example Session-Sender Test Packet for SRv6 Policy
+       Figure 4: Example Session-Sender Test Packet for SRv6 Policy
 
-4.2.  Session-Reflector Test Packet
+4.2.  Delay Measurement Session-Reflector Test Packet
 
-   The replytest packet is sent using the IP/UDP information from the
+   The reply test packet is sent using the IP/UDP information from the
    received test packet.  The content of the reply test packet is shown
-   in Figure 6.
+   in Figure 5.
 
 
 
-Gandhi, et al.            Expires July 29, 2021                [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                 [Page 9]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
@@ -575,16 +519,15 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
-    . Payload = LM Message specified in [I-D.gandhi-ippm-stamp-srpm].
     .                                                               .
     +---------------------------------------------------------------+
 
-                  Figure 6: Session-Reflector Test Packet
+                  Figure 5: Session-Reflector Test Packet
 
 4.2.1.  One-way Measurement Mode
 
-   In one-way measurement mode, the replytest packet as defined in
-   Figure 6 is sent back out-of-band to the session-sender, for both
+   In one-way measurement mode, the reply test packet as defined in
+   Figure 5 is sent back out-of-band to the session-sender, for both
    links and SR Policies.  The Session-Sender Control Code is set to 0.
    In this delay measurement mode, as per Reference Topology, all
    timestamps T1, T2, T3, and T4 are collected by the tests.  However,
@@ -600,9 +543,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 4.2.2.  Two-way Measurement Mode
 
    In two-way measurement mode, when using a bidirectional path, the
-   replytest packet as defined in Figure 6 is sent back to the session-
-   sender on the congruent path of the data traffic on the same reverse
-   direction link or associated reverse SR Policy
+   reply test packet as defined in Figure 5 is sent back to the session-
+   sender on the same path (in-band) as the data traffic on the same
+   reverse direction link or associated reverse SR Policy
    [I-D.ietf-pce-sr-bidir-path].  The Session-Sender Control Code is set
    to "In-band Response Requested".  In this delay measurement mode, as
    per Reference Topology, all timestamps T1, T2, T3, and T4 are
@@ -613,17 +556,18 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
-Gandhi, et al.            Expires July 29, 2021                [Page 11]
+
+Gandhi, et al.            Expires July 29, 2021                [Page 10]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
-   For two-way measurement mode for links, the replytest packet is sent
+   For two-way measurement mode for links, the reply test packet is sent
    back on the incoming physical interface where the test packet is
    received.
 
    For two-way measurement mode for SR Policy, the session-reflector
-   needs to send the replytest packet on a specific reverse path.  The
+   needs to send the reply test packet on a specific reverse path.  The
    session-sender node can request in the test packet to the session-
    reflector to send a reply test packet back on a given reverse path
    (e.g. co-routed bidirectional path) using Return Path TLV defined in
@@ -634,9 +578,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policy
 
-   The packet content for sending replytest packet for two-way
+   The packet content for sending reply test packet for two-way
    performance measurement of an end-to-end SR-MPLS Policy is shown in
-   Figure 7.
+   Figure 6.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -649,11 +593,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                Segment(n)             | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                Message as shown in Figure 6                   |
+    |                Test Packet as shown in Figure 5               |
     .                                                               .
     +---------------------------------------------------------------+
 
-    Figure 7: Example Session-Reflector Test Packet for SR-MPLS Policy
+    Figure 6: Example Session-Reflector Test Packet for SR-MPLS Policy
 
    The Path Segment Identifier (PSID)
    [I-D.ietf-spring-mpls-path-segment] of the forward SR Policy in the
@@ -669,19 +613,19 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
-Gandhi, et al.            Expires July 29, 2021                [Page 12]
+Gandhi, et al.            Expires July 29, 2021                [Page 11]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 4.2.2.2.  Session-Reflector Test Packet for SRv6 Policy
 
-   The packet content for sending replytest packet on the congruent path
-   of the data traffic for two-way performance measurement of an end-to-
-   end SRv6 Policy with SRH is shown in Figure 8.  The procedure defined
-   for upper-layer header processing for SRv6 SIDs in
+   The packet content for sending reply test packet on the same path
+   (in-band) as the data traffic for two-way performance measurement of
+   an end-to-end SRv6 Policy with SRH is shown in Figure 7.  The
+   procedure defined for upper-layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
-   header in the received replytest packets.
+   header in the received reply test packets.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -703,11 +647,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
-    | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
+    |                Test Packet as shown in Figure 5               |
     .                                                               .
     +---------------------------------------------------------------+
 
-      Figure 8: Example Session-Reflector Test Packet for SRv6 Policy
+      Figure 7: Example Session-Reflector Test Packet for SRv6 Policy
 
 4.2.3.  Loopback Measurement Mode
 
@@ -725,7 +669,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
-Gandhi, et al.            Expires July 29, 2021                [Page 13]
+Gandhi, et al.            Expires July 29, 2021                [Page 12]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
@@ -738,8 +682,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 4.3.  Additional Test Packet Processing Rules
 
    The processing rules defined in this section are applicable to the
-   STAMP packets for delay and direct-mode loss measurement for links
-   and end-to-end SR paths including SR Policies.
+   STAMP packets for delay for links and end-to-end SR paths including
+   SR Policies.
 
 4.3.1.  TTL and Hop Limit
 
@@ -752,53 +696,50 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    using the Destination IPv6 Address from the ::FFFF:127/104 range, the
    Hop Limit field in the IPv6 header is set to 1.
 
-   For link performance delay and direct-mode loss measurements, the TTL
-   or Hop Limit field in the test packet is set to 1 in both one-way and
-   two-way measurement modes.
+   For link performance delay, the TTL or Hop Limit field in the test
+   packet is set to 1 in both one-way and two-way measurement modes.
 
 4.3.2.  Router Alert Option
 
    The Router Alert IP option (RAO) [RFC2113] is not set in the test
    packets.
 
-5.  Performance Measurement for P2MP SR Policies
+5.  Delay Measurement for P2MP SR Policies
 
    The Point-to-Multipoint (P2MP) SR path that originates from a root
    node terminates on multiple destinations called leaf nodes (e.g.
    P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy] or P2MP Transport
    [I-D.shen-spring-p2mp-transport-chain]).
 
-   The procedures for delay and direct-mode loss measurement described
-   in this document for P2P SR Policies are also equally applicable to
-   the P2MP SR Policies.  The procedure for one-way measurement is
-   defined as following:
+   The procedures for delay measurement described in this document for
+   P2P SR Policies are also equally applicable to the P2MP SR Policies.
+   The procedure for one-way measurement mode is defined as following:
 
    o  The session-sender root node sends test packets using the Tree-SID
       defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP SR-MPLS
-      Policy as shown in Figure 9.
-
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 14]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
+      Policy as shown in Figure 8.
 
    o  The test packets can contain the replication SID as defined in
       [I-D.ietf-spring-sr-replication-segment].
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 13]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
    o  The Destination Address is set to the loopback address from range
       127/8 for IPv4, or the loopback address ::1/128 for IPv6 address.
 
    o  Each session-reflector leaf node sends its IP address in the
-      Source Address of the replytest packets as shown in Figure 9.
+      Source Address of the reply test packets as shown in Figure 8.
       This allows the session-sender root node to identify the session-
       reflector leaf nodes of the P2MP SR Policy.
 
-   o  The P2MP root node measures the delay and loss performance for
-      each P2MP leaf node of the end-to-end P2MP SR Policy.
+   o  The P2MP root node measures the delay performance for each P2MP
+      leaf node of the end-to-end P2MP SR Policy.
 
 
     0                   1                   2                   3
@@ -810,11 +751,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .                                                               .
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |   Message as shown in Figure 2 for DM or Figure 3 for LM      |
+    |   Test Packet as shown in Figure 2                            |
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-      Figure 9: Example Test Packet with Tree-SID for SR-MPLS Policy
+      Figure 8: Example Test Packet with Tree-SID for SR-MPLS Policy
 
    The test packets can also be sent using the scheme defined for P2MP
    Transport using Chain Replication that may contain Bud SID as defined
@@ -833,26 +774,21 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    need to be sent to traverse different ECMP paths to measure
    performance delay of an SR Policy.
 
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 15]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  The mechanisms described in
    [RFC8029] and [RFC5884] for handling ECMPs are also applicable to the
    performance measurement.  In IPv4 header of the test packets,
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 14]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
    sweeping of Destination Address from range 127/8 can be used to
    exercise particular ECMP paths.  As specified in [RFC6437], Flow
    Label field in the outer IPv6 header can also be used for sweeping.
-
-   The considerations for performance direct-mode loss measurement for
-   different ECMP paths of an SR Policy are outside the scope of this
-   document.
 
 7.  Performance Delay and Liveness Monitoring
 
@@ -861,7 +797,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    document for delay measurement using the STAMP test packets can also
    be applied to liveness monitoring of links and SR paths.  The one-way
    or two-way measurement mode can be used for liveness monitoring.
-   Liveness failure is notified when consecutive N number of replytest
+   Liveness failure is notified when consecutive N number of reply test
    packets are not received back at the session-sender, where N is
    locally provisioned value.  Note that for one-way and two-way modes,
    the failure detection interval and scale for number of test packets
@@ -889,21 +825,22 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    integrity of the test packets.  SRv6 has HMAC protection
    authentication defined for SRH [RFC8754].  Hence, test packets for
    SRv6 may not need authentication mode.  Cryptographic measures may be
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 16]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
 9.  IANA Considerations
 
    This document does not require any IANA action.
+
+
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 15]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
 10.  References
 
@@ -946,29 +883,25 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
 
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 16]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
    [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
               Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
               June 2010, <https://www.rfc-editor.org/info/rfc5884>.
-
-   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
-              Cheshire, "Internet Assigned Numbers Authority (IANA)
-              Procedures for the Management of the Service Name and
-              Transport Protocol Port Number Registry", BCP 165,
-              RFC 6335, DOI 10.17487/RFC6335, August 2011,
-              <https://www.rfc-editor.org/info/rfc6335>.
 
    [RFC6437]  Amante, S., Carpenter, B., Jiang, S., and J. Rajahalme,
               "IPv6 Flow Label Specification", RFC 6437,
@@ -1002,14 +935,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
@@ -1021,6 +946,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Kamite, "Point-to-Multipoint Transport Using Chain
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-03 (work in progress), October 2020.
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
@@ -1053,19 +985,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Data", draft-ali-spring-ioam-srv6-03 (work in progress),
               November 2020.
 
-
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
               "Path Computation Element Communication Protocol (PCEP)
@@ -1083,6 +1002,13 @@ Acknowledgments
    significantly improve the mechanisms defined in this document.  The
    authors would also like to thank Sam Aldrin for the discussions to
    check for broken path.
+
+
+
+Gandhi, et al.            Expires July 29, 2021                [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
 Authors' Addresses
 
@@ -1111,17 +1037,6 @@ Authors' Addresses
    Email: mach.chen@huawei.com
 
 
-
-
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 20]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    Bart Janssens
    Colt
 
@@ -1146,31 +1061,4 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 29, 2021                [Page 21]
+Gandhi, et al.            Expires July 29, 2021                [Page 19]
