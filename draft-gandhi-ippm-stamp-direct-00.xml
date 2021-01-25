@@ -91,9 +91,9 @@
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
    ability to measure performance loss metric experienced by Customer data traffic. 
-   The STAMP test packet with a TLV for "direct measurement" can be used for combined Delay + Packet Loss
-   measurement <xref target="RFC8972"/>.  However, in 
-   order to use only for direct measurement purpose, it requires the node to 
+   The STAMP test packet with a "direct measurement" TLV can be used for combined Delay + Packet Loss
+   measurement <xref target="RFC8972"/>.  However, even for 
+   direct measurement use, it requires the node to 
    support the STAMP test packets and support timestamp for these packets, in addition to counters. 
    Furthermore, for hardware-based counter collection for direct measurement, 
    the optional TLV based processing adds unnecessary overhead
@@ -102,8 +102,7 @@
    It also does not identify the Block Number of the direct measurement 
    required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.</t>
 
-   <t>This document specifies RFC 8762 
-   (Simple Two-Way Active Measurement Protocol (STAMP))
+   <t>This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
    extensions for Direct Measurement for detecting packet loss in a network those 
    are efficient for hardware-based implementation.</t>
     </section>
