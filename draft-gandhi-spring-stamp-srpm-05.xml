@@ -638,8 +638,8 @@
    The Hop Limit field in the IPv6 and SRH headers of the
    test packets is set to 255, except in the following cases.</t>
 
-   <t>When using the
-   Destination IPv6 Address from the ::FFFF:127/104 range, the Hop Limit field in the IPv6 header is set to 1.</t>
+   <t>When using the Destination IPv6 Address of loopback address ::1/128, 
+   the Hop Limit field in the IPv6 header is set to 1.</t>
 
    <t>For link delay, the Hop Limit field in the test packet is set to 1 in one-way and two-way delay measurement modes.</t>
 

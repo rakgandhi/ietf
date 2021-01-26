@@ -190,9 +190,7 @@
    updated in <xref target="RFC8972"/> as session-reflector MUST
    ignore the received field (previously identified as MBZ).
    The Control Code field is optional and MAY be ignored by the session-reflector. The session-reflector 
-   test packet formats are not affected due to the Control Code.
-   With this field carried in the session-sender test packet, the session-reflector does not require
-   any additional per STAMP session state.</t>
+   test packet formats are not affected due to the Control Code.</t>
 
    <figure title="Control Code in Session-Sender STAMP Test Packet in Unauthenticated Mode" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
  0                   1                   2                   3
@@ -310,7 +308,7 @@
    can request in the test packet to the session-reflector to
    send a reply test packet back on a given return path. 
    With this TLV carried in the session-sender test packet, the session-reflector does not require
-   any additional per STAMP session state (recall that in SR networks, 
+   any additional state for the STAMP session (recall that in SR networks, 
    the state is in the packet and signaling of the parameters is undesired).</t>
 
     <t>

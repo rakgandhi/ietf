@@ -91,9 +91,12 @@
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
    ability to measure performance loss metric experienced by Customer data traffic. 
+   Currently there is no efficient active meaasurement protocol available for accurate data packet loss measurement.
+   The STAMP <xref target="RFC8762"/> can be used for test packet loss detection (synthetic loss measurement), however, it 
+   dos not provide accurate Customer data packet loss metrics.
    The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
    can be used for combined delay and data packet loss
-   measurement. This method has following limitations:</t>
+   measurement. This method however has following limitations:</t>
 	   
     <t><list style="symbols"><t>
      Even for direct measurement, it requires the node to 
@@ -158,8 +161,8 @@
    As shown in the reference topology blow, the STAMP Session-Sender R1 
    transmits direct measurement test packets over UDP transport
    toward the STAMP Session-Reflector R3.  The STAMP Session-Reflector R3
-   receives the Session-Sender's packet and acts according to the
-   configuration. The Session-Reflector R3 sends Reply Test Packet to Session-Sender R1.</t> 
+   receives the Session-Sender's test packet and acts according to the
+   configuration. The Session-Reflector R3 sends reply test packet to the Session-Sender R1.</t> 
 
     <figure><artwork><![CDATA[
                        C1                C2
@@ -179,11 +182,15 @@
     </figure>
 
     </section>
-    <section title="UDP Port Numbers For Direct Measurement" anchor="sect-2.4"><t>
-    The direct measurement test packets carry user-configured destination UDP port. The UDP port 
-    862 is not used for direct measurement test packets defined in this document. The user-configured
-    destination UDP port follows the guidelines described in <xref target="RFC8762"/>. Different destination UDP port is used for
-    direct measurement than the STAMP test packets defined in <xref target="RFC8762"/>.</t>
+    <section title="UDP Port Number For Direct Measurement" anchor="sect-2.4"><t>
+   The direct measurement test packets carry user-configured destination UDP port. The UDP port 
+   862 is not used for the direct measurement test packets defined in this document. The user-configured
+   destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
+   Different destination UDP port is used for
+   direct measurement than the STAMP test packets defined in <xref target="RFC8762"/>.
+   The test packets do not require backwards
+   compatibility and support for the existing STAMP test packets defined in
+   <xref target="RFC8762"/> as different destination UDP port is used.  </t>
 
     </section>
     </section>
@@ -192,13 +199,9 @@
     <section title="Direct Measurement Test Packet" anchor="sect-3">
    <t>In this document, session-sender test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. 
-   They are stand-alone packet formats to carry counters for the traffic 
+   They are stand-alone test packet formats to carry counters for the data traffic 
    flow under measurement. The test packet formats are similar to the STAMP test 
-   packet formats (for example location of the Counters and Timestamps). The test packets 
-   do not require backwards
-   compatibility and support for the existing STAMP test packet formats defined in
-   <xref target="RFC8762"/> as different user-configured destination UDP 
-   port is used for direct measurement.</t>
+   packet formats (for example location of the Counters and Timestamps).</t>
 
     <figure title="Session-Sender Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -259,7 +262,7 @@
    the session-sender in the test packet and by the session-reflector in the
    reply test packet.  The counter is always written at the well-known fixed 
    location in the test packet and reply test packet.  This is an important
-   property for hardware-based implementation. Counter is for the traffic flow
+   property for hardware-based implementation. Counter is for the data traffic flow
    under measurement.</t>
 
    <t><list style="hanging" hangIndent="3"><t hangText="Flags: The meanings of the Flag bits are:">
@@ -443,12 +446,13 @@
 
    <t>
    One-way receive packet loss[n-1, n] = (C2[n] - C2[n-1]) - (C1[n] - C1[n-1])
-
    </t>
+
    <t>
    Two-way receive packet loss[n-1, n] = (C4[n] - C4[n-1]) - (C3[n] - C3[n-1])
                                         + (C2[n] - C2[n-1]) - (C1[n] - C1[n-1])
    </t>
+
         </section>
 
     <section title="Security Considerations" anchor="sect-6"><t>
@@ -492,7 +496,8 @@
     &RFC8321;
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
-   The authors would like to thank Greg Mirsky, Tianran Zhou, Zhenqiang Li, Reshad Rahman, Cheng Li, 
+   The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan Mishra, 
+   Zhenqiang Li, Reshad Rahman, Cheng Li, 
    and Yali Wang for the comments on direct measurement. 
    The authors would like to acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>
