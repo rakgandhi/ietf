@@ -408,7 +408,7 @@
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
- |  Test Packet as shown in Figure 2                             |
+ | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
  .                                                               .
  +---------------------------------------------------------------+
 ]]></artwork>
@@ -538,9 +538,10 @@
  .  Destination Port = User-configured Port                      .
  .                                                               .
  +---------------------------------------------------------------+
- |  Test Packet as shown in Figure 5                             |
+ | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
  .                                                               .
  +---------------------------------------------------------------+
+ 
 ]]></artwork>
     </figure>
 
@@ -596,7 +597,7 @@
     </list>
     </t>
 
-    <figure title="Example Test Packet with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
+    <figure title="Example Session-Sender Test Packet with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

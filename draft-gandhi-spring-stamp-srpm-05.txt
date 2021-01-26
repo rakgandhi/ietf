@@ -470,7 +470,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
-    |  Test Packet as shown in Figure 2                             |
+    | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
     .                                                               .
     +---------------------------------------------------------------+
 
@@ -638,9 +638,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .  Destination Port = User-configured Port                      .
     .                                                               .
     +---------------------------------------------------------------+
-    |  Test Packet as shown in Figure 5                             |
+    | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
     .                                                               .
     +---------------------------------------------------------------+
+
 
       Figure 7: Example Session-Reflector Test Packet for SRv6 Policy
 
@@ -662,7 +663,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    delay measurement mode, as per Reference Topology, the timestamps T1
    and T4 are collected by the test packets.  Both these timestamps are
    used to measure round-trip delay as (T4 - T1).
-
 
 
 
@@ -717,11 +717,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-      Figure 8: Example Test Packet with Tree-SID for SR-MPLS Policy
+    Figure 8: Example Session-Sender Test Packet with Tree-SID for SR-
+                                MPLS Policy
 
-   The test packets can also be sent using the scheme defined for P2MP
-   Transport using Chain Replication that may contain Bud SID as defined
-   in [I-D.shen-spring-p2mp-transport-chain].
+
+
 
 
 
@@ -729,6 +729,10 @@ Gandhi, et al.            Expires July 30, 2021                [Page 13]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   The test packets can also be sent using the scheme defined for P2MP
+   Transport using Chain Replication that may contain Bud SID as defined
+   in [I-D.shen-spring-p2mp-transport-chain].
 
    The considerations for two-way mode for P2MP SR Policy (e.g. for
    bidirectional SR path) are outside the scope of this document.
@@ -775,10 +779,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    particular ECMP paths.  As specified in [RFC6437], Flow Label field
    in the outer IPv6 header can also be used for sweeping.
 
-   The Destination Node Address TLV [I-D.gandhi-ippm-stamp-srpm] can be
-   sent in the session-sender test packet to identify the intended
-   destination node.  The session-reflector MUST NOT send reply test
-
 
 
 Gandhi, et al.            Expires July 30, 2021                [Page 14]
@@ -786,6 +786,9 @@ Gandhi, et al.            Expires July 30, 2021                [Page 14]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
+   The Destination Node Address TLV [I-D.gandhi-ippm-stamp-srpm] can be
+   sent in the session-sender test packet to identify the intended
+   destination node.  The session-reflector MUST NOT send reply test
    packet if it is not the intended destination node in the Destination
    Node Address TLV [I-D.gandhi-ippm-stamp-srpm].
 
@@ -832,9 +835,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    verified the integrity of the path and the identity of the far-end
    session-reflector.
 
-   If desired, attacks can be mitigated by performing basic validation
-   and sanity checks, at the session-sender, of the counter or timestamp
-
 
 
 Gandhi, et al.            Expires July 30, 2021                [Page 15]
@@ -842,6 +842,8 @@ Gandhi, et al.            Expires July 30, 2021                [Page 15]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
+   If desired, attacks can be mitigated by performing basic validation
+   and sanity checks, at the session-sender, of the counter or timestamp
    fields in received measurement reply test packets.  The minimal state
    associated with these protocols also limits the extent of measurement
    disruption that can be caused by a corrupt or invalid packet to a
@@ -885,8 +887,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Protocol Optional Extensions", RFC 8972,
               DOI 10.17487/RFC8972, January 2021,
               <https://www.rfc-editor.org/info/rfc8972>.
-
-
 
 
 
