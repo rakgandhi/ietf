@@ -531,7 +531,8 @@
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Thierry Couture for the discussions
    on the use-cases for Performance Measurement in Segment Routing.  The authors
-   would also like to thank Greg Mirsky, Mike Koldychev for providing comments and suggestions.</t>
+   would also like to thank Greg Mirsky, Mike Koldychev, Gyan Mishra, 
+   and Cheng Li for providing comments and suggestions.</t>
 
     </section>
 

@@ -28,6 +28,7 @@
 <!ENTITY I-D.ietf-spring-srv6-network-programming SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-network-programming.xml">
 <!ENTITY I-D.ietf-pce-binding-label-sid SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-binding-label-sid.xml">
 <!ENTITY I-D.gandhi-mpls-ioam-sr SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-mpls-ioam-sr.xml">
+<!ENTITY I-D.ietf-ippm-stamp-yang SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp-yang.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
 <!ENTITY I-D.gandhi-spring-sr-enhanced-plm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-sr-enhanced-plm.xml">
@@ -80,7 +81,7 @@
     </address>
     </author>
 
-    <date day="25" month="January" year="2021"/>
+    <date day="26" month="January" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -88,7 +89,7 @@
    (SRv6) data planes.  This document describes procedures  
    for Performance Measurement (PM) in SR networks using the 
    mechanisms defined in RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
-   and its optional extensions defined in RFC 8972.
+   and its optional extensions defined in RFC 8972 and draft-gandhi-ippm-stamp-srpm.
    The procedure described is applicable
    to SR-MPLS and SRv6 data planes and is used for both links and
    end-to-end SR paths including SR Policies.</t>
@@ -117,8 +118,8 @@
 
    <t>This document describes procedures  
    for Performance Measurement (PM) in SR networks using the 
-   mechanisms defined in <xref target="RFC8762"/> 
-   (STAMP) and its optional extensions <xref target="RFC8972"/>. 
+   mechanisms defined in STAMP <xref target="RFC8762"/> 
+   and its optional extensions defined in <xref target="RFC8972"/> and <xref target="I-D.gandhi-ippm-stamp-srpm"/>. 
    The procedure described is applicable to SR-MPLS and SRv6 data planes and
    is used for both links and end-to-end SR paths including SR Policies and Flex-Algo IGP Paths.  
    Unless otherwise specified, the mechanisms 
@@ -226,18 +227,18 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For delay measurement in Segment Routing networks, the STAMP test packets defined in
-   <xref target="RFC8762"/> are used.</t> 
+   For delay measurement in segment routing networks, in this document,
+   the STAMP test packets defined in <xref target="RFC8762"/> are used.</t> 
    
-   <t>A UDP destination port number is selected using 
-   the procedure defined in <xref target="RFC8762"/>. The same destination UDP 
-   port is used for links and SR paths and the session-reflector is 
-   unaware if the received STAMP test packet is for the links or SR paths.</t>
+   <t>A destination UDP port number is selected as described in
+   <xref target="RFC8762"/>. The same destination UDP 
+   port is used for links and end-to-end SR paths and the session-reflector is 
+   unaware if the received STAMP test packet is for the links or end-to-end SR paths.</t>
 
-   <t>For delay measurement, the STAMP test packets are sent on the
-   same path (in-band) as the customer data traffic by the session-sender, and are
+   <t>For delay measurement, STAMP test packets are sent on the
+   same path (in-band) as the customer data traffic by the session-sender as are
    used to measure the delay experienced by the customer data traffic
-   flowing on the links and SR paths.</t>
+   flowing on the links and end-to-end SR paths.</t>
 
    <t>The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> and for
@@ -274,11 +275,11 @@
     </figure>
 
     <t>Example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> or NTP. 
-    Example of synthetic loss type can be stateful and stateless <xref target="RFC8762"/>.</t>
+    Example of synthetic loss type is stateful and stateless <xref target="RFC8762"/>.</t>
 
-    <t>The mechanisms to provision the
-    session-sender and session-reflector are outside the scope of this document. 
-    The provisioning model is not used for signaling the PM parameters between the 
+    <t>The YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
+    can be used to provision the STAMP session-sender and session-reflector. 
+    The provisioning model is not meant for signaling the PM parameters between the 
     session-sender and session-reflector in SR networks.</t>
 
     <t>The session-reflector R3 uses the parameters for the timestamp format and
@@ -319,7 +320,7 @@
    4.2.1 of <xref target="RFC8762"/>.  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
    <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with hardware support
-   in Segment Routing networks.</t>
+   in segment routing networks.</t>
 
    <t>When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
@@ -418,7 +419,7 @@
     </section>
 
    <section title="Session-Reflector Test Packet" anchor="sect-4.2"><t>
-   The reply test packet is sent using the IP/UDP information from
+   The STAMP session-reflector test packet is sent using the IP/UDP information from
    the received test packet.  The content of the reply test
    packet is shown in Figure 5.</t>
 
@@ -442,14 +443,15 @@
     </figure>
  
    <section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
-   In one-way delay measurement mode, the reply test packet
-   as defined in Figure 5 is sent back out-of-band to the session-sender,
-   for both links and SR Policies. The Session-Sender Control Code is set to the default value of 0 <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
-   In this delay measurement mode, as per Reference Topology, 
+   In one-way delay measurement mode, a reply test packet
+   as defined in Figure 5 is sent back to the session-sender,
+   for both links and SR Policies. The Session-Sender Control Code is set 
+   to the default value of 0 <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
+   In this mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
 
-   <t> For one-way delay measurement, the session-sender address may not
+   <t> For one-way delay measurement mode, the session-sender address may not
    be reachable via IP route from the session-reflector.  The session-sender
    in this case needs to send its reachability path information to the
    session-reflector using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
@@ -458,17 +460,17 @@
 
    <section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way delay measurement mode, when using a bidirectional
-   path, the reply test packet as defined in Figure 5 is sent back
+   path, a reply test packet as defined in Figure 5 is sent back
    to the session-sender on the same path (in-band) as the data traffic on the
-   same reverse direction link or associated reverse SR Policy
+   same reverse direction link or associated reverse SR path
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The Session-Sender Control Code is 
    set to "In-band Response Requested" <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
-   In this delay measurement mode, as per Reference Topology, 
+   In this mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
-   <t>For two-way measurement mode for links, the reply test packet is sent back on the incoming physical
-   interface where the test packet is received.</t>
+   <t>For two-way measurement mode for links, the reply test packet is sent back on 
+   the same incoming physical interface where the test packet is received.</t>
 
    <t>For two-way measurement mode for SR Policy, the session-reflector needs to send
    the reply test packet on a specific reverse path.  The session-sender
@@ -563,34 +565,7 @@
      </section>
    </section>
 
-   <section title="Additional Test Packet Processing Rules" anchor="sect-4.5"><t>
-   The processing rules defined in this section are applicable to the
-   STAMP packets for delay for links and end-to-end SR paths including SR Policies.</t>        
-        
-   <section title="TTL and Hop Limit" anchor="sect-4.5.1"><t>
-   The TTL field in the IPv4 and MPLS headers of the
-   test packets is set to 255 <xref target="RFC8762"/>.
-   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
-   test packets is set to 255 <xref target="RFC8762"/>.</t>
-
-   <t>When using the Destination IPv4 Address from range 127/8, the TTL field
-   in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
-   Destination IPv6 Address from the ::FFFF:127/104 range, the
-   Hop Limit field in the IPv6 header is set to 1.</t>
-
-   <t>For link delay, 
-   the TTL or Hop Limit field in the test packet is set to 1 in both one-way and two-way measurement modes. 
-       </t>
-
-    </section>
-
-   <section title="Router Alert Option" anchor="sect-4.5.2"><t>
-   The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the test packets.</t>
-
-   </section>
-   </section>
-
-   <section title="Delay Measurement for P2MP SR Policies" anchor="sect-4.6"> <t>
+    <section title="Delay Measurement for P2MP SR Policies" anchor="sect-4.6"> <t>
    The Point-to-Multipoint (P2MP) SR path
    that originates from a root node terminates on multiple destinations called leaf nodes 
    (e.g. P2MP SR Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/> 
@@ -616,7 +591,7 @@
       of the P2MP SR Policy.</t>
 
       <t>The P2MP root node measures the delay 
-       for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
+      for each P2MP leaf node of the end-to-end P2MP SR Policy.</t>
 
     </list>
     </t>
@@ -647,7 +622,36 @@
    P2MP SR Policy (e.g. for bidirectional SR path) are outside the scope of this document.</t>
 
     </section>
-    </section>
+
+      <section title="Additional Test Packet Processing Rules" anchor="sect-4.5"><t>
+   The processing rules defined in this section are applicable to the
+   STAMP packets for links and end-to-end SR paths including SR Policies.</t>        
+        
+   <section title="TTL and Hop Limit" anchor="sect-4.5.1"><t>
+   The TTL field in the IPv4 and MPLS headers of the
+   test packets is set to 255 <xref target="RFC8762"/>.
+   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
+   test packets is set to 255 <xref target="RFC8762"/>.</t>
+
+   <t>When using the Destination IPv4 Address from range 127/8, the TTL field
+   in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
+   Destination IPv6 Address from the ::FFFF:127/104 range, the
+   Hop Limit field in the IPv6 header is set to 1.</t>
+
+   <t>For link delay, 
+   the TTL or Hop Limit field in the test packet is set to 1 in one-way and two-way measurement modes. 
+   </t>
+
+   </section>
+
+   <section title="Router Alert Option" anchor="sect-4.5.2"><t>
+   The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the test packets for
+   links and end-to-end SR paths.</t>
+
+   </section>
+   </section>
+
+   </section>
 
    <section title="ECMP Support for SR Policies" anchor="sect-5"><t>
    An SR Policy can have ECMPs between the source and transit nodes,
@@ -671,23 +675,38 @@
    The session-reflector MUST NOT send reply test packet if it
    is not the intended destination node in the Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
-    </section>
+   </section>
 
+   <section title="Syntheic Loss Measurement" anchor="sect-6"><t>
+   Synthetic packet loss measurement is required for connectivity verification and continuity check in an SR network.
+   The procedure defined in this document for delay measurement using STAMP 
+   can also be applied for synthetic packet loss measurement for links and end-to-end SR paths.
+   The procedure uses sequence number in the STAMP test packets and 
+   is described in Section 4 "Thoery of Operation" of <xref target="RFC8762"/>.</t>
+   </section>
 
-    <section title="Performance Delay and Liveness Monitoring" anchor="sect-6"><t>
-    Liveness monitoring is required for connectivity verification and continuity check in an SR network.
-    The procedure defined in this document for delay measurement using the STAMP test 
-    packets can also be applied to liveness monitoring of links and SR paths. 
-    The one-way or two-way measurement mode can be used for liveness monitoring.  
-    Liveness failure is notified when consecutive N number of reply test packets are
-    not received back at the session-sender, where N is locally provisioned value. 
-    Note that for one-way and two-way modes, the failure detection interval and scale for number of test packets need to account for 
-    the processing of the test packets which need to be punted from the forwarding fast path
-    (to slow path or control plane) and reply test packets need to be injected on the session-reflector.
-    This is improved by using the test packets in loopback mode.</t>
-         </section>
+   <section title="Liveness and Connectivity Loss Monitoring" anchor="sect-8"><t>
+   Liveness monitoring is required for connectivity verification and continuity check in an SR network.
+   The procedure defined in this document for delay measurement using STAMP 
+   can also be applied to report the connectivity loss metric for links and end-to-end SR paths. 
+   Connectivity loss is notified when consecutive N number of reply test packets are
+   not received back at the session-sender, where N is locally provisioned value.</t>
 
-   <section title="Security Considerations" anchor="sect-7"><t>
+   <t>Note that for one-way and two-way measurement modes, the connectivity loss detection 
+   interval and scale for number of STAMP test sessions need to account for 
+   the processing of the STAMP test packets on the session-reflector which need to be punted from the forwarding fast path
+   (to slow path or control plane) and reply test packets need to be injected.
+   The scale is improved by using the STAMP test packets in loopback mode as described in Section 4.2.3.</t>
+   </section>
+
+   <section title="Direct Measurement" anchor="sect-7"><t>
+   Direct measurement is required to detect customer packet loss in an SR network.
+   The "direct measurement" TLV is defined in <xref target="RFC8972"/> 
+   for packet loss detection for links and end-to-end SR paths that can carry counters for 
+   transmit and receive packets.</t>
+   </section>
+
+   <section title="Security Considerations" anchor="sect-9"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
@@ -710,7 +729,7 @@
 
     </section>
 
-   <section title="IANA Considerations" anchor="sect-8"><t>
+   <section title="IANA Considerations" anchor="sect-10"><t>
        This document does not require any IANA action.</t>
 
     </section>
@@ -751,13 +770,14 @@
     &I-D.ietf-spring-mpls-path-segment;
     &I-D.ietf-spring-srv6-network-programming;
     &I-D.gandhi-mpls-ioam-sr;
+    &I-D.ietf-ippm-stamp-yang;
     &I-D.ali-spring-ioam-srv6;
     &I-D.ietf-pce-sr-bidir-path;
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for Performance Measurement in Segment Routing.  The authors
-   would also like to thank Greg Mirsky for reviewing this document and
+   on the use-cases for Performance Measurement in segment routing.  The authors
+   would also like to thank Greg Mirsky, Gyan Mishra, Xie Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu, both from Cisco Systems have helped significantly improve
    the mechanisms defined in this document.  The authors
