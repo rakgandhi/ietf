@@ -5,13 +5,13 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: July 27, 2021                                          D. Voyer
+Expires: July 30, 2021                                          D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 23, 2021
+                                                        January 26, 2021
 
 
          Simple TWAMP (STAMP) Extensions for Direct Measurement
@@ -21,7 +21,7 @@ Abstract
 
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
-   packet loss in a network those are efficient for hardware-based
+   data packet loss in a network those are efficient for hardware-based
    implementation.
 
 Status of This Memo
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 27, 2021.
+   This Internet-Draft will expire on July 30, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 1]
+Gandhi, et al.            Expires July 30, 2021                 [Page 1]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -73,14 +73,14 @@ Table of Contents
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   3
      2.4.  UDP Port Numbers For Direct Measurement . . . . . . . . .   4
    3.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   4
-   4.  Session-Reflector Direct Measurement Test Packet  . . . . . .   7
-   5.  Packet Loss Calculation . . . . . . . . . . . . . . . . . . .   9
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  10
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+   4.  Session-Reflector Direct Measurement Test Packet  . . . . . .   8
+   5.  Data Packet Loss Calculation  . . . . . . . . . . . . . . . .  10
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -92,31 +92,40 @@ Table of Contents
 
    Many Service Provider Service Level Agreements (SLAs) depend on the
    ability to measure performance loss metric experienced by Customer
-   data traffic.  The STAMP test packet with a TLV for "direct
-   measurement" can be used for combined Delay + Packet Loss measurement
-   [RFC8972].  However, in order to use only for direct measurement
-   purpose, it requires the node to support the STAMP test packets and
-   support timestamp for these packets, in addition to counters.
-   Furthermore, for hardware-based counter collection for direct
-   measurement, the optional TLV based processing adds unnecessary
-   overhead (as counters are not at well-known locations).  In addition,
-   it does not support 64-bit counters, counters for Bytes, as well as
-   counters per traffic class.  It also does not identify the Block
-   Number of the direct measurement required for Alternate-Marking
-   Method [RFC8321] for loss measurement.
+   data traffic.  The STAMP test packet with a "Direct Measurement" TLV
+   (Type 5) [RFC8972] can be used for combined delay and data packet
+   loss measurement.  This method has following limitations:
+
+   o  Even for direct measurement, it requires the node to support the
+      STAMP test packets and support timestamps, in addition to
+      counters.
+
+   o  Furthermore, for hardware-based counter collection for direct
+      measurement, the optional TLV adds unnecessary processing overhead
+      (as counters are not at well-known locations).
+
+   o  In addition, it does not support 64-bit counters.
 
 
 
 
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 2]
+Gandhi, et al.            Expires July 30, 2021                 [Page 2]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   o  It does not support counters for bytes.
+
+   o  It does not support counters per traffic class.
+
+   o  It also does not identify the Block Number of the direct
+      measurement, which is required for Alternate-Marking Method
+      [RFC8321] for loss measurement.  This is useful in case of out-of-
+      order data packets.
+
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
-   packet loss in a network those are efficient for hardware-based
+   data packet loss in a network those are efficient for hardware-based
    implementation.
 
 2.  Conventions Used in This Document
@@ -136,6 +145,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    PM: Performance Measurement.
 
+   SHA: Secure Hash Algorithm.
+
    SSID: STAMP Session Identifier.
 
    STAMP: Simple Two-way Active Measurement Protocol.
@@ -148,6 +159,16 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    receives the Session-Sender's packet and acts according to the
    configuration.  The Session-Reflector R3 sends Reply Test Packet to
    Session-Sender R1.
+
+
+
+
+
+
+Gandhi, et al.            Expires July 30, 2021                 [Page 3]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
 
                           C1                C2
                          /                   \
@@ -162,13 +183,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
                 Session-Sender                Session-Reflector
 
                            Reference Topology
-
-
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 3]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
 
 2.4.  UDP Port Numbers For Direct Measurement
 
@@ -191,12 +205,33 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    [RFC8762] as different user-configured destination UDP port is used
    for direct measurement.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 30, 2021                 [Page 4]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sequence Number                        |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
+    |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B|T| DSCP      | Block Number| SSID                          |
@@ -221,7 +256,28 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.            Expires July 30, 2021                 [Page 5]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -235,7 +291,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                                                               |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
+    |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B|T| DSCP      | Block Number| SSID                          |
@@ -277,7 +333,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 5]
+Gandhi, et al.            Expires July 30, 2021                 [Page 6]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -333,7 +389,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 6]
+Gandhi, et al.            Expires July 30, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -348,17 +404,17 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sequence Number                        |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
+    |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Receive Counter                        |
+    |                        Receive Counter (C2)                   |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sender Sequence Number                 |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Counter                         |
+    |                        Sender Counter (C1)                    |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
@@ -378,18 +434,18 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                                                               |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Transmit Counter                       |
+    |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Receive Counter                        |
+    |                        Receive Counter (C2)                   |
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 7]
+Gandhi, et al.            Expires July 30, 2021                 [Page 8]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -405,7 +461,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                                                               |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Counter                         |
+    |                        Sender Counter (C1)                    |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
@@ -445,14 +501,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 8]
+Gandhi, et al.            Expires July 30, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
    Sender TTL: As defined in [RFC8762].
 
-5.  Packet Loss Calculation
+5.  Data Packet Loss Calculation
 
    Using the Counters C1, C2, C3 and C4 as per reference topology, from
    the nth and (n-1)th direct measurement test packets.
@@ -501,7 +557,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 9]
+Gandhi, et al.            Expires July 30, 2021                [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -557,7 +613,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 10]
+Gandhi, et al.            Expires July 30, 2021                [Page 11]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -613,4 +669,4 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 11]
+Gandhi, et al.            Expires July 30, 2021                [Page 12]

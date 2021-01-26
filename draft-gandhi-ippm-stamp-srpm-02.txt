@@ -125,6 +125,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 2.2.  Abbreviations
 
+   HMAC: Hashed Message Authentication Code.
+
    MPLS: Multiprotocol Label Switching.
 
    PM: Performance Measurement.
@@ -152,8 +154,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    a Point-to-Point (P2P) SR path e.g.  SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
-
-
 
 
 
@@ -639,8 +639,8 @@ Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
    on the use-cases for Performance Measurement in Segment Routing.  The
-   authors would also like to thank Greg Mirsky, Mike Koldychev for
-   providing comments and suggestions.
+   authors would also like to thank Greg Mirsky, Mike Koldychev, Gyan
+   Mishra, and Cheng Li for providing comments and suggestions.
 
 Authors' Addresses
 

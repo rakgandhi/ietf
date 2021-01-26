@@ -69,12 +69,12 @@
     </address>
     </author>
 
-    <date day="23" month="January" year="2021"/>
+    <date day="26" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 
    (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for Direct Measurement for detecting packet loss in a network those are efficient for 
+   extensions for Direct Measurement for detecting data packet loss in a network those are efficient for 
    hardware-based implementation.</t>
 
     </abstract>
@@ -91,19 +91,37 @@
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
    ability to measure performance loss metric experienced by Customer data traffic. 
-   The STAMP test packet with a "direct measurement" TLV can be used for combined Delay + Packet Loss
-   measurement <xref target="RFC8972"/>.  However, even for 
-   direct measurement use, it requires the node to 
-   support the STAMP test packets and support timestamp for these packets, in addition to counters. 
-   Furthermore, for hardware-based counter collection for direct measurement, 
-   the optional TLV based processing adds unnecessary overhead
-   (as counters are not at well-known locations). In addition, it does not 
-   support 64-bit counters, counters for Bytes, as well as counters per traffic class.
-   It also does not identify the Block Number of the direct measurement 
-   required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.</t>
+   The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
+   can be used for combined delay and data packet loss
+   measurement. This method has following limitations:</t>
+	   
+    <t><list style="symbols"><t>
+     Even for direct measurement, it requires the node to 
+     support the STAMP test packets and support timestamps, in addition to counters.</t> 
+	   
+    <t>
+     Furthermore, for hardware-based counter collection for direct measurement, 
+     the optional TLV adds unnecessary processing overhead (as counters are not at well-known locations).</t>
+			    
+    <t>
+     In addition, it does not support 64-bit counters.</t> 
+			    
+    <t>
+     It does not support counters for bytes.</t> 
+			    
+    <t>
+     It does not support counters per traffic class.</t>
+
+    <t>
+     It also does not identify the Block Number of the direct measurement, which is  
+     required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.
+     This is useful in case of out-of-order data packets.</t>
+
+   </list>
+   </t>
 
    <t>This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for Direct Measurement for detecting packet loss in a network those 
+   extensions for Direct Measurement for detecting data packet loss in a network those 
    are efficient for hardware-based implementation.</t>
     </section>
 
@@ -124,6 +142,9 @@
 
     <t>
    PM: Performance Measurement.</t>
+
+    <t>
+   SHA: Secure Hash Algorithm.</t>
 
     <t>
    SSID: STAMP Session Identifier.</t>
@@ -185,7 +206,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Sequence Number                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Transmit Counter                       |
+ |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|T| DSCP      | Block Number| SSID                          |
@@ -212,7 +233,7 @@
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Transmit Counter                       |
+ |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|T| DSCP      | Block Number| SSID                          |
@@ -323,17 +344,17 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Sequence Number                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Transmit Counter                       |
+ |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Receive Counter                        |
+ |                        Receive Counter (C2)                   |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Sender Sequence Number                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Counter                         |
+ |                        Sender Counter (C1)                    |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
@@ -353,14 +374,14 @@
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Transmit Counter                       |
+ |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Receive Counter                        |
+ |                        Receive Counter (C2)                   |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (8 octets)                         |
@@ -372,7 +393,7 @@
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Counter                         |
+ |                        Sender Counter (C1)                    |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
@@ -416,9 +437,9 @@
 
         </section>
 
-    <section title="Packet Loss Calculation" anchor="sect-5"><t>
+    <section title="Data Packet Loss Calculation" anchor="sect-5"><t>
    Using the Counters C1, C2, C3 and C4 as per reference topology, 
-            from the nth and (n-1)th direct measurement test packets.</t>
+   from the nth and (n-1)th direct measurement test packets.</t>
 
    <t>
    One-way receive packet loss[n-1, n] = (C2[n] - C2[n-1]) - (C1[n] - C1[n-1])

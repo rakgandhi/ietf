@@ -113,6 +113,9 @@
     </section>
 
     <section title="Abbreviations" anchor="sect-2.2"><t>
+   HMAC: Hashed Message Authentication Code.</t>
+
+   <t>
    MPLS: Multiprotocol Label Switching.</t>
 
     <t>

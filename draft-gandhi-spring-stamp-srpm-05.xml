@@ -166,6 +166,9 @@
    PTP: Precision Time Protocol.</t>
 
     <t>
+   SHA: Secure Hash Algorithm.</t>
+
+    <t>
    SID: Segment ID.</t>
 
     <t>
@@ -240,13 +243,7 @@
    used to measure the delay experienced by the customer data traffic
    flowing on the links and end-to-end SR paths.</t>
 
-   <t>The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> and for
-   SRv6 defined in <xref target="I-D.ali-spring-ioam-srv6"/> are used to carry PM
-   information such as timestamp in-band as part of the data packets,
-   and are outside the scope of this document.</t>
-
-   <section title="Example Provisioning Model" anchor="sect-3.1"><t>
+    <section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for a 
    user-configured destination UDP port 
    for delay measurement is shown in the following Figure 1:</t>
@@ -283,7 +280,7 @@
     session-sender and session-reflector in SR networks.</t>
 
     <t>The session-reflector R3 uses the parameters for the timestamp format and
-    delay measurement mode (i.e. one-way or two-way mode)
+    delay measurement mode (e.g. one-way delay or two-way delay mode)
     from the received STAMP test packet.</t>
     </section>
 
@@ -320,7 +317,7 @@
    4.2.1 of <xref target="RFC8762"/>.  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
    <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with hardware support
-   in segment routing networks.</t>
+   in segment routing networks is desired.</t>
 
    <t>When using the authenticated mode for delay measurement, the matching
    authentication type (e.g. HMAC-SHA-256) and key are user-configured
@@ -330,8 +327,7 @@
    The STAMP test packet as shown in Figure 2 
    are sent over the link for delay measurement which may be physical, virtual 
    or LAG (bundle), LAG (bundle) member, numbered/unnumbered link. 
-   The local and remote IP addresses of the link are used as Source and Destination Addresses. 
-   They can also be IPv6 link local address.</t>
+   The local and remote IP addresses of the link are used as Source and Destination Addresses.</t>
     </section>
 
    <section title="Session-Sender Test Packet for SR Policy" anchor="sect-4.1.2"><t>
@@ -442,7 +438,7 @@
 ]]></artwork>
     </figure>
  
-   <section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
+   <section title="One-way Delay Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way delay measurement mode, a reply test packet
    as defined in Figure 5 is sent back to the session-sender,
    for both links and SR Policies. The Session-Sender Control Code is set 
@@ -451,14 +447,14 @@
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
 
-   <t> For one-way delay measurement mode, the session-sender address may not
+   <t>The session-sender address may not
    be reachable via IP route from the session-reflector.  The session-sender
    in this case needs to send its reachability path information to the
    session-reflector using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
     </section>
 
-   <section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
+   <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way delay measurement mode, when using a bidirectional
    path, a reply test packet as defined in Figure 5 is sent back
    to the session-sender on the same path (in-band) as the data traffic on the
@@ -469,10 +465,10 @@
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
-   <t>For two-way measurement mode for links, the reply test packet is sent back on 
+   <t>For two-way delay measurement mode for links, the reply test packet is sent back on 
    the same incoming physical interface where the test packet is received.</t>
 
-   <t>For two-way measurement mode for SR Policy, the session-reflector needs to send
+   <t>For two-way delay measurement mode for SR Policy, the session-reflector needs to send
    the reply test packet on a specific reverse path.  The session-sender
    node can request in the test packet to the session-reflector to
    send a reply test packet back on a given reverse path (e.g. 
@@ -504,14 +500,14 @@
    The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
    the forward SR Policy in the test packet can be used to find the
    associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to send the test
-   reply test packet for two-way measurement of SR Policy unless when using STAMP packet with Return
+   reply test packet for two-way delay measurement of SR Policy unless when using STAMP packet with Return
    Path TLV.</t>
 
     </section>
 
    <section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
    The packet content for sending reply test packet on the
-   same path (in-band) as the data traffic for two-way performance
+   same path (in-band) as the data traffic for two-way delay 
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 7.
    The procedure defined for upper-layer header processing for SRv6 SIDs
    in <xref target="I-D.ietf-spring-srv6-network-programming"/>
@@ -560,7 +556,7 @@
    The Session-Sender Control Code is set to the default value of 0 <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
    In this mode, as the test packet is not punted on the session-reflector for processing,
    the session-sender copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly before sending the test packet.
-   In this delay measurement mode, as per Reference Topology,
+   In this mode, as per Reference Topology,
    the timestamps T1 and T4 are collected by the test packets.
    Both these timestamps are used to measure round-trip delay as (T4 - T1).</t>
      </section>
@@ -574,7 +570,7 @@
 
    <t>The procedures for delay measurement described in this
    document for P2P SR Policies are also equally applicable to the P2MP SR Policies. 
-   The procedure for one-way measurement mode is defined as following:</t>
+   The procedure for one-way delay measurement mode is defined as following:</t>
 
    <t><list style="symbols"><t>The session-sender root node sends test packets using the
       Tree-SID defined in <xref target="I-D.ietf-pim-sr-p2mp-policy"/> for the
@@ -619,7 +615,7 @@
    the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
-   <t>The considerations for two-way mode for 
+   <t>The considerations for two-way delay measuremewnt mode for 
    P2MP SR Policy (e.g. for bidirectional SR path) are outside the scope of this document.</t>
 
     </section>
@@ -628,24 +624,28 @@
    The processing rules defined in this section are applicable to the
    STAMP packets for links and end-to-end SR paths including SR Policies.</t>        
         
-   <section title="TTL and Hop Limit" anchor="sect-4.5.1"><t>
+   <section title="TTL" anchor="sect-4.5.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
-   test packets is set to 255 <xref target="RFC8762"/>.
-   Similarly, the Hop Limit field in the IPv6 and SRH headers of the
-   test packets is set to 255 <xref target="RFC8762"/>.</t>
+   test packets is set to 255, except in the following cases.</t>
 
-   <t>When using the Destination IPv4 Address from range 127/8, the TTL field
-   in the IPv4 header is set to 1 <xref target="RFC8029"/>.  Similarly, when using the
-   Destination IPv6 Address from the ::FFFF:127/104 range, the
-   Hop Limit field in the IPv6 header is set to 1.</t>
+   <t>When using the Destination IPv4 Address from range 127/8, the TTL field in the IPv4 header is set to 1.</t>
 
-   <t>For link delay, 
-   the TTL or Hop Limit field in the test packet is set to 1 in one-way and two-way measurement modes. 
-   </t>
+   <t>For link delay, the TTL field in the test packet is set to 1 in one-way and two-way delay measurement modes.</t>
+
+    </section>
+
+   <section title="Hop Limit" anchor="sect-4.5.2"><t>
+   The Hop Limit field in the IPv6 and SRH headers of the
+   test packets is set to 255, except in the following cases.</t>
+
+   <t>When using the
+   Destination IPv6 Address from the ::FFFF:127/104 range, the Hop Limit field in the IPv6 header is set to 1.</t>
+
+   <t>For link delay, the Hop Limit field in the test packet is set to 1 in one-way and two-way delay measurement modes.</t>
 
    </section>
 
-   <section title="Router Alert Option" anchor="sect-4.5.2"><t>
+   <section title="Router Alert Option" anchor="sect-4.5.3"><t>
    The Router Alert IP option (RAO) <xref target="RFC2113"/> is not set in the test packets for
    links and end-to-end SR paths.</t>
 
@@ -693,7 +693,7 @@
    Connectivity loss is notified when consecutive N number of reply test packets are
    not received back at the session-sender, where N is locally provisioned value.</t>
 
-   <t>Note that for one-way and two-way measurement modes, the connectivity loss detection 
+   <t>Note that for one-way and two-way delay measurement modes, the connectivity loss detection 
    interval and scale for number of STAMP test sessions need to account for 
    the processing of the STAMP test packets on the session-reflector which need to be punted from the forwarding fast path
    (to slow path or control plane) and reply test packets need to be injected.
@@ -702,9 +702,14 @@
 
    <section title="Direct Measurement" anchor="sect-7"><t>
    Direct measurement is required to detect customer packet loss in an SR network.
-   The "direct measurement" TLV is defined in <xref target="RFC8972"/> 
+   The "Direct Measurement" TLV (Type 5) is defined in <xref target="RFC8972"/> 
    for packet loss detection for links and end-to-end SR paths that can carry counters for 
    transmit and receive packets.</t>
+
+   <t>Note that the existing "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> does not
+   support 64-bit counters, byte counters and couters per traffic class. 
+   In addition, it does not support out-of-ordering of data packets,
+   as block number for counters is not carried.</t>
    </section>
 
    <section title="Security Considerations" anchor="sect-9"><t>
@@ -770,9 +775,7 @@
     &I-D.ietf-pim-sr-p2mp-policy;
     &I-D.ietf-spring-mpls-path-segment;
     &I-D.ietf-spring-srv6-network-programming;
-    &I-D.gandhi-mpls-ioam-sr;
     &I-D.ietf-ippm-stamp-yang;
-    &I-D.ali-spring-ioam-srv6;
     &I-D.ietf-pce-sr-bidir-path;
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
