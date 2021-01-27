@@ -469,8 +469,8 @@
    <t>For two-way delay measurement mode for SR Policy, the session-reflector needs to send
    the reply test packet on a specific reverse path.  The session-sender
    node can request in the test packet to the session-reflector to
-   send the reply test packet back on a given reverse path (e.g. 
-   bidirectional path) using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+   send the reply test packet back on a given reverse path 
+   using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
    <section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The packet content for sending reply test packet for two-way
@@ -700,8 +700,8 @@
    Direct measurement is applicable to detect data packet loss in an SR network.
    The "Direct Measurement" TLV (Type 5) is defined in <xref target="RFC8972"/> 
    for packet loss detection that can be used for links and end-to-end SR paths. 
-   The Path Segment ID (PSID) is used
-   to count the receive data packets on the session-reflector node.</t>
+   The Path Segment ID (PSID) is used to count the receive data packets 
+   on the session-reflector node for end-to-end SR path.</t>
 
    <t>Note that the existing "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> does not
    support 64-bit counters, byte counters and couters per traffic class. 

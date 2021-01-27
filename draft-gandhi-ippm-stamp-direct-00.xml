@@ -74,7 +74,8 @@
     <abstract><t>
    This document specifies RFC 8762 
    (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for Direct Measurement for detecting data packet loss in a network those are efficient for 
+   extensions for Direct Measurement for detecting data 
+   packet loss in a network those are efficient for 
    hardware-based implementation.</t>
 
     </abstract>
@@ -91,20 +92,31 @@
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
    ability to measure performance loss metric experienced by Customer data traffic. 
-   Currently there is no efficient active meaasurement protocol available for accurate data packet loss measurement.
-   The STAMP <xref target="RFC8762"/> can be used for test packet loss detection (synthetic loss measurement), however, it 
+   Currently there is no efficient active meaasurement protocol 
+   available for accurate data packet loss measurement in IP networks.
+   The STAMP <xref target="RFC8762"/> can be used for test packet 
+   loss detection (i.e. synthetic loss measurement), however, it 
    dos not provide accurate Customer data packet loss metrics.
    The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
    can be used for combined delay and data packet loss
-   measurement. This method however has following limitations:</t>
+   measurement, e.g. when using control-plane based counter collection. 
+   This method however has following limitations:</t>
 	   
     <t><list style="symbols"><t>
-     Even for direct measurement, it requires the node to 
+     Even for direct measurement, it requires the hardware to 
      support the STAMP test packets and support timestamps, in addition to counters.</t> 
 	   
     <t>
+     The location of the transmit counter is not at the fixed location. 
+     Also, the location of the transmit counter on the session-reflector 
+     test packet is not at the same location as the session-sender test packet. 
+     This makes inline counter-stamping the test packets difficult to implement
+     in hardware.</t>
+
+    <t>
      Furthermore, for hardware-based counter collection for direct measurement, 
-     the optional TLV adds unnecessary processing overhead (as counters are not at well-known locations).</t>
+     the optional TLV adds unnecessary processing overhead as not all test
+     packets carry the TLV.</t>
 			    
     <t>
      In addition, it does not support 64-bit counters.</t> 
@@ -116,7 +128,7 @@
      It does not support counters per traffic class.</t>
 
     <t>
-     It also does not identify the Block Number of the direct measurement, which is  
+     It also does not identify the block number of the direct measurement, which is  
      required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.
      This is useful in case of out-of-order data packets.</t>
 
@@ -162,7 +174,8 @@
    transmits direct measurement test packets over UDP transport
    toward the STAMP Session-Reflector R3.  The STAMP Session-Reflector R3
    receives the Session-Sender's test packet and acts according to the
-   configuration. The Session-Reflector R3 sends reply test packet to the Session-Sender R1.</t> 
+   configuration. The Session-Reflector R3 sends 
+   reply test packet to the Session-Sender R1.</t> 
 
     <figure><artwork><![CDATA[
                        C1                C2
@@ -182,21 +195,23 @@
     </figure>
 
     </section>
-    <section title="UDP Port Number For Direct Measurement" anchor="sect-2.4"><t>
+  </section>
+
+    <section title="Overview" anchor="sect-3"><t>
    The direct measurement test packets carry user-configured destination UDP port. The UDP port 
-   862 is not used for the direct measurement test packets defined in this document. The user-configured
+   862 is not used for the direct measurement test packets 
+   defined in this document. The user-configured
    destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
    Different destination UDP port is used for
    direct measurement than the STAMP test packets defined in <xref target="RFC8762"/>.
    The test packets do not require backwards
    compatibility and support for the existing STAMP test packets defined in
-   <xref target="RFC8762"/> as different destination UDP port is used.  </t>
-
+   <xref target="RFC8762"/> as different destination UDP port is used.</t>
+  
     </section>
-    </section>
 
 
-    <section title="Direct Measurement Test Packet" anchor="sect-3">
+    <section title="Direct Measurement Test Packet" anchor="sect-4">
    <t>In this document, session-sender test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. 
    They are stand-alone test packet formats to carry counters for the data traffic 
@@ -291,20 +306,22 @@
    </t>
 
     <t>
-   DSCP (6-bit): DSCP of the traffic being measured when T flag is set.</t>
+   DSCP (6-bit): DSCP of the data traffic being measured when T flag is set.</t>
 
     <t>
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
-   method defined in <xref target="RFC8321"/> requires to collect Block Number for the data traffic.  To
+   method defined in <xref target="RFC8321"/> requires to 
+   collect Block Number for the data traffic.  To
    be able to correlate the transmit and receive traffic counters of the
-   matching block number, the Block Number of the traffic counters
+   matching block number, the block number of the traffic counters
    is carried by the test packet and reply test packet for direct measurement.</t>
 
     <t>
    SSID (16-bit): As defined in <xref target="RFC8972"/>.</t>
 
    <t>
-   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP session-sender test packet <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP 
+   session-sender test packet <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>
@@ -337,9 +354,9 @@
 
     </section>
 
-    <section title="Session-Reflector Direct Measurement Test Packet" anchor="sect-4">
-        <t>In this document, session-reflector test packet formats for direct measurement are defined 
-   as shown in Figure 3 and Figure 4.</t>
+    <section title="Session-Reflector Direct Measurement Test Packet" anchor="sect-5">
+        <t>In this document, session-reflector test packet formats 
+         for direct measurement are defined as shown in Figure 3 and Figure 4.</t>
 
     <figure title="Session-Reflector Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -419,13 +436,14 @@
 
     <t>
    The session-reflector writes the transmit counter at the same location in the
-   reply test packet as the session-sender test packet. This is an important property for hardware-based implementation. 
+   reply test packet as the session-sender test packet. 
+   This is an important property for hardware-based implementation. 
    </t>
 
     <t>
    Receive Counter (64-bit): The number of packets or octets received at
    the session-reflector.  It is written by the session-reflector in the reply test packet.
-   Counter is for the traffic flow under measurement.</t>
+   Counter is for the data traffic flow under measurement.</t>
 
     <t>
    Sender Counter (64-bit): This is the exact copy of the transmit
@@ -440,7 +458,7 @@
 
         </section>
 
-    <section title="Data Packet Loss Calculation" anchor="sect-5"><t>
+    <section title="Data Packet Loss Calculation" anchor="sect-6"><t>
    Using the Counters C1, C2, C3 and C4 as per reference topology, 
    from the nth and (n-1)th direct measurement test packets.</t>
 
@@ -455,7 +473,7 @@
 
         </section>
 
-    <section title="Security Considerations" anchor="sect-6"><t>
+    <section title="Security Considerations" anchor="sect-7"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
@@ -472,7 +490,8 @@
 
     <t>
    Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets. Cryptographic measures may be enhanced by the correct configuration
+   integrity of the test packets. Cryptographic measures may 
+   be enhanced by the correct configuration
    of access-control lists and firewalls.</t>
 
    <t>The security considerations specified in <xref target="RFC8762"/>
@@ -499,7 +518,8 @@
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan Mishra, 
    Zhenqiang Li, Reshad Rahman, Cheng Li, 
    and Yali Wang for the comments on direct measurement. 
-   The authors would like to acknowledge the earlier work on the loss measurement using TWAMP
+   The authors would like to acknowledge the earlier 
+   work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>
 
     </section>
