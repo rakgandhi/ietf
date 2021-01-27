@@ -133,6 +133,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    networks using test packets [RFC8762].  It eliminates the need for
    control protocol by using configuration data model to provision test
    sessions.  [RFC8972] defines optional extensions for STAMP.
+   [I-D.gandhi-ippm-stamp-srpm] defines STAMP extensions for segment
+   routing.
 
    This document describes procedures for Performance Measurement (PM)
    in SR networks using the mechanisms defined in STAMP [RFC8762] and
@@ -160,8 +162,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    ECMP: Equal Cost Multi-Path.
 
-   HMAC: Hashed Message Authentication Code.
-
 
 
 
@@ -169,6 +169,8 @@ Gandhi, et al.            Expires July 30, 2021                 [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   HMAC: Hashed Message Authentication Code.
 
    MPLS: Multiprotocol Label Switching.
 
@@ -219,8 +221,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
 
-
-
 Gandhi, et al.            Expires July 30, 2021                 [Page 4]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
@@ -254,13 +254,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    A destination UDP port number is selected as described in [RFC8762].
    The same destination UDP port is used for links and end-to-end SR
-   paths.
+   paths STAMP sessions.
 
 3.1.  Example Provisioning Model
 
    An example of a provisioning model and typical measurement parameters
-   for a user-configured destination UDP port for delay measurement is
-   shown in the following Figure 1:
+   for a user-configured destination UDP port for STAMP session is shown
+   in the following Figure 1:
 
 
 
@@ -307,9 +307,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    of synthetic loss type is stateful and stateless [RFC8762].
 
    The YANG data model defined in [I-D.ietf-ippm-stamp-yang] can be used
-   to provision the STAMP session-sender and session-reflector.  The
-   provisioning model is not meant for signaling the PM parameters
-   between the session-sender and session-reflector in SR networks.
+   to provision the STAMP session-sender and session-reflector.  Note
+   that the provisioning model is not intended for signaling the SR
+   parameters between the session-sender and session-reflector.
 
    The session-reflector R3 uses the parameters for the timestamp format
    and delay measurement mode (e.g. one-way delay or two-way delay mode)
@@ -323,8 +323,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.1.  Session-Sender Test Packet
 
-   The STAMP test packet content using UDP header [RFC0768] is shown in
-   Figure 2.  The payload contains the session-sender test packet
+   The STAMP test packet content using the UDP header [RFC0768] is shown
+   in Figure 2.  The payload contains the session-sender test packet
    defined in [RFC8762].
 
 
@@ -533,9 +533,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).
 
    The session-sender address may not be reachable via IP route from the
-   session-reflector.  The session-sender in this case needs to send its
-   reachability path information to the session-reflector using Return
-   Path TLV defined in [I-D.gandhi-ippm-stamp-srpm].
+   session-reflector.  The session-sender in this case can send its
+   reachability path information to the session-reflector using the
+   Return Path TLV defined in [I-D.gandhi-ippm-stamp-srpm].
 
 4.2.2.  Two-way Delay Measurement Mode
 
@@ -548,10 +548,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    delay as ((T4 - T1) - (T3 - T2)).
 
    For two-way delay measurement mode for links, the reply test packet
-   is sent back on the same incoming physical interface where the test
-   packet is received.  For this purpose, the Control Code is set to
-   "In-band Response Requested" [I-D.gandhi-ippm-stamp-srpm] in the
-   Session-Sender test packet.
+   is sent back on the same physical interface in-band where the test
+   packet is received.  For this reason, the Control Code is set to "In-
+   band Response Requested" [I-D.gandhi-ippm-stamp-srpm] in the Session-
+   Sender test packets for links.
 
 
 
@@ -563,10 +563,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
    For two-way delay measurement mode for SR Policy, the session-
-   reflector needs to send the reply test packet on a specific reverse
-   path.  The session-sender node can request in the test packet to the
-   session-reflector to send the reply test packet back on a given
-   reverse path using Return Path TLV defined in
+   reflector needs to send the reply test packet in-band on a specific
+   reverse path.  The session-sender node can request in the test packet
+   to the session-reflector to send the reply test packet back on a
+   given reverse path using Return Path TLV defined in
    [I-D.gandhi-ippm-stamp-srpm].
 
 4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policy

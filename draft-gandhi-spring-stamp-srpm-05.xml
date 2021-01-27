@@ -115,7 +115,8 @@
    metrics in IP networks using test packets <xref target="RFC8762"/>. 
    It eliminates the need for control protocol by using
    configuration data model to provision test sessions. 
-   <xref target="RFC8972"/> defines optional extensions for STAMP.</t>
+   <xref target="RFC8972"/> defines optional extensions for STAMP.
+   <xref target="I-D.gandhi-ippm-stamp-srpm"/> defines STAMP extensions for segment routing.</t>
 
    <t>This document describes procedures  
    for Performance Measurement (PM) in SR networks using the 
@@ -245,12 +246,12 @@
 
    <t>A destination UDP port number is selected as described in
    <xref target="RFC8762"/>.  The same destination UDP 
-   port is used for links and end-to-end SR paths.</t>
+   port is used for links and end-to-end SR paths STAMP sessions.</t>
 
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for a 
    user-configured destination UDP port 
-   for delay measurement is shown in the following Figure 1:</t>
+   for STAMP session is shown in the following Figure 1:</t>
 
    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
@@ -280,8 +281,8 @@
 
     <t>The YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
     can be used to provision the STAMP session-sender and session-reflector. 
-    The provisioning model is not meant for signaling the PM parameters between the 
-    session-sender and session-reflector in SR networks.</t>
+    Note that the provisioning model is not intended for signaling the SR parameters between the 
+    session-sender and session-reflector.</t>
 
     <t>The session-reflector R3 uses the parameters for the timestamp format and
     delay measurement mode (e.g. one-way delay or two-way delay mode)
@@ -298,7 +299,7 @@
    <section title="Delay Measurement for Links and SR Paths" anchor="sect-4">
 
    <section title="Session-Sender Test Packet" anchor="sect-4.1"><t>
-   The STAMP test packet content using
+   The STAMP test packet content using the 
    UDP header <xref target="RFC0768"/> is shown in Figure 2. 
    The payload contains the session-sender test packet defined in <xref target="RFC8762"/>.</t> 
 
@@ -328,8 +329,7 @@
    in segment routing networks is desired.</t>
 
    <section title="Session-Sender Test Packet for Links" anchor="sect-4.1.1"><t>
-   The STAMP test packet as shown in Figure 2 
-   is sent over the link for delay measurement.
+   The STAMP test packet as shown in Figure 2 is sent over the link for delay measurement.
    The local and remote IP addresses of the link are used as Source and Destination Addresses.</t>
 
     </section>
@@ -453,8 +453,8 @@
 
    <t>The session-sender address may not
    be reachable via IP route from the session-reflector.  The session-sender
-   in this case needs to send its reachability path information to the
-   session-reflector using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+   in this case can send its reachability path information to the
+   session-reflector using the Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
     </section>
 
@@ -468,13 +468,13 @@
    All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
    <t>For two-way delay measurement mode for links, the reply test packet is sent back on 
-   the same incoming physical interface where the test packet is received.
-   For this purpose, the Control Code is 
+   the same physical interface in-band where the test packet is received.
+   For this reason, the Control Code is 
    set to "In-band Response Requested" <xref target="I-D.gandhi-ippm-stamp-srpm"/> in 
-   the Session-Sender test packet.</t>
+   the Session-Sender test packets for links.</t>
 
    <t>For two-way delay measurement mode for SR Policy, the session-reflector needs to send
-   the reply test packet on a specific reverse path.  The session-sender
+   the reply test packet in-band on a specific reverse path.  The session-sender
    node can request in the test packet to the session-reflector to
    send the reply test packet back on a given reverse path 
    using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
@@ -564,8 +564,8 @@
    received test packets are not punted at the session-reflector and it does
    not process them and generate reply test packets.
    In this mode, as the test packet is not punted on the session-reflector for processing,
-   the session-sender copies the 'Sequence Number' in 'Session-Sender Sequence Number' directly before sending the test packet.
-   In this mode, as per Reference Topology,
+   the session-sender copies the 'Sequence Number' in 'Session-Sender Sequence Number' 
+   directly before sending the test packet.  In this mode, as per Reference Topology,
    the timestamps T1 and T4 are collected by the test packets.
    Both these timestamps are used to measure round-trip delay as (T4 - T1).</t>
      </section>
@@ -650,7 +650,8 @@
    <t>When using the Destination IPv6 Address of loopback address ::1/128, 
    the Hop Limit field in the IPv6 header is set to 1.</t>
 
-   <t>For link delay, the Hop Limit field in the test packet is set to 1 in one-way and two-way delay measurement modes.</t>
+   <t>For link delay, the Hop Limit field in the test packet is set to 
+   1 in one-way and two-way delay measurement modes.</t>
 
    </section>
 
