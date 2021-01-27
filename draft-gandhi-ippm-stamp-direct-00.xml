@@ -314,8 +314,8 @@
 
     <t><list hangIndent="4" style="hanging"><t>
        0x1: In-band Reply Requested.  Indicates that this test packet has
-       been sent over a bidirectional path and the reply is requested
-       in-band over the same path in the reverse direction.</t> 
+       been sent over a bidirectional channel and the reply is requested
+       in-band over the same interface in the reverse direction.</t> 
     </list>
     </t>
 
