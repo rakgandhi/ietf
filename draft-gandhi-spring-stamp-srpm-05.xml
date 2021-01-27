@@ -232,16 +232,19 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For delay measurement in segment routing networks, 
-   the STAMP test packets defined in <xref target="RFC8762"/> are used as 
+   For performance measurement in segment routing networks, 
+   the STAMP test packets defined in <xref target="RFC8762"/> 
+   and its optional extensions defined in <xref target="RFC8972"/> 
+   and <xref target="I-D.gandhi-ippm-stamp-srpm"/> are used as 
    described in this document.</t> 
    
-   <t>For delay measurement, STAMP test packets are sent on the
-   same path (in-band) as the the customer data traffic by the session-sender 
-   to measure the delay experienced by it.</t>
+   <t>For performance delay and test packet loss measurement, 
+   STAMP test packets are sent on the
+   same path in-band as the customer data traffic by the session-sender 
+   to measure the delay and packet loss experienced by the customer data traffic.</t>
 
    <t>A destination UDP port number is selected as described in
-   <xref target="RFC8762"/>. The same destination UDP 
+   <xref target="RFC8762"/>.  The same destination UDP 
    port is used for links and end-to-end SR paths.</t>
 
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
@@ -508,7 +511,7 @@
 
    <section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
    The packet content for sending reply test packet on the
-   same path (in-band) as the data traffic for two-way delay 
+   same path in-band as the data traffic for two-way delay 
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 7.
    The procedure defined for upper-layer header processing for SRv6 SIDs
    in <xref target="I-D.ietf-spring-srv6-network-programming"/>
@@ -532,7 +535,7 @@
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
- .  Source Port = As chosen by Session-Sender                    .
+ .  Source Port = As chosen by Session-Reflector                 .
  .  Destination Port = Source Port from Test Packet              .
  .                                                               .
  +---------------------------------------------------------------+
@@ -621,7 +624,7 @@
    the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
-   <t>The considerations for two-way delay measuremewnt mode for 
+   <t>The considerations for two-way delay measurement mode for 
    P2MP SR Policy (e.g. for bidirectional SR path) are outside the scope of this document.</t>
 
     </section>
@@ -684,12 +687,12 @@
 
    </section>
 
-   <section title="Syntheic Loss Measurement" anchor="sect-6"><t>
+   <section title="Synthetic Loss Measurement" anchor="sect-6"><t>
    Synthetic packet loss measurement is applicable for connectivity verification and continuity check in an SR network.
    The procedure defined in this document for delay measurement using STAMP 
    can also be applied for synthetic packet loss measurement for links and end-to-end SR paths.
    The procedure uses sequence number in the STAMP test packets as 
-   described in Section 4 "Thoery of Operation" of <xref target="RFC8762"/>.</t>
+   described in Section 4 "Theory of Operation" of <xref target="RFC8762"/>.</t>
    </section>
 
    <section title="Liveness and Connectivity Loss Monitoring" anchor="sect-8"><t>
@@ -718,7 +721,7 @@
 
    <t>Note that the existing "Direct Measurement" TLV (Type 5) 
    <xref target="RFC8972"/> does not
-   support 64-bit counters, byte counters and couters per traffic class. 
+   support 64-bit counters, byte counters and counters per traffic class. 
    In addition, it does not support out-of-ordering of data packets,
    as block number for the counters is not carried.</t>
    </section>
@@ -793,12 +796,10 @@
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Thierry Couture for the discussions
    on the use-cases for Performance Measurement in segment routing.  The authors
-   would also like to thank Greg Mirsky, Gyan Mishra, Xie Jingrong, and Mike Koldychev for reviewing this document and
+   would also like to thank Greg Mirsky, Gyan Mishra, Xie Jingrong, 
+   and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu, both from Cisco Systems have helped significantly improve
-   the mechanisms defined in this document.  The authors
-   would also like to thank Sam Aldrin for the discussions to check for
-   broken path.</t>
+   Valceanu have helped improve the mechanisms defined in this document.</t>
 
     </section>
 

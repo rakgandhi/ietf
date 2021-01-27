@@ -243,12 +243,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 3.  Overview
 
    For performance measurement in segment routing networks, the STAMP
-   test packets defined in [RFC8762] are used as described in this
-   document.
+   test packets defined in [RFC8762] and its optional extensions defined
+   in [RFC8972] and [I-D.gandhi-ippm-stamp-srpm] are used as described
+   in this document.
 
-   For performance measurement, STAMP test packets are sent on the same
-   path (in-band) as the customer data traffic by the session-sender to
-   measure the delay experienced by it.
+   For performance delay and test packet loss measurement, STAMP test
+   packets are sent on the same path in-band as the customer data
+   traffic by the session-sender to measure the delay and packet loss
+   experienced by the customer data traffic.
 
    A destination UDP port number is selected as described in [RFC8762].
    The same destination UDP port is used for links and end-to-end SR
@@ -259,8 +261,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    An example of a provisioning model and typical measurement parameters
    for a user-configured destination UDP port for delay measurement is
    shown in the following Figure 1:
-
-
 
 
 
@@ -599,10 +599,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.2.2.2.  Session-Reflector Test Packet for SRv6 Policy
 
-   The packet content for sending reply test packet on the same path
-   (in-band) as the data traffic for two-way delay measurement of an
-   end-to-end SRv6 Policy with SRH is shown in Figure 7.  The procedure
-   defined for upper-layer header processing for SRv6 SIDs in
+   The packet content for sending reply test packet on the same path in-
+   band as the data traffic for two-way delay measurement of an end-to-
+   end SRv6 Policy with SRH is shown in Figure 7.  The procedure defined
+   for upper-layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
    header in the received reply test packets.
 
@@ -635,7 +635,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .                                                               .
     +---------------------------------------------------------------+
     | UDP Header                                                    |
-    .  Source Port = As chosen by Session-Sender                    .
+    .  Source Port = As chosen by Session-Reflector                 .
     .  Destination Port = Source Port from Test Packet              .
     .                                                               .
     +---------------------------------------------------------------+
