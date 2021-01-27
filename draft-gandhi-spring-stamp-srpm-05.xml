@@ -31,6 +31,7 @@
 <!ENTITY I-D.ietf-ippm-stamp-yang SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-stamp-yang.xml">
 <!ENTITY I-D.ali-spring-ioam-srv6 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ali-spring-ioam-srv6.xml">
 <!ENTITY I-D.ietf-pce-sr-bidir-path SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-pce-sr-bidir-path.xml">
+<!ENTITY I-D.ietf-spring-srv6-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-srv6-path-segment.xml">
 <!ENTITY I-D.gandhi-spring-sr-enhanced-plm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-spring-sr-enhanced-plm.xml">
 <!ENTITY I-D.gandhi-ippm-stamp-srpm SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.gandhi-ippm-stamp-srpm.xml">
 ]>
@@ -101,7 +102,7 @@
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching
-   (SR-MPLS) and IPv6 (SRv6) data planes.  SR takes advantage of the
+   (SR-MPLS) and IPv6 (SRv6) data planes <xref target="RFC8402"/>.  SR takes advantage of the
    Equal-Cost Multipaths (ECMPs) between source and transit nodes,
    between transit nodes and between transit and destination nodes.  SR
    Policies as defined in <xref target="I-D.ietf-spring-segment-routing-policy"/> are used
@@ -204,10 +205,11 @@
    on the same path in the reverse direction or a different path.</t>  
 
    <t>SR is enabled on nodes R1 and R3. The nodes R1 and R3 may be
-   directly connected via a link or there
-   exists a Point-to-Point (P2P) SR path e.g. SR Policy
-   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 (called head-end)
-   with destination to node R3 (called tail-end).</t>
+   connected via a link or there exists an SR path <xref target="RFC8402"/>.  
+   The link may be a physical interface, virtual link, 
+   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link. 
+   The SR path can be an SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/> 
+   on node R1 (called head-end) with destination to node R3 (called tail-end).</t>
 
    <figure><artwork><![CDATA[
                        T1                T2
@@ -230,17 +232,17 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For delay measurement in segment routing networks, in this document,
-   the STAMP test packets defined in <xref target="RFC8762"/> are used.</t> 
+   For delay measurement in segment routing networks, 
+   the STAMP test packets defined in <xref target="RFC8762"/> are used as 
+   described in this document.</t> 
    
-   <t>A destination UDP port number is selected as described in
-   <xref target="RFC8762"/>. The same destination UDP 
-   port is used for links and end-to-end SR paths and the session-reflector is 
-   unaware if the received STAMP test packet is for the links or end-to-end SR paths.</t>
-
    <t>For delay measurement, STAMP test packets are sent on the
    same path (in-band) as the the customer data traffic by the session-sender 
    to measure the delay experienced by it.</t>
+
+   <t>A destination UDP port number is selected as described in
+   <xref target="RFC8762"/>. The same destination UDP 
+   port is used for links and end-to-end SR paths.</t>
 
     <section title="Example Provisioning Model" anchor="sect-3.1"><t>
    An example of a provisioning model and typical measurement parameters for a 
@@ -281,15 +283,19 @@
     <t>The session-reflector R3 uses the parameters for the timestamp format and
     delay measurement mode (e.g. one-way delay or two-way delay mode)
     from the received STAMP test packet.</t>
+
+    <t>When using the authenticated mode for delay measurement, the matching
+    authentication type (e.g. HMAC-SHA-256) and key are user-configured
+    on both the STAMP session-sender and session-reflector <xref target="RFC8762"/>.</t>
+
     </section>
 
     </section>
 
    <section title="Delay Measurement for Links and SR Paths" anchor="sect-4">
+
    <section title="Session-Sender Test Packet" anchor="sect-4.1"><t>
-   The STAMP test packets defined in <xref target="RFC8762"/> are used
-   for delay measurement for links and end-to-end SR paths including SR 
-   Policies. The packet content for STAMP test packet using
+   The STAMP test packet content using
    UDP header <xref target="RFC0768"/> is shown in Figure 2. 
    The payload contains the session-sender test packet defined in <xref target="RFC8762"/>.</t> 
 
@@ -303,7 +309,7 @@
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Sender                    .
- .  Destination Port = User-configured Port                      .
+ .  Destination Port = User-configured Port | 862                .
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -318,15 +324,11 @@
    <xref target="IEEE1588"/> as specified in <xref target="RFC8186"/>, with hardware support
    in segment routing networks is desired.</t>
 
-   <t>When using the authenticated mode for delay measurement, the matching
-   authentication type (e.g. HMAC-SHA-256) and key are user-configured
-   on both the STAMP session-sender and session-reflector <xref target="RFC8762"/>.</t>
-
-   <section title="Session-Sender Test Packet for links" anchor="sect-4.1.1"><t>
+   <section title="Session-Sender Test Packet for Links" anchor="sect-4.1.1"><t>
    The STAMP test packet as shown in Figure 2 
-   are sent over the link for delay measurement which may be physical, virtual 
-   or LAG (bundle) or LAG (bundle) member link. 
+   is sent over the link for delay measurement.
    The local and remote IP addresses of the link are used as Source and Destination Addresses.</t>
+
     </section>
 
    <section title="Session-Sender Test Packet for SR Policy" anchor="sect-4.1.2"><t>
@@ -343,7 +345,7 @@
     <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
    The test packets for delay measurement of an
    end-to-end SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
-   segment list as shown in Figure 3.</t>
+   Segment List as shown in Figure 3.</t>
 
     <figure title="Example Session-Sender Test Packet for SR-MPLS Policy" anchor="ure-test-packet-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -368,7 +370,7 @@
    case for a single-hop SR Policy.</t>
 
    <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
-   the SR-MPLS Policy can be used as shown in Figure 3.</t>
+   the SR-MPLS Policy can be added in the MPLS header as shown in Figure 3.</t>
 
     </section>
 
@@ -379,7 +381,8 @@
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The test packets for delay measurement of an end-to-end 
    SRv6 Policy is sent using its SRH with Segment List as shown in Figure 4.
-   The procedure defined for upper-layer header processing for SRv6 SIDs in <xref target="I-D.ietf-spring-srv6-network-programming"/>
+   The procedure defined for upper-layer header processing for SRv6 SIDs 
+   in <xref target="I-D.ietf-spring-srv6-network-programming"/>
    is used to process the UDP header in the received test packets.</t>
 
     <figure title="Example Session-Sender Test Packet for SRv6 Policy" anchor="ure-test-packet-for-srv6-policy"><artwork><![CDATA[
@@ -396,11 +399,12 @@
  | IP Header                                                     |
  .  Source IP Address = Session-Sender IPv6 Address              .
  .  Destination IP Address = Session-Reflector IPv6 Address      .
+ .  Protocol = UDP                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Sender                    .
- .  Destination Port = User-configured Port                      .
+ .  Destination Port = User-configured Port | 862                .
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -452,11 +456,11 @@
     </section>
 
    <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
-   In two-way delay measurement mode, when using a bidirectional
-   path, a reply test packet as defined in Figure 5 is sent back
-   to the session-sender on the same path (in-band) as the data traffic on the
-   same reverse direction link or associated reverse SR path
-   <xref target="I-D.ietf-pce-sr-bidir-path"/>.    In this mode, as per Reference Topology, 
+   In two-way delay measurement mode, 
+   a reply test packet as defined in Figure 5 is sent back
+   to the session-sender on the same path in-band as the data traffic on the
+   reverse direction link or associated reverse SR path
+   <xref target="I-D.ietf-pce-sr-bidir-path"/>.  In this mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
@@ -495,7 +499,7 @@
 ]]></artwork>
     </figure>
     <t>
-   The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
+   The SR-MPLS Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
    the forward SR Policy in the test packet can be used to find the
    associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to send the 
    reply test packet for a bidirectional SR Policy.</t>
@@ -524,19 +528,25 @@
  | IP Header (as needed)                                         |
  .  Source IP Address = Session-Reflector IPv6 Address           .
  .  Destination IP Address = Source IPv6 Address from Test Packet.
+ .  Protocol = UDP                                               .
  .                                                               .
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Sender                    .
- .  Destination Port = User-configured Port                      .
+ .  Destination Port = Source Port from Test Packet              .
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Test Packet as specified in Section 4.3 of RFC 8762 |
  .                                                               .
  +---------------------------------------------------------------+
- 
+
 ]]></artwork>
     </figure>
+   <t>
+   The SRv6 Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-srv6-path-segment"/> of
+   the forward SR Policy in the test packet can be used to find the
+   associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to send the 
+   reply test packet for a bidirectional SR Policy.</t>
 
     </section>
     </section>
@@ -691,19 +701,23 @@
 
    <t>Note that for one-way and two-way delay measurement modes, the connectivity loss detection 
    interval and scale for number of STAMP test sessions need to account for 
-   the processing of the STAMP test packets on the session-reflector which need to be punted from the forwarding fast path
+   the processing of the STAMP test packets on the session-reflector 
+   which need to be punted from the forwarding fast path
    (to slow path or control plane) and reply test packets need to be injected.
-   The scale is improved by using the STAMP test packets in loopback mode as described in Section 4.2.3.</t>
+   The scale is improved by using the STAMP test packets in 
+   loopback mode as described in Section 4.2.3.</t>
    </section>
 
    <section title="Direct Measurement" anchor="sect-7"><t>
    Direct measurement is applicable to detect data packet loss in an SR network.
-   The "Direct Measurement" TLV (Type 5) is defined in <xref target="RFC8972"/> 
-   for packet loss detection that can be used for links and end-to-end SR paths. 
-   The Path Segment ID (PSID) is used to count the receive data packets 
-   on the session-reflector node for end-to-end SR path.</t>
+   The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
+   can be used for links and end-to-end SR paths packet loss detection. 
+   The Path Segment ID (PSID) from the received data packet 
+   is used to count the receive data packets 
+   on the session-reflector node in case of end-to-end SR path.</t>
 
-   <t>Note that the existing "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> does not
+   <t>Note that the existing "Direct Measurement" TLV (Type 5) 
+   <xref target="RFC8972"/> does not
    support 64-bit counters, byte counters and couters per traffic class. 
    In addition, it does not support out-of-ordering of data packets,
    as block number for the counters is not carried.</t>
@@ -771,6 +785,7 @@
     &I-D.shen-spring-p2mp-transport-chain;
     &I-D.ietf-pim-sr-p2mp-policy;
     &I-D.ietf-spring-mpls-path-segment;
+    &I-D.ietf-spring-srv6-path-segment;
     &I-D.ietf-spring-srv6-network-programming;
     &I-D.ietf-ippm-stamp-yang;
     &I-D.ietf-pce-sr-bidir-path;
