@@ -96,7 +96,7 @@ Table of Contents
        4.4.2.  Hop Limit . . . . . . . . . . . . . . . . . . . . . .  14
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
    5.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
-   6.  Syntheic Loss Measurement . . . . . . . . . . . . . . . . . .  15
+   6.  Synthetic Loss Measurement  . . . . . . . . . . . . . . . . .  15
    7.  Liveness and Connectivity Loss Monitoring . . . . . . . . . .  15
    8.  Direct Measurement  . . . . . . . . . . . . . . . . . . . . .  16
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
@@ -242,11 +242,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 3.  Overview
 
-   For delay measurement in segment routing networks, the STAMP test
-   packets defined in [RFC8762] are used as described in this document.
+   For performance measurement in segment routing networks, the STAMP
+   test packets defined in [RFC8762] are used as described in this
+   document.
 
-   For delay measurement, STAMP test packets are sent on the same path
-   (in-band) as the the customer data traffic by the session-sender to
+   For performance measurement, STAMP test packets are sent on the same
+   path (in-band) as the customer data traffic by the session-sender to
    measure the delay experienced by it.
 
    A destination UDP port number is selected as described in [RFC8762].
@@ -258,7 +259,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    An example of a provisioning model and typical measurement parameters
    for a user-configured destination UDP port for delay measurement is
    shown in the following Figure 1:
-
 
 
 
@@ -750,7 +750,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    Transport using Chain Replication that may contain Bud SID as defined
    in [I-D.shen-spring-p2mp-transport-chain].
 
-   The considerations for two-way delay measuremewnt mode for P2MP SR
+   The considerations for two-way delay measurement mode for P2MP SR
    Policy (e.g. for bidirectional SR path) are outside the scope of this
    document.
 
@@ -817,14 +817,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    packet if it is not the intended destination node in the Destination
    Node Address TLV [I-D.gandhi-ippm-stamp-srpm].
 
-6.  Syntheic Loss Measurement
+6.  Synthetic Loss Measurement
 
    Synthetic packet loss measurement is applicable for connectivity
    verification and continuity check in an SR network.  The procedure
    defined in this document for delay measurement using STAMP can also
    be applied for synthetic packet loss measurement for links and end-
    to-end SR paths.  The procedure uses sequence number in the STAMP
-   test packets as described in Section 4 "Thoery of Operation" of
+   test packets as described in Section 4 "Theory of Operation" of
    [RFC8762].
 
 7.  Liveness and Connectivity Loss Monitoring
@@ -863,7 +863,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    of end-to-end SR path.
 
    Note that the existing "Direct Measurement" TLV (Type 5) [RFC8972]
-   does not support 64-bit counters, byte counters and couters per
+   does not support 64-bit counters, byte counters and counters per
    traffic class.  In addition, it does not support out-of-ordering of
    data packets, as block number for the counters is not carried.
 
@@ -1053,9 +1053,9 @@ Acknowledgments
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu, both from Cisco Systems have helped significantly improve
-   the mechanisms defined in this document.  The authors would also like
-   to thank Sam Aldrin for the discussions to check for broken path.
+   Valceanu have helped improve the mechanisms defined in this document.
+
+
 
 
 
