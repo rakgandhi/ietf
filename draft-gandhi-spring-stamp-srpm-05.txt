@@ -93,18 +93,18 @@ Table of Contents
      4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  13
      4.4.  Additional Test Packet Processing Rules . . . . . . . . .  14
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
-       4.4.2.  Hop Limit . . . . . . . . . . . . . . . . . . . . . .  14
+       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  14
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
    5.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
    6.  Synthetic Loss Measurement  . . . . . . . . . . . . . . . . .  15
-   7.  Liveness and Connectivity Loss Monitoring . . . . . . . . . .  15
+   7.  Liveness and Connectivity Loss Monitoring . . . . . . . . . .  16
    8.  Direct Measurement  . . . . . . . . . . . . . . . . . . . . .  16
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 
@@ -762,8 +762,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.4.1.  TTL
 
-   The TTL field in the IPv4 and MPLS headers of the test packets is set
-   to 255, except in the following cases.
+   The TTL field in the IPv4 and MPLS headers of the session-sender and
+   session-reflector test packets is set to 255, except in the following
+   cases.
 
    When using the Destination IPv4 Address from range 127/8, the TTL
    field in the IPv4 header is set to 1.
@@ -771,13 +772,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    For link delay, the TTL field in the test packet is set to 1 in one-
    way and two-way delay measurement modes.
 
-4.4.2.  Hop Limit
+4.4.2.  IPv6 Hop Limit
 
-   The Hop Limit field in the IPv6 and SRH headers of the test packets
-   is set to 255, except in the following cases.
+   The Hop Limit field in the IPv6 and SRH headers of the session-sender
+   and session-reflector test packets is set to 255, except in the
+   following cases.
 
-   When using the Destination IPv6 Address of loopback address ::1/128,
-   the Hop Limit field in the IPv6 header is set to 1.
 
 
 
@@ -785,6 +785,9 @@ Gandhi, et al.            Expires July 30, 2021                [Page 14]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   When using the Destination IPv6 Address of loopback address ::1/128,
+   the Hop Limit field in the IPv6 header is set to 1.
 
    For link delay, the Hop Limit field in the test packet is set to 1 in
    one-way and two-way delay measurement modes.
@@ -828,12 +831,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    test packets as described in Section 4 "Theory of Operation" of
    [RFC8762].
 
-7.  Liveness and Connectivity Loss Monitoring
 
-   Liveness monitoring is applicable for connectivity verification and
-   continuity check in an SR network.  The procedure defined in this
-   document for delay measurement using STAMP can also be applied to
-   report the connectivity loss metric for links and end-to-end SR
+
+
 
 
 
@@ -842,6 +842,12 @@ Gandhi, et al.            Expires July 30, 2021                [Page 15]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
+7.  Liveness and Connectivity Loss Monitoring
+
+   Liveness monitoring is applicable for connectivity verification and
+   continuity check in an SR network.  The procedure defined in this
+   document for delay measurement using STAMP can also be applied to
+   report the connectivity loss metric for links and end-to-end SR
    paths.  Connectivity loss is notified when consecutive N number of
    reply test packets are not received back at the session-sender, where
    N is locally provisioned value.
@@ -883,12 +889,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    disruption that can be caused by a corrupt or invalid packet to a
    single test cycle.
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  SRv6 has HMAC protection
-   authentication defined for SRH [RFC8754].  Hence, test packets for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
 
 
 
@@ -897,6 +897,13 @@ Gandhi, et al.            Expires July 30, 2021                [Page 16]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  SRv6 has HMAC protection
+   authentication defined for SRH [RFC8754].  Hence, test packets for
+   SRv6 may not need authentication mode.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
 
 10.  IANA Considerations
 
@@ -936,6 +943,17 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
 
+
+
+
+
+
+
+Gandhi, et al.            Expires July 30, 2021                [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
 11.2.  Informative References
 
    [IEEE1588]
@@ -946,13 +964,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
-
-
-
-Gandhi, et al.            Expires July 30, 2021                [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
 
    [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
@@ -991,6 +1002,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
+
+
+
+Gandhi, et al.            Expires July 30, 2021                [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
@@ -1002,13 +1021,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Kamite, "Point-to-Multipoint Transport Using Chain
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-03 (work in progress), October 2020.
-
-
-
-Gandhi, et al.            Expires July 30, 2021                [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
 
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
@@ -1046,6 +1058,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
+
+
+
+Gandhi, et al.            Expires July 30, 2021                [Page 19]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -1054,17 +1074,6 @@ Acknowledgments
    Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu have helped improve the mechanisms defined in this document.
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 30, 2021                [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
 
 Authors' Addresses
 
@@ -1097,15 +1106,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
 
 
 
