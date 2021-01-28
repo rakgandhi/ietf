@@ -95,16 +95,16 @@ Table of Contents
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
        4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  14
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
-   5.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
-   6.  Synthetic Loss Measurement  . . . . . . . . . . . . . . . . .  15
-   7.  Liveness and Connectivity Loss Monitoring . . . . . . . . . .  16
-   8.  Direct Measurement  . . . . . . . . . . . . . . . . . . . . .  16
+   5.  Synthetic Loss Measurement for Links and SR Paths . . . . . .  15
+   6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  15
+   7.  Liveness and Connectivity Loss Monitoring . . . . . . . . . .  15
+   8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 
@@ -797,7 +797,57 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    The Router Alert IP option (RAO) [RFC2113] is not set in the test
    packets for links and end-to-end SR paths.
 
-5.  ECMP Support for SR Policies
+5.  Synthetic Loss Measurement for Links and SR Paths
+
+   Synthetic packet loss measurement is applicable for connectivity
+   verification and continuity check in an SR network.  The procedure
+   defined in this document for delay measurement using STAMP test
+   packets can also be applied for synthetic packet loss measurement for
+   links and end-to-end SR paths.  The procedure uses sequence number in
+   the STAMP test packets as described in Section 4 "Theory of
+   Operation" of [RFC8762].
+
+6.  Direct Measurement for Links and SR Paths
+
+   Direct measurement is applicable to detect data packet loss in an SR
+   network.  The "Direct Measurement" TLV (Type 5) defined in [RFC8972]
+   can be used for links and end-to-end SR paths packet loss detection.
+   The Path Segment ID (PSID) from the received data packet is used to
+   count the receive data packets on the session-reflector node in case
+   of end-to-end SR path.
+
+   Note that the existing "Direct Measurement" TLV (Type 5) [RFC8972]
+   does not support 64-bit counters, byte counters and counters per
+   traffic class.  In addition, it does not support out-of-ordering of
+   data packets, as block number for the counters is not carried.
+
+7.  Liveness and Connectivity Loss Monitoring
+
+   Liveness monitoring is applicable for connectivity verification and
+   continuity check in an SR network.  The procedure defined in this
+   document for delay measurement using STAMP test packets can also be
+   applied to report the connectivity loss metric for links and end-to-
+   end SR paths.  Connectivity loss is notified when consecutive N
+   number of reply test packets are not received back at the session-
+   sender, where N is locally provisioned value.
+
+   Note that for one-way and two-way delay measurement modes, the
+   connectivity loss detection interval and scale for number of STAMP
+   test sessions need to account for the processing of the STAMP test
+
+
+
+Gandhi, et al.            Expires July 30, 2021                [Page 15]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
+   packets on the session-reflector which need to be punted from the
+   forwarding fast path (to slow path or control plane) and reply test
+   packets need to be injected.  The scale is improved by using the
+   STAMP test packets in loopback mode as described in Section 4.2.3.
+
+8.  ECMP Support for SR Policies
 
    An SR Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.
@@ -821,59 +871,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    packet if it is not the intended destination node in the Destination
    Node Address TLV [I-D.gandhi-ippm-stamp-srpm].
 
-6.  Synthetic Loss Measurement
-
-   Synthetic packet loss measurement is applicable for connectivity
-   verification and continuity check in an SR network.  The procedure
-   defined in this document for delay measurement using STAMP test
-   packets can also be applied for synthetic packet loss measurement for
-   links and end-to-end SR paths.  The procedure uses sequence number in
-   the STAMP test packets as described in Section 4 "Theory of
-   Operation" of [RFC8762].
-
-
-
-
-
-
-
-Gandhi, et al.            Expires July 30, 2021                [Page 15]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
-7.  Liveness and Connectivity Loss Monitoring
-
-   Liveness monitoring is applicable for connectivity verification and
-   continuity check in an SR network.  The procedure defined in this
-   document for delay measurement using STAMP test packets can also be
-   applied to report the connectivity loss metric for links and end-to-
-   end SR paths.  Connectivity loss is notified when consecutive N
-   number of reply test packets are not received back at the session-
-   sender, where N is locally provisioned value.
-
-   Note that for one-way and two-way delay measurement modes, the
-   connectivity loss detection interval and scale for number of STAMP
-   test sessions need to account for the processing of the STAMP test
-   packets on the session-reflector which need to be punted from the
-   forwarding fast path (to slow path or control plane) and reply test
-   packets need to be injected.  The scale is improved by using the
-   STAMP test packets in loopback mode as described in Section 4.2.3.
-
-8.  Direct Measurement
-
-   Direct measurement is applicable to detect data packet loss in an SR
-   network.  The "Direct Measurement" TLV (Type 5) defined in [RFC8972]
-   can be used for links and end-to-end SR paths packet loss detection.
-   The Path Segment ID (PSID) from the received data packet is used to
-   count the receive data packets on the session-reflector node in case
-   of end-to-end SR path.
-
-   Note that the existing "Direct Measurement" TLV (Type 5) [RFC8972]
-   does not support 64-bit counters, byte counters and counters per
-   traffic class.  In addition, it does not support out-of-ordering of
-   data packets, as block number for the counters is not carried.
-
 9.  Security Considerations
 
    The performance measurement is intended for deployment in well-
@@ -889,7 +886,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    disruption that can be caused by a corrupt or invalid packet to a
    single test cycle.
 
-
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  SRv6 has HMAC protection
+   authentication defined for SRH [RFC8754].  Hence, test packets for
+   SRv6 may not need authentication mode.  Cryptographic measures may be
 
 
 
@@ -898,10 +898,6 @@ Gandhi, et al.            Expires July 30, 2021                [Page 16]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  SRv6 has HMAC protection
-   authentication defined for SRH [RFC8754].  Hence, test packets for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
@@ -943,8 +939,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
 
+11.2.  Informative References
 
-
+   [IEEE1588]
+              IEEE, "1588-2008 IEEE Standard for a Precision Clock
+              Synchronization Protocol for Networked Measurement and
+              Control Systems", March 2008.
 
 
 
@@ -953,13 +953,6 @@ Gandhi, et al.            Expires July 30, 2021                [Page 17]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
-
-11.2.  Informative References
-
-   [IEEE1588]
-              IEEE, "1588-2008 IEEE Standard for a Precision Clock
-              Synchronization Protocol for Networked Measurement and
-              Control Systems", March 2008.
 
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
@@ -1002,6 +995,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
+   [I-D.ietf-spring-sr-replication-segment]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "SR Replication Segment for Multi-point Service
+              Delivery", draft-ietf-spring-sr-replication-segment-02
+              (work in progress), October 2020.
+
+
 
 
 
@@ -1009,12 +1009,6 @@ Gandhi, et al.            Expires July 30, 2021                [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
-
-   [I-D.ietf-spring-sr-replication-segment]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-ietf-spring-sr-replication-segment-02
-              (work in progress), October 2020.
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -1058,6 +1052,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
+Acknowledgments
+
+   The authors would like to thank Thierry Couture for the discussions
+   on the use-cases for Performance Measurement in segment routing.  The
+   authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
+   Jingrong, and Mike Koldychev for reviewing this document and
 
 
 
@@ -1066,12 +1066,6 @@ Gandhi, et al.            Expires July 30, 2021                [Page 19]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
-Acknowledgments
-
-   The authors would like to thank Thierry Couture for the discussions
-   on the use-cases for Performance Measurement in segment routing.  The
-   authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
-   Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu have helped improve the mechanisms defined in this document.
 
@@ -1106,6 +1100,12 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
 
 
 

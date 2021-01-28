@@ -670,7 +670,46 @@
 
    </section>
 
-   <section title="ECMP Support for SR Policies" anchor="sect-5"><t>
+   <section title="Synthetic Loss Measurement for Links and SR Paths" anchor="sect-5"><t>
+   Synthetic packet loss measurement is applicable for connectivity verification and continuity check in an SR network.
+   The procedure defined in this document for delay measurement using STAMP test packets 
+   can also be applied for synthetic packet loss measurement for links and end-to-end SR paths.
+   The procedure uses sequence number in the STAMP test packets as 
+   described in Section 4 "Theory of Operation" of <xref target="RFC8762"/>.</t>
+   </section>
+
+   <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
+   Direct measurement is applicable to detect data packet loss in an SR network.
+   The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
+   can be used for links and end-to-end SR paths packet loss detection. 
+   The Path Segment ID (PSID) from the received data packet 
+   is used to count the receive data packets 
+   on the session-reflector node in case of end-to-end SR path.</t>
+
+   <t>Note that the existing "Direct Measurement" TLV (Type 5) 
+   <xref target="RFC8972"/> does not
+   support 64-bit counters, byte counters and counters per traffic class. 
+   In addition, it does not support out-of-ordering of data packets,
+   as block number for the counters is not carried.</t>
+   </section>
+
+      <section title="Liveness and Connectivity Loss Monitoring" anchor="sect-7"><t>
+   Liveness monitoring is applicable for connectivity verification and continuity check in an SR network.
+   The procedure defined in this document for delay measurement using STAMP test packets 
+   can also be applied to report the connectivity loss metric for links and end-to-end SR paths. 
+   Connectivity loss is notified when consecutive N number of reply test packets are
+   not received back at the session-sender, where N is locally provisioned value.</t>
+
+   <t>Note that for one-way and two-way delay measurement modes, the connectivity loss detection 
+   interval and scale for number of STAMP test sessions need to account for 
+   the processing of the STAMP test packets on the session-reflector 
+   which need to be punted from the forwarding fast path
+   (to slow path or control plane) and reply test packets need to be injected.
+   The scale is improved by using the STAMP test packets in 
+   loopback mode as described in Section 4.2.3.</t>
+   </section>
+
+    <section title="ECMP Support for SR Policies" anchor="sect-8"><t>
    An SR Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.
    Usage of Anycast SID <xref target="RFC8402"/> by an SR Policy can result in ECMP
@@ -694,45 +733,6 @@
    is not the intended destination node in the Destination Node 
    Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
-   </section>
-
-   <section title="Synthetic Loss Measurement" anchor="sect-6"><t>
-   Synthetic packet loss measurement is applicable for connectivity verification and continuity check in an SR network.
-   The procedure defined in this document for delay measurement using STAMP test packets 
-   can also be applied for synthetic packet loss measurement for links and end-to-end SR paths.
-   The procedure uses sequence number in the STAMP test packets as 
-   described in Section 4 "Theory of Operation" of <xref target="RFC8762"/>.</t>
-   </section>
-
-   <section title="Liveness and Connectivity Loss Monitoring" anchor="sect-8"><t>
-   Liveness monitoring is applicable for connectivity verification and continuity check in an SR network.
-   The procedure defined in this document for delay measurement using STAMP test packets 
-   can also be applied to report the connectivity loss metric for links and end-to-end SR paths. 
-   Connectivity loss is notified when consecutive N number of reply test packets are
-   not received back at the session-sender, where N is locally provisioned value.</t>
-
-   <t>Note that for one-way and two-way delay measurement modes, the connectivity loss detection 
-   interval and scale for number of STAMP test sessions need to account for 
-   the processing of the STAMP test packets on the session-reflector 
-   which need to be punted from the forwarding fast path
-   (to slow path or control plane) and reply test packets need to be injected.
-   The scale is improved by using the STAMP test packets in 
-   loopback mode as described in Section 4.2.3.</t>
-   </section>
-
-   <section title="Direct Measurement" anchor="sect-7"><t>
-   Direct measurement is applicable to detect data packet loss in an SR network.
-   The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
-   can be used for links and end-to-end SR paths packet loss detection. 
-   The Path Segment ID (PSID) from the received data packet 
-   is used to count the receive data packets 
-   on the session-reflector node in case of end-to-end SR path.</t>
-
-   <t>Note that the existing "Direct Measurement" TLV (Type 5) 
-   <xref target="RFC8972"/> does not
-   support 64-bit counters, byte counters and counters per traffic class. 
-   In addition, it does not support out-of-ordering of data packets,
-   as block number for the counters is not carried.</t>
    </section>
 
    <section title="Security Considerations" anchor="sect-9"><t>
