@@ -71,7 +71,7 @@ Table of Contents
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   3
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Session-Sender Control Code Field Extension . . . . . . . . .   4
    4.  Destination Node Address TLV Extension  . . . . . . . . . . .   6
    5.  Return Path TLV Extension . . . . . . . . . . . . . . . . . .   7
@@ -104,8 +104,8 @@ Table of Contents
    The STAMP supports two modes of STAMP Session-Reflector: Stateless
    and Stateful as described in Section 4 of [RFC8762].  In segment
    routing networks, Stateless mode of Session-Reflector is desired to
-   be able to support high number of STAMP sessions.
-
+   be able to support high number of STAMP sessions.  In Stateless mode,
+   provisioing of each test session on Session-Reflector node is
 
 
 
@@ -113,6 +113,9 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 2]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
+
+   avoided.  In SR networks, as the state is in the packet, the
+   signaling of the parameters is undesired.
 
    For performance delay and packet loss measurement, STAMP Session-
    Sender test packets are transmitted in-band on the same path as the
@@ -157,11 +160,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
-2.3.  Reference Topology
 
-   In the reference topology shown below, the STAMP Session-Sender R1
-   initiates a STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet is transmitted
+
 
 
 
@@ -170,6 +170,11 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 3]
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
+2.3.  Reference Topology
+
+   In the reference topology shown below, the STAMP Session-Sender R1
+   initiates a STAMP test packet and the STAMP Session-Reflector R3
+   transmits a reply test packet.  The reply test packet is transmitted
    back to the STAMP Session-Sender R1 on the same path or a different
    path in the reverse direction.
 
@@ -213,11 +218,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    [RFC8762] and updated in [RFC8972] as STAMP Session-Reflector MUST
    ignore the received field (previously identified as MBZ).  The
    Control Code field is optional and MAY be ignored by the STAMP
-   Session-Reflector.  The STAMP Session-Reflector test packet formats
-   are not modified wth the Control Code.
-
-
-
 
 
 
@@ -225,6 +225,9 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 4]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
+
+   Session-Reflector.  The STAMP Session-Reflector test packet formats
+   are not modified wth the Control Code.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -249,9 +252,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
        Figure 1: Control Code in Session-Sender STAMP Test Packet in
                            Unauthenticated Mode
-
-
-
 
 
 
@@ -379,13 +379,13 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    this TLV carried in the STAMP Session-Sender test packet, the STAMP
    Session-Reflector does not require signaling and maintaining any
    additional dynamic state for the STAMP sessions for the end-to-end SR
-   paths (recall that in SR networks, the state is in the packet and
-   signaling of the SR parameters is avoided).
+   paths.
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
    for "Return Path" TLV that carries return path for STAMP test packet.
    The format of the "Return Path" TLV is shown in Figure 4:
+
 
 
 
