@@ -383,9 +383,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policy
 
-   The test packets for delay measurement of an end-to-end SR-MPLS
-   Policy is sent using its SR-MPLS header containing the MPLS Segment
-   List as shown in Figure 3.
+   Example session-sender test packets for an end-to-end SR-MPLS Policy
+   is sent using its SR-MPLS header containing the MPLS Segment List as
+   shown in Figure 3.
 
 
 
@@ -423,14 +423,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 4.1.2.2.  Session-Sender Test Packet for SRv6 Policy
 
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as defined in [RFC8754].  The SRv6 network programming
-   is defined in [I-D.ietf-spring-srv6-network-programming].  The test
-   packets for delay measurement of an end-to-end SRv6 Policy is sent
-   using its SRH with Segment List as shown in Figure 4.  The procedure
-   defined for upper-layer header processing for SRv6 SIDs in
+   a Segment List as described in [RFC8754].  The SRv6 network
+   programming is described in
+   [I-D.ietf-spring-srv6-network-programming].  Example session-sender
+   test packets for an end-to-end SRv6 Policy is sent using its SRH with
+   Segment List as shown in Figure 4.  The procedure defined for upper-
+   layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
    header in the received test packets.
-
 
 
 
@@ -480,8 +480,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 4.2.  Session-Reflector Test Packet
 
    The STAMP session-reflector test packet is sent using the IP/UDP
-   information from the received test packet.  The content of the reply
-   test packet is shown in Figure 5.
+   information from the received test packet.  The content of an example
+   reply test packet is shown in Figure 5.
 
 
 
@@ -539,7 +539,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.2.2.  Two-way Delay Measurement Mode
 
-   In two-way delay measurement mode, a reply test packet as defined in
+   In two-way delay measurement mode, the reply test packet as shown in
    Figure 5 is sent in-band to the session-sender on the same path as
    the data traffic on the reverse direction link or associated reverse
    SR path [I-D.ietf-pce-sr-bidir-path].  In this mode, as per Reference
@@ -571,9 +571,9 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policy
 
-   The session-reflector STAMP reply test packet content for two-way
-   delay measurement of an end-to-end SR-MPLS Policy is shown in
-   Figure 6.
+   The content of an example session-reflector reply test packet sent
+   in-band on the same path as the data traffic for two-way delay
+   measurement of an end-to-end SR-MPLS Policy is shown in Figure 6.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -600,12 +600,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.2.2.2.  Session-Reflector Test Packet for SRv6 Policy
 
-   The packet content for sending reply test packet in-band on the same
-   path as the data traffic for two-way delay measurement of an end-to-
-   end SRv6 Policy with SRH is shown in Figure 7.  The procedure defined
-   for upper-layer header processing for SRv6 SIDs in
-   [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
-   header in the received reply test packets.
+   The content of an example session-reflector reply test packet sent
+   in-band on the same path as the data traffic for two-way delay
+   measurement of an end-to-end SRv6 Policy with SRH is shown in
+   Figure 7.  The procedure defined for upper-layer header processing
+   for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
+   to process the UDP header in the received reply test packets.
 
 
 
