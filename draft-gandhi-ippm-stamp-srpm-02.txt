@@ -6,12 +6,12 @@ IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Updates: 8762 (if approved)                          Cisco Systems, Inc.
 Intended status: Standards Track                                D. Voyer
-Expires: July 27, 2021                                       Bell Canada
+Expires: August 1, 2021                                      Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 23, 2021
+                                                        January 28, 2021
 
 
       Simple TWAMP (STAMP) Extensions for Segment Routing Networks
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 27, 2021.
+   This Internet-Draft will expire on August 1, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 1]
+Gandhi, et al.           Expires August 1, 2021                 [Page 1]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -89,14 +89,16 @@ Table of Contents
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching (SR-
-   MPLS) and IPv6 (SRv6) data planes [RFC8402].  Built-in SR Performance
-   Measurement (PM) is one of the essential requirements to provide
-   Service Level Agreements (SLAs).
+   MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR Policies as defined
+   in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
+   through a specific, user-defined paths using a stack of Segments.
+   Built-in SR Performance Measurement (PM) is one of the essential
+   requirements to provide Service Level Agreements (SLAs).
 
    The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance metrics in IP
-   networks using test packets [RFC8762].  It eliminates the need for
-   control protocol by using configuration data model to provision test
+   networks [RFC8762].  It eliminates the need for control protocol by
+   using configuration and management model to provision and manage test
    sessions.  [RFC8972] defines optional extensions for STAMP.
 
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
@@ -107,9 +109,7 @@ Table of Contents
 
 
 
-
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 2]
+Gandhi, et al.           Expires August 1, 2021                 [Page 2]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -147,25 +147,25 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 2.3.  Reference Topology
 
-   In the reference topology shown below, the session-sender R1
-   initiates a STAMP test packet and the session-reflector R3 sends
-   reply to the session-sender R1 for the test packet received.  The
-   nodes R1 and R3 may be directly connected via a link or there exists
-   a Point-to-Point (P2P) SR path e.g.  SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
-   with destination to node R3 (called tail-end).
+   In the reference topology shown below, the STAMP Session-Sender R1
+   initiates a STAMP test packet and the STAMP Session-Reflector R3
+   transmits a reply test packet.  The reply test packet is transmitted
+   back to the STAMP Session-Sender R1 on the same path or a different
+   path in the reverse direction.
+
+   SR is enabled on nodes R1 and R3.  The nodes R1 and R3 may be
+   connected via a link or there exists an SR path [RFC8402].  The link
+   may be a physical interface, virtual link, or Link Aggregation Group
+   (LAG) [IEEE802.1AX], or LAG member link.  The SR path may be an SR
+   Policy [I-D.ietf-spring-segment-routing-policy] on node R1 (called
+   head-end) with destination to node R3 (called tail-end).
 
 
 
 
 
 
-
-
-
-
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 3]
+Gandhi, et al.           Expires August 1, 2021                 [Page 3]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -180,30 +180,30 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
                          \                   /
                           T4                T3
 
-                Session-Sender                Session-Reflector
+            STAMP Session-Sender        STAMP Session-Reflector
 
                           Reference Topology
 
 3.  Session-Sender Control Code Field Extension
 
-   The session-reflector may need to send the reply test packet on the
-   same link in the reverse direction.  The session-sender can request
-   in the test packet to the session-reflector to send a reply test
-   packet on the same link where the test packet is received.  This way
-   the session-reflector does not require any additional state for the
-   STAMP session.
+   The STAMP Session-Reflector may need to transmit the reply test
+   packet on the same link in the reverse direction.  The STAMP Session-
+   Sender can request in the test packet to the STAMP Session-Reflector
+   to transmit a reply test packet on the same link where the test
+   packet is received.  This way the STAMP Session-Reflector does not
+   require any additional state for the STAMP sessions for the links.
 
    In this document, the Control Code field with flags is defined for
-   session-sender test packets for STAMP protocol [RFC8762] in
-   unauthenticated and authenticated modes.  The modified session-sender
-   STAMP test packet formats are shown in Figure 1 and Figure 2.  The
-   session-sender test packet formats are backwards compatible with the
-   session-sender test packet formats defined in STAMP [RFC8762] and
-   updated in [RFC8972] as session-reflector MUST ignore the received
-   field (previously identified as MBZ).  The Control Code field is
-   optional and MAY be ignored by the session-reflector.  The session-
-   reflector test packet formats are not affected due to the Control
-   Code.
+   STAMP Session-Sender test packets for STAMP protocol [RFC8762] in
+   unauthenticated and authenticated modes.  The modified STAMP Session-
+   Sender test packet formats are shown in Figure 1 and Figure 2.  The
+   STAMP Session-Sender test packet formats are backwards compatible
+   with the STAMP Session-Sender test packet formats defined in STAMP
+   [RFC8762] and updated in [RFC8972] as STAMP Session-Reflector MUST
+   ignore the received field (previously identified as MBZ).  The
+   Control Code field is optional and MAY be ignored by the STAMP
+   Session-Reflector.  The STAMP Session-Reflector test packet formats
+   are not modified wth the Control Code.
 
 
 
@@ -221,7 +221,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 4]
+Gandhi, et al.           Expires August 1, 2021                 [Page 4]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 5]
+Gandhi, et al.           Expires August 1, 2021                 [Page 5]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -313,37 +313,37 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
                             Authenticated Mode
 
    Session-Sender Control Code Field (8-bit): Flags set as follows in
-   STAMP session-sender test packet.
+   STAMP Session-Sender test packet.
 
-       0x0: The existing default behaviour as defined in [RFC8762].
+       0x0: The existing default behaviour [RFC8762].
 
-       0x1: In-band Reply Requested.  Indicates that this test packet
-       has been sent over a bidirectional channel and the reply is
-       requested in-band over the same interface in the reverse
-       direction.
+       0x1: In-band Reply Requested.  Indicates that this STAMP Session-
+       Sender test packet has been sent over a bidirectional channel and
+       the reply is requested in-band over the same incoming interface
+       in the reverse direction.
 
        0x2: No Reply Requested.
 
 4.  Destination Node Address TLV Extension
 
-   The session-sender may need to send test packets to the session-
-   reflector with a different destination address (for example IPv4
-   address from 127/8 range).  In error conditions, the session-
+   The STAMP Session-Sender may need to transmit test packets to the
+   STAMP Session-Reflector with a different destination address (for
+   example IPv4 address from 127/8 range).  In error conditions, the
 
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 6]
+Gandhi, et al.           Expires August 1, 2021                 [Page 6]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
-   reflector on an un-intended node may send reply test packets
-   resulting in reporting of invalid measurement metrics.
+   STAMP Session-Reflector on an un-intended node may transmit reply
+   test packets resulting in reporting of invalid measurement metrics.
 
-   In this document, Destination Node Address TLV (Type TBA1) is defined
-   for STAMP test packet [RFC8972] and has the following format shown in
-   Figure 3:
+   In this document, "Destination Node Address" TLV (Type TBA1) is
+   defined for STAMP test packet [RFC8972] and has the following format
+   shown in Figure 3:
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -364,32 +364,32 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The Destination Node Address TLV is optional.  The Destination Node
-   Address TLV indicates the address of the intended destination node of
-   the test packet.  The session-reflector MUST NOT send reply test
-   packet if it is not the intended destination node of the received
-   test packet.
+   The "Destination Node Address" TLV is optional.  The "Destination
+   Node Address" TLV indicates the address of the intended destination
+   node of the test packet.  The STAMP Session-Reflector MUST NOT
+   transmit reply test packet if it is not the intended destination node
+   of the received test packet.
 
 5.  Return Path TLV Extension
 
-   For a bidirectional path, the session-reflector needs to send the
-   reply test packet on a specific reverse path.  The session-sender can
-   request in the test packet to the session-reflector to send a reply
-   test packet back on a given return path.  With this TLV carried in
-   the session-sender test packet, the session-reflector does not
-   require any additional state for the STAMP session (recall that in SR
-   networks, the state is in the packet and signaling of the parameters
-   is undesired).
+   For an SR path, the STAMP Session-Reflector may need to transmit the
+   reply test packet on a specific return path.  The STAMP Session-
+   Sender can request in the test packet to the STAMP Session-Reflector
+   to transmit a reply test packet back on a given return path.  With
+   this TLV carried in the STAMP Session-Sender test packet, the STAMP
+   Session-Reflector does not require any additional dynamic state for
+   the STAMP sessions for the end-to-end SR paths (recall that in SR
+   networks, the state is in the packet and signaling of the SR
+   parameters is avoided).
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
-   for Return Path TLV that carries return path for STAMP test packet.
-   The format of the Return Path TLV is shown in Figure 4:
+   for "Return Path" TLV that carries return path for STAMP test packet.
+   The format of the "Return Path" TLV is shown in Figure 4:
 
 
 
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 7]
+Gandhi, et al.           Expires August 1, 2021                 [Page 7]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -408,16 +408,16 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The Return Path TLV is optional.  The session-sender MUST only insert
-   one Return Path TLV in the STAMP test packet and the session-
-   reflector MUST only process the first Return Path TLV in the test
-   packet and ignore other Return Path TLVs if present.
+   The "Return Path" TLV is optional.  The STAMP Session-Sender MUST
+   only insert one "Return Path" TLV in the STAMP test packet and the
+   STAMP Session-Reflector MUST only process the first "Return Path" TLV
+   in the test packet and ignore other "Return Path" TLVs if present.
 
 5.1.  Return Path Sub-TLV
 
-   The Return Path TLV contains a Sub-TLV to carry the return path.  The
-   Sub-TLV can ether carry Return Address or Return Segment List.  The
-   format of the Return Address Sub-TLV is shown in Figure 5.  The
+   The "Return Path" TLV contains a Sub-TLV to carry the return path.
+   The Sub-TLV can ether carry Return Address or Return Segment List.
+   The format of the Return Address Sub-TLV is shown in Figure 5.  The
    Address Family field indicates the type of the address, and it SHALL
    be set to one of the assigned values in the "IANA Address Family
    Numbers" registry.
@@ -425,8 +425,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The Type of the Return Address Sub-TLV is defined as following:
 
    o  Type (value 1): Return Address.  Destination node address of the
-      session-reflector test packet different than the Source Address in
-      the received test packet.
+      STAMP Session-Reflector test packet different than the Source
+      Address in the received test packet.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -445,12 +445,12 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                 [Page 8]
+Gandhi, et al.           Expires August 1, 2021                 [Page 8]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
-   The format of the Segment List Sub-TLV in the Return Path TLV is
+   The format of the Segment List Sub-TLV in the "Return Path" TLV is
    shown in Figure 6.  The segment entries MUST be in network order.
    The Segment List Sub-TLV can be one of the following Types:
 
@@ -485,12 +485,13 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The session-sender MUST only insert one Return Path Sub-TLV in the
-   test packet and the session-reflector MUST only process the first
-   Return Path Sub-TLV in the test packet and ignore other Return Path
-   Sub-TLVs if present.  The session-reflector MUST send reply test
-   packet on the return path specified in the Return Path Sub-TLV and
-   MUST NOT add Return Path TLV in the reply test packet.
+   The STAMP Session-Sender MUST only insert one "Return Path" Sub-TLV
+   in the test packet and the STAMP Session-Reflector MUST only process
+   the first "Return Path" Sub-TLV in the test packet and ignore other
+   "Return Path" Sub-TLVs if present.  The STAMP Session-Reflector MUST
+   transmit reply test packet on the return path specified in the
+   "Return Path" Sub-TLV and MUST NOT add "Return Path" TLV in the reply
+   test packet.
 
 6.  Security Considerations
 
@@ -500,21 +501,20 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-
-Gandhi, et al.            Expires July 27, 2021                 [Page 9]
+Gandhi, et al.           Expires August 1, 2021                 [Page 9]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
-   verified the integrity of the path and the identity of the session-
-   reflector.
+   verified the integrity of the path and the identity of the STAMP
+   Session-Reflector.
 
    If desired, attacks can be mitigated by performing basic validation
-   and sanity checks, at the session-sender, of the timestamp fields in
-   received measurement reply packets.  The minimal state associated
-   with these protocols also limits the extent of measurement disruption
-   that can be caused by a corrupt or invalid packet to a single test
-   cycle.
+   and sanity checks, at the STAMP Session-Sender, of the timestamp
+   fields in received measurement reply packets.  The minimal state
+   associated with these protocols also limits the extent of measurement
+   disruption that can be caused by a corrupt or invalid packet to a
+   single test cycle.
 
    The security considerations specified in [RFC8762] and [RFC8972] also
    apply to the extensions defined in this document.
@@ -522,14 +522,14 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 7.  IANA Considerations
 
    IANA will create a "STAMP TLV Type" registry for [RFC8972].  IANA is
-   requested to allocate a value for the following Destination Address
+   requested to allocate a value for the following "Destination Address"
    TLV Type from the IETF Review TLV range of this registry.  This TLV
    is to be carried in the test packets.
 
    o  Type TBA1: Destination Node Address TLV
 
-   IANA is also requested to allocate a value for the following Return
-   Path TLV Type from the IETF Review TLV range of the same registry.
+   IANA is also requested to allocate a value for the following "Return
+   Path" TLV Type from the IETF Review TLV range of the same registry.
    This TLV is to be carried in the test packets.
 
    o  Type TBA2: Return Path TLV
@@ -557,7 +557,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 10]
+Gandhi, et al.           Expires August 1, 2021                [Page 10]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -613,7 +613,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 11]
+Gandhi, et al.           Expires August 1, 2021                [Page 11]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -669,7 +669,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 12]
+Gandhi, et al.           Expires August 1, 2021                [Page 12]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -725,4 +725,4 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.            Expires July 27, 2021                [Page 13]
+Gandhi, et al.           Expires August 1, 2021                [Page 13]

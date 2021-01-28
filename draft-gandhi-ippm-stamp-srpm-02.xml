@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="23" month="January" year="2021"/>
+    <date day="28" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -88,14 +88,16 @@
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching
    (SR-MPLS) and IPv6 (SRv6) data planes <xref target="RFC8402"/>.  
+   SR Policies as defined in <xref target="I-D.ietf-spring-segment-routing-policy"/> are used
+   to steer traffic through a specific, user-defined paths using a stack of Segments. 
    Built-in SR Performance Measurement (PM) is one of the
    essential requirements to provide Service Level Agreements (SLAs).</t>
 
-   <t>The Simple Two-way Active Measurement Protocol (STAMP) provides
+  <t>The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance
-   metrics in IP networks using test packets <xref target="RFC8762"/>. 
+   metrics in IP networks <xref target="RFC8762"/>. 
    It eliminates the need for control protocol by using
-   configuration data model to provision test sessions. 
+   configuration and management model to provision and manage test sessions. 
    <xref target="RFC8972"/> defines optional extensions for STAMP.</t>
 
    <t>This document specifies RFC 8762 
@@ -144,17 +146,20 @@
 
     </section>
 
-    <section title="Reference Topology" anchor="sect-2.3"><t>
-   In the reference topology shown below, the session-sender R1 initiates a
-   STAMP test packet and the session-reflector R3
-   sends reply to the session-sender R1 for the test packet received.
-   The nodes R1 and R3 may be
-   directly connected via a link or there
-   exists a Point-to-Point (P2P) SR path e.g. SR Policy
-   <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 (called head-end)
-   with destination to node R3 (called tail-end).</t>        
+      <section title="Reference Topology" anchor="sect-2.3"><t>
+   In the reference topology shown below, the STAMP Session-Sender R1 initiates a
+   STAMP test packet and the STAMP Session-Reflector R3
+   transmits a reply test packet.  The reply test packet is transmitted back to the STAMP Session-Sender R1 
+   on the same path or a different path in the reverse direction.</t>  
 
-    <figure><artwork><![CDATA[
+   <t>SR is enabled on nodes R1 and R3. The nodes R1 and R3 may be
+   connected via a link or there exists an SR path <xref target="RFC8402"/>.  
+   The link may be a physical interface, virtual link, 
+   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link. 
+   The SR path may be an SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/> 
+   on node R1 (called head-end) with destination to node R3 (called tail-end).</t>
+
+   <figure><artwork><![CDATA[
                        T1                T2
                       /                   \
              +-------+     Test Packet     +-------+
@@ -165,32 +170,33 @@
                       \                   /
                        T4                T3
 
-             Session-Sender                Session-Reflector
+         STAMP Session-Sender        STAMP Session-Reflector
 
                        Reference Topology
 ]]></artwork>
     </figure>
     </section>
-    </section>
+
+   </section>
 
     <section title="Session-Sender Control Code Field Extension" anchor="sect-3">
 
-   <t>The session-reflector may need to send
-   the reply test packet on the same link in the reverse direction. The session-sender
-   can request in the test packet to the session-reflector to
-   send a reply test packet on the same link where the test packet is received.
-   This way the session-reflector does not require
-   any additional state for the STAMP session.</t>
+   <t>The STAMP Session-Reflector may need to transmit
+   the reply test packet on the same link in the reverse direction. The STAMP Session-Sender
+   can request in the test packet to the STAMP Session-Reflector to
+   transmit a reply test packet on the same link where the test packet is received.
+   This way the STAMP Session-Reflector does not require
+   any additional state for the STAMP sessions for the links.</t>
 
-   <t>In this document, the Control Code field with flags is defined for session-sender test packets
+   <t>In this document, the Control Code field with flags is defined for STAMP Session-Sender test packets
    for STAMP protocol <xref target="RFC8762"/> in unauthenticated and authenticated modes.  
-   The modified session-sender STAMP test packet formats are shown in Figure 1 and Figure 2. 
-   The session-sender test packet formats are backwards
-   compatible with the session-sender test packet formats defined in STAMP <xref target="RFC8762"/> and
-   updated in <xref target="RFC8972"/> as session-reflector MUST
+   The modified STAMP Session-Sender test packet formats are shown in Figure 1 and Figure 2. 
+   The STAMP Session-Sender test packet formats are backwards
+   compatible with the STAMP Session-Sender test packet formats defined in STAMP <xref target="RFC8762"/> and
+   updated in <xref target="RFC8972"/> as STAMP Session-Reflector MUST
    ignore the received field (previously identified as MBZ).
-   The Control Code field is optional and MAY be ignored by the session-reflector. The session-reflector 
-   test packet formats are not affected due to the Control Code.</t>
+   The Control Code field is optional and MAY be ignored by the STAMP Session-Reflector. The STAMP Session-Reflector 
+   test packet formats are not modified wth the Control Code.</t>
 
    <figure title="Control Code in Session-Sender STAMP Test Packet in Unauthenticated Mode" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
  0                   1                   2                   3
@@ -247,18 +253,18 @@
     </figure>
 
    <t>
-   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP session-sender test packet.</t>
+   Session-Sender Control Code Field (8-bit): Flags set as follows in STAMP Session-Sender test packet.</t>
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x0: The existing default behaviour as defined in <xref target="RFC8762"/>.</t>
+       0x0: The existing default behaviour <xref target="RFC8762"/>.</t>
     </list>
     </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x1: In-band Reply Requested.  Indicates that this test packet has
+       0x1: In-band Reply Requested.  Indicates that this STAMP Session-Sender test packet has
        been sent over a bidirectional channel and the reply is requested
-       in-band over the same interface in the reverse direction.</t> 
+       in-band over the same incoming interface in the reverse direction.</t> 
     </list>
     </t>
 
@@ -270,11 +276,11 @@
     </section>
 
     <section title="Destination Node Address TLV Extension" anchor="sect-4">
-    <t>The session-sender may need to send test packets to the session-reflector
-    with a different destination address (for example IPv4 address from 127/8 range).  In error conditions, the session-reflector
-    on an un-intended node may send reply test packets resulting in reporting of invalid measurement metrics.</t>
+    <t>The STAMP Session-Sender may need to transmit test packets to the STAMP Session-Reflector
+    with a different destination address (for example IPv4 address from 127/8 range).  In error conditions, the STAMP Session-Reflector
+    on an un-intended node may transmit reply test packets resulting in reporting of invalid measurement metrics.</t>
 
-    <t>In this document, Destination Node Address TLV (Type TBA1) is defined for STAMP test packet <xref target="RFC8972"/> 
+    <t>In this document, "Destination Node Address" TLV (Type TBA1) is defined for STAMP test packet <xref target="RFC8972"/> 
     and has the following format shown in Figure 3:</t>
 
 
@@ -296,27 +302,29 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The Destination Node Address TLV is optional.  The Destination Node
-   Address TLV indicates the address of the intended destination node of the
-   test packet.  The session-reflector MUST NOT send reply test packet if it
+   <t>The "Destination Node Address" TLV is optional.  The "Destination Node
+   Address" TLV indicates the address of the intended destination node of the
+   test packet.  The STAMP Session-Reflector MUST NOT transmit reply test packet if it
    is not the intended destination node of the received test packet.</t>
     </section>
 
     <section title="Return Path TLV Extension" anchor="sect-5"><t>
-   For a bidirectional path, the session-reflector needs to send
-   the reply test packet on a specific reverse path.  The session-sender
-   can request in the test packet to the session-reflector to
-   send a reply test packet back on a given return path. 
-   With this TLV carried in the session-sender test packet, the session-reflector does not require
-   any additional state for the STAMP session (recall that in SR networks, 
-   the state is in the packet and signaling of the parameters is undesired).</t>
+   For an SR path, the STAMP Session-Reflector may need to transmit
+   the reply test packet on a specific return path.  The STAMP Session-Sender
+   can request in the test packet to the STAMP Session-Reflector to
+   transmit a reply test packet back on a given return path. 
+   With this TLV carried in the STAMP Session-Sender test packet, 
+   the STAMP Session-Reflector does not require
+   any additional dynamic state for the STAMP sessions for the end-to-end SR paths 
+   (recall that in SR networks, 
+   the state is in the packet and signaling of the SR parameters is avoided).</t>
 
     <t>
    <xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
-   defined in this document for Return Path TLV that carries return path for STAMP
+   defined in this document for "Return Path" TLV that carries return path for STAMP
    test packet. The format
-   of the Return Path TLV is shown in Figure 4:</t>
+   of the "Return Path" TLV is shown in Figure 4:</t>
 
     <figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
  0                   1                   2                   3
@@ -332,13 +340,13 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The Return Path TLV is optional. The session-sender MUST only insert
-    one Return Path TLV in the STAMP test packet and the session-reflector
-    MUST only process the first Return Path TLV in the test
-    packet and ignore other Return Path TLVs if present. </t>
+   <t>The "Return Path" TLV is optional. The STAMP Session-Sender MUST only insert
+    one "Return Path" TLV in the STAMP test packet and the STAMP Session-Reflector
+    MUST only process the first "Return Path" TLV in the test
+    packet and ignore other "Return Path" TLVs if present. </t>
 
    <section title="Return Path Sub-TLV" anchor="sect-5.1">
-   <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
+   <t>The "Return Path" TLV contains a Sub-TLV to carry the return path. 
     The Sub-TLV can ether carry Return Address or Return Segment List.
     The format of the Return Address Sub-TLV is shown in Figure 5.
     The Address Family field indicates the type of the address, and it
@@ -347,7 +355,7 @@
     <t>The Type of the Return Address Sub-TLV is defined as following:</t>
 
     <t><list style="symbols"><t>Type (value 1): Return Address. Destination node address of the
-    session-reflector test packet different than the Source Address in the received test packet.</t>
+    STAMP Session-Reflector test packet different than the Source Address in the received test packet.</t>
 
     </list>
     </t>
@@ -366,7 +374,7 @@
     </figure>
 
     <t>
-    The format of the Segment List Sub-TLV in the Return Path TLV is shown in Figure 6.
+    The format of the Segment List Sub-TLV in the "Return Path" TLV is shown in Figure 6.
     The segment entries MUST be in network order. 
     The Segment List Sub-TLV can be one of the following Types:</t>
 
@@ -405,12 +413,12 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The session-sender
-    MUST only insert one Return Path Sub-TLV in the test packet and the session-reflector
-    MUST only process the first Return Path Sub-TLV in the test packet and ignore other Return
-    Path Sub-TLVs if present. The session-reflector
-    MUST send reply test packet on the return path
-    specified in the Return Path Sub-TLV and MUST NOT add Return Path TLV in
+   <t>The STAMP Session-Sender
+    MUST only insert one "Return Path" Sub-TLV in the test packet and the STAMP Session-Reflector
+    MUST only process the first "Return Path" Sub-TLV in the test packet and ignore other "Return
+    Path" Sub-TLVs if present. The STAMP Session-Reflector
+    MUST transmit reply test packet on the return path
+    specified in the "Return Path" Sub-TLV and MUST NOT add "Return Path" TLV in
     the reply test packet.</t>
 
     </section>
@@ -421,11 +429,11 @@
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
    previously verified the integrity of the path and the identity of the
-   session-reflector.</t>
+   STAMP Session-Reflector.</t>
 
     <t>
    If desired, attacks can be mitigated by performing basic validation
-   and sanity checks, at the session-sender, of the timestamp fields
+   and sanity checks, at the STAMP Session-Sender, of the timestamp fields
    in received measurement reply packets.  The minimal state
    associated with these protocols also limits the extent of measurement
    disruption that can be caused by a corrupt or invalid packet to a
@@ -440,7 +448,7 @@
     <section title="IANA Considerations" anchor="sect-7"><t>
    IANA will create a "STAMP TLV Type" registry for <xref target="RFC8972"/>. 
    IANA is requested to allocate a value for the following 
-   Destination Address TLV Type from the IETF Review TLV range of this registry. 
+   "Destination Address" TLV Type from the IETF Review TLV range of this registry. 
    This TLV is to be carried in the test packets.</t>
 
     <t><list style="symbols"><t>Type TBA1: Destination Node Address TLV</t>
@@ -450,7 +458,7 @@
 
    <t>
    IANA is also requested to allocate a value for the following 
-   Return Path TLV Type from the IETF Review TLV range of the same registry. 
+   "Return Path" TLV Type from the IETF Review TLV range of the same registry. 
    This TLV is to be carried in the test packets.</t>
 
     <t><list style="symbols"><t>Type TBA2: Return Path TLV</t>
