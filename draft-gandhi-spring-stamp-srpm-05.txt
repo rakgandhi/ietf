@@ -135,8 +135,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    networks [RFC8762].  It eliminates the need for control protocol by
    using configuration and management model to provision and manage test
    sessions.  [RFC8972] defines optional extensions for STAMP.
-   [I-D.gandhi-ippm-stamp-srpm] defines STAMP extensions for segment
-   routing.
+   [I-D.gandhi-ippm-stamp-srpm] defines STAMP extensions for SR
+   networks.
 
    This document describes procedures for Performance Measurement (PM)
    in SR networks using the mechanisms defined in STAMP [RFC8762] and
@@ -247,31 +247,31 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 3.  Overview
 
-   For performance measurement in segment routing networks, the STAMP
-   test packets defined in [RFC8762] and its optional extensions defined
-   in [RFC8972] and [I-D.gandhi-ippm-stamp-srpm] are used as described
-   in this document.
+   For performance measurement in SR networks, the STAMP test packets
+   defined in [RFC8762] and its optional extensions defined in [RFC8972]
+   and [I-D.gandhi-ippm-stamp-srpm] are used as described in this
+   document.
 
    The STAMP supports two modes of STAMP Session-Reflector: Stateless
-   and Stateful as described in Section 4 of [RFC8762].  In segment
-   routing networks, Stateless mode of Session-Reflector is desired to
-   be able to support high number of STAMP sessions.  In Stateless mode,
-   provisioing of each test session on Session-Reflector node is
-   avoided.  In SR networks, as the state is in the packet, the
-   signaling of the parameters is undesired.
+   and Stateful as described in Section 4 of [RFC8762].  In SR networks,
+   Stateless mode of Session-Reflector is desired to be able to support
+   high number of STAMP sessions.  In Stateless mode, provisioing of
+   each test session on Session-Reflector node is avoided.  In SR
+   networks, as the state is in the packet, the signaling of the
+   parameters is undesired.
 
    For performance delay and packet loss measurement, STAMP Session-
    Sender test packets are transmitted in-band on the same path as the
    customer data traffic to measure the delay and packet loss
-   experienced by the customer data traffic.  It may be desired in
-   segment routing networks that return test packets are also
-   transmitted in-band on the same path in the reverse direction.  This
-   is achieved by using the STAMP extensions defined in
-   [I-D.gandhi-ippm-stamp-srpm].
+   experienced by the customer data traffic.  It may be desired in SR
+   networks that return test packets are also transmitted in-band on the
+   same path in the reverse direction.  This is achieved by using the
+   STAMP extensions defined in [I-D.gandhi-ippm-stamp-srpm].
 
    A destination UDP port number is selected as described in [RFC8762].
    The same destination UDP port is used for link and end-to-end SR path
    STAMP sessions.
+
 
 
 
@@ -367,8 +367,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    Timestamp field is eight bytes and use the format defined in
    Section 4.2.1 of [RFC8762].  It is recommended to use the IEEE 1588v2
    Precision Time Protocol (PTP) truncated 64-bit timestamp format
-   [IEEE1588] as specified in [RFC8186], with hardware support in
-   segment routing networks is desired.
+   [IEEE1588] as specified in [RFC8186], with hardware support in SR
+   networks is desired.
 
 4.1.1.  Session-Sender Test Packet for Links
 
@@ -379,7 +379,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 4.1.2.  Session-Sender Test Packet for SR Policy
 
-   The delay measurement for end-to-end SR path in segment routing is
+   The delay measurement for end-to-end SR path in SR network is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.
 
    The STAMP Session-Sender IPv4 or IPv6 address is used as the Source
@@ -646,7 +646,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
     .                                                               .
     +---------------------------------------------------------------+
 
-
       Figure 7: Example Session-Reflector Test Packet for SRv6 Policy
 
    The SRv6 Path Segment Identifier (PSID)
@@ -666,6 +665,7 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    reverse path label stack for SR-MPLS) as part of the SR header.  In
    this mode, the Control Code is set to 0 [I-D.gandhi-ippm-stamp-srpm]
    in the STAMP Session-Sender test packets.
+
 
 
 
