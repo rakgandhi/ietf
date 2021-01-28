@@ -81,9 +81,9 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  Example STAMP Reference Model . . . . . . . . . . . . . .   5
-   4.  Delay Measurement for Links and SR Paths  . . . . . . . . . .   6
-     4.1.  Session-Sender Test Packet  . . . . . . . . . . . . . . .   6
+     3.1.  Example STAMP Reference Model . . . . . . . . . . . . . .   6
+   4.  Delay Measurement for Links and SR Paths  . . . . . . . . . .   7
+     4.1.  Session-Sender Test Packet  . . . . . . . . . . . . . . .   7
        4.1.1.  Session-Sender Test Packet for Links  . . . . . . . .   7
        4.1.2.  Session-Sender Test Packet for SR Policy  . . . . . .   7
      4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .   9
@@ -263,23 +263,30 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    experienced by the customer data traffic.  It may be desired in
    segment routing networks that return test packets are also
    transmitted in-band on the same path in the reverse direction.  This
-   is achieved by using the STAMP extensions defined in this document.
+   is achieved by using the STAMP extensions defined in
+   [I-D.gandhi-ippm-stamp-srpm].
 
    A destination UDP port number is selected as described in [RFC8762].
    The same destination UDP port is used for link and end-to-end SR path
    STAMP sessions.
 
-3.1.  Example STAMP Reference Model
 
-   An example of a STAMP reference model and typical measurement session
-   parameters for a user-configured destination UDP port for STAMP
-   session is shown in the following Figure 1:
+
+
+
 
 
 
 Gandhi, et al.           Expires August 1, 2021                 [Page 5]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
+3.1.  Example STAMP Reference Model
+
+   An example of a STAMP reference model and typical measurement session
+   parameters for a user-configured destination UDP port for STAMP
+   session is shown in the following Figure 1:
 
 
                               +------------+
@@ -322,13 +329,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    format and return path for the reply test packet from the received
    STAMP test packet.
 
-4.  Delay Measurement for Links and SR Paths
-
-4.1.  Session-Sender Test Packet
-
-   The content of an example STAMP Session-Sender test packet using an
-   UDP header [RFC0768] is shown in Figure 2.  The payload contains the
-   STAMP Session-Sender test packet defined in [RFC8762].
 
 
 
@@ -337,6 +337,14 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 6]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+4.  Delay Measurement for Links and SR Paths
+
+4.1.  Session-Sender Test Packet
+
+   The content of an example STAMP Session-Sender test packet using an
+   UDP header [RFC0768] is shown in Figure 2.  The payload contains the
+   STAMP Session-Sender test packet defined in [RFC8762].
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -378,14 +386,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    Address.  The endpoint IPv4 or IPv6 address is used as the
    Destination Address.  In the case of SR Policy with IPv4 endpoint of
    0.0.0.0 or IPv6 endpoint of ::0
-   [I-D.ietf-spring-segment-routing-policy], the loopback address from
-   the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
-   used as the Destination Address, respectively.
-
-
-
-
-
 
 
 
@@ -393,6 +393,10 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 7]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   [I-D.ietf-spring-segment-routing-policy], the loopback address from
+   the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
+   used as the Destination Address, respectively.
 
 4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policy
 
@@ -437,10 +441,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    Figure 4.  The procedure defined for upper-layer header processing
    for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
    to process the UDP header in the received test packets.
-
-
-
-
 
 
 
