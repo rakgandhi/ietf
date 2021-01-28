@@ -118,6 +118,14 @@
    <xref target="RFC8972"/> defines optional extensions for STAMP.
    <xref target="I-D.gandhi-ippm-stamp-srpm"/> defines STAMP extensions for SR networks.</t>
 
+   <t>The STAMP supports two modes of STAMP Session-Reflector: Stateless and Stateful 
+   as described in Section 4 of <xref target="RFC8762"/>. 
+   In SR networks, Stateless mode of Session-Reflector is desired 
+   to be able to support high number of STAMP sessions.
+   In Stateless mode, provisioing of each test session on Session-Reflector
+   node is avoided. In SR networks, as 
+   the state is in the packet, the signaling of the parameters is undesired.</t> 
+
    <t>This document describes procedures  
    for Performance Measurement (PM) in SR networks using the 
    mechanisms defined in STAMP <xref target="RFC8762"/> 
@@ -244,14 +252,6 @@
    and <xref target="I-D.gandhi-ippm-stamp-srpm"/> are used as 
    described in this document.</t> 
    
-   <t>The STAMP supports two modes of STAMP Session-Reflector: Stateless and Stateful 
-   as described in Section 4 of <xref target="RFC8762"/>. 
-   In SR networks, Stateless mode of Session-Reflector is desired 
-   to be able to support high number of STAMP sessions.
-   In Stateless mode, provisioing of each test session on Session-Reflector
-   node is avoided. In SR networks, as 
-   the state is in the packet, the signaling of the parameters is undesired.</t> 
-
    <t>For performance delay and packet loss measurement, 
    STAMP Session-Sender test packets are transmitted in-band on the
    same path as the customer data traffic 

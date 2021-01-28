@@ -77,9 +77,9 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Example STAMP Reference Model . . . . . . . . . . . . . .   6
    4.  Delay Measurement for Links and SR Paths  . . . . . . . . . .   7
@@ -138,6 +138,14 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    [I-D.gandhi-ippm-stamp-srpm] defines STAMP extensions for SR
    networks.
 
+   The STAMP supports two modes of STAMP Session-Reflector: Stateless
+   and Stateful as described in Section 4 of [RFC8762].  In SR networks,
+   Stateless mode of Session-Reflector is desired to be able to support
+   high number of STAMP sessions.  In Stateless mode, provisioing of
+   each test session on Session-Reflector node is avoided.  In SR
+   networks, as the state is in the packet, the signaling of the
+   parameters is undesired.
+
    This document describes procedures for Performance Measurement (PM)
    in SR networks using the mechanisms defined in STAMP [RFC8762] and
    its optional extensions defined in [RFC8972] and
@@ -149,6 +157,18 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    document.
 
 2.  Conventions Used in This Document
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 1, 2021                 [Page 3]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
 2.1.  Requirements Language
 
@@ -162,13 +182,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    BSID: Binding Segment ID.
 
    DM: Delay Measurement.
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 3]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
 
    ECMP: Equal Cost Multi-Path.
 
@@ -206,6 +219,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
+
+
+Gandhi, et al.           Expires August 1, 2021                 [Page 4]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
+
    TC: Traffic Class.
 
 2.3.  Reference Topology
@@ -218,14 +238,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    SR is enabled on nodes R1 and R3.  The nodes R1 and R3 may be
    connected via a link or there exists an SR path [RFC8402].  The link
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 4]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    may be a physical interface, virtual link, or Link Aggregation Group
    (LAG) [IEEE802.1AX], or LAG member link.  The SR path may be an SR
    Policy [I-D.ietf-spring-segment-routing-policy] on node R1 (called
@@ -252,14 +264,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    and [I-D.gandhi-ippm-stamp-srpm] are used as described in this
    document.
 
-   The STAMP supports two modes of STAMP Session-Reflector: Stateless
-   and Stateful as described in Section 4 of [RFC8762].  In SR networks,
-   Stateless mode of Session-Reflector is desired to be able to support
-   high number of STAMP sessions.  In Stateless mode, provisioing of
-   each test session on Session-Reflector node is avoided.  In SR
-   networks, as the state is in the packet, the signaling of the
-   parameters is undesired.
-
    For performance delay and packet loss measurement, STAMP Session-
    Sender test packets are transmitted in-band on the same path as the
    customer data traffic to measure the delay and packet loss
@@ -267,10 +271,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    networks that return test packets are also transmitted in-band on the
    same path in the reverse direction.  This is achieved by using the
    STAMP extensions defined in [I-D.gandhi-ippm-stamp-srpm].
-
-   A destination UDP port number is selected as described in [RFC8762].
-   The same destination UDP port is used for link and end-to-end SR path
-   STAMP sessions.
 
 
 
@@ -281,6 +281,10 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 5]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   A destination UDP port number is selected as described in [RFC8762].
+   The same destination UDP port is used for link and end-to-end SR path
+   STAMP sessions.
 
 3.1.  Example STAMP Reference Model
 
@@ -325,10 +329,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    parameters between the STAMP Session-Sender and STAMP Session-
    Reflector.
 
-   The STAMP Session-Reflector R3 uses the parameters for the timestamp
-   format and return path for the reply test packet from the received
-   STAMP test packet.
-
 
 
 
@@ -337,6 +337,10 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 6]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   The STAMP Session-Reflector R3 uses the parameters for the timestamp
+   format and return path for the reply test packet from the received
+   STAMP test packet.
 
 4.  Delay Measurement for Links and SR Paths
 
@@ -382,10 +386,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    The delay measurement for end-to-end SR path in SR network is
    applicable to both end-to-end SR-MPLS and SRv6 Policies.
 
-   The STAMP Session-Sender IPv4 or IPv6 address is used as the Source
-   Address.  The endpoint IPv4 or IPv6 address is used as the
-   Destination Address.  In the case of SR Policy with IPv4 endpoint of
-   0.0.0.0 or IPv6 endpoint of ::0
 
 
 
@@ -394,6 +394,10 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 7]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
+   The STAMP Session-Sender IPv4 or IPv6 address is used as the Source
+   Address.  The endpoint IPv4 or IPv6 address is used as the
+   Destination Address.  In the case of SR Policy with IPv4 endpoint of
+   0.0.0.0 or IPv6 endpoint of ::0
    [I-D.ietf-spring-segment-routing-policy], the loopback address from
    the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
    used as the Destination Address, respectively.
@@ -438,10 +442,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    [I-D.ietf-spring-srv6-network-programming].  The content of an
    example STAMP Session-Sender test packet for an end-to-end SRv6
    Policy transmitted using its SRH with Segment List is shown in
-   Figure 4.  The procedure defined for upper-layer header processing
-   for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
-   to process the UDP header in the received test packets.
-
 
 
 
@@ -449,6 +449,10 @@ Gandhi, et al.           Expires August 1, 2021                 [Page 8]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
+
+   Figure 4.  The procedure defined for upper-layer header processing
+   for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
+   to process the UDP header in the received test packets.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -483,10 +487,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    the IP/UDP information from the received test packet.  The content of
    an example STAMP Session-Reflector reply test packet is shown in
    Figure 5.
-
-
-
-
 
 
 
