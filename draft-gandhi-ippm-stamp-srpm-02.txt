@@ -201,7 +201,8 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    Sender can request in the test packet to the STAMP Session-Reflector
    to transmit a reply test packet on the same link where the test
    packet is received.  This way the STAMP Session-Reflector does not
-   require any additional state for the STAMP sessions for the links.
+   require provisioning any additional state for the STAMP sessions for
+   the links.
 
    In this document, the Control Code field with flags is defined for
    STAMP Session-Sender test packets for STAMP protocol [RFC8762] in
@@ -214,7 +215,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    Control Code field is optional and MAY be ignored by the STAMP
    Session-Reflector.  The STAMP Session-Reflector test packet formats
    are not modified wth the Control Code.
-
 
 
 
@@ -377,10 +377,10 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    Sender can request in the test packet to the STAMP Session-Reflector
    to transmit a reply test packet back on a given return path.  With
    this TLV carried in the STAMP Session-Sender test packet, the STAMP
-   Session-Reflector does not require any additional dynamic state for
-   the STAMP sessions for the end-to-end SR paths (recall that in SR
-   networks, the state is in the packet and signaling of the SR
-   parameters is avoided).
+   Session-Reflector does not require signaling and maintaining any
+   additional dynamic state for the STAMP sessions for the end-to-end SR
+   paths (recall that in SR networks, the state is in the packet and
+   signaling of the SR parameters is avoided).
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
