@@ -244,12 +244,12 @@
    and <xref target="I-D.gandhi-ippm-stamp-srpm"/> are used as 
    described in this document.</t> 
    
-   <t>For performance delay and test packet loss measurement, 
+   <t>For performance delay and packet loss measurement, 
    STAMP Session-Sender test packets are transmitted in-band on the
    same path as the customer data traffic 
    to measure the delay and packet loss experienced by the customer data traffic.
    It may be desired in segment routing networks that return 
-   test packets are transmitted in-band on the same path in the reverse direction.
+   test packets are also transmitted in-band on the same path in the reverse direction.
    This is achieved by using the STAMP extensions defined in 
    <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
@@ -696,10 +696,10 @@
    <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
    Direct measurement is applicable to detect data packet loss in an SR network.
    The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
-   can be used for links and end-to-end SR paths packet loss detection. 
+   can be used for data packet loss detection for links and end-to-end SR paths. 
    The Path Segment ID (PSID) from the received data packet 
-   is used to count the receive data packets 
-   on the STAMP Session-Reflector node in case of end-to-end SR path.</t>
+   is used to measure receive data packets for end-to-end SR path  
+   on the STAMP Session-Reflector node.</t>
 
    <t>Note that the existing "Direct Measurement" TLV (Type 5) 
    <xref target="RFC8972"/> does not
@@ -741,12 +741,12 @@
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping.</t>
 
-   <t>The Destination Node Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be transmitted 
+   <t>The "Destination Node Address" TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be transmitted 
    in the STAMP Session-Sender test packet to identify the intended destination node,
    for example, when using IPv4 Destination Address from the range 127/8.
    The STAMP Session-Reflector MUST NOT transmit reply test packet if it
-   is not the intended destination node in the Destination Node 
-   Address TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
+   is not the intended destination node in the "Destination Node 
+   Address" TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
    </section>
 
