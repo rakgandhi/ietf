@@ -352,7 +352,7 @@
    for IPv6 is used as the destination address, respectively.</t>
 
     <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
-   The test packets for delay measurement of an
+   Example session-sender test packets for an
    end-to-end SR-MPLS Policy is sent using its SR-MPLS header containing the MPLS
    Segment List as shown in Figure 3.</t>
 
@@ -385,10 +385,10 @@
 
    <section title="Session-Sender Test Packet for SRv6 Policy" anchor="sect-4.1.2.2"><t>
    An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as defined in <xref target="RFC8754"/>. 
-   The SRv6 network programming is defined in 
+   a Segment List as described in <xref target="RFC8754"/>. 
+   The SRv6 network programming is described in 
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
-   The test packets for delay measurement of an end-to-end 
+   Example session-sender test packets for an end-to-end 
    SRv6 Policy is sent using its SRH with Segment List as shown in Figure 4.
    The procedure defined for upper-layer header processing for SRv6 SIDs 
    in <xref target="I-D.ietf-spring-srv6-network-programming"/>
@@ -428,7 +428,7 @@
 
    <section title="Session-Reflector Test Packet" anchor="sect-4.2"><t>
    The STAMP session-reflector test packet is sent using the IP/UDP information from
-   the received test packet.  The content of the reply test
+   the received test packet.  The content of an example reply test
    packet is shown in Figure 5.</t>
 
     <figure title="Session-Reflector Test Packet" anchor="ure-test-reply-packet"><artwork><![CDATA[
@@ -466,7 +466,7 @@
 
    <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way delay measurement mode, 
-   a reply test packet as defined in Figure 5 is sent in-band 
+   the reply test packet as shown in Figure 5 is sent in-band 
    to the session-sender on the same path as the data traffic on the
    reverse direction link or associated reverse SR path
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  In this mode, as per Reference Topology, 
@@ -486,8 +486,9 @@
    using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
    <section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
-   The session-reflector STAMP reply test packet content for two-way
-   delay measurement of an end-to-end SR-MPLS Policy is shown in Figure 6.</t>
+   The content of an example session-reflector reply test packet sent in-band on the
+   same path as the data traffic for two-way delay 
+   measurement of an end-to-end SR-MPLS Policy is shown in Figure 6.</t>
 
     <figure title="Example Session-Reflector Test Packet for SR-MPLS Policy" anchor="ure-test-reply-packet-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -515,7 +516,7 @@
     </section>
 
    <section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
-   The packet content for sending reply test packet in-band on the
+   The content of an example session-reflector reply test packet sent in-band on the
    same path as the data traffic for two-way delay 
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 7.
    The procedure defined for upper-layer header processing for SRv6 SIDs
@@ -640,7 +641,7 @@
         
    <section title="TTL" anchor="sect-4.5.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
-   test packets is set to 255, except in the following cases.</t>
+   session-sender and session-reflector test packets is set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv4 Address from range 127/8, the TTL field in the IPv4 header is set to 1.</t>
 
@@ -648,9 +649,9 @@
 
     </section>
 
-   <section title="Hop Limit" anchor="sect-4.5.2"><t>
+   <section title="IPv6 Hop Limit" anchor="sect-4.5.2"><t>
    The Hop Limit field in the IPv6 and SRH headers of the
-   test packets is set to 255, except in the following cases.</t>
+   session-sender and session-reflector test packets is set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv6 Address of loopback address ::1/128, 
    the Hop Limit field in the IPv6 header is set to 1.</t>
