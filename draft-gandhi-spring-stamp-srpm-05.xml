@@ -112,7 +112,7 @@
 
    <t>The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance
-   metrics in IP networks using test packets <xref target="RFC8762"/>. 
+   metrics in IP networks <xref target="RFC8762"/>. 
    It eliminates the need for control protocol by using
    configuration data model to provision test sessions. 
    <xref target="RFC8972"/> defines optional extensions for STAMP.
@@ -296,7 +296,7 @@
 
     <t>When using the authenticated mode for delay measurement, the matching
     authentication type (e.g. HMAC-SHA-256) and key are user-configured
-    on both the STAMP session-sender and session-reflector <xref target="RFC8762"/>.</t>
+    on both the session-sender and session-reflector <xref target="RFC8762"/>.</t>
 
     </section>
 
@@ -305,7 +305,7 @@
    <section title="Delay Measurement for Links and SR Paths" anchor="sect-4">
 
    <section title="Session-Sender Test Packet" anchor="sect-4.1"><t>
-   The session-sender STAMP test packet content using the 
+   The session-sender test packet content using the 
    UDP header <xref target="RFC0768"/> is shown in Figure 2. 
    The payload contains the session-sender test packet defined in <xref target="RFC8762"/>.</t> 
 
@@ -335,7 +335,7 @@
    in segment routing networks is desired.</t>
 
    <section title="Session-Sender Test Packet for Links" anchor="sect-4.1.1"><t>
-   The STAMP test packet as shown in Figure 2 is sent over the link for delay measurement.
+   The session-sender test packet as shown in Figure 2 is sent over the link for delay measurement.
    The local and remote IP addresses of the link are used as Source and Destination Addresses.</t>
 
     </section>
@@ -427,7 +427,7 @@
     </section>
 
    <section title="Session-Reflector Test Packet" anchor="sect-4.2"><t>
-   The STAMP session-reflector test packet is sent using the IP/UDP information from
+   The session-reflector test packet is sent using the IP/UDP information from
    the received test packet.  The content of an example reply test
    packet is shown in Figure 5.</t>
 
@@ -477,7 +477,7 @@
    the same physical interface where the test packet is received.
    For this purpose, the Control Code is 
    set to "In-band Response Requested" <xref target="I-D.gandhi-ippm-stamp-srpm"/> in 
-   the Session-Sender test packets for links.</t>
+   the session-sender test packets for links.</t>
 
    <t>For two-way delay measurement mode for SR Policy, the session-reflector needs to send
    the reply test packet in-band on a specific reverse path.  The session-sender
@@ -509,7 +509,7 @@
     </figure>
     <t>
    The SR-MPLS Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
-   the forward SR Policy in the test packet can be used to find the
+   the forward SR Policy in the session-sender test packet can be used to find the
    associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to send the 
    reply test packet for a bidirectional SR Policy.</t>
 
@@ -553,7 +553,7 @@
     </figure>
    <t>
    The SRv6 Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-srv6-path-segment"/> of
-   the forward SR Policy in the test packet can be used to find the
+   the forward SR Policy in the session-sender test packet can be used to find the
    associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to send the 
    reply test packet for a bidirectional SR Policy.</t>
 
@@ -565,7 +565,7 @@
    of a bidirectional SR path.  The IP header of the session-sender test 
    packet contains the destination address equals to the session-sender address
    and the source address equals to the session-reflector address. Optionally,
-   the test packet can carry the reverse path information (e.g.
+   the session-sender test packet can carry the reverse path information (e.g.
    reverse path label stack for SR-MPLS) as part of the SR header.  The
    received test packets are not punted at the session-reflector and it does
    not process them and generate reply test packets.
@@ -591,7 +591,7 @@
       Tree-SID defined in <xref target="I-D.ietf-pim-sr-p2mp-policy"/> for the
       P2MP SR-MPLS Policy as shown in Figure 8.</t>
 
-      <t>The test packets can contain
+      <t>The session-sender test packets can contain
       the replication SID as defined in <xref target="I-D.ietf-spring-sr-replication-segment"/>.</t>
 
       <t>The Destination Address is set to the loopback 
@@ -626,7 +626,7 @@
     </figure>
 
 
-   <t>The test packets can also be sent using
+   <t>The session-sender test packets can also be sent using
    the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
@@ -682,7 +682,7 @@
    packets on specific ECMP paths.  The mechanisms described in
    <xref target="RFC8029"/> and <xref target="RFC5884"/> for 
    handling ECMPs are also applicable to the
-   delay measurement.  In IPv4 header of the test packets,
+   delay measurement.  In IPv4 header of the session-sender test packets,
    sweeping of Destination Address from range 127/8 can be used to exercise
    particular ECMP paths.  As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping.</t>
@@ -698,7 +698,7 @@
 
    <section title="Synthetic Loss Measurement" anchor="sect-6"><t>
    Synthetic packet loss measurement is applicable for connectivity verification and continuity check in an SR network.
-   The procedure defined in this document for delay measurement using STAMP 
+   The procedure defined in this document for delay measurement using STAMP test packets 
    can also be applied for synthetic packet loss measurement for links and end-to-end SR paths.
    The procedure uses sequence number in the STAMP test packets as 
    described in Section 4 "Theory of Operation" of <xref target="RFC8762"/>.</t>
@@ -706,7 +706,7 @@
 
    <section title="Liveness and Connectivity Loss Monitoring" anchor="sect-8"><t>
    Liveness monitoring is applicable for connectivity verification and continuity check in an SR network.
-   The procedure defined in this document for delay measurement using STAMP 
+   The procedure defined in this document for delay measurement using STAMP test packets 
    can also be applied to report the connectivity loss metric for links and end-to-end SR paths. 
    Connectivity loss is notified when consecutive N number of reply test packets are
    not received back at the session-sender, where N is locally provisioned value.</t>
