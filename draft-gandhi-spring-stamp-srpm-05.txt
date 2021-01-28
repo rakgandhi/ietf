@@ -813,7 +813,8 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    The Destination Node Address TLV [I-D.gandhi-ippm-stamp-srpm] can be
    sent in the session-sender test packet to identify the intended
-   destination node.  The session-reflector MUST NOT send reply test
+   destination node, for example, when using IPv4 Destination Address
+   from the range 127/8.  The session-reflector MUST NOT send reply test
    packet if it is not the intended destination node in the Destination
    Node Address TLV [I-D.gandhi-ippm-stamp-srpm].
 
@@ -833,7 +834,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    continuity check in an SR network.  The procedure defined in this
    document for delay measurement using STAMP can also be applied to
    report the connectivity loss metric for links and end-to-end SR
-   paths.  Connectivity loss is notified when consecutive N number of
 
 
 
@@ -842,6 +842,7 @@ Gandhi, et al.            Expires July 30, 2021                [Page 15]
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 
+   paths.  Connectivity loss is notified when consecutive N number of
    reply test packets are not received back at the session-sender, where
    N is locally provisioned value.
 
@@ -888,7 +889,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
-
 
 
 
