@@ -73,7 +73,7 @@ Table of Contents
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   5
-   5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   8
+   5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   7
    6.  Data Packet Loss Calculation  . . . . . . . . . . . . . . . .  10
    7.  Integrity Protection and Confidentiality Protection . . . . .  10
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
@@ -373,10 +373,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
        0x2: No Reply Requested.
 
-   The MBZ fields are used to achieve alignment of fields within the
-   packet on a four-octet boundary.  The value of each MBZ field MUST be
-   zeroed on transmission and MUST be ignored on receipt.
-
    The detailed use of the HMAC field is described in Section 4.4 of
    [RFC8762].
 
@@ -385,6 +381,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    MBZ: As defined in [RFC8762].
 
+5.  Session-Reflector Direct Measurement Test Packet
+
+   In this document, Session-Reflector DM test packet formats are
+   defined as shown in Figure 3 and Figure 4.
 
 
 
@@ -393,11 +393,6 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
-
-5.  Session-Reflector Direct Measurement Test Packet
-
-   In this document, Session-Reflector DM test packet formats are
-   defined as shown in Figure 3 and Figure 4.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -442,6 +437,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Receive Counter (C2)                   |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (8 octets)                         |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -450,11 +450,6 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 8]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (8 octets)                         |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sender Sequence Number                 |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
@@ -498,6 +493,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    Sender Sequence Number (32-bit): As defined in [RFC8762].
 
+   Session Sender TTL: As defined in [RFC8762].
+
+   MBZ: As defined in [RFC8762].
+
+
 
 
 
@@ -505,10 +505,6 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
-
-   Session Sender TTL: As defined in [RFC8762].
-
-   MBZ: As defined in [RFC8762].
 
 6.  Data Packet Loss Calculation
 
@@ -555,15 +551,16 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
+   The security considerations specified in [RFC8762] and [RFC8972] also
+   apply to the extensions defined in this document.
+
+
 
 
 Gandhi, et al.           Expires August 2, 2021                [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
-
-   The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the extensions defined in this document.
 
 9.  References
 
@@ -609,6 +606,9 @@ Acknowledgments
    comments on Direct Measurement.  The authors would like to
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.
+
+
+
 
 
 
