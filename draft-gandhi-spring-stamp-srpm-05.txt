@@ -105,7 +105,7 @@ Table of Contents
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      11.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
@@ -812,15 +812,10 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    Direct measurement is applicable to detect data packet loss in an SR
    network.  The "Direct Measurement" TLV (Type 5) defined in [RFC8972]
-   can be used for data packet loss detection for links and end-to-end
-   SR paths.  The Path Segment ID (PSID) from the received data packet
-   is used to measure receive data packets for end-to-end SR path on the
+   can be used to detect data packet loss for links and end-to-end SR
+   paths.  The Path Segment ID (PSID) from the received data packet can
+   be used to measure receive data packets for end-to-end SR path on the
    STAMP Session-Reflector node.
-
-   Note that the existing "Direct Measurement" TLV (Type 5) [RFC8972]
-   does not support 64-bit counters, byte counters and counters per
-   traffic class.  In addition, it does not support out-of-ordering of
-   data packets, as block number for the counters is not carried.
 
 7.  Liveness and Connectivity Loss Monitoring for Links and SR Paths
 
@@ -834,6 +829,11 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    Note that for one-way and two-way delay measurement modes, the
    connectivity loss detection interval and scale for number of STAMP
+   test sessions need to account for the processing of the STAMP test
+   packets on the STAMP Session-Reflector which need to be punted from
+   the forwarding fast path (to slow path or control plane) and reply
+   test packets need to be injected.  The scale is improved by using the
+   STAMP test packets in loopback mode as described in Section 4.2.3.
 
 
 
@@ -841,12 +841,6 @@ Gandhi, et al.           Expires August 1, 2021                [Page 15]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
-
-   test sessions need to account for the processing of the STAMP test
-   packets on the STAMP Session-Reflector which need to be punted from
-   the forwarding fast path (to slow path or control plane) and reply
-   test packets need to be injected.  The scale is improved by using the
-   STAMP test packets in loopback mode as described in Section 4.2.3.
 
 8.  ECMP Support for SR Policies
 
@@ -890,6 +884,12 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the test packets.  SRv6 has HMAC protection
+   authentication defined for SRH [RFC8754].  Hence, test packets for
+   SRv6 may not need authentication mode.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
+
+
 
 
 
@@ -897,11 +897,6 @@ Gandhi, et al.           Expires August 1, 2021                [Page 16]
 
 Internet-Draft       Using STAMP for Segment Routing        January 2021
 
-
-   authentication defined for SRH [RFC8754].  Hence, test packets for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
 
 10.  IANA Considerations
 
@@ -943,17 +938,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
 
 11.2.  Informative References
 
-
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    [IEEE1588]
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
@@ -962,6 +946,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
               <https://www.rfc-editor.org/info/rfc2113>.
+
+
+
+Gandhi, et al.           Expires August 1, 2021                [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
    [RFC5884]  Aggarwal, R., Kompella, K., Nadeau, T., and G. Swallow,
               "Bidirectional Forwarding Detection (BFD) for MPLS Label
@@ -1000,16 +991,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
@@ -1021,6 +1002,13 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               Kamite, "Point-to-Multipoint Transport Using Chain
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-03 (work in progress), October 2020.
+
+
+
+Gandhi, et al.           Expires August 1, 2021                [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
@@ -1058,14 +1046,6 @@ Internet-Draft       Using STAMP for Segment Routing        January 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing        January 2021
-
-
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -1074,6 +1054,17 @@ Acknowledgments
    Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu have helped improve the mechanisms defined in this document.
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 1, 2021                [Page 19]
+
+Internet-Draft       Using STAMP for Segment Routing        January 2021
+
 
 Authors' Addresses
 
@@ -1106,6 +1097,15 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
+
+
 
 
 
