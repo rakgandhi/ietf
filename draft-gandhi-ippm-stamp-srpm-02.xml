@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="28" month="January" year="2021"/>
+    <date day="29" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -198,21 +198,21 @@
     <section title="Session-Sender Control Code Field Extension" anchor="sect-3">
 
    <t>The STAMP Session-Reflector may need to transmit
-   the reply test packet on the same link in the reverse direction. The STAMP Session-Sender
-   can request in the test packet to the STAMP Session-Reflector to
-   transmit a reply test packet on the same link where the test packet is received.
+   the reply test packet on the same incoming link in the reverse direction. 
+   The STAMP Session-Sender can request in the test packet to the STAMP Session-Reflector to
+   transmit a reply test packet on the same incoming link where the test packet is received
+   by setting the Control Code field to 0x1.
    This way the STAMP Session-Reflector does not require provisioning 
    any additional state for the STAMP sessions for the links.</t>
 
-   <t>In this document, the Control Code field with flags is defined for STAMP Session-Sender test packets
+   <t>When Control Code field is set to 0x2, the Session-Reflector does not
+   transmit reply test packet back to the Session-Sender and terminates the
+   test session. The Session-Reflector may locally send performance metrics
+   via streaming telemetry using the information from the received test packet.</t>
+
+   <t>The Control Code field is defined for STAMP Session-Sender test packets
    for STAMP protocol <xref target="RFC8762"/> in unauthenticated and authenticated modes.  
-   The modified STAMP Session-Sender test packet formats are shown in Figure 1 and Figure 2. 
-   The STAMP Session-Sender test packet formats are backwards
-   compatible with the STAMP Session-Sender test packet formats defined in STAMP <xref target="RFC8762"/> and
-   updated in <xref target="RFC8972"/> as STAMP Session-Reflector MUST
-   ignore the received field (previously identified as MBZ).
-   The Control Code field is optional and MAY be ignored by the STAMP Session-Reflector. The STAMP Session-Reflector 
-   test packet formats are not modified wth the Control Code.</t>
+   The modified STAMP Session-Sender test packet formats are shown in Figure 1 and Figure 2.</t>
 
    <figure title="Control Code in Session-Sender STAMP Test Packet in Unauthenticated Mode" anchor="ure-se-control-code-in-stamp-packet"><artwork><![CDATA[
  0                   1                   2                   3
@@ -271,7 +271,7 @@
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x0: The existing default behaviour <xref target="RFC8762"/>.</t>
+       0x0: The existing (default) behaviour <xref target="RFC8762"/>.</t>
     </list>
     </t>
 
@@ -286,6 +286,16 @@
        0x2: No Reply Requested.</t>
     </list>
     </t>
+
+  <t>The STAMP Session-Sender test packet formats are backwards
+   compatible with the STAMP Session-Sender test packet formats 
+   defined in STAMP <xref target="RFC8762"/> and
+   updated in <xref target="RFC8972"/> as STAMP Session-Reflector MUST
+   ignore the received field (previously identified as MBZ).
+   The Control Code field is optional and MAY be ignored by the STAMP Session-Reflector. 
+   The STAMP Session-Reflector 
+   test packet formats are not modified wth the Control Code.</t>
+
 
     </section>
 
@@ -393,12 +403,12 @@
     <t><list style="symbols"><t>Type (value 2): SR-MPLS Label Stack of the Return Path</t>
 
     <t>Type (value 3): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-      the Reverse SR Policy</t>
+      the Return SR Policy</t>
 
     <t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
     <t>Type (value 5): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-      the Reverse SR Policy</t>
+      the Return SR Policy</t>
 
     </list>
     </t>
@@ -521,12 +531,12 @@
     <t>Type (value 2): SR-MPLS Label Stack of the Return Path</t>
 
     <t>Type (value 3): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/>
-                         of the Reverse SR Policy</t>
+                         of the Return SR Policy</t>
 
     <t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
     <t>Type (value 5): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-                         the Reverse SR Policy</t>
+                         the Return SR Policy</t>
 
     </list>
     </t>

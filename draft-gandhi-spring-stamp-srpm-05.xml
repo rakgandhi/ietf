@@ -82,7 +82,7 @@
     </address>
     </author>
 
-    <date day="28" month="January" year="2021"/>
+    <date day="29" month="January" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -215,7 +215,8 @@
    <section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown below, the STAMP Session-Sender R1 initiates a
    STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet is transmitted back to the STAMP Session-Sender R1 
+   transmits a reply test packet.  The reply test packet is 
+   transmitted back to the STAMP Session-Sender R1 
    on the same path or a different path in the reverse direction.</t>  
 
    <t>SR is enabled on nodes R1 and R3. The nodes R1 and R3 may be
@@ -267,7 +268,7 @@
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
    An example of a STAMP reference model and typical measurement session 
-   parameters for a user-configured destination UDP port 
+   parameters including the destination UDP port 
    for STAMP session is shown in the following Figure 1:</t>
 
    <figure title="Example STAMP Reference Model" anchor="ure-example-reference-model"><artwork><![CDATA[
@@ -303,11 +304,11 @@
     on STAMP Session-Sender and STAMP Session-Reflector <xref target="RFC8762"/>.</t>
 
     <t>The YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
-    can be used to provision the STAMP Session-Sender and STAMP Session-Reflector. 
-    Note that the reference model is not intended for signaling the SR parameters between the 
-    STAMP Session-Sender and STAMP Session-Reflector.</t>
+    can be used to provision the STAMP Session-Sender and STAMP Session-Reflector.</t>
 
-    <t>The STAMP Session-Reflector R3 uses the parameters for the timestamp format and
+    <t>Note that the reference model is not intended for signaling the SR parameters between the 
+    STAMP Session-Sender and STAMP Session-Reflector.
+    The STAMP Session-Reflector R3 uses the parameters for the timestamp format and
     return path for the reply test packet from the received STAMP test packet.</t>
 
     </section>
@@ -319,7 +320,8 @@
    <section title="Session-Sender Test Packet" anchor="sect-4.1"><t>
    The content of an example STAMP Session-Sender test packet using an 
    UDP header <xref target="RFC0768"/> is shown in Figure 2. 
-   The payload contains the STAMP Session-Sender test packet defined in <xref target="RFC8762"/>.</t> 
+   The payload contains the STAMP Session-Sender test 
+   packet defined in <xref target="RFC8762"/>.</t> 
 
     <figure title="Session-Sender Test Packet" anchor="ure-dm-sender-test-packet"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -347,8 +349,10 @@
    in SR networks is desired.</t>
 
    <section title="Session-Sender Test Packet for Links" anchor="sect-4.1.1"><t>
-   The STAMP Session-Sender test packet as shown in Figure 2 is transmitted over the link for delay measurement.
-   The local and remote IP addresses of the link are used as Source and Destination Addresses.</t>
+   The STAMP Session-Sender test packet as shown in Figure 2 is 
+   transmitted over the link for delay measurement.
+   The local and remote IP addresses of the link are used 
+   as Source and Destination Addresses.</t>
 
     </section>
 
@@ -439,8 +443,10 @@
     </section>
 
    <section title="Session-Reflector Test Packet" anchor="sect-4.2"><t>
-   The STAMP Session-Reflector reply test packet is transmitted using the IP/UDP information from
-   the received test packet.  The content of an example STAMP Session-Reflector reply test
+   The STAMP Session-Reflector reply test packet is transmitted using 
+   the IP/UDP information from
+   the received test packet.  The content of an example STAMP 
+   Session-Reflector reply test
    packet is shown in Figure 5.</t>
 
     <figure title="Session-Reflector Test Packet" anchor="ure-test-reply-packet"><artwork><![CDATA[
@@ -581,8 +587,8 @@
    of a bidirectional SR path.  The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
-   the STAMP Session-Sender test packet can carry the reverse path information (e.g.
-   reverse path label stack for SR-MPLS) as part of the SR header.  
+   the STAMP Session-Sender test packet can carry the return path information (e.g.
+   return path label stack for SR-MPLS) as part of the SR header.  
    In this mode, the Control Code is set to 0 
    [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
 
@@ -646,7 +652,8 @@
 
 
    <t>The STAMP Session-Sender test packets can also be transmitted using
-   the scheme defined for P2MP Transport using Chain Replication that may contain Bud SID as defined in 
+   the scheme defined for P2MP Transport using Chain Replication 
+   that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
    <t>The considerations for two-way delay measurement mode for 
@@ -660,7 +667,8 @@
         
    <section title="TTL" anchor="sect-4.5.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
-   STAMP Session-Sender and STAMP Session-Reflector test packets is set to 255, except in the following cases.</t>
+   STAMP Session-Sender and STAMP Session-Reflector test packets 
+   is set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv4 Address from range 127/8, 
    the TTL field in the IPv4 header is set to 1.</t>
@@ -672,7 +680,8 @@
 
    <section title="IPv6 Hop Limit" anchor="sect-4.5.2"><t>
    The Hop Limit field in the IPv6 and SRH headers of the
-   STAMP Session-Sender and STAMP Session-Reflector test packets is set to 255, except in the following cases.</t>
+   STAMP Session-Sender and STAMP Session-Reflector test packets is 
+   set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv6 Address of loopback address ::1/128, 
    the Hop Limit field in the IPv6 header is set to 1.</t>
@@ -703,16 +712,11 @@
    <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
    Direct measurement is applicable to detect data packet loss in an SR network.
    The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
-   can be used for data packet loss detection for links and end-to-end SR paths. 
+   can be used to detect data packet loss for links and end-to-end SR paths. 
    The Path Segment ID (PSID) from the received data packet 
-   is used to measure receive data packets for end-to-end SR path  
+   can be used to measure receive data packets for end-to-end SR path  
    on the STAMP Session-Reflector node.</t>
 
-   <t>Note that the existing "Direct Measurement" TLV (Type 5) 
-   <xref target="RFC8972"/> does not
-   support 64-bit counters, byte counters and counters per traffic class. 
-   In addition, it does not support out-of-ordering of data packets,
-   as block number for the counters is not carried.</t>
    </section>
 
      <section title="Liveness and Connectivity Loss Monitoring for Links and SR Paths" anchor="sect-7"><t>

@@ -6,12 +6,12 @@ IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Updates: 8762 (if approved)                          Cisco Systems, Inc.
 Intended status: Standards Track                                D. Voyer
-Expires: August 1, 2021                                      Bell Canada
+Expires: August 2, 2021                                      Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 28, 2021
+                                                        January 29, 2021
 
 
       Simple TWAMP (STAMP) Extensions for Segment Routing Networks
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 1, 2021.
+   This Internet-Draft will expire on August 2, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 1, 2021                 [Page 1]
+Gandhi, et al.           Expires August 2, 2021                 [Page 1]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -73,14 +73,14 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Session-Sender Control Code Field Extension . . . . . . . . .   4
-   4.  Destination Node Address TLV Extension  . . . . . . . . . . .   6
+   4.  Destination Node Address TLV Extension  . . . . . . . . . . .   7
    5.  Return Path TLV Extension . . . . . . . . . . . . . . . . . .   7
      5.1.  Return Path Sub-TLV . . . . . . . . . . . . . . . . . . .   8
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  12
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 1, 2021                 [Page 2]
+Gandhi, et al.           Expires August 2, 2021                 [Page 2]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -165,7 +165,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 1, 2021                 [Page 3]
+Gandhi, et al.           Expires August 2, 2021                 [Page 3]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -202,32 +202,32 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 3.  Session-Sender Control Code Field Extension
 
    The STAMP Session-Reflector may need to transmit the reply test
-   packet on the same link in the reverse direction.  The STAMP Session-
-   Sender can request in the test packet to the STAMP Session-Reflector
-   to transmit a reply test packet on the same link where the test
-   packet is received.  This way the STAMP Session-Reflector does not
-   require provisioning any additional state for the STAMP sessions for
-   the links.
+   packet on the same incoming link in the reverse direction.  The STAMP
+   Session-Sender can request in the test packet to the STAMP Session-
+   Reflector to transmit a reply test packet on the same incoming link
+   where the test packet is received by setting the Control Code field
+   to 0x1.  This way the STAMP Session-Reflector does not require
+   provisioning any additional state for the STAMP sessions for the
+   links.
 
-   In this document, the Control Code field with flags is defined for
-   STAMP Session-Sender test packets for STAMP protocol [RFC8762] in
-   unauthenticated and authenticated modes.  The modified STAMP Session-
-   Sender test packet formats are shown in Figure 1 and Figure 2.  The
-   STAMP Session-Sender test packet formats are backwards compatible
-   with the STAMP Session-Sender test packet formats defined in STAMP
-   [RFC8762] and updated in [RFC8972] as STAMP Session-Reflector MUST
-   ignore the received field (previously identified as MBZ).  The
-   Control Code field is optional and MAY be ignored by the STAMP
+   When Control Code field is set to 0x2, the Session-Reflector does not
+   transmit reply test packet back to the Session-Sender and terminates
+   the test session.  The Session-Reflector may locally send performance
+   metrics via streaming telemetry using the information from the
+   received test packet.
+
+   The Control Code field is defined for STAMP Session-Sender test
+   packets for STAMP protocol [RFC8762] in unauthenticated and
 
 
 
-Gandhi, et al.           Expires August 1, 2021                 [Page 4]
+Gandhi, et al.           Expires August 2, 2021                 [Page 4]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
-   Session-Reflector.  The STAMP Session-Reflector test packet formats
-   are not modified wth the Control Code.
+   authenticated modes.  The modified STAMP Session-Sender test packet
+   formats are shown in Figure 1 and Figure 2.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -277,7 +277,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 1, 2021                 [Page 5]
+Gandhi, et al.           Expires August 2, 2021                 [Page 5]
 
 Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
@@ -314,7 +314,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    Session-Sender Control Code Field (8-bit): Flags set as follows in
    STAMP Session-Sender test packet.
 
-       0x0: The existing default behaviour [RFC8762].
+       0x0: The existing (default) behaviour [RFC8762].
 
        0x1: In-band Reply Requested.  Indicates that this STAMP Session-
        Sender test packet has been sent over a bidirectional channel and
@@ -323,6 +323,21 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
        0x2: No Reply Requested.
 
+   The STAMP Session-Sender test packet formats are backwards compatible
+   with the STAMP Session-Sender test packet formats defined in STAMP
+   [RFC8762] and updated in [RFC8972] as STAMP Session-Reflector MUST
+   ignore the received field (previously identified as MBZ).  The
+   Control Code field is optional and MAY be ignored by the STAMP
+   Session-Reflector.  The STAMP Session-Reflector test packet formats
+   are not modified wth the Control Code.
+
+
+
+Gandhi, et al.           Expires August 2, 2021                 [Page 6]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
 4.  Destination Node Address TLV Extension
 
    The STAMP Session-Sender may need to transmit test packets to the
@@ -330,13 +345,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    example IPv4 address from 127/8 range).  In error conditions, the
    STAMP Session-Reflector on an un-intended node may transmit reply
    test packets resulting in reporting of invalid measurement metrics.
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 6]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
 
    In this document, "Destination Node Address" TLV (Type TBA1) is
    defined for STAMP test packet [RFC8972] and has the following format
@@ -378,21 +386,18 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    additional dynamic state for the STAMP sessions for the end-to-end SR
    paths.
 
+
+
+
+Gandhi, et al.           Expires August 2, 2021                 [Page 7]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
    for "Return Path" TLV that carries return path for STAMP test packet.
    The format of the "Return Path" TLV is shown in Figure 4:
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 7]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -428,6 +433,23 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
       STAMP Session-Reflector test packet different than the Source
       Address in the received test packet.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 2, 2021                 [Page 8]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -440,16 +462,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
             Figure 5: Return Address Sub-TLV in Return Path TLV
 
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 8]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
-
    The format of the Segment List Sub-TLV in the "Return Path" TLV is
    shown in Figure 6.  The segment entries MUST be in network order.
    The Segment List Sub-TLV can be one of the following Types:
@@ -457,12 +469,12 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    o  Type (value 2): SR-MPLS Label Stack of the Return Path
 
    o  Type (value 3): SR-MPLS Binding SID
-      [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
+      [I-D.ietf-pce-binding-label-sid] of the Return SR Policy
 
    o  Type (value 4): SRv6 Segment List of the Return Path
 
    o  Type (value 5): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
-      of the Reverse SR Policy
+      of the Return SR Policy
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -485,6 +497,15 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
+
+
+
+
+Gandhi, et al.           Expires August 2, 2021                 [Page 9]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
    The STAMP Session-Sender MUST only insert one "Return Path" Sub-TLV
    in the test packet and the STAMP Session-Reflector MUST only process
    the first "Return Path" Sub-TLV in the test packet and ignore other
@@ -498,14 +519,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    The performance measurement is intended for deployment in well-
    managed private and service provider networks.  As such, it assumes
    that a node involved in a measurement operation has previously
-
-
-
-Gandhi, et al.           Expires August 1, 2021                 [Page 9]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
-
    verified the integrity of the path and the identity of the STAMP
    Session-Reflector.
 
@@ -542,6 +555,13 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    Served" procedure as specified in [RFC8126].  Remaining code points
    are allocated according to Table 1:
 
+
+
+Gandhi, et al.           Expires August 2, 2021                [Page 10]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
                +-----------+--------------+---------------+
                | Value     | Description  | Reference     |
                +-----------+--------------+---------------+
@@ -555,13 +575,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
                 Table 1: Return Path Sub-TLV Type Registry
 
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 10]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
-
    IANA is requested to allocate the values for the following Sub-TLV
    Types from this registry.
 
@@ -570,12 +583,12 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    o  Type (value 2): SR-MPLS Label Stack of the Return Path
 
    o  Type (value 3): SR-MPLS Binding SID
-      [I-D.ietf-pce-binding-label-sid] of the Reverse SR Policy
+      [I-D.ietf-pce-binding-label-sid] of the Return SR Policy
 
    o  Type (value 4): SRv6 Segment List of the Return Path
 
    o  Type (value 5): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
-      of the Reverse SR Policy
+      of the Return SR Policy
 
 8.  References
 
@@ -595,6 +608,16 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
+
+
+
+
+
+Gandhi, et al.           Expires August 2, 2021                [Page 11]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
               Protocol Optional Extensions", RFC 8972,
@@ -607,16 +630,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 11]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
-
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
@@ -651,6 +664,16 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
+
+
+
+
+
+Gandhi, et al.           Expires August 2, 2021                [Page 12]
+
+Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+
+
    Clarence Filsfils
    Cisco Systems, Inc.
 
@@ -661,17 +684,6 @@ Authors' Addresses
    Bell Canada
 
    Email: daniel.voyer@bell.ca
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 12]
-
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
    Mach(Guoyi) Chen
@@ -713,16 +725,4 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 1, 2021                [Page 13]
+Gandhi, et al.           Expires August 2, 2021                [Page 13]
