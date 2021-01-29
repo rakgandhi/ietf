@@ -72,7 +72,7 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   5
+   4.  Session-Sender Direct Measurement Test Packet . . . . . . . .   5
    5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   7
    6.  Data Packet Loss Calculation  . . . . . . . . . . . . . . . .  10
    7.  Integrity Protection and Confidentiality Protection . . . . .  10
@@ -178,12 +178,12 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 2.3.  Reference Topology
 
-   As shown in the reference topology blow, the Session-Sender R1
+   As shown in the DM reference topology blow, the DM Session-Sender R1
    transmits Direct Measurement (DM) test packets over UDP transport
-   toward the Session-Reflector R3.  The Session-Reflector R3 receives
-   the Session-Sender's DM test packet and acts according to the local
-   configuration.  The Session-Reflector R3 sends DM reply test packet
-   to the Session-Sender R1.
+   toward the Session-Reflector R3.  The DM Session-Reflector R3
+   receives the Session-Sender's DM test packet and acts according to
+   the local configuration.  The DM Session-Reflector R3 sends DM reply
+   test packet to the DM Session-Sender R1.
 
                         C1                  C2
                        /                     \
@@ -195,9 +195,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
                        \                     /
                         C4                  C3
 
-            Session-Sender               Session-Reflector
+          DM Session-Sender             DM Session-Reflector
 
-                         Reference Topology
+                       DM Reference Topology
 
 3.  Overview
 
@@ -211,10 +211,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    in this document.  The user-configured destination UDP port follows
    the guidelines described in [RFC8762].  Different destination UDP
    port is used for DM test packets than the STAMP test packets defined
-   in [RFC8762].  The DM test packets do not require backwards
-   compatibility and support for the existing STAMP test packets defined
-   in [RFC8762] as different destination UDP port is used.
-
+   in [RFC8762].  The DM Session-Sender and Session-Reflector do not
+   require backwards compatibility and support for the existing STAMP
+   test packets defined in [RFC8762] as different destination UDP port
+   is used.
 
 
 
@@ -226,7 +226,7 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 4]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-4.  Direct Measurement Test Packet
+4.  Session-Sender Direct Measurement Test Packet
 
    In this document, Session-Sender DM test packet formats are defined
    as shown in Figure 1 and Figure 2.  They are stand-alone DM test
@@ -479,8 +479,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
                             Authenticated Mode
 
    The Session-Reflector writes the transmit counter at the same
-   location in the DM test packet as the Session-Sender DM test packet.
-   This is an important property for hardware-based implementation.
+   location in the DM reply test packet as the Session-Sender DM test
+   packet.  This is an important property for hardware-based
+   implementation.
 
    Receive Counter (64-bit): The number of packets or octets received at
    the Session-Reflector.  It is written by the Session-Reflector in the
@@ -488,15 +489,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    measurement.
 
    Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received DM test packet.  It is written by the
-   Session-Reflector in the DM test packet.
+   counter from the received Session-Sender DM test packet.  It is
+   written by the Session-Reflector in the DM test packet.
 
    Sender Sequence Number (32-bit): As defined in [RFC8762].
 
    Session Sender TTL: As defined in [RFC8762].
 
    MBZ: As defined in [RFC8762].
-
 
 
 

@@ -179,12 +179,12 @@
     </section>
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
-   As shown in the reference topology blow, the Session-Sender R1 
+   As shown in the DM reference topology blow, the DM Session-Sender R1 
    transmits Direct Measurement (DM) test packets over UDP transport
-   toward the Session-Reflector R3.  The Session-Reflector R3
+   toward the Session-Reflector R3.  The DM Session-Reflector R3
    receives the Session-Sender's DM test packet and acts according to the
-   local configuration. The Session-Reflector R3 sends 
-   DM reply test packet to the Session-Sender R1.</t> 
+   local configuration. The DM Session-Reflector R3 sends 
+   DM reply test packet to the DM Session-Sender R1.</t> 
 
     <figure><artwork><![CDATA[
                      C1                  C2
@@ -197,9 +197,9 @@
                     \                     /
                      C4                  C3
 
-         Session-Sender               Session-Reflector
+       DM Session-Sender             DM Session-Reflector
 
-                      Reference Topology
+                    DM Reference Topology
 ]]></artwork>
     </figure>
 
@@ -217,14 +217,14 @@
     destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
     Different destination UDP port is used for
     DM test packets than the STAMP test packets defined in <xref target="RFC8762"/>.
-    The DM test packets do not require backwards
+    The DM Session-Sender and Session-Reflector do not require backwards
     compatibility and support for the existing STAMP test packets defined in
     <xref target="RFC8762"/> as different destination UDP port is used.</t>
   
     </section>
 
 
-    <section title="Direct Measurement Test Packet" anchor="sect-4">
+    <section title="Session-Sender Direct Measurement Test Packet" anchor="sect-4">
    <t>In this document, Session-Sender DM test packet formats 
    are defined as shown in Figure 1 and Figure 2. 
    They are stand-alone DM test packet formats to 
@@ -355,10 +355,6 @@
     </list>
     </t>
 
-   <t>The MBZ fields are used to achieve alignment of fields within the
-   packet on a four-octet boundary.  The value of each MBZ field MUST
-   be zeroed on transmission and MUST be ignored on receipt.</t>
-
     <t>
    The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
@@ -453,7 +449,7 @@
 
     <t>
    The Session-Reflector writes the transmit counter at the same location in the
-   DM test packet as the Session-Sender DM test packet. 
+   DM reply test packet as the Session-Sender DM test packet. 
    This is an important property for hardware-based implementation. 
    </t>
 
@@ -464,7 +460,7 @@
 
     <t>
    Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received DM test packet.  It is written by the
+   counter from the received Session-Sender DM test packet.  It is written by the
    Session-Reflector in the DM test packet.</t>
 
     <t>
@@ -483,29 +479,30 @@
    from the nth and (n-1)th DM test packets.</t>
 
    <t>
-   Transmit Loss TxL[n-1, n] = (C1[n] – C1[n-1]) - (C2[n] - C2[n-1])
+    Transmit Loss TxL[n-1, n] = (C1[n] – C1[n-1]) - (C2[n] - C2[n-1])
    </t>
 
    <t>
-   Receive Loss RxL[n-1, n]  = (C3[n] – C3[n-1]) - (C4[n] – C4[n-1])
+    Receive Loss RxL[n-1, n]  = (C3[n] – C3[n-1]) - (C4[n] – C4[n-1])
    </t>
 
    <t>
-   The total packet loss is calculated as follows:
+    The total packet loss is calculated as follows:
    </t>
 
    <t>
-      Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
+    Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
    </t>
 
    <t>
-      Total Receive Loss  = RxL[1,2] + RxL[2,3] + ...
+    Total Receive Loss  = RxL[1,2] + RxL[2,3] + ...
    </t>
 
    <t>These values are updated each time a DM reply test packet is received and
    processed at the Session-Sender, and they represent the total transmit and receive packet loss
    since the Direct Measurement operation was initiated. 
-   When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility of counter wrap must be taken into account. 
+   When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
+   of counter wrap must be taken into account. 
    </t>
 
         </section>
