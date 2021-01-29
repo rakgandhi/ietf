@@ -354,7 +354,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |STAMP TLV Flags|   Type=TBA2   |         Length                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                    Return Path Sub-TLV                        |
+ |                   Return Path Sub-TLV                         |
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
@@ -363,9 +363,11 @@
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
    <t>The "Return Path" TLV is optional. The STAMP Session-Sender MUST only insert
-    one "Return Path" TLV in the STAMP test packet and the STAMP Session-Reflector
+    one "Return Path" TLV in the STAMP test packet.
+    The STAMP Session-Reflector
     MUST only process the first "Return Path" TLV in the test
-    packet and ignore other "Return Path" TLVs if present. </t>
+    packet and ignore other "Return Path" TLVs if present, 
+    and it MUST NOT add "Return Path" TLV in the reply test packet.</t>
 
    <section title="Return Path Sub-TLV" anchor="sect-5.1">
    <t>The "Return Path" TLV contains a Sub-TLV to carry the return path. 
@@ -436,12 +438,11 @@
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
    <t>The STAMP Session-Sender
-    MUST only insert one "Return Path" Sub-TLV in the test packet and the STAMP Session-Reflector
+    MUST only insert one "Return Path" Sub-TLV in the test packet. The STAMP Session-Reflector
     MUST only process the first "Return Path" Sub-TLV in the test packet and ignore other "Return
     Path" Sub-TLVs if present. The STAMP Session-Reflector
     MUST transmit reply test packet on the return path
-    specified in the "Return Path" Sub-TLV and MUST NOT add "Return Path" TLV in
-    the reply test packet.</t>
+    specified in the "Return Path" Sub-TLV.</t>
 
     </section>
     </section>

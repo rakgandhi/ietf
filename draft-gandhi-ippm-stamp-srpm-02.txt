@@ -404,7 +404,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |STAMP TLV Flags|   Type=TBA2   |         Length                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                    Return Path Sub-TLV                        |
+    |                   Return Path Sub-TLV                         |
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -414,9 +414,10 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    [RFC8972].
 
    The "Return Path" TLV is optional.  The STAMP Session-Sender MUST
-   only insert one "Return Path" TLV in the STAMP test packet and the
+   only insert one "Return Path" TLV in the STAMP test packet.  The
    STAMP Session-Reflector MUST only process the first "Return Path" TLV
-   in the test packet and ignore other "Return Path" TLVs if present.
+   in the test packet and ignore other "Return Path" TLVs if present,
+   and it MUST NOT add "Return Path" TLV in the reply test packet.
 
 5.1.  Return Path Sub-TLV
 
@@ -432,7 +433,6 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    o  Type (value 1): Return Address.  Destination node address of the
       STAMP Session-Reflector test packet different than the Source
       Address in the received test packet.
-
 
 
 
@@ -507,12 +507,11 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
    The STAMP Session-Sender MUST only insert one "Return Path" Sub-TLV
-   in the test packet and the STAMP Session-Reflector MUST only process
+   in the test packet.  The STAMP Session-Reflector MUST only process
    the first "Return Path" Sub-TLV in the test packet and ignore other
    "Return Path" Sub-TLVs if present.  The STAMP Session-Reflector MUST
    transmit reply test packet on the return path specified in the
-   "Return Path" Sub-TLV and MUST NOT add "Return Path" TLV in the reply
-   test packet.
+   "Return Path" Sub-TLV.
 
 6.  Security Considerations
 
@@ -554,6 +553,7 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
    this registry shall be allocated according to the "First Come First
    Served" procedure as specified in [RFC8126].  Remaining code points
    are allocated according to Table 1:
+
 
 
 
