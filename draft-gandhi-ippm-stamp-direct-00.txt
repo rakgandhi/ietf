@@ -118,11 +118,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
       Also, the location of the transmit counter on the STAMP Session-
       Reflector test packet is not at the same location as the STAMP
       Session-Sender test packet.  This makes inline counter-stamping
-      the test packets difficult to implement in hardware.
+      the STAMP test packets difficult to implement in hardware.
 
    o  Furthermore, for hardware-based counter collection for direct
       measurement, the optional TLV adds unnecessary processing overhead
-      as not all test packets carry the TLV.
+      as not all STAMP test packets carry the "Direct Measurement" TLV.
 
    o  In addition, it does not support 64-bit counters.
 
@@ -198,8 +198,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    For direct measurement for accurate data packet loss detection, the
    STAMP test packets are sent in-band (on the same path as the data
    traffic) by the STAMP Session-Sender, and are used to collect the
-   receive traffic counters for the traffic flow under measurement at
-   the STAMP Session-Reflector.
+   transmit and receive counters for the data traffic flow under
+   measurement.
 
    The direct measurement test packets carry user-configured destination
    UDP port.  The destination UDP port 862 is not used for the direct
@@ -215,8 +215,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    In this document, STAMP Session-Sender test packet formats for direct
    measurement are defined as shown in Figure 1 and Figure 2.  They are
-   stand-alone test packet formats to carry counters for the data
-   traffic flow under measurement.  The test packet formats are similar
+   stand-alone test packet formats to carry transmit and receive
+   counters for the data traffic flow under measurement.  The test
 
 
 
@@ -226,8 +226,8 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 4]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-   to the STAMP test packet formats (for example location of the
-   Counters and Timestamps).
+   packet formats are similar to the STAMP test packet formats (for
+   example location of the Counters and Timestamps).
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -358,9 +358,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in [RFC8321] requires to collect Block Number for the
    data traffic.  To be able to correlate the transmit and receive
-   traffic counters of the matching block number, the block number of
-   the traffic counters is carried by the test packet and reply test
-   packet for direct measurement.
+   counters of the matching block number, the block number of the
+   counters is carried by the test packet and reply test packet for
+   direct measurement.
 
    SSID (16-bit): As defined in [RFC8972].
 

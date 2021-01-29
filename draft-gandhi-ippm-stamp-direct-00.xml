@@ -101,29 +101,29 @@
    can be used for combined delay and data packet loss
    measurement, which is suitable for control-plane based counter collection. 
    This method however has following limitations:</t>
-	   
+       
     <t><list style="symbols"><t>
      For only direct measurement, it requires the hardware to 
      support the STAMP test packets and support timestamps, in addition to counters.</t> 
-	   
+       
     <t>
      The location of the transmit counter is not at the fixed location. 
      Also, the location of the transmit counter on the STAMP Session-Reflector 
      test packet is not at the same location as the STAMP Session-Sender test packet. 
-     This makes inline counter-stamping the test packets difficult to implement
+     This makes inline counter-stamping the STAMP test packets difficult to implement
      in hardware.</t>
 
     <t>
      Furthermore, for hardware-based counter collection for direct measurement, 
-     the optional TLV adds unnecessary processing overhead as not all test
-     packets carry the TLV.</t>
-			    
+     the optional TLV adds unnecessary processing overhead as not all STAMP test
+     packets carry the "Direct Measurement" TLV.</t>
+                
     <t>
      In addition, it does not support 64-bit counters.</t> 
-			    
+                
     <t>
      It does not support counters for bytes.</t> 
-			    
+                
     <t>
      It does not support counters per traffic class.</t>
 
@@ -201,8 +201,7 @@
     For direct measurement for accurate data packet loss detection, 
     the STAMP test packets are sent in-band (on the
     same path as the data traffic) by the STAMP Session-Sender, and are used
-    to collect the receive traffic counters for the traffic flow under measurement at the
-    STAMP Session-Reflector.</t>
+    to collect the transmit and receive counters for the data traffic flow under measurement.</t>
 
     <t>The direct measurement test packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the direct measurement test packets 
@@ -220,7 +219,7 @@
     <section title="Direct Measurement Test Packet" anchor="sect-4">
    <t>In this document, STAMP Session-Sender test packet formats for
    direct measurement are defined as shown in Figure 1 and Figure 2. 
-   They are stand-alone test packet formats to carry counters for the data traffic 
+   They are stand-alone test packet formats to carry transmit and receive counters for the data traffic 
    flow under measurement. The test packet formats are similar to the STAMP test 
    packet formats (for example location of the Counters and Timestamps).</t>
 
@@ -318,8 +317,8 @@
    Block Number (7-bit): The Direct Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to 
    collect Block Number for the data traffic.  To
-   be able to correlate the transmit and receive traffic counters of the
-   matching block number, the block number of the traffic counters
+   be able to correlate the transmit and receive counters of the
+   matching block number, the block number of the counters
    is carried by the test packet and reply test packet for direct measurement.</t>
 
     <t>
