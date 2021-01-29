@@ -366,6 +366,9 @@
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.</t>
 
+    <t>
+   MBZ: As defined in <xref target="RFC8762"/>.</t>
+
     </section>
 
     <section title="Session-Reflector Direct Measurement Test Packet" anchor="sect-5">
@@ -393,7 +396,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Sender TTL   |        MBZ                                    |
+ |Ses-Sender TTL |        MBZ                                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -434,7 +437,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Sender TTL   |                                               |
+ |Ses-Sender TTL |                                               |
  +-+-+-+-+-+-+-+-+                                               |
  |                        MBZ (15 octets)                        |
  |                                                               |
@@ -468,7 +471,10 @@
    Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
     <t>
-   Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+   Session Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+
+    <t>
+   MBZ: As defined in <xref target="RFC8762"/>.</t>
 
         </section>
 
@@ -498,26 +504,27 @@
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility of counter wrap must be taken into account. 
    </t>
 
-
         </section>
 
-    <section title="Security Considerations" anchor="sect-7"><t>
+    <section title="Integrity Protection and Confidentiality Protection" anchor="sect-7"><t>
+   As specified in <xref target="RFC8762"/>.</t> 
+        </section>
+
+    <section title="Security Considerations" anchor="sect-8"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
    previously verified the integrity of the path and the identity of the
    Session-Reflector.</t>
 
-    <t>
-   If desired, attacks can be mitigated by performing basic validation
+    <t>If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the Session-Sender, of the counter fields
    in received direct measurement reply test packets.  The minimal state
    associated with these protocols also limits the extent of measurement
    disruption that can be caused by a corrupt or invalid packet to a
    single test cycle.</t>
 
-    <t>
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
+    <t>Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the test packets. Cryptographic measures may 
    be enhanced by the correct configuration
    of access-control lists and firewalls.</t>

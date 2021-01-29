@@ -75,11 +75,12 @@ Table of Contents
    4.  Direct Measurement Test Packet  . . . . . . . . . . . . . . .   5
    5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   8
    6.  Data Packet Loss Calculation  . . . . . . . . . . . . . . . .  10
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  11
+   7.  Integrity Protection and Confidentiality Protection . . . . .  10
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
@@ -104,7 +105,6 @@ Table of Contents
    5) [RFC8972] can be used for combined delay and data packet loss
    measurement, which is suitable for control-plane based counter
    collection.  This method however has following limitations:
-
 
 
 
@@ -394,6 +394,8 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 7]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   MBZ: As defined in [RFC8762].
+
 5.  Session-Reflector Direct Measurement Test Packet
 
    In this document, Session-Reflector direct measurement test packet
@@ -419,7 +421,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |  Sender TTL   |        MBZ                                    |
+    |Ses-Sender TTL |        MBZ                                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
        Figure 3: Session-Reflector Direct Measurement Test Packet -
@@ -440,8 +442,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Receive Counter (C2)                   |
 
 
 
@@ -450,6 +450,8 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 8]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Receive Counter (C2)                   |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (8 octets)                         |
@@ -468,7 +470,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |  Sender TTL   |                                               |
+    |Ses-Sender TTL |                                               |
     +-+-+-+-+-+-+-+-+                                               |
     |                        MBZ (15 octets)                        |
     |                                                               |
@@ -495,8 +497,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    Sender Counter (64-bit): This is the exact copy of the transmit
    counter from the received direct measurement test packet.  It is
-   written by the Session-Reflector in the direct measurement test
-   packet.
 
 
 
@@ -506,9 +506,14 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 9]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   written by the Session-Reflector in the direct measurement test
+   packet.
+
    Sender Sequence Number (32-bit): As defined in [RFC8762].
 
-   Sender TTL: As defined in [RFC8762].
+   Session Sender TTL: As defined in [RFC8762].
+
+   MBZ: As defined in [RFC8762].
 
 6.  Data Packet Loss Calculation
 
@@ -530,7 +535,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    TxL[n-1,n] and RxL[n-1,n], the possibility of counter wrap must be
    taken into account.
 
-7.  Security Considerations
+7.  Integrity Protection and Confidentiality Protection
+
+   As specified in [RFC8762].
+
+8.  Security Considerations
 
    The performance measurement is intended for deployment in well-
    managed private and service provider networks.  As such, it assumes
@@ -545,15 +554,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    disruption that can be caused by a corrupt or invalid packet to a
    single test cycle.
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
-
-   The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the extensions defined in this document.
-
-
 
 
 
@@ -562,9 +562,17 @@ Gandhi, et al.           Expires August 2, 2021                [Page 10]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-8.  References
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
 
-8.1.  Normative References
+   The security considerations specified in [RFC8762] and [RFC8972] also
+   apply to the extensions defined in this document.
+
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -592,12 +600,23 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
               Packet Loss Metric for IPPM", RFC 2680,
               DOI 10.17487/RFC2680, September 1999,
               <https://www.rfc-editor.org/info/rfc2680>.
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 2, 2021                [Page 11]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -610,14 +629,6 @@ Acknowledgments
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
    Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
    comments on direct measurement.  The authors would like to
-
-
-
-Gandhi, et al.           Expires August 2, 2021                [Page 11]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
-
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.
 
@@ -652,17 +663,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
 
 
 
