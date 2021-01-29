@@ -84,11 +84,11 @@ Table of Contents
 
 1.  Introduction
 
-   The Simple Two-way Active Measurement Protocol (STAMP) provides
-   capabilities for the measurement of various performance metrics in IP
-   networks using test packets [RFC8762].  It eliminates the need for
-   control protocol by using configuration data model to provision test
-   sessions.  [RFC8972] defines optional extensions for STAMP.
+   The Simple Two-way Active Measurement Protocol (STAMP) [RFC8762]
+   provides capabilities for the measurement of various performance
+   metrics in IP networks using test packets.  It eliminates the need
+   for control protocol by using configuration data model to provision
+   test sessions.  [RFC8972] defines optional extensions for STAMP.
 
    Many Service Provider Service Level Agreements (SLAs) depend on the
    ability to measure performance loss metric experienced by Customer
@@ -135,10 +135,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
       [RFC8321] for loss measurement.  This is needed in case of out-of-
       order data packets.
 
-   This document specifies RFC 8762 (Simple Two-Way Active Measurement
-   Protocol (STAMP)) extensions for Direct Measurement for detecting
-   accurate data packet loss in a network those are efficient for
-   hardware-based implementation.
+   This document specifies STAMP extensions for Direct Measurement for
+   detecting accurate data packet loss in a network those are efficient
+   for hardware-based implementation.  The procedure uses the mechanisms
+   defined in STAMP and unless otherwise specified, the mechanisms
+   defined in STAMP are not modified by this document.
 
 2.  Conventions Used in This Document
 
@@ -161,7 +162,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    SSID: STAMP Session Identifier.
 
-   STAMP: Simple Two-way Active Measurement Protocol.
 
 
 
@@ -169,6 +169,8 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 3]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   STAMP: Simple Two-way Active Measurement Protocol.
 
 2.3.  Reference Topology
 
@@ -216,8 +218,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    In this document, STAMP Session-Sender test packet formats for direct
    measurement are defined as shown in Figure 1 and Figure 2.  They are
    stand-alone test packet formats to carry transmit and receive
-   counters for the data traffic flow under measurement.  The test
-
 
 
 
@@ -226,6 +226,7 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 4]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   counters for the data traffic flow under measurement.  The test
    packet formats are similar to the STAMP test packet formats (for
    example location of the Counters and Timestamps).
 
@@ -251,7 +252,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
          Figure 1: Session-Sender Direct Measurement Test Packet -
                            Unauthenticated Mode
-
 
 
 
