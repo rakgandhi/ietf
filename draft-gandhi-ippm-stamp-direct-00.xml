@@ -294,7 +294,7 @@
    property for hardware-based implementation. Counter is for the data traffic flow
    under measurement.</t>
 
-   <t><list style="hanging" hangIndent="3"><t hangText="Flags: The meanings of the Flag bits are:">
+   <t><list style="hanging" hangIndent="3"><t hangText="XBT Flags: The meanings of the Flag bits are:">
     <vspace blankLines="1"/>
     X: Extended counter format indicator.  Indicates the use of
       extended (64-bit) counter values.  Initialized to 1 upon creation
@@ -335,8 +335,7 @@
     as defined in <xref target="RFC8972"/>.</t>
 
    <t>
-   Control Code Field (8-bit): Flags set as follows in 
-   Session-Sender DM test packet.</t>
+   Control Code Field (8-bit): Flags set as follows in Session-Sender DM test packet.</t>
    <t>  </t>
 
     <t><list hangIndent="4" style="hanging"><t>

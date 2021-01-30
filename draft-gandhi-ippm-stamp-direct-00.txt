@@ -318,7 +318,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    is an important property for hardware-based implementation.  Counter
    is for the data traffic flow under measurement.
 
-   Flags: The meanings of the Flag bits are:
+   XBT Flags: The meanings of the Flag bits are:
 
       X: Extended counter format indicator.  Indicates the use of
       extended (64-bit) counter values.  Initialized to 1 upon creation
