@@ -182,18 +182,18 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    SHA: Secure Hash Algorithm.
 
-   DSID: DM Session Identifier.
+   DSID: Session Identifier.
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
 2.3.  Reference Topology
 
-   As shown in the DM reference topology blow, the DM Session-Sender R1
+   As shown in the DM reference topology blow, the Session-Sender R1
    transmits Direct Measurement (DM) test packets over UDP transport
-   toward the Session-Reflector R3.  The DM Session-Reflector R3
-   receives the Session-Sender's DM test packet and acts according to
-   the local configuration.  The DM Session-Reflector R3 sends DM reply
-   test packet to the DM Session-Sender R1.
+   toward the Session-Reflector R3.  The Session-Reflector R3 receives
+   the Session-Sender's DM test packet and acts according to the local
+   configuration.  The Session-Reflector R3 sends DM reply test packet
+   to the Session-Sender R1.
 
                         C1                  C2
                        /                     \
@@ -205,19 +205,19 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
                        \                     /
                         C4                  C3
 
-          DM Session-Sender             DM Session-Reflector
+            Session-Sender                Session-Reflector
 
                        DM Reference Topology
 
 3.  Overview
 
-   For accurate data packet loss detection, the DM test packets are sent
-   in-band (on the same path as the data traffic flow) by the Session-
-   Sender, and are used to collect the transmit and receive counters for
-   the data traffic flow under measurement.
+   For accurate data packet loss detection, using the extensions defined
+   in this document, the DM test packets are sent in-band (on the same
+   path as the data traffic flow) by the Session-Sender, and are used to
+   collect the transmit and receive counters for the data traffic flow
+   under measurement.
 
-   The DM test packets carry user-configured destination UDP port.  The
-   destination UDP port 862 is not used for the DM test packets defined
+
 
 
 
@@ -226,13 +226,14 @@ Gandhi, et al.           Expires August 3, 2021                 [Page 4]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   The DM test packets carry user-configured destination UDP port.  The
+   destination UDP port 862 is not used for the DM test packets defined
    in this document.  The user-configured destination UDP port follows
    the guidelines described in [RFC8762].  Different destination UDP
    port is used for DM test packets than the STAMP test packets defined
-   in [RFC8762].  The DM Session-Sender and Session-Reflector do not
-   require backwards compatibility and support for the existing STAMP
-   test packets defined in [RFC8762] as different destination UDP port
-   is used.
+   in [RFC8762].  Hence, the Session-Sender and the Session-Reflector do
+   not require backwards compatibility and support for the existing
+   STAMP test packets defined in [RFC8762].
 
 4.  Session-Sender Direct Measurement Test Packet
 
@@ -265,7 +266,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
          Figure 1: Session-Sender Direct Measurement Test Packet -
                            Unauthenticated Mode
-
 
 
 
@@ -358,8 +358,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    counters of the matching block number, the block number of the
    counters is carried by the DM test packet and reply test packet.
 
-   DSID (16-bit): DM Session Identifier.  Follow the procedure as SSID
-   as defined in [RFC8972].
+   DSID (16-bit): Session Identifier.  Follow the procedure as SSID as
+   defined in [RFC8972].
 
    Control Code Field (8-bit): Flags set as follows in Session-Sender DM
    test packet.
