@@ -5,13 +5,13 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 2, 2021                                         D. Voyer
+Expires: August 3, 2021                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 29, 2021
+                                                        January 30, 2021
 
 
          Simple TWAMP (STAMP) Extensions for Direct Measurement
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 2, 2021.
+   This Internet-Draft will expire on August 3, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 1]
+Gandhi, et al.           Expires August 3, 2021                 [Page 1]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -69,18 +69,18 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Session-Sender Direct Measurement Test Packet . . . . . . . .   5
    5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   7
-   6.  Data Packet Loss Calculation  . . . . . . . . . . . . . . . .  10
+   6.  Data Loss Calculation . . . . . . . . . . . . . . . . . . . .  10
    7.  Integrity Protection and Confidentiality Protection . . . . .  10
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  11
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
@@ -101,18 +101,21 @@ Table of Contents
    lacks support for Direct Measurement.  The STAMP can be used for test
    packet loss detection (i.e. synthetic packet loss measurement),
    however, that does not provide accurate Customer data packet loss
-   metrics.  The STAMP test packet with a "Direct Measurement" TLV (Type
-   5) [RFC8972] can be used for combined delay and data packet loss
-   measurement, which is suitable for control-plane based counter
-   collection.  This method however has following limitations:
+   metrics.
+
+   The STAMP test packet with a "Direct Measurement" TLV (Type 5)
+   [RFC8972] can be used for combined delay and data packet loss
 
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 2]
+Gandhi, et al.           Expires August 3, 2021                 [Page 2]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   measurement, which is suitable for control-plane based counter
+   collection.  This method however has following limitations:
 
    o  For only Direct Measurement, STAMP test packet requires the
       hardware to support the STAMP test packets and support timestamps,
@@ -122,14 +125,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    o  The location of the transmit counter is not at the fixed location
       in STAMP test packets.  Also, the location of the transmit counter
       on the STAMP Session-Reflector test packet is not at the same
-      location as the STAMP Session-Sender test packet.  This makes
-      inline counter-stamping the STAMP test packets difficult to
+      location as the STAMP Session-Sender test packet.  This makes in-
+      band counter-stamping the STAMP test packets difficult to
       implement in hardware.
 
    o  Furthermore, for hardware-based counter collection for loss
       detection, the optional "Direct Measurement" TLV adds unnecessary
-      processing overhead as not all STAMP test packets carry the
-      "Direct Measurement" TLV.
+      processing overhead on the Session-Reflector as not all STAMP test
+      packets carry the "Direct Measurement" TLV.
 
    o  In addition, STAMP test packet does not support 64-bit counters.
 
@@ -155,6 +158,18 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 3, 2021                 [Page 3]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
 2.2.  Abbreviations
 
    DM: Direct Measurement.
@@ -162,13 +177,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    HMAC: Hashed Message Authentication Code.
 
    LM: Loss Measurement.
-
-
-
-Gandhi, et al.           Expires August 2, 2021                 [Page 3]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
 
    PM: Performance Measurement.
 
@@ -210,6 +218,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    The DM test packets carry user-configured destination UDP port.  The
    destination UDP port 862 is not used for the DM test packets defined
+
+
+
+Gandhi, et al.           Expires August 3, 2021                 [Page 4]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
    in this document.  The user-configured destination UDP port follows
    the guidelines described in [RFC8762].  Different destination UDP
    port is used for DM test packets than the STAMP test packets defined
@@ -217,14 +233,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    require backwards compatibility and support for the existing STAMP
    test packets defined in [RFC8762] as different destination UDP port
    is used.
-
-
-
-
-Gandhi, et al.           Expires August 2, 2021                 [Page 4]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
 
 4.  Session-Sender Direct Measurement Test Packet
 
@@ -269,15 +277,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 2, 2021                 [Page 5]
+Gandhi, et al.           Expires August 3, 2021                 [Page 5]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -333,7 +333,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 6]
+Gandhi, et al.           Expires August 3, 2021                 [Page 6]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -389,7 +389,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 7]
+Gandhi, et al.           Expires August 3, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -445,7 +445,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 8]
+Gandhi, et al.           Expires August 3, 2021                 [Page 8]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -501,7 +501,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 9]
+Gandhi, et al.           Expires August 3, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
@@ -513,7 +513,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    MBZ: As defined in [RFC8762].
 
-6.  Data Packet Loss Calculation
+6.  Data Loss Calculation
 
    Using the Counters C1, C2, C3 and C4 as per reference topology, from
    the nth and (n-1)th DM test packets.
@@ -522,7 +522,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    Receive Loss RxL[n-1, n] = (C3[n] - C3[n-1]) - (C4[n] - C4[n-1])
 
-   The total packet loss is calculated as follows:
+   The total transmit and receive loss is calculated as follows:
 
    Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
 
@@ -530,10 +530,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    These values are updated each time a DM reply test packet is received
    and processed at the Session-Sender, and they represent the total
-   transmit and receive packet loss since the Direct Measurement
-   operation was initiated.  When computing the values TxL[n-1,n] and
-   RxL[n-1,n], the possibility of counter wrap must be taken into
-   account.
+   transmit and receive loss since the Direct Measurement operation was
+   initiated.  When computing the values TxL[n-1,n] and RxL[n-1,n], the
+   possibility of counter wrap must be taken into account.
 
 7.  Integrity Protection and Confidentiality Protection
 
@@ -553,17 +552,16 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    these protocols also limits the extent of measurement disruption that
    can be caused by a corrupt or invalid packet to a single test cycle.
 
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  Cryptographic measures may be
 
 
 
-
-Gandhi, et al.           Expires August 2, 2021                [Page 10]
+Gandhi, et al.           Expires August 3, 2021                [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
@@ -607,22 +605,19 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
               Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
               January 2018, <https://www.rfc-editor.org/info/rfc8321>.
 
-
-
-
-
-
-
-Gandhi, et al.           Expires August 2, 2021                [Page 11]
-
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
-
-
 Acknowledgments
 
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
    Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
    comments on Direct Measurement.  The authors would like to
+
+
+
+Gandhi, et al.           Expires August 3, 2021                [Page 11]
+
+Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+
+
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.
 
@@ -669,4 +664,9 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 2, 2021                [Page 12]
+
+
+
+
+
+Gandhi, et al.           Expires August 3, 2021                [Page 12]

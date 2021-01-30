@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="29" month="January" year="2021"/>
+    <date day="30" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 
@@ -100,8 +100,9 @@
    between the measurement points and lacks support for Direct Measurement.
    The STAMP can be used for test packet 
    loss detection (i.e. synthetic packet loss measurement), however, that 
-   does not provide accurate Customer data packet loss metrics.
-   The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
+   does not provide accurate Customer data packet loss metrics.</t>
+
+   <t>The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
    can be used for combined delay and data packet loss
    measurement, which is suitable for control-plane based counter collection. 
    This method however has following limitations:</t>
@@ -111,16 +112,16 @@
      support the STAMP test packets and support timestamps, in addition to counters.
      One-way delay also requires clock synchronization.</t> 
        
-    <t>
-     The location of the transmit counter is not at the fixed location in STAMP test packets. 
+    <t>The location of the transmit counter is not at the fixed location in STAMP test packets. 
      Also, the location of the transmit counter on the STAMP Session-Reflector 
      test packet is not at the same location as the STAMP Session-Sender test packet. 
-     This makes inline counter-stamping the STAMP test packets difficult to implement
+     This makes in-band counter-stamping the STAMP test packets difficult to implement
      in hardware.</t>
 
     <t>
      Furthermore, for hardware-based counter collection for loss detection, 
-     the optional "Direct Measurement" TLV adds unnecessary processing overhead as not all STAMP test
+     the optional "Direct Measurement" TLV adds unnecessary processing overhead 
+     on the Session-Reflector as not all STAMP test
      packets carry the "Direct Measurement" TLV.</t>
                 
     <t>
@@ -484,7 +485,7 @@
 
         </section>
 
-    <section title="Data Packet Loss Calculation" anchor="sect-6"><t>
+    <section title="Data Loss Calculation" anchor="sect-6"><t>
    Using the Counters C1, C2, C3 and C4 as per reference topology, 
    from the nth and (n-1)th DM test packets.</t>
 
@@ -497,7 +498,7 @@
    </t>
 
    <t>
-    The total packet loss is calculated as follows:
+    The total transmit and receive loss is calculated as follows:
    </t>
 
    <t>
@@ -509,7 +510,7 @@
    </t>
 
    <t>These values are updated each time a DM reply test packet is received and
-   processed at the Session-Sender, and they represent the total transmit and receive packet loss
+   processed at the Session-Sender, and they represent the total transmit and receive loss
    since the Direct Measurement operation was initiated. 
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
