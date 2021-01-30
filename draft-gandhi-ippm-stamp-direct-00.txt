@@ -80,7 +80,7 @@ Table of Contents
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  11
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  11
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
@@ -172,7 +172,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    SHA: Secure Hash Algorithm.
 
-   SSID: STAMP Session Identifier.
+   DSID: DM Session Identifier.
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
@@ -243,7 +243,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| SSID                          |
+    |X|B|T| DSCP      | Block Number| DSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |         MBZ                                   | Control Code  |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -294,7 +294,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| SSID                          |
+    |X|B|T| DSCP      | Block Number| DSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |         MBZ                                   | Control Code  |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -313,11 +313,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    Sequence Number (32-bit): As defined in [RFC8762].
 
    Transmit Counter (64-bit): The number of packets or octets sent by
-   the Session-Sender in the DM test packet and by the Session-Reflector
-   in the DM test packet.  The counter is always written at the well-
-   known fixed location in the DM test packet and reply test packet.
-   This is an important property for hardware-based implementation.
-   Counter is for the data traffic flow under measurement.
+   the Session-Sender in the DM test packet.  The counter is always
+   written at the well-known fixed location in the DM test packet.  This
+   is an important property for hardware-based implementation.  Counter
+   is for the data traffic flow under measurement.
 
    Flags: The meanings of the Flag bits are:
 
@@ -330,6 +329,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
       B: Octet (byte) count.  When set to 1, indicates that the Counter
       fields represent octet counts.  The octet count applies to all
+      packets within the Direct Measurement scope, and the octet count
 
 
 
@@ -338,7 +338,6 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 6]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-      packets within the Direct Measurement scope, and the octet count
       of a packet sent or received includes the total length of that
       packet (but excludes headers, labels, or framing of the channel
       itself).  When set to 0, indicates that the Counter fields
@@ -359,7 +358,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    counters of the matching block number, the block number of the
    counters is carried by the DM test packet and reply test packet.
 
-   SSID (16-bit): As defined in [RFC8972].
+   DSID (16-bit): DM Session Identifier.  Follow the procedure as SSID
+   as defined in [RFC8972].
 
    Control Code Field (8-bit): Flags set as follows in Session-Sender DM
    test packet.
@@ -402,7 +402,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| SSID                          |
+    |X|B|T| DSCP      | Block Number| DSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Receive Counter (C2)                   |
     |                                                               |
@@ -432,7 +432,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
     |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| SSID                          |
+    |X|B|T| DSCP      | Block Number| DSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -478,10 +478,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
        Figure 4: Session-Reflector Direct Measurement Test Packet -
                             Authenticated Mode
 
-   The Session-Reflector writes the transmit counter at the same
-   location in the DM reply test packet as the Session-Sender DM test
-   packet.  This is an important property for hardware-based
-   implementation.
+   Sequence Number (32-bit): As defined in [RFC8762].
+
+   Transmit Counter (64-bit): The number of packets or octets sent by
+   the Session-Reflector in the DM reply test packet.  Counter is for
+   the data traffic flow under measurement.  The Session-Reflector
+   writes the transmit counter at the same location in the DM reply test
+   packet as the Session-Sender DM test packet.  This is an important
+   property for hardware-based implementation.
 
    Receive Counter (64-bit): The number of packets or octets received at
    the Session-Reflector.  It is written by the Session-Reflector in the
@@ -494,10 +498,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    Sender Sequence Number (32-bit): As defined in [RFC8762].
 
-   Session Sender TTL: As defined in [RFC8762].
-
-   MBZ: As defined in [RFC8762].
-
 
 
 
@@ -505,6 +505,13 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   Session-Sender TTL: As defined in [RFC8762].
+
+   The detailed use of the HMAC field is described in Section 4.4 of
+   [RFC8762].
+
+   MBZ: As defined in [RFC8762].
 
 6.  Data Packet Loss Calculation
 
@@ -546,13 +553,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    these protocols also limits the extent of measurement disruption that
    can be caused by a corrupt or invalid packet to a single test cycle.
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
-
-   The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the extensions defined in this document.
 
 
 
@@ -561,6 +561,14 @@ Gandhi, et al.           Expires August 2, 2021                [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
+
+   The security considerations specified in [RFC8762] and [RFC8972] also
+   apply to the extensions defined in this document.
 
 9.  References
 
@@ -599,14 +607,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
               Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
               January 2018, <https://www.rfc-editor.org/info/rfc8321>.
 
-Acknowledgments
-
-   The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
-   Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
-   comments on Direct Measurement.  The authors would like to
-   acknowledge the earlier work on the loss measurement using TWAMP
-   described in draft-xiao-ippm-twamp-ext-direct-loss.
-
 
 
 
@@ -617,6 +617,14 @@ Gandhi, et al.           Expires August 2, 2021                [Page 11]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+Acknowledgments
+
+   The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
+   Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
+   comments on Direct Measurement.  The authors would like to
+   acknowledge the earlier work on the loss measurement using TWAMP
+   described in draft-xiao-ippm-twamp-ext-direct-loss.
 
 Authors' Addresses
 
@@ -649,14 +657,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
 
 
 

@@ -171,7 +171,7 @@
    SHA: Secure Hash Algorithm.</t>
 
     <t>
-   SSID: STAMP Session Identifier.</t>
+   DSID: DM Session Identifier.</t>
 
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
@@ -241,7 +241,7 @@
  |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| DSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -268,7 +268,7 @@
  |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| DSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |         MBZ                                   | Control Code  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -288,9 +288,9 @@
 
     <t>
    Transmit Counter (64-bit): The number of packets or octets sent by
-   the Session-Sender in the DM test packet and by the Session-Reflector in the
+   the Session-Sender in the 
    DM test packet.  The counter is always written at the well-known fixed 
-   location in the DM test packet and reply test packet.  This is an important
+   location in the DM test packet.  This is an important
    property for hardware-based implementation. Counter is for the data traffic flow
    under measurement.</t>
 
@@ -331,7 +331,8 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   SSID (16-bit): As defined in <xref target="RFC8972"/>.</t>
+   DSID (16-bit): DM Session Identifier. Follow the procedure as SSID 
+    as defined in <xref target="RFC8972"/>.</t>
 
    <t>
    Control Code Field (8-bit): Flags set as follows in 
@@ -380,7 +381,7 @@
  |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| DSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter (C2)                   |
  |                                                               |
@@ -410,7 +411,7 @@
  |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| SSID                          |
+ |X|B|T| DSCP      | Block Number| DSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -448,6 +449,12 @@
     </figure>
 
     <t>
+   Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+
+   <t>
+   Transmit Counter (64-bit): The number of packets or octets sent by
+   the Session-Reflector in the DM reply test packet. 
+   Counter is for the data traffic flow under measurement.
    The Session-Reflector writes the transmit counter at the same location in the
    DM reply test packet as the Session-Sender DM test packet. 
    This is an important property for hardware-based implementation. 
@@ -467,7 +474,10 @@
    Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
     <t>
-   Session Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+   Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+
+    <t>
+   The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
     <t>
    MBZ: As defined in <xref target="RFC8762"/>.</t>
