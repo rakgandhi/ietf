@@ -76,7 +76,11 @@
    This document specifies RFC 8762 
    (Simple Two-Way Active Measurement Protocol (STAMP))
    extensions for Direct Measurement for detecting accurate data 
-   packet loss in a network those are efficient for hardware-based implementation.</t>
+   packet loss in a network those are efficient for hardware-based implementation.
+   Specifically, new Direct Measurement 
+   test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
+   and authenticated modes.
+   </t>
 
     </abstract>
     </front>
@@ -125,7 +129,7 @@
      packets carry the "Direct Measurement" TLV.</t>
                 
     <t>
-     In addition, STAMP test packet does not support 64-bit counters.</t> 
+     In addition, the STAMP test packet does not support 64-bit counters.</t> 
                 
     <t>
      The STAMP test packet does not support counters for bytes.</t> 
@@ -143,7 +147,9 @@
 
    <t>This document specifies STAMP 
    extensions for Direct Measurement for detecting accurate data packet loss in a network those 
-   are efficient for hardware-based implementation.
+   are efficient for hardware-based implementation. Specifically, new Direct Measurement 
+   test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
+   and authenticated modes.
    </t>
 
     </section>
@@ -212,7 +218,9 @@
     For accurate data packet loss detection, using the extensions defined in this
     document, the DM test packets are sent in-band (on the
     same path as the data traffic flow) by the Session-Sender, and are used
-    to collect the transmit and receive counters for the data traffic flow under measurement.</t>
+    to collect the transmit and receive counters for the data traffic flow under measurement.
+    The DM reply test packets can also be sent in-band by the Session-Reflector
+    to collect the transmit and receive counters for the data traffic flow in the reverse direction.</t>
 
     <t>The DM test packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the DM test packets 
@@ -334,7 +342,7 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   DSID (16-bit): Session Identifier. Follow the procedure as SSID 
+   DSID (16-bit): Session Identifier. Follows the procedure for SSID 
     as defined in <xref target="RFC8972"/>.</t>
 
    <t>

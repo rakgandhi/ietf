@@ -22,7 +22,9 @@ Abstract
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
    accurate data packet loss in a network those are efficient for
-   hardware-based implementation.
+   hardware-based implementation.  Specifically, new Direct Measurement
+   test packets are defined for Session-Sender and Session-Reflector,
+   for both unauthenticated and authenticated modes.
 
 Status of This Memo
 
@@ -48,8 +50,6 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
 
 
 
@@ -58,6 +58,8 @@ Gandhi, et al.           Expires August 3, 2021                 [Page 1]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
@@ -103,8 +105,6 @@ Table of Contents
    however, that does not provide accurate Customer data packet loss
    metrics.
 
-   The STAMP test packet with a "Direct Measurement" TLV (Type 5)
-   [RFC8972] can be used for combined delay and data packet loss
 
 
 
@@ -114,6 +114,8 @@ Gandhi, et al.           Expires August 3, 2021                 [Page 2]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   The STAMP test packet with a "Direct Measurement" TLV (Type 5)
+   [RFC8972] can be used for combined delay and data packet loss
    measurement, which is suitable for control-plane based counter
    collection.  This method however has following limitations:
 
@@ -134,7 +136,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
       processing overhead on the Session-Reflector as not all STAMP test
       packets carry the "Direct Measurement" TLV.
 
-   o  In addition, STAMP test packet does not support 64-bit counters.
+   o  In addition, the STAMP test packet does not support 64-bit
+      counters.
 
    o  The STAMP test packet does not support counters for bytes.
 
@@ -159,9 +162,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
-
-
-
 
 
 
@@ -215,9 +215,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    in this document, the DM test packets are sent in-band (on the same
    path as the data traffic flow) by the Session-Sender, and are used to
    collect the transmit and receive counters for the data traffic flow
-   under measurement.
-
-
+   under measurement.  The DM reply test packets can also be sent in-
+   band by the Session-Reflector to collect the transmit and receive
+   counters for the data traffic flow in the reverse direction.
 
 
 
@@ -358,7 +358,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    counters of the matching block number, the block number of the
    counters is carried by the DM test packet and reply test packet.
 
-   DSID (16-bit): Session Identifier.  Follow the procedure as SSID as
+   DSID (16-bit): Session Identifier.  Follows the procedure for SSID as
    defined in [RFC8972].
 
    Control Code Field (8-bit): Flags set as follows in Session-Sender DM
