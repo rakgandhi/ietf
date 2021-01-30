@@ -107,32 +107,33 @@
    This method however has following limitations:</t>
        
     <t><list style="symbols"><t>
-     For only Direct Measurement, it requires the hardware to 
-     support the STAMP test packets and support timestamps, in addition to counters.</t> 
+     For only Direct Measurement, STAMP test packet requires the hardware to 
+     support the STAMP test packets and support timestamps, in addition to counters.
+     One-way delay also requires clock synchronization.</t> 
        
     <t>
-     The location of the transmit counter is not at the fixed location. 
+     The location of the transmit counter is not at the fixed location in STAMP test packets. 
      Also, the location of the transmit counter on the STAMP Session-Reflector 
      test packet is not at the same location as the STAMP Session-Sender test packet. 
      This makes inline counter-stamping the STAMP test packets difficult to implement
      in hardware.</t>
 
     <t>
-     Furthermore, for hardware-based counter collection for Direct Measurement, 
-     the optional TLV adds unnecessary processing overhead as not all STAMP test
+     Furthermore, for hardware-based counter collection for loss detection, 
+     the optional "Direct Measurement" TLV adds unnecessary processing overhead as not all STAMP test
      packets carry the "Direct Measurement" TLV.</t>
                 
     <t>
-     In addition, it does not support 64-bit counters.</t> 
+     In addition, STAMP test packet does not support 64-bit counters.</t> 
                 
     <t>
-     It does not support counters for bytes.</t> 
+     The STAMP test packet does not support counters for bytes.</t> 
                 
     <t>
-     It does not support counters per traffic class.</t>
+     The STAMP test packet does not support counters per traffic class.</t>
 
     <t>
-     It also does not identify the block number of the Direct Measurement, which is  
+     The STAMP test packet also does not identify the block number of the Direct Measurement, which is  
      required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.
      This is needed in case of out-of-order data packets.</t>
 

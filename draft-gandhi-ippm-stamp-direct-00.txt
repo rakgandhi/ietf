@@ -114,30 +114,33 @@ Gandhi, et al.           Expires August 2, 2021                 [Page 2]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
-   o  For only Direct Measurement, it requires the hardware to support
-      the STAMP test packets and support timestamps, in addition to
-      counters.
+   o  For only Direct Measurement, STAMP test packet requires the
+      hardware to support the STAMP test packets and support timestamps,
+      in addition to counters.  One-way delay also requires clock
+      synchronization.
 
-   o  The location of the transmit counter is not at the fixed location.
-      Also, the location of the transmit counter on the STAMP Session-
-      Reflector test packet is not at the same location as the STAMP
-      Session-Sender test packet.  This makes inline counter-stamping
-      the STAMP test packets difficult to implement in hardware.
+   o  The location of the transmit counter is not at the fixed location
+      in STAMP test packets.  Also, the location of the transmit counter
+      on the STAMP Session-Reflector test packet is not at the same
+      location as the STAMP Session-Sender test packet.  This makes
+      inline counter-stamping the STAMP test packets difficult to
+      implement in hardware.
 
-   o  Furthermore, for hardware-based counter collection for Direct
-      Measurement, the optional TLV adds unnecessary processing overhead
-      as not all STAMP test packets carry the "Direct Measurement" TLV.
+   o  Furthermore, for hardware-based counter collection for loss
+      detection, the optional "Direct Measurement" TLV adds unnecessary
+      processing overhead as not all STAMP test packets carry the
+      "Direct Measurement" TLV.
 
-   o  In addition, it does not support 64-bit counters.
+   o  In addition, STAMP test packet does not support 64-bit counters.
 
-   o  It does not support counters for bytes.
+   o  The STAMP test packet does not support counters for bytes.
 
-   o  It does not support counters per traffic class.
+   o  The STAMP test packet does not support counters per traffic class.
 
-   o  It also does not identify the block number of the Direct
-      Measurement, which is required for Alternate-Marking Method
-      [RFC8321] for loss measurement.  This is needed in case of out-of-
-      order data packets.
+   o  The STAMP test packet also does not identify the block number of
+      the Direct Measurement, which is required for Alternate-Marking
+      Method [RFC8321] for loss measurement.  This is needed in case of
+      out-of-order data packets.
 
    This document specifies STAMP extensions for Direct Measurement for
    detecting accurate data packet loss in a network those are efficient
@@ -160,15 +163,14 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    LM: Loss Measurement.
 
-   PM: Performance Measurement.
-
-
 
 
 Gandhi, et al.           Expires August 2, 2021                 [Page 3]
 
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
+
+   PM: Performance Measurement.
 
    SHA: Secure Hash Algorithm.
 
@@ -215,8 +217,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    require backwards compatibility and support for the existing STAMP
    test packets defined in [RFC8762] as different destination UDP port
    is used.
-
-
 
 
 
