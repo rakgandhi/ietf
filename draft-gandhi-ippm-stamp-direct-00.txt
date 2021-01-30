@@ -147,7 +147,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    This document specifies STAMP extensions for Direct Measurement for
    detecting accurate data packet loss in a network those are efficient
-   for hardware-based implementation.
+   for hardware-based implementation.  Specifically, new Direct
+   Measurement test packets are defined for Session-Sender and Session-
+   Reflector, for both unauthenticated and authenticated modes.
 
 2.  Conventions Used in This Document
 
@@ -157,8 +159,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
-
-
 
 
 
