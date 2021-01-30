@@ -73,13 +73,11 @@
     <date day="30" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
-   This document specifies RFC 8762 
-   (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for Direct Measurement for detecting accurate data 
-   packet loss in a network those are efficient for hardware-based implementation.
+   This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
+   extensions for Direct Measurement for detecting accurate data packet loss in a network.
    Specifically, new Direct Measurement 
    test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
-   and authenticated modes.
+   and authenticated modes, those are efficient for hardware-based implementation.
    </t>
 
     </abstract>
@@ -145,11 +143,10 @@
    </list>
    </t>
 
-   <t>This document specifies STAMP 
-   extensions for Direct Measurement for detecting accurate data packet loss in a network those 
-   are efficient for hardware-based implementation. Specifically, new Direct Measurement 
+   <t>This document specifies STAMP extensions for Direct Measurement for detecting 
+   accurate data packet loss in a network.  Specifically, new Direct Measurement 
    test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
-   and authenticated modes.
+   and authenticated modes, those are efficient for hardware-based implementation.
    </t>
 
     </section>
@@ -519,7 +516,7 @@
    </t>
 
    <t>These values are updated each time a DM reply test packet is received and
-   processed at the Session-Sender, and they represent the total transmit and receive loss
+   processed at the Session-Sender, and they represent the total transmit and toal receive loss
    since the Direct Measurement operation was initiated. 
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
@@ -528,13 +525,13 @@
         </section>
 
    <section title="Optional Extensions" anchor="sect-7"><t>
-   The optional STAMP extensions defined in `<xref target="RFC8972"/> are not currently 
+   The optional STAMP extensions defined in <xref target="RFC8972"/> are not currently 
    used by the DM test packets.</t> 
         </section>
 
-
     <section title="Integrity Protection and Confidentiality Protection" anchor="sect-8"><t>
-   As specified in <xref target="RFC8762"/>.</t> 
+   The integrity protection and confidentiality protection specified in <xref target="RFC8762"/>
+   also apply to the procedures defined in this document.</t>
         </section>
 
     <section title="Security Considerations" anchor="sect-9"><t>
@@ -557,7 +554,7 @@
    of access-control lists and firewalls.</t>
 
    <t>The security considerations specified in <xref target="RFC8762"/>
-   and <xref target="RFC8972"/> also apply to the extensions
+   and <xref target="RFC8972"/> also apply to the procedures 
    defined in this document.</t> 
 
     </section>

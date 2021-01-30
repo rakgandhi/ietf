@@ -21,10 +21,10 @@ Abstract
 
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
-   accurate data packet loss in a network those are efficient for
-   hardware-based implementation.  Specifically, new Direct Measurement
-   test packets are defined for Session-Sender and Session-Reflector,
-   for both unauthenticated and authenticated modes.
+   accurate data packet loss in a network.  Specifically, new Direct
+   Measurement test packets are defined for Session-Sender and Session-
+   Reflector, for both unauthenticated and authenticated modes, those
+   are efficient for hardware-based implementation.
 
 Status of This Memo
 
@@ -149,10 +149,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
       out-of-order data packets.
 
    This document specifies STAMP extensions for Direct Measurement for
-   detecting accurate data packet loss in a network those are efficient
-   for hardware-based implementation.  Specifically, new Direct
-   Measurement test packets are defined for Session-Sender and Session-
-   Reflector, for both unauthenticated and authenticated modes.
+   detecting accurate data packet loss in a network.  Specifically, new
+   Direct Measurement test packets are defined for Session-Sender and
+   Session-Reflector, for both unauthenticated and authenticated modes,
+   those are efficient for hardware-based implementation.
 
 2.  Conventions Used in This Document
 
@@ -530,18 +530,19 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    These values are updated each time a DM reply test packet is received
    and processed at the Session-Sender, and they represent the total
-   transmit and receive loss since the Direct Measurement operation was
-   initiated.  When computing the values TxL[n-1,n] and RxL[n-1,n], the
-   possibility of counter wrap must be taken into account.
+   transmit and toal receive loss since the Direct Measurement operation
+   was initiated.  When computing the values TxL[n-1,n] and RxL[n-1,n],
+   the possibility of counter wrap must be taken into account.
 
 7.  Optional Extensions
 
-   The optional STAMP extensions defined in `[RFC8972] are not currently
+   The optional STAMP extensions defined in [RFC8972] are not currently
    used by the DM test packets.
 
 8.  Integrity Protection and Confidentiality Protection
 
-   As specified in [RFC8762].
+   The integrity protection and confidentiality protection specified in
+   [RFC8762] also apply to the procedures defined in this document.
 
 9.  Security Considerations
 
@@ -553,7 +554,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the Session-Sender, of the counter fields in
-   received DM reply test packets.  The minimal state associated with
 
 
 
@@ -562,6 +562,7 @@ Gandhi, et al.           Expires August 3, 2021                [Page 10]
 Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
+   received DM reply test packets.  The minimal state associated with
    these protocols also limits the extent of measurement disruption that
    can be caused by a corrupt or invalid packet to a single test cycle.
 
@@ -571,7 +572,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
    firewalls.
 
    The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the extensions defined in this document.
+   apply to the procedures defined in this document.
 
 10.  References
 
@@ -609,7 +610,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
               "Alternate-Marking Method for Passive and Hybrid
               Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
               January 2018, <https://www.rfc-editor.org/info/rfc8321>.
-
 
 
 
