@@ -70,12 +70,12 @@
     </address>
     </author>
 
-    <date day="30" month="January" year="2021"/>
+    <date day="31" month="January" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
    extensions for Direct Measurement for detecting accurate data packet loss in a network.
-   Specifically, new Direct Measurement 
+   Specifically, stand-alone Direct Measurement 
    test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
@@ -93,7 +93,7 @@
    <xref target="RFC8972"/> defines optional extensions for STAMP.</t>
 
    <t>Many Service Provider Service Level Agreements (SLAs) depend on the 
-   ability to measure performance loss metric experienced by Customer data traffic. 
+   ability to measure performance loss metric experienced by Customer data traffic flow. 
    Currently there is no efficient active measurement protocol 
    available for accurate data packet loss measurement in IP networks.
    Note that an approach for conducting packet loss measurement in IP
@@ -144,7 +144,7 @@
    </t>
 
    <t>This document specifies STAMP extensions for Direct Measurement for detecting 
-   accurate data packet loss in a network.  Specifically, new Direct Measurement 
+   accurate data packet loss in a network.  Specifically, stand-alone Direct Measurement 
    test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
@@ -176,7 +176,7 @@
    SHA: Secure Hash Algorithm.</t>
 
     <t>
-   DSID: Session Identifier.</t>
+   DSID: DM Session Identifier.</t>
 
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
@@ -339,8 +339,8 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   DSID (16-bit): Session Identifier. Follows the procedure for SSID 
-    as defined in <xref target="RFC8972"/>.</t>
+   DSID (16-bit): DM Session Identifier. Follows the same procedure as SSID 
+    defined in <xref target="RFC8972"/>.</t>
 
    <t>
    Control Code Field (8-bit): Flags set as follows in Session-Sender DM test packet.</t>
@@ -493,7 +493,8 @@
 
     <section title="Data Loss Calculation" anchor="sect-6"><t>
    Using the Counters C1, C2, C3 and C4 as per reference topology, 
-   from the nth and (n-1)th DM test packets.</t>
+   from the nth and (n-1)th DM test packets, data packet and byte loss can be 
+   calculated as follows.</t>
 
    <t>
     Transmit Loss TxL[n-1, n] = (C1[n] – C1[n-1]) - (C2[n] - C2[n-1])
@@ -521,6 +522,9 @@
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
    </t>
+ 
+   <t>When using Alternate-Marking Method, all Counters used for the loss calculation
+   belongs to the same Block Number, as described in Section 3.1 of <xref target="RFC8321"/>.</t>
 
         </section>
 
