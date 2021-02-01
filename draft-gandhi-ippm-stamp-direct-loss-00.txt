@@ -5,13 +5,13 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 4, 2021                                         D. Voyer
+Expires: August 5, 2021                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 31, 2021
+                                                       February 01, 2021
 
 
          Simple TWAMP (STAMP) Extensions for Direct Measurement
@@ -22,9 +22,9 @@ Abstract
    This document specifies RFC 8762 (Simple Two-Way Active Measurement
    Protocol (STAMP)) extensions for Direct Measurement for detecting
    accurate data packet loss in a network.  Specifically, stand-alone
-   Direct Measurement test packets are defined for Session-Sender and
-   Session-Reflector, for both unauthenticated and authenticated modes,
-   those are efficient for hardware-based implementation.
+   Direct Measurement test packets are defined for STAMP Session-Sender
+   and Session-Reflector, for both unauthenticated and authenticated
+   modes, those are efficient for hardware-based implementation.
 
 Status of This Memo
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 4, 2021.
+   This Internet-Draft will expire on August 5, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 1]
+Gandhi, et al.           Expires August 5, 2021                 [Page 1]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    (https://trustee.ietf.org/license-info) in effect on the date of
@@ -96,22 +96,22 @@ Table of Contents
 
    Many Service Provider Service Level Agreements (SLAs) depend on the
    ability to measure performance loss metric experienced by Customer
-   data traffic.  Currently there is no efficient active measurement
-   protocol available for accurate data packet loss measurement in IP
-   networks.  Note that an approach for conducting packet loss
-   measurement in IP networks is documented in [RFC2680].  This approach
-   requires clock synchronization between the measurement points and
-   lacks support for Direct Measurement.  The STAMP can be used for test
-   packet loss detection (i.e. synthetic packet loss measurement),
-   however, that does not provide accurate Customer data packet loss
-   metrics.
+   data traffic flow.  Currently there is no efficient active
+   measurement protocol available for accurate data packet loss
+   measurement in IP networks.  Note that an approach for conducting
+   packet loss measurement in IP networks is documented in [RFC2680].
+   This approach requires clock synchronization between the measurement
+   points and lacks support for Direct Measurement.  The STAMP can be
+   used for test packet loss detection (i.e. synthetic packet loss
+   measurement), however, that does not provide accurate Customer data
+   packet loss metrics.
 
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 2]
+Gandhi, et al.           Expires August 5, 2021                 [Page 2]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    The STAMP test packet with a "Direct Measurement" TLV (Type 5)
@@ -145,13 +145,13 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
    o  The STAMP test packet also does not identify the block number of
       the Direct Measurement, which is required for Alternate-Marking
-      Method [RFC8321] for loss measurement.  This is needed in case of
+      Method [RFC8321] for loss measurement.  This also helps in case of
       out-of-order data packets.
 
    This document specifies STAMP extensions for Direct Measurement for
    detecting accurate data packet loss in a network.  Specifically,
-   stand-alone Direct Measurement test packets are defined for Session-
-   Sender and Session-Reflector, for both unauthenticated and
+   stand-alone Direct Measurement test packets are defined for STAMP
+   Session-Sender and Session-Reflector, for both unauthenticated and
    authenticated modes, those are efficient for hardware-based
    implementation.
 
@@ -165,9 +165,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 3]
+Gandhi, et al.           Expires August 5, 2021                 [Page 3]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    document are to be interpreted as described in [RFC2119] [RFC8174]
@@ -221,9 +221,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 4]
+Gandhi, et al.           Expires August 5, 2021                 [Page 4]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    under measurement.  The DM reply test packets can also be sent in-
@@ -277,9 +277,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 5]
+Gandhi, et al.           Expires August 5, 2021                 [Page 5]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
     0                   1                   2                   3
@@ -333,9 +333,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 6]
+Gandhi, et al.           Expires August 5, 2021                 [Page 6]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
       of a packet sent or received includes the total length of that
@@ -389,9 +389,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 7]
+Gandhi, et al.           Expires August 5, 2021                 [Page 7]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
     0                   1                   2                   3
@@ -445,9 +445,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 8]
+Gandhi, et al.           Expires August 5, 2021                 [Page 8]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
     |                        Sender Sequence Number                 |
@@ -501,9 +501,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                 [Page 9]
+Gandhi, et al.           Expires August 5, 2021                 [Page 9]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    Session-Sender TTL: As defined in [RFC8762].
@@ -557,9 +557,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                [Page 10]
+Gandhi, et al.           Expires August 5, 2021                [Page 10]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    verified the integrity of the path and the identity of the Session-
@@ -613,9 +613,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
 
 
 
-Gandhi, et al.           Expires August 4, 2021                [Page 11]
+Gandhi, et al.           Expires August 5, 2021                [Page 11]
 
-Internet-Draft   STAMP Extensions for Direct Measurement    January 2021
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
@@ -669,4 +669,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 4, 2021                [Page 12]
+Gandhi, et al.           Expires August 5, 2021                [Page 12]

@@ -6,12 +6,12 @@ IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Updates: 8762 (if approved)                          Cisco Systems, Inc.
 Intended status: Standards Track                                D. Voyer
-Expires: August 2, 2021                                      Bell Canada
+Expires: August 5, 2021                                      Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                        January 29, 2021
+                                                       February 01, 2021
 
 
       Simple TWAMP (STAMP) Extensions for Segment Routing Networks
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 2, 2021.
+   This Internet-Draft will expire on August 5, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 1]
+Gandhi, et al.           Expires August 5, 2021                 [Page 1]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    publication of this document.  Please review these documents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 2]
+Gandhi, et al.           Expires August 5, 2021                 [Page 2]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    networks, as the state is in the packet, the signaling of the
@@ -165,9 +165,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 3]
+Gandhi, et al.           Expires August 5, 2021                 [Page 3]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 2.3.  Reference Topology
@@ -221,9 +221,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 4]
+Gandhi, et al.           Expires August 5, 2021                 [Page 4]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
     0                   1                   2                   3
@@ -277,9 +277,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 5]
+Gandhi, et al.           Expires August 5, 2021                 [Page 5]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
     0                   1                   2                   3
@@ -333,9 +333,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 6]
+Gandhi, et al.           Expires August 5, 2021                 [Page 6]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    Session-Reflector may locally send performance metrics via streaming
@@ -389,9 +389,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 7]
+Gandhi, et al.           Expires August 5, 2021                 [Page 7]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 5.  Return Path TLV Extension
@@ -445,9 +445,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 8]
+Gandhi, et al.           Expires August 5, 2021                 [Page 8]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    o  Type (value 1): Return Address.  Destination node address of the
@@ -501,9 +501,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                 [Page 9]
+Gandhi, et al.           Expires August 5, 2021                 [Page 9]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    The STAMP TLV Flags are set using the procedures described in
@@ -557,9 +557,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                [Page 10]
+Gandhi, et al.           Expires August 5, 2021                [Page 10]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    Served" procedure as specified in [RFC8126].  Remaining code points
@@ -613,9 +613,9 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                [Page 11]
+Gandhi, et al.           Expires August 5, 2021                [Page 11]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
@@ -669,9 +669,9 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 2, 2021                [Page 12]
+Gandhi, et al.           Expires August 5, 2021                [Page 12]
 
-Internet-Draft    STAMP Extensions for Segment Routing      January 2021
+Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
    Clarence Filsfils
@@ -725,4 +725,4 @@ Internet-Draft    STAMP Extensions for Segment Routing      January 2021
 
 
 
-Gandhi, et al.           Expires August 2, 2021                [Page 13]
+Gandhi, et al.           Expires August 5, 2021                [Page 13]

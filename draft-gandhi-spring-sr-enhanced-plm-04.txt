@@ -14,8 +14,7 @@ Expires: August 5, 2021                                     N. Vaghamshi
                                                        February 01, 2021
 
 
- Enhanced Performance Delay and Liveness Monitoring in Segment Routing
-                                Networks
+Enhanced Performance and Liveness Monitoring in Segment Routing Networks
                  draft-gandhi-spring-sr-enhanced-plm-04
 
 Abstract
@@ -23,8 +22,8 @@ Abstract
    Segment Routing (SR) leverages the source routing paradigm.  SR is
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
-   Performance Delay and Liveness Monitoring (PDLM) for end-to-end SR
-   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+   Performance and Liveness Monitoring (PLM) for end-to-end SR Paths
+   including SR Policies for both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -50,6 +49,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
 
 
 
@@ -58,7 +58,6 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 1]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -71,28 +70,27 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
      3.2.  Loopback Mode Enabled with Network Programming Function .   5
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
-   4.  PDLM Test Packet Formats  . . . . . . . . . . . . . . . . . .   7
-   5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   9
-     5.1.  PDLM Test Packets for SR-MPLS . . . . . . . . . . . . . .   9
-     5.2.  PDLM Test Packet for SRv6 . . . . . . . . . . . . . . . .  10
-   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  11
-     6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS . . . .  11
+   4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
+   5.  Performance and Liveness Monitoring . . . . . . . . . . . . .   9
+     5.1.  PLM for SR-MPLS . . . . . . . . . . . . . . . . . . . . .  10
+     5.2.  PLM for SRv6  . . . . . . . . . . . . . . . . . . . . . .  10
+   6.  Enhanced Performance and Liveness Monitoring  . . . . . . . .  11
+     6.1.  PLM with Timestamp Label for SR-MPLS  . . . . . . . . . .  11
        6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
-     6.2.  PDLM Test Packet with Timestamp Endpoint Function for
-           SRv6  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     6.2.  PLM with Timestamp Endpoint Function for SRv6 . . . . . .  13
        6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
    7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
@@ -106,6 +104,8 @@ Table of Contents
    MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR Policies as defined
    in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
    through a specific, user-defined paths using a stack of Segments.
+   Built-in Performance Measurement as well as Liveness Monitoring for
+   Connectivity Verification (CV) and Continuity Check (CC) are
 
 
 
@@ -114,10 +114,8 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 2]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   Built-in Performance Delay Measurement (DM) as well as Liveness
-   Monitoring for Connectivity Verification (CV) and Continuity Check
-   (CC) are essential requirements to provide Service Level Agreements
-   (SLAs) in SR networks.
+   essential requirements to provide Service Level Agreements (SLAs) in
+   SR networks.
 
    The Simple Two-way Active Measurement Protocol (STAMP) provides
    capabilities for the measurement of various performance metrics in IP
@@ -138,16 +136,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    generate the reply packets thereby limiting the scale for number
    S-BFD sessions and fault detection interval.  In addition, S-BFD
    protocol does not have the capability today to enable performance
-   delay measurement in SR networks.  Enabling multiple protocols in SR
+   measurement in SR networks.  Enabling multiple protocols in SR
    networks, S-BFD for liveness monitoring and STAMP for performance
-   delay measurement increases the deployment and operational
-   complexities in SR networks.
+   measurement increases the deployment and operational complexities in
+   SR networks.
 
-   This document defines procedure for Enhanced Performance Delay and
-   Liveness Monitoring (PDLM) in SR networks.  The procedure defines the
-   test packet formats those are similar to RFC 8762 (Simple Two-Way
-   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
-   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+   This document defines procedure for Enhanced Performance and Liveness
+   Monitoring (PLM) for end-to-end SR Paths including SR Policies for
+   both SR-MPLS and SRv6 data planes.  The procedure uses new test
+   packet formats that has timestamps at the same location as the base
+   STAMP test packets.
 
 2.  Conventions Used in This Document
 
@@ -158,9 +156,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
+2.2.  Abbreviations
 
+   S-BFD: Seamless Bidirectional Forwarding Detection.
 
-
+   BSID: Binding Segment ID.
 
 
 
@@ -170,19 +170,11 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 3]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-2.2.  Abbreviations
-
-   S-BFD: Seamless Bidirectional Forwarding Detection.
-
-   BSID: Binding Segment ID.
-
-   DM: Delay Measurement.
-
    ECMP: Equal Cost Multi-Path.
 
    MPLS: Multiprotocol Label Switching.
 
-   PDLM: Performance Delay and Liveness Monitoring.
+   PLM: Performance and Liveness Monitoring.
 
    PM: Performance Measurement.
 
@@ -205,8 +197,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 2.3.  Reference Topology
 
    In the reference topology shown below, the Session-Sender R1
-   initiates a PDLM test packet and the Session-Reflector R3 transmits a
-   PDLM return test packet.  The PDLM return test packet is transmitted
+   initiates a PLM test packet and the Session-Reflector R3 transmits a
+   PLM return test packet.  The PLM return test packet is transmitted
    back to the Session-Sender R1 on the same path or a different path in
    the reverse direction.
 
@@ -221,6 +213,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
+
+
+
+
+
+
+
+
 Gandhi, et al.           Expires August 5, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
@@ -228,7 +228,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                           T1
                          /
-                +-------+    PDLM Test Packet   +-------+
+                +-------+    PLM Test Packet    +-------+
                 |       | - - - - - - - - - - - |       |
                 |   R1  |======================||   R3  |
                 |       |<- - - - - - - - - - - |       |
@@ -236,8 +236,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                          \
                           T4
 
-               Session-Sender               Session-Reflector
-                                            (Simply Forward)
+               Session-Sender                Session-Reflector
+                                             (Simply Forward)
 
                           Reference Topology
 
@@ -245,33 +245,33 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 3.1.  Loopback Mode
 
-   In loopback mode, the Session-Sender R1 initiates PDLM test packets
+   In loopback mode, the Session-Sender R1 initiates PLM test packets
    and the Session-Reflector R3 forwards them just like data packets for
-   the normal traffic back to the Session-Sender R1.  The PDLM test
+   the normal traffic back to the Session-Sender R1.  The PLM test
    packets are not punted at the Session-Reflector and does not process
-   them and generate PDLM return test packets.  The Session-Reflector
-   must not drop the loopback PDLM test packets, for example, due to a
-   local policy provisioned.  No PDLM session is created on the Session-
+   them and generate PLM return test packets.  The Session-Reflector
+   must not drop the loopback PLM test packets, for example, due to a
+   local policy provisioned.  No PLM session is created on the Session-
    Reflector.
 
-   The Source and Destination IP addresses in the PDLM test packets are
+   The Source and Destination IP addresses in the PLM test packets are
    set to the Session-Reflector and the Session-Sender IP addresses,
-   respectively (representing the reverse path).  Both Source and
-   Destination UDP ports in the PDLM test packets are allocated
-   dynamically or user-configured from the range as specified in
-   [RFC8762].  The UDP ports used in loopback mode are different than
-   the UDP ports used for STAMP test packets.  The IPv4 Time To Live
-   (TTL) and IPv6 Hop Limit (HL) are set to 255.
+   respectively (representing the reverse path).  The Source and
+   Destination UDP ports in the PLM test packets follow the procedure
+   defined in [RFC8762].  The IPv4 Time To Live (TTL) and IPv6 Hop Limit
+   (HL) are set to 255.
 
 3.2.  Loopback Mode Enabled with Network Programming Function
 
    In loopback mode enabled with network programming function, both
    transmit (T1) and receive (T2) timestamps in data plane are collected
-   by the PDLM test packets transmitted in loopback mode as shown in
+   by the PLM test packets transmitted in loopback mode as shown in
    Figure 1.  The network programming function optimizes the "operations
-   of punt and inject the PDLM test packet" on the Session-Reflector as
+   of punt and inject the PLM test packet" on the Session-Reflector as
    timestamping is implemented in hardware.  This helps to achieve
    higher session scale and faster failure detection.
+
+
 
 
 
@@ -284,7 +284,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                             T1                  T2
                            /                     \
-                  +-------+    PDLM Test Packet   +-------+
+                  +-------+    PLM Test Packet    +-------+
                   |       | - - - - - - - - - - - |       |
                   |   R1  |======================||  R3   |
                   |       |<- - - - - - - - - - - |       |
@@ -299,27 +299,27 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      Figure 1: Loopback Mode Enabled with Network Programming Function
 
    The Session-Sender adds transmit (T1) timestamp in the payload of the
-   PDLM test packet and clears the receive (T2) timestamp.  The Session-
+   PLM test packet and clears the receive (T2) timestamp.  The Session-
    Reflector adds the receive timestamp in the payload of the received
-   PDLM test packet in hardware without punting the packet to slow-path
+   PLM test packet in hardware without punting the packet to slow-path
    (or control-plane).  The Session-Reflector only adds the receive
-   timestamp if the source or destination IP address in the PDLM test
-   packet matches the local node address to ensure that the PDLM test
+   timestamp if the source or destination IP address in the PLM test
+   packet matches the local node address to ensure that the PLM test
    packet reaches the intended Session-Reflector and the receive
-   timestamp is returned by the intended node.  The payload of the PDLM
+   timestamp is returned by the intended node.  The payload of the PLM
    test packet is not modified by any intermediate nodes.
 
    The network programming function enables the Session-Reflector to add
-   receive timestamp in the payload of the PDLM test packet at a
-   specific offset which is locally provisioned consistently in the
-   network.  For example, for the PDLM test packet in unauthenticated
-   mode defined in Figure 3, the 64-bit receive timestamp is added at
-   byte-offset 16 from the start of the payload.
+   receive timestamp in the payload of the PLM test packet at a specific
+   offset which is locally provisioned consistently in the network.
 
 3.3.  Example Provisioning Model
 
    An example provisioning model and typical measurement parameters are
    shown in Figure 2:
+
+
+
 
 
 
@@ -341,34 +341,37 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                                +------------+
                                | Controller |
                                +------------+
-     PDLM Mode                     /    \      Timestamp Label/SRV6 EP
+     PLM Mode                      /    \      Timestamp Label/SRV6 EP
        LB or Enhanced Mode        /      \       Timestamp2 Offset
-     Source/Dest UDP Ports       /        \      Timestamp Format
-     Missed Test Packet Count   /          \
+     Delay Threshold/Count M     /        \      Timestamp Format
+     Missed Test Packet Count N /          \
      Timestamp Label/SRv6 EP   /            \
        Timestamp Format       /              \
-     Delay Threshold/Count   /                \
-                            /                  \
-                           v                    v
-                       +-------+            +-------+
-                       |       |            |       |
-                       |   R1  |============|   R3  |
-                       |       |            |       |
-                       +-------+            +-------+
+                             /                \
+                            v                  v
+                        +-------+           +-------+
+                        |       |           |       |
+                        |   R1  |===========|   R3  |
+                        |       |           |       |
+                        +-------+           +-------+
 
-                     Session-Sender     Session-Reflector
+                      Session-Sender     Session-Reflector
+
 
                    Figure 2: Example Provisioning Model
 
-   Example of Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP.
+   Example of PLM mode is loopback mode or loopback mode.  Example of
+   Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP.
 
    The mechanisms to provision the Session-Sender and Session-Reflector
    are outside the scope of this document.
 
-4.  PDLM Test Packet Formats
+4.  PLM Test Packet Formats
 
-   The PDLM test packet formats for unauntheticated and authenticated
-   modes are defined in this document as shown in Figure 3.
+   The PLM test packet formats for unauntheticated and authenticated
+   modes are defined in this document that has transmit and receive
+   timestamps at the same location as the base STAMP test packets as
+   shown in Figure 3.
 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Sequence Number                           |
@@ -383,9 +386,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |  Receive Error Estimate       |  MBZ                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                                                               |
-     |                     MBZ (28 Octets)                           |
-     |                                                               |
 
 
 
@@ -395,9 +395,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
      |                                                               |
+     |                     MBZ (16 Octets)                           |
+     |                                                               |
+     |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             PDLM Test Packet Format in Unauthenticated Mode
+             PLM Test Packet Format in Unauthenticated Mode
 
 
 
@@ -439,9 +442,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                        HMAC (16 octets)                       |
-     |                                                               |
-     |                                                               |
-     |                                                               |
 
 
 
@@ -450,21 +450,24 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 8]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+     |                                                               |
+     |                                                               |
+     |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             PDLM Test Packet Format in Authenticated Mode
+             PLM Test Packet Format in Authenticated Mode
 
 
-                    Figure 3: PDLM Test Packet Formats
+                     Figure 3: PLM Test Packet Formats
 
-   Sequence Number is the sequence number of the PDLM test packet
+   Sequence Number is the sequence number of the PLM test packet
    according to its transmit order.  It starts with zero and is
-   incremented by one for each subsequent PDLM test packet.
+   incremented by one for each subsequent PLM test packet.
 
    SSID: PLDT Session Identifier.
 
    Transmit Timestamp and Transmit Error Estimate are the Session-
-   Sender's transmit timestamp and error estimate for the PDLM test
+   Sender's transmit timestamp and error estimate for the PLM test
    packet, respectively.
 
    Receive Timestamp and Receive Error Estimate are the Session-
@@ -475,29 +478,26 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    preferred is 64-bit PTPv2 [IEEE1588] as specified in [RFC8186],
    implemented in hardware is desired.
 
-5.  Performance Delay and Liveness Monitoring
+5.  Performance and Liveness Monitoring
 
-   For performance delay and liveness monitoring of an end-to-end SR
-   Path including SR Policy, PDLM test packets in loopback mode is used.
+   For performance and liveness monitoring of an end-to-end SR Path
+   including SR Policy, PLM test packets in loopback mode is used.
 
-   For SR Policy, the PDLM test packets are transmitted using the
-   Segment List (SL) of the Candidate-path
+   For SR Policy, the PLM test packets are transmitted using the Segment
+   List (SL) of the Candidate-path
    [I-D.ietf-spring-segment-routing-policy].  When a Candidate-path has
-   more than one Segment Lists, multiple PDLM test packets are sent, one
-   using each Segment List.  The PDLM return test packets are received
-   by the Session-Sender via IP/UDP [RFC0768] return path by default.
-   The Segment List of the return SR path can be added in the PDLM test
+   more than one Segment Lists, multiple PLM test packets are sent, one
+   using each Segment List.  The PLM return test packets are received by
+   the Session-Sender via IP/UDP [RFC0768] return path by default.  The
+   Segment List of the return SR path can be added in the PLM test
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
 
-5.1.  PDLM Test Packets for SR-MPLS
 
-   The PDLM test packets are transmitted using the MPLS header
-   containing the label stack of the SR Policy as shown in Figure 4.  In
-   case of IP/UDP return path, the MPLS header is removed by the
-   Session-Reflector.  The label stack can contain a reverse SR-MPLS
-   path to receive the PDLM return test packet on a specific path.  In
+
+
+
 
 
 
@@ -506,8 +506,14 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   this case, the MPLS header will not be removed by the Session-
-   Reflector.
+5.1.  PLM for SR-MPLS
+
+   The PLM test packets are transmitted using the MPLS header containing
+   the label stack of the SR Policy as shown in Figure 4.  In case of
+   IP/UDP return path, the MPLS header is removed by the Session-
+   Reflector.  The label stack can contain a reverse SR-MPLS path to
+   receive the PLM return test packet on a specific path.  In this case,
+   the MPLS header will not be removed by the Session-Reflector.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -535,25 +541,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      .                                                               .
      +---------------------------------------------------------------+
 
-              Figure 4: Example PDLM Test Packet for SR-MPLS
+               Figure 4: Example PLM Test Packet for SR-MPLS
 
-5.2.  PDLM Test Packet for SRv6
+5.2.  PLM for SRv6
 
-   The PDLM test packets for SRv6 data plane are transmitted using the
+   The PLM test packets for SRv6 data plane are transmitted using the
    Segment Routing Header (SRH) [RFC8754] containing the Segment List of
    the SR Policy as shown in Figure 5.  In case of IP/UDP return path,
    the SRH is removed by the Session-Reflector.  The Segment List can
-   contain a reverse SRv6 path to receive the PDLM return test packet on
+   contain a reverse SRv6 path to receive the PLM return test packet on
    a specific path.  In this case, the SRH will not be removed by the
-   Session-Reflector.  When the PDLM return test packet contains an SRH
+   Session-Reflector.  When the PLM return test packet contains an SRH
    at the Session-Sender, the procedure defined for upper-layer header
    processing for SRv6 SIDs in [I-D.ietf-spring-srv6-network-
-   programming] is used to process the UDP header in the received PDLM
-   test packets.
-
-
-
-
 
 
 
@@ -561,6 +561,9 @@ Gandhi, et al.           Expires August 5, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   programming] is used to process the UDP header in the received PLM
+   test packets.
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -586,30 +589,27 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      .                                                               .
      +---------------------------------------------------------------+
 
-                Figure 5: Example PDLM Test Packet for SRv6
+                Figure 5: Example PLM Test Packet for SRv6
 
-6.  Enhanced Performance Delay and Liveness Monitoring
+6.  Enhanced Performance and Liveness Monitoring
 
-   The enhanced performance delay and liveness monitoring of an end-to-
-   end SR Path including SR Policy is defined using the PDLM test
-   packets in loopback mode enabled with network programming function.
+   The enhanced performance and liveness monitoring of an end-to-end SR
+   Path including SR Policy is defined using the PLM test packets in
+   loopback mode enabled with network programming function.
 
-6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS
+6.1.  PLM with Timestamp Label for SR-MPLS
 
    In this document, new Timestamp Label is defined for SR-MPLS data
    plane to enable network programming function for "timestamp, pop and
    forward" the received packet.
 
-   In the PDLM test packet for SR-MPLS, Timestamp Label is added in the
+   In the PLM test packet for SR-MPLS, Timestamp Label is added in the
    MPLS header as shown in Figure 6, to collect "Receive Timestamp"
-   field in the payload of the PDLM test packet.  The label stack for
-   the reverse SR-MPLS path can be added after the Timestamp Label to
-   receive the PDLM return test packet on a specific path.  When a
+   field in the payload of the PLM test packet.  The label stack for the
+   reverse SR-MPLS path can be added after the Timestamp Label to
+   receive the PLM return test packet on a specific path.  When a
    Session-Reflector receives a packet with Timestamp Label, after
    timestamping the packet at a specific offset, the Session-Reflector
-   pops the Timestamp Label and forwards the packet using the next label
-   or IP header in the packet (just like the data packets for the normal
-   traffic).
 
 
 
@@ -617,6 +617,10 @@ Gandhi, et al.           Expires August 5, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   pops the Timestamp Label and forwards the packet using the next label
+   or IP header in the packet (just like the data packets for the normal
+   traffic).
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -648,7 +652,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      .                                                               .
      +---------------------------------------------------------------+
 
-    Figure 6: Example PDLM Test Packet with Timestamp Label for SR-MPLS
+    Figure 6: Example PLM Test Packet with Timestamp Label for SR-MPLS
 
 6.1.1.  Timestamp Labels Allocation
 
@@ -663,10 +667,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       for the authenticated mode, both using timestamp format 64-bit
       PTPv2.
 
-   o  Labels allocated by a Controller from the global table of the
-      Session-Reflector.  The Controller provisions the label on both
-
-
 
 
 Gandhi, et al.           Expires August 5, 2021                [Page 12]
@@ -674,6 +674,8 @@ Gandhi, et al.           Expires August 5, 2021                [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   o  Labels allocated by a Controller from the global table of the
+      Session-Reflector.  The Controller provisions the label on both
       Session-Sender and Session-Reflector, as well as timestamp offset
       and timestamp format.
 
@@ -684,11 +686,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 6.1.2.  Node Capability for Timestamp Label
 
    The Session-Sender needs to know if the Session-Reflector can process
-   the Timestamp Label to avoid dropping PDLM test packets.  The
+   the Timestamp Label to avoid dropping PLM test packets.  The
    signaling extension for this capability exchange is outside the scope
    of this document.
 
-6.2.  PDLM Test Packet with Timestamp Endpoint Function for SRv6
+6.2.  PLM with Timestamp Endpoint Function for SRv6
 
    In this document, Timestamp Endpoint function for "Timestamp and
    Forward (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for
@@ -696,18 +698,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    network programming function to "timestamp and forward" the received
    packet.
 
-   In the PDLM test packet for SRv6, End.TSF function is added for the
+   In the PLM test packet for SRv6, End.TSF function is added for the
    target Segment Identifier (SID) in SRH [RFC8754] as shown in
    Figure 7, to collect "Receive Timestamp" field in the payload of the
-   PDLM test packet.  The Segment List for the reverse path can be added
-   after the target SID to receive the PDLM return test packet on a
+   PLM test packet.  The Segment List for the reverse path can be added
+   after the target SID to receive the PLM return test packet on a
    specific path.  When a Session-Reflector receives a packet with
    End.TSF function for the target SID which is local, after
    timestamping the packet at a specific offset, the Session-Reflector
    forwards the packet using the next SID or IP header in the packet
    (just like the data packets for the normal traffic).
-
-
 
 
 
@@ -755,7 +755,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      .                                                               .
      +---------------------------------------------------------------+
 
-    Figure 7: Example PDLM Test Packet with Endpoint Function for SRv6
+     Figure 7: Example PLM Test Packet with Endpoint Function for SRv6
 
 6.2.1.  Timestamp Endpoint Function Assignment
 
@@ -798,42 +798,42 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 7.  Failure Notification
 
-   Liveness or connectivity success for SR Path is initially notified as
-   soon as one or more PDLM return test packets are received at the
+   Liveness or connectivity success for an SR Path is initially notified
+   as soon as one or more PLM return test packets are received at the
    Session-Sender.
 
-   Liveness or connectivity failure for SR Path is notified when
-   consecutive N number of PDLM return test packets are not received at
-   the Session-Sender, where N (Missed PDLM Test Packet Count) is
-   locally provisioned value.  The Sequence Number field in the PDLM
-   test packets is used to detect the packets not received.  Similarly,
-   the delay metrics are notified, as an example, when consecutive M
-   number of PDLM test packets have measured delay values exceed user-
-   configured thresholds (absolute and percentage), where M is also
-   locally provisioned value.
+   Liveness or connectivity failure for an SR Path is notified when
+   consecutive N number of PLM return test packets are not received at
+   the Session-Sender, where N (Missed PLM Test Packet Count) is locally
+   provisioned value.
 
-   For the PDLM test packets generated by the Session-Sender R1 in the
-   loopback mode, a failure on the reverse direction path can also cause
-   the PDLM return test packets to not reach the Session-Sender.  This
-   is also true in case of the PDLM return test packets were generated
-   by the Session-Reflector R3 e.g. to indicate Session-Sender R1 of any
-   failure on the forward direction path.  As such, the test packet
-   based methods have this limitation for the liveness monitoring of the
-   forward direction path.
+   The round-trip packet loss for an SR Path is calculated using the
+   Sequence Number in the PLM test packets.
 
-   In both loopback modes, the timestamps T1 and t4 are used to measure
+   Similarly, the delay metrics are notified, as an example, when
+   consecutive M number of PLM test packets have measured delay values
+   exceed user-configured thresholds (absolute and percentage), where M
+   is also locally provisioned value.
+
+   In both loopback modes, the timestamps T1 and T4 are used to measure
    round-trip delay.  In loopback mode enabled with network programming
    function, the timestamps T1 and T2 are used to measure one-way delay.
 
+   In loopback mode, a failure on the reverse direction path can also
+   cause the PLM return test packets to not reach the Session-Sender.
+   This is also true in the case where the PLM return test packets were
+   generated by the Session-Reflector e.g. to indicate Session-Sender of
+   a failure on the forward direction path.  As such, the test packet
+   based methods have such limitation for the liveness monitoring of the
+   forward direction path.
+
 8.  Security Considerations
 
-   The Performance Delay and Liveness Monitoring is intended for
-   deployment in the well-managed private and service provider networks.
-   As such, it assumes that a node involved in a monitoring operation
-   has previously verified the integrity of the path and the identity of
-   the Session-Reflector node.  If desired, attacks can be mitigated by
-   performing basic validation and sanity checks, at the Session-Sender,
-   of the timestamp fields in received PDLM packets.  The minimal state
+   The Performance and Liveness Monitoring is intended for deployment in
+   the well-managed private and service provider networks.  As such, it
+   assumes that a node involved in a monitoring operation has previously
+   verified the integrity of the path and the identity of the Session-
+   Reflector node.  If desired, attacks can be mitigated by performing
 
 
 
@@ -842,6 +842,8 @@ Gandhi, et al.           Expires August 5, 2021                [Page 15]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   basic validation and sanity checks, at the Session-Sender, of the
+   timestamp fields in received PLM packets.  The minimal state
    associated with these protocols also limits the extent of disruption
    that can be caused by a corrupt or invalid packet to a single test
    cycle.  Cryptographic measures may be used by the correct
@@ -884,8 +886,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-------------+---------------------------------+---------------+
 
 
-10.  References
-
 
 
 
@@ -897,6 +897,8 @@ Gandhi, et al.           Expires August 5, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+10.  References
 
 10.1.  Normative References
 
@@ -944,8 +946,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/info/rfc8754>.
-
-
 
 
 

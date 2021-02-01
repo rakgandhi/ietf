@@ -50,7 +50,7 @@
 
   <front>
     <title abbrev="Performance and Liveness Monitoring in SR">
-    Enhanced Performance Delay and Liveness Monitoring in Segment Routing Networks</title>
+    Enhanced Performance and Liveness Monitoring in Segment Routing Networks</title>
 
     <author fullname="Rakesh Gandhi" initials="R." role="editor"
             surname="Gandhi">
@@ -105,7 +105,7 @@
       <t>Segment Routing (SR) leverages the source routing paradigm. SR is
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for 
-      Enhanced Performance Delay and Liveness Monitoring (PDLM) 
+      Enhanced Performance and Liveness Monitoring (PLM) 
       for end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </abstract>
   </front>
@@ -119,7 +119,7 @@
       Policies as defined in <xref format="default"
       target="I-D.ietf-spring-segment-routing-policy"/> are used to steer
       traffic through a specific, user-defined paths using a stack of
-      Segments. Built-in Performance Delay Measurement (DM) as well as 
+      Segments. Built-in Performance Measurement as well as 
       Liveness Monitoring for Connectivity Verification (CV) and 
       Continuity Check (CC) are essential requirements to
       provide Service Level Agreements (SLAs) in SR networks.</t>
@@ -141,16 +141,17 @@
       the S-BFD packets as packets need to be punted from the forwarding path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and fault
       detection interval. In addition, S-BFD protocol does not have the
-      capability today to enable performance delay measurement in SR
+      capability today to enable performance measurement in SR
       networks. Enabling multiple protocols in SR networks, S-BFD for liveness
-      monitoring and STAMP for performance delay measurement increases
+      monitoring and STAMP for performance measurement increases
       the deployment and operational complexities in SR networks.</t>
 
       <t>This document defines procedure for 
-      Enhanced Performance Delay and Liveness Monitoring (PDLM) in SR networks.
-      The procedure defines the test packet formats those are similar to RFC 8762 (Simple 
-      Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
-      end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
+      Enhanced Performance and Liveness Monitoring (PLM) 
+      for end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+      The procedure uses new test packet formats that has timestamps at the same location
+      as the base STAMP test packets.</t>
+
     </section>
 
     <section anchor="sect-2" title="Conventions Used in This Document">
@@ -167,13 +168,11 @@
 
         <t>BSID: Binding Segment ID.</t>
 
-        <t>DM: Delay Measurement.</t>
-
         <t>ECMP: Equal Cost Multi-Path.</t>
 
         <t>MPLS: Multiprotocol Label Switching.</t>
 
-        <t>PDLM: Performance Delay and Liveness Monitoring.</t>
+        <t>PLM: Performance and Liveness Monitoring.</t>
 
         <t>PM: Performance Measurement.</t>
 
@@ -197,8 +196,8 @@
 
    <section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown below, the Session-Sender R1 initiates a
-   PDLM test packet and the Session-Reflector R3
-   transmits a PDLM return test packet.  The PDLM return test packet is 
+   PLM test packet and the Session-Reflector R3
+   transmits a PLM return test packet.  The PLM return test packet is 
    transmitted back to the Session-Sender R1 
    on the same path or a different path in the reverse direction.</t>  
 
@@ -210,7 +209,7 @@
    <figure><artwork><![CDATA[
                        T1 
                       / 
-             +-------+    PDLM Test Packet   +-------+
+             +-------+    PLM Test Packet    +-------+
              |       | - - - - - - - - - - - |       |
              |   R1  |======================||   R3  |
              |       |<- - - - - - - - - - - |       |
@@ -218,8 +217,8 @@
                       \  
                        T4 
 
-            Session-Sender               Session-Reflector
-                                         (Simply Forward)
+            Session-Sender                Session-Reflector
+                                          (Simply Forward)
 
                        Reference Topology
 ]]></artwork>
@@ -230,19 +229,17 @@
  
   <section anchor="sect-3" title="Overview">
     <section title="Loopback Mode" anchor="sect-3.1"><t>
-    In loopback mode, the Session-Sender R1 initiates PDLM test packets and the Session-Reflector R3
+    In loopback mode, the Session-Sender R1 initiates PLM test packets and the Session-Reflector R3
     forwards them just like data packets for the normal traffic back to the Session-Sender R1. 
-    The PDLM test packets are not punted at the Session-Reflector
-    and does not process them and generate PDLM return test packets.
-    The Session-Reflector must not drop the loopback PDLM test packets, 
+    The PLM test packets are not punted at the Session-Reflector
+    and does not process them and generate PLM return test packets.
+    The Session-Reflector must not drop the loopback PLM test packets, 
     for example, due to a local policy provisioned. 
-    No PDLM session is created on the Session-Reflector.</t>
+    No PLM session is created on the Session-Reflector.</t>
 
-    <t>The Source and Destination IP addresses in the PDLM test packets are set to the Session-Reflector 
+    <t>The Source and Destination IP addresses in the PLM test packets are set to the Session-Reflector 
     and the Session-Sender IP addresses, respectively (representing the reverse path).
-    Both Source and Destination UDP ports in the PDLM test packets are allocated dynamically or user-configured  
-    from the range as specified in <xref target="RFC8762"/>.  
-    The UDP ports used in loopback mode are different than the UDP ports used for STAMP test packets.
+    The Source and Destination UDP ports in the PLM test packets follow the procedure defined in <xref target="RFC8762"/>.  
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
      </section>
@@ -252,9 +249,9 @@
                toc="default">
       <t>In loopback mode enabled with network programming function,
       both transmit (T1) and receive (T2) timestamps in data plane are collected
-      by the PDLM test packets transmitted in loopback mode as shown in Figure 1.
+      by the PLM test packets transmitted in loopback mode as shown in Figure 1.
       The network programming function optimizes the "operations of punt 
-      and inject the PDLM test packet" on the Session-Reflector 
+      and inject the PLM test packet" on the Session-Reflector 
       as timestamping is implemented in hardware. This helps to achieve higher session scale
       and faster failure detection.</t>
 
@@ -264,7 +261,7 @@
        <artwork>
                          T1                  T2
                         /                     \
-               +-------+    PDLM Test Packet   +-------+
+               +-------+    PLM Test Packet    +-------+
                |       | - - - - - - - - - - - |       |
                |   R1  |======================||  R3   |
                |       |&lt;- - - - - - - - - - - |       |
@@ -279,20 +276,18 @@
       </figure>
    
       <t>The Session-Sender adds transmit (T1)
-      timestamp in the payload of the PDLM test packet and clears the receive (T2) timestamp. 
+      timestamp in the payload of the PLM test packet and clears the receive (T2) timestamp. 
       The Session-Reflector adds the receive timestamp in the 
-      payload of the received PDLM test 
+      payload of the received PLM test 
       packet in hardware without punting the packet to slow-path (or control-plane). The Session-Reflector only
-      adds the receive timestamp if the source or destination IP address in the PDLM test packet matches
-      the local node address to ensure that the PDLM test packet reaches the 
+      adds the receive timestamp if the source or destination IP address in the PLM test packet matches
+      the local node address to ensure that the PLM test packet reaches the 
       intended Session-Reflector and the receive timestamp is returned by the intended node.
-      The payload of the PDLM test packet is not modified by any intermediate nodes.</t>
+      The payload of the PLM test packet is not modified by any intermediate nodes.</t>
 
       <t>The network programming function enables the Session-Reflector to add receive timestamp
-      in the payload of the PDLM test packet at a specific offset which is locally
-      provisioned consistently in the network. 
-      For example, for the PDLM test packet in unauthenticated mode defined in Figure 3,
-      the 64-bit receive timestamp is added at byte-offset 16 from the start of the payload.</t>
+      in the payload of the PLM test packet at a specific offset which is locally
+      provisioned consistently in the network.</t>
 
       </section>
 
@@ -304,26 +299,27 @@
                             +------------+
                             | Controller |
                             +------------+
-  PDLM Mode                     /    \      Timestamp Label/SRV6 EP
+  PLM Mode                      /    \      Timestamp Label/SRV6 EP
     LB or Enhanced Mode        /      \       Timestamp2 Offset
-  Source/Dest UDP Ports       /        \      Timestamp Format
-  Missed Test Packet Count   /          \
+  Delay Threshold/Count M     /        \      Timestamp Format
+  Missed Test Packet Count N /          \
   Timestamp Label/SRv6 EP   /            \
     Timestamp Format       /              \
-  Delay Threshold/Count   /                \
-                         /                  \
-                        v                    v
-                    +-------+            +-------+
-                    |       |            |       |
-                    |   R1  |============|   R3  |
-                    |       |            |       |
-                    +-------+            +-------+
+                          /                \
+                         v                  v
+                     +-------+           +-------+
+                     |       |           |       |
+                     |   R1  |===========|   R3  |
+                     |       |           |       |
+                     +-------+           +-------+
 
-                  Session-Sender     Session-Reflector
+                   Session-Sender     Session-Reflector
+
 ]]></artwork>
     </figure>
 
-    <t>Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP.</t>
+    <t>Example of PLM mode is loopback mode or loopback mode.
+    Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP.</t>
     
     <t>The mechanisms to provision the
     Session-Sender and Session-Reflector are outside the scope of this document.</t>
@@ -331,11 +327,12 @@
      </section>
     </section>
 
-    <section title="PDLM Test Packet Formats" anchor="sect-4"><t>
-    The PDLM test packet formats for unauntheticated and authenticated modes
-    are defined in this document as shown in Figure 3.</t>
+    <section title="PLM Test Packet Formats" anchor="sect-4"><t>
+    The PLM test packet formats for unauntheticated and authenticated modes
+    are defined in this document that has transmit and receive timestamps at the same location
+    as the base STAMP test packets as shown in Figure 3.</t>
 
-   <figure title="PDLM Test Packet Formats" anchor="ure-test-packet-format"><artwork><![CDATA[
+   <figure title="PLM Test Packet Formats" anchor="ure-test-packet-format"><artwork><![CDATA[
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                     Sequence Number                           |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -350,12 +347,12 @@
   |  Receive Error Estimate       |  MBZ                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                                                               |
-  |                     MBZ (28 Octets)                           |
+  |                     MBZ (16 Octets)                           |
   |                                                               |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
 
-          PDLM Test Packet Format in Unauthenticated Mode
+          PLM Test Packet Format in Unauthenticated Mode
 
 
 
@@ -402,20 +399,20 @@
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-          PDLM Test Packet Format in Authenticated Mode
+          PLM Test Packet Format in Authenticated Mode
 
 ]]></artwork>
     </figure>
 
 
-   <t>Sequence Number is the sequence number of the PDLM test packet according
+   <t>Sequence Number is the sequence number of the PLM test packet according
    to its transmit order.  It starts with zero and is incremented by one
-   for each subsequent PDLM test packet.</t>
+   for each subsequent PLM test packet.</t>
 
    <t>SSID: PLDT Session Identifier.</t>
 
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
-   timestamp and error estimate for the PDLM test packet,
+   timestamp and error estimate for the PLM test packet,
    respectively.</t>  
    
    <t>Receive Timestamp and Receive Error Estimate are 
@@ -429,32 +426,32 @@
     </section>
 
 
-    <section anchor="sect-5" title="Performance Delay and Liveness Monitoring">
-     <t>For performance delay and liveness monitoring of an end-to-end SR Path including SR Policy, 
-     PDLM test packets in loopback mode is used.</t>
+    <section anchor="sect-5" title="Performance and Liveness Monitoring">
+     <t>For performance and liveness monitoring of an end-to-end SR Path including SR Policy, 
+     PLM test packets in loopback mode is used.</t>
  
-     <t>For SR Policy, the PDLM test packets are transmitted using the Segment List (SL) of the Candidate-path 
+     <t>For SR Policy, the PLM test packets are transmitted using the Segment List (SL) of the Candidate-path 
      <xref target="I-D.ietf-spring-segment-routing-policy"/>.
      When a Candidate-path has more than one Segment Lists, multiple
-     PDLM test packets are sent, one using each Segment List. The PDLM return test packets are received by
+     PLM test packets are sent, one using each Segment List. The PLM return test packets are received by
      the Session-Sender via IP/UDP <xref target="RFC0768"/> return path by default. 
-     The Segment List of the return SR path can be added in the PDLM test packet header
+     The Segment List of the return SR path can be added in the PLM test packet header
      to receive the return test packet on a specific path using the Binding SID 
      <xref target="I-D.ietf-pce-binding-label-sid"/> or Segment List of the Reverse SR Policy <xref
      target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
-    <section anchor="sect-5.1" title="PDLM Test Packets for SR-MPLS">
-     <t>The PDLM test packets are 
+    <section anchor="sect-5.1" title="PLM for SR-MPLS">
+     <t>The PLM test packets are 
      transmitted using the MPLS header containing the label stack of the SR
      Policy as shown in Figure 4. In case of IP/UDP
      return path, the MPLS header is removed by the Session-Reflector.
      The label stack can contain a reverse SR-MPLS 
-     path to receive the PDLM return test packet on a specific path. 
+     path to receive the PLM return test packet on a specific path. 
      In this case, the MPLS header will not be removed
      by the Session-Reflector.</t>
 
         <figure anchor="ure-test-packet-header-for-sr-mpls"
-                title="Example PDLM Test Packet for SR-MPLS">
+                title="Example PLM Test Packet for SR-MPLS">
         <artwork>  
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -485,21 +482,21 @@
         </figure>
       </section>
 
-   <section anchor="sect-5.2" title="PDLM Test Packet for SRv6">
-    <t>The PDLM test packets for SRv6 data plane are transmitted using the 
+   <section anchor="sect-5.2" title="PLM for SRv6">
+    <t>The PLM test packets for SRv6 data plane are transmitted using the 
     Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
     the Segment List of the SR Policy as shown in Figure 5. In case of IP/UDP
     return path, the SRH is removed by the Session-Reflector.
     The Segment List can contain a reverse SRv6 path to receive 
-    the PDLM return test packet on a specific path. In this case, the 
+    the PLM return test packet on a specific path. In this case, the 
     SRH will not be removed by the Session-Reflector.
-    When the PDLM return test packet contains an SRH at the Session-Sender,
+    When the PLM return test packet contains an SRH at the Session-Sender,
     the procedure defined for upper-layer header processing for SRv6 SIDs
     in [I-D.ietf-spring-srv6-network-programming] is used to process the
-    UDP header in the received PDLM test packets.</t>
+    UDP header in the received PLM test packets.</t>
 
         <figure anchor="ure-test-packet-header-for-srv6"
-                title="Example PDLM Test Packet for SRv6">
+                title="Example PLM Test Packet for SRv6">
           <artwork>  
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -530,22 +527,22 @@
     </section>
 
     <section anchor="sect-6"
-             title="Enhanced Performance Delay and Liveness Monitoring">
-      <t>The enhanced performance delay and liveness monitoring of an end-to-end SR Path including SR Policy is
-      defined using the PDLM test packets in loopback mode enabled with network programming function.</t>
+             title="Enhanced Performance and Liveness Monitoring">
+      <t>The enhanced performance and liveness monitoring of an end-to-end SR Path including SR Policy is
+      defined using the PLM test packets in loopback mode enabled with network programming function.</t>
 
       <section anchor="sect-6.1"
-               title="PDLM Test Packet with Timestamp Label for SR-MPLS"
+               title="PLM with Timestamp Label for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label 
       is defined for SR-MPLS data plane to enable network programming
       function for "timestamp, pop and forward" the received packet.</t>
 
-      <t>In the PDLM test packet for SR-MPLS,
+      <t>In the PLM test packet for SR-MPLS,
       Timestamp Label is added in the MPLS header as shown in Figure 6, to
-      collect "Receive Timestamp" field in the payload of the PDLM test packet. 
+      collect "Receive Timestamp" field in the payload of the PLM test packet. 
       The label stack for the reverse SR-MPLS path can be added after the Timestamp 
-      Label to receive the PDLM return test packet on a specific path.
+      Label to receive the PLM return test packet on a specific path.
       When a Session-Reflector receives a packet with
       Timestamp Label, after timestamping the packet at a specific offset, 
       the Session-Reflector pops the Timestamp Label and forwards the
@@ -553,7 +550,7 @@
       data packets for the normal traffic).</t>
 
         <figure anchor="ure-test-packet-header-for-sr-mpls-with-timestamp-label"
-                title="Example PDLM Test Packet with Timestamp Label for SR-MPLS">
+                title="Example PLM Test Packet with Timestamp Label for SR-MPLS">
           <artwork>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -614,7 +611,7 @@
                title="Node Capability for Timestamp Label"
            toc="default">
       <t>The Session-Sender needs 
-      to know if the Session-Reflector can process the Timestamp Label to avoid dropping PDLM test packets. 
+      to know if the Session-Reflector can process the Timestamp Label to avoid dropping PLM test packets. 
       The signaling extension 
       for this capability exchange is outside the scope of this document.</t>
 
@@ -623,19 +620,19 @@
       </section>
 
       <section anchor="sect-6.2"
-               title="PDLM Test Packet with Timestamp Endpoint Function for SRv6">
+               title="PLM with Timestamp Endpoint Function for SRv6">
       <t>In this document, Timestamp Endpoint function for "Timestamp and Forward
       (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for Segment Routing Header (SRH) <xref
       target="RFC8754"/> for SRv6 data plane to enable
       network programming function to "timestamp and forward" the received
       packet.</t>
 
-      <t>In the PDLM test packet for SRv6,
+      <t>In the PLM test packet for SRv6,
       End.TSF function is added for the target Segment Identifier (SID) in SRH 
       <xref target="RFC8754"/> as shown in Figure 7,
-      to collect "Receive Timestamp" field in the payload of the PDLM test packet. 
+      to collect "Receive Timestamp" field in the payload of the PLM test packet. 
       The Segment List for the reverse path can be added after the target SID 
-      to receive the PDLM return test packet on a specific path.
+      to receive the PLM return test packet on a specific path.
       When a Session-Reflector receives a packet with
       End.TSF function for the target SID which is local, 
       after timestamping the packet at a specific offset,
@@ -643,7 +640,7 @@
       (just like the data packets for the normal traffic).</t>
 
         <figure anchor="ure-test-packet-header-for-srv6-with-endpoint-function"
-                title="Example PDLM Test Packet with Endpoint Function for SRv6">
+                title="Example PLM Test Packet with Endpoint Function for SRv6">
           <artwork>
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -705,40 +702,41 @@
    </section>
 
    <section anchor="sect-7" title="Failure Notification" toc="default">
-     <t>Liveness or connectivity success for SR Path is initially notified as soon as one or more 
-      PDLM return test packets are received at the Session-Sender.</t>
+      <t>Liveness or connectivity success for an SR Path is initially notified as soon as one or more 
+      PLM return test packets are received at the Session-Sender.</t>
 
-      <t>Liveness or connectivity failure for SR Path is notified when consecutive N number of PDLM return test
-      packets are not received at the Session-Sender, where N (Missed PDLM Test Packet Count) is locally
-      provisioned value. The Sequence Number field in the PDLM
-      test packets is used to detect the packets not received. 
-      Similarly, the delay metrics are notified, as an example, when consecutive 
-      M number of PDLM test packets have measured delay values exceed user-configured 
+      <t>Liveness or connectivity failure for an SR Path is notified when consecutive N number of PLM return test
+      packets are not received at the Session-Sender, where N (Missed PLM Test Packet Count) is locally
+      provisioned value.</t>
+
+      <t>The round-trip packet loss for an SR Path is calculated using the Sequence Number in the PLM test packets.</t> 
+
+      <t>Similarly, the delay metrics are notified, as an example, when consecutive 
+      M number of PLM test packets have measured delay values exceed user-configured 
       thresholds (absolute and percentage), where M is also locally provisioned value.</t>
 
-      <t>For the PDLM test packets generated by the Session-Sender R1 in the 
-      loopback mode, a failure on the reverse direction path can also cause 
-      the PDLM return test packets to not reach the Session-Sender.
-      This is also true in case of the PDLM return test packets were generated by the Session-Reflector R3 
-      e.g. to indicate Session-Sender R1 of any failure on the forward direction path. 
-      As such, the test packet based methods 
-      have this limitation for the liveness monitoring of the forward direction path.</t> 
-
-      <t>In both loopback modes, the timestamps T1 and t4 are used to measure round-trip delay.
+      <t>In both loopback modes, the timestamps T1 and T4 are used to measure round-trip delay.
       In loopback mode enabled with network programming function, the timestamps T1 and T2 are used
       to measure one-way delay.</t>
+
+      <t>In loopback mode, a failure on the reverse direction path can also cause 
+      the PLM return test packets to not reach the Session-Sender.
+      This is also true in the case where the PLM return test packets were generated by the Session-Reflector 
+      e.g. to indicate Session-Sender of a failure on the forward direction path. 
+      As such, the test packet based methods 
+      have such limitation for the liveness monitoring of the forward direction path.</t> 
 
    </section>
 
 
    <section anchor="sect-8" title="Security Considerations" toc="default">
-      <t>The Performance Delay and Liveness Monitoring is intended for deployment in
+      <t>The Performance and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
       the integrity of the path and the identity of the Session-Reflector
       node. If desired, attacks can be mitigated by performing basic
       validation and sanity checks, at the Session-Sender, of the timestamp
-      fields in received PDLM packets. The minimal state
+      fields in received PLM packets. The minimal state
       associated with these protocols also limits the extent of disruption
       that can be caused by a corrupt or invalid packet to a single
       test cycle. Cryptographic
@@ -787,8 +785,8 @@
   | TBA4        | End.TSF (Timestamp and Forward) | This document |
   |             | Authenticated Mode              |               |
   +-------------+---------------------------------+---------------+
-	
-	</artwork>
+    
+    </artwork>
       </figure>
    </section>
   </middle>

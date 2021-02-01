@@ -82,7 +82,7 @@
     </address>
     </author>
 
-    <date day="29" month="January" year="2021"/>
+    <date day="01" month="February" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -782,6 +782,9 @@
    Cryptographic measures may be enhanced by the correct configuration
    of access-control lists and firewalls.</t>
 
+   <t>The security considerations specified in <xref target="RFC8762"/>
+   and <xref target="RFC8972"/> also apply to the procedures
+   defined in this document.</t> 
     </section>
 
    <section title="IANA Considerations" anchor="sect-10"><t>

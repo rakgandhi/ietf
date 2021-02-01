@@ -70,13 +70,13 @@
     </address>
     </author>
 
-    <date day="31" month="January" year="2021"/>
+    <date day="01" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
    extensions for Direct Measurement for detecting accurate data packet loss in a network.
    Specifically, stand-alone Direct Measurement 
-   test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
+   test packets are defined for STAMP Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
 
@@ -138,14 +138,14 @@
     <t>
      The STAMP test packet also does not identify the block number of the Direct Measurement, which is  
      required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.
-     This is needed in case of out-of-order data packets.</t>
+     This also helps in case of out-of-order data packets.</t>
 
    </list>
    </t>
 
    <t>This document specifies STAMP extensions for Direct Measurement for detecting 
    accurate data packet loss in a network.  Specifically, stand-alone Direct Measurement 
-   test packets are defined for Session-Sender and Session-Reflector, for both unauthenticated
+   test packets are defined for STAMP Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
 
