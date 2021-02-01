@@ -760,8 +760,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    based methods have this limitation for the liveness monitoring of the
    forward direction path.
 
-   In loopback mode, the timestamps T1 and t4 are used to measure round-
-   trip delay.  In loopback mode enabled with network programming
+   In both loopback modes, the timestamps T1 and t4 are used to measure
+   round-trip delay.  In loopback mode enabled with network programming
    function, the timestamps T1 and T2 are used to measure one-way delay.
 
 8.  Security Considerations
@@ -785,6 +785,9 @@ Gandhi, et al.           Expires August 5, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   The security considerations specified in [RFC8762] also apply to the
+   procedures defined in this document.
 
 9.  IANA Considerations
 
@@ -828,10 +831,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
-              Two-Way Active Measurement Protocol", RFC 8762,
-              DOI 10.17487/RFC8762, March 2020,
-              <https://www.rfc-editor.org/info/rfc8762>.
+
 
 
 
@@ -841,6 +841,11 @@ Gandhi, et al.           Expires August 5, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
 
 10.2.  Informative References
 
@@ -888,11 +893,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-
-
-
-
-
 Gandhi, et al.           Expires August 5, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
@@ -914,7 +914,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 Acknowledgments
 
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
-   Kompella, and Adrian Farrel for providing the review comments.
+   Kompella, and Adrian Farrel for providing review comments.
 
 Authors' Addresses
 

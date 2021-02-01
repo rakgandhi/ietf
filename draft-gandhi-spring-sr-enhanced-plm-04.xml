@@ -669,7 +669,7 @@
       As such, the test packet based methods 
       have this limitation for the liveness monitoring of the forward direction path.</t> 
 
-      <t>In loopback mode, the timestamps T1 and t4 are used to measure round-trip delay.
+      <t>In both loopback modes, the timestamps T1 and t4 are used to measure round-trip delay.
       In loopback mode enabled with network programming function, the timestamps T1 and T2 are used
       to measure one-way delay.</t>
 
@@ -689,6 +689,9 @@
       test cycle. Cryptographic
       measures may be used by the correct configuration of access-control
       lists and firewalls.</t>
+
+      <t>The security considerations specified in <xref target="RFC8762"/>
+      also apply to the procedures defined in this document.</t> 
    </section>
 
    <section anchor="sect-9" title="IANA Considerations" toc="default">
@@ -760,7 +763,7 @@
 
    <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti Kompella, and Adrian Farrel for providing
-   the review comments.</t>
+   review comments.</t>
     </section>
 
   </back>
