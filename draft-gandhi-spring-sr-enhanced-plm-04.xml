@@ -106,7 +106,7 @@
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure defines the test packet formats compatible with RFC 8762 (Simple 
+      The procedure defines the test packet formats similar to RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
       SR Policies for both SR-MPLS and SRv6 data planes.</t>
@@ -151,7 +151,7 @@
 
       <t>This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure defines the test packet formats compatible with RFC 8762 (Simple 
+      The procedure defines the test packet formats similar to RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </section>
@@ -571,7 +571,7 @@
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |            Extension Label (15)       | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
+  |       Timestamp Label (TBA1 or TBA2)  | TC  |S|      TTL      |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   | IP Header                                                     |
   .  Source IP Address = Session-Reflector IPv4 or IPv6 Address   .
@@ -594,17 +594,17 @@
       Timestamp Labels for unauthenticated and authenticated modes can be allocated using one of the following
       methods:</t>
 
-    <t><list style="symbols"><t>Label (value TBA1) assigned by IANA from the "Extended
+    <t><list style="symbols"><t>Labels (values TBA1 and TBA2) assigned by IANA from the "Extended
       Special-Purpose MPLS Values" <xref target="I-D.ietf-mpls-spl-terminology"/>. 
-      The timestamp offset is fixed at byte-offset 16 from the start of 
+      For Label (value TBA1), the timestamp offset is fixed at byte-offset 16 from the start of 
       the payload for the unauthenticated mode, and Label (value TBA2) at byte-offset 
-      32 for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
+      32 from the start of the payload for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
 
-    <t>Label allocated by a Controller from the global table of the
+    <t>Labels allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
       Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
-    <t>Label allocated by the Session-Reflector. The signaling and IGP flooding
+    <t>Labels allocated by the Session-Reflector. The signaling and IGP flooding
       extension for the label (including timestamp offset and timestamp format) 
       are outside the scope of this document.</t>
 
@@ -677,18 +677,18 @@
 
 
     <section title="Timestamp Endpoint Function Assignment" anchor="sect-6.2.1" toc="default"><t>
-      Timestamp endpoint function for "Timestamp and Forward" can be signaled using one of the following methods:</t>
+      Timestamp endpoint functions for "Timestamp and Forward" can be signaled using one of the following methods:</t>
 
-    <t><list style="symbols"><t>Timestamp endpoint function (value TBA3) 
+    <t><list style="symbols"><t>Timestamp endpoint functions (values TBA3 and TBA4) 
       assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
-      The timestamp offset is fixed at byte-offset 16 from the start of 
+      For endpoint function (value TBA3), the timestamp offset is fixed at byte-offset 16 from the start of 
       the payload for the unauthenticated mode, and endpoint function (value TBA4) at byte-offset 
-      32 for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
+      32 from the start of the payload for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
 
-    <t>Timestamp endpoint function assigned by a Controller.  The Controller provisions the value on both
+    <t>Timestamp endpoint functions assigned by a Controller.  The Controller provisions the value on both
       Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
-    <t>Timestamp endpoint function assigned by the Session-Reflector. The signaling and IGP flooding
+    <t>Timestamp endpoint functions assigned by the Session-Reflector. The signaling and IGP flooding
       extension for the endpoint function (including timestamp offset and timestamp format) 
       are outside the scope of this document.</t>
 
@@ -713,7 +713,9 @@
 
       <t>Liveness or connectivity failure for SR Path is notified when consecutive N number of PDLM return test
       packets are not received at the Session-Sender, where N (Missed PDLM Test Packet Count) is locally
-      provisioned value. Similarly, the delay metrics are notified, as an example, when consecutive 
+      provisioned value. The Sequence Number field in the PDLM
+      test packets is used to detect the packets not received. 
+      Similarly, the delay metrics are notified, as an example, when consecutive 
       M number of PDLM test packets have measured delay values exceed user-configured 
       thresholds (absolute and percentage), where M is also locally provisioned value.</t>
 

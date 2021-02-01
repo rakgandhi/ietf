@@ -24,10 +24,10 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
-   networks.  The procedure defines the test packet formats compatible
-   with RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
-   and is applicable to end-to-end SR Paths including SR Policies for
-   both SR-MPLS and SRv6 data planes.
+   networks.  The procedure defines the test packet formats similar to
+   RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP)) and is
+   applicable to end-to-end SR Paths including SR Policies for both SR-
+   MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -100,7 +100,7 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
@@ -153,10 +153,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
-   procedure defines the test packet formats compatible with RFC 8762
-   (Simple Two-Way Active Measurement Protocol (STAMP)) and is
-   applicable to end-to-end SR Paths including SR Policies for both SR-
-   MPLS and SRv6 data planes.
+   procedure defines the test packet formats similar to RFC 8762 (Simple
+   Two-Way Active Measurement Protocol (STAMP)) and is applicable to
+   end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6
+   data planes.
 
 
 
@@ -631,7 +631,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |            Extension Label (15)       | TC  |S|      TTL      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
+     |       Timestamp Label (TBA1 or TBA2)  | TC  |S|      TTL      |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      | IP Header                                                     |
      .  Source IP Address = Session-Reflector IPv4 or IPv6 Address   .
@@ -655,17 +655,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Timestamp Labels for unauthenticated and authenticated modes can be
    allocated using one of the following methods:
 
-   o  Label (value TBA1) assigned by IANA from the "Extended Special-
-      Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
-      timestamp offset is fixed at byte-offset 16 from the start of the
-      payload for the unauthenticated mode, and Label (value TBA2) at
-      byte-offset 32 for the authenticated mode, both using timestamp
-      format 64-bit PTPv2.
+   o  Labels (values TBA1 and TBA2) assigned by IANA from the "Extended
+      Special-Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  For
+      Label (value TBA1), the timestamp offset is fixed at byte-offset
+      16 from the start of the payload for the unauthenticated mode, and
+      Label (value TBA2) at byte-offset 32 from the start of the payload
+      for the authenticated mode, both using timestamp format 64-bit
+      PTPv2.
 
-   o  Label allocated by a Controller from the global table of the
+   o  Labels allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
-      Session-Sender and Session-Reflector, as well as timestamp offset
-      and timestamp format.
+
 
 
 
@@ -674,7 +674,10 @@ Gandhi, et al.           Expires August 5, 2021                [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   o  Label allocated by the Session-Reflector.  The signaling and IGP
+      Session-Sender and Session-Reflector, as well as timestamp offset
+      and timestamp format.
+
+   o  Labels allocated by the Session-Reflector.  The signaling and IGP
       flooding extension for the label (including timestamp offset and
       timestamp format) are outside the scope of this document.
 
@@ -703,9 +706,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    timestamping the packet at a specific offset, the Session-Reflector
    forwards the packet using the next SID or IP header in the packet
    (just like the data packets for the normal traffic).
-
-
-
 
 
 
@@ -759,25 +759,25 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 6.2.1.  Timestamp Endpoint Function Assignment
 
-   Timestamp endpoint function for "Timestamp and Forward" can be
+   Timestamp endpoint functions for "Timestamp and Forward" can be
    signaled using one of the following methods:
 
-   o  Timestamp endpoint function (value TBA3) assigned by IANA from the
-      "SRv6 Endpoint Behaviors Registry".  The timestamp offset is fixed
-      at byte-offset 16 from the start of the payload for the
-      unauthenticated mode, and endpoint function (value TBA4) at byte-
-      offset 32 for the authenticated mode, both using timestamp format
-      64-bit PTPv2.
+   o  Timestamp endpoint functions (values TBA3 and TBA4) assigned by
+      IANA from the "SRv6 Endpoint Behaviors Registry".  For endpoint
+      function (value TBA3), the timestamp offset is fixed at byte-
+      offset 16 from the start of the payload for the unauthenticated
+      mode, and endpoint function (value TBA4) at byte-offset 32 from
+      the start of the payload for the authenticated mode, both using
+      timestamp format 64-bit PTPv2.
 
-   o  Timestamp endpoint function assigned by a Controller.  The
+   o  Timestamp endpoint functions assigned by a Controller.  The
       Controller provisions the value on both Session-Sender and
       Session-Reflector, as well as timestamp offset and timestamp
       format.
 
-   o  Timestamp endpoint function assigned by the Session-Reflector.
+   o  Timestamp endpoint functions assigned by the Session-Reflector.
       The signaling and IGP flooding extension for the endpoint function
-      (including timestamp offset and timestamp format) are outside the
-      scope of this document.
+
 
 
 
@@ -785,6 +785,9 @@ Gandhi, et al.           Expires August 5, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+      (including timestamp offset and timestamp format) are outside the
+      scope of this document.
 
 6.2.2.  Node Capability for Timestamp Endpoint Function
 
@@ -802,10 +805,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Liveness or connectivity failure for SR Path is notified when
    consecutive N number of PDLM return test packets are not received at
    the Session-Sender, where N (Missed PDLM Test Packet Count) is
-   locally provisioned value.  Similarly, the delay metrics are
-   notified, as an example, when consecutive M number of PDLM test
-   packets have measured delay values exceed user-configured thresholds
-   (absolute and percentage), where M is also locally provisioned value.
+   locally provisioned value.  The Sequence Number field in the PDLM
+   test packets is used to detect the packets not received.  Similarly,
+   the delay metrics are notified, as an example, when consecutive M
+   number of PDLM test packets have measured delay values exceed user-
+   configured thresholds (absolute and percentage), where M is also
+   locally provisioned value.
 
    For the PDLM test packets generated by the Session-Sender R1 in the
    loopback mode, a failure on the reverse direction path can also cause
@@ -829,11 +834,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    the Session-Reflector node.  If desired, attacks can be mitigated by
    performing basic validation and sanity checks, at the Session-Sender,
    of the timestamp fields in received PDLM packets.  The minimal state
-   associated with these protocols also limits the extent of disruption
-   that can be caused by a corrupt or invalid packet to a single test
-   cycle.  Cryptographic measures may be used by the correct
-   configuration of access-control lists and firewalls.
-
 
 
 
@@ -841,6 +841,11 @@ Gandhi, et al.           Expires August 5, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   associated with these protocols also limits the extent of disruption
+   that can be caused by a corrupt or invalid packet to a single test
+   cycle.  Cryptographic measures may be used by the correct
+   configuration of access-control lists and firewalls.
 
    The security considerations specified in [RFC8762] also apply to the
    procedures defined in this document.
@@ -881,11 +886,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 10.  References
 
-10.1.  Normative References
-
-   [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
-              DOI 10.17487/RFC0768, August 1980,
-              <https://www.rfc-editor.org/info/rfc768>.
 
 
 
@@ -897,6 +897,12 @@ Gandhi, et al.           Expires August 5, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+10.1.  Normative References
+
+   [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
+              DOI 10.17487/RFC0768, August 1980,
+              <https://www.rfc-editor.org/info/rfc768>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -939,12 +945,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/info/rfc8754>.
 
-   [I-D.ietf-spring-segment-routing-policy]
-              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
-              P. Mattes, "Segment Routing Policy Architecture", draft-
-              ietf-spring-segment-routing-policy-09 (work in progress),
-              November 2020.
-
 
 
 
@@ -953,6 +953,12 @@ Gandhi, et al.           Expires August 5, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   [I-D.ietf-spring-segment-routing-policy]
+              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
+              P. Mattes, "Segment Routing Policy Architecture", draft-
+              ietf-spring-segment-routing-policy-09 (work in progress),
+              November 2020.
 
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
@@ -998,16 +1004,16 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
-   Navin Vaghamshi
-   Reliance
-
-   Email: Navin.Vaghamshi@ril.com
-
-
 
 Gandhi, et al.           Expires August 5, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   Navin Vaghamshi
+   Reliance
+
+   Email: Navin.Vaghamshi@ril.com
 
 
    Moses Nagarajah
@@ -1020,12 +1026,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
 
 
 
