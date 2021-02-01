@@ -428,7 +428,7 @@
     </section>
 
 
-    <section anchor="sect-5" title="Performance and Liveness Monitoring">
+    <section anchor="sect-5" title="PLM Procedure">
      <t>For performance and liveness monitoring of an end-to-end SR Path including SR Policy, 
      PLM test packets in loopback mode is used.</t>
  
@@ -529,12 +529,12 @@
     </section>
 
     <section anchor="sect-6"
-             title="Enhanced Performance and Liveness Monitoring">
+             title="Enhanced PLM Procedure">
       <t>The enhanced performance and liveness monitoring of an end-to-end SR Path including SR Policy is
       defined using the PLM test packets in loopback mode enabled with network programming function.</t>
 
       <section anchor="sect-6.1"
-               title="PLM with Timestamp Label for SR-MPLS"
+               title="Enhanced PLM with Timestamp Label for SR-MPLS"
                toc="default">
       <t>In this document, new Timestamp Label 
       is defined for SR-MPLS data plane to enable network programming
@@ -621,7 +621,7 @@
       </section>
 
       <section anchor="sect-6.2"
-               title="PLM with Timestamp Endpoint Function for SRv6">
+               title="Enhanced PLM with Timestamp Endpoint Function for SRv6">
       <t>In this document, Timestamp Endpoint function for "Timestamp and Forward
       (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for Segment Routing Header (SRH) <xref
       target="RFC8754"/> for SRv6 data plane to enable
@@ -702,7 +702,7 @@
     </section>
    </section>
 
-   <section anchor="sect-7" title="Failure Notification" toc="default">
+   <section anchor="sect-7" title="PLM Failure Notifications" toc="default">
       <t>Liveness or connectivity success for an SR Path is initially notified as soon as one or more 
       PLM return test packets are received at the Session-Sender.</t>
 

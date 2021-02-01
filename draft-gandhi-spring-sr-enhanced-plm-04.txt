@@ -77,17 +77,17 @@ Table of Contents
      3.2.  Loopback Mode Enabled with Network Programming Function .   5
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
-   5.  Performance and Liveness Monitoring . . . . . . . . . . . . .   9
+   5.  PLM Procedure . . . . . . . . . . . . . . . . . . . . . . . .   9
      5.1.  PLM for SR-MPLS . . . . . . . . . . . . . . . . . . . . .  10
      5.2.  PLM for SRv6  . . . . . . . . . . . . . . . . . . . . . .  10
-   6.  Enhanced Performance and Liveness Monitoring  . . . . . . . .  11
-     6.1.  PLM with Timestamp Label for SR-MPLS  . . . . . . . . . .  11
+   6.  Enhanced PLM Procedure  . . . . . . . . . . . . . . . . . . .  11
+     6.1.  Enhanced PLM with Timestamp Label for SR-MPLS . . . . . .  11
        6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
-     6.2.  PLM with Timestamp Endpoint Function for SRv6 . . . . . .  13
+     6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6  .  13
        6.2.1.  Timestamp Endpoint Functions Assignment . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
-   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
+   7.  PLM Failure Notifications . . . . . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
@@ -479,7 +479,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    preferred is 64-bit PTPv2 [IEEE1588] as specified in [RFC8186],
    implemented in hardware is desired.
 
-5.  Performance and Liveness Monitoring
+5.  PLM Procedure
 
    For performance and liveness monitoring of an end-to-end SR Path
    including SR Policy, PLM test packets in loopback mode is used.
@@ -591,13 +591,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                 Figure 5: Example PLM Test Packet for SRv6
 
-6.  Enhanced Performance and Liveness Monitoring
+6.  Enhanced PLM Procedure
 
    The enhanced performance and liveness monitoring of an end-to-end SR
    Path including SR Policy is defined using the PLM test packets in
    loopback mode enabled with network programming function.
 
-6.1.  PLM with Timestamp Label for SR-MPLS
+6.1.  Enhanced PLM with Timestamp Label for SR-MPLS
 
    In this document, new Timestamp Label is defined for SR-MPLS data
    plane to enable network programming function for "timestamp, pop and
@@ -690,7 +690,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    signaling extension for this capability exchange is outside the scope
    of this document.
 
-6.2.  PLM with Timestamp Endpoint Function for SRv6
+6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6
 
    In this document, Timestamp Endpoint function for "Timestamp and
    Forward (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for
@@ -796,7 +796,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    signaling extension for this capability exchange is outside the scope
    of this document.
 
-7.  Failure Notification
+7.  PLM Failure Notifications
 
    Liveness or connectivity success for an SR Path is initially notified
    as soon as one or more PLM return test packets are received at the
