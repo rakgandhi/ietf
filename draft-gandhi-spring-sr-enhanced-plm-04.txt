@@ -1,0 +1,1008 @@
+
+
+
+
+SPRING Working Group                                      R. Gandhi, Ed.
+Internet-Draft                                               C. Filsfils
+Intended status: Standards Track                     Cisco Systems, Inc.
+Expires: August 5, 2021                                     N. Vaghamshi
+                                                                Reliance
+                                                            M. Nagarajah
+                                                                 Telstra
+                                                                R. Foote
+                                                                   Nokia
+                                                       February 01, 2021
+
+
+ Enhanced Performance Delay and Liveness Monitoring in Segment Routing
+                                Networks
+                 draft-gandhi-spring-sr-enhanced-plm-04
+
+Abstract
+
+   Segment Routing (SR) leverages the source routing paradigm.  SR is
+   applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
+   (SRv6) data planes.  This document defines procedure for Enhanced
+   Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
+   networks.  The procedure leverages the test packets compatible with
+   the delay measurement packet formats defined in RFC 8762 (Simple Two-
+   Way Active Measurement Protocol (STAMP)) and is applicable to end-to-
+   end SR Paths including SR Policies for both SR-MPLS and SRv6 data
+   planes.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on August 5, 2021.
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 1]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+Copyright Notice
+
+   Copyright (c) 2021 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
+   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
+     3.2.  Loopback Mode Enabled with Network Programming Function .   6
+     3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   7
+   4.  Test Packet Formats . . . . . . . . . . . . . . . . . . . . .   7
+   5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   8
+     5.1.  Test Packet for SR-MPLS . . . . . . . . . . . . . . . . .   9
+     5.2.  Test Packet for SRv6  . . . . . . . . . . . . . . . . . .   9
+   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
+     6.1.  Test Packet with Timestamp Label for SR-MPLS  . . . . . .  10
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  11
+       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  12
+     6.2.  Test Packet with Timestamp Endpoint Function for SRv6 . .  12
+       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  13
+       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  14
+   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  14
+   8.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  15
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  16
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 2]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+1.  Introduction
+
+   Segment Routing (SR) leverages the source routing paradigm and
+   greatly simplifies network operations for Software Defined Networks
+   (SDNs).  SR is applicable to both Multiprotocol Label Switching (SR-
+   MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR takes advantage of
+   the Equal-Cost Multipaths (ECMPs) between source and transit nodes,
+   between transit nodes and between transit and destination nodes.  SR
+   Policies as defined in [I-D.ietf-spring-segment-routing-policy] are
+   used to steer traffic through a specific, user-defined paths using a
+   stack of Segments.  Built-in Performance Delay Measurement (DM) as
+   well as Liveness Monitoring for Connectivity Verification (CV) and
+   Continuity Check (CC) are essential requirements to provide Service
+   Level Agreements (SLAs) in SR networks.
+
+   The Simple Two-way Active Measurement Protocol (STAMP) provides
+   capabilities for the measurement of various performance metrics in IP
+   networks [RFC8762].  It eliminates the need for control protocol by
+   using configuration and management model to provision and manage test
+   sessions.  [RFC8972] defines optional extensions for STAMP.
+   [I-D.gandhi-ippm-stamp-srpm] defines STAMP extensions for SR
+   networks.
+
+   The [I-D.gandhi-spring-stamp-srpm] defines procedures for performance
+   measurement using STAMP packets in SR networks.  The procedure for
+   one-way and two-way modes defined for delay measurement can also be
+   applied to liveness monitoring of SR Paths.  However, it limits the
+   scale for number of PM sessions and fault detection interval since
+   the test packets need to be punted from the forwarding path (to slow
+   path or control plane) and response packets need to be injected.
+
+   For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
+   (S-BFD) [RFC7880] can be used in Segment Routing networks.  However,
+   S-BFD requires protocol support on the Session-Reflector node to
+   process the S-BFD packets as packets need to be punted from the
+   forwarding path in order to send the reply thereby limiting the scale
+   for number of PM sessions and fault detection interval.  In addition,
+   S-BFD protocol does not have the capability today to enable
+   performance delay monitoring in SR networks.  Enabling multiple
+   protocols in SR networks, S-BFD for liveness monitoring and STAMP for
+   performance delay monitoring increases the deployment and operational
+   complexities in SR networks.
+
+   This document defines procedure for Enhanced Performance Delay and
+   Liveness Monitoring (PDLM) in Segment Routing networks.  The
+   procedure leverages the test packets compatible with the delay
+   measurement packet formats defined in RFC 8762 (Simple Two-Way Active
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 3]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   Measurement Protocol (STAMP)) and is applicable to end-to-end SR
+   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+
+2.  Conventions Used in This Document
+
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119] [RFC8174]
+   when, and only when, they appear in all capitals, as shown here.
+
+2.2.  Abbreviations
+
+   BFD: Bidirectional Forwarding Detection.
+
+   BSID: Binding Segment ID.
+
+   DM: Delay Measurement.
+
+   ECMP: Equal Cost Multi-Path.
+
+   LM: Loss Measurement.
+
+   MPLS: Multiprotocol Label Switching.
+
+   OWAMP: One-Way Active Measurement Protocol.
+
+   PDLM: Performance Delay and Liveness Monitoring.
+
+   PM: Performance Measurement.
+
+   PTP: Precision Time Protocol.
+
+   SID: Segment ID.
+
+   SL: Segment List.
+
+   SR: Segment Routing.
+
+   SRH: Segment Routing Header.
+
+   SR-MPLS: Segment Routing with MPLS data plane.
+
+   SRv6: Segment Routing with IPv6 data plane.
+
+   STAMP: Simple Two-way Active Measurement Protocol.
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 4]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+2.3.  Reference Topology
+
+   In the reference topology shown below, the STAMP Session-Sender R1
+   initiates a STAMP test packet and the STAMP Session-Reflector R3
+   transmits a reply test packet.  The reply test packet is transmitted
+   back to the STAMP Session-Sender R1 on the same path or a different
+   path in the reverse direction.
+
+   SR is enabled on nodes R1 and R3.  The nodes R1 and R3 may be
+   connected via an SR path [RFC8402].  The SR path may be an SR Policy
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
+   with destination to node R3 (called tail-end).
+
+                          T1
+                         /
+                +-------+     Test Packet     +-------+
+                |       | - - - - - - - - - - |       |
+                |   R1  |====================||   R3  |
+                |       |<- - - - - - - - - - |       |
+                +-------+  Return Test Packet +-------+
+                         \
+                          T4
+
+             STAMP Session-Sender        STAMP Session-Reflector
+                                         (Simply Forward)
+
+                          Reference Topology
+
+3.  Overview
+
+3.1.  Loopback Mode
+
+   In loopback mode, the Sssion-Sender node R1 initiates test packets
+   and the Session-Reflector node R3 forwards them just like data
+   packets for the normal traffic back to the Sssion-Sender node R1.
+   The test packets are not punted at the Session-Reflector node and it
+   does not process them and generate response packets.  The Session-
+   Reflector node must not drop the loopback test packets, for example,
+   due to a local policy provisioned on the node.  No PM session is
+   created on the Session-Reflector node.
+
+   The Source and Destination IP addresses in the test packets are set
+   to the Session-Reflector and the Sssion-Sender node addresses,
+   respectively (representing the reverse path).  Both Source and
+   Destination UDP ports in the test packets are allocated dynamically
+   or user-configured from the range specified in [RFC8762].  The UDP
+   ports used in loopback mode are different than the ports used for
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 5]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   STAMP sessions.  The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL)
+   are set to 255.
+
+3.2.  Loopback Mode Enabled with Network Programming Function
+
+   In "loopback mode enabled with network programming function", both
+   transmit (T1) and receive (T2) timestamps in data plane are collected
+   by the test packets transmitted in loopback mode as shown in
+   Figure 2.  The network programming function optimizes the "operations
+   of punt and inject the test packet" on the Session-Reflector node as
+   timestamping is implemented in hardware.  This helps to achieve
+   higher scale and faster rate, resulting in faster failure detection.
+
+                            T1                  T2
+                           /                     \
+                  +-------+     Test Packet       +-------+
+                  |       | - - - - - - - - - - - |       |
+                  |   R1  |======================||  R3   |
+                  |       |<- - - - - - - - - - - |       |
+                  +-------+   Return Test Packet  +-------+
+                           \
+                            T4
+
+                Session-Sender                 Session-Reflector
+                                                (Timestamp,
+                                                 Pop and Forward)
+
+     Figure 1: Loopback Mode Enabled with Network Programming Function
+
+   The Sssion-Sender node adds transmit (T1) timestamp in the payload of
+   the test packet and clears the receive (T2) timestamp.  The Session-
+   Reflector node adds the receive timestamp in the payload of the
+   received test packet in hardware without punting the packet to slow-
+   path (or control-plane).  The Session-Reflector node only adds the
+   receive timestamp if the source or destination address in the test
+   packet matches the local node address to ensure that the test packet
+   reaches the intended Session-Reflector node and the receive timestamp
+   is returned by the that node.  The payload of the test packet is not
+   modified by any intermediate nodes.
+
+   The network programming function enables the node to add receive
+   timestamp in the payload of the test packet at a specific offset
+   which is locally provisioned consistently in the network.  In the
+   test packet defined in Figure 3 for delay measurement, the 64-bit
+   receive timestamp is added at byte-offset 16 which is from the start
+   of the payload.
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 6]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+3.3.  Example Provisioning Model
+
+   An example provisioning model and typical measurement parameters are
+   shown in Figure 2:
+
+
+                               +------------+
+                               | Controller |
+                               +------------+
+     PDLM Mode                     /    \      Timestamp Label/SRV6 EP
+       LB or Enhanced Mode        /      \       Timestamp2 Offset
+     Source/Dest UDP Ports       /        \      Timestamp Format
+     Missed Test Packet Count   /          \
+     Timestamp Label/SRv6 EP   /            \
+       Timestamp Format       /              \
+     Delay Threshold/Count   /                \
+                            /                  \
+                           v                    v
+                       +-------+            +-------+
+                       |       |            |       |
+                       |   R1  |============|   R3  |
+                       |       |            |       |
+                       +-------+            +-------+
+
+                     Session-Sender     Session-Reflector
+
+                   Figure 2: Example Provisioning Model
+
+   Example of Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP.
+
+   The mechanisms to provision the Session-Sender and Session-Reflector
+   nodes are outside the scope of this document.
+
+4.  Test Packet Formats
+
+   The test packets compatible with the STAMP packet formats defined in
+   [RFC8762] are specified in Figure 3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 7]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Sequence Number                           |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Transmit Timestamp (T1)                   |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Transmit Error Estimate      |  SSID                         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Receive Timestamp (T2)                    |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Receive Error Estimate       |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     |                     MBZ (28 Octets)                           |
+     |                                                               |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+                   STAMP Compatible Test Packet Format
+
+                       Figure 3: Test Packet Formats
+
+   Sequence Number is the sequence number of the test packet according
+   to its transmit order.  It starts with zero and is incremented by one
+   for each subsequent test packet.
+
+   Transmit Timestamp and Transmit Error Estimate are the Session-
+   Sender's transmit timestamp and error estimate for the test packet,
+   respectively.  Similarly, Receive Timestamp and Receive Error
+   Estimate are the Session-Reflector's receive timestamp and error
+   estimate, respectively.  The timestamp and error estimate fields
+   follow the definition and formats defined in Section 4.1.2 in
+   [RFC8762].  Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as
+   specified in [RFC8186], implemented in hardware.
+
+5.  Performance Delay and Liveness Monitoring
+
+   For performance delay and liveness monitoring of an end-to-end SR
+   Path including SR Policy, test packets in loopback mode is used.
+
+   For SR Policy, the test packets are transmitted using the Segment
+   List (SL) of the Candidate-path
+   [I-D.ietf-spring-segment-routing-policy].  When a Candidate-path has
+   more than one Segment Lists, multiple test packets are sent, one
+   using each Segment List.  The return test packets are received by the
+   Sssion-Sender node via IP/UDP [RFC0768] return path by default.  The
+   Segment List of the return SR path can be added in the test packet
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 8]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   header to receive the return test packet on a specific path using the
+   Binding SID [I-D.ietf-pce-binding-label-sid] or Segment List of the
+   Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
+
+5.1.  Test Packet for SR-MPLS
+
+   The test packets are transmitted using the MPLS header containing the
+   label stack of the SR Policy as shown in Figure 4.  In case of IP/UDP
+   return path, the MPLS header is removed by the Session-Reflector
+   node.  The label stack can contain a reverse SR-MPLS path to receive
+   the return test packet on a specific path.  In this case, the MPLS
+   header will not be removed by the Session-Reflector node.
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Label(1)                   | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     .                                                               .
+     .                                                               .
+     .                                                               .
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Label(n)                   | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Reflector IPv4 or IPv6 Address   .
+     .  Destination IP Address = Session-Sender IPv4 or IPv6 Address .
+     .  Protocol = UDP                                               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | UDP Header                                                    |
+     .  Source Port = As chosen by Session-Sender                    .
+     .  Destination Port = As chosen by Session-Sender               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     |  Payload as defined in Figure 3                               |
+     .                                                               .
+     +---------------------------------------------------------------+
+
+                 Figure 4: Example Test Packet for SR-MPLS
+
+5.2.  Test Packet for SRv6
+
+   The test packets for SRv6 data plane are transmitted using the
+   Segment Routing Header (SRH) [RFC8754] containing the Segment List of
+   the SR Policy as shown in Figure 5.  In case of IP/UDP return path,
+   the SRH is removed by the Session-Reflector node.  The Segment List
+   can contain a reverse SRv6 path to receive the return test packet on
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 9]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   a specific path.  In this case, the SRH will not be removed by the
+   Session-Reflector node.  When the return test packet contains an SRH
+   at the Sssion-Sender node, the procedure defined for upper-layer
+   header processing for SRv6 SIDs in [I-D.ietf-spring-srv6-network-
+   programming] is used to process the UDP header in the received test
+   packets.
+
+     +---------------------------------------------------------------+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Sender IPv6 Address              .
+     .  Destination IP Address = Destination IPv6 Address            .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | SRH as specified in RFC 8754                                  |
+     .     <Segment List>                                      .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Reflector IPv6 Address           .
+     .  Destination IP Address = Session-Sender IPv6 Address         .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | UDP Header                                                    |
+     .  Source Port = As chosen by Session-Sender                    .
+     .  Destination Port = As chosen by Session-Sender               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     |  Payload as defined in Figure 3                               |
+     .                                                               .
+     +---------------------------------------------------------------+
+
+                  Figure 5: Example Test Packet for SRv6
+
+6.  Enhanced Performance Delay and Liveness Monitoring
+
+   The enhanced performance delay and liveness monitoring of an end-to-
+   end SR Path including SR Policy is defined using the PM tests in
+   "loopback mode enabled with network programming function".
+
+6.1.  Test Packet with Timestamp Label for SR-MPLS
+
+   In this document, new Timestamp Label (Extended Special-Purpose value
+   TBD1) is defined for SR-MPLS data plane to enable network programming
+   function for "timestamp, pop and forward" the received packet.
+
+   In the test packet for SR-MPLS, Timestamp Label is added in the MPLS
+   header as shown in Figure 6, to collect "Receive Timestamp" field in
+   the payload of the test packet.  The label stack for the reverse SR-
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 10]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   MPLS path can be added after the Timestamp Label to receive the
+   return test packet on a specific path.  When a node receives a packet
+   with Timestamp Label, after timestamping the packet at a specific
+   offset, the node pops the Timestamp Label and forwards the packet
+   using the next label or IP header in the packet (just like the data
+   packets for the normal traffic).
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Label(1)                   | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     .                                                               .
+     .                                                               .
+     .                                                               .
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Label(n)                   | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Extension Label (15)       | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |            Timestamp Label (TBA1)     | TC  |S|      TTL      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Reflector IPv4 or IPv6 Address   .
+     .  Destination IP Address = Session-Sender IPv4 or IPv6 Address .
+     .  Protocol = UDP                                               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | UDP Header                                                    |
+     .  Source Port = As chosen by Session-Sender                    .
+     .  Destination Port = As chosen by Session-Sender               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     |  Payload as defined in Figure 3                               |
+     .                                                               .
+     +---------------------------------------------------------------+
+
+      Figure 6: Example Test Packet with Timestamp Label for SR-MPLS
+
+6.1.1.  Timestamp Label Allocation
+
+   Timestamp Label can be allocated using one of the following methods:
+
+   o  Label (value TBA1) assigned by IANA from the "Extended Special-
+      Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
+      timestamp offset is fixed at byte-offset 16 from the start of the
+      payload and timestamp format is 64-bit PTPv2 for this label.
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   o  Label allocated by a Controller from the global table of the
+      egress node.  The Controller provisions the label on both ingress
+      and egress nodes, as well as timestamp offset and timestamp
+      format.
+
+   o  Label allocated by the egress node.  The signaling and IGP
+      flooding extension for the label (including timestamp offset and
+      timestamp format) are outside the scope of this document.
+
+6.1.2.  Node Capability for Timestamp Label
+
+   The ingress node needs to know if the egress node can process the
+   Timestamp Label to avoid dropping test packets.  The signaling
+   extension for this capability exchange is outside the scope of this
+   document.
+
+6.2.  Test Packet with Timestamp Endpoint Function for SRv6
+
+   In this document, Timestamp Endpoint function for "Timestamp and
+   Forward (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for
+   Segment Routing Header (SRH) [RFC8754] for SRv6 data plane to enable
+   network programming function to "timestamp and forward" the received
+   packet.
+
+   In the test packet for SRv6, End.TSF function is added for the target
+   Segment Identifier (SID) in SRH [RFC8754] as shown in Figure 7, to
+   collect "Receive Timestamp" field in the payload of the test packet.
+   The Segment List for the reverse path can be added after the target
+   SID to receive the return test packet on a specific path.  When a
+   Session-Reflector node receives a packet with End.TSF function for
+   the target SID which is local, after timestamping the packet at a
+   specific offset, the node forwards the packet using the next SID or
+   IP header in the packet (just like the data packets for the normal
+   traffic).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 12]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+     +---------------------------------------------------------------+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Sender IPv6 Address              .
+     .  Destination IP Address = Destination IPv6 Address            .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | SRH as specified in RFC 8754                                  |
+     .     <Segment List>                                      .
+     .     SRv6 Endpoint End.TSF (value TBA2)                        .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | IP Header                                                     |
+     .  Source IP Address = Session-Reflector IPv6 Address           .
+     .  Destination IP Address = Session-Sender IPv6 Address         .
+     .                                                               .
+     +---------------------------------------------------------------+
+     | UDP Header                                                    |
+     .  Source Port = As chosen by Session-Sender                    .
+     .  Destination Port = As chosen by Session-Sender               .
+     .                                                               .
+     +---------------------------------------------------------------+
+     |  Payload as defined in Figure 3                               |
+     .                                                               .
+     +---------------------------------------------------------------+
+
+       Figure 7: Example Test Packet with Endpoint Function for SRv6
+
+6.2.1.  Timestamp Endpoint Function Assignment
+
+   Timestamp endpoint function for "Timestamp and Forward" can be
+   signaled using one of the following methods:
+
+   o  Timestamp endpoint function (value TBA2) assigned by IANA from the
+      "SRv6 Endpoint Behaviors Registry".  The timestamp offset is fixed
+      at byte-offset 16 from the start of the payload and timestamp
+      format is 64-bit PTPv2 for this endpoint function.
+
+   o  Timestamp endpoint function assigned by a Controller.  The
+      Controller provisions the value on both ingress and egress nodes,
+      as well as timestamp offset and timestamp format.
+
+   o  Timestamp endpoint function assigned by the egress node.  The
+      signaling and IGP flooding extension for the endpoint function
+      (including timestamp offset and timestamp format) are outside the
+      scope of this document.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 13]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+6.2.2.  Node Capability for Timestamp Endpoint Function
+
+   The ingress node needs to know if the egress node can process the
+   Timestamp Endpoint Function to enable the monitoring.  The signaling
+   extension for this capability exchange is outside the scope of this
+   document.
+
+7.  ECMP Handling
+
+   An SR Policy can have ECMPs between the source and transit nodes,
+   between transit nodes and between transit and destination nodes.  The
+   PM test packets need to be transmitted to traverse different ECMP
+   paths to monitor the liveness for an end-to-end SR Policy.
+
+   Forwarding plane has various hashing functions available to forward
+   packets on specific ECMP paths.  In IPv4 header of the PM test
+   packets, sweeping of Destination Address in 127/8 range can be used
+   to exercise different ECMP paths in the loopback mode as long as the
+   return path is also SR-MPLS.  The Flow Label field in the outer IPv6
+   header can also be used for sweeping to exercise different ECMP
+   paths.
+
+8.  Failure Notification
+
+   Liveness success for SR Path is initially notified as soon as one or
+   more return test packets are received at the Sssion-Sender node.
+
+   Liveness failure for SR Path is notified when consecutive N number of
+   return test packets are not received at the Sssion-Sender node, where
+   N (Missed Test Packet Count) is locally provisioned value.
+   Similarly, delay metrics are notified as an example when consecutive
+   M number of test packets have measured delay values exceed user-
+   configured thresholds (absolute and percentage), where M is also
+   locally provisioned value.
+
+   For the test packets generated by the Session-Sender node R1 in the
+   loopback mode, a failure on the reverse direction path can also cause
+   the return test packets to not reach the Session-Sender node.  This
+   is also true in case of the test response packets generated by the
+   Session-Reflector node R3 e.g. to indicate node R1 of any failure on
+   the forward direction path.  As such, the test-based methods have
+   this limitation for the liveness monitoring of the forward direction
+   path.
+
+   In loopback mode, the timestamps T1 and t4 are used to measure round-
+   trip delay.  In loopback mode enabled with network programming
+   function, the timestamps T1 and T2 are used to measure one-way delay.
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 14]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+9.  Security Considerations
+
+   The Performance Delay and Liveness Monitoring is intended for
+   deployment in the well-managed private and service provider networks.
+   As such, it assumes that a node involved in a monitoring operation
+   has previously verified the integrity of the path and the identity of
+   the Session-Reflector node.  If desired, attacks can be mitigated by
+   performing basic validation and sanity checks, at the Sssion-Sender,
+   of the timestamp fields in received test packets.  The minimal state
+   associated with these protocols also limits the extent of disruption
+   that can be caused by a corrupt or invalid packet to a single test
+   cycle.  Cryptographic measures may be used by the correct
+   configuration of access-control lists and firewalls.
+
+10.  IANA Considerations
+
+   IANA maintains the "Special-Purpose Multiprotocol Label Switching
+   (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
+   mpls-label-values/mpls-label-values.xml>).  IANA is requested to
+   allocate Timestamp Label value from the "Extended Special-Purpose
+   MPLS Label Values" registry:
+
+     +-------------+---------------------------------+---------------+
+     | Value       | Description                     | Reference     |
+     +-------------+---------------------------------+---------------+
+     | TBA1        | Timestamp Label                 | This document |
+     +-------------+---------------------------------+---------------+
+
+   IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
+   Registry" sub-registry belonging to the top-level "Segment Routing
+   Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
+   following allocation:
+
+     +-------------+---------------------------------+---------------+
+     | Value       | Endpoint Behavior               | Reference     |
+     +-------------+---------------------------------+---------------+
+     | TBA2        | End.TSF (Timestamp and Forward) | This document |
+     +-------------+---------------------------------+---------------+
+
+11.  References
+
+11.1.  Normative References
+
+   [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
+              DOI 10.17487/RFC0768, August 1980,
+              <https://www.rfc-editor.org/info/rfc768>.
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 15]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
+
+11.2.  Informative References
+
+   [IEEE1588]
+              IEEE, "1588-2008 IEEE Standard for a Precision Clock
+              Synchronization Protocol for Networked Measurement and
+              Control Systems", March 2008.
+
+   [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
+              Pallagatti, "Seamless Bidirectional Forwarding Detection
+              (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
+              <https://www.rfc-editor.org/info/rfc7880>.
+
+   [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
+              Timestamp Format in a Two-Way Active Measurement Protocol
+              (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
+              <https://www.rfc-editor.org/info/rfc8186>.
+
+   [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
+              Decraene, B., Litkowski, S., and R. Shakir, "Segment
+              Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
+              July 2018, <https://www.rfc-editor.org/info/rfc8402>.
+
+   [RFC8754]  Filsfils, C., Ed., Dukes, D., Ed., Previdi, S., Leddy, J.,
+              Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
+              (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
+              <https://www.rfc-editor.org/info/rfc8754>.
+
+   [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
+              and E. Ruffini, "Simple Two-Way Active Measurement
+              Protocol Optional Extensions", RFC 8972,
+              DOI 10.17487/RFC8972, January 2021,
+              <https://www.rfc-editor.org/info/rfc8972>.
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 16]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+   [I-D.gandhi-spring-stamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Performance Measurement Using Simple TWAMP
+              (STAMP) for Segment Routing Networks", draft-gandhi-
+              spring-stamp-srpm-04 (work in progress), January 2021.
+
+   [I-D.gandhi-ippm-stamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Simple TWAMP (STAMP) Extensions for Segment
+              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
+              in progress), January 2021.
+
+   [I-D.ietf-spring-segment-routing-policy]
+              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
+              P. Mattes, "Segment Routing Policy Architecture", draft-
+              ietf-spring-segment-routing-policy-09 (work in progress),
+              November 2020.
+
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-28 (work in
+              progress), December 2020.
+
+   [I-D.ietf-mpls-spl-terminology]
+              Andersson, L., Kompella, K., and A. Farrel, "Special
+              Purpose Label terminology", draft-ietf-mpls-spl-
+              terminology-06 (work in progress), January 2021.
+
+   [I-D.ietf-pce-binding-label-sid]
+              Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
+              Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
+              in PCE-based Networks.", draft-ietf-pce-binding-label-
+              sid-05 (work in progress), October 2020.
+
+   [I-D.ietf-pce-sr-bidir-path]
+              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
+              "Path Computation Element Communication Protocol (PCEP)
+              Extensions for Associated Bidirectional Segment Routing
+              (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
+              progress), January 2021.
+
+Acknowledgments
+
+   The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
+   Kompella, and Adrian Farrel for providing the review comments.
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 17]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+Authors' Addresses
+
+   Rakesh Gandhi (editor)
+   Cisco Systems, Inc.
+   Canada
+
+   Email: rgandhi@cisco.com
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
+
+
+   Navin Vaghamshi
+   Reliance
+
+   Email: Navin.Vaghamshi@ril.com
+
+
+   Moses Nagarajah
+   Telstra
+
+   Email: Moses.Nagarajah@team.telstra.com
+
+
+   Richard Foote
+   Nokia
+
+   Email: footer.foote@nokia.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 18]
