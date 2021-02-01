@@ -105,11 +105,8 @@
       <t>Segment Routing (SR) leverages the source routing paradigm. SR is
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for 
-      Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure defines the test packet formats similar to RFC 8762 (Simple 
-      Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
-      end-to-end SR Paths including 
-      SR Policies for both SR-MPLS and SRv6 data planes.</t>
+      Enhanced Performance Delay and Liveness Monitoring (PDLM) 
+      for end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </abstract>
   </front>
 
@@ -139,7 +136,7 @@
       This limits the scale for number of STAMP sessions and fault detection interval.</t>
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
-      <xref target="RFC7880"/> can be used in Segment Routing networks.
+      <xref target="RFC7880"/> can be used in SR networks.
       However, S-BFD requires protocol support on the BFD-Reflector to process
       the S-BFD packets as packets need to be punted from the forwarding path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and fault
@@ -150,8 +147,8 @@
       the deployment and operational complexities in SR networks.</t>
 
       <t>This document defines procedure for 
-      Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure defines the test packet formats similar to RFC 8762 (Simple 
+      Enhanced Performance Delay and Liveness Monitoring (PDLM) in SR networks.
+      The procedure defines the test packet formats those are similar to RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </section>

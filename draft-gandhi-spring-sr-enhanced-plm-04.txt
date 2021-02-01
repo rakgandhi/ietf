@@ -23,11 +23,8 @@ Abstract
    Segment Routing (SR) leverages the source routing paradigm.  SR is
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
-   Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
-   networks.  The procedure defines the test packet formats similar to
-   RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP)) and is
-   applicable to end-to-end SR Paths including SR Policies for both SR-
-   MPLS and SRv6 data planes.
+   Performance Delay and Liveness Monitoring (PDLM) for end-to-end SR
+   Paths including SR Policies for both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -46,10 +43,13 @@ Status of This Memo
 
    This Internet-Draft will expire on August 5, 2021.
 
+Copyright Notice
 
+   Copyright (c) 2021 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
 
-
-
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
 
 
 
@@ -58,13 +58,6 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 1]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-Copyright Notice
-
-   Copyright (c) 2021 IETF Trust and the persons identified as the
-   document authors.  All rights reserved.
-
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -75,9 +68,9 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
@@ -105,15 +98,6 @@ Table of Contents
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
-
-
-
-
-Gandhi, et al.           Expires August 5, 2021                 [Page 2]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
 1.  Introduction
 
    Segment Routing (SR) leverages the source routing paradigm and
@@ -122,6 +106,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR Policies as defined
    in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
    through a specific, user-defined paths using a stack of Segments.
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 2]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    Built-in Performance Delay Measurement (DM) as well as Liveness
    Monitoring for Connectivity Verification (CV) and Continuity Check
    (CC) are essential requirements to provide Service Level Agreements
@@ -140,10 +132,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    interval.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
-   (S-BFD) [RFC7880] can be used in Segment Routing networks.  However,
-   S-BFD requires protocol support on the BFD-Reflector to process the
-   S-BFD packets as packets need to be punted from the forwarding path
-   and generate the reply packets thereby limiting the scale for number
+   (S-BFD) [RFC7880] can be used in SR networks.  However, S-BFD
+   requires protocol support on the BFD-Reflector to process the S-BFD
+   packets as packets need to be punted from the forwarding path and
+   generate the reply packets thereby limiting the scale for number
    S-BFD sessions and fault detection interval.  In addition, S-BFD
    protocol does not have the capability today to enable performance
    delay measurement in SR networks.  Enabling multiple protocols in SR
@@ -152,11 +144,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    complexities in SR networks.
 
    This document defines procedure for Enhanced Performance Delay and
-   Liveness Monitoring (PDLM) in Segment Routing networks.  The
-   procedure defines the test packet formats similar to RFC 8762 (Simple
-   Two-Way Active Measurement Protocol (STAMP)) and is applicable to
-   end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6
-   data planes.
+   Liveness Monitoring (PDLM) in SR networks.  The procedure defines the
+   test packet formats those are similar to RFC 8762 (Simple Two-Way
+   Active Measurement Protocol (STAMP)) and is applicable to end-to-end
+   SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.
+
+2.  Conventions Used in This Document
+
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119] [RFC8174]
+   when, and only when, they appear in all capitals, as shown here.
 
 
 
@@ -169,15 +169,6 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-2.  Conventions Used in This Document
-
-2.1.  Requirements Language
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119] [RFC8174]
-   when, and only when, they appear in all capitals, as shown here.
 
 2.2.  Abbreviations
 
@@ -219,17 +210,21 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    back to the Session-Sender R1 on the same path or a different path in
    the reverse direction.
 
+   The Session-Sender R1 and Session-Reflector R3 are connected via an
+   SR path [RFC8402].  The SR path may be an SR Policy
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
+   with destination to node R3 (called tail-end).
+
+
+
+
+
 
 
 Gandhi, et al.           Expires August 5, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-   The Session-Sender R1 and Session-Reflector R3 are connected via an
-   SR path [RFC8402].  The SR path may be an SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
-   with destination to node R3 (called tail-end).
 
                           T1
                          /
@@ -274,6 +269,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    transmit (T1) and receive (T2) timestamps in data plane are collected
    by the PDLM test packets transmitted in loopback mode as shown in
    Figure 1.  The network programming function optimizes the "operations
+   of punt and inject the PDLM test packet" on the Session-Reflector as
+   timestamping is implemented in hardware.  This helps to achieve
+   higher session scale and faster failure detection.
+
+
 
 
 
@@ -281,10 +281,6 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-   of punt and inject the PDLM test packet" on the Session-Reflector as
-   timestamping is implemented in hardware.  This helps to achieve
-   higher session scale and faster failure detection.
 
                             T1                  T2
                            /                     \
@@ -324,6 +320,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    An example provisioning model and typical measurement parameters are
    shown in Figure 2:
+
+
+
+
 
 
 
