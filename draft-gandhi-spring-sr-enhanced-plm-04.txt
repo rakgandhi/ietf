@@ -90,7 +90,7 @@ Table of Contents
      5.2.  PDLM Test Packet for SRv6 . . . . . . . . . . . . . . . .  10
    6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  11
      6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS . . . .  11
-       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
+       6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
      6.2.  PDLM Test Packet with Timestamp Endpoint Function for
            SRv6  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -316,9 +316,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    The network programming function enables the Session-Reflector to add
    receive timestamp in the payload of the PDLM test packet at a
    specific offset which is locally provisioned consistently in the
-   network.  In the PDLM test packet defined in Figure 3, the 64-bit
-   receive timestamp is added at byte-offset 16 which is from the start
-   of the payload.
+   network.  For example, for the PDLM test packet in unauthenticated
+   mode defined in Figure 3, the 64-bit receive timestamp is added at
+   byte-offset 16 from the start of the payload.
 
 3.3.  Example Provisioning Model
 
@@ -650,22 +650,22 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
     Figure 6: Example PDLM Test Packet with Timestamp Label for SR-MPLS
 
-6.1.1.  Timestamp Label Allocation
+6.1.1.  Timestamp Labels Allocation
 
-   Timestamp Label can be allocated using one of the following methods:
+   Timestamp Labels for unauthenticated and authenticated modes can be
+   allocated using one of the following methods:
 
    o  Label (value TBA1) assigned by IANA from the "Extended Special-
       Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
       timestamp offset is fixed at byte-offset 16 from the start of the
-      payload and timestamp format is 64-bit PTPv2 for this label.
+      payload for the unauthenticated mode, and Label (value TBA2) at
+      byte-offset 32 for the authenticated mode, both using timestamp
+      format 64-bit PTPv2.
 
    o  Label allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
       Session-Sender and Session-Reflector, as well as timestamp offset
       and timestamp format.
-
-
-
 
 
 
@@ -738,7 +738,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +---------------------------------------------------------------+
      | SRH as specified in RFC 8754                                  |
      .     <Segment List>                                            .
-     .     SRv6 Endpoint End.TSF (value TBA2)                        .
+     .     SRv6 Endpoint End.TSF (value TBA3)                        .
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -762,10 +762,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Timestamp endpoint function for "Timestamp and Forward" can be
    signaled using one of the following methods:
 
-   o  Timestamp endpoint function (value TBA2) assigned by IANA from the
+   o  Timestamp endpoint function (value TBA3) assigned by IANA from the
       "SRv6 Endpoint Behaviors Registry".  The timestamp offset is fixed
-      at byte-offset 16 from the start of the payload and timestamp
-      format is 64-bit PTPv2 for this endpoint function.
+      at byte-offset 16 from the start of the payload for the
+      unauthenticated mode, and endpoint function (value TBA4) at byte-
+      offset 32 for the authenticated mode, both using timestamp format
+      64-bit PTPv2.
 
    o  Timestamp endpoint function assigned by a Controller.  The
       Controller provisions the value on both Session-Sender and
@@ -776,8 +778,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       The signaling and IGP flooding extension for the endpoint function
       (including timestamp offset and timestamp format) are outside the
       scope of this document.
-
-
 
 
 
@@ -856,7 +856,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-------------+---------------------------------+---------------+
      | Value       | Description                     | Reference     |
      +-------------+---------------------------------+---------------+
-     | TBA1        | Timestamp Label                 | This document |
+     | TBA1        | Timestamp Label for             | This document |
+     |             | Unauthenticated Mode            |               |
+     +-------------+---------------------------------+---------------+
+     | TBA2        | Timestamp Label for             | This document |
+     |             | Authenticated Mode              |               |
      +-------------+---------------------------------+---------------+
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
@@ -867,8 +871,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-------------+---------------------------------+---------------+
      | Value       | Endpoint Behavior               | Reference     |
      +-------------+---------------------------------+---------------+
-     | TBA2        | End.TSF (Timestamp and Forward) | This document |
+     | TBA3        | End.TSF (Timestamp and Forward) | This document |
+     |             | Unauthenticated Mode            |               |
      +-------------+---------------------------------+---------------+
+     | TBA4        | End.TSF (Timestamp and Forward) | This document |
+     |             | Authenticated Mode              |               |
+     +-------------+---------------------------------+---------------+
+
 
 10.  References
 
@@ -877,15 +886,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
 
 
@@ -897,6 +897,15 @@ Gandhi, et al.           Expires August 5, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
@@ -936,6 +945,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 17]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
@@ -946,13 +964,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               Andersson, L., Kompella, K., and A. Farrel, "Special
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-06 (work in progress), January 2021.
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 17]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
 
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
@@ -993,33 +1004,22 @@ Authors' Addresses
    Email: Navin.Vaghamshi@ril.com
 
 
-   Moses Nagarajah
-   Telstra
-
-   Email: Moses.Nagarajah@team.telstra.com
-
-
-
-
-
-
-
 
 Gandhi, et al.           Expires August 5, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   Moses Nagarajah
+   Telstra
+
+   Email: Moses.Nagarajah@team.telstra.com
+
+
    Richard Foote
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
 
 
 

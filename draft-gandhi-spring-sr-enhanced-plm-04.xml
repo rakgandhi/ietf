@@ -294,9 +294,8 @@
       <t>The network programming function enables the Session-Reflector to add receive timestamp
       in the payload of the PDLM test packet at a specific offset which is locally
       provisioned consistently in the network. 
-      In the PDLM test packet defined in Figure 3,
-      the 64-bit receive timestamp is added at byte-offset 16 which is 
-      from the start of the payload.</t>
+      For example, for the PDLM test packet in unauthenticated mode defined in Figure 3,
+      the 64-bit receive timestamp is added at byte-offset 16 from the start of the payload.</t>
 
       </section>
 
@@ -591,13 +590,15 @@
         </figure>
 
 
-    <section title="Timestamp Label Allocation" anchor="sect-6.1.1" toc="default"><t>
-      Timestamp Label can be allocated using one of the following
+    <section title="Timestamp Labels Allocation" anchor="sect-6.1.1" toc="default"><t>
+      Timestamp Labels for unauthenticated and authenticated modes can be allocated using one of the following
       methods:</t>
 
     <t><list style="symbols"><t>Label (value TBA1) assigned by IANA from the "Extended
       Special-Purpose MPLS Values" <xref target="I-D.ietf-mpls-spl-terminology"/>. 
-      The timestamp offset is fixed at byte-offset 16 from the start of the payload and timestamp format is 64-bit PTPv2 for this label.</t>
+      The timestamp offset is fixed at byte-offset 16 from the start of 
+      the payload for the unauthenticated mode, and Label (value TBA2) at byte-offset 
+      32 for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
 
     <t>Label allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
@@ -655,7 +656,7 @@
   +---------------------------------------------------------------+
   | SRH as specified in RFC 8754                                  |
   .     &lt;Segment List&gt;                                            .
-  .     SRv6 Endpoint End.TSF (value TBA2)                        .
+  .     SRv6 Endpoint End.TSF (value TBA3)                        .
   .                                                               .
   +---------------------------------------------------------------+
   | IP Header                                                     |
@@ -678,8 +679,11 @@
     <section title="Timestamp Endpoint Function Assignment" anchor="sect-6.2.1" toc="default"><t>
       Timestamp endpoint function for "Timestamp and Forward" can be signaled using one of the following methods:</t>
 
-    <t><list style="symbols"><t>Timestamp endpoint function (value TBA2) assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
-      The timestamp offset is fixed at byte-offset 16 from the start of the payload and timestamp format is 64-bit PTPv2 for this endpoint function.</t>
+    <t><list style="symbols"><t>Timestamp endpoint function (value TBA3) 
+      assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
+      The timestamp offset is fixed at byte-offset 16 from the start of 
+      the payload for the unauthenticated mode, and endpoint function (value TBA4) at byte-offset 
+      32 for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
 
     <t>Timestamp endpoint function assigned by a Controller.  The Controller provisions the value on both
       Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
@@ -758,7 +762,11 @@
   +-------------+---------------------------------+---------------+
   | Value       | Description                     | Reference     |
   +-------------+---------------------------------+---------------+
-  | TBA1        | Timestamp Label                 | This document |
+  | TBA1        | Timestamp Label for             | This document |
+  |             | Unauthenticated Mode            |               |
+  +-------------+---------------------------------+---------------+
+  | TBA2        | Timestamp Label for             | This document |
+  |             | Authenticated Mode              |               |
   +-------------+---------------------------------+---------------+
       </artwork>
       </figure>
@@ -774,8 +782,14 @@
   +-------------+---------------------------------+---------------+
   | Value       | Endpoint Behavior               | Reference     |
   +-------------+---------------------------------+---------------+
-  | TBA2        | End.TSF (Timestamp and Forward) | This document |
-  +-------------+---------------------------------+---------------+</artwork>
+  | TBA3        | End.TSF (Timestamp and Forward) | This document |
+  |             | Unauthenticated Mode            |               |
+  +-------------+---------------------------------+---------------+
+  | TBA4        | End.TSF (Timestamp and Forward) | This document |
+  |             | Authenticated Mode              |               |
+  +-------------+---------------------------------+---------------+
+	
+	</artwork>
       </figure>
    </section>
   </middle>
