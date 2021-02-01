@@ -85,7 +85,7 @@ Table of Contents
        6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
      6.2.  PLM with Timestamp Endpoint Function for SRv6 . . . . . .  13
-       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
+       6.2.1.  Timestamp Endpoint Functions Assignment . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
    7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
@@ -144,8 +144,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    This document defines procedure for Enhanced Performance and Liveness
    Monitoring (PLM) for end-to-end SR Paths including SR Policies for
    both SR-MPLS and SRv6 data planes.  The procedure uses new test
-   packet formats that has timestamps at the same location as the base
-   STAMP test packets.
+   packet formats that has the timestamps at the same location as the
+   base STAMP test packets to leverage the existing hardware support for
+   STAMP.
 
 2.  Conventions Used in This Document
 
@@ -161,7 +162,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    S-BFD: Seamless Bidirectional Forwarding Detection.
 
    BSID: Binding Segment ID.
-
 
 
 
@@ -360,8 +360,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                    Figure 2: Example Provisioning Model
 
-   Example of PLM mode is loopback mode or loopback mode.  Example of
-   Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP.
+   Example of PLM mode is loopback mode.  Example of Timestamp Format is
+   64-bit PTPv2 [IEEE1588] and NTP.
 
    The mechanisms to provision the Session-Sender and Session-Reflector
    are outside the scope of this document.
@@ -369,9 +369,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 4.  PLM Test Packet Formats
 
    The PLM test packet formats for unauntheticated and authenticated
-   modes are defined in this document that has transmit and receive
-   timestamps at the same location as the base STAMP test packets as
-   shown in Figure 3.
+   modes are defined in this document as shown in Figure 3 that has the
+   transmit and receive timestamps at the same location as the base
+   STAMP test packet to leverage the existing hardware support for
+   STAMP.
 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Sequence Number                           |
@@ -385,7 +386,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |  Receive Error Estimate       |  MBZ                          |
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -394,6 +394,7 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 7]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                                                               |
      |                     MBZ (16 Octets)                           |
      |                                                               |
@@ -441,7 +442,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                        HMAC (16 octets)                       |
 
 
 
@@ -450,6 +450,7 @@ Gandhi, et al.           Expires August 5, 2021                 [Page 8]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+     |                        HMAC (16 octets)                       |
      |                                                               |
      |                                                               |
      |                                                               |
@@ -493,7 +494,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
-
 
 
 
@@ -656,8 +656,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 6.1.1.  Timestamp Labels Allocation
 
-   Timestamp Labels for unauthenticated and authenticated modes can be
-   allocated using one of the following methods:
+   The timestamp Labels for unauthenticated and authenticated modes can
+   be allocated using one of the following methods:
 
    o  Labels (values TBA1 and TBA2) assigned by IANA from the "Extended
       Special-Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  For
@@ -757,9 +757,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
      Figure 7: Example PLM Test Packet with Endpoint Function for SRv6
 
-6.2.1.  Timestamp Endpoint Function Assignment
+6.2.1.  Timestamp Endpoint Functions Assignment
 
-   Timestamp endpoint functions for "Timestamp and Forward" can be
+   The timestamp endpoint functions for "Timestamp and Forward" can be
    signaled using one of the following methods:
 
    o  Timestamp endpoint functions (values TBA3 and TBA4) assigned by
@@ -819,13 +819,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    round-trip delay.  In loopback mode enabled with network programming
    function, the timestamps T1 and T2 are used to measure one-way delay.
 
-   In loopback mode, a failure on the reverse direction path can also
-   cause the PLM return test packets to not reach the Session-Sender.
-   This is also true in the case where the PLM return test packets were
+   In loopback mode, a failure on the reverse direction path can cause
+   the PLM return test packets to not reach the Session-Sender.  This is
+   also true in the case where the PLM return test packets were
    generated by the Session-Reflector e.g. to indicate Session-Sender of
    a failure on the forward direction path.  As such, the test packet
-   based methods have such limitation for the liveness monitoring of the
-   forward direction path.
+   based methods have such limitation of false detection due to reverse
+   direction failure.
 
 8.  Security Considerations
 
@@ -863,11 +863,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-------------+---------------------------------+---------------+
      | Value       | Description                     | Reference     |
      +-------------+---------------------------------+---------------+
-     | TBA1        | Timestamp Label for             | This document |
-     |             | Unauthenticated Mode            |               |
+     | TBA1        | Timestamp Label                 | This document |
+     |             | for offset 16                   |               |
+     |             | for Unauthenticated Mode        |               |
      +-------------+---------------------------------+---------------+
-     | TBA2        | Timestamp Label for             | This document |
-     |             | Authenticated Mode              |               |
+     | TBA2        | Timestamp Label                 | This document |
+     |             | for offset 32                   |               |
+     |             | for Authenticated Mode          |               |
      +-------------+---------------------------------+---------------+
 
    IANA is requested to allocate, within the "SRv6 Endpoint Behaviors
@@ -879,15 +881,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      | Value       | Endpoint Behavior               | Reference     |
      +-------------+---------------------------------+---------------+
      | TBA3        | End.TSF (Timestamp and Forward) | This document |
-     |             | Unauthenticated Mode            |               |
+     |             | for offset 16                   |               |
+     |             | for Unauthenticated Mode        |               |
      +-------------+---------------------------------+---------------+
      | TBA4        | End.TSF (Timestamp and Forward) | This document |
-     |             | Authenticated Mode              |               |
+     |             | for offset 32                   |               |
+     |             | for Authenticated Mode          |               |
      +-------------+---------------------------------+---------------+
-
-
-
-
 
 
 
