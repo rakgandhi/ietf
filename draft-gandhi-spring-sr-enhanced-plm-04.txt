@@ -228,11 +228,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 2.3.  Reference Topology
 
-   In the reference topology shown below, the STAMP Session-Sender R1
-   initiates a STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet is transmitted
-   back to the STAMP Session-Sender R1 on the same path or a different
-   path in the reverse direction.
+   In the reference topology shown below, the Session-Sender R1
+   initiates a STAMP test packet and the Session-Reflector R3 transmits
+   a reply test packet.  The reply test packet is transmitted back to
+   the Session-Sender R1 on the same path or a different path in the
+   reverse direction.
 
    SR is enabled on nodes R1 and R3.  The nodes R1 and R3 may be
    connected via an SR path [RFC8402].  The SR path may be an SR Policy
@@ -249,8 +249,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                          \
                           T4
 
-             STAMP Session-Sender        STAMP Session-Reflector
-                                         (Simply Forward)
+               Session-Sender               Session-Reflector
+                                            (Simply Forward)
 
                           Reference Topology
 
