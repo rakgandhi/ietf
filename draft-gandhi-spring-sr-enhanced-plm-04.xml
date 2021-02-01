@@ -106,7 +106,7 @@
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
       (SRv6) data planes. This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure leverages the test packet formats defined in RFC 8762 (Simple 
+      The procedure defines the test packet formats compatible with RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including 
       SR Policies for both SR-MPLS and SRv6 data planes.</t>
@@ -132,7 +132,7 @@
       metrics in IP networks <xref target="RFC8762"/>. 
       It eliminates the need for control protocol by using
       configuration and management model to provision and manage test sessions.
-      The STAMP can be used for performance measurement in SR networks as well as 
+      The STAMP can be used for Performance Measurement (PM) in SR networks as well as 
       liveness monitoring and connectivity loss detection of SR Paths. 
       The STAMP test packets need to be punted from the forwarding path
       (to slow path or control plane) on the Session-Reflector and STAMP reply test packets need to be injected.
@@ -140,7 +140,7 @@
 
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in Segment Routing networks.
-      However, S-BFD requires protocol support on the Session-Reflector to process
+      However, S-BFD requires protocol support on the BFD-Reflector to process
       the S-BFD packets as packets need to be punted from the forwarding path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and fault
       detection interval. In addition, S-BFD protocol does not have the
@@ -151,7 +151,7 @@
 
       <t>This document defines procedure for 
       Enhanced Performance Delay and Liveness Monitoring (PDLM) in Segment Routing networks.
-      The procedure leverages the test packet formats defined in RFC 8762 (Simple 
+      The procedure defines the test packet formats compatible with RFC 8762 (Simple 
       Two-Way Active Measurement Protocol (STAMP)) and is applicable to  
       end-to-end SR Paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
     </section>
@@ -245,7 +245,7 @@
     and the Session-Sender IP addresses, respectively (representing the reverse path).
     Both Source and Destination UDP ports in the PDLM test packets are allocated dynamically or user-configured  
     from the range as specified in <xref target="RFC8762"/>.  
-    The UDP ports used in loopback mode are different than the ports used for STAMP test packets.
+    The UDP ports used in loopback mode are different than the UDP ports used for STAMP test packets.
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
 
      </section>
@@ -253,7 +253,7 @@
       <section anchor="sect-3.2"
                title="Loopback Mode Enabled with Network Programming Function"
                toc="default">
-      <t>In "loopback mode enabled with network programming function",
+      <t>In loopback mode enabled with network programming function,
       both transmit (T1) and receive (T2) timestamps in data plane are collected
       by the PDLM test packets transmitted in loopback mode as shown in Figure 1.
       The network programming function optimizes the "operations of punt 
@@ -330,15 +330,14 @@
     <t>Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP.</t>
     
     <t>The mechanisms to provision the
-    Session-Sender and Session-Reflectors are outside the scope of this document.</t>
+    Session-Sender and Session-Reflector are outside the scope of this document.</t>
 
      </section>
     </section>
 
     <section title="PDLM Test Packet Formats" anchor="sect-4"><t>
-    The PDLM test packets compatible with the STAMP test packet formats <xref target="RFC8762"/> 
-    are defined in this document as shown in Figure 3.
-    </t>
+    The PDLM test packet formats for unauntheticated and authenticated modes
+    are defined in this document as shown in Figure 3.</t>
 
    <figure title="PDLM Test Packet Formats" anchor="ure-test-packet-format"><artwork><![CDATA[
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -359,8 +358,56 @@
   |                                                               |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
- 
-                     PDLM Test Packet Format
+
+          PDLM Test Packet Format in Unauthenticated Mode
+
+
+
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Sequence Number                        |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        MBZ (12 octets)                        |
+  |                                                               |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Transmit Timestamp (T1)                |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Transmit Error Estimate      |  SSID                         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        MBZ (4 octets)                         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        Receive Timestamp (T2)                 |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Receive Error Estimate       |  MBZ                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        MBZ (4 Octets)                         |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               |
+  |                        MBZ (48 octets)                        |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                        HMAC (16 octets)                       |
+  |                                                               |
+  |                                                               |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+          PDLM Test Packet Format in Authenticated Mode
+
 ]]></artwork>
     </figure>
 
@@ -369,14 +416,19 @@
    to its transmit order.  It starts with zero and is incremented by one
    for each subsequent PDLM test packet.</t>
 
+   <t>SSID: PLDT Session Identifier.</t>
+
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
    timestamp and error estimate for the PDLM test packet,
-   respectively.  Similarly, Receive Timestamp and Receive Error Estimate are 
-   the Session-Reflector's receive timestamp and error estimate, respectively. 
-   The timestamp and error estimate fields
+   respectively.</t>  
+   
+   <t>Receive Timestamp and Receive Error Estimate are 
+   the Session-Reflector's receive timestamp and error estimate, respectively.</t> 
+
+   <t>The timestamp and error estimate fields
    follow the definition and formats defined in Section 4.1.2 in
    [RFC8762].  Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/> as
-   specified in <xref target="RFC8186"/>, implemented in hardware.</t> 
+   specified in <xref target="RFC8186"/>, implemented in hardware is desired.</t> 
 
     </section>
 
@@ -484,7 +536,7 @@
     <section anchor="sect-6"
              title="Enhanced Performance Delay and Liveness Monitoring">
       <t>The enhanced performance delay and liveness monitoring of an end-to-end SR Path including SR Policy is
-      defined using the PDLM test packets in "loopback mode enabled with network programming function".</t>
+      defined using the PDLM test packets in loopback mode enabled with network programming function.</t>
 
       <section anchor="sect-6.1"
                title="PDLM Test Packet with Timestamp Label for SR-MPLS"
@@ -549,7 +601,7 @@
 
     <t>Label allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
-      ingress and Session-Reflectors, as well as timestamp offset and timestamp format.</t>
+      Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
     <t>Label allocated by the Session-Reflector. The signaling and IGP flooding
       extension for the label (including timestamp offset and timestamp format) 
@@ -630,7 +682,7 @@
       The timestamp offset is fixed at byte-offset 16 from the start of the payload and timestamp format is 64-bit PTPv2 for this endpoint function.</t>
 
     <t>Timestamp endpoint function assigned by a Controller.  The Controller provisions the value on both
-      ingress and Session-Reflectors, as well as timestamp offset and timestamp format.</t>
+      Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
     <t>Timestamp endpoint function assigned by the Session-Reflector. The signaling and IGP flooding
       extension for the endpoint function (including timestamp offset and timestamp format) 
@@ -763,7 +815,7 @@
 
    <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti Kompella, and Adrian Farrel for providing
-   review comments.</t>
+   the review comments.</t>
     </section>
 
   </back>

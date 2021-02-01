@@ -24,10 +24,10 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedure for Enhanced
    Performance Delay and Liveness Monitoring (PDLM) in Segment Routing
-   networks.  The procedure leverages the test packet formats defined in
-   RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP)) and is
-   applicable to end-to-end SR Paths including SR Policies for both SR-
-   MPLS and SRv6 data planes.
+   networks.  The procedure defines the test packet formats compatible
+   with RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
+   and is applicable to end-to-end SR Paths including SR Policies for
+   both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
 
@@ -85,25 +85,25 @@ Table of Contents
      3.2.  Loopback Mode Enabled with Network Programming Function .   5
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  PDLM Test Packet Formats  . . . . . . . . . . . . . . . . . .   7
-   5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   8
+   5.  Performance Delay and Liveness Monitoring . . . . . . . . . .   9
      5.1.  PDLM Test Packets for SR-MPLS . . . . . . . . . . . . . .   9
-     5.2.  PDLM Test Packet for SRv6 . . . . . . . . . . . . . . . .   9
-   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  10
-     6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS . . . .  10
-       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  11
-       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  12
+     5.2.  PDLM Test Packet for SRv6 . . . . . . . . . . . . . . . .  10
+   6.  Enhanced Performance Delay and Liveness Monitoring  . . . . .  11
+     6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS . . . .  11
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
+       6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
      6.2.  PDLM Test Packet with Timestamp Endpoint Function for
-           SRv6  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
-       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  13
-       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  14
-   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  14
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+           SRv6  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
+       6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
+   7.  Failure Notification  . . . . . . . . . . . . . . . . . . . .  15
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -131,8 +131,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    capabilities for the measurement of various performance metrics in IP
    networks [RFC8762].  It eliminates the need for control protocol by
    using configuration and management model to provision and manage test
-   sessions.  The STAMP can be used for performance measurement in SR
-   networks as well as liveness monitoring and connectivity loss
+   sessions.  The STAMP can be used for Performance Measurement (PM) in
+   SR networks as well as liveness monitoring and connectivity loss
    detection of SR Paths.  The STAMP test packets need to be punted from
    the forwarding path (to slow path or control plane) on the Session-
    Reflector and STAMP reply test packets need to be injected.  This
@@ -141,19 +141,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in Segment Routing networks.  However,
-   S-BFD requires protocol support on the Session-Reflector to process
-   the S-BFD packets as packets need to be punted from the forwarding
-   path and generate the reply packets thereby limiting the scale for
-   number S-BFD sessions and fault detection interval.  In addition,
-   S-BFD protocol does not have the capability today to enable
-   performance delay measurement in SR networks.  Enabling multiple
-   protocols in SR networks, S-BFD for liveness monitoring and STAMP for
-   performance delay measurement increases the deployment and
-   operational complexities in SR networks.
+   S-BFD requires protocol support on the BFD-Reflector to process the
+   S-BFD packets as packets need to be punted from the forwarding path
+   and generate the reply packets thereby limiting the scale for number
+   S-BFD sessions and fault detection interval.  In addition, S-BFD
+   protocol does not have the capability today to enable performance
+   delay measurement in SR networks.  Enabling multiple protocols in SR
+   networks, S-BFD for liveness monitoring and STAMP for performance
+   delay measurement increases the deployment and operational
+   complexities in SR networks.
 
    This document defines procedure for Enhanced Performance Delay and
    Liveness Monitoring (PDLM) in Segment Routing networks.  The
-   procedure leverages the test packet formats defined in RFC 8762
+   procedure defines the test packet formats compatible with RFC 8762
    (Simple Two-Way Active Measurement Protocol (STAMP)) and is
    applicable to end-to-end SR Paths including SR Policies for both SR-
    MPLS and SRv6 data planes.
@@ -265,12 +265,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Destination UDP ports in the PDLM test packets are allocated
    dynamically or user-configured from the range as specified in
    [RFC8762].  The UDP ports used in loopback mode are different than
-   the ports used for STAMP test packets.  The IPv4 Time To Live (TTL)
-   and IPv6 Hop Limit (HL) are set to 255.
+   the UDP ports used for STAMP test packets.  The IPv4 Time To Live
+   (TTL) and IPv6 Hop Limit (HL) are set to 255.
 
 3.2.  Loopback Mode Enabled with Network Programming Function
 
-   In "loopback mode enabled with network programming function", both
+   In loopback mode enabled with network programming function, both
    transmit (T1) and receive (T2) timestamps in data plane are collected
    by the PDLM test packets transmitted in loopback mode as shown in
    Figure 1.  The network programming function optimizes the "operations
@@ -362,37 +362,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    Example of Timestamp Format is 64-bit PTPv2 [IEEE1588] and NTP.
 
-   The mechanisms to provision the Session-Sender and Session-Reflectors
+   The mechanisms to provision the Session-Sender and Session-Reflector
    are outside the scope of this document.
 
 4.  PDLM Test Packet Formats
 
-   The PDLM test packets compatible with the STAMP test packet formats
-   [RFC8762] are defined in this document as shown in Figure 3.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 5, 2021                 [Page 7]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
+   The PDLM test packet formats for unauntheticated and authenticated
+   modes are defined in this document as shown in Figure 3.
 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                     Sequence Number                           |
@@ -410,10 +386,74 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      |                     MBZ (28 Octets)                           |
      |                                                               |
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 7]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                        PDLM Test Packet Format
+             PDLM Test Packet Format in Unauthenticated Mode
+
+
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        Sequence Number                        |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        MBZ (12 octets)                        |
+     |                                                               |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        Transmit Timestamp (T1)                |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Transmit Error Estimate      |  SSID                         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        MBZ (4 octets)                         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        Receive Timestamp (T2)                 |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  Receive Error Estimate       |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        MBZ (4 Octets)                         |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     |                        MBZ (48 octets)                        |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        HMAC (16 octets)                       |
+     |                                                               |
+     |                                                               |
+     |                                                               |
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 8]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+             PDLM Test Packet Format in Authenticated Mode
+
 
                     Figure 3: PDLM Test Packet Formats
 
@@ -421,14 +461,19 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    according to its transmit order.  It starts with zero and is
    incremented by one for each subsequent PDLM test packet.
 
+   SSID: PLDT Session Identifier.
+
    Transmit Timestamp and Transmit Error Estimate are the Session-
    Sender's transmit timestamp and error estimate for the PDLM test
-   packet, respectively.  Similarly, Receive Timestamp and Receive Error
-   Estimate are the Session-Reflector's receive timestamp and error
-   estimate, respectively.  The timestamp and error estimate fields
-   follow the definition and formats defined in Section 4.1.2 in
-   [RFC8762].  Timestamp format preferred is 64-bit PTPv2 [IEEE1588] as
-   specified in [RFC8186], implemented in hardware.
+   packet, respectively.
+
+   Receive Timestamp and Receive Error Estimate are the Session-
+   Reflector's receive timestamp and error estimate, respectively.
+
+   The timestamp and error estimate fields follow the definition and
+   formats defined in Section 4.1.2 in [RFC8762].  Timestamp format
+   preferred is 64-bit PTPv2 [IEEE1588] as specified in [RFC8186],
+   implemented in hardware is desired.
 
 5.  Performance Delay and Liveness Monitoring
 
@@ -442,14 +487,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    using each Segment List.  The PDLM return test packets are received
    by the Session-Sender via IP/UDP [RFC0768] return path by default.
    The Segment List of the return SR path can be added in the PDLM test
-
-
-
-Gandhi, et al.           Expires August 5, 2021                 [Page 8]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
@@ -461,6 +498,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    case of IP/UDP return path, the MPLS header is removed by the
    Session-Reflector.  The label stack can contain a reverse SR-MPLS
    path to receive the PDLM return test packet on a specific path.  In
+
+
+
+Gandhi, et al.           Expires August 5, 2021                 [Page 9]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    this case, the MPLS header will not be removed by the Session-
    Reflector.
 
@@ -498,14 +543,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Segment Routing Header (SRH) [RFC8754] containing the Segment List of
    the SR Policy as shown in Figure 5.  In case of IP/UDP return path,
    the SRH is removed by the Session-Reflector.  The Segment List can
-
-
-
-Gandhi, et al.           Expires August 5, 2021                 [Page 9]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
    contain a reverse SRv6 path to receive the PDLM return test packet on
    a specific path.  In this case, the SRH will not be removed by the
    Session-Reflector.  When the PDLM return test packet contains an SRH
@@ -513,6 +550,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    processing for SRv6 SIDs in [I-D.ietf-spring-srv6-network-
    programming] is used to process the UDP header in the received PDLM
    test packets.
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 10]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -544,7 +592,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The enhanced performance delay and liveness monitoring of an end-to-
    end SR Path including SR Policy is defined using the PDLM test
-   packets in "loopback mode enabled with network programming function".
+   packets in loopback mode enabled with network programming function.
 
 6.1.  PDLM Test Packet with Timestamp Label for SR-MPLS
 
@@ -554,14 +602,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    In the PDLM test packet for SR-MPLS, Timestamp Label is added in the
    MPLS header as shown in Figure 6, to collect "Receive Timestamp"
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 10]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
    field in the payload of the PDLM test packet.  The label stack for
    the reverse SR-MPLS path can be added after the Timestamp Label to
    receive the PDLM return test packet on a specific path.  When a
@@ -570,6 +610,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    pops the Timestamp Label and forwards the packet using the next label
    or IP header in the packet (just like the data packets for the normal
    traffic).
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -609,22 +656,23 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    o  Label (value TBA1) assigned by IANA from the "Extended Special-
       Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  The
-
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
       timestamp offset is fixed at byte-offset 16 from the start of the
       payload and timestamp format is 64-bit PTPv2 for this label.
 
    o  Label allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
-      ingress and Session-Reflectors, as well as timestamp offset and
-      timestamp format.
+      Session-Sender and Session-Reflector, as well as timestamp offset
+      and timestamp format.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 12]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
 
    o  Label allocated by the Session-Reflector.  The signaling and IGP
       flooding extension for the label (including timestamp offset and
@@ -669,7 +717,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 12]
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 5, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -712,8 +768,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       format is 64-bit PTPv2 for this endpoint function.
 
    o  Timestamp endpoint function assigned by a Controller.  The
-      Controller provisions the value on both ingress and Session-
-      Reflectors, as well as timestamp offset and timestamp format.
+      Controller provisions the value on both Session-Sender and
+      Session-Reflector, as well as timestamp offset and timestamp
+      format.
 
    o  Timestamp endpoint function assigned by the Session-Reflector.
       The signaling and IGP flooding extension for the endpoint function
@@ -724,8 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-
-Gandhi, et al.           Expires August 5, 2021                [Page 13]
+Gandhi, et al.           Expires August 5, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -781,7 +837,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 14]
+Gandhi, et al.           Expires August 5, 2021                [Page 15]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -837,7 +893,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 15]
+Gandhi, et al.           Expires August 5, 2021                [Page 16]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -893,7 +949,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 16]
+Gandhi, et al.           Expires August 5, 2021                [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -914,7 +970,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 Acknowledgments
 
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
-   Kompella, and Adrian Farrel for providing review comments.
+   Kompella, and Adrian Farrel for providing the review comments.
 
 Authors' Addresses
 
@@ -949,7 +1005,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 17]
+Gandhi, et al.           Expires August 5, 2021                [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -1005,4 +1061,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 18]
+Gandhi, et al.           Expires August 5, 2021                [Page 19]
