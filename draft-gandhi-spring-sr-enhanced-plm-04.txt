@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 5, 2021                                     N. Vaghamshi
+Expires: August 6, 2021                                     N. Vaghamshi
                                                                 Reliance
                                                             M. Nagarajah
                                                                  Telstra
                                                                 R. Foote
                                                                    Nokia
-                                                       February 01, 2021
+                                                       February 02, 2021
 
 
 Enhanced Performance and Liveness Monitoring in Segment Routing Networks
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 5, 2021.
+   This Internet-Draft will expire on August 6, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 1]
+Gandhi, et al.           Expires August 6, 2021                 [Page 1]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -87,14 +87,14 @@ Table of Contents
      6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6  .  13
        6.2.1.  Timestamp Endpoint Functions Assignment . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
-   7.  PLM Failure Notifications . . . . . . . . . . . . . . . . . .  15
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   7.  Example PLM Failure Notifications . . . . . . . . . . . . . .  15
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 2]
+Gandhi, et al.           Expires August 6, 2021                 [Page 2]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -126,8 +126,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    detection of SR Paths.  The STAMP test packets need to be punted from
    the forwarding path (to slow path or control plane) on the Session-
    Reflector and STAMP reply test packets need to be injected.  This
-   limits the scale for number of STAMP sessions and fault detection
-   interval.
+   limits the scale for number of STAMP test sessions and fault
+   detection interval.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in SR networks.  However, S-BFD
@@ -165,7 +165,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 3]
+Gandhi, et al.           Expires August 6, 2021                 [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -221,7 +221,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 4]
+Gandhi, et al.           Expires August 6, 2021                 [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -251,8 +251,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packets are not punted at the Session-Reflector and does not process
    them and generate PLM return test packets.  The Session-Reflector
    must not drop the loopback PLM test packets, for example, due to a
-   local policy provisioned.  No PLM session is created on the Session-
-   Reflector.
+   local policy provisioned.  No PLM test session is created on the
+   Session-Reflector.
 
    The Source and Destination IP addresses in the PLM test packets are
    set to the Session-Reflector and the Session-Sender IP addresses,
@@ -269,7 +269,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Figure 1.  The network programming function optimizes the "operations
    of punt and inject the PLM test packet" on the Session-Reflector as
    timestamping is implemented in hardware.  This helps to achieve
-   higher session scale and faster failure detection.
+   higher test session scale and faster failure detection.
 
 
 
@@ -277,7 +277,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 5]
+Gandhi, et al.           Expires August 6, 2021                 [Page 5]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -333,7 +333,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 6]
+Gandhi, et al.           Expires August 6, 2021                 [Page 6]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -343,11 +343,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                                +------------+
      PLM Mode                      /    \      Timestamp Label/SRV6 EP
        LB or Enhanced Mode        /      \       Timestamp2 Offset
-     Delay Threshold/Count M     /        \      Timestamp Format
-     Missed Test Packet Count N /          \
-     Timestamp Label/SRv6 EP   /            \
-       Timestamp Format       /              \
-                             /                \
+     Timestamp Label/SRv6 EP     /        \      Timestamp Format
+       Timestamp Format         /          \
+     Missed Packet Count N     /            \
+     Delay Threshold/Count M  /              \
+     Packet Loss XofY        /                \
                             v                  v
                         +-------+           +-------+
                         |       |           |       |
@@ -389,7 +389,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 7]
+Gandhi, et al.           Expires August 6, 2021                 [Page 7]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -445,7 +445,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 8]
+Gandhi, et al.           Expires August 6, 2021                 [Page 8]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                 [Page 9]
+Gandhi, et al.           Expires August 6, 2021                 [Page 9]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 10]
+Gandhi, et al.           Expires August 6, 2021                [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -613,7 +613,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 11]
+Gandhi, et al.           Expires August 6, 2021                [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -669,7 +669,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 12]
+Gandhi, et al.           Expires August 6, 2021                [Page 12]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -725,7 +725,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 13]
+Gandhi, et al.           Expires August 6, 2021                [Page 13]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -781,7 +781,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-Gandhi, et al.           Expires August 5, 2021                [Page 14]
+Gandhi, et al.           Expires August 6, 2021                [Page 14]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
@@ -796,7 +796,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    signaling extension for this capability exchange is outside the scope
    of this document.
 
-7.  PLM Failure Notifications
+7.  Example PLM Failure Notifications
 
    Liveness or connectivity success for an SR Path is initially notified
    as soon as one or more PLM return test packets are received at the
@@ -808,7 +808,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    provisioned value.
 
    The round-trip packet loss for an SR Path is calculated using the
-   Sequence Number in the PLM test packets.
+   Sequence Number in the PLM test packets.  The packet loss metric is
+   notified when X number of PLM test packets were lost out of last Y
+   number of PLM test packets transmitted (XofY threshold) by the
+   Session-Sender.
 
    Similarly, the delay metrics are notified, as an example, when
    consecutive M number of PLM test packets have measured delay values
@@ -827,6 +830,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    based methods have such limitation of false detection due to reverse
    direction failure.
 
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 6, 2021                [Page 15]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
 8.  Security Considerations
 
    The Performance and Liveness Monitoring is intended for deployment in
@@ -834,14 +849,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    assumes that a node involved in a monitoring operation has previously
    verified the integrity of the path and the identity of the Session-
    Reflector node.  If desired, attacks can be mitigated by performing
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 15]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
    basic validation and sanity checks, at the Session-Sender, of the
    timestamp fields in received PLM packets.  The minimal state
    associated with these protocols also limits the extent of disruption
@@ -877,6 +884,20 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
    following allocation:
 
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 6, 2021                [Page 16]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
      +-------------+---------------------------------+---------------+
      | Value       | Endpoint Behavior               | Reference     |
      +-------------+---------------------------------+---------------+
@@ -888,14 +909,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |             | for offset 32                   |               |
      |             | for Authenticated Mode          |               |
      +-------------+---------------------------------+---------------+
-
-
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 16]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 10.  References
@@ -932,6 +945,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
               <https://www.rfc-editor.org/info/rfc7880>.
 
+
+
+
+
+Gandhi, et al.           Expires August 6, 2021                [Page 17]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
               (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
@@ -946,13 +968,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               Matsushima, S., and D. Voyer, "IPv6 Segment Routing Header
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/info/rfc8754>.
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 17]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
 
    [I-D.ietf-spring-segment-routing-policy]
               Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
@@ -984,6 +999,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 6, 2021                [Page 18]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
 Acknowledgments
 
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
@@ -1002,12 +1028,6 @@ Authors' Addresses
    Cisco Systems, Inc.
 
    Email: cfilsfil@cisco.com
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 18]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
    Navin Vaghamshi
@@ -1041,24 +1061,4 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 5, 2021                [Page 19]
+Gandhi, et al.           Expires August 6, 2021                [Page 19]
