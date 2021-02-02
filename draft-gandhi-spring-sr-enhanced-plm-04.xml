@@ -411,7 +411,7 @@
    to its transmit order.  It starts with zero and is incremented by one
    for each subsequent PLM test packet.</t>
 
-   <t>SSID: PLDT Session Identifier.</t>
+   <t>SSID: PLM Session Identifier.</t>
 
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
    timestamp and error estimate for the PLM test packet,
