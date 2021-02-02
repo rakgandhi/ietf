@@ -396,9 +396,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policy
 
-   The content of an example STAMP Session-Sender test packet for an
-   end-to-end SR-MPLS Policy transmitted using its SR-MPLS header
-   containing the MPLS Segment List is shown in Figure 3.
+   An SR-MPLS Policy may contain a number of Segment Lists.  The content
+   of an example STAMP Session-Sender test packet for an end-to-end SR-
+   MPLS Policy transmitted for each MPLS Segment List of the SR-MPLS
+   Policy is shown in Figure 3.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -428,17 +429,16 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 4.1.2.2.  Session-Sender Test Packet for SRv6 Policy
 
-   An SRv6 Policy setup using the SRv6 Segment Routing Header (SRH) and
-   a Segment List as described in [RFC8754].  The SRv6 network
+   An SRv6 Policy may contain a number of Segment Lists.  An SRv6 Policy
+   can be setup using the SRv6 Segment Routing Header (SRH) and a number
+   of Segment Lists as described in [RFC8754].  The SRv6 network
    programming is described in
    [I-D.ietf-spring-srv6-network-programming].  The content of an
    example STAMP Session-Sender test packet for an end-to-end SRv6
-   Policy transmitted using its SRH with Segment List is shown in
+   Policy transmitted using its SRH for each Segment List is shown in
    Figure 4.  The procedure defined for upper-layer header processing
    for SRv6 SIDs in [I-D.ietf-spring-srv6-network-programming] is used
    to process the UDP header in the received test packets.
-
-
 
 
 
@@ -940,11 +940,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC8972, January 2021,
               <https://www.rfc-editor.org/info/rfc8972>.
 
-   [I-D.gandhi-ippm-stamp-srpm]
-              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Simple TWAMP (STAMP) Extensions for Segment
-              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
-              in progress), January 2021.
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-28 (work in
+              progress), December 2020.
 
 
 
@@ -953,6 +953,12 @@ Gandhi, et al.           Expires August 6, 2021                [Page 17]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   [I-D.gandhi-ippm-stamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Simple TWAMP (STAMP) Extensions for Segment
+              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
+              in progress), January 2021.
 
 11.2.  Informative References
 
@@ -996,12 +1002,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/info/rfc8754>.
 
-   [I-D.ietf-spring-segment-routing-policy]
-              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
-              P. Mattes, "Segment Routing Policy Architecture", draft-
-              ietf-spring-segment-routing-policy-09 (work in progress),
-              November 2020.
-
 
 
 
@@ -1009,6 +1009,12 @@ Gandhi, et al.           Expires August 6, 2021                [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   [I-D.ietf-spring-segment-routing-policy]
+              Filsfils, C., Talaulikar, K., Voyer, D., Bogdanov, A., and
+              P. Mattes, "Segment Routing Policy Architecture", draft-
+              ietf-spring-segment-routing-policy-09 (work in progress),
+              November 2020.
 
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
@@ -1039,12 +1045,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               "Path Segment for SRv6 (Segment Routing in IPv6)", draft-
               ietf-spring-srv6-path-segment-00 (work in progress),
               November 2020.
-
-   [I-D.ietf-spring-srv6-network-programming]
-              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
-              Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-28 (work in
-              progress), December 2020.
 
    [I-D.ietf-ippm-stamp-yang]
               Mirsky, G., Min, X., and W. Luo, "Simple Two-way Active
