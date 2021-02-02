@@ -338,25 +338,24 @@ Gandhi, et al.           Expires August 6, 2021                 [Page 6]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-                               +------------+
-                               | Controller |
-                               +------------+
-     PLM Mode                      /    \      Timestamp Label/SRV6 EP
-       LB or Enhanced Mode        /      \       Timestamp2 Offset
-     Timestamp Label/SRv6 EP     /        \      Timestamp Format
-       Timestamp Format         /          \
-     Missed Packet Count N     /            \
-     Delay Threshold/Count M  /              \
-     Packet Loss XofY        /                \
-                            v                  v
-                        +-------+           +-------+
-                        |       |           |       |
-                        |   R1  |===========|   R3  |
-                        |       |           |       |
-                        +-------+           +-------+
+                                 +------------+
+                                 | Controller |
+                                 +------------+
+    PLM Mode                         /    \      Timestamp Label/SRV6 EP
+      LB or Enhanced Mode           /      \       Timestamp Offset
+    Timestamp Label/SRv6 EP        /        \      Timestamp Format
+      Timestamp Format            /          \
+    Missed Packet Count N        /            \
+    Delay Threshold/Count M     /              \
+    Packet Loss Threshold XofY /                \
+                              v                  v
+                          +-------+           +-------+
+                          |       |           |       |
+                          |   R1  |===========|   R3  |
+                          |       |           |       |
+                          +-------+           +-------+
 
-                      Session-Sender     Session-Reflector
-
+                        Session-Sender     Session-Reflector
 
                    Figure 2: Example Provisioning Model
 
@@ -386,6 +385,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |  Receive Error Estimate       |  MBZ                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -394,7 +394,6 @@ Gandhi, et al.           Expires August 6, 2021                 [Page 7]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                                                               |
      |                     MBZ (16 Octets)                           |
      |                                                               |
@@ -442,6 +441,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        HMAC (16 octets)                       |
 
 
 
@@ -450,7 +450,6 @@ Gandhi, et al.           Expires August 6, 2021                 [Page 8]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-     |                        HMAC (16 octets)                       |
      |                                                               |
      |                                                               |
      |                                                               |
@@ -494,6 +493,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
+
 
 
 
@@ -738,7 +738,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +---------------------------------------------------------------+
      | SRH as specified in RFC 8754                                  |
      .     <Segment List>                                            .
-     .     SRv6 Endpoint End.TSF (value TBA3)                        .
+     .     SRv6 Endpoint End.TSF (value TBA3 or TBA4)                .
      .                                                               .
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -810,8 +810,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    The round-trip packet loss for an SR Path is calculated using the
    Sequence Number in the PLM test packets.  The packet loss metric is
    notified when X number of PLM test packets were lost out of last Y
-   number of PLM test packets transmitted (XofY threshold) by the
-   Session-Sender.
+   number of PLM test packets transmitted by the Session-Sender, where
+   Threshold XofY is locally provisioned.
 
    Similarly, the delay metrics are notified, as an example, when
    consecutive M number of PLM test packets have measured delay values
