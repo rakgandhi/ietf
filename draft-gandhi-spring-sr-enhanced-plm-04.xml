@@ -254,7 +254,7 @@
       The network programming function optimizes the "operations of punt 
       and inject the PLM test packet" on the Session-Reflector 
       as timestamping is implemented in hardware. This helps to achieve 
-      higher test session scale and faster failure detection.</t>
+      higher test session scale and faster failure detection interval.</t>
 
       <figure align="center"
               anchor="ure-loopback-mode-enabled-with-network-programming"
@@ -276,15 +276,15 @@
       </artwork>
       </figure>
    
-      <t>The Session-Sender adds transmit (T1)
-      timestamp in the payload of the PLM test packet and clears the receive (T2) timestamp. 
-      The Session-Reflector adds the receive timestamp in the 
+      <t>The Session-Sender adds transmit 
+      timestamp (T1) in the payload of the PLM test packet and clears the receive (T2) timestamp. 
+      The Session-Reflector adds the receive timestamp (T2) in the 
       payload of the received PLM test 
       packet in hardware without punting the packet to slow-path (or control-plane). The Session-Reflector only
       adds the receive timestamp if the source or destination IP address in the PLM test packet matches
       the local node address to ensure that the PLM test packet reaches the 
-      intended Session-Reflector and the receive timestamp is returned by the intended node.
-      The payload of the PLM test packet is not modified by any intermediate nodes.</t>
+      intended Session-Reflector and the receive timestamp is returned by the intended Session-Reflector.
+      The payload of the PLM test packet is not modified by an intermediate node.</t>
 
       <t>The network programming function enables the Session-Reflector to add receive timestamp
       in the payload of the PLM test packet at a specific offset which is locally
@@ -736,8 +736,8 @@
       <t>The Performance and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
-      the integrity of the path and the identity of the Session-Reflector
-      node. If desired, attacks can be mitigated by performing basic
+      the integrity of the path and the identity of the Session-Reflector.
+      If desired, attacks can be mitigated by performing basic
       validation and sanity checks, at the Session-Sender, of the timestamp
       fields in received PLM packets. The minimal state
       associated with these protocols also limits the extent of disruption
