@@ -382,11 +382,10 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-   <t>The Segment List (SL) can be empty to indicate Implicit NULL label
-   case for a single-hop SR Policy.</t>
+   <t>The Segment List (SL) can be empty in case of single-hop SR Policy with Implicit NULL label. </t>
 
    <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
-   the SR-MPLS Policy can be added in the MPLS header as shown in Figure 3.</t>
+   the SR-MPLS Policy can be carried in the MPLS header as shown in Figure 3.</t>
 
     </section>
 
@@ -433,7 +432,7 @@
    <t>The Segment List (SL) may be empty and no SRH may be carried.</t>
 
    <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-srv6-path-segment"/> of
-   the SRV6 Policy can be added in the SRH as shown in Figure 4.</t>
+   the SRV6 Policy can be carried in the SRH as shown in Figure 4.</t>
 
     </section>
     </section>
