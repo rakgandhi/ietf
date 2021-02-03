@@ -304,13 +304,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
      Packet Loss Type        /              \
                             /                \
                            v                  v
-                       +-------+            +-------+
-                       |       |            |       |
-                       |   R1  |============|   R3  |
-                       |       |            |       |
-                       +-------+            +-------+
+                       +-------+          +-------+
+                       |       |          |       |
+                       |   R1  |==========|   R3  |
+                       |       |          |       |
+                       +-------+          +-------+
 
-                 STAMP Session-Sender   STAMP Session-Reflector
+                STAMP Session-Sender  STAMP Session-Reflector
 
                   Figure 1: Example STAMP Reference Model
 
@@ -358,7 +358,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
     +---------------------------------------------------------------+
     | UDP Header                                                    |
     .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port & 862                .
+    .  Destination Port = User-configured Port | 862                .
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -432,15 +432,15 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    An SRv6 Policy may contain a number of Segment Lists.  An SRv6 Policy
    can contain an SRv6 Segment Routing Header (SRH) with a Segment List
    as described in [RFC8754].  The content of an example STAMP Session-
-   Sender test packet for an end-to-end SRv6 Policy transmitted using
-   for each Segment List is shown in Figure 4.
+   Sender test packet for an end-to-end SRv6 Policy transmitted for each
+   Segment List is shown in Figure 4.
 
    The SRv6 network programming is described in
    [I-D.ietf-spring-srv6-network-programming].  The procedure defined
    for upper-layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the
-   IPv6/UDP header in the received test packets.
-
+   IPv6/UDP header in the received test packets on the Session-
+   Reflector.
 
 
 
@@ -468,7 +468,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
     +---------------------------------------------------------------+
     | UDP Header                                                    |
     .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port & 862                .
+    .  Destination Port = User-configured Port | 862                .
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -547,12 +547,12 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    In two-way delay measurement mode, a reply test packet as shown in
    Figure 5 is transmitted by the STAMP Session-Reflector in-band on the
-   same path as the received test packet on the reverse direction link
-   or associated reverse SR path [I-D.ietf-pce-sr-bidir-path].  In this
-   mode, as per Reference Topology, all timestamps T1, T2, T3, and T4
-   are collected by the test packets.  All four timestamps are used to
-   measure two-way delay as ((T4 - T1) - (T3 - T2)).
-
+   same path of the received test packet in the reverse direction, e.g.
+   on the reverse direction link or associated reverse SR path
+   [I-D.ietf-pce-sr-bidir-path].  In this mode, as per Reference
+   Topology, all timestamps T1, T2, T3, and T4 are collected by the test
+   packets.  All four timestamps are used to measure two-way delay as
+   ((T4 - T1) - (T3 - T2)).
 
 
 
@@ -573,6 +573,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    specific reverse path.  The STAMP Session-Sender can request in the
    test packet to the STAMP Session-Reflector to transmit the reply test
    packet back on a given reverse path using Return Path TLV defined in
+   [I-D.gandhi-ippm-stamp-srpm].  The Return Path TLV can specify the
+   Segment List or Binding SID of the reverse SR Path
    [I-D.gandhi-ippm-stamp-srpm].  In this mode for SR Policy, the
    Control Code is set to 0 [I-D.gandhi-ippm-stamp-srpm] in the STAMP
    Session-Sender test packets.
@@ -606,10 +608,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The content of an example STAMP Session-Reflector reply test packet
    transmitted in-band on the same path as the data traffic flow under
    measurement for two-way delay measurement of an end-to-end SRv6
-   Policy with SRH is shown in Figure 7.  The procedure defined for
-   upper-layer header processing for SRv6 SIDs in
-   [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
-   header in the received reply test packets.
+   Policy with SRH is shown in Figure 7.
+
 
 
 
@@ -617,6 +617,11 @@ Gandhi, et al.           Expires August 6, 2021                [Page 11]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   The procedure defined for upper-layer header processing for SRv6 SIDs
+   in [I-D.ietf-spring-srv6-network-programming] is also used to process
+   the IPv6/UDP header in the received reply test packets on the
+   Session-Sender.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -661,11 +666,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The received test packets are not punted at the STAMP Session-
    Reflector and it does not process them and generate reply test
    packets.  As the test packet is not punted on the STAMP Session-
-   Reflector for processing, the STAMP Session-Sender copies the
-   'Sequence Number' in 'Session-Sender Sequence Number' directly before
-   transmitting the test packet.  In this mode, as per Reference
-   Topology, the timestamps T1 and T4 are collected by the test packets.
-
 
 
 
@@ -674,6 +674,10 @@ Gandhi, et al.           Expires August 6, 2021                [Page 12]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
+   Reflector for processing, the STAMP Session-Sender copies the
+   'Sequence Number' in 'Session-Sender Sequence Number' directly before
+   transmitting the test packet.  In this mode, as per Reference
+   Topology, the timestamps T1 and T4 are collected by the test packets.
    Both these timestamps are used to measure round-trip delay as (T4 -
    T1).
 
@@ -706,10 +710,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    o  The P2MP root node measures the delay for each P2MP leaf node of
       the end-to-end P2MP SR Policy.
-
-
-
-
 
 
 
@@ -981,11 +981,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC8029, March 2017,
               <https://www.rfc-editor.org/info/rfc8029>.
 
-   [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
-              Timestamp Format in a Two-Way Active Measurement Protocol
-              (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
-              <https://www.rfc-editor.org/info/rfc8186>.
-
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
@@ -1002,6 +997,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
+   [I-D.ietf-spring-sr-replication-segment]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "SR Replication Segment for Multi-point Service
+              Delivery", draft-ietf-spring-sr-replication-segment-02
+              (work in progress), October 2020.
 
 
 
@@ -1009,12 +1009,6 @@ Gandhi, et al.           Expires August 6, 2021                [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   [I-D.ietf-spring-sr-replication-segment]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-ietf-spring-sr-replication-segment-02
-              (work in progress), October 2020.
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -1058,6 +1052,12 @@ Acknowledgments
    on the use-cases for Performance Measurement in segment routing.  The
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
+   providing useful comments and suggestions.  Patrick Khordoc and Radu
+   Valceanu have helped improve the mechanisms defined in this document.
+
+
+
+
 
 
 
@@ -1065,9 +1065,6 @@ Gandhi, et al.           Expires August 6, 2021                [Page 19]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu have helped improve the mechanisms defined in this document.
 
 Authors' Addresses
 
@@ -1100,6 +1097,9 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
 
 
 
