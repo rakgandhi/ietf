@@ -392,15 +392,16 @@
 
    <section title="Session-Sender Test Packet for SRv6 Policy" anchor="sect-4.1.2.2"><t>
    An SRv6 Policy may contain a number of Segment Lists.
-   An SRv6 Policy can be setup using the SRv6 Segment Routing Header (SRH) and
-   a number of Segment Lists as described in <xref target="RFC8754"/>. 
-   The SRv6 network programming is described in 
-   <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
+   An SRv6 Policy can contain an SRv6 Segment Routing Header (SRH) with 
+   a Segment List as described in <xref target="RFC8754"/>. 
    The content of an example STAMP Session-Sender test packet for an end-to-end 
-   SRv6 Policy transmitted using its SRH for each Segment List is shown in Figure 4.
+   SRv6 Policy transmitted using for each Segment List is shown in Figure 4.</t>
+
+  <t>The SRv6 network programming is described in 
+   <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
    The procedure defined for upper-layer header processing for SRv6 SIDs 
    in <xref target="I-D.ietf-spring-srv6-network-programming"/>
-   is used to process the UDP header in the received test packets.</t>
+   is used to process the IPv6/UDP header in the received test packets.</t>
 
     <figure title="Example Session-Sender Test Packet for SRv6 Policy" anchor="ure-test-packet-for-srv6-policy"><artwork><![CDATA[
  +---------------------------------------------------------------+
@@ -410,7 +411,7 @@
  .                                                               .
  +---------------------------------------------------------------+
  | SRH as specified in RFC 8754                                  |
- .  <Segment List>                                               .
+ .  <PSID, Segment List>                                         .
  .                                                               .
  +---------------------------------------------------------------+
  | IP Header                                                     |
@@ -429,6 +430,10 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
+   <t>The Segment List (SL) may be empty and no SRH may be carried.</t>
+
+   <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-srv6-path-segment"/> of
+   the SRV6 Policy can be added in the SRH as shown in Figure 4.</t>
 
     </section>
     </section>
@@ -524,12 +529,7 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-    <t>
-   The SR-MPLS Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
-   the forward SR Policy in the STAMP Session-Sender test packet can be used to find the
-   associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to transmit the 
-   reply test packet for a bidirectional SR Policy.</t>
-
+ 
     </section>
 
    <section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
@@ -568,11 +568,6 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-   <t>
-   The SRv6 Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-srv6-path-segment"/> of
-   the forward SR Policy in the STAMP Session-Sender test packet can be used to find the
-   associated reverse SR Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> to transmit the 
-   reply test packet for a bidirectional SR Policy.</t>
 
     </section>
     </section>
