@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="01" month="February" year="2021"/>
+    <date day="03" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
@@ -184,12 +184,12 @@
     </section>
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
-   As shown in the DM reference topology blow, the Session-Sender R1 
-   transmits Direct Measurement (DM) test packets over UDP transport
-   toward the Session-Reflector R3.  The Session-Reflector R3
+   As shown in the DM reference topology, the Session-Sender R1 
+   initiates a Direct Measurement (DM) test packet over UDP transport.
+   The Session-Reflector R3
    receives the Session-Sender's DM test packet and acts according to the
-   local configuration. The Session-Reflector R3 sends 
-   DM reply test packet to the Session-Sender R1.</t> 
+   local configuration. The Session-Reflector R3 transmits 
+   a DM reply test packet to the Session-Sender R1.</t> 
 
     <figure><artwork><![CDATA[
                      C1                  C2
