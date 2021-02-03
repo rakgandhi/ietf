@@ -97,7 +97,7 @@
       </address>
     </author>
 
-    <date day="02" month="February" year="2021"/>
+    <date day="03" month="February" year="2021"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -401,7 +401,6 @@
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           PLM Test Packet Format in Authenticated Mode
-
 ]]></artwork>
     </figure>
 
@@ -581,8 +580,9 @@
   +---------------------------------------------------------------+
   |  Payload as defined in Figure 3                               |
   .                                                               .
-  +---------------------------------------------------------------+</artwork>
-        </figure>
+  +---------------------------------------------------------------+
+  </artwork>
+  </figure>
 
 
     <section title="Timestamp Labels Allocation" anchor="sect-6.1.1" toc="default"><t>

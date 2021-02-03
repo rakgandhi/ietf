@@ -102,11 +102,11 @@
 
    <t>The STAMP supports two modes of STAMP Session-Reflector: Stateless and Stateful 
    as described in Section 4 of <xref target="RFC8762"/>. 
-   In SR networks, Stateless mode of Session-Reflector is desired 
-   to be able to support high number of STAMP sessions.
-   In Stateless mode, provisioning of each test session on Session-Reflector
-   node is avoided.  In SR networks, as 
-   the state is in the packet, the signaling of the parameters is undesired.</t> 
+   In Stateless mode, provisioning of each STAMP test session on Session-Reflector
+   is avoided. In SR networks, as 
+   the state is in the packet, the signaling of the parameters and 
+   creating extra states in the network are undesired.
+   Hence, Stateless mode of Session-Reflector is preferred in SR networks.</t> 
 
    <t>For performance delay and packet loss measurement, 
    STAMP Session-Sender test packets are transmitted in-band on the
@@ -198,7 +198,7 @@
     <section title="Session-Sender Control Code Field Extension" anchor="sect-3">
 
    <t>The STAMP Session-Reflector may need to transmit the reply test
-   packet on the same incoming link in the reverse direction. 
+   packet on the same incoming link where test packet is received in the reverse direction. 
    For this, the STAMP Session-Sender can request the STAMP Session-Reflector using the new Control Code field.
    This way the STAMP Session-Reflector does not require provisioning 
    any additional state for the STAMP sessions for the links.</t>
