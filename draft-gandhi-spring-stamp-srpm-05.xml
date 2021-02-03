@@ -364,7 +364,7 @@
    the loopback address from the range 127/8 for IPv4, or the loopback address ::1/128 
    for IPv6 is used as the Destination Address, respectively.</t>
 
-    <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
+    <section title="Session-Sender Test Packet for SR-MPLS Policies" anchor="sect-4.1.2.1"><t>
    An SR-MPLS Policy may contain a number of Segment Lists.
    A STAMP Session-Sender test packet is transmitted for each Segment List of the SR-MPLS Policy.
    The content of an example STAMP Session-Sender test packet for an
@@ -396,7 +396,7 @@
 
     </section>
 
-   <section title="Session-Sender Test Packet for SRv6 Policy" anchor="sect-4.1.2.2"><t>
+   <section title="Session-Sender Test Packet for SRv6 Policies" anchor="sect-4.1.2.2"><t>
    An SRv6 Policy may contain a number of Segment Lists.
    A STAMP Session-Sender test packet is transmitted for each Segment List of the SRv6 Policy.
    An SRv6 Policy can contain an SRv6 Segment Routing Header (SRH) carrying 
@@ -522,7 +522,7 @@
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
    All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
-   <section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
+   <section title="Session-Reflector Test Packet for SR-MPLS Policies" anchor="sect-4.2.2.1"><t>
    The content of an example STAMP Session-Reflector reply test packet transmitted in-band on the
    same path as the data traffic flow under measurement for two-way delay 
    measurement of an end-to-end SR-MPLS Policy is shown in Figure 6.</t>
@@ -547,7 +547,7 @@
  
     </section>
 
-   <section title="Session-Reflector Test Packet for SRv6 Policy" anchor="sect-4.2.2.2"><t>
+   <section title="Session-Reflector Test Packet for SRv6 Policies" anchor="sect-4.2.2.2"><t>
    The content of an example STAMP Session-Reflector reply test packet transmitted in-band on the
    same path as the data traffic flow under measurement for two-way delay 
    measurement of an end-to-end SRv6 Policy with SRH is shown in Figure 7.</t>

@@ -398,7 +398,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
    used as the Destination Address, respectively.
 
-4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policy
+4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policies
 
    An SR-MPLS Policy may contain a number of Segment Lists.  A STAMP
    Session-Sender test packet is transmitted for each Segment List of
@@ -431,7 +431,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy can be
    carried in the MPLS header as shown in Figure 3.
 
-4.1.2.2.  Session-Sender Test Packet for SRv6 Policy
+4.1.2.2.  Session-Sender Test Packet for SRv6 Policies
 
    An SRv6 Policy may contain a number of Segment Lists.  A STAMP
    Session-Sender test packet is transmitted for each Segment List of
@@ -580,7 +580,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    and T4 are collected by the test packets.  All four timestamps are
    used to measure two-way delay as ((T4 - T1) - (T3 - T2)).
 
-4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policy
+4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policies
 
    The content of an example STAMP Session-Reflector reply test packet
    transmitted in-band on the same path as the data traffic flow under
@@ -604,7 +604,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
     Figure 6: Example Session-Reflector Test Packet for SR-MPLS Policy
 
-4.2.2.2.  Session-Reflector Test Packet for SRv6 Policy
+4.2.2.2.  Session-Reflector Test Packet for SRv6 Policies
 
    The content of an example STAMP Session-Reflector reply test packet
    transmitted in-band on the same path as the data traffic flow under
