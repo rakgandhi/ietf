@@ -149,7 +149,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    optional extensions defined in [RFC8972] and
    [I-D.gandhi-ippm-stamp-srpm].  The procedure described is applicable
    to SR-MPLS and SRv6 data planes and is used for both links and end-
-   to-end SR paths including SR Policies and Flex-Algo IGP Paths.
+   to-end SR paths including SR Policies and IGP paths [RFC8402].
    Unless otherwise specified, the mechanisms defined in [RFC8762],
    [RFC8972] and [I-D.gandhi-ippm-stamp-srpm] are not modified by this
    document.
