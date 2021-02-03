@@ -323,13 +323,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
    on STAMP Session-Sender and STAMP Session-Reflector [RFC8762].
 
-   The STAMP Session-Reflector R3 uses the parameters for the timestamp
-   format and the return path for the reply test packet from the
-   received STAMP test packet.
+   The STAMP Session-Reflector R3 uses the timestamp format from the
+   received STAMP test packet.  In addition, the STAMP Session-Reflector
+   R3 uses the parameters for the return path of the reply test packet
+   from the received STAMP test packet, as described in this document.
 
    Note that the reference model is not intended for signaling the SR
    parameters for STAMP test sessions between the STAMP Session-Sender
-   and STAMP Session-Reflector.  In adddition, provisioning of each
 
 
 
@@ -338,6 +338,7 @@ Gandhi, et al.           Expires August 7, 2021                 [Page 6]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
+   and STAMP Session-Reflector.  In adddition, provisioning of each
    STAMP test session on Session-Reflector and creating extra state in
    SR network are avoided.
 
@@ -383,9 +384,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    applicable to both end-to-end SR-MPLS and SRv6 Policies.
 
    The STAMP Session-Sender IPv4 or IPv6 address is used as the Source
-   Address.  The endpoint IPv4 or IPv6 address is used as the
-   Destination Address.  In the case of SR Policy with IPv4 endpoint of
-   0.0.0.0 or IPv6 endpoint of ::0
+   Address.  The SR Policy endpoint IPv4 or IPv6 address is used as the
+   Destination Address.
 
 
 
@@ -394,16 +394,18 @@ Gandhi, et al.           Expires August 7, 2021                 [Page 7]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
+   In the case of Color-Only Destination Steering, with IPv4 endpoint of
+   0.0.0.0 or IPv6 endpoint of ::0
    [I-D.ietf-spring-segment-routing-policy], the loopback address from
    the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
    used as the Destination Address, respectively.
 
 4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policy
 
-   An SR-MPLS Policy may contain a number of Segment Lists.  The content
-   of an example STAMP Session-Sender test packet for an end-to-end SR-
-   MPLS Policy transmitted for each MPLS Segment List of the SR-MPLS
-   Policy is shown in Figure 3.
+   An SR-MPLS Policy may contain a number of Segment Lists.  A STAMP
+   Session-Sender test packet is transmitted for each Segment List of
+   the SR-MPLS Policy.  The content of an example STAMP Session-Sender
+   test packet for an end-to-end SR-MPLS Policy is shown in Figure 3.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -433,15 +435,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 4.1.2.2.  Session-Sender Test Packet for SRv6 Policy
 
-   An SRv6 Policy may contain a number of Segment Lists.  An SRv6 Policy
-   can contain an SRv6 Segment Routing Header (SRH) with a Segment List
-   as described in [RFC8754].  The content of an example STAMP Session-
-   Sender test packet for an end-to-end SRv6 Policy transmitted for each
-   Segment List is shown in Figure 4.
+   An SRv6 Policy may contain a number of Segment Lists.  A STAMP
+   Session-Sender test packet is transmitted for each Segment List of
+   the SRv6 Policy.  An SRv6 Policy can contain an SRv6 Segment Routing
+   Header (SRH) carrying a Segment List as described in [RFC8754].  The
+   content of an example STAMP Session-Sender test packet for an end-to-
+   end SRv6 Policy is shown in Figure 4.
 
-   The SRv6 network programming is described in
-   [I-D.ietf-spring-srv6-network-programming].  The procedure defined
-   for upper-layer header processing for SRv6 SIDs in
 
 
 
@@ -450,6 +450,9 @@ Gandhi, et al.           Expires August 7, 2021                 [Page 8]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
+   The SRv6 network programming is described in
+   [I-D.ietf-spring-srv6-network-programming].  The procedure defined
+   for upper-layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the
    IPv6/UDP header in the received test packets on the Session-
    Reflector.
@@ -493,9 +496,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    the IP/UDP information from the received test packet.  The content of
    an example STAMP Session-Reflector reply test packet is shown in
    Figure 5.
-
-
-
 
 
 
@@ -813,9 +813,14 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Direct measurement is applicable to detect data packet loss in an SR
    network.  The "Direct Measurement" TLV (Type 5) defined in [RFC8972]
    can be used to detect data packet loss for links and end-to-end SR
-   paths.  The Path Segment ID (PSID) from the received data packet can
-   be used to measure receive data packets for end-to-end SR path on the
-   STAMP Session-Reflector.
+   paths.  The STAMP test packets are sent to collect the transmit and
+   receive counters for the data traffic flow under measurement.
+
+   The Path Segment ID (PSID) in the received data packet for the
+   traffic flow under measurement can be used to measure receive data
+   packets for end-to-end SR path on the STAMP Session-Reflector.  In
+   this case, the PSID in the received STAMP test packet can be used to
+   collect the receiver traffic counter for it on the Session-Reflector.
 
 7.  Liveness and Connectivity Loss Monitoring for Links and SR Paths
 
@@ -829,11 +834,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    Note that for one-way and two-way delay measurement modes, the
    connectivity loss detection interval and scale for number of STAMP
-   test sessions need to account for the processing of the STAMP test
-   packets on the STAMP Session-Reflector which need to be punted from
-   the forwarding fast path (to slow path or control plane) and reply
-   test packets need to be injected.  The scale is improved by using the
-   STAMP test packets in loopback mode as described in Section 4.2.3.
 
 
 
@@ -841,6 +841,12 @@ Gandhi, et al.           Expires August 7, 2021                [Page 15]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   test sessions need to account for the processing of the STAMP test
+   packets on the STAMP Session-Reflector which need to be punted from
+   the forwarding fast path (to slow path or control plane) and reply
+   test packets need to be injected.  The scale is improved by using the
+   STAMP test packets in loopback mode as described in Section 4.2.3.
 
 8.  ECMP Support for SR Policies
 
@@ -884,12 +890,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Use of HMAC-SHA-256 in the authenticated mode protects the data
    integrity of the test packets.  SRv6 has HMAC protection
    authentication defined for SRH [RFC8754].  Hence, test packets for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
-   enhanced by the correct configuration of access-control lists and
-   firewalls.
-
-   The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the procedures defined in this document.
 
 
 
@@ -897,6 +897,13 @@ Gandhi, et al.           Expires August 7, 2021                [Page 16]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   SRv6 may not need authentication mode.  Cryptographic measures may be
+   enhanced by the correct configuration of access-control lists and
+   firewalls.
+
+   The security considerations specified in [RFC8762] and [RFC8972] also
+   apply to the procedures defined in this document.
 
 10.  IANA Considerations
 
@@ -936,13 +943,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               draft-ietf-spring-srv6-network-programming-28 (work in
               progress), December 2020.
 
-   [I-D.gandhi-ippm-stamp-srpm]
-              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
-              Janssens, "Simple TWAMP (STAMP) Extensions for Segment
-              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
-              in progress), January 2021.
-
-
 
 
 
@@ -953,6 +953,12 @@ Gandhi, et al.           Expires August 7, 2021                [Page 17]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   [I-D.gandhi-ippm-stamp-srpm]
+              Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
+              Janssens, "Simple TWAMP (STAMP) Extensions for Segment
+              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
+              in progress), January 2021.
 
 11.2.  Informative References
 
@@ -997,18 +1003,18 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-   [I-D.ietf-spring-sr-replication-segment]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-ietf-spring-sr-replication-segment-02
-              (work in progress), October 2020.
-
 
 
 Gandhi, et al.           Expires August 7, 2021                [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   [I-D.ietf-spring-sr-replication-segment]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "SR Replication Segment for Multi-point Service
+              Delivery", draft-ietf-spring-sr-replication-segment-02
+              (work in progress), October 2020.
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -1052,12 +1058,6 @@ Acknowledgments
    on the use-cases for Performance Measurement in segment routing.  The
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
-   providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu have helped improve the mechanisms defined in this document.
-
-
-
-
 
 
 
@@ -1065,6 +1065,9 @@ Gandhi, et al.           Expires August 7, 2021                [Page 19]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   providing useful comments and suggestions.  Patrick Khordoc and Radu
+   Valceanu have helped improve the mechanisms defined in this document.
 
 Authors' Addresses
 
@@ -1097,9 +1100,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
 
 
 

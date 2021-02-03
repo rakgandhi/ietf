@@ -299,12 +299,14 @@
     Authentication Type (e.g. HMAC-SHA-256) and Key are user-configured
     on STAMP Session-Sender and STAMP Session-Reflector <xref target="RFC8762"/>.</t>
 
-    <t>The STAMP Session-Reflector R3 uses the parameters for the timestamp format and
-    the return path for the reply test packet from the received STAMP test packet.</t>
+    <t>The STAMP Session-Reflector R3 uses the timestamp format 
+    from the received STAMP test packet.
+    In addition, the STAMP Session-Reflector R3 uses the parameters for 
+    the return path of the reply test packet from the received STAMP test packet,
+    as described in this document.</t>
 
     <t>Note that the reference model is not intended for signaling the SR parameters 
-    for STAMP test sessions between the 
-    STAMP Session-Sender and STAMP Session-Reflector.
+    for STAMP test sessions between the STAMP Session-Sender and STAMP Session-Reflector.
     In adddition, provisioning of each STAMP test session on Session-Reflector
     and creating extra state in SR network are avoided.</t>
 
@@ -355,17 +357,18 @@
    applicable to both end-to-end SR-MPLS and SRv6 Policies.</t>
 
    <t>The STAMP Session-Sender IPv4 or IPv6 address is used as the Source Address. 
-   The endpoint IPv4 or IPv6 address is used as the Destination
-   Address.  In the case of SR Policy with IPv4 endpoint
+   The SR Policy endpoint IPv4 or IPv6 address is used as the Destination Address.</t>
+   
+   <t>In the case of Color-Only Destination Steering, with IPv4 endpoint
    of 0.0.0.0 or IPv6 endpoint of ::0 <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    the loopback address from the range 127/8 for IPv4, or the loopback address ::1/128 
    for IPv6 is used as the Destination Address, respectively.</t>
 
     <section title="Session-Sender Test Packet for SR-MPLS Policy" anchor="sect-4.1.2.1"><t>
    An SR-MPLS Policy may contain a number of Segment Lists.
+   A STAMP Session-Sender test packet is transmitted for each Segment List of the SR-MPLS Policy.
    The content of an example STAMP Session-Sender test packet for an
-   end-to-end SR-MPLS Policy transmitted for each MPLS
-   Segment List of the SR-MPLS Policy is shown in Figure 3.</t>
+   end-to-end SR-MPLS Policy is shown in Figure 3.</t>
 
     <figure title="Example Session-Sender Test Packet for SR-MPLS Policy" anchor="ure-test-packet-for-sr-mpls-policy"><artwork><![CDATA[
  0                   1                   2                   3
@@ -395,10 +398,11 @@
 
    <section title="Session-Sender Test Packet for SRv6 Policy" anchor="sect-4.1.2.2"><t>
    An SRv6 Policy may contain a number of Segment Lists.
-   An SRv6 Policy can contain an SRv6 Segment Routing Header (SRH) with 
+   A STAMP Session-Sender test packet is transmitted for each Segment List of the SRv6 Policy.
+   An SRv6 Policy can contain an SRv6 Segment Routing Header (SRH) carrying 
    a Segment List as described in <xref target="RFC8754"/>. 
    The content of an example STAMP Session-Sender test packet for an end-to-end 
-   SRv6 Policy transmitted for each Segment List is shown in Figure 4.</t>
+   SRv6 Policy is shown in Figure 4.</t>
 
   <t>The SRv6 network programming is described in 
    <xref target="I-D.ietf-spring-srv6-network-programming"/>. 
@@ -713,10 +717,15 @@
    <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
    Direct measurement is applicable to detect data packet loss in an SR network.
    The "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
-   can be used to detect data packet loss for links and end-to-end SR paths. 
-   The Path Segment ID (PSID) from the received data packet 
-   can be used to measure receive data packets for end-to-end SR path  
-   on the STAMP Session-Reflector.</t>
+   can be used to detect data packet loss for links and end-to-end SR paths.
+   The STAMP test packets are sent to collect the transmit and receive counters 
+   for the data traffic flow under measurement.</t>
+
+   <t>The Path Segment ID (PSID) in the received data packet for the traffic
+   flow under measurement can be used to measure receive data packets for end-to-end SR path  
+   on the STAMP Session-Reflector. In this case, the PSID in the received STAMP test packet
+   can be used to collect the receiver traffic counter for it on 
+   the Session-Reflector.</t>
 
    </section>
 
