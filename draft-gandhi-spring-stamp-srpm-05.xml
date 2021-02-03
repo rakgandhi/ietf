@@ -215,7 +215,7 @@
    STAMP test packet and the STAMP Session-Reflector R3
    transmits a reply test packet.  The reply test packet is 
    transmitted back to the STAMP Session-Sender R1 
-   on the same path or on a different path in the reverse direction.</t>  
+   on the same path or a different path in the reverse direction.</t>  
 
    <t>The nodes R1 and R3 may be
    connected via a link or there exists an SR path <xref target="RFC8402"/>.  
@@ -352,7 +352,7 @@
 
     </section>
 
-   <section title="Session-Sender Test Packet for SR Path" anchor="sect-4.1.2"><t>
+   <section title="Session-Sender Test Packet for SR Paths" anchor="sect-4.1.2"><t>
    The delay measurement for end-to-end SR path in SR network is
    applicable to both end-to-end SR-MPLS and SRv6 paths including SR Policies.</t>
 
@@ -476,13 +476,10 @@
    In one-way delay measurement mode, a reply test packet
    as defined in Figure 5 is transmitted by the STAMP Session-Reflector,
    for both links and SR Policies.  
-   The reply test packet may be transmitted on the same path as the received
-   test packet or a diferent path in the reverse direction.		   
+   The reply test packet may be transmitted on the same path 
+   or a diferent path in the reverse direction.		   
    The Control Code is set to 0 
-   [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.
-   In this mode, as per Reference Topology, 
-   all timestamps T1, T2, T3, and T4 are collected by the test packets.
-   However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
+   [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
 
    <t>The STAMP Session-Sender address may not
    be reachable via IP route from the STAMP Session-Reflector.  The STAMP Session-Sender
@@ -490,17 +487,18 @@
    STAMP Session-Reflector using the Return Path TLV defined 
    in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
+   <t>In this mode, as per Reference Topology, 
+   all timestamps T1, T2, T3, and T4 are collected by the test packets.
+   However, only timestamps T1 and T2 are used to measure one-way delay as (T2 - T1).</t>
+
     </section>
 
    <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
    In two-way delay measurement mode, 
    a reply test packet as shown in Figure 5 is transmitted by the STAMP Session-Reflector 
-   in-band on the same path of the received test packet in the reverse direction, 
+   in-band on the same path in the reverse direction, 
    e.g. on the reverse direction link or associated reverse SR path
-   <xref target="I-D.ietf-pce-sr-bidir-path"/>.
-   In this mode, as per Reference Topology, 
-   all timestamps T1, T2, T3, and T4 are collected by the test packets.
-   All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
+   <xref target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
    <t>For two-way delay measurement mode for links, the reply test packet is transmitted in-band on 
    the same link where the test packet is received.
@@ -519,6 +517,10 @@
    reverse SR Policy as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
    In this mode for end-to-end SR path, the Control Code is set to 0 
    [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
+
+   <t>In this mode, as per Reference Topology, 
+   all timestamps T1, T2, T3, and T4 are collected by the test packets.
+   All four timestamps are used to measure two-way delay as ((T4 - T1) - (T3 - T2)).</t>
 
    <section title="Session-Reflector Test Packet for SR-MPLS Policy" anchor="sect-4.2.2.1"><t>
    The content of an example STAMP Session-Reflector reply test packet transmitted in-band on the
@@ -601,7 +603,9 @@
    not process them and generate reply test packets.
    As the test packet is not punted on the STAMP Session-Reflector for processing,
    the STAMP Session-Sender copies the 'Sequence Number' in 'Session-Sender Sequence Number' 
-   directly before transmitting the test packet.  In this mode, as per Reference Topology,
+   directly before transmitting the test packet.</t>
+   
+   <t>In this mode, as per Reference Topology,
    the timestamps T1 and T4 are collected by the test packets.
    Both these timestamps are used to measure round-trip delay as (T4 - T1).</t>
      </section>

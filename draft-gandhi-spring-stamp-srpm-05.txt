@@ -85,7 +85,7 @@ Table of Contents
    4.  Delay Measurement for Links and SR Paths  . . . . . . . . . .   7
      4.1.  Session-Sender Test Packet  . . . . . . . . . . . . . . .   7
        4.1.1.  Session-Sender Test Packet for Links  . . . . . . . .   7
-       4.1.2.  Session-Sender Test Packet for SR Path  . . . . . . .   7
+       4.1.2.  Session-Sender Test Packet for SR Paths . . . . . . .   7
      4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .   9
        4.2.1.  One-way Delay Measurement Mode  . . . . . . . . . . .  10
        4.2.2.  Two-way Delay Measurement Mode  . . . . . . . . . . .  10
@@ -231,8 +231,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    In the reference topology shown below, the STAMP Session-Sender R1
    initiates a STAMP test packet and the STAMP Session-Reflector R3
    transmits a reply test packet.  The reply test packet is transmitted
-   back to the STAMP Session-Sender R1 on the same path or on a
-   different path in the reverse direction.
+   back to the STAMP Session-Sender R1 on the same path or a different
+   path in the reverse direction.
 
    The nodes R1 and R3 may be connected via a link or there exists an SR
    path [RFC8402].  The link may be a physical interface, virtual link,
@@ -374,7 +374,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    remote IP addresses of the link are used as Source and Destination
    Addresses.
 
-4.1.2.  Session-Sender Test Packet for SR Path
+4.1.2.  Session-Sender Test Packet for SR Paths
 
    The delay measurement for end-to-end SR path in SR network is
    applicable to both end-to-end SR-MPLS and SRv6 paths including SR
@@ -530,12 +530,9 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    In one-way delay measurement mode, a reply test packet as defined in
    Figure 5 is transmitted by the STAMP Session-Reflector, for both
    links and SR Policies.  The reply test packet may be transmitted on
-   the same path as the received test packet or a diferent path in the
-   reverse direction.  The Control Code is set to 0 [I-D.gandhi-ippm-
-   stamp-srpm] in the STAMP Session-Sender test packets.  In this mode,
-   as per Reference Topology, all timestamps T1, T2, T3, and T4 are
-   collected by the test packets.  However, only timestamps T1 and T2
-   are used to measure one-way delay as (T2 - T1).
+   the same path or a diferent path in the reverse direction.  The
+   Control Code is set to 0 [I-D.gandhi-ippm-stamp-srpm] in the STAMP
+   Session-Sender test packets.
 
    The STAMP Session-Sender address may not be reachable via IP route
    from the STAMP Session-Reflector.  The STAMP Session-Sender in this
@@ -543,17 +540,20 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Reflector using the Return Path TLV defined in
    [I-D.gandhi-ippm-stamp-srpm].
 
+   In this mode, as per Reference Topology, all timestamps T1, T2, T3,
+   and T4 are collected by the test packets.  However, only timestamps
+   T1 and T2 are used to measure one-way delay as (T2 - T1).
+
 4.2.2.  Two-way Delay Measurement Mode
 
    In two-way delay measurement mode, a reply test packet as shown in
    Figure 5 is transmitted by the STAMP Session-Reflector in-band on the
-   same path of the received test packet in the reverse direction, e.g.
-   on the reverse direction link or associated reverse SR path
-   [I-D.ietf-pce-sr-bidir-path].  In this mode, as per Reference
-   Topology, all timestamps T1, T2, T3, and T4 are collected by the test
-   packets.  All four timestamps are used to measure two-way delay as
-   ((T4 - T1) - (T3 - T2)).
+   same path in the reverse direction, e.g. on the reverse direction
+   link or associated reverse SR path [I-D.ietf-pce-sr-bidir-path].
 
+   For two-way delay measurement mode for links, the reply test packet
+   is transmitted in-band on the same link where the test packet is
+   received.  For this purpose, the Control Code is set to "In-band
 
 
 
@@ -562,9 +562,6 @@ Gandhi, et al.           Expires August 7, 2021                [Page 10]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-   For two-way delay measurement mode for links, the reply test packet
-   is transmitted in-band on the same link where the test packet is
-   received.  For this purpose, the Control Code is set to "In-band
    Response Requested" [I-D.gandhi-ippm-stamp-srpm] in the STAMP
    Session-Sender test packets for links.
 
@@ -578,6 +575,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Policy as described in [I-D.gandhi-ippm-stamp-srpm].  In this mode
    for end-to-end SR path, the Control Code is set to 0 [I-D.gandhi-
    ippm-stamp-srpm] in the STAMP Session-Sender test packets.
+
+   In this mode, as per Reference Topology, all timestamps T1, T2, T3,
+   and T4 are collected by the test packets.  All four timestamps are
+   used to measure two-way delay as ((T4 - T1) - (T3 - T2)).
 
 4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policy
 
@@ -609,7 +610,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    transmitted in-band on the same path as the data traffic flow under
    measurement for two-way delay measurement of an end-to-end SRv6
    Policy with SRH is shown in Figure 7.
-
 
 
 
@@ -676,10 +676,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    Reflector for processing, the STAMP Session-Sender copies the
    'Sequence Number' in 'Session-Sender Sequence Number' directly before
-   transmitting the test packet.  In this mode, as per Reference
-   Topology, the timestamps T1 and T4 are collected by the test packets.
-   Both these timestamps are used to measure round-trip delay as (T4 -
-   T1).
+   transmitting the test packet.
+
+   In this mode, as per Reference Topology, the timestamps T1 and T4 are
+   collected by the test packets.  Both these timestamps are used to
+   measure round-trip delay as (T4 - T1).
 
 4.3.  Delay Measurement for P2MP SR Policies
 
@@ -710,7 +711,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    o  The P2MP root node measures the delay for each P2MP leaf node of
       the end-to-end P2MP SR Policy.
-
 
 
 
