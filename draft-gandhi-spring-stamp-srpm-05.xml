@@ -740,15 +740,13 @@
    The STAMP test session state is declared DOWN when consecutive N number of reply test packets are
    not received at the STAMP Session-Sender, where N is locally provisioned value.</t>
 
-   <t>Note that for one-way and two-way delay measurement modes, STAMP test session state change detection 
-   interval and scale for number of STAMP test sessions need to account for 
-   the processing of the STAMP test packets on the STAMP Session-Reflector 
-   which need to be punted from the forwarding fast path
-   (to slow path or control plane) and reply test packets need to be injected.
-   The STAMP test session state change detection interval and scale for the number of test sessions are 
-   improved by using the STAMP test packets in 
-   loopback mode as described in Section 4.2.3.</t>
-   </section>
+   <t>Note that the STAMP test session state change detection interval is 
+   faster when using the STAMP test packets in loopback mode, compared to the 
+   one-way and two-way delay measurement modes, as STAMP test packets 
+   do not need to be punted from the forwarding fast path (to slow path or 
+   control plane) and reply test packets injected on the Session-Reflector.</t>
+
+    </section>
 
     <section title="ECMP Support for SR Policies" anchor="sect-8"><t>
    An SR Policy can have ECMPs between the source and transit nodes,

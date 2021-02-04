@@ -832,8 +832,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    DOWN when consecutive N number of reply test packets are not received
    at the STAMP Session-Sender, where N is locally provisioned value.
 
-   Note that for one-way and two-way delay measurement modes, STAMP test
-   session state change detection interval and scale for number of STAMP
+   Note that the STAMP test session state change detection interval is
+   faster when using the STAMP test packets in loopback mode, compared
 
 
 
@@ -842,13 +842,10 @@ Gandhi, et al.           Expires August 8, 2021                [Page 15]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-   test sessions need to account for the processing of the STAMP test
-   packets on the STAMP Session-Reflector which need to be punted from
-   the forwarding fast path (to slow path or control plane) and reply
-   test packets need to be injected.  The STAMP test session state
-   change detection interval and scale for the number of test sessions
-   are improved by using the STAMP test packets in loopback mode as
-   described in Section 4.2.3.
+   to the one-way and two-way delay measurement modes, as STAMP test
+   packets do not need to be punted from the forwarding fast path (to
+   slow path or control plane) and reply test packets injected on the
+   Session-Reflector.
 
 8.  ECMP Support for SR Policies
 
@@ -889,7 +886,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    of measurement disruption that can be caused by a corrupt or invalid
    packet to a single test cycle.
 
-
+   Use of HMAC-SHA-256 in the authenticated mode protects the data
+   integrity of the test packets.  SRv6 has HMAC protection
+   authentication defined for SRH [RFC8754].  Hence, test packets for
+   SRv6 may not need authentication mode.  Cryptographic measures may be
 
 
 
@@ -898,10 +898,6 @@ Gandhi, et al.           Expires August 8, 2021                [Page 16]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-   Use of HMAC-SHA-256 in the authenticated mode protects the data
-   integrity of the test packets.  SRv6 has HMAC protection
-   authentication defined for SRH [RFC8754].  Hence, test packets for
-   SRv6 may not need authentication mode.  Cryptographic measures may be
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
@@ -945,6 +941,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
               draft-ietf-spring-srv6-network-programming-28 (work in
               progress), December 2020.
+
+
+
+
 
 
 
