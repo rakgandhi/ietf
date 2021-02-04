@@ -735,9 +735,9 @@
 
      <section title="Session State for Links and SR Paths" anchor="sect-7"><t>
    The STAMP test session state allows to infer connectivity loss detection in an SR network.
-   The STAMP test session state initially is declared Up when one or more reply test 
+   The STAMP test session state initially is declared UP when one or more reply test 
    packets are received at the STAMP Session-Sender.
-   The STAMP test session state is declared down when consecutive N number of reply test packets are
+   The STAMP test session state is declared DOWN when consecutive N number of reply test packets are
    not received at the STAMP Session-Sender, where N is locally provisioned value.</t>
 
    <t>Note that for one-way and two-way delay measurement modes, STAMP test session state change detection 
