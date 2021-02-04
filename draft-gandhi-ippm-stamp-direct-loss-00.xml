@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="03" month="February" year="2021"/>
+    <date day="04" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
@@ -176,7 +176,7 @@
    SHA: Secure Hash Algorithm.</t>
 
     <t>
-   DSID: DM Session Identifier.</t>
+   SSID: DM Session Identifier.</t>
 
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
@@ -249,12 +249,11 @@
  |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| DSID                          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         MBZ                                   | Control Code  |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
- |                        MBZ (24 octets)                        |
+ |                                                               |
+ |                        MBZ (28 octets)                        |
  |                                                               |
  |                                                               |
  |                                                               |
@@ -276,11 +275,10 @@
  |                        Transmit Counter (C1)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| DSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         MBZ                                   | Control Code  |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (64 octets)                        |
+ |                                                               |
+ |                        MBZ (68 octets)                        |
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
@@ -339,29 +337,8 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   DSID (16-bit): DM Session Identifier. Follows the same procedure as SSID 
+   SSID (16-bit): DM Session Identifier. Follows the same procedure as SSID 
     defined in <xref target="RFC8972"/>.</t>
-
-   <t>
-   Control Code Field (8-bit): Flags set as follows in Session-Sender DM test packet.</t>
-   <t>  </t>
-
-    <t><list hangIndent="4" style="hanging"><t>
-       0x0: The existing default behaviour as defined in <xref target="RFC8762"/>.</t>
-    </list>
-    </t>
-
-    <t><list hangIndent="4" style="hanging"><t>
-       0x1: In-band Reply Requested.  Indicates that this DM test packet has
-       been sent over a bidirectional channel and the reply is requested
-       in-band over the same incoming link in the reverse direction.</t> 
-    </list>
-    </t>
-
-    <t><list hangIndent="4" style="hanging"><t>
-       0x2: No Reply Requested.</t>
-    </list>
-    </t>
 
     <t>
    The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
@@ -388,7 +365,7 @@
  |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| DSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        Receive Counter (C2)                   |
  |                                                               |
@@ -418,7 +395,7 @@
  |                        Transmit Counter (C3)                  |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |X|B|T| DSCP      | Block Number| DSID                          |
+ |X|B|T| DSCP      | Block Number| SSID                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

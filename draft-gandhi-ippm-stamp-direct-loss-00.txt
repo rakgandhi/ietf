@@ -5,13 +5,13 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 7, 2021                                         D. Voyer
+Expires: August 8, 2021                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                       February 03, 2021
+                                                       February 04, 2021
 
 
          Simple TWAMP (STAMP) Extensions for Direct Measurement
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 7, 2021.
+   This Internet-Draft will expire on August 8, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 1]
+Gandhi, et al.           Expires August 8, 2021                 [Page 1]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 2]
+Gandhi, et al.           Expires August 8, 2021                 [Page 2]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -165,7 +165,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 3]
+Gandhi, et al.           Expires August 8, 2021                 [Page 3]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -185,7 +185,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
    SHA: Secure Hash Algorithm.
 
-   DSID: DM Session Identifier.
+   SSID: DM Session Identifier.
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
@@ -221,7 +221,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 4]
+Gandhi, et al.           Expires August 8, 2021                 [Page 4]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -255,12 +255,11 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
     |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| DSID                          |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         MBZ                                   | Control Code  |
+    |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
-    |                        MBZ (24 octets)                        |
+    |                                                               |
+    |                        MBZ (28 octets)                        |
     |                                                               |
     |                                                               |
     |                                                               |
@@ -277,7 +276,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 5]
+
+Gandhi, et al.           Expires August 8, 2021                 [Page 5]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -294,11 +294,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
     |                        Transmit Counter (C1)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| DSID                          |
+    |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |         MBZ                                   | Control Code  |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (64 octets)                        |
+    |                                                               |
+    |                        MBZ (68 octets)                        |
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                                                               |
@@ -330,15 +329,15 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
       B: Octet (byte) count.  When set to 1, indicates that the Counter
       fields represent octet counts.  The octet count applies to all
       packets within the Direct Measurement scope, and the octet count
+      of a packet sent or received includes the total length of that
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 6]
+Gandhi, et al.           Expires August 8, 2021                 [Page 6]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
-      of a packet sent or received includes the total length of that
       packet (but excludes headers, labels, or framing of the channel
       itself).  When set to 0, indicates that the Counter fields
       represent packet counts.
@@ -358,20 +357,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    counters of the matching block number, the block number of the
    counters is carried by the DM test packet and reply test packet.
 
-   DSID (16-bit): DM Session Identifier.  Follows the same procedure as
+   SSID (16-bit): DM Session Identifier.  Follows the same procedure as
    SSID defined in [RFC8972].
-
-   Control Code Field (8-bit): Flags set as follows in Session-Sender DM
-   test packet.
-
-       0x0: The existing default behaviour as defined in [RFC8762].
-
-       0x1: In-band Reply Requested.  Indicates that this DM test packet
-       has been sent over a bidirectional channel and the reply is
-       requested in-band over the same incoming link in the reverse
-       direction.
-
-       0x2: No Reply Requested.
 
    The detailed use of the HMAC field is described in Section 4.4 of
    [RFC8762].
@@ -389,7 +376,20 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 8, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -402,7 +402,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
     |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| DSID                          |
+    |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Receive Counter (C2)                   |
     |                                                               |
@@ -432,7 +432,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
     |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |X|B|T| DSCP      | Block Number| DSID                          |
+    |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -445,7 +445,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 8]
+Gandhi, et al.           Expires August 8, 2021                 [Page 8]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                 [Page 9]
+Gandhi, et al.           Expires August 8, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                [Page 10]
+Gandhi, et al.           Expires August 8, 2021                [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -613,7 +613,7 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
 
-Gandhi, et al.           Expires August 7, 2021                [Page 11]
+Gandhi, et al.           Expires August 8, 2021                [Page 11]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
@@ -669,4 +669,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 7, 2021                [Page 12]
+Gandhi, et al.           Expires August 8, 2021                [Page 12]
