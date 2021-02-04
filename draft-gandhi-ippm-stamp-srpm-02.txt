@@ -308,7 +308,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    the requested return path.  The Sub-TLV can either carry Return Path
    Control Code, Return Address or Return Segment List.
 
-   The STAMP TLV Flags are set using the procedures described in
+   The STAMP Sub-TLV Flags are set using the procedures described in
    [RFC8972].
 
    The STAMP Session-Sender MUST only insert one "Return Path" Sub-TLV

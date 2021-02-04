@@ -70,19 +70,19 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
-   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Session-Sender Direct Measurement Test Packet . . . . . . . .   5
-   5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   7
+   5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   8
    6.  Data Loss Calculation . . . . . . . . . . . . . . . . . . . .  10
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  10
-   8.  Integrity Protection and Confidentiality Protection . . . . .  10
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   8.  Integrity Protection and Confidentiality Protection . . . . .  11
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  11
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  12
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
@@ -134,7 +134,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    o  Furthermore, for hardware-based counter collection for loss
       detection, the optional "Direct Measurement" TLV adds unnecessary
       processing overhead on the Session-Reflector as not all STAMP test
-      packets carry the "Direct Measurement" TLV.
+      packets carry the "Direct Measurement" TLV.  The Session-Reflector
+      needs to search for the presence of this TLV, as there can be
+      multiple TLVs added.
 
    o  In addition, the STAMP test packet does not support 64-bit
       counters.
@@ -157,10 +159,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 2.  Conventions Used in This Document
 
-2.1.  Requirements Language
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+
 
 
 
@@ -170,6 +170,10 @@ Gandhi, et al.           Expires August 8, 2021                 [Page 3]
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
+2.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
@@ -211,13 +215,9 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
                        DM Reference Topology
 
-3.  Overview
 
-   For accurate data packet loss detection, using the extensions defined
-   in this document, the DM test packets are sent in-band (on the same
-   path as the data traffic flow) by the Session-Sender, and are used to
-   collect the transmit and receive counters for the data traffic flow
-   under measurement.  The DM reply test packets can also be sent in-
+
+
 
 
 
@@ -226,6 +226,13 @@ Gandhi, et al.           Expires August 8, 2021                 [Page 4]
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
+3.  Overview
+
+   For accurate data packet loss detection, using the extensions defined
+   in this document, the DM test packets are sent in-band (on the same
+   path as the data traffic flow) by the Session-Sender, and are used to
+   collect the transmit and receive counters for the data traffic flow
+   under measurement.  The DM reply test packets can also be sent in-
    band by the Session-Reflector to collect the transmit and receive
    counters for the data traffic flow in the reverse direction.
 
@@ -240,12 +247,40 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 4.  Session-Sender Direct Measurement Test Packet
 
-   In this document, Session-Sender DM test packet formats are defined
-   as shown in Figure 1 and Figure 2.  They are stand-alone DM test
-   packet formats to carry transmit and receive counters for the data
-   traffic flow under measurement.  The DM test packet formats are
-   similar to the STAMP test packet formats (for example location of the
-   Counters and Timestamps).
+   In this document, base Session-Sender DM test packet formats are
+   defined as shown in Figure 1 and Figure 2.  They are stand-alone DM
+   test packet formats to carry transmit and receive counters for the
+   data traffic flow under measurement.  The DM test packet formats are
+   similar to the base STAMP test packet formats (for example location
+   of the Counters and Timestamps).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 8, 2021                 [Page 5]
+
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -268,19 +303,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
          Figure 1: Session-Sender Direct Measurement Test Packet -
                            Unauthenticated Mode
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 8, 2021                 [Page 5]
-
-Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -309,6 +331,13 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
          Figure 2: Session-Sender Direct Measurement Test Packet -
                             Authenticated Mode
 
+
+
+Gandhi, et al.           Expires August 8, 2021                 [Page 6]
+
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
+
+
    Sequence Number (32-bit): As defined in [RFC8762].
 
    Transmit Counter (64-bit): The number of packets or octets sent by
@@ -330,14 +359,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
       fields represent octet counts.  The octet count applies to all
       packets within the Direct Measurement scope, and the octet count
       of a packet sent or received includes the total length of that
-
-
-
-Gandhi, et al.           Expires August 8, 2021                 [Page 6]
-
-Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
-
-
       packet (but excludes headers, labels, or framing of the channel
       itself).  When set to 0, indicates that the Counter fields
       represent packet counts.
@@ -366,33 +387,19 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.
 
-   MBZ: As defined in [RFC8762].
-
-5.  Session-Reflector Direct Measurement Test Packet
-
-   In this document, Session-Reflector DM test packet formats are
-   defined as shown in Figure 3 and Figure 4.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Gandhi, et al.           Expires August 8, 2021                 [Page 7]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
+
+   MBZ: As defined in [RFC8762].
+
+5.  Session-Reflector Direct Measurement Test Packet
+
+   In this document, Session-Reflector DM test packet formats are
+   defined as shown in Figure 3 and Figure 4.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -435,13 +442,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
     |X|B|T| DSCP      | Block Number| SSID                          |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Receive Counter (C2)                   |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (8 octets)                         |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -450,6 +450,13 @@ Gandhi, et al.           Expires August 8, 2021                 [Page 8]
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        Receive Counter (C2)                   |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (8 octets)                         |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Sender Sequence Number                 |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
@@ -492,19 +499,18 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    DM reply test packet.  Counter is for the data traffic flow under
    measurement.
 
-   Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received Session-Sender DM test packet.  It is
-   written by the Session-Reflector in the DM test packet.
-
-   Sender Sequence Number (32-bit): As defined in [RFC8762].
-
-
 
 
 Gandhi, et al.           Expires August 8, 2021                 [Page 9]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
+
+   Sender Counter (64-bit): This is the exact copy of the transmit
+   counter from the received Session-Sender DM test packet.  It is
+   written by the Session-Reflector in the DM test packet.
+
+   Sender Sequence Number (32-bit): As defined in [RFC8762].
 
    Session-Sender TTL: As defined in [RFC8762].
 
@@ -544,6 +550,18 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    The optional STAMP extensions defined in [RFC8972] are not currently
    used by the DM test packets.
 
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 8, 2021                [Page 10]
+
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
+
+
 8.  Integrity Protection and Confidentiality Protection
 
    The integrity protection and confidentiality protection specified in
@@ -554,14 +572,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    The performance measurement is intended for deployment in well-
    managed private and service provider networks.  As such, it assumes
    that a node involved in a measurement operation has previously
-
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 10]
-
-Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
-
-
    verified the integrity of the path and the identity of the Session-
    Reflector.
 
@@ -597,6 +607,17 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 8, 2021                [Page 11]
+
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
+
+
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
               Protocol Optional Extensions", RFC 8972,
@@ -609,14 +630,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
               Packet Loss Metric for IPPM", RFC 2680,
               DOI 10.17487/RFC2680, September 1999,
               <https://www.rfc-editor.org/info/rfc2680>.
-
-
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 11]
-
-Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
-
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -653,6 +666,14 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
+
+
+
+Gandhi, et al.           Expires August 8, 2021                [Page 12]
+
+Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
+
+
    Mach(Guoyi) Chen
    Huawei
 
@@ -669,4 +690,39 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 8, 2021                [Page 13]
