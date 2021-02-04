@@ -271,7 +271,7 @@
    <t>The "Return Path" TLV contains a Sub-TLV to carry the information for the requested return path. 
    The Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
 
-   <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
+   <t>The STAMP Sub-TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
    <t>The STAMP Session-Sender
     MUST only insert one "Return Path" Sub-TLV in the test packet. The STAMP Session-Reflector

@@ -124,7 +124,9 @@
      Furthermore, for hardware-based counter collection for loss detection, 
      the optional "Direct Measurement" TLV adds unnecessary processing overhead 
      on the Session-Reflector as not all STAMP test
-     packets carry the "Direct Measurement" TLV.</t>
+     packets carry the "Direct Measurement" TLV. The Session-Reflector 
+     needs to search for the presence of this TLV, as there can be
+     multiple TLVs added.</t>
                 
     <t>
      In addition, the STAMP test packet does not support 64-bit counters.</t> 
@@ -233,11 +235,11 @@
 
 
     <section title="Session-Sender Direct Measurement Test Packet" anchor="sect-4">
-   <t>In this document, Session-Sender DM test packet formats 
+   <t>In this document, base Session-Sender DM test packet formats 
    are defined as shown in Figure 1 and Figure 2. 
    They are stand-alone DM test packet formats to 
    carry transmit and receive counters for the data traffic 
-   flow under measurement. The DM test packet formats are similar to the STAMP test 
+   flow under measurement. The DM test packet formats are similar to the base STAMP test 
    packet formats (for example location of the Counters and Timestamps).</t>
 
     <figure title="Session-Sender Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[

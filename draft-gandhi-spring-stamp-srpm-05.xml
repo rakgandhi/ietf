@@ -82,7 +82,7 @@
     </address>
     </author>
 
-    <date day="03" month="February" year="2021"/>
+    <date day="04" month="February" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -302,13 +302,13 @@
 
     <t>The STAMP Session-Reflector R3 uses the timestamp format 
     from the received STAMP test packet.
-    In addition, the STAMP Session-Reflector R3 uses the parameters for 
-    the return path of the reply test packet from the received STAMP test packet,
+    In addition, the STAMP Session-Reflector R3 uses the parameters of
+    the return path for the reply test packet from the received STAMP test packet,
     as described in this document.</t>
 
     <t>Note that the reference model is not intended for signaling the SR parameters 
     for STAMP test sessions between the STAMP Session-Sender and STAMP Session-Reflector.
-    In adddition, provisioning of each STAMP test session on Session-Reflector
+    In addition, provisioning of each STAMP test session on Session-Reflector
     and creating extra state in SR network are avoided.</t>
 
     <t>The YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
@@ -476,11 +476,9 @@
    <section title="One-way Delay Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way delay measurement mode, a reply test packet
    as defined in Figure 5 is transmitted by the STAMP Session-Reflector,
-   for both links and SR Policies.  
-   The reply test packet may be transmitted on the same path 
-   or a diferent path in the reverse direction.		   
-   The Control Code is set to 0 
-   [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
+   for both links and SR Policies.  The reply test packet may be transmitted on the same path 
+   or a different path in the reverse direction.		   
+  </t>
 
    <t>The STAMP Session-Sender address may not
    be reachable via IP route from the STAMP Session-Reflector.  The STAMP Session-Sender
@@ -501,23 +499,24 @@
    e.g. on the reverse direction link or associated reverse SR path
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
-   <t>For two-way delay measurement mode for links, the reply test packet is transmitted in-band on 
-   the same link where the test packet is received.
-   For this purpose, the Control Code is 
-   set to "In-band Response Requested" <xref target="I-D.gandhi-ippm-stamp-srpm"/> in 
-   the STAMP Session-Sender test packets for links.</t>
+   <t>For two-way delay measurement mode for links, 
+   the STAMP Session-Reflector needs to transmit
+   the reply test packet in-band on the same link where the
+   test packet is recived.  The STAMP Session-Sender
+   can request in the test packet to the STAMP Session-Reflector to
+   transmit the reply test packet back on the same link 
+   using the Control Code Sub-TLV in the 
+   Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
+  </t>
 
-   <t>For two-way delay measurement mode for end-to-end SR path, 
+   <t>For two-way delay measurement mode for end-to-end SR paths, 
    the STAMP Session-Reflector needs to transmit
    the reply test packet in-band on a specific reverse path.  The STAMP Session-Sender
    can request in the test packet to the STAMP Session-Reflector to
    transmit the reply test packet back on a given reverse path 
-   using Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
-   The Return Path TLV can specify the Segment List of the reverse SR path
-   or Binding SID of the
-   reverse SR Policy as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
-   In this mode for end-to-end SR path, the Control Code is set to 0 
-   [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
+   using the Segment List sub-TLV in the 
+   Return Path TLV defined in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
+  </t>
 
    <t>In this mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the test packets.
@@ -597,8 +596,7 @@
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
    the STAMP Session-Sender test packet can carry the return path information (e.g.
    return path label stack for SR-MPLS) as part of the SR header.  
-   In this mode, the Control Code is set to 0 
-   [I-D.gandhi-ippm-stamp-srpm] in the STAMP Session-Sender test packets.</t>
+   </t>
 
    <t>The received test packets are not punted at the STAMP Session-Reflector and it does
    not process them and generate reply test packets.
