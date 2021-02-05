@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="04" month="February" year="2021"/>
+    <date day="05" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -269,15 +269,12 @@
 
    <section title="Return Path Sub-TLV" anchor="sect-4.1">
    <t>The "Return Path" TLV contains a Sub-TLV to carry the information for the requested return path. 
-   The Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
+    The Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
 
    <t>The STAMP Sub-TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The STAMP Session-Sender
-    MUST only insert one "Return Path" Sub-TLV in the test packet. The STAMP Session-Reflector
-    MUST only process the first "Return Path" Sub-TLV in the test packet and ignore other "Return
-    Path" Sub-TLVs if present. The STAMP Session-Reflector
-    MUST transmit reply test packet on the return path
+   <t>When Return Path Sub-TLV is present in the Session-Sender test packet,
+    the STAMP Session-Reflector MUST transmit reply test packet using the return path
     specified in the "Return Path" Sub-TLV.</t>
 
    <section title="Return Path Control Code Sub-TLV" anchor="sect-4.1.1">
@@ -315,7 +312,8 @@
     </list>
     </t>
 
-   <t>When Return Path Control Code field is set to 0x0 in the received STAMP test packet, the Session-Reflector does not
+    <t>When Return Path Control Code field is set to 0x0 in the received STAMP 
+   test packet, the Session-Reflector does not
    transmit reply test packet back to the Session-Sender and terminates the
    test session. The Session-Reflector may locally send performance metrics
    via streaming telemetry using the information from the received test packet.</t>
@@ -324,14 +322,17 @@
    the Session-Reflector transmits the reply test packet on the same incoming link 
    where the test packet is received.</t>
 
-
     </section>
 
    <section title="Return Address Sub-TLV" anchor="sect-4.1.2">
-    <t>The format of the Return Address Sub-TLV is shown in Figure 4.
-    The Address Family field indicates the type of the address, and it
-    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.
-    The Type of the Return Address Sub-TLV is defined as following:</t>
+   <t>The STAMP reply test packet may be transmitted to a different node than the 
+   Session-Sender (e.g. to a controller for telemetry use-cases).  For this,
+   the Session-Sender can specify in the test packet the receiving destination 
+   node address for the Session-Reflector reply test packet.
+   The format of the Return Address Sub-TLV is shown in Figure 4.
+   The Address Family field indicates the type of the address, and it
+   SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.
+   The Type of the Return Address Sub-TLV is defined as following:</t>
 
     <t><list style="symbols"><t>Type (value 2): Return Address. Destination node address of the
     STAMP Session-Reflector test packet different than the Source Address in the Session-Sender test packet.</t>

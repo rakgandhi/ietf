@@ -5,13 +5,13 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 8, 2021                                         D. Voyer
+Expires: August 9, 2021                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                       February 04, 2021
+                                                       February 05, 2021
 
 
       Simple TWAMP (STAMP) Extensions for Segment Routing Networks
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 8, 2021.
+   This Internet-Draft will expire on August 9, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 1]
+Gandhi, et al.           Expires August 9, 2021                 [Page 1]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 2]
+Gandhi, et al.           Expires August 9, 2021                 [Page 2]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -165,7 +165,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 3]
+Gandhi, et al.           Expires August 9, 2021                 [Page 3]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -221,7 +221,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 4]
+Gandhi, et al.           Expires August 9, 2021                 [Page 4]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 5]
+Gandhi, et al.           Expires August 9, 2021                 [Page 5]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -311,12 +311,9 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    The STAMP Sub-TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The STAMP Session-Sender MUST only insert one "Return Path" Sub-TLV
-   in the test packet.  The STAMP Session-Reflector MUST only process
-   the first "Return Path" Sub-TLV in the test packet and ignore other
-   "Return Path" Sub-TLVs if present.  The STAMP Session-Reflector MUST
-   transmit reply test packet on the return path specified in the
-   "Return Path" Sub-TLV.
+   When Return Path Sub-TLV is present in the Session-Sender test
+   packet, the STAMP Session-Reflector MUST transmit reply test packet
+   using the return path specified in the "Return Path" Sub-TLV.
 
 4.1.1.  Return Path Control Code Sub-TLV
 
@@ -333,7 +330,10 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 6]
+
+
+
+Gandhi, et al.           Expires August 9, 2021                 [Page 6]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -370,11 +370,15 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 4.1.2.  Return Address Sub-TLV
 
-   The format of the Return Address Sub-TLV is shown in Figure 4.  The
-   Address Family field indicates the type of the address, and it SHALL
-   be set to one of the assigned values in the "IANA Address Family
-   Numbers" registry.  The Type of the Return Address Sub-TLV is defined
-   as following:
+   The STAMP reply test packet may be transmitted to a different node
+   than the Session-Sender (e.g. to a controller for telemetry use-
+   cases).  For this, the Session-Sender can specify in the test packet
+   the receiving destination node address for the Session-Reflector
+   reply test packet.  The format of the Return Address Sub-TLV is shown
+   in Figure 4.  The Address Family field indicates the type of the
+   address, and it SHALL be set to one of the assigned values in the
+   "IANA Address Family Numbers" registry.  The Type of the Return
+   Address Sub-TLV is defined as following:
 
    o  Type (value 2): Return Address.  Destination node address of the
       STAMP Session-Reflector test packet different than the Source
@@ -385,11 +389,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-
-
-
-
-Gandhi, et al.           Expires August 8, 2021                 [Page 7]
+Gandhi, et al.           Expires August 9, 2021                 [Page 7]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 8]
+Gandhi, et al.           Expires August 9, 2021                 [Page 8]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 9]
+Gandhi, et al.           Expires August 9, 2021                 [Page 9]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 10]
+Gandhi, et al.           Expires August 9, 2021                [Page 10]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -613,7 +613,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 11]
+Gandhi, et al.           Expires August 9, 2021                [Page 11]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
@@ -669,4 +669,4 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 12]
+Gandhi, et al.           Expires August 9, 2021                [Page 12]

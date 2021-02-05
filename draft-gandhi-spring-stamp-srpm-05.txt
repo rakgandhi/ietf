@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 8, 2021                                         D. Voyer
+Expires: August 9, 2021                                         D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                       February 04, 2021
+                                                       February 05, 2021
 
 
  Performance Measurement Using Simple TWAMP (STAMP) for Segment Routing
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 8, 2021.
+   This Internet-Draft will expire on August 9, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 1]
+Gandhi, et al.           Expires August 9, 2021                 [Page 1]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 2]
+Gandhi, et al.           Expires August 9, 2021                 [Page 2]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -165,7 +165,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 3]
+Gandhi, et al.           Expires August 9, 2021                 [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -221,7 +221,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 4]
+Gandhi, et al.           Expires August 9, 2021                 [Page 4]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -277,7 +277,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 5]
+Gandhi, et al.           Expires August 9, 2021                 [Page 5]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -333,7 +333,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 6]
+Gandhi, et al.           Expires August 9, 2021                 [Page 6]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -389,7 +389,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 7]
+Gandhi, et al.           Expires August 9, 2021                 [Page 7]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -445,7 +445,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 8]
+Gandhi, et al.           Expires August 9, 2021                 [Page 8]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                 [Page 9]
+Gandhi, et al.           Expires August 9, 2021                 [Page 9]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 10]
+Gandhi, et al.           Expires August 9, 2021                [Page 10]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -613,7 +613,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 11]
+Gandhi, et al.           Expires August 9, 2021                [Page 11]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -657,22 +657,25 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    STAMP Session-Sender address and the Source Address equals to the
    STAMP Session-Reflector address.  Optionally, the STAMP Session-
    Sender test packet can carry the return path information (e.g.
-   return path label stack for SR-MPLS) as part of the SR header.
-
-   The received test packets are not punted at the STAMP Session-
+   return path label stack for SR-MPLS) as part of the SR header.  This
+   way, the received test packets are not punted out of fast-path in
+   forwarding (to slow path or control-plane) at the STAMP Session-
    Reflector and it does not process them and generate reply test
-   packets.  As the test packet is not punted on the STAMP Session-
-   Reflector for processing, the STAMP Session-Sender copies the
-   'Sequence Number' in 'Session-Sender Sequence Number' directly before
-   transmitting the test packet.
+   packets.
+
+   As the reply test packet is not generated by the STAMP Session-
+   Reflector, the STAMP Session-Sender ignores the 'Session-Sender
 
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 12]
+Gandhi, et al.           Expires August 9, 2021                [Page 12]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
+
+   Sequence Number', 'Session-Sender Timestamp', 'Session-Sender Error
+   Estimate', and 'Session-Sender TTL' in the received test packet.
 
    In this mode, as per Reference Topology, the timestamps T1 and T4 are
    collected by the test packets.  Both these timestamps are used to
@@ -722,10 +725,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 13]
+Gandhi, et al.           Expires August 9, 2021                [Page 13]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -781,7 +781,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 14]
+Gandhi, et al.           Expires August 9, 2021                [Page 14]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -827,25 +827,20 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The STAMP test session state allows to infer connectivity loss
    detection in an SR network.  The STAMP test session state initially
-   is declared UP when one or more reply test packets are received at
-   the STAMP Session-Sender.  The STAMP test session state is declared
-   DOWN when consecutive N number of reply test packets are not received
-   at the STAMP Session-Sender, where N is locally provisioned value.
-
-   Note that the STAMP test session state change detection interval is
-   faster when using the STAMP test packets in loopback mode, compared
+   is declared succeeded when one or more reply test packets are
+   received at the STAMP Session-Sender.  The STAMP test session state
+   is declared failed when consecutive N number of reply test packets
+   are not received at the STAMP Session-Sender, where N is locally
+   provisioned value.
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 15]
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 15]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   to the one-way and two-way delay measurement modes, as STAMP test
-   packets do not need to be punted from the forwarding fast path (to
-   slow path or control plane) and reply test packets injected on the
-   Session-Reflector.
 
 8.  ECMP Support for SR Policies
 
@@ -890,19 +885,18 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    integrity of the test packets.  SRv6 has HMAC protection
    authentication defined for SRH [RFC8754].  Hence, test packets for
    SRv6 may not need authentication mode.  Cryptographic measures may be
-
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 16]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
    The security considerations specified in [RFC8762] and [RFC8972] also
    apply to the procedures defined in this document.
+
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 16]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
 10.  IANA Considerations
 
@@ -942,23 +936,23 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               draft-ietf-spring-srv6-network-programming-28 (work in
               progress), December 2020.
 
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    [I-D.gandhi-ippm-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Simple TWAMP (STAMP) Extensions for Segment
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
 11.2.  Informative References
 
@@ -1003,18 +997,18 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-
-
-Gandhi, et al.           Expires August 8, 2021                [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
               Delivery", draft-ietf-spring-sr-replication-segment-02
               (work in progress), October 2020.
+
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    [I-D.shen-spring-p2mp-transport-chain]
               Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
@@ -1058,16 +1052,19 @@ Acknowledgments
    on the use-cases for Performance Measurement in segment routing.  The
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
+   providing useful comments and suggestions.  Patrick Khordoc and Radu
+   Valceanu have helped improve the mechanisms defined in this document.
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 19]
+
+
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 19]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu have helped improve the mechanisms defined in this document.
 
 Authors' Addresses
 
@@ -1117,4 +1114,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 8, 2021                [Page 20]
+
+
+
+Gandhi, et al.           Expires August 9, 2021                [Page 20]
