@@ -233,13 +233,20 @@
     </section>
 
     <section title="Return Path TLV " anchor="sect-4"><t>
-   For an SR path, the STAMP Session-Reflector may need to transmit
-   the reply test packet on a specific return path.  The STAMP Session-Sender
-   can request in the test packet to the STAMP Session-Reflector to
-   transmit a reply test packet back on a given return path. 
+   For end-to-end SR paths, the STAMP Session-Reflector may need to transmit the reply test 
+   packet on a specific return path.  The STAMP Session-Sender
+   can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
    With this TLV carried in the STAMP Session-Sender test packet, 
    the STAMP Session-Reflector does not require signaling and maintaining 
    any additional dynamic state for the STAMP sessions for the end-to-end SR paths.</t>
+
+   <t>For links, the STAMP Session-Reflector may need to transmit the reply test
+   packet on the same incoming link in the reverse direction. 
+   The STAMP Session-Sender
+   can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
+   With this TLV carried in the STAMP Session-Sender test packet, 
+   the STAMP Session-Reflector does not require provisioning any additional state for the
+   STAMP sessions for the links.</t>
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
@@ -262,8 +269,7 @@
 
    <t>The "Return Path" TLV is optional. The STAMP Session-Sender MUST only insert
     one "Return Path" TLV in the STAMP test packet.
-    The STAMP Session-Reflector
-    MUST only process the first "Return Path" TLV in the test
+    The STAMP Session-Reflector MUST only process the first "Return Path" TLV in the test
     packet and ignore other "Return Path" TLVs if present, 
     and it MUST NOT add "Return Path" TLV in the reply test packet.</t>
 
@@ -282,7 +288,7 @@
     Control Code Sub-TLV is defined as following:</t> 
 
     <t><list style="symbols"><t>Type (value 1): Return Path Control Code. 
-     The STAMP Session-Sender can request the STAMP Session-Reflector
+    The STAMP Session-Sender can request the STAMP Session-Reflector
     to transmit the reply test packet based on the flags defined in the Control Code field.</t> 
     </list>
       </t>
