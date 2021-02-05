@@ -247,9 +247,9 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
    The "Destination Node Address" TLV is optional.  The "Destination
    Node Address" TLV indicates the address of the intended destination
-   node of the test packet.  The STAMP Session-Reflector MUST NOT
-   transmit reply test packet if it is not the intended destination node
-   of the received test packet.
+   node of the test packet.  The STAMP Session-Reflector that supports
+   this TLV, MUST NOT transmit reply test packet if it is not the
+   intended destination node of the received test packet.
 
 4.  Return Path TLV
 
@@ -298,9 +298,10 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
    The "Return Path" TLV is optional.  The STAMP Session-Sender MUST
    only insert one "Return Path" TLV in the STAMP test packet.  The
-   STAMP Session-Reflector MUST only process the first "Return Path" TLV
-   in the test packet and ignore other "Return Path" TLVs if present,
-   and it MUST NOT add "Return Path" TLV in the reply test packet.
+   STAMP Session-Reflector that supports this TLV, MUST only process the
+   first "Return Path" TLV in the test packet and ignore other "Return
+   Path" TLVs if present, and it MUST NOT add "Return Path" TLV in the
+   reply test packet.
 
 4.1.  Return Path Sub-TLVs
 
@@ -313,9 +314,9 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    [RFC8972].
 
    When Return Path Sub-TLV is present in the Session-Sender test
-   packet, the STAMP Session-Reflector MUST transmit reply test packet
-   using the return path information specified in the "Return Path" Sub-
-   TLV.
+   packet, the STAMP Session-Reflector that supports this TLV, MUST
+   transmit reply test packet using the return path information
+   specified in the "Return Path" Sub-TLV.
 
 4.1.1.  Return Path Control Code Sub-TLV
 
@@ -327,7 +328,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
       Sender can request the STAMP Session-Reflector to transmit the
       reply test packet based on the flags defined in the Control Code
       field.
-
 
 
 
