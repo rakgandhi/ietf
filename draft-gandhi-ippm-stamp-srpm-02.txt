@@ -374,17 +374,17 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    than the Session-Sender (e.g. to a controller for telemetry use-
    cases).  For this, the Session-Sender can specify in the test packet
    the receiving destination node address for the Session-Reflector
-   reply test packet.  The format of the Return Address Sub-TLV is shown
-   in Figure 4.  The Address Family field indicates the type of the
-   address, and it SHALL be set to one of the assigned values in the
-   "IANA Address Family Numbers" registry.  The Type of the Return
-   Address Sub-TLV is defined as following:
+   reply test packet.
+
+   The format of the Return Address Sub-TLV is shown in Figure 4.  The
+   Address Family field indicates the type of the address, and it SHALL
+   be set to one of the assigned values in the "IANA Address Family
+   Numbers" registry.  The Type of the Return Address Sub-TLV is defined
+   as following:
 
    o  Type (value 2): Return Address.  Destination node address of the
       STAMP Session-Reflector test packet different than the Source
       Address in the Session-Sender test packet.
-
-
 
 
 
@@ -440,8 +440,8 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
              Figure 5: Segment List Sub-TLV in Return Path TLV
 
-
-
+   The STAMP Session-Sender MUST only insert one Segment List Return
+   Path Sub-TLV in the test packet.  The STAMP Session-Reflector MUST
 
 
 
@@ -449,6 +449,9 @@ Gandhi, et al.           Expires August 9, 2021                 [Page 8]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
+
+   only process the first Segment List Return Path Sub-TLV in the test
+   packet and ignore other Segment List Return Path Sub-TLVs if present.
 
 5.  Security Considerations
 
@@ -490,9 +493,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    this registry shall be allocated according to the "First Come First
    Served" procedure as specified in [RFC8126].  Remaining code points
    are allocated according to Table 1:
-
-
-
 
 
 

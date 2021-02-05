@@ -337,8 +337,9 @@
    <t>The STAMP reply test packet may be transmitted to a different node than the 
    Session-Sender (e.g. to a controller for telemetry use-cases).  For this,
    the Session-Sender can specify in the test packet the receiving destination 
-   node address for the Session-Reflector reply test packet.
-   The format of the Return Address Sub-TLV is shown in Figure 4.
+   node address for the Session-Reflector reply test packet.</t>
+
+   <t>The format of the Return Address Sub-TLV is shown in Figure 4.
    The Address Family field indicates the type of the address, and it
    SHALL be set to one of the assigned values in the "IANA Address Family Numbers" registry.
    The Type of the Return Address Sub-TLV is defined as following:</t>
@@ -402,6 +403,11 @@
 ]]></artwork>
     </figure>
 
+
+   <t>The STAMP Session-Sender MUST only insert one Segment List Return Path Sub-TLV
+   in the test packet.  The STAMP Session-Reflector MUST only process
+   the first Segment List Return Path Sub-TLV in the test packet and ignore other
+   Segment List Return Path Sub-TLVs if present.</t>
 
     </section>
     </section>
