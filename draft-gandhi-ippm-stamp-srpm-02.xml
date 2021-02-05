@@ -267,14 +267,14 @@
     packet and ignore other "Return Path" TLVs if present, 
     and it MUST NOT add "Return Path" TLV in the reply test packet.</t>
 
-   <section title="Return Path Sub-TLV" anchor="sect-4.1">
-   <t>The "Return Path" TLV contains a Sub-TLV to carry the information for the requested return path. 
-    The Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
+   <section title="Return Path Sub-TLVs" anchor="sect-4.1">
+   <t>The "Return Path" TLV contains one or more Sub-TLVs to carry the information for the requested return path. 
+    A Return Path Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
 
    <t>The STAMP Sub-TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
    <t>When Return Path Sub-TLV is present in the Session-Sender test packet,
-    the STAMP Session-Reflector MUST transmit reply test packet using the return path
+    the STAMP Session-Reflector MUST transmit reply test packet using the return path information 
     specified in the "Return Path" Sub-TLV.</t>
 
    <section title="Return Path Control Code Sub-TLV" anchor="sect-4.1.1">

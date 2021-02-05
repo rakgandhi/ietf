@@ -74,7 +74,7 @@ Table of Contents
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Destination Node Address TLV  . . . . . . . . . . . . . . . .   4
    4.  Return Path TLV . . . . . . . . . . . . . . . . . . . . . . .   5
-     4.1.  Return Path Sub-TLV . . . . . . . . . . . . . . . . . . .   6
+     4.1.  Return Path Sub-TLVs  . . . . . . . . . . . . . . . . . .   6
        4.1.1.  Return Path Control Code Sub-TLV  . . . . . . . . . .   6
        4.1.2.  Return Address Sub-TLV  . . . . . . . . . . . . . . .   7
        4.1.3.  Return Segment List Sub-TLV . . . . . . . . . . . . .   8
@@ -302,18 +302,20 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    in the test packet and ignore other "Return Path" TLVs if present,
    and it MUST NOT add "Return Path" TLV in the reply test packet.
 
-4.1.  Return Path Sub-TLV
+4.1.  Return Path Sub-TLVs
 
-   The "Return Path" TLV contains a Sub-TLV to carry the information for
-   the requested return path.  The Sub-TLV can either carry Return Path
-   Control Code, Return Address or Return Segment List.
+   The "Return Path" TLV contains one or more Sub-TLVs to carry the
+   information for the requested return path.  A Return Path Sub-TLV can
+   either carry Return Path Control Code, Return Address or Return
+   Segment List.
 
    The STAMP Sub-TLV Flags are set using the procedures described in
    [RFC8972].
 
    When Return Path Sub-TLV is present in the Session-Sender test
    packet, the STAMP Session-Reflector MUST transmit reply test packet
-   using the return path specified in the "Return Path" Sub-TLV.
+   using the return path information specified in the "Return Path" Sub-
+   TLV.
 
 4.1.1.  Return Path Control Code Sub-TLV
 
@@ -325,8 +327,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
       Sender can request the STAMP Session-Reflector to transmit the
       reply test packet based on the flags defined in the Control Code
       field.
-
-
 
 
 
