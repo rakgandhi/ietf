@@ -102,7 +102,7 @@
 
    <t>The STAMP supports two modes of STAMP Session-Reflector: Stateless and Stateful 
    as described in Section 4 of <xref target="RFC8762"/>. 
-   In Stateless mode, provisioning of each STAMP test session on Session-Reflector
+   In Stateless mode, maintenance of each STAMP test session on Session-Reflector
    is avoided. In SR networks, as 
    the state is in the packet, the signaling of the parameters and 
    creating extra states in the network are undesired.
@@ -246,7 +246,7 @@
    The STAMP Session-Sender
    can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
    With this TLV carried in the STAMP Session-Sender test packet, 
-   the STAMP Session-Reflector does not require provisioning any additional state for the
+   the STAMP Session-Reflector does not require maintenance of any additional state for the
    STAMP sessions for the links.</t>
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
@@ -260,7 +260,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |STAMP TLV Flags|   Type=TBA2   |         Length                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                   Return Path Sub-TLV                         |
+ |                   Return Path Sub-TLVs                        |
  .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>

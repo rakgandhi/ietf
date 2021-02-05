@@ -120,7 +120,7 @@
 
    <t>The STAMP supports two modes of STAMP Session-Reflector: Stateless and Stateful 
    as described in Section 4 of <xref target="RFC8762"/>. 
-   In Stateless mode, provisioning of each STAMP test session on Session-Reflector
+   In Stateless mode, maintenance of each STAMP test session on Session-Reflector
    is avoided. In SR networks, as 
    the state is in the packet, the signaling of the parameters and 
    creating extra states in the network are undesired.
@@ -308,7 +308,7 @@
 
     <t>Note that the reference model is not intended for signaling the SR parameters 
     for STAMP test sessions between the STAMP Session-Sender and STAMP Session-Reflector.
-    In addition, provisioning of each STAMP test session on Session-Reflector
+    In addition, maintenance of each STAMP test session on Session-Reflector
     and creating extra state in SR network are avoided.</t>
 
     <t>The YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
