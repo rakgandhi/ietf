@@ -802,11 +802,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The test packet loss measurement is applicable to infer data packet
    loss in an SR network.  The procedure defined in Section 4 for delay
-   measurement using STAMP test packets is used for test packet loss
-   measurement for links and end-to-end SR paths.  The Sequence Number
-   field in the STAMP test packet is used as described in Section 4
-   "Theory of Operation" of [RFC8762], to detect forward, reverse and
-   round-trip packet loss.
+   measurement using STAMP test packets is used to detect packet loss
+   for links and end-to-end SR paths.  The Sequence Number field in the
+   STAMP test packet is used as described in Section 4 "Theory of
+   Operation" of [RFC8762], to detect forward, reverse and round-trip
+   packet loss.
 
 6.  Direct Loss Measurement for Links and SR Paths
 
