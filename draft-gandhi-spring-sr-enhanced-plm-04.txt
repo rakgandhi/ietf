@@ -805,18 +805,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Liveness or connectivity failure for an end-to-end SR path is
    notified when consecutive N number of PLM return test packets are not
    received at the Session-Sender, where N (Missed PLM Packet Count) is
-   locally provisioned value.
+   a locally provisioned value.
 
    The round-trip packet loss for an end-to-end SR path is calculated
    using the Sequence Number in the PLM test packets.  The packet loss
    metric is notified when X number of PLM test packets were lost out of
    last Y number of PLM test packets transmitted by the Session-Sender,
-   where Threshold XofY is locally provisioned.
+   where Threshold XofY is locally provisioned value.
 
    Similarly, the delay metrics are notified, as an example, when
-   consecutive M (Delay Exceeded Packet Count) number of PLM test
-   packets have measured delay values exceed user-configured threshold T
-   (Absolute and Percentage Delay Threshold), where M and T are also
+   consecutive M number of PLM test packets have measured delay values
+   exceed user-configured threshold T, where M (Delay Exceeded Packet
+   Count) and T (Absolute and Percentage Delay Threshold) are also
    locally provisioned values.
 
    In both loopback modes, the timestamps T1 and T4 are used to measure
