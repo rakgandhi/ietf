@@ -611,7 +611,7 @@
   </figure>
 
 
-    <section title="Timestamp Labels Allocation" anchor="sect-6.1.1" toc="default"><t>
+    <section title="Timestamp Label Allocation" anchor="sect-6.1.1" toc="default"><t>
       The timestamp Labels for unauthenticated and authenticated modes can be allocated using one of the following
       methods:</t>
 
@@ -695,7 +695,7 @@
  </figure>
 
 
-    <section title="Timestamp Endpoint Functions Assignment" anchor="sect-6.2.1" toc="default"><t>
+    <section title="Timestamp Endpoint Function Assignment" anchor="sect-6.2.1" toc="default"><t>
       The Timestamp Endpoint Functions for "Timestamp and Forward" can be signaled using one of the following methods:</t>
 
     <t><list style="symbols"><t>Timestamp Endpoint Functions (values TBA3 and TBA4) 

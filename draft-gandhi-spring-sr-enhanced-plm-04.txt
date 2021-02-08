@@ -83,11 +83,11 @@ Table of Contents
      5.2.  PLM for SRv6 Policies . . . . . . . . . . . . . . . . . .  11
    6.  Enhanced PLM Procedure  . . . . . . . . . . . . . . . . . . .  11
      6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies  .  12
-       6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  13
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  13
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
      6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6
            Policies  . . . . . . . . . . . . . . . . . . . . . . . .  13
-       6.2.1.  Timestamp Endpoint Functions Assignment . . . . . . .  14
+       6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
    7.  Example PLM Failure Notifications . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
@@ -674,7 +674,7 @@ Gandhi, et al.           Expires August 12, 2021               [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-6.1.1.  Timestamp Labels Allocation
+6.1.1.  Timestamp Label Allocation
 
    The timestamp Labels for unauthenticated and authenticated modes can
    be allocated using one of the following methods:
@@ -757,7 +757,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
      Figure 7: Example PLM Test Packet with Endpoint Function for SRv6
 
-6.2.1.  Timestamp Endpoint Functions Assignment
+6.2.1.  Timestamp Endpoint Function Assignment
 
    The Timestamp Endpoint Functions for "Timestamp and Forward" can be
    signaled using one of the following methods:
