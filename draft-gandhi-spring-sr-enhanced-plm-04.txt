@@ -151,7 +151,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Policies for both SR-MPLS and SRv6 data planes, those reduce the
    deployment and operational complexities in a network.  The procedures
    use the new test packet formats those have the timestamps at the same
-   location as the base STAMP test packets to leverage the existing
+   locations as the base STAMP test packets to leverage the existing
    hardware support for STAMP.
 
 2.  Conventions Used in This Document
@@ -303,11 +303,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Reflector adds the receive timestamp (T2) in the payload of the
    received PLM test packet in hardware without punting the packet to
    slow path (or control-plane).  The Session-Reflector only adds the
-   receive timestamp if the source or destination IP address in the PLM
-   test packet matches the local node address to ensure that the PLM
-   test packet reaches the intended Session-Reflector and the receive
-   timestamp is returned by the intended Session-Reflector.  The payload
-   of the PLM test packet is not modified by the intermediate nodes.
+   receive timestamp if the source IP address (in case of SR-MPLS) or
+   destination IP address (in case of SRv6) in the PLM test packet
+   matches the local node address to ensure that the PLM test packet
+   reaches the intended Session-Reflector and the receive timestamp is
+   returned by the intended Session-Reflector.  The payload of the PLM
+   test packet is not modified by the intermediate nodes.
 
    The network programming function enables the Session-Reflector to add
    receive timestamp in the payload of the PLM test packet at a specific
@@ -317,7 +318,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    An example provisioning model and typical measurement parameters are
    shown in Figure 2:
-
 
 
 
@@ -369,7 +369,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The PLM test packet formats for unauthenticated and authenticated
    modes are defined in this document as shown in Figure 3 those have
-   the transmit and receive timestamps at the same location as the base
+   the transmit and receive timestamps at the same locations as the base
    STAMP test packets to leverage the existing hardware support for
    STAMP.
 

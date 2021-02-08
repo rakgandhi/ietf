@@ -156,7 +156,7 @@
       Enhanced Performance and Liveness Monitoring (PLM) 
       for end-to-end SR paths including SR Policies for both SR-MPLS and SRv6 data planes, 
       those reduce the deployment and operational complexities in a network.
-      The procedures use the new test packet formats those have the timestamps at the same location
+      The procedures use the new test packet formats those have the timestamps at the same locations
       as the base STAMP test packets to leverage the existing hardware support for STAMP.</t>
 
     </section>
@@ -290,7 +290,8 @@
       The Session-Reflector adds the receive timestamp (T2) in the 
       payload of the received PLM test 
       packet in hardware without punting the packet to slow path (or control-plane). The Session-Reflector only
-      adds the receive timestamp if the source or destination IP address in the PLM test packet matches
+      adds the receive timestamp if the source IP address (in case of SR-MPLS) or 
+      destination IP address (in case of SRv6) in the PLM test packet matches
       the local node address to ensure that the PLM test packet reaches the 
       intended Session-Reflector and the receive timestamp is returned by the intended Session-Reflector.
       The payload of the PLM test packet is not modified by the intermediate nodes.</t>
@@ -339,7 +340,7 @@
     <section title="PLM Test Packet Formats" anchor="sect-4"><t>
     The PLM test packet formats for unauthenticated and authenticated modes
     are defined in this document as shown in Figure 3 those have 
-    the transmit and receive timestamps at the same location
+    the transmit and receive timestamps at the same locations
     as the base STAMP test packets to leverage the existing hardware support for STAMP.</t>
 
    <figure title="PLM Test Packet Formats" anchor="ure-test-packet-format"><artwork><![CDATA[
