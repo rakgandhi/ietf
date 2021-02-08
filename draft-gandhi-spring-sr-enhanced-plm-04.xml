@@ -289,7 +289,7 @@
       timestamp (T1) in the payload of the PLM test packet and clears the receive (T2) timestamp. 
       The Session-Reflector adds the receive timestamp (T2) in the 
       payload of the received PLM test 
-      packet in hardware without punting the packet to slow-path (or control-plane). The Session-Reflector only
+      packet in hardware without punting the packet to slow path (or control-plane). The Session-Reflector only
       adds the receive timestamp if the source or destination IP address in the PLM test packet matches
       the local node address to ensure that the PLM test packet reaches the 
       intended Session-Reflector and the receive timestamp is returned by the intended Session-Reflector.
@@ -429,15 +429,15 @@
 
    <t>The timestamp and error estimate fields
    follow the definition and formats defined in Section 4.1.2 in
-   [RFC8762].  Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/>,
-   implemented in hardware is desired.</t> 
+   [RFC8762]. The timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/>.
+   </t> 
 
     </section>
 
 
     <section anchor="sect-5" title="PLM Procedure">
      <t>For performance and liveness monitoring of an end-to-end SR path including SR Policy, 
-     PLM test packets in loopback mode is used.</t>
+     PLM test packets in loopback mode are used.</t>
  
      <t>For SR Policy, the PLM test packets are transmitted using the Segment Lists (SL) of the Candidate-path 
      <xref target="I-D.ietf-spring-segment-routing-policy"/>.

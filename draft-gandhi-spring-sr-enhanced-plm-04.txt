@@ -79,7 +79,7 @@ Table of Contents
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
    5.  PLM Procedure . . . . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  PLM for SR-MPLS Policies  . . . . . . . . . . . . . . . .  10
+     5.1.  PLM for SR-MPLS Policies  . . . . . . . . . . . . . . . .   9
      5.2.  PLM for SRv6 Policies . . . . . . . . . . . . . . . . . .  10
    6.  Enhanced PLM Procedure  . . . . . . . . . . . . . . . . . . .  11
      6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies  .  11
@@ -302,7 +302,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    PLM test packet and clears the receive (T2) timestamp.  The Session-
    Reflector adds the receive timestamp (T2) in the payload of the
    received PLM test packet in hardware without punting the packet to
-   slow-path (or control-plane).  The Session-Reflector only adds the
+   slow path (or control-plane).  The Session-Reflector only adds the
    receive timestamp if the source or destination IP address in the PLM
    test packet matches the local node address to ensure that the PLM
    test packet reaches the intended Session-Reflector and the receive
@@ -474,14 +474,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Reflector's receive timestamp and error estimate, respectively.
 
    The timestamp and error estimate fields follow the definition and
-   formats defined in Section 4.1.2 in [RFC8762].  Timestamp format
-   preferred is 64-bit PTPv2 [IEEE1588], implemented in hardware is
-   desired.
+   formats defined in Section 4.1.2 in [RFC8762].  The timestamp format
+   recommended is 64-bit PTPv2 [IEEE1588].
 
 5.  PLM Procedure
 
    For performance and liveness monitoring of an end-to-end SR path
-   including SR Policy, PLM test packets in loopback mode is used.
+   including SR Policy, PLM test packets in loopback mode are used.
 
    For SR Policy, the PLM test packets are transmitted using the Segment
    Lists (SL) of the Candidate-path
@@ -494,10 +493,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
 
+5.1.  PLM for SR-MPLS Policies
 
-
-
-
+   The PLM test packets are transmitted using the MPLS header containing
+   the label stack of the SR Policy as shown in Figure 4.  In case of
+   IP/UDP return path, the MPLS header is removed by the Session-
 
 
 
@@ -506,11 +506,6 @@ Gandhi, et al.           Expires August 12, 2021                [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-5.1.  PLM for SR-MPLS Policies
-
-   The PLM test packets are transmitted using the MPLS header containing
-   the label stack of the SR Policy as shown in Figure 4.  In case of
-   IP/UDP return path, the MPLS header is removed by the Session-
    Reflector.  The label stack can contain a reverse SR-MPLS path to
    receive the PLM return test packet on a specific path.  In this case,
    the MPLS header will not be removed by the Session-Reflector.
@@ -554,6 +549,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Session-Reflector.  When the PLM return test packet contains an SRH
    at the Session-Sender, the procedure defined for upper-layer header
    processing for SRv6 SIDs in [I-D.ietf-spring-srv6-network-
+   programming] is used to process the UDP header in the received PLM
+   test packets.
+
+
+
 
 
 
@@ -561,9 +561,6 @@ Gandhi, et al.           Expires August 12, 2021               [Page 10]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-   programming] is used to process the UDP header in the received PLM
-   test packets.
 
      +---------------------------------------------------------------+
      | IP Header                                                     |
@@ -610,6 +607,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Label to receive the PLM return test packet on a specific path.  When
    a Session-Reflector receives a packet with Timestamp Label, after
    timestamping the packet at a specific offset, the Session-Reflector
+   pops the Timestamp Label and forwards the packet using the next label
+   or IP header in the packet (just like the data packets for the
+   regular traffic).
 
 
 
@@ -617,10 +617,6 @@ Gandhi, et al.           Expires August 12, 2021               [Page 11]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-   pops the Timestamp Label and forwards the packet using the next label
-   or IP header in the packet (just like the data packets for the
-   regular traffic).
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -667,6 +663,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       for the authenticated mode, both using the timestamp format 64-bit
       PTPv2.
 
+   o  Labels allocated by a Controller from the global table of the
+      Session-Reflector.  The Controller provisions the labels on both
+
+
 
 
 Gandhi, et al.           Expires August 12, 2021               [Page 12]
@@ -674,8 +674,6 @@ Gandhi, et al.           Expires August 12, 2021               [Page 12]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   o  Labels allocated by a Controller from the global table of the
-      Session-Reflector.  The Controller provisions the labels on both
       Session-Sender and Session-Reflector, as well as timestamp offsets
       and timestamp formats.
 
@@ -709,6 +707,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    specific offset, the Session-Reflector forwards the packet using the
    next SID or IP header in the packet (just like the data packets for
    the regular traffic).
+
+
 
 
 
