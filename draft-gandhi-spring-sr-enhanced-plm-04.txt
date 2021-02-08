@@ -178,7 +178,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    ECMP: Equal Cost Multi-Path.
 
-   EF: Endpoint Function.
+   EB: Endpoint Behaviour.
 
    MPLS: Multiprotocol Label Switching.
 
@@ -599,12 +599,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies
 
-   In this document, new Timestamp Label is defined for SR-MPLS data
-   plane to enable network programming function for "timestamp, pop and
-   forward" the received packet.
+   In this document, two new Timestamp Labels are defined for SR-MPLS
+   data plane to enable network programming function for "timestamp, pop
+   and forward" the received packet.
 
-   In the PLM test packet for SR-MPLS Policies, Timestamp Label is added
-   in the MPLS header as shown in Figure 6, to collect "Receive
+   In the PLM test packets for SR-MPLS Policies, a Timestamp Label is
+   added in the MPLS header as shown in Figure 6, to collect "Receive
    Timestamp" field in the payload of the PLM test packet.  The label
    stack for the reverse SR-MPLS path can be added after the Timestamp
    Label to receive the PLM return test packet on a specific path.  When
@@ -693,22 +693,22 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6 Policies
 
    The [I-D.ietf-spring-srv6-network-programming] defines SRv6 Endpoint
-   Behaviours for SRv6 nodes.  In this document, Timestamp Endpoint
-   Function (EF) for "Timestamp and Forward (TSF)" (SRv6 Endpoint
-   Behaviour value TBD2) is defined for Segment Routing Header (SRH)
-   [RFC8754] for SRv6 data plane to enable network programming function
-   to "timestamp and forward" the received packet.
+   Behaviours (EB) for SRv6 nodes.  In this document, two new Timestamp
+   Endpoint Behaviours are defined for Segment Routing Header (SRH)
+   [RFC8754] for SRv6 data plane to enable "Timestamp and Forward (TSF)"
+   the received packet.
 
-   In the PLM test packet for SRv6 Policies, End.TSF endpoint function
-   is added for the target Segment Identifier (SID) in SRH [RFC8754] as
-   shown in Figure 7, to collect "Receive Timestamp" field in the
-   payload of the PLM test packet.  The Segment List for the reverse
-   path can be added after the target SID to receive the PLM return test
-   packet on a specific path.  When a Session-Reflector receives a
-   packet with End.TSF endpoint function for the target SID which is
-   local, after timestamping the packet at a specific offset, the
-   Session-Reflector forwards the packet using the next SID or IP header
-   in the packet (just like the data packets for the regular traffic).
+   In the PLM test packets for SRv6 Policies, Timestamp Endpoint
+   Function (End.TSF) is carried with the target Segment Identifier
+   (SID) in SRH [RFC8754] as shown in Figure 7, to collect "Receive
+   Timestamp" field in the payload of the PLM test packet.  The Segment
+   List for the reverse path can be added after the target SID to
+   receive the PLM return test packet on a specific path.  When a
+   Session-Reflector receives a packet with Timestamp Endpoint Eunction
+   (End.TSF) for the target SID which is local, after timestamping the
+   packet at a specific offset, the Session-Reflector forwards the
+   packet using the next SID or IP header in the packet (just like the
+   data packets for the regular traffic).
 
 
 
@@ -764,9 +764,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    o  Timestamp Endpoint Functions (values TBA3 and TBA4) assigned by
       IANA from the "SRv6 Endpoint Behaviors Registry".  For endpoint
-      function (value TBA3), the timestamp offset is fixed at byte-
+      behaviour (value TBA3), the timestamp offset is fixed at byte-
       offset 16 from the start of the payload for the unauthenticated
-      mode, and endpoint function (value TBA4) at byte-offset 32 from
+      mode, and endpoint behaviour (value TBA4) at byte-offset 32 from
       the start of the payload for the authenticated mode, both using
       the timestamp format 64-bit PTPv2.
 
