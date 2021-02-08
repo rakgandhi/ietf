@@ -475,7 +475,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The timestamp and error estimate fields follow the definition and
    formats defined in Section 4.1.2 in [RFC8762].  The timestamp format
-   recommended is 64-bit PTPv2 [IEEE1588].
+   used by default is 64-bit PTPv2 [IEEE1588].
 
    MBZ: Must be Zero.  It MUST be all zeroed on the transmission and
    MUST be ignored on receipt.

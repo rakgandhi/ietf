@@ -433,7 +433,7 @@
 
    <t>The timestamp and error estimate fields
    follow the definition and formats defined in Section 4.1.2 in
-   [RFC8762]. The timestamp format recommended is 64-bit PTPv2 <xref target="IEEE1588"/>.
+   [RFC8762]. The timestamp format used by default is 64-bit PTPv2 <xref target="IEEE1588"/>.
    </t> 
 
    <t>
