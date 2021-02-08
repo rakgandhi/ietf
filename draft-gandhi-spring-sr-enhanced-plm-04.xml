@@ -232,7 +232,7 @@
   <section anchor="sect-3" title="Overview">
     <section title="Loopback Mode" anchor="sect-3.1"><t>
     In loopback mode, the Session-Sender R1 initiates PLM test packets and the Session-Reflector R3
-    forwards them just like data packets for the normal traffic back to the Session-Sender R1. 
+    forwards them just like data packets for the regular traffic back to the Session-Sender R1. 
     The PLM test packets are not punted at the Session-Reflector
     and does not process them and generate PLM return test packets.
     The Session-Reflector must not drop the loopback PLM test packets, 
@@ -240,7 +240,7 @@
     No PLM test session is created on the Session-Reflector.</t>
 
     <t>The Source and Destination IP addresses in the PLM test packets are set to the Session-Reflector 
-    and the Session-Sender IP addresses, respectively (representing the reverse path).
+    and the Session-Sender IP addresses, respectively (representing the reverse direction path).
     The Source and Destination UDP ports in the PLM test packets 
     follow the procedure defined in <xref target="RFC8762"/>.  
     The IPv4 Time To Live (TTL) and IPv6 Hop Limit (HL) are set to 255.</t>
@@ -411,7 +411,7 @@
    to its transmit order.  It starts with zero and is incremented by one
    for each subsequent PLM test packet.</t>
 
-   <t>SSID: PLM Session Identifier.</t>
+   <t>SSID: PLM Session Identifier. Uses the procedure defined in <xref target="RFC8762"/>.</t>
 
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
    timestamp and error estimate for the PLM test packet,
@@ -549,7 +549,7 @@
       Timestamp Label, after timestamping the packet at a specific offset, 
       the Session-Reflector pops the Timestamp Label and forwards the
       packet using the next label or IP header in the packet (just like the 
-      data packets for the normal traffic).</t>
+      data packets for the regular traffic).</t>
 
         <figure anchor="ure-test-packet-header-for-sr-mpls-with-timestamp-label"
                 title="Example PLM Test Packet with Timestamp Label for SR-MPLS">
@@ -595,14 +595,14 @@
       Special-Purpose MPLS Values" <xref target="I-D.ietf-mpls-spl-terminology"/>. 
       For Label (value TBA1), the timestamp offset is fixed at byte-offset 16 from the start of 
       the payload for the unauthenticated mode, and Label (value TBA2) at byte-offset 
-      32 from the start of the payload for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
+      32 from the start of the payload for the authenticated mode, both using the timestamp format 64-bit PTPv2.</t>
 
     <t>Labels allocated by a Controller from the global table of the
       Session-Reflector.  The Controller provisions the label on both
       Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
     <t>Labels allocated by the Session-Reflector. The signaling and IGP flooding
-      extension for the label (including timestamp offset and timestamp format) 
+      extension for the labels (including timestamp offsets and timestamp format) 
       are outside the scope of this document.</t>
 
     </list>
@@ -613,12 +613,11 @@
       <section anchor="sect-6.1.2"
                title="Node Capability for Timestamp Label"
            toc="default">
-      <t>The Session-Sender needs 
+      <t>The PLM Session-Sender needs 
       to know if the Session-Reflector can process the Timestamp Label to avoid dropping PLM test packets. 
       The signaling extension for this capability exchange is outside the scope of this document.</t>
 
       </section>
-
       </section>
 
       <section anchor="sect-6.2"
@@ -639,7 +638,7 @@
       End.TSF function for the target SID which is local, 
       after timestamping the packet at a specific offset,
       the Session-Reflector forwards the packet using the next SID or IP header in the packet 
-      (just like the data packets for the normal traffic).</t>
+      (just like the data packets for the regular traffic).</t>
 
         <figure anchor="ure-test-packet-header-for-srv6-with-endpoint-function"
                 title="Example PLM Test Packet with Endpoint Function for SRv6">
@@ -679,13 +678,13 @@
       assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
       For endpoint function (value TBA3), the timestamp offset is fixed at byte-offset 16 from the start of 
       the payload for the unauthenticated mode, and endpoint function (value TBA4) at byte-offset 
-      32 from the start of the payload for the authenticated mode, both using timestamp format 64-bit PTPv2.</t>
+      32 from the start of the payload for the authenticated mode, both using the timestamp format 64-bit PTPv2.</t>
 
     <t>Timestamp endpoint functions assigned by a Controller.  The Controller provisions the value on both
       Session-Sender and Session-Reflector, as well as timestamp offset and timestamp format.</t>
 
     <t>Timestamp endpoint functions assigned by the Session-Reflector. The signaling and IGP flooding
-      extension for the endpoint function (including timestamp offset and timestamp format) 
+      extension for the endpoint functions (including timestamp offsets and timestamp format) 
       are outside the scope of this document.</t>
 
     </list>
@@ -695,8 +694,8 @@
       <section anchor="sect-6.2.2"
                title="Node Capability for Timestamp Endpoint Function"
            toc="default">
-      <t>The Session-Sender needs 
-      to know if the Session-Reflector can process the Timestamp Endpoint Function to enable the monitoring. 
+      <t>The PLM Session-Sender needs 
+      to know if the Session-Reflector can process the Timestamp Endpoint Function to avoid dropping PLM test packets.
       The signaling extension for this capability exchange is outside the scope of this document.</t>
       </section>
 
@@ -704,14 +703,14 @@
    </section>
 
    <section anchor="sect-7" title="Example PLM Failure Notifications" toc="default">
-      <t>Liveness or connectivity success for an SR path is initially notified as soon as one or more 
+      <t>Liveness or connectivity success for an end-to-end SR path is initially notified as soon as one or more 
       PLM return test packets are received at the Session-Sender.</t>
 
-      <t>Liveness or connectivity failure for an SR path is notified when consecutive N number of PLM return test
+      <t>Liveness or connectivity failure for an end-to-end SR path is notified when consecutive N number of PLM return test
       packets are not received at the Session-Sender, where N (Missed PLM Test Packet Count) is locally
       provisioned value.</t>
 
-      <t>The round-trip packet loss for an SR path is calculated using the Sequence Number in the PLM test packets.
+      <t>The round-trip packet loss for an end-to-end SR path is calculated using the Sequence Number in the PLM test packets.
       The packet loss metric is notified when X number of PLM test packets were lost
       out of last Y number of PLM test packets transmitted by the Session-Sender,
       where Threshold XofY is locally provisioned.</t> 
@@ -729,7 +728,7 @@
       This is also true in the case where the PLM return test packets were generated 
       by the Session-Reflector e.g. to indicate Session-Sender of a failure on the 
       forward direction path.  As such, the test packet based methods 
-      have such limitation of false detection due to reverse direction failure.</t> 
+      have a limitation of false detection due to a reverse direction failure.</t> 
 
    </section>
 
