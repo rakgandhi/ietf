@@ -178,7 +178,9 @@
         <t>ECMP: Equal Cost Multi-Path.</t>
 
         <t>EB: Endpoint Behaviour.</t>
-
+        
+        <t>HMAC: Hashed Message Authentication Code.</t>
+    
         <t>MBZ: Must be Zero.</t>
 
         <t>MPLS: Multiprotocol Label Switching.</t>
@@ -427,11 +429,10 @@
    to its transmit order.  It starts with zero and is incremented by one
    for each subsequent PLM test packet.</t>
 
-   <t>SSID: PLM Session Identifier. Uses the procedure defined in <xref target="RFC8762"/>.</t>
+   <t>SSID (16-bits): PLM Session Identifier. Uses the procedure defined in <xref target="RFC8762"/>.</t>
 
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
-   timestamp and error estimate for the PLM test packet,
-   respectively.</t>  
+   timestamp and error estimate for the PLM test packet, respectively.</t>  
    
    <t>Receive Timestamp and Receive Error Estimate are 
    the Session-Reflector's receive timestamp and error estimate, respectively.</t> 
@@ -440,6 +441,9 @@
    follow the definition and formats defined in Section 4.1.2 in
    [RFC8762]. The timestamp format used by default is 64-bit PTPv2 <xref target="IEEE1588"/>.
    </t> 
+
+   <t>
+   HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
    <t>
    MBZ: Must be Zero. It MUST be all zeroed on the transmission and MUST
@@ -758,18 +762,23 @@
       <t>The Performance and Liveness Monitoring is intended for deployment in
       the well-managed private and service provider networks. As such, it assumes
       that a node involved in a monitoring operation has previously verified
-      the integrity of the path and the identity of the Session-Reflector.
-      If desired, attacks can be mitigated by performing basic
+      the integrity of the path and the identity of the Session-Reflector.</t>
+
+      <t>If desired, attacks can be mitigated by performing basic
       validation and sanity checks, at the Session-Sender, of the timestamp
       fields in received PLM packets. The minimal state
       associated with these protocols also limits the extent of disruption
       that can be caused by a corrupt or invalid packet to a single
-      test cycle. Cryptographic
-      measures may be used by the correct configuration of access-control
-      lists and firewalls.</t>
+      test cycle. </t>
+      
+      <t>Use of HMAC-SHA-256 in the authenticated mode protects the data
+      integrity of the test packets. Cryptographic measures may 
+      be enhanced by the correct configuration
+      of access-control lists and firewalls.</t>
 
       <t>The security considerations specified in <xref target="RFC8762"/>
       also apply to the procedures defined in this document.</t> 
+
    </section>
 
    <section anchor="sect-9" title="IANA Considerations" toc="default">
