@@ -302,17 +302,17 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    PLM test packet and clears the receive (T2) timestamp.  The Session-
    Reflector adds the receive timestamp (T2) in the payload of the
    received PLM test packet in hardware without punting the packet to
-   slow path (or control-plane).  The Session-Reflector only adds the
-   receive timestamp if the source IP address (in case of SR-MPLS) or
-   destination IP address (in case of SRv6) in the PLM test packet
-   matches the local node address to ensure that the PLM test packet
-   reaches the intended Session-Reflector and the receive timestamp is
-   returned by the intended Session-Reflector.  The payload of the PLM
-   test packet is not modified by the intermediate nodes.
+   slow path (or control-plane).  The network programming function
+   enables adding of the receive timestamp (T2) at a specific offset in
+   the payload which is locally provisioned consistently in the network.
+   The payload of the PLM test packet is not modified by the
+   intermediate nodes.
 
-   The network programming function enables the Session-Reflector to add
-   receive timestamp in the payload of the PLM test packet at a specific
-   offset which is locally provisioned consistently in the network.
+   The Session-Reflector only adds the receive timestamp if the source
+   IP address (in case of SR-MPLS) or destination IP address (in case of
+   SRv6) in the PLM test packet matches the local node address to ensure
+   that the PLM test packet reaches the intended Session-Reflector and
+   the receive timestamp is returned by the intended Session-Reflector.
 
 3.3.  Example Provisioning Model
 
