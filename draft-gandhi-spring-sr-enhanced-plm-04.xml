@@ -442,7 +442,7 @@
      PLM test packets in loopback mode are used.</t>
  
      <t>For SR Policy, the PLM test packets are transmitted 
-     for each Segment List (SL) of the Candidate-Path 
+     using the Segment List (SL) of the Candidate-Path 
      <xref target="I-D.ietf-spring-segment-routing-policy"/>.
      When a Candidate-Path has more than one Segment Lists, multiple
      PLM test packets are sent, one using each Segment List. The PLM return test packets are received by
@@ -453,11 +453,10 @@
      target="I-D.ietf-pce-sr-bidir-path"/>.</t>
 
     <section anchor="sect-5.1" title="PLM for SR-MPLS Policies">
-     <t>The PLM test packets are 
-     transmitted using the MPLS header containing the label stack of the SR
-     Policy as shown in Figure 4. In case of IP/UDP
+     <t>The PLM test packets are transmitted using the MPLS header for each Label Stack of the SR-MPLS
+     Policy Candidate-Path(s) as shown in Figure 4. In case of IP/UDP
      return path, the MPLS header is removed by the Session-Reflector.
-     The label stack can contain a reverse SR-MPLS 
+     The Label Stack can contain a reverse SR-MPLS 
      path to receive the PLM return test packet on a specific path. 
      In this case, the MPLS header will not be removed
      by the Session-Reflector.</t>
@@ -497,7 +496,7 @@
    <section anchor="sect-5.2" title="PLM for SRv6 Policies">
     <t>The PLM test packets for SRv6 data plane are transmitted using the 
     Segment Routing Header (SRH) <xref target="RFC8754"/> for each 
-    Segment List of the SR Policy Candidate-Path(s) as shown in Figure 5. In case of IP/UDP
+    Segment List of the SRv6 Policy Candidate-Path(s) as shown in Figure 5. In case of IP/UDP
     return path, the SRH is removed by the Session-Reflector.
     The Segment List can contain a reverse SRv6 path to receive 
     the PLM return test packet on a specific path. In this case, the 
@@ -553,7 +552,7 @@
       <t>In the PLM test packets for SR-MPLS Policies,
       a Timestamp Label is added in the MPLS header as shown in Figure 6, to
       collect "Receive Timestamp" field in the payload of the PLM test packet. 
-      The label stack for the reverse SR-MPLS path can be added after the Timestamp 
+      The Label Stack for the reverse SR-MPLS path can be added after the Timestamp 
       Label to receive the PLM return test packet on a specific path.
       When a Session-Reflector receives a packet with
       Timestamp Label, after timestamping the packet at a specific offset, 
