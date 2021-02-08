@@ -349,13 +349,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Delay Threshold/Count (T/M)  /              \
    Packet Loss Threshold (XofY)/                \
                               v                  v
-                          +-------+           +-------+
-                          |       |           |       |
-                          |   R1  |===========|   R3  |
-                          |       |           |       |
-                          +-------+           +-------+
+                          +-------+          +-------+
+                          |       |          |       |
+                          |   R1  |==========|   R3  |
+                          |       |          |       |
+                          +-------+          +-------+
 
-                        Session-Sender     Session-Reflector
+                        Session-Sender    Session-Reflector
 
                    Figure 2: Example Provisioning Model
 
