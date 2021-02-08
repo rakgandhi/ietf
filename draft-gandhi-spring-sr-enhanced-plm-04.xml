@@ -131,7 +131,8 @@
       configuration and management model to provision and manage test sessions.
       The STAMP can be used for Performance Measurement (PM) in SR networks as well as 
       liveness monitoring and connectivity loss detection of SR paths. However, 
-      the STAMP test packets need to be punted from the forwarding path
+      the STAMP requires protocol support on the Session-Reflector to process
+      the STAMP test packets as packets need to be punted from the forwarding fast path 
       (to slow path or control plane) on the Session-Reflector and 
       STAMP reply test packets need to be generated.
       This limits the scale for number of STAMP test sessions and faster fault detection intervals.</t>
@@ -139,7 +140,7 @@
       <t>For Liveness Monitoring, Seamless Bidirectional Forwarding Detection (S-BFD)
       <xref target="RFC7880"/> can be used in SR networks.
       However, S-BFD requires protocol support on the BFD-Reflector to process
-      the S-BFD packets as packets need to be punted from the forwarding path and 
+      the S-BFD packets as packets need to be punted from the forwarding fast path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and faster fault
       detection intervals. In addition, S-BFD protocol does not have the
       capability today to enable performance measurement in a 

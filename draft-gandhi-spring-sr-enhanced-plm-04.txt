@@ -70,7 +70,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
@@ -124,17 +124,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    using configuration and management model to provision and manage test
    sessions.  The STAMP can be used for Performance Measurement (PM) in
    SR networks as well as liveness monitoring and connectivity loss
-   detection of SR paths.  However, the STAMP test packets need to be
-   punted from the forwarding path (to slow path or control plane) on
-   the Session-Reflector and STAMP reply test packets need to be
-   generated.  This limits the scale for number of STAMP test sessions
-   and faster fault detection intervals.
+   detection of SR paths.  However, the STAMP requires protocol support
+   on the Session-Reflector to process the STAMP test packets as packets
+   need to be punted from the forwarding fast path (to slow path or
+   control plane) on the Session-Reflector and STAMP reply test packets
+   need to be generated.  This limits the scale for number of STAMP test
+   sessions and faster fault detection intervals.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in SR networks.  However, S-BFD
    requires protocol support on the BFD-Reflector to process the S-BFD
-   packets as packets need to be punted from the forwarding path and
-   generate the reply packets thereby limiting the scale for number
+   packets as packets need to be punted from the forwarding fast path
+   and generate the reply packets thereby limiting the scale for number
    S-BFD sessions and faster fault detection intervals.  In addition,
    S-BFD protocol does not have the capability today to enable
    performance measurement in a network.  Enabling multiple protocols,
@@ -157,11 +158,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
-2.2.  Abbreviations
 
-   S-BFD: Seamless Bidirectional Forwarding Detection.
 
-   BSID: Binding Segment ID.
+
+
 
 
 
@@ -169,6 +169,12 @@ Gandhi, et al.           Expires August 12, 2021                [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+2.2.  Abbreviations
+
+   S-BFD: Seamless Bidirectional Forwarding Detection.
+
+   BSID: Binding Segment ID.
 
    ECMP: Equal Cost Multi-Path.
 
@@ -206,12 +212,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    SR path [RFC8402].  The SR path may be an SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
-
-
-
-
-
-
 
 
 
