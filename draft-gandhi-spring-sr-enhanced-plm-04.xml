@@ -309,9 +309,9 @@
                               +------------+
                               | Controller |
                               +------------+
- PLM Mode                         /    \      Timestamp Label/SRV6 EF
+ PLM Mode                         /    \      Timestamp Label/SRV6 EB
    LB or Enhanced Mode           /      \       Timestamp Offset
- Timestamp Label/SRv6 EF        /        \      Timestamp Format
+ Timestamp Label/SRv6 EB        /        \      Timestamp Format
    Timestamp Format            /          \
  Missed Packet Count N        /            \
  Delay Threshold/Count M     /              \      
@@ -429,8 +429,8 @@
 
    <t>The timestamp and error estimate fields
    follow the definition and formats defined in Section 4.1.2 in
-   [RFC8762].  Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/> as
-   specified in <xref target="RFC8186"/>, implemented in hardware is desired.</t> 
+   [RFC8762].  Timestamp format preferred is 64-bit PTPv2 <xref target="IEEE1588"/>,
+   implemented in hardware is desired.</t> 
 
     </section>
 
@@ -545,7 +545,7 @@
                toc="default">
       <t>In this document, two new Timestamp Labels 
       are defined for SR-MPLS data plane to enable network programming
-      function for "timestamp, pop and forward" the received packet.</t>
+      function for "timestamp, pop and forward" the received test packet.</t>
 
       <t>In the PLM test packets for SR-MPLS Policies,
       a Timestamp Label is added in the MPLS header as shown in Figure 6, to
@@ -632,8 +632,8 @@
       SRv6 Endpoint Behaviours (EB) for SRv6 nodes.
       In this document, two new Timestamp Endpoint Behaviours 
       are defined for Segment Routing Header (SRH) 
-      <xref target="RFC8754"/> for SRv6 data plane to enable
-      "Timestamp and Forward (TSF)" the received packet.</t>
+      <xref target="RFC8754"/> to enable
+      "Timestamp and Forward (TSF)" function for the received test packets.</t>
 
       <t>In the PLM test packets for SRv6 Policies,
       Timestamp Endpoint Function (End.TSF) is carried with the target Segment Identifier (SID) in SRH 
@@ -642,7 +642,7 @@
       The Segment List for the reverse path can be added after the target SID 
       to receive the PLM return test packet on a specific path.
       When a Session-Reflector receives a packet with
-      Timestamp Endpoint Eunction (End.TSF) for the target SID which is local, 
+      Timestamp Endpoint (End.TSF) for the target SID which is local, 
       after timestamping the packet at a specific offset,
       the Session-Reflector forwards the packet using the next SID or IP header in the packet 
       (just like the data packets for the regular traffic).</t>
@@ -830,7 +830,6 @@
       </reference>
 
       &RFC7880;
-      &RFC8186;
       &RFC8402;
       &RFC8754;
       &I-D.ietf-spring-segment-routing-policy;

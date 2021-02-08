@@ -95,7 +95,7 @@ Table of Contents
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -341,9 +341,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                                  +------------+
                                  | Controller |
                                  +------------+
-    PLM Mode                         /    \      Timestamp Label/SRV6 EF
+    PLM Mode                         /    \      Timestamp Label/SRV6 EB
       LB or Enhanced Mode           /      \       Timestamp Offset
-    Timestamp Label/SRv6 EF        /        \      Timestamp Format
+    Timestamp Label/SRv6 EB        /        \      Timestamp Format
       Timestamp Format            /          \
     Missed Packet Count N        /            \
     Delay Threshold/Count M     /              \
@@ -475,8 +475,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The timestamp and error estimate fields follow the definition and
    formats defined in Section 4.1.2 in [RFC8762].  Timestamp format
-   preferred is 64-bit PTPv2 [IEEE1588] as specified in [RFC8186],
-   implemented in hardware is desired.
+   preferred is 64-bit PTPv2 [IEEE1588], implemented in hardware is
+   desired.
 
 5.  PLM Procedure
 
@@ -601,7 +601,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    In this document, two new Timestamp Labels are defined for SR-MPLS
    data plane to enable network programming function for "timestamp, pop
-   and forward" the received packet.
+   and forward" the received test packet.
 
    In the PLM test packets for SR-MPLS Policies, a Timestamp Label is
    added in the MPLS header as shown in Figure 6, to collect "Receive
@@ -695,8 +695,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    The [I-D.ietf-spring-srv6-network-programming] defines SRv6 Endpoint
    Behaviours (EB) for SRv6 nodes.  In this document, two new Timestamp
    Endpoint Behaviours are defined for Segment Routing Header (SRH)
-   [RFC8754] for SRv6 data plane to enable "Timestamp and Forward (TSF)"
-   the received packet.
+   [RFC8754] to enable "Timestamp and Forward (TSF)" function for the
+   received test packets.
 
    In the PLM test packets for SRv6 Policies, Timestamp Endpoint
    Function (End.TSF) is carried with the target Segment Identifier
@@ -704,11 +704,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Timestamp" field in the payload of the PLM test packet.  The Segment
    List for the reverse path can be added after the target SID to
    receive the PLM return test packet on a specific path.  When a
-   Session-Reflector receives a packet with Timestamp Endpoint Eunction
-   (End.TSF) for the target SID which is local, after timestamping the
-   packet at a specific offset, the Session-Reflector forwards the
-   packet using the next SID or IP header in the packet (just like the
-   data packets for the regular traffic).
+   Session-Reflector receives a packet with Timestamp Endpoint (End.TSF)
+   for the target SID which is local, after timestamping the packet at a
+   specific offset, the Session-Reflector forwards the packet using the
+   next SID or IP header in the packet (just like the data packets for
+   the regular traffic).
 
 
 
@@ -959,11 +959,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
               <https://www.rfc-editor.org/info/rfc7880>.
 
-   [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
-              Timestamp Format in a Two-Way Active Measurement Protocol
-              (TWAMP)", RFC 8186, DOI 10.17487/RFC8186, June 2017,
-              <https://www.rfc-editor.org/info/rfc8186>.
-
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
@@ -998,6 +993,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
+Acknowledgments
+
+   The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
+   Kompella, and Adrian Farrel for providing the review comments.
+
 
 
 
@@ -1009,11 +1009,6 @@ Gandhi, et al.           Expires August 12, 2021               [Page 18]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
-
-Acknowledgments
-
-   The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
-   Kompella, and Adrian Farrel for providing the review comments.
 
 Authors' Addresses
 
@@ -1046,6 +1041,11 @@ Authors' Addresses
    Nokia
 
    Email: footer.foote@nokia.com
+
+
+
+
+
 
 
 
