@@ -143,8 +143,8 @@
       However, S-BFD requires protocol support on the BFD-Reflector to process
       the S-BFD packets as packets need to be punted from the forwarding fast path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and faster fault
-      detection intervals. In addition, S-BFD protocol does not have the
-      capability today to enable performance measurement in a network.</t>
+      detection intervals. In addition, S-BFD protocol is not defined to
+      enable performance measurement in a network.</t>
 
       <t>Enabling multiple protocols, S-BFD for liveness
       monitoring and STAMP for performance measurement increases

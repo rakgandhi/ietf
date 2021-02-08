@@ -138,8 +138,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packets as packets need to be punted from the forwarding fast path
    and generate the reply packets thereby limiting the scale for number
    S-BFD sessions and faster fault detection intervals.  In addition,
-   S-BFD protocol does not have the capability today to enable
-   performance measurement in a network.
+   S-BFD protocol is not defined to enable performance measurement in a
+   network.
 
    Enabling multiple protocols, S-BFD for liveness monitoring and STAMP
    for performance measurement increases the deployment and operational
