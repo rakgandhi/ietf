@@ -21,8 +21,8 @@ Abstract
 
    Segment Routing (SR) leverages the source routing paradigm.  SR is
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
-   (SRv6) data planes.  This document defines procedure for Enhanced
-   Performance and Liveness Monitoring (PLM) for end-to-end SR Paths
+   (SRv6) data planes.  This document defines procedures for Enhanced
+   Performance and Liveness Monitoring (PLM) for end-to-end SR paths
    including SR Policies for both SR-MPLS and SRv6 data planes.
 
 Status of This Memo
@@ -78,13 +78,14 @@ Table of Contents
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
    5.  PLM Procedure . . . . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  PLM for SR-MPLS . . . . . . . . . . . . . . . . . . . . .   9
-     5.2.  PLM for SRv6  . . . . . . . . . . . . . . . . . . . . . .  10
+     5.1.  PLM for SR-MPLS Policies  . . . . . . . . . . . . . . . .   9
+     5.2.  PLM for SRv6 Policies . . . . . . . . . . . . . . . . . .  10
    6.  Enhanced PLM Procedure  . . . . . . . . . . . . . . . . . . .  11
-     6.1.  Enhanced PLM with Timestamp Label for SR-MPLS . . . . . .  11
+     6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies  .  11
        6.1.1.  Timestamp Labels Allocation . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
-     6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6  .  13
+     6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6
+           Policies  . . . . . . . . . . . . . . . . . . . . . . . .  13
        6.2.1.  Timestamp Endpoint Functions Assignment . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
    7.  Example PLM Failure Notifications . . . . . . . . . . . . . .  15
@@ -105,7 +106,6 @@ Table of Contents
    in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
    through a specific, user-defined paths using a stack of Segments.
    Built-in Performance Measurement as well as Liveness Monitoring for
-   Connectivity Verification (CV) and Continuity Check (CC) are
 
 
 
@@ -114,6 +114,7 @@ Gandhi, et al.           Expires August 12, 2021                [Page 2]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   Connectivity Verification (CV) and Continuity Check (CC) are
    essential requirements to provide Service Level Agreements (SLAs) in
    SR networks.
 
@@ -123,30 +124,29 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    using configuration and management model to provision and manage test
    sessions.  The STAMP can be used for Performance Measurement (PM) in
    SR networks as well as liveness monitoring and connectivity loss
-   detection of SR Paths.  The STAMP test packets need to be punted from
-   the forwarding path (to slow path or control plane) on the Session-
-   Reflector and STAMP reply test packets need to be injected.  This
-   limits the scale for number of STAMP test sessions and fault
-   detection interval.
+   detection of SR paths.  However, the STAMP test packets need to be
+   punted from the forwarding path (to slow path or control plane) on
+   the Session-Reflector and STAMP reply test packets need to be
+   generated.  This limits the scale for number of STAMP test sessions
+   and faster fault detection intervals.
 
    For Liveness Monitoring, Seamless Bidirectional Forwarding Detection
    (S-BFD) [RFC7880] can be used in SR networks.  However, S-BFD
    requires protocol support on the BFD-Reflector to process the S-BFD
    packets as packets need to be punted from the forwarding path and
    generate the reply packets thereby limiting the scale for number
-   S-BFD sessions and fault detection interval.  In addition, S-BFD
-   protocol does not have the capability today to enable performance
-   measurement in SR networks.  Enabling multiple protocols in SR
-   networks, S-BFD for liveness monitoring and STAMP for performance
-   measurement increases the deployment and operational complexities in
-   SR networks.
+   S-BFD sessions and faster fault detection intervals.  In addition,
+   S-BFD protocol does not have the capability today to enable
+   performance measurement in a network.  Enabling multiple protocols,
+   S-BFD for liveness monitoring and STAMP for performance measurement
+   increases the deployment and operational complexities a network.
 
-   This document defines procedure for Enhanced Performance and Liveness
-   Monitoring (PLM) for end-to-end SR Paths including SR Policies for
-   both SR-MPLS and SRv6 data planes.  The procedure uses new test
-   packet formats that has the timestamps at the same location as the
-   base STAMP test packets to leverage the existing hardware support for
-   STAMP.
+   This document defines procedures for Enhanced Performance and
+   Liveness Monitoring (PLM) for end-to-end SR paths including SR
+   Policies for both SR-MPLS and SRv6 data planes.  The procedure uses
+   new test packet formats that has the timestamps at the same location
+   as the base STAMP test packets to leverage the existing hardware
+   support for STAMP.
 
 2.  Conventions Used in This Document
 
@@ -267,7 +267,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    transmit (T1) and receive (T2) timestamps in data plane are collected
    by the PLM test packets transmitted in loopback mode as shown in
    Figure 1.  The network programming function optimizes the "operations
-   of punt and inject the PLM test packet" on the Session-Reflector as
+   of punt and generate the PLM test packet" on the Session-Reflector as
    timestamping is implemented in hardware.  This helps to achieve
    higher test session scale and faster failure detection interval.
 
@@ -307,7 +307,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    test packet matches the local node address to ensure that the PLM
    test packet reaches the intended Session-Reflector and the receive
    timestamp is returned by the intended Session-Reflector.  The payload
-   of the PLM test packet is not modified by an intermediate node.
+   of the PLM test packet is not modified by the intermediate nodes.
 
    The network programming function enables the Session-Reflector to add
    receive timestamp in the payload of the PLM test packet at a specific
@@ -479,7 +479,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 5.  PLM Procedure
 
-   For performance and liveness monitoring of an end-to-end SR Path
+   For performance and liveness monitoring of an end-to-end SR path
    including SR Policy, PLM test packets in loopback mode is used.
 
    For SR Policy, the PLM test packets are transmitted using the Segment
@@ -493,7 +493,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
 
-5.1.  PLM for SR-MPLS
+5.1.  PLM for SR-MPLS Policies
 
    The PLM test packets are transmitted using the MPLS header containing
    the label stack of the SR Policy as shown in Figure 4.  In case of
@@ -538,7 +538,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                Figure 4: Example PLM Test Packet for SR-MPLS
 
-5.2.  PLM for SRv6
+5.2.  PLM for SRv6 Policies
 
    The PLM test packets for SRv6 data plane are transmitted using the
    Segment Routing Header (SRH) [RFC8754] containing the Segment List of
@@ -591,21 +591,21 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 6.  Enhanced PLM Procedure
 
    The enhanced performance and liveness monitoring of an end-to-end SR
-   Path including SR Policy is defined using the PLM test packets in
+   path including SR Policy is defined using the PLM test packets in
    loopback mode enabled with network programming function.
 
-6.1.  Enhanced PLM with Timestamp Label for SR-MPLS
+6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies
 
    In this document, new Timestamp Label is defined for SR-MPLS data
    plane to enable network programming function for "timestamp, pop and
    forward" the received packet.
 
-   In the PLM test packet for SR-MPLS, Timestamp Label is added in the
-   MPLS header as shown in Figure 6, to collect "Receive Timestamp"
-   field in the payload of the PLM test packet.  The label stack for the
-   reverse SR-MPLS path can be added after the Timestamp Label to
-   receive the PLM return test packet on a specific path.  When a
-   Session-Reflector receives a packet with Timestamp Label, after
+   In the PLM test packet for SR-MPLS Policies, Timestamp Label is added
+   in the MPLS header as shown in Figure 6, to collect "Receive
+   Timestamp" field in the payload of the PLM test packet.  The label
+   stack for the reverse SR-MPLS path can be added after the Timestamp
+   Label to receive the PLM return test packet on a specific path.  When
+   a Session-Reflector receives a packet with Timestamp Label, after
    timestamping the packet at a specific offset, the Session-Reflector
    pops the Timestamp Label and forwards the packet using the next label
    or IP header in the packet (just like the data packets for the normal
@@ -688,7 +688,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    signaling extension for this capability exchange is outside the scope
    of this document.
 
-6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6
+6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6 Policies
 
    In this document, Timestamp Endpoint function for "Timestamp and
    Forward (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for
@@ -696,8 +696,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    network programming function to "timestamp and forward" the received
    packet.
 
-   In the PLM test packet for SRv6, End.TSF function is added for the
-   target Segment Identifier (SID) in SRH [RFC8754] as shown in
+   In the PLM test packet for SRv6 Policies, End.TSF function is added
+   for the target Segment Identifier (SID) in SRH [RFC8754] as shown in
    Figure 7, to collect "Receive Timestamp" field in the payload of the
    PLM test packet.  The Segment List for the reverse path can be added
    after the target SID to receive the PLM return test packet on a
@@ -798,16 +798,16 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 7.  Example PLM Failure Notifications
 
-   Liveness or connectivity success for an SR Path is initially notified
+   Liveness or connectivity success for an SR path is initially notified
    as soon as one or more PLM return test packets are received at the
    Session-Sender.
 
-   Liveness or connectivity failure for an SR Path is notified when
+   Liveness or connectivity failure for an SR path is notified when
    consecutive N number of PLM return test packets are not received at
    the Session-Sender, where N (Missed PLM Test Packet Count) is locally
    provisioned value.
 
-   The round-trip packet loss for an SR Path is calculated using the
+   The round-trip packet loss for an SR path is calculated using the
    Sequence Number in the PLM test packets.  The packet loss metric is
    notified when X number of PLM test packets were lost out of last Y
    number of PLM test packets transmitted by the Session-Sender, where
