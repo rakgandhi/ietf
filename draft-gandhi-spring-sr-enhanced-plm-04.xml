@@ -104,9 +104,10 @@
     <abstract>
       <t>Segment Routing (SR) leverages the source routing paradigm. SR is
       applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
-      (SRv6) data planes. This document defines procedures for 
+      (SRv6) data planes.  This document defines procedures for 
       Enhanced Performance and Liveness Monitoring (PLM) 
-      for end-to-end SR paths including SR Policies for both SR-MPLS and SRv6 data planes.</t>
+      for end-to-end SR paths including SR Policies for both SR-MPLS and SRv6 data planes,
+      those reduce the deployment and operational complexities in a network.</t>
     </abstract>
   </front>
 
@@ -143,15 +144,19 @@
       the S-BFD packets as packets need to be punted from the forwarding fast path and 
       generate the reply packets thereby limiting the scale for number S-BFD sessions and faster fault
       detection intervals. In addition, S-BFD protocol does not have the
-      capability today to enable performance measurement in a 
-      network. Enabling multiple protocols, S-BFD for liveness
+      capability today to enable performance measurement in a network.</t>
+
+      <t>Enabling multiple protocols, S-BFD for liveness
       monitoring and STAMP for performance measurement increases
-      the deployment and operational complexities a network.</t>
+      the deployment and operational complexities a network.
+      Also, implementing multiple protocols in a hardware significantly 
+      increases development cost.</t>
 
       <t>This document defines procedures for 
       Enhanced Performance and Liveness Monitoring (PLM) 
-      for end-to-end SR paths including SR Policies for both SR-MPLS and SRv6 data planes.
-      The procedure uses new test packet formats that has the timestamps at the same location
+      for end-to-end SR paths including SR Policies for both SR-MPLS and SRv6 data planes, 
+      those reduce the deployment and operational complexities in a network.
+      The procedures use the new test packet formats those have the timestamps at the same location
       as the base STAMP test packets to leverage the existing hardware support for STAMP.</t>
 
     </section>
@@ -333,9 +338,9 @@
 
     <section title="PLM Test Packet Formats" anchor="sect-4"><t>
     The PLM test packet formats for unauthenticated and authenticated modes
-    are defined in this document as shown in Figure 3 that 
-    has the transmit and receive timestamps at the same location
-    as the base STAMP test packet to leverage the existing hardware support for STAMP.</t>
+    are defined in this document as shown in Figure 3 those have 
+    the transmit and receive timestamps at the same location
+    as the base STAMP test packets to leverage the existing hardware support for STAMP.</t>
 
    <figure title="PLM Test Packet Formats" anchor="ure-test-packet-format"><artwork><![CDATA[
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -673,18 +678,18 @@
 
 
     <section title="Timestamp Endpoint Functions Assignment" anchor="sect-6.2.1" toc="default"><t>
-      The timestamp endpoint functions for "Timestamp and Forward" can be signaled using one of the following methods:</t>
+      The Timestamp Endpoint Functions for "Timestamp and Forward" can be signaled using one of the following methods:</t>
 
-    <t><list style="symbols"><t>Timestamp endpoint functions (values TBA3 and TBA4) 
+    <t><list style="symbols"><t>Timestamp Endpoint Functions (values TBA3 and TBA4) 
       assigned by IANA from the "SRv6 Endpoint Behaviors Registry".
       For endpoint function (value TBA3), the timestamp offset is fixed at byte-offset 16 from the start of 
       the payload for the unauthenticated mode, and endpoint function (value TBA4) at byte-offset 
       32 from the start of the payload for the authenticated mode, both using the timestamp format 64-bit PTPv2.</t>
 
-    <t>Timestamp endpoint functions assigned by a Controller.  The Controller provisions the values on both
+    <t>Timestamp Endpoint Functions assigned by a Controller.  The Controller provisions the values on both
       Session-Sender and Session-Reflector, as well as timestamp offsets and timestamp formats.</t>
 
-    <t>Timestamp endpoint functions assigned by the Session-Reflector. The signaling and IGP flooding
+    <t>Timestamp Endpoint Functions assigned by the Session-Reflector. The signaling and IGP flooding
       extension for the endpoint functions (including timestamp offsets and timestamp formats) 
       are outside the scope of this document.</t>
 

@@ -23,7 +23,8 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document defines procedures for Enhanced
    Performance and Liveness Monitoring (PLM) for end-to-end SR paths
-   including SR Policies for both SR-MPLS and SRv6 data planes.
+   including SR Policies for both SR-MPLS and SRv6 data planes, those
+   reduce the deployment and operational complexities in a network.
 
 Status of This Memo
 
@@ -49,7 +50,6 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
 
 
 
@@ -58,6 +58,7 @@ Gandhi, et al.           Expires August 12, 2021                [Page 1]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -105,7 +106,6 @@ Table of Contents
    MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR Policies as defined
    in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
    through a specific, user-defined paths using a stack of Segments.
-   Built-in Performance Measurement as well as Liveness Monitoring for
 
 
 
@@ -114,6 +114,7 @@ Gandhi, et al.           Expires August 12, 2021                [Page 2]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   Built-in Performance Measurement as well as Liveness Monitoring for
    Connectivity Verification (CV) and Continuity Check (CC) are
    essential requirements to provide Service Level Agreements (SLAs) in
    SR networks.
@@ -138,16 +139,20 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    and generate the reply packets thereby limiting the scale for number
    S-BFD sessions and faster fault detection intervals.  In addition,
    S-BFD protocol does not have the capability today to enable
-   performance measurement in a network.  Enabling multiple protocols,
-   S-BFD for liveness monitoring and STAMP for performance measurement
-   increases the deployment and operational complexities a network.
+   performance measurement in a network.
+
+   Enabling multiple protocols, S-BFD for liveness monitoring and STAMP
+   for performance measurement increases the deployment and operational
+   complexities a network.  Also, implementing multiple protocols in a
+   hardware significantly increases development cost.
 
    This document defines procedures for Enhanced Performance and
    Liveness Monitoring (PLM) for end-to-end SR paths including SR
-   Policies for both SR-MPLS and SRv6 data planes.  The procedure uses
-   new test packet formats that has the timestamps at the same location
-   as the base STAMP test packets to leverage the existing hardware
-   support for STAMP.
+   Policies for both SR-MPLS and SRv6 data planes, those reduce the
+   deployment and operational complexities in a network.  The procedures
+   use the new test packet formats those have the timestamps at the same
+   location as the base STAMP test packets to leverage the existing
+   hardware support for STAMP.
 
 2.  Conventions Used in This Document
 
@@ -157,11 +162,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
-
-
-
-
-
 
 
 
@@ -368,9 +368,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 4.  PLM Test Packet Formats
 
    The PLM test packet formats for unauthenticated and authenticated
-   modes are defined in this document as shown in Figure 3 that has the
-   transmit and receive timestamps at the same location as the base
-   STAMP test packet to leverage the existing hardware support for
+   modes are defined in this document as shown in Figure 3 those have
+   the transmit and receive timestamps at the same location as the base
+   STAMP test packets to leverage the existing hardware support for
    STAMP.
 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -759,10 +759,10 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 6.2.1.  Timestamp Endpoint Functions Assignment
 
-   The timestamp endpoint functions for "Timestamp and Forward" can be
+   The Timestamp Endpoint Functions for "Timestamp and Forward" can be
    signaled using one of the following methods:
 
-   o  Timestamp endpoint functions (values TBA3 and TBA4) assigned by
+   o  Timestamp Endpoint Functions (values TBA3 and TBA4) assigned by
       IANA from the "SRv6 Endpoint Behaviors Registry".  For endpoint
       function (value TBA3), the timestamp offset is fixed at byte-
       offset 16 from the start of the payload for the unauthenticated
@@ -770,12 +770,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       the start of the payload for the authenticated mode, both using
       the timestamp format 64-bit PTPv2.
 
-   o  Timestamp endpoint functions assigned by a Controller.  The
+   o  Timestamp Endpoint Functions assigned by a Controller.  The
       Controller provisions the values on both Session-Sender and
       Session-Reflector, as well as timestamp offsets and timestamp
       formats.
 
-   o  Timestamp endpoint functions assigned by the Session-Reflector.
+   o  Timestamp Endpoint Functions assigned by the Session-Reflector.
       The signaling and IGP flooding extension for the endpoint
 
 
