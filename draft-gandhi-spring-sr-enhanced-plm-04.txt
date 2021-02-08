@@ -178,6 +178,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    ECMP: Equal Cost Multi-Path.
 
+   EF: Endpoint Function.
+
    MPLS: Multiprotocol Label Switching.
 
    PLM: Performance and Liveness Monitoring.
@@ -212,8 +214,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    SR path [RFC8402].  The SR path may be an SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
-
-
 
 
 
@@ -341,9 +341,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                                  +------------+
                                  | Controller |
                                  +------------+
-    PLM Mode                         /    \      Timestamp Label/SRV6 EP
+    PLM Mode                         /    \      Timestamp Label/SRV6 EF
       LB or Enhanced Mode           /      \       Timestamp Offset
-    Timestamp Label/SRv6 EP        /        \      Timestamp Format
+    Timestamp Label/SRv6 EF        /        \      Timestamp Format
       Timestamp Format            /          \
     Missed Packet Count N        /            \
     Delay Threshold/Count M     /              \
@@ -367,7 +367,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 4.  PLM Test Packet Formats
 
-   The PLM test packet formats for unauntheticated and authenticated
+   The PLM test packet formats for unauthenticated and authenticated
    modes are defined in this document as shown in Figure 3 that has the
    transmit and receive timestamps at the same location as the base
    STAMP test packet to leverage the existing hardware support for
@@ -675,13 +675,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
    o  Labels allocated by a Controller from the global table of the
-      Session-Reflector.  The Controller provisions the label on both
-      Session-Sender and Session-Reflector, as well as timestamp offset
-      and timestamp format.
+      Session-Reflector.  The Controller provisions the labels on both
+      Session-Sender and Session-Reflector, as well as timestamp offsets
+      and timestamp formats.
 
    o  Labels allocated by the Session-Reflector.  The signaling and IGP
       flooding extension for the labels (including timestamp offsets and
-      timestamp format) are outside the scope of this document.
+      timestamp formats) are outside the scope of this document.
 
 6.1.2.  Node Capability for Timestamp Label
 
@@ -692,23 +692,23 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6 Policies
 
-   In this document, Timestamp Endpoint function for "Timestamp and
-   Forward (TSF)" (SRv6 Endpoint Behaviour value TBD2) is defined for
-   Segment Routing Header (SRH) [RFC8754] for SRv6 data plane to enable
-   network programming function to "timestamp and forward" the received
-   packet.
+   The [I-D.ietf-spring-srv6-network-programming] defines SRv6 Endpoint
+   Behaviours for SRv6 nodes.  In this document, Timestamp Endpoint
+   Function (EF) for "Timestamp and Forward (TSF)" (SRv6 Endpoint
+   Behaviour value TBD2) is defined for Segment Routing Header (SRH)
+   [RFC8754] for SRv6 data plane to enable network programming function
+   to "timestamp and forward" the received packet.
 
-   In the PLM test packet for SRv6 Policies, End.TSF function is added
-   for the target Segment Identifier (SID) in SRH [RFC8754] as shown in
-   Figure 7, to collect "Receive Timestamp" field in the payload of the
-   PLM test packet.  The Segment List for the reverse path can be added
-   after the target SID to receive the PLM return test packet on a
-   specific path.  When a Session-Reflector receives a packet with
-   End.TSF function for the target SID which is local, after
-   timestamping the packet at a specific offset, the Session-Reflector
-   forwards the packet using the next SID or IP header in the packet
-   (just like the data packets for the regular traffic).
-
+   In the PLM test packet for SRv6 Policies, End.TSF endpoint function
+   is added for the target Segment Identifier (SID) in SRH [RFC8754] as
+   shown in Figure 7, to collect "Receive Timestamp" field in the
+   payload of the PLM test packet.  The Segment List for the reverse
+   path can be added after the target SID to receive the PLM return test
+   packet on a specific path.  When a Session-Reflector receives a
+   packet with End.TSF endpoint function for the target SID which is
+   local, after timestamping the packet at a specific offset, the
+   Session-Reflector forwards the packet using the next SID or IP header
+   in the packet (just like the data packets for the regular traffic).
 
 
 
@@ -771,9 +771,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
       the timestamp format 64-bit PTPv2.
 
    o  Timestamp endpoint functions assigned by a Controller.  The
-      Controller provisions the value on both Session-Sender and
-      Session-Reflector, as well as timestamp offset and timestamp
-      format.
+      Controller provisions the values on both Session-Sender and
+      Session-Reflector, as well as timestamp offsets and timestamp
+      formats.
 
    o  Timestamp endpoint functions assigned by the Session-Reflector.
       The signaling and IGP flooding extension for the endpoint
@@ -786,7 +786,7 @@ Gandhi, et al.           Expires August 12, 2021               [Page 14]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-      functions (including timestamp offsets and timestamp format) are
+      functions (including timestamp offsets and timestamp formats) are
       outside the scope of this document.
 
 6.2.2.  Node Capability for Timestamp Endpoint Function
@@ -933,18 +933,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-28 (work in
+              progress), December 2020.
+
 10.2.  Informative References
 
    [IEEE1588]
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
-
-   [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
-              Pallagatti, "Seamless Bidirectional Forwarding Detection
-              (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
-              <https://www.rfc-editor.org/info/rfc7880>.
-
 
 
 
@@ -953,6 +953,11 @@ Gandhi, et al.           Expires August 12, 2021               [Page 17]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
+              Pallagatti, "Seamless Bidirectional Forwarding Detection
+              (S-BFD)", RFC 7880, DOI 10.17487/RFC7880, July 2016,
+              <https://www.rfc-editor.org/info/rfc7880>.
 
    [RFC8186]  Mirsky, G. and I. Meilik, "Support of the IEEE 1588
               Timestamp Format in a Two-Way Active Measurement Protocol
@@ -975,12 +980,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-   [I-D.ietf-spring-srv6-network-programming]
-              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
-              Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-28 (work in
-              progress), December 2020.
-
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
               Purpose Label terminology", draft-ietf-mpls-spl-
@@ -998,6 +997,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               Extensions for Associated Bidirectional Segment Routing
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
+
 
 
 
