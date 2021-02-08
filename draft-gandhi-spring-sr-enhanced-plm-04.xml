@@ -262,7 +262,7 @@
       by the PLM test packets transmitted in loopback mode as shown in Figure 1.
       The network programming function optimizes the "operations of punt 
       and generate the PLM test packet" on the Session-Reflector 
-      as timestamping is implemented in hardware. This helps to achieve 
+      as timestamping is implemented in forwarding fast path in hardware. This helps to achieve 
       higher test session scale and faster failure detection interval.</t>
 
       <figure align="center"
@@ -289,8 +289,8 @@
       timestamp (T1) in the payload of the PLM test packet and clears the receive (T2) timestamp. 
       The Session-Reflector adds the receive timestamp (T2) in the 
       payload of the received PLM test 
-      packet in hardware without punting the packet to slow path (or control-plane).
-      The network programming function enables adding of the receive timestamp (T2)
+      packet in forwarding fast path in hardware without punting the test packet to the slow path (or control-plane).
+      The network programming function enables Session-Reflector to add the receive timestamp (T2)
       at a specific offset in the payload which is locally
       provisioned consistently in the network.
       The payload of the PLM test packet is not modified by the intermediate nodes.</t>
