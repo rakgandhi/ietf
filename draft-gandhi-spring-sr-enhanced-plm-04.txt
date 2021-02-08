@@ -342,7 +342,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
                                  | Controller |
                                  +------------+
     PLM Mode                         /    \      Timestamp Label/SRV6 EB
-      LB or Enhanced Mode           /      \       Timestamp Offset
+      Loopback or Enhanced Mode     /      \       Timestamp Offset
     Timestamp Label/SRv6 EB        /        \      Timestamp Format
       Timestamp Format            /          \
     Missed Packet Count N        /            \
@@ -403,7 +403,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
              PLM Test Packet Format in Unauthenticated Mode
 
 
-
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -442,6 +441,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                        HMAC (16 octets)                       |
+     |                                                               |
 
 
 
@@ -450,7 +450,6 @@ Gandhi, et al.           Expires August 12, 2021                [Page 8]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-     |                                                               |
      |                                                               |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -495,6 +494,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
+
 
 
 

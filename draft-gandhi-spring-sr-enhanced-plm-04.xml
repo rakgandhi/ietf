@@ -308,13 +308,13 @@
     <section title="Example Provisioning Model" anchor="sect-3.3"><t>
     An example provisioning model and typical measurement parameters are shown in Figure 2:</t>
  
-    <figure title="Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
+    <figure title="    Example Provisioning Model" anchor="ure-example-provisioning-model"><artwork><![CDATA[
 
                               +------------+
                               | Controller |
                               +------------+
  PLM Mode                         /    \      Timestamp Label/SRV6 EB
-   LB or Enhanced Mode           /      \       Timestamp Offset
+   Loopback or Enhanced Mode     /      \       Timestamp Offset
  Timestamp Label/SRv6 EB        /        \      Timestamp Format
    Timestamp Format            /          \
  Missed Packet Count N        /            \
@@ -367,7 +367,6 @@
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
 
           PLM Test Packet Format in Unauthenticated Mode
-
 
 
   0                   1                   2                   3
