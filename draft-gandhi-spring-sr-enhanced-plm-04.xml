@@ -203,6 +203,8 @@
 
         <t>SRv6: Segment Routing with IPv6 data plane.</t>
 
+        <t>SSID: Sender Session Identifier.</t>
+
         <t>STAMP: Simple Two-way Active Measurement Protocol.</t>
 
       </section>
@@ -429,7 +431,7 @@
    to its transmit order.  It starts with zero and is incremented by one
    for each subsequent PLM test packet.</t>
 
-   <t>SSID (16-bits): PLM Session Identifier. Uses the procedure defined in <xref target="RFC8762"/>.</t>
+   <t>SSID (16-bits): PLM Sender Session Identifier. Uses the procedure for SSID defined in <xref target="RFC8762"/>.</t>
 
    <t>Transmit Timestamp and Transmit Error Estimate are the Session-Sender's transmit
    timestamp and error estimate for the PLM test packet, respectively.</t>  

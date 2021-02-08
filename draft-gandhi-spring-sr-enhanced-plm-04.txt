@@ -204,6 +204,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    SRv6: Segment Routing with IPv6 data plane.
 
+   SSID: Sender Session Identifier.
+
    STAMP: Simple Two-way Active Measurement Protocol.
 
 2.3.  Reference Topology
@@ -216,8 +218,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The Session-Sender R1 and Session-Reflector R3 are connected via an
    SR path [RFC8402].  The SR path may be an SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
-   with destination to node R3 (called tail-end).
 
 
 
@@ -225,6 +225,9 @@ Gandhi, et al.           Expires August 12, 2021                [Page 4]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
+   with destination to node R3 (called tail-end).
 
                           T1
                          /
@@ -271,9 +274,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    timestamping is implemented in forwarding fast path in hardware.
    This helps to achieve higher test session scale and faster failure
    detection interval.
-
-
-
 
 
 
@@ -468,8 +468,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    according to its transmit order.  It starts with zero and is
    incremented by one for each subsequent PLM test packet.
 
-   SSID (16-bits): PLM Session Identifier.  Uses the procedure defined
-   in [RFC8762].
+   SSID (16-bits): PLM Sender Session Identifier.  Uses the procedure
+   for SSID defined in [RFC8762].
 
    Transmit Timestamp and Transmit Error Estimate are the Session-
    Sender's transmit timestamp and error estimate for the PLM test
