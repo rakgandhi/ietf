@@ -482,7 +482,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    For performance and liveness monitoring of an end-to-end SR path
    including SR Policy, PLM test packets in loopback mode are used.
 
-   For SR Policy, the PLM test packets are transmitted for each Segment
+   For SR Policy, the PLM test packets are transmitted using the Segment
    List (SL) of the Candidate-Path
    [I-D.ietf-spring-segment-routing-policy].  When a Candidate-Path has
    more than one Segment Lists, multiple PLM test packets are sent, one
@@ -495,9 +495,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 5.1.  PLM for SR-MPLS Policies
 
-   The PLM test packets are transmitted using the MPLS header containing
-   the label stack of the SR Policy as shown in Figure 4.  In case of
-   IP/UDP return path, the MPLS header is removed by the Session-
+   The PLM test packets are transmitted using the MPLS header for each
+   Label Stack of the SR Policy Candidate-Path(s) as shown in Figure 4.
+   In case of IP/UDP return path, the MPLS header is removed by the
 
 
 
@@ -506,9 +506,10 @@ Gandhi, et al.           Expires August 12, 2021                [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   Reflector.  The label stack can contain a reverse SR-MPLS path to
-   receive the PLM return test packet on a specific path.  In this case,
-   the MPLS header will not be removed by the Session-Reflector.
+   Session-Reflector.  The Label Stack can contain a reverse SR-MPLS
+   path to receive the PLM return test packet on a specific path.  In
+   this case, the MPLS header will not be removed by the Session-
+   Reflector.
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -551,7 +552,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    for upper-layer header processing for SRv6 SIDs in
    [I-D.ietf-spring-srv6-network-programming] is used to process the UDP
    header in the received PLM test packets.
-
 
 
 
@@ -602,8 +602,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    In the PLM test packets for SR-MPLS Policies, a Timestamp Label is
    added in the MPLS header as shown in Figure 6, to collect "Receive
-   Timestamp" field in the payload of the PLM test packet.  The label
-   stack for the reverse SR-MPLS path can be added after the Timestamp
+   Timestamp" field in the payload of the PLM test packet.  The Label
+   Stack for the reverse SR-MPLS path can be added after the Timestamp
    Label to receive the PLM return test packet on a specific path.  When
    a Session-Reflector receives a packet with Timestamp Label, after
    timestamping the packet at a specific offset, the Session-Reflector
