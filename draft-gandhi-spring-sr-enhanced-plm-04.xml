@@ -150,7 +150,7 @@
       monitoring and STAMP for performance measurement increases
       the deployment and operational complexities a network.
       Also, implementing multiple protocols in a hardware significantly 
-      increases development cost.</t>
+      increases the development cost.</t>
 
       <t>This document defines procedures for 
       Enhanced Performance and Liveness Monitoring (PLM) 
@@ -441,9 +441,10 @@
      <t>For performance and liveness monitoring of an end-to-end SR path including SR Policy, 
      PLM test packets in loopback mode are used.</t>
  
-     <t>For SR Policy, the PLM test packets are transmitted using the Segment Lists (SL) of the Candidate-path 
+     <t>For SR Policy, the PLM test packets are transmitted 
+     for each Segment List (SL) of the Candidate-Path 
      <xref target="I-D.ietf-spring-segment-routing-policy"/>.
-     When a Candidate-path has more than one Segment Lists, multiple
+     When a Candidate-Path has more than one Segment Lists, multiple
      PLM test packets are sent, one using each Segment List. The PLM return test packets are received by
      the Session-Sender via IP/UDP <xref target="RFC0768"/> return path by default. 
      The Segment List of the return SR path can be added in the PLM test packet header
@@ -495,15 +496,15 @@
 
    <section anchor="sect-5.2" title="PLM for SRv6 Policies">
     <t>The PLM test packets for SRv6 data plane are transmitted using the 
-    Segment Routing Header (SRH) <xref target="RFC8754"/> containing 
-    the Segment List of the SR Policy as shown in Figure 5. In case of IP/UDP
+    Segment Routing Header (SRH) <xref target="RFC8754"/> for each 
+    Segment List of the SR Policy Candidate-Path(s) as shown in Figure 5. In case of IP/UDP
     return path, the SRH is removed by the Session-Reflector.
     The Segment List can contain a reverse SRv6 path to receive 
     the PLM return test packet on a specific path. In this case, the 
     SRH will not be removed by the Session-Reflector.
     When the PLM return test packet contains an SRH at the Session-Sender,
     the procedure defined for upper-layer header processing for SRv6 SIDs
-    in [I-D.ietf-spring-srv6-network-programming] is used to process the
+    in <xref target="I-D.ietf-spring-srv6-network-programming"/> is used to process the
     UDP header in the received PLM test packets.</t>
 
         <figure anchor="ure-test-packet-header-for-srv6"
