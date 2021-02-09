@@ -72,10 +72,10 @@ Table of Contents
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Loopback Mode . . . . . . . . . . . . . . . . . . . . . .   5
-     3.2.  Loopback Mode Enabled with Network Programming Function .   5
+     3.2.  Loopback Mode Enabled with Network Programming Function .   6
      3.3.  Example Provisioning Model  . . . . . . . . . . . . . . .   6
    4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
    5.  PLM Procedure . . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -89,13 +89,14 @@ Table of Contents
            Policies  . . . . . . . . . . . . . . . . . . . . . . . .  13
        6.2.1.  Timestamp Endpoint Function Assignment  . . . . . . .  14
        6.2.2.  Node Capability for Timestamp Endpoint Function . . .  15
-   7.  Example PLM Failure Notifications . . . . . . . . . . . . . .  15
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   7.  ECMP Handling . . . . . . . . . . . . . . . . . . . . . . . .  15
+   8.  Example PLM Failure Notifications . . . . . . . . . . . . . .  15
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -105,7 +106,6 @@ Table of Contents
    (SDNs).  SR is applicable to both Multiprotocol Label Switching (SR-
    MPLS) and IPv6 (SRv6) data planes [RFC8402].  SR Policies as defined
    in [I-D.ietf-spring-segment-routing-policy] are used to steer traffic
-   through a specific, user-defined paths using a stack of Segments.
 
 
 
@@ -114,6 +114,7 @@ Gandhi, et al.           Expires August 12, 2021                [Page 2]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
+   through a specific, user-defined paths using a stack of Segments.
    Built-in Performance Measurement as well as Liveness Monitoring for
    Connectivity Verification (CV) and Continuity Check (CC) are
    essential requirements to provide Service Level Agreements (SLAs) in
@@ -160,8 +161,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119] [RFC8174]
-   when, and only when, they appear in all capitals, as shown here.
+
 
 
 
@@ -169,6 +169,9 @@ Gandhi, et al.           Expires August 12, 2021                [Page 3]
 
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
+
+   document are to be interpreted as described in [RFC2119] [RFC8174]
+   when, and only when, they appear in all capitals, as shown here.
 
 2.2.  Abbreviations
 
@@ -208,6 +211,21 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    STAMP: Simple Two-way Active Measurement Protocol.
 
+   TC: Traffic Class.
+
+   TTL: Time to Live.
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021                [Page 4]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
 2.3.  Reference Topology
 
    In the reference topology shown below, the Session-Sender R1
@@ -218,14 +236,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    The Session-Sender R1 and Session-Reflector R3 are connected via an
    SR path [RFC8402].  The SR path may be an SR Policy
-
-
-
-Gandhi, et al.           Expires August 12, 2021                [Page 4]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
 
@@ -264,6 +274,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    procedure defined in [RFC8762].  The IPv4 Time To Live (TTL) and IPv6
    Hop Limit (HL) are set to 255.
 
+
+
+
+Gandhi, et al.           Expires August 12, 2021                [Page 5]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
 3.2.  Loopback Mode Enabled with Network Programming Function
 
    In loopback mode enabled with network programming function, both
@@ -274,13 +292,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    timestamping is implemented in forwarding fast path in hardware.
    This helps to achieve higher test session scale and faster failure
    detection interval.
-
-
-
-Gandhi, et al.           Expires August 12, 2021                [Page 5]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
 
                             T1                  T2
                            /                     \
@@ -318,17 +329,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    An example provisioning model and typical measurement parameters are
    shown in Figure 2:
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -796,7 +796,25 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packets.  The signaling extension for this capability exchange is
    outside the scope of this document.
 
-7.  Example PLM Failure Notifications
+7.  ECMP Handling
+
+   An SR Policy can have ECMPs between the source and transit nodes,
+   between transit nodes and between transit and destination nodes.  The
+   PLM test packets need to be sent to traverse different ECMP paths to
+   monitor an end-to-end SR Policy.
+
+   Forwarding plane has various hashing functions available to forward
+   packets on specific ECMP paths.  In IPv4 header of the PLM test
+   packets, sweeping of Destination Address from the 127/8 range can be
+   used to exercise different IPv4 ECMP paths in both loopback modes as
+   long as the return path is also SR-MPLS.  The Flow Label field in the
+   outer IPv6 header can also be used for sweeping to exercise different
+   IPv6 ECMP paths.
+
+   When using the Destination IPv4 Address from the 127/8 range, the TTL
+   field in the IPv4 header is set to 1.
+
+8.  Example PLM Failure Notifications
 
    Liveness or connectivity success for an end-to-end SR path is
    initially notified as soon as one or more PLM return test packets are
@@ -816,6 +834,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Similarly, the delay metrics are notified, as an example, when
    consecutive M number of PLM test packets have measured delay values
    exceed user-configured threshold T, where M (Delay Exceeded Packet
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 15]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    Count) and T (Absolute and Percentage Delay Threshold) are also
    locally provisioned values.
 
@@ -831,18 +857,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    based methods have a limitation of false detection due to a reverse
    direction failure.
 
-
-
-
-
-
-
-Gandhi, et al.           Expires August 12, 2021               [Page 15]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
-8.  Security Considerations
+9.  Security Considerations
 
    The Performance and Liveness Monitoring is intended for deployment in
    the well-managed private and service provider networks.  As such, it
@@ -864,13 +879,24 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    The security considerations specified in [RFC8762] also apply to the
    procedures defined in this document.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
    (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
    mpls-label-values/mpls-label-values.xml>).  IANA is requested to
    allocate Timestamp Label value from the "Extended Special-Purpose
    MPLS Label Values" registry:
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 16]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
 
      +-------------+---------------------------------+---------------+
      | Value       | Description                     | Reference     |
@@ -889,15 +915,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Parameters" registry [I-D.ietf-spring-srv6-network-programming], the
    following allocation:
 
-
-
-
-
-Gandhi, et al.           Expires August 12, 2021               [Page 16]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
      +-------------+---------------------------------+---------------+
      | Value       | Endpoint Behavior               | Reference     |
      +-------------+---------------------------------+---------------+
@@ -911,9 +928,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      +-------------+---------------------------------+---------------+
 
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [RFC0768]  Postel, J., "User Datagram Protocol", STD 6, RFC 768,
               DOI 10.17487/RFC0768, August 1980,
@@ -928,6 +945,15 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 17]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
               DOI 10.17487/RFC8762, March 2020,
@@ -939,20 +965,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               draft-ietf-spring-srv6-network-programming-28 (work in
               progress), December 2020.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [IEEE1588]
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
-
-
-
-
-Gandhi, et al.           Expires August 12, 2021               [Page 17]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
 
    [RFC7880]  Pignataro, C., Ward, D., Akiya, N., Bhatia, M., and S.
               Pallagatti, "Seamless Bidirectional Forwarding Detection
@@ -980,6 +998,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
               Purpose Label terminology", draft-ietf-mpls-spl-
               terminology-06 (work in progress), January 2021.
 
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 18]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    [I-D.ietf-pce-binding-label-sid]
               Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
               Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
@@ -997,18 +1027,6 @@ Acknowledgments
 
    The authors would like to thank Greg Mirsky, Mach Chen, Kireeti
    Kompella, and Adrian Farrel for providing the review comments.
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 12, 2021               [Page 18]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
 
 Authors' Addresses
 
@@ -1037,6 +1055,17 @@ Authors' Addresses
    Email: Moses.Nagarajah@team.telstra.com
 
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 19]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    Richard Foote
    Nokia
 
@@ -1061,4 +1090,31 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 12, 2021               [Page 20]
