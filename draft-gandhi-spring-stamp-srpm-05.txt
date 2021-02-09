@@ -214,7 +214,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    TC: Traffic Class.
 
-   TTL: Time to Live.
+   TTL: Time To Live.
 
 
 
