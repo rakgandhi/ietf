@@ -208,9 +208,9 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    an un-intended node may transmit reply test packets resulting in
    reporting of invalid measurement metrics.
 
-   In this document, "Destination Node Address" TLV (Type TBA1) is
-   defined for STAMP test packet [RFC8972] and has the following format
-   shown in Figure 1:
+   In this document, Destination Node Address TLV (Type TBA1) is defined
+   for STAMP test packet [RFC8972] and has the following format shown in
+   Figure 1:
 
 
 
@@ -233,7 +233,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | Reserved                      | Address Family                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ~                           Address                             ~
+    .                           Address                             .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                Figure 1: Destination Node Address TLV Format
@@ -245,11 +245,11 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The "Destination Node Address" TLV is optional.  The "Destination
-   Node Address" TLV indicates the address of the intended destination
-   node of the test packet.  The STAMP Session-Reflector that supports
-   this TLV, MUST NOT transmit reply test packet if it is not the
-   intended destination node of the received test packet.
+   The Destination Node Address TLV is optional.  The Destination Node
+   Address TLV indicates the address of the intended destination node of
+   the test packet.  The STAMP Session-Reflector that supports this TLV,
+   MUST NOT transmit reply test packet if it is not the intended
+   destination node of the received test packet.
 
 4.  Return Path TLV
 
@@ -271,8 +271,8 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
-   for "Return Path" TLV that carries return path for STAMP test packet.
-   The format of the "Return Path" TLV is shown in Figure 2:
+   for Return Path TLV that carries return path for STAMP test packet.
+   The format of the Return Path TLV is shown in Figure 2:
 
 
 
@@ -288,7 +288,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
     |STAMP TLV Flags|   Type=TBA2   |         Length                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                   Return Path Sub-TLVs                        |
-    ~                                                               ~
+    .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                          Figure 2: Return Path TLV
@@ -296,16 +296,16 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    The STAMP TLV Flags are set using the procedures described in
    [RFC8972].
 
-   The "Return Path" TLV is optional.  The STAMP Session-Sender MUST
-   only insert one "Return Path" TLV in the STAMP test packet.  The
-   STAMP Session-Reflector that supports this TLV, MUST only process the
-   first "Return Path" TLV in the test packet and ignore other "Return
-   Path" TLVs if present, and it MUST NOT add "Return Path" TLV in the
-   reply test packet.
+   The Return Path TLV is optional.  The STAMP Session-Sender MUST only
+   insert one Return Path TLV in the STAMP test packet.  The STAMP
+   Session-Reflector that supports this TLV, MUST only process the first
+   Return Path TLV in the test packet and ignore other Return Path TLVs
+   if present, and it MUST NOT add Return Path TLV in the reply test
+   packet.
 
 4.1.  Return Path Sub-TLVs
 
-   The "Return Path" TLV contains one or more Sub-TLVs to carry the
+   The Return Path TLV contains one or more Sub-TLVs to carry the
    information for the requested return path.  A Return Path Sub-TLV can
    either carry Return Path Control Code, Return Path IP Address or
    Return Path Segment List.
@@ -316,7 +316,7 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    When Return Path Sub-TLV is present in the Session-Sender test
    packet, the STAMP Session-Reflector that supports this TLV, MUST
    transmit reply test packet using the return path information
-   specified in the "Return Path" Sub-TLV.
+   specified in the Return Path Sub-TLV.
 
 4.1.1.  Return Path Control Code Sub-TLV
 
@@ -401,14 +401,14 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | Reserved                      | Address Family                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    ~                           Address                             ~
+    .                           Address                             .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             Figure 4: Return Address Sub-TLV in Return Path TLV
 
 4.1.3.  Return Segment List Sub-TLVs
 
-   The format of the Segment List Sub-TLVs in the "Return Path" TLV is
+   The format of the Segment List Sub-TLVs in the Return Path TLV is
    shown in Figure 5.  The segment entries MUST be in network order.
    The Segment List Sub-TLV can be one of the following Types:
 
@@ -474,14 +474,14 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 6.  IANA Considerations
 
    IANA will create a "STAMP TLV Type" registry for [RFC8972].  IANA is
-   requested to allocate a value for the following "Destination Address"
+   requested to allocate a value for the following Destination Address
    TLV Type from the IETF Review TLV range of this registry.  This TLV
    is to be carried in the test packets.
 
    o  Type TBA1: Destination Node Address TLV
 
-   IANA is also requested to allocate a value for the following "Return
-   Path" TLV Type from the IETF Review TLV range of the same registry.
+   IANA is also requested to allocate a value for the following Return
+   Path TLV Type from the IETF Review TLV range of the same registry.
    This TLV is to be carried in the test packets.
 
    o  Type TBA2: Return Path TLV
