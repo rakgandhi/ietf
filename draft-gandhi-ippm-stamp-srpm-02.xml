@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="05" month="February" year="2021"/>
+    <date day="09" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -273,8 +273,10 @@
    and it MUST NOT add "Return Path" TLV in the reply test packet.</t>
 
    <section title="Return Path Sub-TLVs" anchor="sect-4.1">
-   <t>The "Return Path" TLV contains one or more Sub-TLVs to carry the information for the requested return path. 
-   A Return Path Sub-TLV can either carry Return Path Control Code, Return Address or Return Segment List.</t>
+   <t>The "Return Path" TLV contains one or more Sub-TLVs to carry 
+   the information for the requested return path. 
+   A Return Path Sub-TLV can either carry Return Path Control Code, 
+   Return Path IP Address or Return Path Segment List.</t>
 
    <t>The STAMP Sub-TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
@@ -304,7 +306,7 @@
 ]]></artwork>
     </figure>
 
-    <t>Return Path Control Code Field (32-bit): Flags defined as follows.</t>
+    <t>Control Code Flags (32-bit): Defined as follows.</t>
 
     <t><list hangIndent="4" style="hanging"><t>
        0x0: No Reply Requested.</t>
@@ -312,21 +314,19 @@
     </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x1: In-band Reply Requested.  Indicates that this STAMP Session-Sender test packet has
-       been sent over a bidirectional channel and the reply is requested
-       in-band over the same incoming link in the reverse direction.</t> 
+       0x1: In-band Reply Requested.</t> 
     </list>
     </t>
 
-    <t>When Return Path Control Code field is set to 0x0 in the received STAMP 
-   test packet, the Session-Reflector does not
-   transmit reply test packet back to the Session-Sender and terminates the
-   test session. The Session-Reflector may locally send performance metrics
-   via streaming telemetry using the information from the received test packet.</t>
+    <t>When Control Code flag is set to 0x0 in the STAMP Session-Sender test packet, 
+    the Session-Reflector does not
+    transmit reply test packet to the Session-Sender and terminates the
+    STAMP test packet. Optionally, the Session-Reflector may locally stream performance metrics
+    via telemetry using the information from the received test packet.</t>
 
-   <t>When Return Path Control Code field is set to 0x1 in the received STAMP test packet, 
-   the Session-Reflector transmits the reply test packet on the same incoming link 
-   where the test packet is received.</t>
+    <t>When Control Code flag is set to 0x1 in the STAMP Session-Sender test packet, 
+    the Session-Reflector transmits the reply test packet in-band over the same incoming link 
+    where the test packet is received in the reverse direction. </t>
 
     </section>
 
