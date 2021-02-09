@@ -807,12 +807,11 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    packets on specific ECMP paths.  In IPv4 header of the PLM test
    packets, sweeping of Destination Address from the 127/8 range can be
    used to exercise different IPv4 ECMP paths in both loopback modes as
-   long as the forward and the return paths are SR-MPLS paths.  The Flow
-   Label field in the outer IPv6 header can also be used for sweeping to
-   exercise different IPv6 ECMP paths.
+   long as the forward and the return paths are SR-MPLS paths.  In this
+   case, the TTL field in the IPv4 header is set to 1.
 
-   When using the Destination IPv4 Address from the 127/8 range, the TTL
-   field in the IPv4 header is set to 1.
+   The Flow Label field in the outer IPv6 header can also be used for
+   sweeping to exercise different IPv6 ECMP paths.
 
 8.  Example PLM Failure Notifications
 
@@ -834,6 +833,7 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    Similarly, the delay metrics are notified, as an example, when
    consecutive M number of PLM test packets have measured delay values
    exceed user-configured threshold T, where M (Delay Exceeded Packet
+
 
 
 
