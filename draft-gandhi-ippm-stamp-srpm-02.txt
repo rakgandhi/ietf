@@ -142,8 +142,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
 2.2.  Abbreviations
 
-   HMAC: Hashed Message Authentication Code.
-
    MPLS: Multiprotocol Label Switching.
 
    PM: Performance Measurement.
@@ -161,6 +159,8 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    SSID: STAMP Session Identifier.
 
    STAMP: Simple Two-way Active Measurement Protocol.
+
+
 
 
 
@@ -597,7 +597,8 @@ Acknowledgments
    The authors would like to thank Thierry Couture for the discussions
    on the use-cases for Performance Measurement in Segment Routing.  The
    authors would also like to thank Greg Mirsky, Mike Koldychev, Gyan
-   Mishra, and Cheng Li for providing comments and suggestions.
+   Mishra, Tianran Zhou, and Cheng Li for providing comments and
+   suggestions.
 
 Authors' Addresses
 
@@ -606,7 +607,6 @@ Authors' Addresses
    Canada
 
    Email: rgandhi@cisco.com
-
 
 
 

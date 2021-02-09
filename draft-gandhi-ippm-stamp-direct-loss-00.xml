@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="04" month="February" year="2021"/>
+    <date day="08" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
@@ -172,13 +172,16 @@
    LM: Loss Measurement.</t>
 
     <t>
+   MBZ: Must be Zero.</t>
+   
+    <t>
    PM: Performance Measurement.</t>
 
     <t>
    SHA: Secure Hash Algorithm.</t>
 
     <t>
-   SSID: DM Session Identifier.</t>
+   SSID: Sender Session Identifier.</t>
 
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
@@ -339,18 +342,19 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   SSID (16-bit): DM Session Identifier. Follows the same procedure as SSID 
+   SSID (16-bit): DM Sender Session Identifier. Follows the same procedure as SSID 
     defined in <xref target="RFC8972"/>.</t>
 
     <t>
-   The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
+   HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
     <t>
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.</t>
 
     <t>
-   MBZ: As defined in <xref target="RFC8762"/>.</t>
+   MBZ: Must be Zero.  It MUST be all zeroed on the transmission and MUST
+   be ignored on receipt.</t>
 
     </section>
 
