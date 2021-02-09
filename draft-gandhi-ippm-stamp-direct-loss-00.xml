@@ -70,7 +70,7 @@
     </address>
     </author>
 
-    <date day="08" month="February" year="2021"/>
+    <date day="09" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
@@ -342,8 +342,8 @@
    is carried by the DM test packet and reply test packet.</t>
 
     <t>
-   SSID (16-bit): DM Sender Session Identifier. Follows the same procedure as SSID 
-    defined in <xref target="RFC8972"/>.</t>
+   SSID (16-bit): DM Sender Session Identifier. Follows the procedure defined for SSID 
+    in <xref target="RFC8972"/>.</t>
 
     <t>
    HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
@@ -554,11 +554,11 @@
     &RFC2119;
     &RFC8174;
     &RFC8762;
-    &RFC8972;
     </references>
     <references title="Informative References">
     &RFC2680;
     &RFC8321;
+    &RFC8972;
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan Mishra, 
