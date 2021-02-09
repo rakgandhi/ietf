@@ -4,7 +4,7 @@
 
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
-Intended status: Standards Track                     Cisco Systems, Inc.
+Intended status: Informational                       Cisco Systems, Inc.
 Expires: August 13, 2021                                        D. Voyer
                                                              Bell Canada
                                                                  M. Chen
@@ -312,8 +312,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    Example of the Timestamp Format is PTPv2 [IEEE1588] and NTP.  Example
    of Delay Measurement Mode is one-way, two-way and loopback mode as
-   defined in this document.  Example of Packet Loss Type is test packet
-   loss and data packet loss (i.e. direct measurement).
+   described in this document.  Example of Packet Loss Type is test
+   packet loss and data packet loss (i.e. direct measurement).
 
    When using the authenticated mode for delay measurement, the matching
    Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
@@ -527,7 +527,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 4.2.1.  One-way Delay Measurement Mode
 
-   In one-way delay measurement mode, a reply test packet as defined in
+   In one-way delay measurement mode, a reply test packet as shown in
    Figure 5 is transmitted by the STAMP Session-Reflector, for both
    links and SR Policies.  The reply test packet may be transmitted on
    the same path or a different path in the reverse direction.
@@ -690,7 +690,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The procedures for delay measurement described in this document for
    P2P SR Policies are also equally applicable to the P2MP SR Policies.
-   The procedure for one-way delay measurement mode is defined as
+   The procedure for one-way delay measurement mode is described as
    following:
 
    o  The STAMP Session-Sender root node transmits test packets using
@@ -747,7 +747,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
                                 MPLS Policy
 
    The STAMP Session-Sender test packets can also be transmitted using
-   the scheme defined for P2MP Transport using Chain Replication that
+   the scheme described for P2MP Transport using Chain Replication that
    may contain Bud SID as defined in
    [I-D.shen-spring-p2mp-transport-chain].
 
@@ -757,7 +757,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 4.4.  Additional STAMP Test Packet Processing Rules
 
-   The processing rules defined in this section are applicable to the
+   The processing rules described in this section are applicable to the
    STAMP test packets for links and end-to-end SR paths including SR
    Policies.
 
@@ -801,10 +801,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 5.  Test Packet Loss Measurement for Links and SR Paths
 
    The test packet loss measurement is applicable to infer data packet
-   loss in an SR network.  The procedure defined in Section 4 for delay
-   measurement using STAMP test packets is used to detect packet loss
-   for links and end-to-end SR paths.  The Sequence Number field in the
-   STAMP test packet is used as described in Section 4 "Theory of
+   loss in an SR network.  The procedure described in Section 4 for
+   delay measurement using STAMP test packets is used to detect packet
+   loss for links and end-to-end SR paths.  The Sequence Number field in
+   the STAMP test packet is used as described in Section 4 "Theory of
    Operation" of [RFC8762], to detect forward, reverse and round-trip
    packet loss.
 
@@ -815,7 +815,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    can be used to detect data packet loss for links and end-to-end SR
    paths.  The STAMP test packets with this TLV are sent to collect the
    transmit and receive counters for the data traffic flow under
-   measurement, using the procedures defined in Section 4.
+   measurement, using the procedures described in Section 4.
 
    The PSID carried in the received data packet for the traffic flow
    under measurement can be used to measure receive data packets for
@@ -825,13 +825,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 7.  Session State for Links and SR Paths
 
-   The STAMP test session state allows to infer connectivity loss
-   detection in an SR network.  The STAMP test session state initially
-   is declared succeeded when one or more reply test packets are
-   received at the STAMP Session-Sender.  The STAMP test session state
-   is declared failed when consecutive N number of reply test packets
-   are not received at the STAMP Session-Sender, where N is locally
-   provisioned value.
+   The STAMP test session state allows to know if the performance
+   measurement is active in an SR network.  The STAMP test session state
+   initially is declared succeeded when one or more reply test packets
+   are received at the STAMP Session-Sender.  The STAMP test session
+   state is declared failed when consecutive N number of reply test
+   packets are not received at the STAMP Session-Sender, where N is
+   locally provisioned value.
 
 
 
@@ -902,7 +902,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    firewalls.
 
    The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the procedures defined in this document.
+   apply to the procedures described in this document.
 
 10.  IANA Considerations
 
@@ -1067,7 +1067,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
    providing useful comments and suggestions.  Patrick Khordoc and Radu
-   Valceanu have helped improve the mechanisms defined in this document.
+   Valceanu have helped improve the mechanisms described in this
+   document.
 
 Authors' Addresses
 
@@ -1100,7 +1101,6 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
-
 
 
 
