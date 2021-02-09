@@ -200,7 +200,7 @@
     an un-intended node may transmit reply test packets resulting 
     in reporting of invalid measurement metrics.</t>
 
-    <t>In this document, "Destination Node Address" TLV (Type TBA1) 
+    <t>In this document, Destination Node Address TLV (Type TBA1) 
     is defined for STAMP test packet <xref target="RFC8972"/> 
     and has the following format shown in Figure 1:</t>
 
@@ -213,7 +213,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Reserved                      | Address Family                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ~                           Address                             ~
+ .                           Address                             .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -223,8 +223,8 @@
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The "Destination Node Address" TLV is optional.  The "Destination Node
-   Address" TLV indicates the address of the intended destination node of the
+   <t>The Destination Node Address TLV is optional.  The Destination Node
+   Address TLV indicates the address of the intended destination node of the
    test packet.  The STAMP Session-Reflector that supports this TLV,
    MUST NOT transmit reply test packet if it
    is not the intended destination node of the received test packet.</t>
@@ -248,8 +248,8 @@
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
-   defined in this document for "Return Path" TLV that carries return path for STAMP
-   test packet. The format of the "Return Path" TLV is shown in Figure 2:</t>
+   defined in this document for Return Path TLV that carries return path for STAMP
+   test packet. The format of the Return Path TLV is shown in Figure 2:</t>
 
     <figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
  0                   1                   2                   3
@@ -258,22 +258,22 @@
  |STAMP TLV Flags|   Type=TBA2   |         Length                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                   Return Path Sub-TLVs                        |
- ~                                                               ~
+ .                                                               .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
 
    <t>The STAMP TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
 
-   <t>The "Return Path" TLV is optional. The STAMP Session-Sender MUST only insert
-   one "Return Path" TLV in the STAMP test packet.
+   <t>The Return Path TLV is optional. The STAMP Session-Sender MUST only insert
+   one Return Path TLV in the STAMP test packet.
    The STAMP Session-Reflector that supports this TLV,
-   MUST only process the first "Return Path" TLV in the test
-   packet and ignore other "Return Path" TLVs if present, 
-   and it MUST NOT add "Return Path" TLV in the reply test packet.</t>
+   MUST only process the first Return Path TLV in the test
+   packet and ignore other Return Path TLVs if present, 
+   and it MUST NOT add Return Path TLV in the reply test packet.</t>
 
    <section title="Return Path Sub-TLVs" anchor="sect-4.1">
-   <t>The "Return Path" TLV contains one or more Sub-TLVs to carry 
+   <t>The Return Path TLV contains one or more Sub-TLVs to carry 
    the information for the requested return path. 
    A Return Path Sub-TLV can either carry Return Path Control Code, 
    Return Path IP Address or Return Path Segment List.</t>
@@ -283,7 +283,7 @@
    <t>When Return Path Sub-TLV is present in the Session-Sender test packet,
    the STAMP Session-Reflector that supports this TLV,
    MUST transmit reply test packet using the return path information 
-   specified in the "Return Path" Sub-TLV.</t>
+   specified in the Return Path Sub-TLV.</t>
 
    <section title="Return Path Control Code Sub-TLV" anchor="sect-4.1.1">
     <t>The format of the Return Path Control Code Sub-TLV is shown in Figure 3. The Type of the Return Path 
@@ -355,7 +355,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Reserved                      | Address Family                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ~                           Address                             ~
+ .                           Address                             .
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -363,7 +363,7 @@
     </section>
 
    <section title="Return Segment List Sub-TLVs" anchor="sect-4.1.3">
-    <t>The format of the Segment List Sub-TLVs in the "Return Path" TLV is shown in Figure 5.
+    <t>The format of the Segment List Sub-TLVs in the Return Path TLV is shown in Figure 5.
     The segment entries MUST be in network order. 
     The Segment List Sub-TLV can be one of the following Types:</t>
 
@@ -433,7 +433,7 @@
     <section title="IANA Considerations" anchor="sect-6"><t>
    IANA will create a "STAMP TLV Type" registry for <xref target="RFC8972"/>. 
    IANA is requested to allocate a value for the following 
-   "Destination Address" TLV Type from the IETF Review TLV range of this registry. 
+   Destination Address TLV Type from the IETF Review TLV range of this registry. 
    This TLV is to be carried in the test packets.</t>
 
     <t><list style="symbols"><t>Type TBA1: Destination Node Address TLV</t>
@@ -442,7 +442,7 @@
     </t>
 
    <t>IANA is also requested to allocate a value for the following 
-   "Return Path" TLV Type from the IETF Review TLV range of the same registry. 
+   Return Path TLV Type from the IETF Review TLV range of the same registry. 
    This TLV is to be carried in the test packets.</t>
 
     <t><list style="symbols"><t>Type TBA2: Return Path TLV</t>
