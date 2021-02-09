@@ -260,7 +260,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    For performance measurement in SR networks, the STAMP test packets
    defined in [RFC8762] and its optional extensions defined in [RFC8972]
    and [I-D.gandhi-ippm-stamp-srpm] are used as described in this
-   document.
+   document.  The procedures allow to measure one-way, two-way and
+   round-trip delay as well as packet loss metrics in an SR network.
 
    For performance delay and packet loss measurement, STAMP Session-
    Sender test packets are transmitted in-band on the same path as the
@@ -273,7 +274,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    A destination UDP port number is selected as described in [RFC8762].
    The same destination UDP port is used for link and end-to-end SR path
    STAMP test sessions.
-
 
 
 
