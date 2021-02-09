@@ -186,6 +186,8 @@
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
 
+   <t>TTL: Time To Live.</t>
+ 
     </section>
 
     <section title="Reference Topology" anchor="sect-2.3"><t>

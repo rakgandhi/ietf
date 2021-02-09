@@ -209,7 +209,7 @@
 
         <t>TC: Traffic Class.</t>
 
-        <t>TTL: Time to Live.</t>
+        <t>TTL: Time To Live.</t>
 
       </section>
 
@@ -772,7 +772,7 @@
       In loopback mode enabled with network programming function, the timestamps T1 and T2 are used
       to measure one-way delay.</t>
 
-      <t>In loopback mode, a failure on the reverse direction path can cause 
+      <t>In both loopback modes, a failure on the reverse direction path can cause 
       the PLM return test packets to not reach the Session-Sender.
       This is also true in the case where the PLM return test packets were generated 
       by the Session-Reflector e.g. to indicate Session-Sender of a failure on the 
