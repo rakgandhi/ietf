@@ -82,7 +82,7 @@
     </address>
     </author>
 
-    <date day="08" month="February" year="2021"/>
+    <date day="09" month="February" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -297,7 +297,7 @@
 
     <t>Example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> and NTP. 
     Example of Delay Measurement Mode is one-way, two-way and loopback mode as defined in this document.
-    Example of Packet Loss Type is test packet loss and direct measurement for data packet loss.</t>
+    Example of Packet Loss Type is test packet loss and data packet loss (i.e. direct measurement).</t>
 
     <t>When using the authenticated mode for delay measurement, the matching
     Authentication Type (e.g. HMAC-SHA-256) and Key are user-configured
@@ -393,10 +393,10 @@
  +---------------------------------------------------------------+
 ]]></artwork>
     </figure>
-   <t>The Segment List (SL) can be empty in case of single-hop SR Policy with Implicit NULL label. </t>
+   <t>The Segment List (SL) can be empty in case of a single-hop SR-MPLS Policy with Implicit NULL label. </t>
 
    <t>The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> of
-   the SR-MPLS Policy can be carried in the MPLS header as shown in Figure 3.</t>
+   an SR-MPLS Policy can be carried in the MPLS header as shown in Figure 3.</t>
 
     </section>
 
@@ -480,8 +480,7 @@
    In one-way delay measurement mode, a reply test packet
    as defined in Figure 5 is transmitted by the STAMP Session-Reflector,
    for both links and SR Policies.  The reply test packet may be transmitted on the same path 
-   or a different path in the reverse direction.		   
-  </t>
+   or a different path in the reverse direction.</t>
 
    <t>The STAMP Session-Sender address may not
    be reachable via IP route from the STAMP Session-Reflector.  The STAMP Session-Sender
@@ -496,8 +495,8 @@
     </section>
 
    <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
-   In two-way delay measurement mode, 
-   a reply test packet as shown in Figure 5 is transmitted by the STAMP Session-Reflector 
+   In two-way delay measurement mode, a reply test packet as shown in 
+   Figure 5 is transmitted by the STAMP Session-Reflector 
    in-band on the same path in the reverse direction, 
    e.g. on the reverse direction link or associated reverse SR path
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.</t>
@@ -818,8 +817,8 @@
     &RFC8174;
     &RFC8762;
     &RFC8972;
-    &I-D.ietf-spring-srv6-network-programming;
     &I-D.gandhi-ippm-stamp-srpm;        
+    &I-D.ietf-spring-srv6-network-programming;
     </references>
     <references title="Informative References">
     <reference anchor="IEEE1588"><front>
@@ -844,8 +843,8 @@
     &I-D.ietf-pim-sr-p2mp-policy;
     &I-D.ietf-spring-mpls-path-segment;
     &I-D.ietf-spring-srv6-path-segment;
-    &I-D.ietf-ippm-stamp-yang;
     &I-D.ietf-pce-sr-bidir-path;
+    &I-D.ietf-ippm-stamp-yang;
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Thierry Couture for the discussions

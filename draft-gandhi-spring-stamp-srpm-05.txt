@@ -5,13 +5,13 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: August 12, 2021                                        D. Voyer
+Expires: August 13, 2021                                        D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
-                                                       February 08, 2021
+                                                       February 09, 2021
 
 
  Performance Measurement Using Simple TWAMP (STAMP) for Segment Routing
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 12, 2021.
+   This Internet-Draft will expire on August 13, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 1]
+Gandhi, et al.           Expires August 13, 2021                [Page 1]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 2]
+Gandhi, et al.           Expires August 13, 2021                [Page 2]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -165,7 +165,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 3]
+Gandhi, et al.           Expires August 13, 2021                [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -221,7 +221,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 4]
+Gandhi, et al.           Expires August 13, 2021                [Page 4]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -277,7 +277,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 5]
+Gandhi, et al.           Expires August 13, 2021                [Page 5]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -313,7 +313,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Example of the Timestamp Format is PTPv2 [IEEE1588] and NTP.  Example
    of Delay Measurement Mode is one-way, two-way and loopback mode as
    defined in this document.  Example of Packet Loss Type is test packet
-   loss and direct measurement for data packet loss.
+   loss and data packet loss (i.e. direct measurement).
 
    When using the authenticated mode for delay measurement, the matching
    Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
@@ -333,7 +333,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 6]
+Gandhi, et al.           Expires August 13, 2021                [Page 6]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -389,7 +389,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 7]
+Gandhi, et al.           Expires August 13, 2021                [Page 7]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -424,11 +424,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
       Figure 3: Example Session-Sender Test Packet for SR-MPLS Policy
 
-   The Segment List (SL) can be empty in case of single-hop SR Policy
-   with Implicit NULL label.
+   The Segment List (SL) can be empty in case of a single-hop SR-MPLS
+   Policy with Implicit NULL label.
 
    The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of the SR-MPLS Policy can be
+   [I-D.ietf-spring-mpls-path-segment] of an SR-MPLS Policy can be
    carried in the MPLS header as shown in Figure 3.
 
 4.1.2.2.  Session-Sender Test Packet for SRv6 Policies
@@ -445,7 +445,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 8]
+Gandhi, et al.           Expires August 13, 2021                [Page 8]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021                [Page 9]
+Gandhi, et al.           Expires August 13, 2021                [Page 9]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 10]
+Gandhi, et al.           Expires August 13, 2021               [Page 10]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -613,7 +613,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 11]
+Gandhi, et al.           Expires August 13, 2021               [Page 11]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -669,7 +669,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 12]
+Gandhi, et al.           Expires August 13, 2021               [Page 12]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -725,7 +725,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 13]
+Gandhi, et al.           Expires August 13, 2021               [Page 13]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -781,7 +781,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 14]
+Gandhi, et al.           Expires August 13, 2021               [Page 14]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -837,7 +837,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 15]
+Gandhi, et al.           Expires August 13, 2021               [Page 15]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -893,7 +893,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 16]
+Gandhi, et al.           Expires August 13, 2021               [Page 16]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -936,29 +936,29 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC8972, January 2021,
               <https://www.rfc-editor.org/info/rfc8972>.
 
-   [I-D.ietf-spring-srv6-network-programming]
-              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
-              Matsushima, S., and Z. Li, "SRv6 Network Programming",
-              draft-ietf-spring-srv6-network-programming-28 (work in
-              progress), December 2020.
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 12, 2021               [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    [I-D.gandhi-ippm-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Simple TWAMP (STAMP) Extensions for Segment
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
+
+   [I-D.ietf-spring-srv6-network-programming]
+              Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
+              Matsushima, S., and Z. Li, "SRv6 Network Programming",
+              draft-ietf-spring-srv6-network-programming-28 (work in
+              progress), December 2020.
 
 11.2.  Informative References
 
@@ -1005,7 +1005,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 18]
+Gandhi, et al.           Expires August 13, 2021               [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -1040,17 +1040,17 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-srv6-path-segment-00 (work in progress),
               November 2020.
 
-   [I-D.ietf-ippm-stamp-yang]
-              Mirsky, G., Min, X., and W. Luo, "Simple Two-way Active
-              Measurement Protocol (STAMP) Data Model", draft-ietf-ippm-
-              stamp-yang-06 (work in progress), October 2020.
-
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
               "Path Computation Element Communication Protocol (PCEP)
               Extensions for Associated Bidirectional Segment Routing
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
+
+   [I-D.ietf-ippm-stamp-yang]
+              Mirsky, G., Min, X., and W. Luo, "Simple Two-way Active
+              Measurement Protocol (STAMP) Data Model", draft-ietf-ippm-
+              stamp-yang-06 (work in progress), October 2020.
 
 Acknowledgments
 
@@ -1061,7 +1061,7 @@ Acknowledgments
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 19]
+Gandhi, et al.           Expires August 13, 2021               [Page 19]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 12, 2021               [Page 20]
+Gandhi, et al.           Expires August 13, 2021               [Page 20]

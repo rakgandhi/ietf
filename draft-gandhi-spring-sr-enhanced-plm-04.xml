@@ -97,7 +97,7 @@
       </address>
     </author>
 
-    <date day="08" month="February" year="2021"/>
+    <date day="09" month="February" year="2021"/>
 
     <workgroup>SPRING Working Group</workgroup>
 
@@ -344,9 +344,9 @@
     as described in Section 6.
     Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP.
     Example of Timestamp Offset is 16 and 32 bytes for the PLM test packet formats
-    defined in this document. Threshold values for Missed Packet Count (N), Delay 
-    Threshold and Packet Count (T/M) and Packet Loss Threshold (XofY) 
-    are configured for generating notifications, as described in Section 7.</t>
+    defined in this document.  Example threshold values configured for generating notifications
+    are: Missed Packet Count (N), Delay Exceeded 
+    Threshold and Packet Count (T/M) and Packet Loss Threshold (XofY), as described in Section 7.</t>
     
     <t>The mechanisms to provision the
     Session-Sender and Session-Reflector are outside the scope of this document.</t>
@@ -768,7 +768,7 @@
       <t>Similarly, the delay metrics are notified, as an example, when consecutive 
       M number of PLM test packets have measured delay values exceed user-configured 
       threshold T, where M (Delay Exceeded Packet Count) and T 
-      (Absolute and Percentage Delay Threshold) are also locally provisioned values.</t>
+      (Absolute and Percentage Delay Exceeded Threshold) are also locally provisioned values.</t>
 
       <t>In both loopback modes, the timestamps T1 and T4 are used to measure round-trip delay.
       In loopback mode enabled with network programming function, the timestamps T1 and T2 are used
