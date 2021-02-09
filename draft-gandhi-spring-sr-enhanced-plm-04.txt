@@ -80,10 +80,10 @@ Table of Contents
    4.  PLM Test Packet Formats . . . . . . . . . . . . . . . . . . .   7
    5.  PLM Procedure . . . . . . . . . . . . . . . . . . . . . . . .   9
      5.1.  PLM for SR-MPLS Policies  . . . . . . . . . . . . . . . .  10
-     5.2.  PLM for SRv6 Policies . . . . . . . . . . . . . . . . . .  11
+     5.2.  PLM for SRv6 Policies . . . . . . . . . . . . . . . . . .  10
    6.  Enhanced PLM Procedure  . . . . . . . . . . . . . . . . . . .  11
-     6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies  .  12
-       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  13
+     6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies  .  11
+       6.1.1.  Timestamp Label Allocation  . . . . . . . . . . . . .  12
        6.1.2.  Node Capability for Timestamp Label . . . . . . . . .  13
      6.2.  Enhanced PLM with Timestamp Endpoint Function for SRv6
            Policies  . . . . . . . . . . . . . . . . . . . . . . . .  13
@@ -398,12 +398,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                     Receive Timestamp (T2)                    |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                                                               |
+     |                     MBZ (12 Octets)                           |
+     |                                                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |  Receive Error Estimate       |  MBZ                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                                                               |
-     |                     MBZ (16 Octets)                           |
-     |                                                               |
-     |                                                               |
+     |                     MBZ (4 Octets)                            |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
              PLM Test Packet Format in Unauthenticated Mode
@@ -428,19 +429,18 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
      |                        Receive Timestamp (T2)                 |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |  Receive Error Estimate       |  MBZ                          |
+     |                                                               |
+     |                        MBZ (32 octets)                        |
+     |                                                               |
+     |                                                               |
+     |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                        MBZ (4 Octets)                         |
-     |                                                               |
+     |  Receive Error Estimate       |                               |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+     |                        MBZ (6 octets)                         |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |                                                               |
-     |                        MBZ (48 octets)                        |
-     |                                                               |
-     |                                                               |
-     |                                                               |
-     |                                                               |
-     |                                                               |
-     |                                                               |
+     |                        MBZ (16 octets)                        |
      |                                                               |
 
 
@@ -451,11 +451,9 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
      |                                                               |
-     |                                                               |
-     |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |                        HMAC (16 octets)                       |
      |                                                               |
+     |                        HMAC (16 octets)                       |
      |                                                               |
      |                                                               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -498,6 +496,8 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    [I-D.ietf-spring-segment-routing-policy].  When a Candidate-Path has
    more than one Segment Lists, multiple PLM test packets are sent, one
    using each Segment List.  The PLM return test packets are received by
+   the Session-Sender via IP/UDP [RFC0768] return path by default.  The
+   Segment List of the return SR path can be added in the PLM test
 
 
 
@@ -506,8 +506,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 9]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-   the Session-Sender via IP/UDP [RFC0768] return path by default.  The
-   Segment List of the return SR path can be added in the PLM test
    packet header to receive the return test packet on a specific path
    using the Binding SID [I-D.ietf-pce-binding-label-sid] or Segment
    List of the Reverse SR Policy [I-D.ietf-pce-sr-bidir-path].
@@ -550,10 +548,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
                Figure 4: Example PLM Test Packet for SR-MPLS
 
+5.2.  PLM for SRv6 Policies
 
-
-
-
+   The PLM test packets for SRv6 data plane are transmitted using the
+   Segment Routing Header (SRH) [RFC8754] for each Segment List of the
+   SRv6 Policy Candidate-Path(s) as shown in Figure 5.  In case of IP/
+   UDP return path, the SRH is removed by the Session-Reflector.  The
 
 
 
@@ -562,12 +562,6 @@ Gandhi, et al.           Expires August 13, 2021               [Page 10]
 Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
 
-5.2.  PLM for SRv6 Policies
-
-   The PLM test packets for SRv6 data plane are transmitted using the
-   Segment Routing Header (SRH) [RFC8754] for each Segment List of the
-   SRv6 Policy Candidate-Path(s) as shown in Figure 5.  In case of IP/
-   UDP return path, the SRH is removed by the Session-Reflector.  The
    Segment List can contain a reverse SRv6 path to receive the PLM
    return test packet on a specific path.  In this case, the SRH will
    not be removed by the Session-Reflector.  When the PLM return test
@@ -608,16 +602,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    path including SR Policy is defined using the PLM test packets in
    loopback mode enabled with network programming function.
 
-
-
-
-
-
-Gandhi, et al.           Expires August 13, 2021               [Page 11]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
 6.1.  Enhanced PLM with Timestamp Label for SR-MPLS Policies
 
    In this document, two new Timestamp Labels are defined for SR-MPLS
@@ -626,6 +610,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    In the PLM test packets for SR-MPLS Policies, a Timestamp Label is
    added in the MPLS header as shown in Figure 6, to collect "Receive
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 11]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
    Timestamp" field in the payload of the PLM test packet.  The Label
    Stack for the reverse SR-MPLS path can be added after the Timestamp
    Label to receive the PLM return test packet on a specific path.  When
@@ -667,13 +659,6 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
     Figure 6: Example PLM Test Packet with Timestamp Label for SR-MPLS
 
-
-
-Gandhi, et al.           Expires August 13, 2021               [Page 12]
-
-Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
-
-
 6.1.1.  Timestamp Label Allocation
 
    The timestamp Labels for unauthenticated and authenticated modes can
@@ -681,6 +666,14 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    o  Labels (values TBA1 and TBA2) assigned by IANA from the "Extended
       Special-Purpose MPLS Values" [I-D.ietf-mpls-spl-terminology].  For
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 12]
+
+Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
+
+
       Label (value TBA1), the timestamp offset is fixed at byte-offset
       16 from the start of the payload for the unauthenticated mode, and
       Label (value TBA2) at byte-offset 32 from the start of the payload
@@ -722,6 +715,13 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
    specific offset, the Session-Reflector forwards the packet using the
    next SID or IP header in the packet (just like the data packets for
    the regular traffic).
+
+
+
+
+
+
+
 
 
 

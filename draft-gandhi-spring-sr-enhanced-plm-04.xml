@@ -342,7 +342,7 @@
     <t>Example of PLM mode is loopback mode.
     The values for Timestamp Label and SRv6 Endpoint Behaviour may be provisioned 
     as described in Section 6.
-    Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/> and NTP.
+    Example of Timestamp Format is 64-bit PTPv2 <xref target="IEEE1588"/>.
     Example of Timestamp Offset is 16 and 32 bytes for the PLM test packet formats
     defined in this document.  Example threshold values configured for generating notifications
     are: Missed Packet Count (N), Delay Exceeded 
@@ -372,12 +372,13 @@
   |                     Receive Timestamp (T2)                    |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               |
+  |                     MBZ (12 Octets)                           |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |  Receive Error Estimate       |  MBZ                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                                                               |
-  |                     MBZ (16 Octets)                           |
-  |                                                               |
-  |                                                               |
+  |                     MBZ (4 Octets)                            |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ 
 
           PLM Test Packet Format in Unauthenticated Mode
@@ -402,26 +403,23 @@
   |                        Receive Timestamp (T2)                 |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  Receive Error Estimate       |  MBZ                          |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                        MBZ (4 Octets)                         |
   |                                                               |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                                                               |
-  |                        MBZ (48 octets)                        |
-  |                                                               |
-  |                                                               |
-  |                                                               |
-  |                                                               |
-  |                                                               |
-  |                                                               |
-  |                                                               |
+  |                        MBZ (32 octets)                        |
   |                                                               |
   |                                                               |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Receive Error Estimate       |                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               +
+  |                        MBZ (6 octets)                         |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               |
+  |                        MBZ (16 octets)                        |
+  |                                                               |
+  |                                                               |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                                                               |
   |                        HMAC (16 octets)                       |
-  |                                                               |
   |                                                               |
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
