@@ -361,12 +361,12 @@ Internet-Draft  Performance and Liveness Monitoring in SR  February 2021
 
    Example of PLM mode is loopback mode.  The values for Timestamp Label
    and SRv6 Endpoint Behaviour may be provisioned as described in
-   Section 6.  Example of Timestamp Format is 64-bit PTPv2 [IEEE1588]
-   and NTP.  Example of Timestamp Offset is 16 and 32 bytes for the PLM
-   test packet formats defined in this document.  Example threshold
-   values configured for generating notifications are: Missed Packet
-   Count (N), Delay Exceeded Threshold and Packet Count (T/M) and Packet
-   Loss Threshold (XofY), as described in Section 7.
+   Section 6.  Example of Timestamp Format is 64-bit PTPv2 [IEEE1588].
+   Example of Timestamp Offset is 16 and 32 bytes for the PLM test
+   packet formats defined in this document.  Example threshold values
+   configured for generating notifications are: Missed Packet Count (N),
+   Delay Exceeded Threshold and Packet Count (T/M) and Packet Loss
+   Threshold (XofY), as described in Section 7.
 
    The mechanisms to provision the Session-Sender and Session-Reflector
    are outside the scope of this document.
