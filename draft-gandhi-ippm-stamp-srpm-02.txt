@@ -208,10 +208,10 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    an un-intended node may transmit reply test packets resulting in
    reporting of invalid measurement metrics.
 
-   In this document, Destination Node Address TLV (Type TBA1) is defined
-   for STAMP test packet [RFC8972] and has the following format shown in
-   Figure 1:
-
+   [RFC8972] defines STAMP test packets that can include one or more
+   optional TLVs.  In this document, Destination Node Address TLV (Type
+   TBA1) is defined for STAMP test packet [RFC8972] and has the
+   following format shown in Figure 1:
 
 
 
@@ -271,9 +271,9 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    for the STAMP sessions for the links.
 
    [RFC8972] defines STAMP test packets that can include one or more
-   optional TLVs.  The TLV Type (value TBA2) is defined in this document
-   for Return Path TLV that carries return path for STAMP test packet.
-   The format of the Return Path TLV is shown in Figure 2:
+   optional TLVs.  In this document, the TLV Type (value TBA2) is
+   defined for the Return Path TLV that carries the return path for the
+
 
 
 
@@ -281,6 +281,9 @@ Gandhi, et al.           Expires August 14, 2021                [Page 5]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
+
+   STAMP Session-Sender test packet.  The format of the Return Path TLV
+   is shown in Figure 2:
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -326,9 +329,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
    o  Type (value 1): Return Path Control Code.  The STAMP Session-
       Sender can request the STAMP Session-Reflector to transmit the
-      reply test packet based on the flags defined in the Control Code
-      field.
-
 
 
 
@@ -337,6 +337,9 @@ Gandhi, et al.           Expires August 14, 2021                [Page 6]
 
 Internet-Draft    STAMP Extensions for Segment Routing     February 2021
 
+
+      reply test packet based on the flags defined in the Control Code
+      field.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -383,9 +386,6 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    o  Type (value 2): Return Address.  Destination node address of the
       STAMP Session-Reflector reply test packet different than the
       Source Address in the Session-Sender test packet.
-
-
-
 
 
 

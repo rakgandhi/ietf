@@ -200,7 +200,9 @@
     an un-intended node may transmit reply test packets resulting 
     in reporting of invalid measurement metrics.</t>
 
-    <t>In this document, Destination Node Address TLV (Type TBA1) 
+    <t><xref target="RFC8972"/> defines STAMP test packets that
+    can include one or more optional TLVs.
+    In this document, Destination Node Address TLV (Type TBA1) 
     is defined for STAMP test packet <xref target="RFC8972"/> 
     and has the following format shown in Figure 1:</t>
 
@@ -247,8 +249,8 @@
    any additional state for the STAMP sessions for the links.</t>
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
-   can include one or more optional TLVs.  The TLV Type (value TBA2) is
-   defined in this document for Return Path TLV that carries return path for STAMP
+   can include one or more optional TLVs.  In this document, the TLV Type (value TBA2) is
+   defined for the Return Path TLV that carries the return path for the STAMP Session-Sender 
    test packet. The format of the Return Path TLV is shown in Figure 2:</t>
 
     <figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
