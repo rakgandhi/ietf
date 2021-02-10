@@ -275,7 +275,7 @@
                                /    \
   Destination UDP Port        /      \    Destination UDP port
   Authentication Mode & Key  /        \   Authentication Mode & Key
-  Delay Measurement Mode    /          \  Packet Loss Type`
+  Delay Measurement Mode    /          \  Packet Loss Type
       Timestamp Format     /            \    
   Packet Loss Type        /              \
                          /                \
@@ -611,12 +611,10 @@
     <section title="Delay Measurement for P2MP SR Policies" anchor="sect-4.6"> <t>
    The Point-to-Multipoint (P2MP) SR path
    that originates from a root node terminates on multiple destinations called leaf nodes 
-   (e.g. P2MP SR Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/> 
-   or P2MP Transport <xref target="I-D.shen-spring-p2mp-transport-chain"/>).</t>
+   (e.g. P2MP SR Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/>).</t>
 
    <t>The procedures for performance measurement described in this
-   document for P2P SR Policies are also applicable to the P2MP SR Policies. 
-   The procedure for one-way delay measurement mode is described as following:</t>
+   document for P2P SR Policies are used for the P2MP SR Policies as listed below.</t>
 
    <t><list style="symbols"><t>The STAMP Session-Sender root node transmits test packets using the
       Tree-SID defined in <xref target="I-D.ietf-pim-sr-p2mp-policy"/> for the
@@ -626,13 +624,12 @@
       <t>The Destination Address is set to the loopback 
       address from the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6.</t>
 
-      <t>Each STAMP Session-Reflector leaf node transmits its IP address in the Source
+      <t>Each STAMP Session-Reflector leaf node transmits its node address in the Source
       Address of the reply test packets shown in Figure 5.  This
       allows the STAMP Session-Sender root node to identify the STAMP Session-Reflector leaf nodes
       of the P2MP SR Policy.</t>
 
-      <t>The P2MP root node measures the one-way delay 
-      for each P2MP leaf node of the P2MP SR Policy.</t>
+      <t>The P2MP root node measures the delay for each P2MP leaf node individually.</t>
 
     </list>
     </t>
@@ -654,17 +651,8 @@
 ]]></artwork>
     </figure>
 
-
-   <t>The STAMP Session-Sender test packets can also be transmitted using
-   the scheme described for P2MP Transport using Chain Replication 
-   that may contain Bud SID as defined in 
-   <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
-
    <t>The round-trip delay measurement for a P2MP SR-MPLS Policy can use the Node SID
    of the Session-Sender in the MPLS header of the Session-Sender test packet.</t>
-
-   <t>The considerations for two-way delay measurement mode for 
-   a P2MP SR Policy (e.g. for bidirectional path) are outside the scope of this document.</t>
 
     </section>
 
@@ -833,7 +821,6 @@
     &RFC8754;
     &I-D.ietf-spring-segment-routing-policy;
     &I-D.ietf-spring-sr-replication-segment;
-    &I-D.shen-spring-p2mp-transport-chain;
     &I-D.ietf-pim-sr-p2mp-policy;
     &I-D.ietf-spring-mpls-path-segment;
     &I-D.ietf-spring-srv6-path-segment;

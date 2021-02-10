@@ -92,19 +92,19 @@ Table of Contents
      4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  13
      4.4.  Additional STAMP Test Packet Processing Rules . . . . . .  14
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
-       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  15
-       4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
-   5.  Test Packet Loss Measurement for Links and SR Paths . . . . .  15
+       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  14
+       4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  14
+   5.  Test Packet Loss Measurement for Links and SR Paths . . . . .  14
    6.  Direct Loss Measurement for Links and SR Paths  . . . . . . .  15
    7.  Session Status for Links and SR Paths . . . . . . . . . . . .  15
-   8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
+   8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
@@ -288,7 +288,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
                                   /    \
      Destination UDP Port        /      \    Destination UDP port
      Authentication Mode & Key  /        \   Authentication Mode & Key
-     Delay Measurement Mode    /          \  Packet Loss Type`
+     Delay Measurement Mode    /          \  Packet Loss Type
          Timestamp Format     /            \
      Packet Loss Type        /              \
                             /                \
@@ -682,13 +682,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The Point-to-Multipoint (P2MP) SR path that originates from a root
    node terminates on multiple destinations called leaf nodes (e.g.
-   P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy] or P2MP Transport
-   [I-D.shen-spring-p2mp-transport-chain]).
+   P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy]).
 
    The procedures for performance measurement described in this document
-   for P2P SR Policies are also applicable to the P2MP SR Policies.  The
-   procedure for one-way delay measurement mode is described as
-   following:
+   for P2P SR Policies are used for the P2MP SR Policies as listed
+   below.
 
    o  The STAMP Session-Sender root node transmits test packets using
       the Tree-SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP
@@ -699,35 +697,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    o  The Destination Address is set to the loopback address from the
       range 127/8 for IPv4, or the loopback address ::1/128 for IPv6.
 
-   o  Each STAMP Session-Reflector leaf node transmits its IP address in
-      the Source Address of the reply test packets shown in Figure 5.
+   o  Each STAMP Session-Reflector leaf node transmits its node address
+      in the Source Address of the reply test packets shown in Figure 5.
       This allows the STAMP Session-Sender root node to identify the
       STAMP Session-Reflector leaf nodes of the P2MP SR Policy.
 
-   o  The P2MP root node measures the one-way delay for each P2MP leaf
-      node of the P2MP SR Policy.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 13]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
+   o  The P2MP root node measures the delay for each P2MP leaf node
+      individually.
 
 
     0                   1                   2                   3
@@ -746,18 +722,17 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
     Figure 8: Example Session-Sender Test Packet with Tree-SID for SR-
                                 MPLS Policy
 
-   The STAMP Session-Sender test packets can also be transmitted using
-   the scheme described for P2MP Transport using Chain Replication that
-   may contain Bud SID as defined in
-   [I-D.shen-spring-p2mp-transport-chain].
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 13]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    The round-trip delay measurement for a P2MP SR-MPLS Policy can use
    the Node SID of the Session-Sender in the MPLS header of the Session-
    Sender test packet.
-
-   The considerations for two-way delay measurement mode for a P2MP SR
-   Policy (e.g. for bidirectional path) are outside the scope of this
-   document.
 
 4.4.  Additional STAMP Test Packet Processing Rules
 
@@ -776,15 +751,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    For link delay, the TTL field in the STAMP test packet is set to 1 in
    one-way and two-way delay measurement modes.
-
-
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 14]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
 
 4.4.2.  IPv6 Hop Limit
 
@@ -811,6 +777,15 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    delay measurement using STAMP test packets is used to detect packet
    loss for links and end-to-end SR paths.  The Sequence Number field in
    the STAMP test packet is used as described in Section 4 "Theory of
+
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 14]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
+
    Operation" of [RFC8762], to detect forward, reverse and round-trip
    packet loss.
 
@@ -834,14 +809,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The STAMP test session status allows to know if the performance
    measurement is active on the links and end-to-end SR paths.  The
    STAMP test session status initially is declared succeeded when one or
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 15]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    more reply test packets are received at the STAMP Session-Sender.
    The STAMP test session status is declared failed when consecutive N
    number of reply test packets are not received at the STAMP Session-
@@ -867,6 +834,14 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    delay measurement, both the forward and the return paths must be SR-
    MPLS paths in this case.
 
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 15]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
+
    As specified in [RFC6437], Flow Label field in the outer IPv6 header
    can also be used for sweeping to exercise different IPv6 ECMP paths.
 
@@ -889,15 +864,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    and sanity checks, at the STAMP Session-Sender, of the counter or
    timestamp fields in received measurement reply test packets.  The
    minimal state associated with these protocols also limits the extent
-
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 16]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    of measurement disruption that can be caused by a corrupt or invalid
    packet to a single test cycle.
 
@@ -923,6 +889,15 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
 
+
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 16]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
+
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
               DOI 10.17487/RFC8762, March 2020,
@@ -946,14 +921,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               draft-ietf-spring-srv6-network-programming-28 (work in
               progress), December 2020.
 
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
 11.2.  Informative References
 
    [IEEE1588]
@@ -974,6 +941,18 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               "IPv6 Flow Label Specification", RFC 6437,
               DOI 10.17487/RFC6437, November 2011,
               <https://www.rfc-editor.org/info/rfc6437>.
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
               Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
@@ -1003,19 +982,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               Delivery", draft-ietf-spring-sr-replication-segment-02
               (work in progress), October 2020.
 
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
-   [I-D.shen-spring-p2mp-transport-chain]
-              Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
-              Kamite, "Point-to-Multipoint Transport Using Chain
-              Replication in Segment Routing", draft-shen-spring-p2mp-
-              transport-chain-03 (work in progress), October 2020.
-
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "Segment Routing Point-to-Multipoint Policy",
@@ -1033,6 +999,16 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               "Path Segment for SRv6 (Segment Routing in IPv6)", draft-
               ietf-spring-srv6-path-segment-00 (work in progress),
               November 2020.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    [I-D.ietf-pce-sr-bidir-path]
               Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
@@ -1055,16 +1031,6 @@ Acknowledgments
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu have helped improve the mechanisms described in this
    document.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
 
 Authors' Addresses
 
@@ -1093,10 +1059,44 @@ Authors' Addresses
    Email: mach.chen@huawei.com
 
 
+
+
+Gandhi, et al.           Expires August 14, 2021               [Page 19]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
+
    Bart Janssens
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
