@@ -258,22 +258,22 @@ Internet-Draft    STAMP Extensions for Segment Routing     February 2021
    Session-Sender can request this in the test packet to the STAMP
    Session-Reflector using a Return Path TLV.  With this TLV carried in
    the STAMP Session-Sender test packet, the STAMP Session-Reflector
-   does not require signaling and maintaining any additional dynamic
-   state for the STAMP sessions for the end-to-end SR paths.
+   (Stateless mode) does not require signaling and maintaining any
+   additional dynamic state for the STAMP sessions for the end-to-end SR
+   paths.
 
    For links, the STAMP Session-Reflector may need to transmit the reply
    test packet on the same incoming link in the reverse direction.  The
    STAMP Session-Sender can request this in the test packet to the STAMP
    Session-Reflector using a Return Path TLV.  With this TLV carried in
    the STAMP Session-Sender test packet, the STAMP Session-Reflector
-   does not require maintenance of any additional state for the STAMP
-   sessions for the links.
+   (Stateless mode) does not require maintenance of any additional state
+   for the STAMP sessions for the links.
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  The TLV Type (value TBA2) is defined in this document
    for Return Path TLV that carries return path for STAMP test packet.
    The format of the Return Path TLV is shown in Figure 2:
-
 
 
 

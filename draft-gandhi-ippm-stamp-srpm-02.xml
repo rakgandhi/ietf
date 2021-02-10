@@ -235,7 +235,7 @@
    packet on a specific return path.  The STAMP Session-Sender
    can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
    With this TLV carried in the STAMP Session-Sender test packet, 
-   the STAMP Session-Reflector does not require signaling and maintaining 
+   the STAMP Session-Reflector (Stateless mode) does not require signaling and maintaining 
    any additional dynamic state for the STAMP sessions for the end-to-end SR paths.</t>
 
    <t>For links, the STAMP Session-Reflector may need to transmit the reply test
@@ -243,8 +243,8 @@
    The STAMP Session-Sender
    can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
    With this TLV carried in the STAMP Session-Sender test packet, 
-   the STAMP Session-Reflector does not require maintenance of any additional state for the
-   STAMP sessions for the links.</t>
+   the STAMP Session-Reflector (Stateless mode) does not require maintenance of 
+   any additional state for the STAMP sessions for the links.</t>
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  The TLV Type (value TBA2) is
