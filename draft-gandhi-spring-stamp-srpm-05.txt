@@ -832,8 +832,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 7.  Session Status for Links and SR Paths
 
    The STAMP test session status allows to know if the performance
-   measurement is active on the link and end-to-end SR path.  The STAMP
-   test session status initially is declared succeeded when one or more
+   measurement is active on the links and end-to-end SR paths.  The
+   STAMP test session status initially is declared succeeded when one or
 
 
 
@@ -842,8 +842,8 @@ Gandhi, et al.           Expires August 14, 2021               [Page 15]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-   reply test packets are received at the STAMP Session-Sender.  The
-   STAMP test session status is declared failed when consecutive N
+   more reply test packets are received at the STAMP Session-Sender.
+   The STAMP test session status is declared failed when consecutive N
    number of reply test packets are not received at the STAMP Session-
    Sender, where N is locally provisioned value.
 
