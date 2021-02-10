@@ -132,10 +132,8 @@
    and <xref target="I-D.gandhi-ippm-stamp-srpm"/>. 
    The procedure described is applicable to SR-MPLS and SRv6 data planes and
    is used for both links and end-to-end SR paths including SR Policies 
-   and IGP paths <xref target="RFC8402"/>.  
-   The mechanisms 
-   defined in <xref target="RFC8762"/>, <xref target="RFC8972"/> and 
-   <xref target="I-D.gandhi-ippm-stamp-srpm"/> are not modified by this document.</t>
+   and IGP paths <xref target="RFC8402"/>.</t>
+
    </section>
 
    <section title="Conventions Used in This Document" anchor="sect-2">

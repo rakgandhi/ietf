@@ -149,9 +149,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    optional extensions defined in [RFC8972] and
    [I-D.gandhi-ippm-stamp-srpm].  The procedure described is applicable
    to SR-MPLS and SRv6 data planes and is used for both links and end-
-   to-end SR paths including SR Policies and IGP paths [RFC8402].  The
-   mechanisms defined in [RFC8762], [RFC8972] and
-   [I-D.gandhi-ippm-stamp-srpm] are not modified by this document.
+   to-end SR paths including SR Policies and IGP paths [RFC8402].
 
 2.  Conventions Used in This Document
 
@@ -163,14 +161,14 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    ECMP: Equal Cost Multi-Path.
 
+   HMAC: Hashed Message Authentication Code.
+
 
 
 Gandhi, et al.           Expires August 14, 2021                [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   HMAC: Hashed Message Authentication Code.
 
    LM: Loss Measurement.
 
@@ -218,6 +216,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The nodes R1 and R3 may be connected via a link or there exists an SR
    path [RFC8402].  The link may be a physical interface, virtual link,
+   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.
+   The SR path may be an SR Policy
 
 
 
@@ -226,8 +226,6 @@ Gandhi, et al.           Expires August 14, 2021                [Page 4]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.
-   The SR path may be an SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
 
@@ -270,6 +268,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    An example of a STAMP reference model and typical measurement
    parameters including the destination UDP port for STAMP test session
    is shown in the following Figure 1:
+
+
 
 
 
