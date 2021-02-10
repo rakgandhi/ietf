@@ -593,7 +593,7 @@
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
    the STAMP Session-Sender test packet can carry the return path information (e.g.
    return path label stack for SR-MPLS) as part of the SR header.  
-   This way, the received test packets are not punted out of fast path in forwarding 
+   This way, the received test packets are not punted out of the fast path in forwarding 
    (to slow path or control-plane) at the STAMP Session-Reflector and it does
    not process them and generate reply test packets.</t>
 
