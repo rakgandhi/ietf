@@ -94,8 +94,8 @@ Table of Contents
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
        4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  14
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  14
-   5.  Test Packet Loss Measurement for Links and SR Paths . . . . .  14
-   6.  Direct Loss Measurement for Links and SR Paths  . . . . . . .  15
+   5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  14
+   6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  15
    7.  Session Status for Links and SR Paths . . . . . . . . . . . .  15
    8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  15
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
@@ -288,8 +288,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
                                   /    \
      Destination UDP Port        /      \    Destination UDP port
      Authentication Mode & Key  /        \   Authentication Mode & Key
-     Delay Measurement Mode    /          \  Packet Loss Type
-         Timestamp Format     /            \
+     Delay Measurement Mode    /          \
+     Timestamp Format         /            \
      Packet Loss Type        /              \
                             /                \
                            v                  v
@@ -306,7 +306,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Example of the Timestamp Format is PTPv2 [IEEE1588] and NTP.  Example
    of Delay Measurement Mode is one-way, two-way and round-trip mode as
    described in this document.  Example of Packet Loss Type is test
-   packet loss and data packet loss (i.e. direct measurement).
+   packet loss.
 
    When using the authenticated mode for delay measurement, the matching
    Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
@@ -769,15 +769,15 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The Router Alert IP option (RAO) [RFC2113] is not set in the STAMP
    test packets for links and end-to-end SR paths.
 
-5.  Test Packet Loss Measurement for Links and SR Paths
+5.  Packet Loss Measurement for Links and SR Paths
 
-   The test packet loss measurement is applicable to infer data packet
-   loss in an SR network.  The procedure described in Section 4 for
-   delay measurement using STAMP test packets is used to detect packet
-   loss for links and end-to-end SR paths.  The Sequence Number field in
-   the STAMP test packet is used as described in Section 4 "Theory of
-   Operation" of [RFC8762], to detect forward, reverse and round-trip
-   packet loss.
+   The procedure described in Section 4 for delay measurement using
+   STAMP test packets can be used to detect (test) packet loss for links
+   and end-to-end SR paths.  The Sequence Number field in the STAMP test
+   packet is used as described in Section 4 "Theory of Operation" of
+   [RFC8762], to detect forward, reverse and round-trip packet loss.
+
+
 
 
 
@@ -786,20 +786,19 @@ Gandhi, et al.           Expires August 14, 2021               [Page 14]
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
-6.  Direct Loss Measurement for Links and SR Paths
+6.  Direct Measurement for Links and SR Paths
 
-   Direct measurement is applicable to detect data packet loss in an SR
-   network.  The "Direct Measurement" TLV (Type 5) defined in [RFC8972]
-   can be used to detect data packet loss for links and end-to-end SR
-   paths.  The STAMP test packets with this TLV are sent to collect the
-   transmit and receive counters for the data traffic flow under
-   measurement, using the procedures described in Section 4.
+   The STAMP "Direct Measurement" TLV (Type 5) defined in [RFC8972] can
+   be used for links and end-to-end SR paths.  The STAMP test packets
+   with this TLV are transmitted using the procedures described in
+   Section 4 to collect the transmit and receive counters for the data
+   traffic flow under measurement.
 
    The PSID carried in the received data packet for the traffic flow
    under measurement can be used to measure receive data packets for
-   end-to-end SR path on the STAMP Session-Reflector.  In this case, the
-   PSID in the received Session-Sender test packet is used to collect
-   the receive traffic counter for the SR path on the Session-Reflector.
+   end-to-end SR path on the STAMP Session-Reflector.  The PSID in the
+   received Session-Sender test packet header can be used to collect the
+   receive traffic counter for the SR path on the Session-Reflector.
 
 7.  Session Status for Links and SR Paths
 
@@ -833,6 +832,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    As specified in [RFC6437], Flow Label field in the outer IPv6 header
    can also be used for sweeping to exercise different IPv6 ECMP paths.
+
 
 
 
