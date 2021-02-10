@@ -77,11 +77,10 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
+     2.1.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  Example STAMP Reference Model . . . . . . . . . . . . . .   6
+     3.1.  Example STAMP Reference Model . . . . . . . . . . . . . .   5
    4.  Delay Measurement for Links and SR Paths  . . . . . . . . . .   7
      4.1.  Session-Sender Test Packet  . . . . . . . . . . . . . . .   7
        4.1.1.  Session-Sender Test Packet for Links  . . . . . . . .   7
@@ -89,7 +88,7 @@ Table of Contents
      4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .   9
        4.2.1.  One-way Delay Measurement Mode  . . . . . . . . . . .  10
        4.2.2.  Two-way Delay Measurement Mode  . . . . . . . . . . .  10
-       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .  12
+       4.2.3.  Loopback (Round-trip Delay) Measurement Mode  . . . .  12
      4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  13
      4.4.  Additional STAMP Test Packet Processing Rules . . . . . .  14
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -103,9 +102,10 @@ Table of Contents
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+
 
 
 
@@ -156,12 +156,12 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 2.  Conventions Used in This Document
 
-2.1.  Requirements Language
+2.1.  Abbreviations
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119] [RFC8174]
-   when, and only when, they appear in all capitals, as shown here.
+   BSID: Binding Segment ID.
+
+   DM: Delay Measurement.
+
 
 
 
@@ -169,12 +169,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 3]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-2.2.  Abbreviations
-
-   BSID: Binding Segment ID.
-
-   DM: Delay Measurement.
 
    ECMP: Equal Cost Multi-Path.
 
@@ -216,7 +210,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    TTL: Time To Live.
 
+2.2.  Reference Topology
 
+   In the reference topology shown below, the STAMP Session-Sender R1
+   initiates a STAMP test packet and the STAMP Session-Reflector R3
+   transmits a reply test packet.  The reply test packet is transmitted
+   back to the STAMP Session-Sender R1 on the same path or a different
+   path in the reverse direction.
 
 
 
@@ -225,14 +225,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 4]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-2.3.  Reference Topology
-
-   In the reference topology shown below, the STAMP Session-Sender R1
-   initiates a STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet is transmitted
-   back to the STAMP Session-Sender R1 on the same path or a different
-   path in the reverse direction.
 
    The nodes R1 and R3 may be connected via a link or there exists an SR
    path [RFC8402].  The link may be a physical interface, virtual link,
@@ -275,18 +267,19 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The same destination UDP port is used for link and end-to-end SR path
    STAMP test sessions.
 
-
-
-Gandhi, et al.           Expires August 13, 2021                [Page 5]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
 3.1.  Example STAMP Reference Model
 
    An example of a STAMP reference model and typical measurement
    parameters including the destination UDP port for STAMP test session
    is shown in the following Figure 1:
+
+
+
+
+
+Gandhi, et al.           Expires August 13, 2021                [Page 5]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
                               +------------+
@@ -330,6 +323,13 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    test session on Session-Reflector and creating extra state in SR
    network are avoided.
 
+   The YANG data model defined in [I-D.ietf-ippm-stamp-yang] can be used
+   to provision the STAMP Session-Sender and STAMP Session-Reflector.
+
+
+
+
+
 
 
 
@@ -337,9 +337,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 6]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   The YANG data model defined in [I-D.ietf-ippm-stamp-yang] can be used
-   to provision the STAMP Session-Sender and STAMP Session-Reflector.
 
 4.  Delay Measurement for Links and SR Paths
 
@@ -386,6 +383,9 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    In the case of Color-Only Destination Steering, with IPv4 endpoint of
    0.0.0.0 or IPv6 endpoint of ::0
+   [I-D.ietf-spring-segment-routing-policy], the loopback address from
+   the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
+   used as the Destination Address, respectively.
 
 
 
@@ -393,10 +393,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 7]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   [I-D.ietf-spring-segment-routing-policy], the loopback address from
-   the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 is
-   used as the Destination Address, respectively.
 
 4.1.2.1.  Session-Sender Test Packet for SR-MPLS Policies
 
@@ -442,6 +438,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    The SRv6 network programming is described in
    [I-D.ietf-spring-srv6-network-programming].  The procedure defined
+   for upper-layer header processing for SRv6 SIDs in
+   [I-D.ietf-spring-srv6-network-programming] is used to process the
+   IPv6/UDP header in the received test packets on the Session-
+   Reflector.
 
 
 
@@ -449,11 +449,6 @@ Gandhi, et al.           Expires August 13, 2021                [Page 8]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   for upper-layer header processing for SRv6 SIDs in
-   [I-D.ietf-spring-srv6-network-programming] is used to process the
-   IPv6/UDP header in the received test packets on the Session-
-   Reflector.
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -494,6 +489,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    the IP/UDP information from the received test packet.  The content of
    an example STAMP Session-Reflector reply test packet is shown in
    Figure 5.
+
+
+
+
+
 
 
 
@@ -649,7 +649,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
       Figure 7: Example Session-Reflector Test Packet for SRv6 Policy
 
-4.2.3.  Loopback Measurement Mode
+4.2.3.  Loopback (Round-trip Delay) Measurement Mode
 
    The loopback measurement mode can be used to measure round-trip delay
    of a bidirectional SR path.  The IP header of the STAMP Session-
@@ -916,15 +916,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
               DOI 10.17487/RFC8762, March 2020,
@@ -942,18 +933,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
               in progress), January 2021.
 
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 13, 2021               [Page 17]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    [I-D.ietf-spring-srv6-network-programming]
               Filsfils, C., Camarillo, P., Leddy, J., Voyer, D.,
               Matsushima, S., and Z. Li, "SRv6 Network Programming",
@@ -966,6 +945,14 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               IEEE, "1588-2008 IEEE Standard for a Precision Clock
               Synchronization Protocol for Networked Measurement and
               Control Systems", March 2008.
+
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 17]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    [RFC2113]  Katz, D., "IP Router Alert Option", RFC 2113,
               DOI 10.17487/RFC2113, February 1997,
@@ -1003,13 +990,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-
-
-Gandhi, et al.           Expires August 13, 2021               [Page 18]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
@@ -1021,6 +1001,14 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               Kamite, "Point-to-Multipoint Transport Using Chain
               Replication in Segment Routing", draft-shen-spring-p2mp-
               transport-chain-03 (work in progress), October 2020.
+
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 18]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
+
 
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
@@ -1058,14 +1046,6 @@ Acknowledgments
    on the use-cases for Performance Measurement in segment routing.  The
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
-
-
-
-Gandhi, et al.           Expires August 13, 2021               [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    providing useful comments and suggestions.  Patrick Khordoc and Radu
    Valceanu have helped improve the mechanisms described in this
    document.
@@ -1077,6 +1057,13 @@ Authors' Addresses
    Canada
 
    Email: rgandhi@cisco.com
+
+
+
+
+Gandhi, et al.           Expires August 13, 2021               [Page 19]
+
+Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
    Clarence Filsfils
@@ -1101,6 +1088,19 @@ Authors' Addresses
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

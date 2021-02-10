@@ -138,13 +138,8 @@
    <xref target="I-D.gandhi-ippm-stamp-srpm"/> are not modified by this document.</t>
    </section>
 
-   <section title="Conventions Used in This Document" anchor="sect-2"><section title="Requirements Language" anchor="sect-2.1"><t>
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in <xref target="RFC2119"/> <xref target="RFC8174"/>
-   when, and only when, they appear in all capitals, as shown here.</t>
-
-   </section>
+   <section title="Conventions Used in This Document" anchor="sect-2">
+	   
 
    <section title="Abbreviations" anchor="sect-2.2"><t>
    BSID: Binding Segment ID.</t>
@@ -594,7 +589,7 @@
     </section>
     </section>
 
-   <section title="Loopback Measurement Mode" anchor="sect-4.2.3"><t>
+   <section title="Loopback (Round-trip Delay) Measurement Mode" anchor="sect-4.2.3"><t>
    The loopback measurement mode can be used to measure round-trip delay
    of a bidirectional SR path.  The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
@@ -774,7 +769,7 @@
    <t>The "Destination Node Address" TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/> can be carried 
    in the STAMP Session-Sender test packet to identify the intended destination node,
    for example, when using IPv4 Destination Address from the range 127/8.
-   The STAMP Session-Reflector MUST NOT transmit reply test packet if it
+   The STAMP Session-Reflector must not transmit reply test packet if it
    is not the intended destination node in the "Destination Node 
    Address" TLV <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t> 
 
@@ -816,8 +811,6 @@
     <back>
     <references title="Normative References">
     &RFC0768;
-    &RFC2119;
-    &RFC8174;
     &RFC8762;
     &RFC8972;
     &I-D.gandhi-ippm-stamp-srpm;        
