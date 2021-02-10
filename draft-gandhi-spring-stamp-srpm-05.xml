@@ -82,7 +82,7 @@
     </address>
     </author>
 
-    <date day="09" month="February" year="2021"/>
+    <date day="10" month="February" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -133,7 +133,7 @@
    The procedure described is applicable to SR-MPLS and SRv6 data planes and
    is used for both links and end-to-end SR paths including SR Policies 
    and IGP paths <xref target="RFC8402"/>.  
-   Unless otherwise described, the mechanisms 
+   The mechanisms 
    defined in <xref target="RFC8762"/>, <xref target="RFC8972"/> and 
    <xref target="I-D.gandhi-ippm-stamp-srpm"/> are not modified by this document.</t>
    </section>
@@ -294,7 +294,7 @@
     </figure>
 
     <t>Example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> and NTP. 
-    Example of Delay Measurement Mode is one-way, two-way and loopback mode as described in this document.
+    Example of Delay Measurement Mode is one-way, two-way and round-trip mode as described in this document.
     Example of Packet Loss Type is test packet loss and data packet loss (i.e. direct measurement).</t>
 
     <t>When using the authenticated mode for delay measurement, the matching
@@ -589,8 +589,8 @@
     </section>
     </section>
 
-   <section title="Loopback (Round-trip Delay) Measurement Mode" anchor="sect-4.2.3"><t>
-   The loopback measurement mode is used to measure round-trip delay
+   <section title="Round-trip Delay Measurement Mode" anchor="sect-4.2.3"><t>
+   The loopback mode is used to measure round-trip delay
    of a bidirectional SR path.  The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
@@ -757,7 +757,7 @@
 
    <t>In IPv4 header of the STAMP Session-Sender test packets,
    sweeping of Destination Address from the range 127/8 can be used to exercise
-   particular ECMP paths.  Note that in loopback measurement mode,
+   particular ECMP paths.  Note that in the loopback mode for round-trip delay measurement,
    both the forward and the return paths must be SR-MPLS paths 
    in this case.</t>
 
