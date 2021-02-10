@@ -499,7 +499,7 @@
    <t>For two-way delay measurement mode for links, 
    the STAMP Session-Reflector needs to transmit
    the reply test packet in-band on the same link where the
-   test packet is recived.  The STAMP Session-Sender
+   test packet is received.  The STAMP Session-Sender
    can request in the test packet to the STAMP Session-Reflector to
    transmit the reply test packet back on the same link 
    using the Control Code Sub-TLV in the 
