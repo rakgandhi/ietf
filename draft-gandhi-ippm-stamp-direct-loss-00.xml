@@ -471,9 +471,6 @@
     <t>
    The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
-    <t>
-   MBZ: As defined in <xref target="RFC8762"/>.</t>
-
         </section>
 
     <section title="Data Loss Calculation" anchor="sect-6"><t>

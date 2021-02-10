@@ -520,8 +520,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    The detailed use of the HMAC field is described in Section 4.4 of
    [RFC8762].
 
-   MBZ: As defined in [RFC8762].
-
 6.  Data Loss Calculation
 
    Using the Counters C1, C2, C3 and C4 as per reference topology, from
@@ -552,6 +550,8 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
    The optional STAMP extensions defined in [RFC8972] are not currently
    used by the DM test packets.
+
+
 
 
 
