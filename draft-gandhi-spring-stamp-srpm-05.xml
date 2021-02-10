@@ -733,11 +733,11 @@
 
    </section>
 
-     <section title="Session State for Links and SR Paths" anchor="sect-7"><t>
-   The STAMP test session state allows to know if the performance measurement is active.
-   The STAMP test session state initially is declared succeeded when one or more reply test 
+     <section title="Session Status for Links and SR Paths" anchor="sect-7"><t>
+   The STAMP test session status allows to know if the performance measurement is active on the link and end-to-end SR path.
+   The STAMP test session status initially is declared succeeded when one or more reply test 
    packets are received at the STAMP Session-Sender.
-   The STAMP test session state is declared failed when consecutive N number of reply test packets are
+   The STAMP test session status is declared failed when consecutive N number of reply test packets are
    not received at the STAMP Session-Sender, where N is locally provisioned value.</t>
 
      </section>

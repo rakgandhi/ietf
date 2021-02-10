@@ -96,7 +96,7 @@ Table of Contents
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
    5.  Test Packet Loss Measurement for Links and SR Paths . . . . .  15
    6.  Direct Loss Measurement for Links and SR Paths  . . . . . . .  15
-   7.  Session State for Links and SR Paths  . . . . . . . . . . . .  15
+   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  15
    8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
@@ -823,15 +823,15 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    PSID in the received Session-Sender test packet is used to collect
    the receive traffic counter for the SR path on the Session-Reflector.
 
-7.  Session State for Links and SR Paths
+7.  Session Status for Links and SR Paths
 
-   The STAMP test session state allows to know if the performance
-   measurement is active.  The STAMP test session state initially is
-   declared succeeded when one or more reply test packets are received
-   at the STAMP Session-Sender.  The STAMP test session state is
-   declared failed when consecutive N number of reply test packets are
-   not received at the STAMP Session-Sender, where N is locally
-   provisioned value.
+   The STAMP test session status allows to know if the performance
+   measurement is active on the link and end-to-end SR path.  The STAMP
+   test session status initially is declared succeeded when one or more
+   reply test packets are received at the STAMP Session-Sender.  The
+   STAMP test session status is declared failed when consecutive N
+   number of reply test packets are not received at the STAMP Session-
+   Sender, where N is locally provisioned value.
 
 
 
