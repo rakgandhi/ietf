@@ -104,17 +104,17 @@
    loss detection (i.e. synthetic packet loss measurement), however, that 
    does not provide accurate Customer data packet loss metrics.</t>
 
-   <t>The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/>
-   can be used for combined delay and data packet loss
-   measurement, which is suitable for control-plane based counter collection. 
-   This method however has following limitations:</t>
+   <t>The STAMP test packet with a "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> 
+   can be used for combined delay measurement and data packet counter collection.
+   This method however has the following limitations when using for direct loss measurement:</t>
        
     <t><list style="symbols"><t>
-     For only Direct Loss Measurement, STAMP test packet requires the hardware to 
-     support the STAMP test packets and support timestamps, in addition to counters.
-     One-way delay also requires clock synchronization.</t> 
+     For only direct loss measurement, the STAMP test packet requires the hardware to 
+     support timestamps, in addition to data packet counters.
+     One-way delay measurement also requires clock synchronization.</t> 
        
-    <t>The location of the transmit counter is not at the fixed location in STAMP test packets. 
+    <t>
+     The location of the transmit counter is not at the fixed location in STAMP test packets. 
      Also, the location of the transmit counter on the STAMP Session-Reflector 
      test packet is not at the same location as the STAMP Session-Sender test packet. 
      This makes in-band counter-stamping the STAMP test packets difficult to implement
@@ -221,10 +221,9 @@
 
     <section title="Overview" anchor="sect-3"><t>
     For accurate data packet loss detection, using the extensions defined in this
-    document, the DLM test packets are sent in-band (on the
-    same path as the data traffic flow) by the Session-Sender, and are used
+    document, the DLM test packets are transmitted by the Session-Sender, and are used
     to collect the transmit and receive counters for the data traffic flow under measurement.
-    The DLM reply test packets can also be sent in-band by the Session-Reflector
+    The DLM reply test packets are transmitted by the Session-Reflector
     to collect the transmit and receive counters for the data traffic flow in the reverse direction.</t>
 
     <t>The DLM test packets carry user-configured destination UDP port. 
@@ -301,7 +300,7 @@
    Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
     <t>
-   Transmit Counter (64-bit): The number of packets or octets sent by
+   Transmit Counter (64-bit): The number of packets or octets transmitted by
    the Session-Sender in the 
    DLM test packet.  The counter is always written at the well-known fixed 
    location in the DLM test packet.  This is an important
@@ -318,11 +317,11 @@
       counter values.
     <vspace blankLines="1"/>
     B: Octet (byte) count.  When set to 1, indicates that the Counter
-      fields represent octet counts.  The octet count applies to all
-      packets within the Direct Loss Measurement scope, and the octet count of a packet sent
+      fields repretransmitted octet counts.  The octet count applies to all
+      packets within the Direct Loss Measurement scope, and the octet count of a packet transmitted
       or received includes the total length of that packet (but excludes
       headers, labels, or framing of the channel itself).  When set to
-      0, indicates that the Counter fields represent packet counts.
+      0, indicates that the Counter fields repretransmitted packet counts.
     <vspace blankLines="1"/>
       T: Traffic-class-specific measurement indicator.  Set to 1 when
       the Direct Loss Measurement operation is scoped to data packets of a particular
@@ -445,7 +444,7 @@
    Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
    <t>
-   Transmit Counter (64-bit): The number of packets or octets sent by
+   Transmit Counter (64-bit): The number of packets or octets transmitted by
    the Session-Reflector in the DLM reply test packet. 
    Counter is for the data traffic flow under measurement.
    The Session-Reflector writes the transmit counter at the same location in the
@@ -497,7 +496,7 @@
    </t>
 
    <t>These values are updated each time a DLM reply test packet is received and
-   processed at the Session-Sender, and they represent the total transmit and toal receive loss
+   processed at the Session-Sender, and they repretransmitted the total transmit and toal receive loss
    since the Direct Loss Measurement operation was initiated. 
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
