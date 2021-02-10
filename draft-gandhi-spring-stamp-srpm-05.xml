@@ -292,7 +292,7 @@
 
     <t>Example of the Timestamp Format is PTPv2 <xref target="IEEE1588"/> and NTP. 
     Example of Delay Measurement Mode is one-way, two-way and round-trip mode as described in this document.
-    Example of Packet Loss Type is test packet loss.</t>
+    Example of Packet Loss Type is round-trip packet loss <xref target="RFC8762"/>.</t>
 
     <t>When using the authenticated mode for delay measurement, the matching
     Authentication Type (e.g. HMAC-SHA-256) and Key are user-configured
@@ -713,8 +713,8 @@
    <t>The PSID carried in the received data packet for the traffic
    flow under measurement can be used to measure receive data packets for end-to-end SR path  
    on the STAMP Session-Reflector. The PSID in the received Session-Sender test packet
-   header can be used to collect the receive traffic counter for the SR path on 
-   the Session-Reflector.</t>
+   header can be used to collect the receive traffic counter on 
+   the Session-Reflector for the end-to-end SR path.</t>
 
    </section>
 

@@ -305,8 +305,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    Example of the Timestamp Format is PTPv2 [IEEE1588] and NTP.  Example
    of Delay Measurement Mode is one-way, two-way and round-trip mode as
-   described in this document.  Example of Packet Loss Type is test
-   packet loss.
+   described in this document.  Example of Packet Loss Type is round-
+   trip packet loss [RFC8762].
 
    When using the authenticated mode for delay measurement, the matching
    Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
@@ -798,7 +798,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    under measurement can be used to measure receive data packets for
    end-to-end SR path on the STAMP Session-Reflector.  The PSID in the
    received Session-Sender test packet header can be used to collect the
-   receive traffic counter for the SR path on the Session-Reflector.
+   receive traffic counter on the Session-Reflector for the end-to-end
+   SR path.
 
 7.  Session Status for Links and SR Paths
 
@@ -832,7 +833,6 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    As specified in [RFC6437], Flow Label field in the outer IPv6 header
    can also be used for sweeping to exercise different IPv6 ECMP paths.
-
 
 
 
