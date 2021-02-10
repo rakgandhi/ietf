@@ -588,7 +588,7 @@
 
    <section title="Round-trip Delay Measurement Mode" anchor="sect-4.2.3"><t>
    The loopback mode is used to measure round-trip delay
-   of a bidirectional SR path.  The IP header of the STAMP Session-Sender test 
+   of a bidirectional path.  The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
    the STAMP Session-Sender test packet can carry the return path information (e.g.
@@ -660,8 +660,11 @@
    that may contain Bud SID as defined in 
    <xref target="I-D.shen-spring-p2mp-transport-chain"/>.</t>
 
+   <t>The round-trip delay measurement for a P2MP SR-MPLS Policy can use the Node SID
+   of the Session-Sender in the MPLS header of the Session-Sender test packet.</t>
+
    <t>The considerations for two-way delay measurement mode for 
-   P2MP SR Policy (e.g. for bidirectional SR path) are outside the scope of this document.</t>
+   a P2MP SR Policy (e.g. for bidirectional path) are outside the scope of this document.</t>
 
     </section>
 
