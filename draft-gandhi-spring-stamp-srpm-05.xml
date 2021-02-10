@@ -623,11 +623,11 @@
 
    <t><list style="symbols"><t>The STAMP Session-Sender root node transmits test packets using the
       Tree-SID defined in <xref target="I-D.ietf-pim-sr-p2mp-policy"/> for the
-      P2MP SR-MPLS Policy as shown in Figure 8.  The STAMP Session-Sender test packets can contain
+      P2MP SR-MPLS Policy as shown in Figure 8.  The STAMP Session-Sender test packets may contain
       the replication SID as defined in <xref target="I-D.ietf-spring-sr-replication-segment"/>.</t>
 
       <t>The Destination Address is set to the loopback 
-      address from range 127/8 for IPv4, or the loopback address ::1/128 for IPv6 address.</t>
+      address from the range 127/8 for IPv4, or the loopback address ::1/128 for IPv6.</t>
 
       <t>Each STAMP Session-Reflector leaf node transmits its IP address in the Source
       Address of the reply test packets shown in Figure 5.  This

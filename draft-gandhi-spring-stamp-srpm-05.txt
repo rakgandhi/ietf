@@ -693,11 +693,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    o  The STAMP Session-Sender root node transmits test packets using
       the Tree-SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP
       SR-MPLS Policy as shown in Figure 8.  The STAMP Session-Sender
-      test packets can contain the replication SID as defined in
+      test packets may contain the replication SID as defined in
       [I-D.ietf-spring-sr-replication-segment].
 
-   o  The Destination Address is set to the loopback address from range
-      127/8 for IPv4, or the loopback address ::1/128 for IPv6 address.
+   o  The Destination Address is set to the loopback address from the
+      range 127/8 for IPv4, or the loopback address ::1/128 for IPv6.
 
    o  Each STAMP Session-Reflector leaf node transmits its IP address in
       the Source Address of the reply test packets shown in Figure 5.
