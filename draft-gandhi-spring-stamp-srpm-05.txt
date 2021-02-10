@@ -658,7 +658,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    Session-Reflector address.  Optionally, the STAMP Session-Sender test
    packet can carry the return path information (e.g.  return path label
    stack for SR-MPLS) as part of the SR header.  This way, the received
-   test packets are not punted out of fast-path in forwarding (to slow
+   test packets are not punted out of fast path in forwarding (to slow
    path or control-plane) at the STAMP Session-Reflector and it does not
    process them and generate reply test packets.
 
@@ -685,28 +685,28 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy] or P2MP Transport
    [I-D.shen-spring-p2mp-transport-chain]).
 
-   The procedures for delay measurement described in this document for
-   P2P SR Policies are also equally applicable to the P2MP SR Policies.
-   The procedure for one-way delay measurement mode is described as
+   The procedures for performance measurement described in this document
+   for P2P SR Policies are also applicable to the P2MP SR Policies.  The
+   procedure for one-way delay measurement mode is described as
    following:
 
    o  The STAMP Session-Sender root node transmits test packets using
       the Tree-SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP
-      SR-MPLS Policy as shown in Figure 8.
-
-   o  The STAMP Session-Sender test packets can contain the replication
-      SID as defined in [I-D.ietf-spring-sr-replication-segment].
+      SR-MPLS Policy as shown in Figure 8.  The STAMP Session-Sender
+      test packets can contain the replication SID as defined in
+      [I-D.ietf-spring-sr-replication-segment].
 
    o  The Destination Address is set to the loopback address from range
       127/8 for IPv4, or the loopback address ::1/128 for IPv6 address.
 
    o  Each STAMP Session-Reflector leaf node transmits its IP address in
-      the Source Address of the reply test packets as shown in Figure 8.
+      the Source Address of the reply test packets shown in Figure 5.
       This allows the STAMP Session-Sender root node to identify the
       STAMP Session-Reflector leaf nodes of the P2MP SR Policy.
 
-   o  The P2MP root node measures the delay for each P2MP leaf node of
-      the end-to-end P2MP SR Policy.
+   o  The P2MP root node measures the one-way delay for each P2MP leaf
+      node of the P2MP SR Policy.
+
 
 
 
