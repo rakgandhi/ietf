@@ -662,7 +662,7 @@
         
    <section title="TTL" anchor="sect-4.5.1"><t>
    The TTL field in the IPv4 and MPLS headers of the
-   STAMP Session-Sender and STAMP Session-Reflector test packets 
+   STAMP Session-Sender and STAMP Session-Reflector reply test packets 
    is set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv4 Address from the range 127/8, 
@@ -675,7 +675,7 @@
 
    <section title="IPv6 Hop Limit" anchor="sect-4.5.2"><t>
    The Hop Limit field in the IPv6 and SRH headers of the
-   STAMP Session-Sender and STAMP Session-Reflector test packets is 
+   STAMP Session-Sender and STAMP Session-Reflector reply test packets is 
    set to 255, except in the following cases.</t>
 
    <t>When using the Destination IPv6 Address of loopback address ::1/128, 
@@ -688,8 +688,7 @@
 
    <section title="Router Alert Option" anchor="sect-4.5.3"><t>
    The Router Alert IP option (RAO) <xref target="RFC2113"/> is 
-   not set in the STAMP Session-Sender
-   and Session-Reflector test packets for links and end-to-end SR paths.</t>
+   not set in the STAMP test packets for links and end-to-end SR paths.</t>
 
    </section>
    </section>

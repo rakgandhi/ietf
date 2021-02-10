@@ -551,7 +551,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
    For two-way delay measurement mode for links, the STAMP Session-
    Reflector needs to transmit the reply test packet in-band on the same
-   link where the test packet is recived.  The STAMP Session-Sender can
+   link where the test packet is received.  The STAMP Session-Sender can
    request in the test packet to the STAMP Session-Reflector to transmit
    the reply test packet back on the same link using the Control Code
 
@@ -743,8 +743,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 4.4.1.  TTL
 
    The TTL field in the IPv4 and MPLS headers of the STAMP Session-
-   Sender and STAMP Session-Reflector test packets is set to 255, except
-   in the following cases.
+   Sender and STAMP Session-Reflector reply test packets is set to 255,
+   except in the following cases.
 
    When using the Destination IPv4 Address from the range 127/8, the TTL
    field in the IPv4 header is set to 1.
@@ -755,8 +755,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 4.4.2.  IPv6 Hop Limit
 
    The Hop Limit field in the IPv6 and SRH headers of the STAMP Session-
-   Sender and STAMP Session-Reflector test packets is set to 255, except
-   in the following cases.
+   Sender and STAMP Session-Reflector reply test packets is set to 255,
+   except in the following cases.
 
    When using the Destination IPv6 Address of loopback address ::1/128,
    the Hop Limit field in the IPv6 header is set to 1.
@@ -767,8 +767,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 4.4.3.  Router Alert Option
 
    The Router Alert IP option (RAO) [RFC2113] is not set in the STAMP
-   Session-Sender and Session-Reflector test packets for links and end-
-   to-end SR paths.
+   test packets for links and end-to-end SR paths.
 
 5.  Test Packet Loss Measurement for Links and SR Paths
 
@@ -777,7 +776,8 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    delay measurement using STAMP test packets is used to detect packet
    loss for links and end-to-end SR paths.  The Sequence Number field in
    the STAMP test packet is used as described in Section 4 "Theory of
-
+   Operation" of [RFC8762], to detect forward, reverse and round-trip
+   packet loss.
 
 
 
@@ -785,9 +785,6 @@ Gandhi, et al.           Expires August 14, 2021               [Page 14]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   Operation" of [RFC8762], to detect forward, reverse and round-trip
-   packet loss.
 
 6.  Direct Loss Measurement for Links and SR Paths
 
@@ -834,6 +831,9 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    delay measurement, both the forward and the return paths must be SR-
    MPLS paths in this case.
 
+   As specified in [RFC6437], Flow Label field in the outer IPv6 header
+   can also be used for sweeping to exercise different IPv6 ECMP paths.
+
 
 
 
@@ -841,9 +841,6 @@ Gandhi, et al.           Expires August 14, 2021               [Page 15]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   As specified in [RFC6437], Flow Label field in the outer IPv6 header
-   can also be used for sweeping to exercise different IPv6 ECMP paths.
 
    The "Destination Node Address" TLV [I-D.gandhi-ippm-stamp-srpm] can
    be carried in the STAMP Session-Sender test packet to identify the
@@ -889,7 +886,10 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC0768, August 1980,
               <https://www.rfc-editor.org/info/rfc768>.
 
-
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
 
 
 
@@ -897,11 +897,6 @@ Gandhi, et al.           Expires August 14, 2021               [Page 16]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
-              Two-Way Active Measurement Protocol", RFC 8762,
-              DOI 10.17487/RFC8762, March 2020,
-              <https://www.rfc-editor.org/info/rfc8762>.
 
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
@@ -942,6 +937,11 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               DOI 10.17487/RFC6437, November 2011,
               <https://www.rfc-editor.org/info/rfc6437>.
 
+   [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
+              Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
+              Switched (MPLS) Data-Plane Failures", RFC 8029,
+              DOI 10.17487/RFC8029, March 2017,
+              <https://www.rfc-editor.org/info/rfc8029>.
 
 
 
@@ -953,12 +953,6 @@ Gandhi, et al.           Expires August 14, 2021               [Page 17]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
-              Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
-              Switched (MPLS) Data-Plane Failures", RFC 8029,
-              DOI 10.17487/RFC8029, March 2017,
-              <https://www.rfc-editor.org/info/rfc8029>.
 
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
@@ -1000,6 +994,12 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
               ietf-spring-srv6-path-segment-00 (work in progress),
               November 2020.
 
+   [I-D.ietf-pce-sr-bidir-path]
+              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
+              "Path Computation Element Communication Protocol (PCEP)
+              Extensions for Associated Bidirectional Segment Routing
+              (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
+              progress), January 2021.
 
 
 
@@ -1009,13 +1009,6 @@ Gandhi, et al.           Expires August 14, 2021               [Page 18]
 
 Internet-Draft       Using STAMP for Segment Routing       February 2021
 
-
-   [I-D.ietf-pce-sr-bidir-path]
-              Li, C., Chen, M., Cheng, W., Gandhi, R., and Q. Xiong,
-              "Path Computation Element Communication Protocol (PCEP)
-              Extensions for Associated Bidirectional Segment Routing
-              (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
-              progress), January 2021.
 
    [I-D.ietf-ippm-stamp-yang]
               Mirsky, G., Min, X., and W. Luo, "Simple Two-way Active
@@ -1059,13 +1052,6 @@ Authors' Addresses
    Email: mach.chen@huawei.com
 
 
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 19]
-
-Internet-Draft       Using STAMP for Segment Routing       February 2021
-
-
    Bart Janssens
    Colt
 
@@ -1075,46 +1061,4 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 14, 2021               [Page 20]
+Gandhi, et al.           Expires August 14, 2021               [Page 19]
