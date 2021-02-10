@@ -867,7 +867,7 @@ Internet-Draft       Using STAMP for Segment Routing       February 2021
    The "Destination Node Address" TLV [I-D.gandhi-ippm-stamp-srpm] can
    be carried in the STAMP Session-Sender test packet to identify the
    intended destination node, for example, when using IPv4 Destination
-   Address from the range 127/8.  The STAMP Session-Reflector MUST NOT
+   Address from the range 127/8.  The STAMP Session-Reflector must not
    transmit reply test packet if it is not the intended destination node
    in the "Destination Node Address" TLV [I-D.gandhi-ippm-stamp-srpm].
 
