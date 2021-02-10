@@ -33,7 +33,7 @@
     <?rfc strict="yes"?>
     <?rfc toc="yes"?>
     <front>
-    <title abbrev="STAMP Extensions for Direct Measurement">Simple TWAMP (STAMP) Extensions for Direct Measurement</title>
+    <title abbrev="Extensions for Direct Loss Measurement">Simple TWAMP (STAMP) Extensions for Direct Loss Measurement</title>
     <author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
     <organization>Cisco Systems, Inc.</organization>
     <address><postal><street>Canada</street>
@@ -70,12 +70,12 @@
     </address>
     </author>
 
-    <date day="09" month="February" year="2021"/>
+    <date day="10" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document specifies RFC 8762 (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for Direct Measurement for detecting accurate data packet loss in a network.
-   Specifically, stand-alone Direct Measurement 
+   extensions for Direct Loss Measurement for detecting accurate data packet loss in a network.
+   Specifically, stand-alone Direct Loss Measurement 
    test packets are defined for STAMP Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
@@ -99,7 +99,7 @@
    Note that an approach for conducting packet loss measurement in IP
    networks is documented in <xref target="RFC2680"/>.
    This approach requires clock synchronization
-   between the measurement points and lacks support for Direct Measurement.
+   between the measurement points and lacks support for Direct Loss Measurement.
    The STAMP can be used for test packet 
    loss detection (i.e. synthetic packet loss measurement), however, that 
    does not provide accurate Customer data packet loss metrics.</t>
@@ -110,7 +110,7 @@
    This method however has following limitations:</t>
        
     <t><list style="symbols"><t>
-     For only Direct Measurement, STAMP test packet requires the hardware to 
+     For only Direct Loss Measurement, STAMP test packet requires the hardware to 
      support the STAMP test packets and support timestamps, in addition to counters.
      One-way delay also requires clock synchronization.</t> 
        
@@ -138,15 +138,15 @@
      The STAMP test packet does not support counters per traffic class.</t>
 
     <t>
-     The STAMP test packet also does not identify the block number of the Direct Measurement, which is  
+     The STAMP test packet also does not identify the block number of the Direct Loss Measurement, which is  
      required for Alternate-Marking Method <xref target="RFC8321"/> for loss measurement.
      This also helps in case of out-of-order data packets.</t>
 
    </list>
    </t>
 
-   <t>This document specifies STAMP extensions for Direct Measurement for detecting 
-   accurate data packet loss in a network.  Specifically, stand-alone Direct Measurement 
+   <t>This document specifies STAMP extensions for Direct Loss Measurement for detecting 
+   accurate data packet loss in a network.  Specifically, stand-alone Direct Loss Measurement 
    test packets are defined for STAMP Session-Sender and Session-Reflector, for both unauthenticated
    and authenticated modes, those are efficient for hardware-based implementation.
    </t>
@@ -163,7 +163,7 @@
     </section>
 
     <section title="Abbreviations" anchor="sect-2.2"><t>
-   DM: Direct Measurement.</t>
+   DLM: Direct Loss Measurement.</t>
 
     <t>
    HMAC: Hashed Message Authentication Code.</t>
@@ -186,32 +186,33 @@
     <t>
    STAMP: Simple Two-way Active Measurement Protocol.</t>
 
-   <t>TTL: Time To Live.</t>
+    <t>
+   TTL: Time To Live.</t>
  
     </section>
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
-   As shown in the DM reference topology, the Session-Sender R1 
-   initiates a Direct Measurement (DM) test packet over UDP transport.
+   As shown in the DLM reference topology, the Session-Sender R1 
+   initiates a Direct Loss Measurement (DLM) test packet over UDP transport.
    The Session-Reflector R3
-   receives the Session-Sender's DM test packet and acts according to the
+   receives the Session-Sender's DLM test packet and acts according to the
    local configuration. The Session-Reflector R3 transmits 
-   a DM reply test packet to the Session-Sender R1.</t> 
+   a DLM reply test packet to the Session-Sender R1.</t> 
 
     <figure><artwork><![CDATA[
-                     C1                  C2
-                    /                     \
-           +-------+    DM Test Packet     +-------+
-           |       | - - - - - - - - - - ->|       |
-           |   R1  |=======================|   R3  |
-           |       |<- - - - - - - - - - - |       |
-           +-------+  DM Reply Test Packet +-------+
-                    \                     /
-                     C4                  C3
+                     C1                    C2
+                    /                       \
+           +-------+     DLM Test Packet     +-------+
+           |       | - - - - - - - - - - - ->|       |
+           |   R1  |=========================|   R3  |
+           |       |<- - - - - - - - - - - - |       |
+           +-------+  DLM Reply Test Packet  +-------+
+                    \                       /
+                     C4                    C3
 
-         Session-Sender                Session-Reflector
+         Session-Sender                 Session-Reflector
 
-                    DM Reference Topology
+                      Reference Topology
 ]]></artwork>
     </figure>
 
@@ -220,18 +221,18 @@
 
     <section title="Overview" anchor="sect-3"><t>
     For accurate data packet loss detection, using the extensions defined in this
-    document, the DM test packets are sent in-band (on the
+    document, the DLM test packets are sent in-band (on the
     same path as the data traffic flow) by the Session-Sender, and are used
     to collect the transmit and receive counters for the data traffic flow under measurement.
-    The DM reply test packets can also be sent in-band by the Session-Reflector
+    The DLM reply test packets can also be sent in-band by the Session-Reflector
     to collect the transmit and receive counters for the data traffic flow in the reverse direction.</t>
 
-    <t>The DM test packets carry user-configured destination UDP port. 
-    The destination UDP port 862 is not used for the DM test packets 
+    <t>The DLM test packets carry user-configured destination UDP port. 
+    The destination UDP port 862 is not used for the DLM test packets 
     defined in this document. The user-configured
     destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
     Different destination UDP port is used for
-    DM test packets than the STAMP test packets defined in <xref target="RFC8762"/>.
+    DLM test packets than the STAMP test packets defined in <xref target="RFC8762"/>.
     Hence, the Session-Sender and the Session-Reflector do not require backwards
     compatibility and support for the existing STAMP test packets defined in
     <xref target="RFC8762"/>.</t>
@@ -239,15 +240,15 @@
     </section>
 
 
-    <section title="Session-Sender Direct Measurement Test Packet" anchor="sect-4">
-   <t>In this document, base Session-Sender DM test packet formats 
+    <section title="Session-Sender Direct Loss Measurement Test Packet" anchor="sect-4">
+   <t>In this document, base Session-Sender DLM test packet formats 
    are defined as shown in Figure 1 and Figure 2. 
-   They are stand-alone DM test packet formats to 
+   They are stand-alone DLM test packet formats to 
    carry transmit and receive counters for the data traffic 
-   flow under measurement. The DM test packet formats are similar to the base STAMP test 
+   flow under measurement. The DLM test packet formats are similar to the base STAMP test 
    packet formats (for example location of the Counters and Timestamps).</t>
 
-    <figure title="Session-Sender Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
+    <figure title="Session-Sender Direct Loss Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-test-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -269,7 +270,7 @@
 ]]></artwork>
     </figure>
 
-    <figure title="Session-Sender Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm-test-packet-format-authenticated-mode"><artwork><![CDATA[
+    <figure title="Session-Sender Direct Loss Measurement Test Packet - Authenticated Mode" anchor="ure-lm-test-packet-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -302,8 +303,8 @@
     <t>
    Transmit Counter (64-bit): The number of packets or octets sent by
    the Session-Sender in the 
-   DM test packet.  The counter is always written at the well-known fixed 
-   location in the DM test packet.  This is an important
+   DLM test packet.  The counter is always written at the well-known fixed 
+   location in the DLM test packet.  This is an important
    property for hardware-based implementation. Counter is for the data traffic flow
    under measurement.</t>
 
@@ -311,22 +312,22 @@
     <vspace blankLines="1"/>
     X: Extended counter format indicator.  Indicates the use of
       extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of a DM test packet and copied from test packet
-      to reply test packet.  Set to 0 when the DM test packet is
+      (and prior to transmission) of a DLM test packet and copied from test packet
+      to reply test packet.  Set to 0 when the DLM test packet is
       transmitted or received over an interface that writes 32-bit
       counter values.
     <vspace blankLines="1"/>
     B: Octet (byte) count.  When set to 1, indicates that the Counter
       fields represent octet counts.  The octet count applies to all
-      packets within the Direct Measurement scope, and the octet count of a packet sent
+      packets within the Direct Loss Measurement scope, and the octet count of a packet sent
       or received includes the total length of that packet (but excludes
       headers, labels, or framing of the channel itself).  When set to
       0, indicates that the Counter fields represent packet counts.
     <vspace blankLines="1"/>
       T: Traffic-class-specific measurement indicator.  Set to 1 when
-      the Direct Measurement operation is scoped to data packets of a particular
+      the Direct Loss Measurement operation is scoped to data packets of a particular
       traffic class (DSCP value), and 0 otherwise.  When set to 1, the
-      DSCP field of the DM test packet indicates the measured traffic class.
+      DSCP field of the DLM test packet indicates the measured traffic class.
     </t>
 
     </list>
@@ -336,15 +337,15 @@
    DSCP (6-bit): DSCP of the data traffic flow being measured when T flag is set.</t>
 
     <t>
-   Block Number (7-bit): The Direct Measurement using Alternate-Marking
+   Block Number (7-bit): The Direct Loss Measurement using Alternate-Marking
    method defined in <xref target="RFC8321"/> requires to 
    collect Block Number for the data traffic flow.  To
    be able to correlate the transmit and receive counters of the
    matching block number, the block number of the counters
-   is carried by the DM test packet and reply test packet.</t>
+   is carried by the DLM test packet and reply test packet.</t>
 
     <t>
-   SSID (16-bit): DM Sender Session Identifier. Follows the procedure defined for SSID 
+   SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
     in <xref target="RFC8972"/>.</t>
 
     <t>
@@ -360,11 +361,11 @@
 
     </section>
 
-    <section title="Session-Reflector Direct Measurement Test Packet" anchor="sect-5">
-        <t>In this document, Session-Reflector DM test packet formats 
+    <section title="Session-Reflector Direct Loss Measurement Test Packet" anchor="sect-5">
+        <t>In this document, Session-Reflector DLM test packet formats 
          are defined as shown in Figure 3 and Figure 4.</t>
 
-    <figure title="Session-Reflector Direct Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
+    <figure title="Session-Reflector Direct Loss Measurement Test Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -390,7 +391,7 @@
 ]]></artwork>
     </figure>
 
-    <figure title="Session-Reflector Direct Measurement Test Packet - Authenticated Mode" anchor="ure-lm--reply-packet-format-authenticated-mode"><artwork><![CDATA[
+    <figure title="Session-Reflector Direct Loss Measurement Test Packet - Authenticated Mode" anchor="ure-lm--reply-packet-format-authenticated-mode"><artwork><![CDATA[
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -445,22 +446,22 @@
 
    <t>
    Transmit Counter (64-bit): The number of packets or octets sent by
-   the Session-Reflector in the DM reply test packet. 
+   the Session-Reflector in the DLM reply test packet. 
    Counter is for the data traffic flow under measurement.
    The Session-Reflector writes the transmit counter at the same location in the
-   DM reply test packet as the Session-Sender DM test packet. 
+   DLM reply test packet as the Session-Sender DLM test packet. 
    This is an important property for hardware-based implementation. 
    </t>
 
     <t>
    Receive Counter (64-bit): The number of packets or octets received at
-   the Session-Reflector.  It is written by the Session-Reflector in the DM reply test packet.
+   the Session-Reflector.  It is written by the Session-Reflector in the DLM reply test packet.
    Counter is for the data traffic flow under measurement.</t>
 
     <t>
    Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received Session-Sender DM test packet.  It is written by the
-   Session-Reflector in the DM test packet.</t>
+   counter from the received Session-Sender DLM test packet.  It is written by the
+   Session-Reflector in the DLM test packet.</t>
 
     <t>
    Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
@@ -468,12 +469,11 @@
     <t>
    Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
 
-
         </section>
 
     <section title="Data Loss Calculation" anchor="sect-6"><t>
    Using the Counters C1, C2, C3 and C4 as per reference topology, 
-   from the nth and (n-1)th DM test packets, data packet and byte loss can be 
+   from the nth and (n-1)th DLM test packets, data packet and byte loss can be 
    calculated as follows.</t>
 
    <t>
@@ -496,9 +496,9 @@
     Total Receive Loss  = RxL[1,2] + RxL[2,3] + ...
    </t>
 
-   <t>These values are updated each time a DM reply test packet is received and
+   <t>These values are updated each time a DLM reply test packet is received and
    processed at the Session-Sender, and they represent the total transmit and toal receive loss
-   since the Direct Measurement operation was initiated. 
+   since the Direct Loss Measurement operation was initiated. 
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
    </t>
@@ -510,7 +510,7 @@
 
    <section title="Optional Extensions" anchor="sect-7"><t>
    The optional STAMP extensions defined in <xref target="RFC8972"/> are not currently 
-   used by the DM test packets.</t> 
+   used by the DLM test packets.</t> 
         </section>
 
     <section title="Integrity Protection and Confidentiality Protection" anchor="sect-8"><t>
@@ -527,7 +527,7 @@
 
     <t>If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the Session-Sender, of the counter fields
-   in received DM reply test packets.  The minimal state
+   in received DLM reply test packets.  The minimal state
    associated with these protocols also limits the extent of measurement
    disruption that can be caused by a corrupt or invalid packet to a
    single test cycle.</t>
@@ -542,7 +542,6 @@
    defined in this document.</t> 
 
     </section>
-
 
     </middle>
 
@@ -560,7 +559,7 @@
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan Mishra, 
    Zhenqiang Li, Reshad Rahman, Cheng Li, 
-   and Yali Wang for the comments on Direct Measurement. 
+   and Yali Wang for the comments on Direct Loss Measurement. 
    The authors would like to acknowledge the earlier 
    work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>
