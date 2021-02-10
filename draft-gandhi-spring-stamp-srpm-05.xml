@@ -590,7 +590,7 @@
     </section>
 
    <section title="Loopback (Round-trip Delay) Measurement Mode" anchor="sect-4.2.3"><t>
-   The loopback measurement mode can be used to measure round-trip delay
+   The loopback measurement mode is used to measure round-trip delay
    of a bidirectional SR path.  The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
    and the Source Address equals to the STAMP Session-Reflector address. Optionally,
@@ -736,7 +736,7 @@
    </section>
 
      <section title="Session State for Links and SR Paths" anchor="sect-7"><t>
-   The STAMP test session state allows to know if the performance measurement is active in an SR network.
+   The STAMP test session state allows to know if the performance measurement is active.
    The STAMP test session state initially is declared succeeded when one or more reply test 
    packets are received at the STAMP Session-Sender.
    The STAMP test session state is declared failed when consecutive N number of reply test packets are
