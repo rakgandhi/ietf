@@ -78,11 +78,11 @@ Table of Contents
    5.  Session-Reflector Direct Measurement Test Packet  . . . . . .   8
    6.  Data Loss Calculation . . . . . . . . . . . . . . . . . . . .  10
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  10
-   8.  Integrity Protection and Confidentiality Protection . . . . .  11
+   8.  Integrity Protection and Confidentiality Protection . . . . .  10
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  12
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  11
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
@@ -517,9 +517,6 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
    Session-Sender TTL: As defined in [RFC8762].
 
-   The detailed use of the HMAC field is described in Section 4.4 of
-   [RFC8762].
-
 6.  Data Loss Calculation
 
    Using the Counters C1, C2, C3 and C4 as per reference topology, from
@@ -551,7 +548,10 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
    The optional STAMP extensions defined in [RFC8972] are not currently
    used by the DM test packets.
 
+8.  Integrity Protection and Confidentiality Protection
 
+   The integrity protection and confidentiality protection specified in
+   [RFC8762] also apply to the procedures defined in this document.
 
 
 
@@ -561,11 +561,6 @@ Gandhi, et al.           Expires August 13, 2021               [Page 10]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
-
-8.  Integrity Protection and Confidentiality Protection
-
-   The integrity protection and confidentiality protection specified in
-   [RFC8762] also apply to the procedures defined in this document.
 
 9.  Security Considerations
 
@@ -607,7 +602,12 @@ Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
+10.2.  Informative References
 
+   [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
+              Packet Loss Metric for IPPM", RFC 2680,
+              DOI 10.17487/RFC2680, September 1999,
+              <https://www.rfc-editor.org/info/rfc2680>.
 
 
 
@@ -617,13 +617,6 @@ Gandhi, et al.           Expires August 13, 2021               [Page 11]
 
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
-
-10.2.  Informative References
-
-   [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
-              Packet Loss Metric for IPPM", RFC 2680,
-              DOI 10.17487/RFC2680, September 1999,
-              <https://www.rfc-editor.org/info/rfc2680>.
 
    [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
               L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
@@ -666,6 +659,13 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
+   Mach(Guoyi) Chen
+   Huawei
+
+   Email: mach.chen@huawei.com
+
+
+
 
 
 
@@ -674,16 +674,16 @@ Gandhi, et al.           Expires August 13, 2021               [Page 12]
 Internet-Draft   STAMP Extensions for Direct Measurement   February 2021
 
 
-   Mach(Guoyi) Chen
-   Huawei
-
-   Email: mach.chen@huawei.com
-
-
    Bart Janssens
    Colt
 
    Email: Bart.Janssens@colt.net
+
+
+
+
+
+
 
 
 

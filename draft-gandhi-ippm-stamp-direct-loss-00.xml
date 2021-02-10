@@ -468,8 +468,6 @@
     <t>
    Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
 
-    <t>
-   The detailed use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
 
         </section>
 
