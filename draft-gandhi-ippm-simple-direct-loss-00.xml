@@ -102,7 +102,7 @@
    configuration data model to provision test sessions. 
    The STAMP can be used for (synthetic or inferred) packet 
    loss measurement based on the Sequence Number in the 
-   test packets, however, this does not provide accurate data packet loss metrics.</t>
+   test packets, however, this method does not provide accurate data packet loss metrics.</t>
 
    <t><xref target="RFC8972"/> defines optional extensions for STAMP.
    The STAMP test packet with the "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> 
@@ -110,18 +110,18 @@
    This method, however, has the following limitations when used for detecting data packet loss:</t>
        
     <t><list style="symbols"><t>
-    For only direct measurement, the STAMP "Direct Measurement" TLV in the test packet requires the hardware to 
+    For only direct measurement, the STAMP "Direct Measurement" TLV in the test 
+    packet requires the hardware to 
     support timestamps, in addition to data packet counters.
     One-way delay measurement also requires clock synchronization.</t> 
        
     <t>
     The location of the transmit counter is not at the fixed location
-    The STAMP test packet with the "Direct Measurement" TLV. 
+    in the STAMP test packet with the "Direct Measurement" TLV. 
     Also, the location of the transmit counter on the STAMP Session-Reflector 
     test packet is not at the same location as the STAMP Session-Sender test packet 
     using the "Direct Measurement" TLV. 
-    This makes counter-stamping the STAMP test packets difficult to implement
-    in hardware.</t>
+    This makes updating counters in the STAMP "Direct Measurement" TLV difficult to implement in hardware.</t>
 
     <t>
     Furthermore, for hardware-based counter collection, 
@@ -131,13 +131,13 @@
     needs to search for the presence of this TLV, as there can be multiple TLVs added.</t>
                 
     <t>
-    The STAMP test packet with the "Direct Measurement" TLV does not support 64-bit counters.</t> 
+    The STAMP "Direct Measurement" TLV does not support 64-bit counters.</t> 
                 
     <t>
-    The STAMP test packet with the "Direct Measurement" TLV does not support counters for bytes.</t> 
+    The STAMP "Direct Measurement" TLV does not support counters for bytes.</t> 
                
     <t>
-    The STAMP test packet with the "Direct Measurement" TLV does not support counters per traffic class.</t>
+    The STAMP "Direct Measurement" TLV does not support counters per traffic class.</t>
 
     <t>
     The STAMP test packet with the "Direct Measurement" TLV also does 

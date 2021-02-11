@@ -104,8 +104,8 @@ Table of Contents
    for control protocol by using configuration data model to provision
    test sessions.  The STAMP can be used for (synthetic or inferred)
    packet loss measurement based on the Sequence Number in the test
-   packets, however, this does not provide accurate data packet loss
-   metrics.
+   packets, however, this method does not provide accurate data packet
+   loss metrics.
 
 
 
@@ -126,12 +126,12 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       requires clock synchronization.
 
    o  The location of the transmit counter is not at the fixed location
-      The STAMP test packet with the "Direct Measurement" TLV.  Also,
+      in the STAMP test packet with the "Direct Measurement" TLV.  Also,
       the location of the transmit counter on the STAMP Session-
       Reflector test packet is not at the same location as the STAMP
       Session-Sender test packet using the "Direct Measurement" TLV.
-      This makes counter-stamping the STAMP test packets difficult to
-      implement in hardware.
+      This makes updating counters in the STAMP "Direct Measurement" TLV
+      difficult to implement in hardware.
 
    o  Furthermore, for hardware-based counter collection, the optional
       "Direct Measurement" TLV adds unnecessary processing overhead on
@@ -139,14 +139,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       "Direct Measurement" TLV.  The Session-Reflector needs to search
       for the presence of this TLV, as there can be multiple TLVs added.
 
-   o  The STAMP test packet with the "Direct Measurement" TLV does not
-      support 64-bit counters.
+   o  The STAMP "Direct Measurement" TLV does not support 64-bit
+      counters.
 
-   o  The STAMP test packet with the "Direct Measurement" TLV does not
-      support counters for bytes.
+   o  The STAMP "Direct Measurement" TLV does not support counters for
+      bytes.
 
-   o  The STAMP test packet with the "Direct Measurement" TLV does not
-      support counters per traffic class.
+   o  The STAMP "Direct Measurement" TLV does not support counters per
+      traffic class.
 
    o  The STAMP test packet with the "Direct Measurement" TLV also does
       not identify the Block Number of the Direct Measurement, which is
