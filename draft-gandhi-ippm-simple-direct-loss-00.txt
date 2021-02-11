@@ -14,16 +14,16 @@ Expires: August 15, 2021                                        D. Voyer
                                                        February 11, 2021
 
 
-                Simple Direct Loss Measurement Procedure
+            Simple Two-Way Direct Loss Measurement Procedure
                 draft-gandhi-ippm-simple-direct-loss-00
 
 Abstract
 
-   This document defines Simple Direct Loss Measurement (DLM) procedure
-   that can be used for Alternate-Marking Method for detecting accurate
-   data packet loss in a network.  Specifically, DLM probe packets are
-   defined for both unauthenticated and authenticated modes and they are
-   efficient for hardware-based implementation.
+   This document defines Simple Two-Way Direct Loss Measurement (DLM)
+   procedure that can be used for Alternate-Marking Method for detecting
+   accurate data packet loss in a network.  Specifically, DLM probe
+   packets are defined for both unauthenticated and authenticated modes
+   and they are efficient for hardware-based implementation.
 
 Status of This Memo
 
@@ -155,11 +155,11 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       measurement.  The AMM also handles the case of the out-of-order
       data packets.
 
-   This document defines Simple Direct Loss Measurement (DLM) procedure
-   that can be used for Alternate-Marking Method [RFC8321] for detecting
-   accurate data packet loss in a network.  Specifically, DLM probe
-   packets are defined for both unauthenticated and authenticated modes
-   and they are efficient for hardware-based implementation.
+   This document defines Simple Two-Way Direct Loss Measurement (DLM)
+   procedure that can be used for Alternate-Marking Method [RFC8321] for
+   detecting accurate data packet loss in a network.  Specifically, DLM
+   probe packets are defined for both unauthenticated and authenticated
+   modes and they are efficient for hardware-based implementation.
 
 
 

@@ -33,7 +33,7 @@
     <?rfc strict="yes"?>
     <?rfc toc="yes"?>
     <front>
-    <title abbrev="Simple Direct Loss Measurement Procedure">Simple Direct Loss Measurement Procedure</title>
+    <title abbrev="Simple Direct Loss Measurement Procedure">Simple Two-Way Direct Loss Measurement Procedure</title>
     <author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
     <organization>Cisco Systems, Inc.</organization>
     <address><postal><street>Canada</street>
@@ -73,7 +73,7 @@
     <date day="11" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
-   This document defines Simple Direct Loss Measurement (DLM) procedure
+   This document defines Simple Two-Way Direct Loss Measurement (DLM) procedure
    that can be used for Alternate-Marking Method for detecting accurate data packet loss in a network.
    Specifically, DLM probe packets are defined for both unauthenticated
    and authenticated modes and they are efficient for hardware-based implementation.
@@ -148,7 +148,7 @@
    </list>
    </t>
 
-   <t>This document defines Simple Direct Loss Measurement (DLM) procedure
+   <t>This document defines Simple Two-Way Direct Loss Measurement (DLM) procedure
    that can be used for Alternate-Marking Method <xref target="RFC8321"/> 
    for detecting accurate data packet loss in a network.
    Specifically, DLM probe packets are defined for both unauthenticated
