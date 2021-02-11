@@ -380,9 +380,9 @@
  |                        Receive Counter (C2)                   |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Sequence Number                 |
+ |                        Session-Sender Sequence Number         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Counter (C1)                    |
+ |                        Session-Sender Counter (C1)            |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
@@ -415,13 +415,13 @@
  |                        MBZ (8 octets)                         |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Sequence Number                 |
+ |                        Session-Sender Sequence Number         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (12 octets)                        |
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sender Counter (C1)                    |
+ |                        Session-Sender Counter (C1)            |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
@@ -460,12 +460,12 @@
    Counter is for the data traffic flow under measurement.</t>
 
     <t>
-   Sender Counter (64-bit): This is the exact copy of the transmit
+   Session-Sender Counter (64-bit): This is the exact copy of the transmit
    counter from the received Session-Sender DLM probe packet.  It is written by the
    Session-Reflector in the DLM reply probe packet.</t>
 
     <t>
-   Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+   Session-Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
     <t>
    Session-Sender Block Number: This is the exact copy of the Block Number 
@@ -496,7 +496,7 @@
    </t>
 
    <t>
-    The total transmit and receive loss is calculated as follows:
+    The Total Transmit and Receive Loss are calculated as follows:
    </t>
 
    <t>
@@ -508,20 +508,19 @@
    </t>
 
    <t>These values are updated each time a DLM reply probe packet is received and
-   processed at the Session-Sender, and they represent the total transmit and total receive loss
-   since the Direct Loss Measurement operation was initiated. 
+   processed at the Session-Sender, and they represent the Total Transmit and Total Receive Loss
+   since the DLM session was initiated. 
    When computing the values TxL[n-1,n] and RxL[n-1,n], the possibility 
    of counter wrap must be taken into account. 
    </t>
  
-   <t>When using Alternate-Marking Method, all Counters used for loss calculation
+   <t>When using Alternate-Marking Method, all counters used for loss calculation
    belongs to the same Block Number, as described in Section 3.1 of <xref target="RFC8321"/>.</t>
 
         </section>
 
    <section title="Optional Extensions" anchor="sect-7"><t>
-   The optional STAMP extensions defined in <xref target="RFC8972"/> are not currently 
-   used by the DLM probe packets.</t> 
+   There are currently no optional (TLV) extensions defined for the DLM probe packets.</t> 
         </section>
 
     <section title="Integrity Protection and Confidentiality Protection" anchor="sect-8"><t>
@@ -549,8 +548,7 @@
    of access-control lists and firewalls.</t>
 
    <t>The security considerations specified in <xref target="RFC8762"/>
-   and <xref target="RFC8972"/> also apply to the procedure 
-   defined in this document.</t> 
+   also apply to the procedure defined in this document.</t> 
 
     </section>
 

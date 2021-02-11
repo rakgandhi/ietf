@@ -419,9 +419,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Receive Counter (C2)                   |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Sequence Number                 |
+    |                        Session-Sender Sequence Number         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Counter (C1)                    |
+    |                        Session-Sender Counter (C1)            |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
@@ -462,13 +462,13 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        MBZ (8 octets)                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Sequence Number                 |
+    |                        Session-Sender Sequence Number         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
     |                                                               |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sender Counter (C1)                    |
+    |                        Session-Sender Counter (C1)            |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
@@ -511,11 +511,11 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    DLM reply probe packet.  Counter is for the data traffic flow under
    measurement.
 
-   Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received Session-Sender DLM probe packet.  It is
-   written by the Session-Reflector in the DLM reply probe packet.
+   Session-Sender Counter (64-bit): This is the exact copy of the
+   transmit counter from the received Session-Sender DLM probe packet.
+   It is written by the Session-Reflector in the DLM reply probe packet.
 
-   Sender Sequence Number (32-bit): As defined in [RFC8762].
+   Session-Sender Sequence Number (32-bit): As defined in [RFC8762].
 
    Session-Sender Block Number: This is the exact copy of the Block
    Number from the received Session-Sender DLM probe packet.  It is
@@ -537,7 +537,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Receive Loss RxL[n-1, n] = (C3[n] - C3[n-1]) - (C4[n] - C4[n-1])
 
-   The total transmit and receive loss is calculated as follows:
+   The Total Transmit and Receive Loss are calculated as follows:
 
    Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
 
@@ -545,14 +545,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    These values are updated each time a DLM reply probe packet is
    received and processed at the Session-Sender, and they represent the
-   total transmit and total receive loss since the Direct Loss
-   Measurement operation was initiated.  When computing the values
-   TxL[n-1,n] and RxL[n-1,n], the possibility of counter wrap must be
-   taken into account.
+   Total Transmit and Total Receive Loss since the DLM session was
+   initiated.  When computing the values TxL[n-1,n] and RxL[n-1,n], the
+   possibility of counter wrap must be taken into account.
 
-   When using Alternate-Marking Method, all Counters used for loss
+   When using Alternate-Marking Method, all counters used for loss
    calculation belongs to the same Block Number, as described in
    Section 3.1 of [RFC8321].
+
 
 
 
@@ -564,8 +564,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 7.  Optional Extensions
 
-   The optional STAMP extensions defined in [RFC8972] are not currently
-   used by the DLM probe packets.
+   There are currently no optional (TLV) extensions defined for the DLM
+   probe packets.
 
 8.  Integrity Protection and Confidentiality Protection
 
@@ -592,8 +592,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    enhanced by the correct configuration of access-control lists and
    firewalls.
 
-   The security considerations specified in [RFC8762] and [RFC8972] also
-   apply to the procedure defined in this document.
+   The security considerations specified in [RFC8762] also apply to the
+   procedure defined in this document.
 
 10.  References
 
