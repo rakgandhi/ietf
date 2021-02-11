@@ -76,7 +76,7 @@
    This document defines Simple Direct Loss Measurement (DLM) procedure
    that can be used for Alternate-Marking Method for detecting accurate data packet loss in a network.
    Specifically, DLM probe packets are defined for both unauthenticated
-   and authenticated modes and are efficient for hardware-based implementation.
+   and authenticated modes and they are efficient for hardware-based implementation.
    </t>
 
     </abstract>
@@ -105,8 +105,8 @@
    loss measurement, however, that does not provide accurate data packet loss metrics.</t>
 
    <t>The STAMP test packet with the "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> 
-   can be used for combined delay measurement and data packet counter collection.
-   This method, however, has the following limitations when using for detecting data packet loss:</t>
+   can be used for combined timestamps and data packet counter collection.
+   This method, however, has the following limitations when used for detecting data packet loss:</t>
        
     <t><list style="symbols"><t>
      For only direct measurement, the STAMP test packet requires the hardware to 
@@ -138,17 +138,17 @@
      The STAMP test packet does not support counters per traffic class.</t>
 
     <t>
-     The STAMP test packet also does not identify the block number of the Direct Measurement, which is  
-     required for Alternate-Marking Method (AMM) <xref target="RFC8321"/> for data packet loss measurement.
+     The STAMP test packet also does not identify the Block Number of the Direct Measurement, which is  
+     required for Alternate-Marking Method <xref target="RFC8321"/> for data packet loss measurement.
      The AMM also handles the case of the out-of-order data packets.</t>
 
    </list>
    </t>
 
    <t>This document defines Simple Direct Loss Measurement (DLM) procedure
-   that can be used for Alternate-Marking Method for detecting accurate data packet loss in a network.
+   that can be used for Alternate-Marking Method <xref target="RFC8321"/> for detecting accurate data packet loss in a network.
    Specifically, DLM probe packets are defined for both unauthenticated
-   and authenticated modes and are efficient for hardware-based implementation.
+   and authenticated modes and they are efficient for hardware-based implementation.
    </t>
 
     </section>
@@ -337,11 +337,11 @@
 
     <t>
    Block Number (7-bit): The Direct Loss Measurement using Alternate-Marking
-   method defined in <xref target="RFC8321"/> requires to 
-   collect Block Number for the data traffic flow.  To
+   Method <xref target="RFC8321"/> requires to 
+   collect Block Number of the counters for the data traffic flow under measurement.  To
    be able to correlate the transmit and receive counters of the
-   matching block number, the block number of the counters
-   is carried by the DLM probe packet and DLM reply probe packet.</t>
+   matching Block Number, the Block Number of the counters
+   is carried by the DLM probe packets and DLM reply probe packets.</t>
 
     <t>
    SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
@@ -503,7 +503,7 @@
    of counter wrap must be taken into account. 
    </t>
  
-   <t>When using Alternate-Marking Method, all Counters used for the loss calculation
+   <t>When using Alternate-Marking Method, all Counters used for loss calculation
    belongs to the same Block Number, as described in Section 3.1 of <xref target="RFC8321"/>.</t>
 
         </section>
