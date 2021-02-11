@@ -76,7 +76,7 @@ Table of Contents
    4.  Session-Sender Direct Loss Measurement Probe Packet . . . . .   5
    5.  Session-Reflector Direct Loss Measurement Probe Packet  . . .   8
    6.  Data Loss Calculation . . . . . . . . . . . . . . . . . . . .  10
-   7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  10
+   7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  11
    8.  Integrity Protection and Confidentiality Protection . . . . .  11
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
@@ -148,11 +148,11 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    o  The STAMP "Direct Measurement" TLV does not support counters per
       traffic class.
 
-   o  The STAMP test packet with the "Direct Measurement" TLV also does
-      not identify the Block Number of the Direct Measurement, which is
-      required for Alternate-Marking Method [RFC8321] for data packet
-      loss measurement.  The AMM also handles the case of the out-of-
-      order data packets.
+   o  The STAMP "Direct Measurement" TLV also does not identify the
+      Block Number of the Direct Measurement, which is required for
+      Alternate-Marking Method [RFC8321] for data packet loss
+      measurement.  The AMM also handles the case of the out-of-order
+      data packets.
 
    This document defines Simple Direct Loss Measurement (DLM) procedure
    that can be used for Alternate-Marking Method [RFC8321] for detecting
@@ -424,7 +424,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Sender Counter (C1)                    |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (4 octets)                         |
+    | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |Ses-Sender TTL |        MBZ                                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -471,7 +471,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Sender Counter (C1)                    |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (4 octets)                         |
+    | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -513,9 +513,17 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Sender Counter (64-bit): This is the exact copy of the transmit
    counter from the received Session-Sender DLM probe packet.  It is
-   written by the Session-Reflector in the DLM probe packet.
+   written by the Session-Reflector in the DLM reply probe packet.
 
    Sender Sequence Number (32-bit): As defined in [RFC8762].
+
+   Session-Sender Block Number: This is the exact copy of the Block
+   Number from the received Session-Sender DLM probe packet.  It is
+   written by the Session-Reflector in the DLM reply probe packet.
+
+   Session-Sender DSCP: This is the exact copy of the DSCP from the
+   received Session-Sender DLM probe packet.  It is written by the
+   Session-Reflector in the DLM reply probe packet.
 
    Session-Sender TTL: As defined in [RFC8762].
 
@@ -546,14 +554,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    calculation belongs to the same Block Number, as described in
    Section 3.1 of [RFC8321].
 
-7.  Optional Extensions
-
-   The optional STAMP extensions defined in [RFC8972] are not currently
-   used by the DLM probe packets.
-
-
-
-
 
 
 
@@ -561,6 +561,11 @@ Gandhi, et al.           Expires August 15, 2021               [Page 10]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+7.  Optional Extensions
+
+   The optional STAMP extensions defined in [RFC8972] are not currently
+   used by the DLM probe packets.
 
 8.  Integrity Protection and Confidentiality Protection
 
@@ -603,11 +608,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
-              Two-Way Active Measurement Protocol", RFC 8762,
-              DOI 10.17487/RFC8762, March 2020,
-              <https://www.rfc-editor.org/info/rfc8762>.
-
 
 
 
@@ -617,6 +617,11 @@ Gandhi, et al.           Expires August 15, 2021               [Page 11]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
 
 10.2.  Informative References
 
@@ -660,11 +665,6 @@ Authors' Addresses
    Email: cfilsfil@cisco.com
 
 
-   Daniel Voyer
-   Bell Canada
-
-   Email: daniel.voyer@bell.ca
-
 
 
 
@@ -672,6 +672,12 @@ Authors' Addresses
 Gandhi, et al.           Expires August 15, 2021               [Page 12]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
+   Daniel Voyer
+   Bell Canada
+
+   Email: daniel.voyer@bell.ca
 
 
    Mach(Guoyi) Chen
@@ -684,12 +690,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
 
 
 

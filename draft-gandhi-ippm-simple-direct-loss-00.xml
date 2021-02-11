@@ -140,7 +140,7 @@
     The STAMP "Direct Measurement" TLV does not support counters per traffic class.</t>
 
     <t>
-    The STAMP test packet with the "Direct Measurement" TLV also does 
+    The STAMP "Direct Measurement" TLV also does 
     not identify the Block Number of the Direct Measurement, which is  
     required for Alternate-Marking Method <xref target="RFC8321"/> for data packet loss measurement.
     The AMM also handles the case of the out-of-order data packets.</t>
@@ -388,7 +388,7 @@
  |                        Sender Counter (C1)                    |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (4 octets)                         |
+ | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Ses-Sender TTL |        MBZ                                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -427,7 +427,7 @@
  |                        Sender Counter (C1)                    |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        MBZ (4 octets)                         |
+ | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -465,10 +465,20 @@
     <t>
    Sender Counter (64-bit): This is the exact copy of the transmit
    counter from the received Session-Sender DLM probe packet.  It is written by the
-   Session-Reflector in the DLM probe packet.</t>
+   Session-Reflector in the DLM reply probe packet.</t>
 
     <t>
    Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+
+    <t>
+   Session-Sender Block Number: This is the exact copy of the Block Number 
+   from the received Session-Sender DLM probe packet.  It is written by the
+   Session-Reflector in the DLM reply probe packet.</t>
+
+    <t>
+   Session-Sender DSCP: This is the exact copy of the DSCP
+   from the received Session-Sender DLM probe packet.  It is written by the
+   Session-Reflector in the DLM reply probe packet.</t>
 
     <t>
    Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
