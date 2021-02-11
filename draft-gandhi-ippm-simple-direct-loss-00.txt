@@ -128,16 +128,17 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    o  The location of the transmit counter is not at the fixed location
       in the STAMP test packet with the "Direct Measurement" TLV.  Also,
       the location of the transmit counter on the STAMP Session-
-      Reflector test packet is not at the same location as the STAMP
-      Session-Sender test packet using the "Direct Measurement" TLV.
-      This makes updating counters in the STAMP "Direct Measurement" TLV
-      difficult to implement in hardware.
+      Reflector reply test packet is not at the same location as the
+      STAMP Session-Sender test packet using the "Direct Measurement"
+      TLV.  This makes updating counters in the STAMP "Direct
+      Measurement" TLV difficult to implement in hardware.
 
    o  Furthermore, for hardware-based counter collection, the optional
       "Direct Measurement" TLV adds unnecessary processing overhead on
-      the Session-Reflector as not all STAMP test packets carry the
-      "Direct Measurement" TLV.  The Session-Reflector needs to search
-      for the presence of this TLV, as there can be multiple TLVs added.
+      the Session-Reflector as not all STAMP Session-Sender test packets
+      carry the "Direct Measurement" TLV.  The Session-Reflector needs
+      to search for the presence of this TLV, as there can be multiple
+      TLVs added.
 
    o  The STAMP "Direct Measurement" TLV does not support 64-bit
       counters.
@@ -159,7 +160,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    accurate data packet loss in a network.  Specifically, DLM probe
    packets are defined for both unauthenticated and authenticated modes
    and they are efficient for hardware-based implementation.
-
 
 
 
@@ -187,8 +187,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    HMAC: Hashed Message Authentication Code.
 
-   LM: Loss Measurement.
-
    MBZ: Must be Zero.
 
    PM: Performance Measurement.
@@ -208,6 +206,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Reflector R3 receives the Session-Sender's DLM probe packet
    and acts according to the local configuration.  The Session-Reflector
    R3 transmits a DLM reply probe packet to the Session-Sender R1.
+
+
 
 
 
@@ -402,9 +402,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 5.  Session-Reflector Direct Loss Measurement Probe Packet
 
-   In this document, Session-Reflector DLM probe packet formats are
-   defined as shown in Figure 3 and Figure 4, for unauthenticated and
-   authenticated modes, respectively.
+   In this document, Session-Reflector DLM reply probe packet formats
+   are defined as shown in Figure 3 and Figure 4, for unauthenticated
+   and authenticated modes, respectively.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

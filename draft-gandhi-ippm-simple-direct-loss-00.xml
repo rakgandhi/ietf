@@ -119,14 +119,14 @@
     The location of the transmit counter is not at the fixed location
     in the STAMP test packet with the "Direct Measurement" TLV. 
     Also, the location of the transmit counter on the STAMP Session-Reflector 
-    test packet is not at the same location as the STAMP Session-Sender test packet 
+    reply test packet is not at the same location as the STAMP Session-Sender test packet 
     using the "Direct Measurement" TLV. 
     This makes updating counters in the STAMP "Direct Measurement" TLV difficult to implement in hardware.</t>
 
     <t>
     Furthermore, for hardware-based counter collection, 
     the optional "Direct Measurement" TLV adds unnecessary processing overhead 
-    on the Session-Reflector as not all STAMP test
+    on the Session-Reflector as not all STAMP Session-Sender test
     packets carry the "Direct Measurement" TLV. The Session-Reflector 
     needs to search for the presence of this TLV, as there can be multiple TLVs added.</t>
                 
@@ -174,9 +174,6 @@
 
     <t>
    HMAC: Hashed Message Authentication Code.</t>
-
-    <t>
-   LM: Loss Measurement.</t>
 
     <t>
    MBZ: Must be Zero.</t>
@@ -365,7 +362,7 @@
     </section>
 
     <section title="Session-Reflector Direct Loss Measurement Probe Packet" anchor="sect-5">
-        <t>In this document, Session-Reflector DLM probe packet formats 
+        <t>In this document, Session-Reflector DLM reply probe packet formats 
 	are defined as shown in Figure 3 and Figure 4, 
 	for unauthenticated and authenticated modes, respectively.</t>
 
