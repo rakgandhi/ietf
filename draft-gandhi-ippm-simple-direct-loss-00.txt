@@ -68,20 +68,20 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Session-Sender Direct Loss Measurement Probe Packet . . . . .   5
-   5.  Session-Reflector Direct Loss Measurement Probe Packet  . . .   7
+   5.  Session-Reflector Direct Loss Measurement Probe Packet  . . .   8
    6.  Data Loss Calculation . . . . . . . . . . . . . . . . . . . .  10
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  10
-   8.  Integrity Protection and Confidentiality Protection . . . . .  10
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+   8.  Integrity Protection and Confidentiality Protection . . . . .  11
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  11
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  12
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
@@ -102,10 +102,10 @@ Table of Contents
    provides capabilities for the measurement of various performance
    metrics in IP networks using test packets.  It eliminates the need
    for control protocol by using configuration data model to provision
-   test sessions.  [RFC8972] defines optional extensions for STAMP.  The
-   STAMP can be used for (synthetic) packet loss measurement, however,
-   that does not provide accurate data packet loss metrics.
-
+   test sessions.  The STAMP can be used for (synthetic or inferred)
+   packet loss measurement based on the Sequence Number in the test
+   packets, however, this does not provide accurate data packet loss
+   metrics.
 
 
 
@@ -114,22 +114,24 @@ Gandhi, et al.           Expires August 15, 2021                [Page 2]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
-   The STAMP test packet with the "Direct Measurement" TLV (Type 5)
-   [RFC8972] can be used for combined timestamps and data packet counter
-   collection.  This method, however, has the following limitations when
-   used for detecting data packet loss:
+   [RFC8972] defines optional extensions for STAMP.  The STAMP test
+   packet with the "Direct Measurement" TLV (Type 5) [RFC8972] can be
+   used for combined timestamp and data packet counter collection.  This
+   method, however, has the following limitations when used for
+   detecting data packet loss:
 
-   o  For only direct measurement, the STAMP test packet requires the
-      hardware to support timestamps, in addition to data packet
-      counters.  One-way delay measurement also requires clock
-      synchronization.
+   o  For only direct measurement, the STAMP "Direct Measurement" TLV in
+      the test packet requires the hardware to support timestamps, in
+      addition to data packet counters.  One-way delay measurement also
+      requires clock synchronization.
 
    o  The location of the transmit counter is not at the fixed location
-      in STAMP test packets.  Also, the location of the transmit counter
-      on the STAMP Session-Reflector test packet is not at the same
-      location as the STAMP Session-Sender test packet.  This makes
-      counter-stamping the STAMP test packets difficult to implement in
-      hardware.
+      The STAMP test packet with the "Direct Measurement" TLV.  Also,
+      the location of the transmit counter on the STAMP Session-
+      Reflector test packet is not at the same location as the STAMP
+      Session-Sender test packet using the "Direct Measurement" TLV.
+      This makes counter-stamping the STAMP test packets difficult to
+      implement in hardware.
 
    o  Furthermore, for hardware-based counter collection, the optional
       "Direct Measurement" TLV adds unnecessary processing overhead on
@@ -137,22 +139,36 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       "Direct Measurement" TLV.  The Session-Reflector needs to search
       for the presence of this TLV, as there can be multiple TLVs added.
 
-   o  The STAMP test packet does not support 64-bit counters.
+   o  The STAMP test packet with the "Direct Measurement" TLV does not
+      support 64-bit counters.
 
-   o  The STAMP test packet does not support counters for bytes.
+   o  The STAMP test packet with the "Direct Measurement" TLV does not
+      support counters for bytes.
 
-   o  The STAMP test packet does not support counters per traffic class.
+   o  The STAMP test packet with the "Direct Measurement" TLV does not
+      support counters per traffic class.
 
-   o  The STAMP test packet also does not identify the Block Number of
-      the Direct Measurement, which is required for Alternate-Marking
-      Method [RFC8321] for data packet loss measurement.  The AMM also
-      handles the case of the out-of-order data packets.
+   o  The STAMP test packet with the "Direct Measurement" TLV also does
+      not identify the Block Number of the Direct Measurement, which is
+      required for Alternate-Marking Method [RFC8321] for data packet
+      loss measurement.  The AMM also handles the case of the out-of-
+      order data packets.
 
    This document defines Simple Direct Loss Measurement (DLM) procedure
    that can be used for Alternate-Marking Method [RFC8321] for detecting
    accurate data packet loss in a network.  Specifically, DLM probe
    packets are defined for both unauthenticated and authenticated modes
    and they are efficient for hardware-based implementation.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 3]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
 
 2.  Conventions Used in This Document
 
@@ -162,13 +178,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 3]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
 2.2.  Abbreviations
 
@@ -200,6 +209,23 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    and acts according to the local configuration.  The Session-Reflector
    R3 transmits a DLM reply probe packet to the Session-Sender R1.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 4]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
                         C1                    C2
                        /                       \
               +-------+     DLM Probe Packet    +-------+
@@ -213,18 +239,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
             Session-Sender                 Session-Reflector
 
                          Reference Topology
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 4]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
 3.  Overview
 
@@ -253,6 +267,21 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    similar to the base STAMP test packet formats (for example location
    of the Counters and Timestamps).
 
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 5]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -274,13 +303,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
       Figure 1: Session-Sender Direct Loss Measurement Probe Packet -
                            Unauthenticated Mode
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 5]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -309,6 +331,13 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       Figure 2: Session-Sender Direct Loss Measurement Probe Packet -
                             Authenticated Mode
 
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 6]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
    Sequence Number (32-bit): As defined in [RFC8762].
 
    Transmit Counter (64-bit): The number of packets or octets
@@ -330,14 +359,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       B: Octet (byte) count.  When set to 1, indicates that the Counter
       fields represent octet counts.  The octet count applies to all
       packets within the Direct Loss Measurement scope, and the octet
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 6]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
-
       count of a packet transmitted or received includes the total
       length of that packet (but excludes headers, labels, or framing of
       the channel itself).  When set to 0, indicates that the Counter
@@ -365,6 +386,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    HMAC: The use of the HMAC field is described in Section 4.4 of
    [RFC8762].
 
+
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 7]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.
 
@@ -376,23 +405,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    In this document, Session-Reflector DLM probe packet formats are
    defined as shown in Figure 3 and Figure 4, for unauthenticated and
    authenticated modes, respectively.
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 7]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -430,6 +442,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Transmit Counter (C3)                  |
+
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 8]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |X|B|T| DSCP      | Block Number| SSID                          |
@@ -442,14 +462,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        MBZ (8 octets)                         |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 8]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
-
     |                        Sender Sequence Number                 |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
@@ -487,6 +499,13 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    reply probe packet as the Session-Sender DLM probe packet.  This is
    an important property for hardware-based implementation.
 
+
+
+Gandhi, et al.           Expires August 15, 2021                [Page 9]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
    Receive Counter (64-bit): The number of packets or octets received at
    the Session-Reflector.  It is written by the Session-Reflector in the
    DLM reply probe packet.  Counter is for the data traffic flow under
@@ -497,14 +516,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    written by the Session-Reflector in the DLM probe packet.
 
    Sender Sequence Number (32-bit): As defined in [RFC8762].
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021                [Page 9]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
    Session-Sender TTL: As defined in [RFC8762].
 
@@ -540,6 +551,17 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The optional STAMP extensions defined in [RFC8972] are not currently
    used by the DLM probe packets.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 10]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
 8.  Integrity Protection and Confidentiality Protection
 
    The integrity protection and confidentiality protection specified in
@@ -552,15 +574,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    that a node involved in a measurement operation has previously
    verified the integrity of the path and the identity of the Session-
    Reflector.
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021               [Page 10]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
    If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the Session-Sender, of the counter fields in
@@ -595,6 +608,16 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 11]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
 10.2.  Informative References
 
    [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
@@ -607,16 +630,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               "Alternate-Marking Method for Passive and Hybrid
               Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
               January 2018, <https://www.rfc-editor.org/info/rfc8321>.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021               [Page 11]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
@@ -653,6 +666,14 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 12]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
    Mach(Guoyi) Chen
    Huawei
 
@@ -669,4 +690,39 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 15, 2021               [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 13]

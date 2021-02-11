@@ -100,53 +100,57 @@
    metrics in IP networks using test packets. 
    It eliminates the need for control protocol by using
    configuration data model to provision test sessions. 
-   <xref target="RFC8972"/> defines optional extensions for STAMP.
-   The STAMP can be used for (synthetic) packet 
-   loss measurement, however, that does not provide accurate data packet loss metrics.</t>
+   The STAMP can be used for (synthetic or inferred) packet 
+   loss measurement based on the Sequence Number in the 
+   test packets, however, this does not provide accurate data packet loss metrics.</t>
 
-   <t>The STAMP test packet with the "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> 
-   can be used for combined timestamps and data packet counter collection.
+   <t><xref target="RFC8972"/> defines optional extensions for STAMP.
+   The STAMP test packet with the "Direct Measurement" TLV (Type 5) <xref target="RFC8972"/> 
+   can be used for combined timestamp and data packet counter collection.
    This method, however, has the following limitations when used for detecting data packet loss:</t>
        
     <t><list style="symbols"><t>
-     For only direct measurement, the STAMP test packet requires the hardware to 
-     support timestamps, in addition to data packet counters.
-     One-way delay measurement also requires clock synchronization.</t> 
+    For only direct measurement, the STAMP "Direct Measurement" TLV in the test packet requires the hardware to 
+    support timestamps, in addition to data packet counters.
+    One-way delay measurement also requires clock synchronization.</t> 
        
     <t>
-     The location of the transmit counter is not at the fixed location in STAMP test packets. 
-     Also, the location of the transmit counter on the STAMP Session-Reflector 
-     test packet is not at the same location as the STAMP Session-Sender test packet. 
-     This makes counter-stamping the STAMP test packets difficult to implement
-     in hardware.</t>
+    The location of the transmit counter is not at the fixed location
+    The STAMP test packet with the "Direct Measurement" TLV. 
+    Also, the location of the transmit counter on the STAMP Session-Reflector 
+    test packet is not at the same location as the STAMP Session-Sender test packet 
+    using the "Direct Measurement" TLV. 
+    This makes counter-stamping the STAMP test packets difficult to implement
+    in hardware.</t>
 
     <t>
-     Furthermore, for hardware-based counter collection, 
-     the optional "Direct Measurement" TLV adds unnecessary processing overhead 
-     on the Session-Reflector as not all STAMP test
-     packets carry the "Direct Measurement" TLV. The Session-Reflector 
-     needs to search for the presence of this TLV, as there can be
-     multiple TLVs added.</t>
+    Furthermore, for hardware-based counter collection, 
+    the optional "Direct Measurement" TLV adds unnecessary processing overhead 
+    on the Session-Reflector as not all STAMP test
+    packets carry the "Direct Measurement" TLV. The Session-Reflector 
+    needs to search for the presence of this TLV, as there can be multiple TLVs added.</t>
                 
     <t>
-     The STAMP test packet does not support 64-bit counters.</t> 
+    The STAMP test packet with the "Direct Measurement" TLV does not support 64-bit counters.</t> 
                 
     <t>
-     The STAMP test packet does not support counters for bytes.</t> 
-                
+    The STAMP test packet with the "Direct Measurement" TLV does not support counters for bytes.</t> 
+               
     <t>
-     The STAMP test packet does not support counters per traffic class.</t>
+    The STAMP test packet with the "Direct Measurement" TLV does not support counters per traffic class.</t>
 
     <t>
-     The STAMP test packet also does not identify the Block Number of the Direct Measurement, which is  
-     required for Alternate-Marking Method <xref target="RFC8321"/> for data packet loss measurement.
-     The AMM also handles the case of the out-of-order data packets.</t>
+    The STAMP test packet with the "Direct Measurement" TLV also does 
+    not identify the Block Number of the Direct Measurement, which is  
+    required for Alternate-Marking Method <xref target="RFC8321"/> for data packet loss measurement.
+    The AMM also handles the case of the out-of-order data packets.</t>
 
    </list>
    </t>
 
    <t>This document defines Simple Direct Loss Measurement (DLM) procedure
-   that can be used for Alternate-Marking Method <xref target="RFC8321"/> for detecting accurate data packet loss in a network.
+   that can be used for Alternate-Marking Method <xref target="RFC8321"/> 
+   for detecting accurate data packet loss in a network.
    Specifically, DLM probe packets are defined for both unauthenticated
    and authenticated modes and they are efficient for hardware-based implementation.
    </t>
