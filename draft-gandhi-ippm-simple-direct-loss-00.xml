@@ -232,8 +232,7 @@
 
     <t>The DLM probe packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the DLM probe packets. 
-    The user-configured
-    destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
+    The user-configured destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
     Different destination UDP port is used for
     DLM probe packets than the STAMP test packets defined in <xref target="RFC8762"/>.
     Hence, the Session-Sender and the Session-Reflector do not require backwards
@@ -342,7 +341,8 @@
    collect Block Number of the counters for the data traffic flow under measurement.  To
    be able to correlate the transmit and receive counters of the
    matching Block Number, the Block Number of the counters
-   is carried by the DLM probe packets and DLM reply probe packets.</t>
+   is carried by the DLM probe packets and DLM reply probe packets.
+   It is for the counters in the forward direction data traffic.</t>
 
     <t>
    SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
@@ -448,11 +448,23 @@
    <t>
    Transmit Counter (64-bit): The number of packets or octets transmitted by
    the Session-Reflector in the DLM reply probe packet. 
-   Counter is for the data traffic flow under measurement.
+   Counter is for the reverse direction data traffic flow under measurement.
    The Session-Reflector writes the transmit counter at the same location in the
    DLM reply probe packet as the Session-Sender DLM probe packet. 
    This is an important property for hardware-based implementation. 
    </t>
+
+    <t>
+   XBT Flags: Set using the same procedure defined for the Session-Sender DLM probe packet.</t>
+
+    <t>
+   DSCP (6-bit): DSCP of the counters in the reverse direction data traffic flow under measurement.</t>
+
+   <t>
+   Block Number (7-bit): Block Number for the counters in the reverse direction data traffic flow under measurement.</t>
+
+    <t>
+   SSID: SSID is the exact copy of the SSID in the received Session-Sender DLM probe packet.</t>
 
     <t>
    Receive Counter (64-bit): The number of packets or octets received at
@@ -461,8 +473,7 @@
 
     <t>
    Session-Sender Counter (64-bit): This is the exact copy of the transmit
-   counter from the received Session-Sender DLM probe packet.  It is written by the
-   Session-Reflector in the DLM reply probe packet.</t>
+   counter from the received Session-Sender DLM probe packet.</t>
 
     <t>
    Session-Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
@@ -474,8 +485,7 @@
 
     <t>
    Session-Sender DSCP: This is the exact copy of the DSCP
-   from the received Session-Sender DLM probe packet.  It is written by the
-   Session-Reflector in the DLM reply probe packet.</t>
+   from the received Session-Sender DLM probe packet.</t>
 
     <t>
    Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>

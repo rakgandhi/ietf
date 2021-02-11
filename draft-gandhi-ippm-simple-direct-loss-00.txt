@@ -79,11 +79,11 @@ Table of Contents
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  11
    8.  Integrity Protection and Confidentiality Protection . . . . .  11
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  12
      10.2.  Informative References . . . . . . . . . . . . . . . . .  12
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -378,14 +378,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    counters for the data traffic flow under measurement.  To be able to
    correlate the transmit and receive counters of the matching Block
    Number, the Block Number of the counters is carried by the DLM probe
-   packets and DLM reply probe packets.
+   packets and DLM reply probe packets.  It is for the counters in the
+   forward direction data traffic.
 
    SSID (16-bit): DLM Sender Session Identifier.  Follows the procedure
    defined for SSID in [RFC8972].
 
    HMAC: The use of the HMAC field is described in Section 4.4 of
    [RFC8762].
-
 
 
 
@@ -494,10 +494,10 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Transmit Counter (64-bit): The number of packets or octets
    transmitted by the Session-Reflector in the DLM reply probe packet.
-   Counter is for the data traffic flow under measurement.  The Session-
-   Reflector writes the transmit counter at the same location in the DLM
-   reply probe packet as the Session-Sender DLM probe packet.  This is
-   an important property for hardware-based implementation.
+   Counter is for the reverse direction data traffic flow under
+   measurement.  The Session-Reflector writes the transmit counter at
+   the same location in the DLM reply probe packet as the Session-Sender
+
 
 
 
@@ -506,6 +506,21 @@ Gandhi, et al.           Expires August 15, 2021                [Page 9]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+   DLM probe packet.  This is an important property for hardware-based
+   implementation.
+
+   XBT Flags: Set using the same procedure defined for the Session-
+   Sender DLM probe packet.
+
+   DSCP (6-bit): DSCP of the counters in the reverse direction data
+   traffic flow under measurement.
+
+   Block Number (7-bit): Block Number for the counters in the reverse
+   direction data traffic flow under measurement.
+
+   SSID: SSID is the exact copy of the SSID in the received Session-
+   Sender DLM probe packet.
+
    Receive Counter (64-bit): The number of packets or octets received at
    the Session-Reflector.  It is written by the Session-Reflector in the
    DLM reply probe packet.  Counter is for the data traffic flow under
@@ -513,7 +528,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Session-Sender Counter (64-bit): This is the exact copy of the
    transmit counter from the received Session-Sender DLM probe packet.
-   It is written by the Session-Reflector in the DLM reply probe packet.
 
    Session-Sender Sequence Number (32-bit): As defined in [RFC8762].
 
@@ -522,8 +536,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    written by the Session-Reflector in the DLM reply probe packet.
 
    Session-Sender DSCP: This is the exact copy of the DSCP from the
-   received Session-Sender DLM probe packet.  It is written by the
-   Session-Reflector in the DLM reply probe packet.
+   received Session-Sender DLM probe packet.
 
    Session-Sender TTL: As defined in [RFC8762].
 
@@ -541,6 +554,14 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
 
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 10]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
    Total Receive Loss = RxL[1,2] + RxL[2,3] + ...
 
    These values are updated each time a DLM reply probe packet is
@@ -552,15 +573,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    When using Alternate-Marking Method, all counters used for loss
    calculation belongs to the same Block Number, as described in
    Section 3.1 of [RFC8321].
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021               [Page 10]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
 7.  Optional Extensions
 
@@ -595,6 +607,17 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The security considerations specified in [RFC8762] also apply to the
    procedure defined in this document.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 11]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
 10.  References
 
 10.1.  Normative References
@@ -607,16 +630,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021               [Page 11]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
-
 
    [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
               Two-Way Active Measurement Protocol", RFC 8762,
@@ -650,6 +663,17 @@ Acknowledgments
    acknowledge the earlier work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 12]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
 Authors' Addresses
 
    Rakesh Gandhi (editor)
@@ -663,15 +687,6 @@ Authors' Addresses
    Cisco Systems, Inc.
 
    Email: cfilsfil@cisco.com
-
-
-
-
-
-
-Gandhi, et al.           Expires August 15, 2021               [Page 12]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
    Daniel Voyer
@@ -690,21 +705,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
