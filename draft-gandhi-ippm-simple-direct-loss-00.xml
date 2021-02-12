@@ -137,7 +137,7 @@
     Also, the location of the transmit counter on the STAMP Session-Reflector 
     reply test packet is not at the same location as the STAMP Session-Sender test packet 
     using the "Direct Measurement" TLV. 
-    This makes updating counters in the STAMP "Direct Measurement" TLV difficult to implement in hardware.</t>
+    This makes it difficult to implement in hardware.</t>
 
     <t>
     Furthermore, for hardware-based implementation, 

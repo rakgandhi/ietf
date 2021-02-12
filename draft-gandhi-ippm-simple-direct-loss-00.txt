@@ -143,8 +143,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       the location of the transmit counter on the STAMP Session-
       Reflector reply test packet is not at the same location as the
       STAMP Session-Sender test packet using the "Direct Measurement"
-      TLV.  This makes updating counters in the STAMP "Direct
-      Measurement" TLV difficult to implement in hardware.
+      TLV.  This makes it difficult to implement in hardware.
 
    o  Furthermore, for hardware-based implementation, the optional
       "Direct Measurement" TLV adds unnecessary processing overhead on
@@ -161,6 +160,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    o  The STAMP "Direct Measurement" TLV does not support counters per
       traffic class.
+
 
 
 
