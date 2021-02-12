@@ -124,15 +124,15 @@
     This makes updating counters in the STAMP "Direct Measurement" TLV difficult to implement in hardware.</t>
 
     <t>
-    Furthermore, for hardware-based counter collection, 
+    Furthermore, for hardware-based implementation, 
     the optional "Direct Measurement" TLV adds unnecessary processing overhead 
     on the Session-Reflector as not all STAMP Session-Sender test
     packets carry the "Direct Measurement" TLV. The Session-Reflector 
-    needs to search for the presence of this TLV, as there can be multiple TLVs added.</t>
+    needs to search for the presence of this TLV, as there can be multiple TLVs present.</t>
                 
     <t>
     The STAMP "Direct Measurement" TLV does not support 64-bit counters.</t> 
-                
+
     <t>
     The STAMP "Direct Measurement" TLV does not support counters for bytes.</t> 
                
@@ -383,7 +383,7 @@
  |                        Session-Sender Counter (C1)            |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
+ |FLAGS| Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |Ses-Sender TTL |        MBZ                                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -422,7 +422,7 @@
  |                        Session-Sender Counter (C1)            |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
+ |FLAGS| Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        MBZ (4 octets)                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -481,6 +481,10 @@
 
     <t>
    Session-Sender Block Number: This is the exact copy of the Block Number 
+   from the received Session-Sender DLM probe packet.</t>
+
+    <t>
+   FLAGS: This is the exact copy of the XBT Flags
    from the received Session-Sender DLM probe packet.</t>
 
     <t>
@@ -574,11 +578,38 @@
     &RFC2680;
     &RFC8321;
     &RFC8972;
+
+
+    <reference anchor="SRV6-PM-TNSM"><front>
+    <title>SRv6-PM: Performance Monitoring of SRv6 Networks with a Cloud-Native Architecture: https://arxiv.org/pdf/2007.08633.pdf </title>
+    <author>   
+    <organization>IEEE Transactions on Network and Service Management, Accepted for publication</organization>
+    </author>
+    <date month="February" year="2021"/>
+    </front>
+    </reference>
+
+
+    <reference anchor="SRV6-PM-IEEE"><front>
+    <title>Implementation of Accurate Per-Flow Packet Loss Monitoring in Segment Routing over IPv6 Networks: https://arxiv.org/pdf/2004.11414.pdf </title>
+    <author>
+    <organization>IEEE International Conference on High Performance Switching and Routing</organization>
+    </author>
+    <date month="May" year="2020"/>
+    </front>
+    </reference>
+
+
+
+
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan Mishra, 
    Zhenqiang Li, Reshad Rahman, Cheng Li, 
    and Yali Wang for the comments on Direct Loss Measurement. 
+   The authors would like to thank Stefano Salsano and his team for 
+   for the publications of the SRv6 implementations in 
+   <xref target="SRV6-PM-TNSM"/> and <xref target="SRV6-PM-IEEE"/>.
    The authors would like to acknowledge the earlier 
    work on the loss measurement using TWAMP
    described in draft-xiao-ippm-twamp-ext-direct-loss.</t>

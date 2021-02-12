@@ -79,11 +79,11 @@ Table of Contents
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  11
    8.  Integrity Protection and Confidentiality Protection . . . . .  11
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  12
      10.2.  Informative References . . . . . . . . . . . . . . . . .  12
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -133,12 +133,12 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
       TLV.  This makes updating counters in the STAMP "Direct
       Measurement" TLV difficult to implement in hardware.
 
-   o  Furthermore, for hardware-based counter collection, the optional
+   o  Furthermore, for hardware-based implementation, the optional
       "Direct Measurement" TLV adds unnecessary processing overhead on
       the Session-Reflector as not all STAMP Session-Sender test packets
       carry the "Direct Measurement" TLV.  The Session-Reflector needs
       to search for the presence of this TLV, as there can be multiple
-      TLVs added.
+      TLVs present.
 
    o  The STAMP "Direct Measurement" TLV does not support 64-bit
       counters.
@@ -421,7 +421,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Session-Sender Counter (C1)            |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
+    |FLAGS| Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |Ses-Sender TTL |        MBZ                                    |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -468,7 +468,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Session-Sender Counter (C1)            |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    | MBZ | Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
+    |FLAGS| Ses-DSCP  |Ses-Block Num| MBZ (2 octets)                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (4 octets)                         |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -534,6 +534,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Sender Block Number: This is the exact copy of the Block
    Number from the received Session-Sender DLM probe packet.
 
+   FLAGS: This is the exact copy of the XBT Flags from the received
+   Session-Sender DLM probe packet.
+
    Session-Sender DSCP: This is the exact copy of the DSCP from the
    received Session-Sender DLM probe packet.
 
@@ -551,9 +554,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    The Total Transmit and Receive Loss are calculated as follows:
 
-   Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
-
-   Total Receive Loss = RxL[1,2] + RxL[2,3] + ...
 
 
 
@@ -561,6 +561,10 @@ Gandhi, et al.           Expires August 15, 2021               [Page 10]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   Total Transmit Loss = TxL[1,2] + TxL[2,3] + ...
+
+   Total Receive Loss = RxL[1,2] + RxL[2,3] + ...
 
    These values are updated each time a DLM reply probe packet is
    received and processed at the Session-Sender, and they represent the
@@ -605,10 +609,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The security considerations specified in [RFC8762] also apply to the
    procedure defined in this document.
 
-10.  References
-
-
-
 
 
 
@@ -617,6 +617,8 @@ Gandhi, et al.           Expires August 15, 2021               [Page 11]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+10.  References
 
 10.1.  Normative References
 
@@ -653,19 +655,17 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               DOI 10.17487/RFC8972, January 2021,
               <https://www.rfc-editor.org/info/rfc8972>.
 
-Acknowledgments
+   [SRV6-PM-TNSM]
+              IEEE Transactions on Network and Service Management,
+              Accepted for publication, "SRv6-PM: Performance Monitoring
+              of SRv6 Networks with a Cloud-Native Architecture:
+              https://arxiv.org/pdf/2007.08633.pdf", February 2021.
 
-   The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
-   Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
-   comments on Direct Loss Measurement.  The authors would like to
-   acknowledge the earlier work on the loss measurement using TWAMP
-   described in draft-xiao-ippm-twamp-ext-direct-loss.
-
-Authors' Addresses
-
-
-
-
+   [SRV6-PM-IEEE]
+              IEEE International Conference on High Performance
+              Switching and Routing, "Implementation of Accurate Per-
+              Flow Packet Loss Monitoring in Segment Routing over IPv6
+              Networks: https://arxiv.org/pdf/2004.11414.pdf", May 2020.
 
 
 
@@ -673,6 +673,18 @@ Gandhi, et al.           Expires August 15, 2021               [Page 12]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+Acknowledgments
+
+   The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
+   Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
+   comments on Direct Loss Measurement.  The authors would like to thank
+   Stefano Salsano and his team for for the publications of the SRv6
+   implementations in [SRV6-PM-TNSM] and [SRV6-PM-IEEE].  The authors
+   would like to acknowledge the earlier work on the loss measurement
+   using TWAMP described in draft-xiao-ippm-twamp-ext-direct-loss.
+
+Authors' Addresses
 
    Rakesh Gandhi (editor)
    Cisco Systems, Inc.
@@ -703,18 +715,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Colt
 
    Email: Bart.Janssens@colt.net
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
