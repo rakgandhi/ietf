@@ -98,7 +98,7 @@ Table of Contents
    requires clock synchronization between the measurement points and
    lacks support for accurate data packet loss measurement.
 
-   The Simple Two-way Active Measurement Protocol (STAMP) [RFC8762]
+   The Simple Two-Way Active Measurement Protocol (STAMP) [RFC8762]
    provides capabilities for the measurement of various performance
    metrics in IP networks using test packets.  It eliminates the need
    for control protocol by using configuration data model to provision
@@ -195,7 +195,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    SSID: Sender Session Identifier.
 
-   STAMP: Simple Two-way Active Measurement Protocol.
+   STAMP: Simple Two-Way Active Measurement Protocol.
 
    TTL: Time To Live.
 

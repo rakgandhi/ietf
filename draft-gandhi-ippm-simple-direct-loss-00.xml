@@ -95,7 +95,7 @@
    between the measurement points and lacks support for
    accurate data packet loss measurement.</t>
 
-   <t>The Simple Two-way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provides
+   <t>The Simple Two-Way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provides
    capabilities for the measurement of various performance
    metrics in IP networks using test packets. 
    It eliminates the need for control protocol by using
@@ -188,7 +188,7 @@
    SSID: Sender Session Identifier.</t>
 
     <t>
-   STAMP: Simple Two-way Active Measurement Protocol.</t>
+   STAMP: Simple Two-Way Active Measurement Protocol.</t>
 
     <t>
    TTL: Time To Live.</t>
