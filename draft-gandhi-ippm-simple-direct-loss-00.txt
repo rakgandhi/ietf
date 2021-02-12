@@ -432,9 +432,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The Session-Reflector receives the DLM Session-Sender probe packet
    and verifies it.  If the DLM probe packet is validated, the Session-
    Reflector that supports this specification prepares and transmits the
-   DLM reply test packet.  In this document, Session-Reflector DLM reply
-   probe packet formats are defined as shown in Figure 3 and Figure 4,
-   for unauthenticated and authenticated modes, respectively.
+   DLM reply probe packet.  In this document, Session-Reflector DLM
+   reply probe packet formats are defined as shown in Figure 3 and
+   Figure 4, for unauthenticated and authenticated modes, respectively.
 
 
 
@@ -596,7 +596,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Session-Sender TTL: The Session-Sender TTL field is one octet long,
    and its value is the copy of the TTL field in IPv4 (or Hop Limit in
-   IPv6) from the received STAMP-Test packet.
+   IPv6) from the received Session-Sender DLM probe packet.
 
 6.  Data Loss Calculation
 
