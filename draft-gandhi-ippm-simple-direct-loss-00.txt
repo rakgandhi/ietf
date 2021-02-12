@@ -11,6 +11,8 @@ Expires: August 15, 2021                                        D. Voyer
                                                                   Huawei
                                                              B. Janssens
                                                                     Colt
+                                                              S. Salsano
+                                        Universita di Roma "Tor Vergata"
                                                        February 11, 2021
 
 
@@ -47,9 +49,7 @@ Copyright Notice
    Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (https://trustee.ietf.org/license-info) in effect on the date of
+
 
 
 
@@ -58,6 +58,9 @@ Gandhi, et al.           Expires August 15, 2021                [Page 1]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -103,9 +106,6 @@ Table of Contents
    metrics in IP networks using test packets.  It eliminates the need
    for control protocol by using configuration data model to provision
    test sessions.  The STAMP can be used for (synthetic or inferred)
-   packet loss measurement based on the Sequence Number in the test
-   packets, however, this method does not provide accurate data packet
-   loss metrics.
 
 
 
@@ -113,6 +113,10 @@ Gandhi, et al.           Expires August 15, 2021                [Page 2]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   packet loss measurement based on the Sequence Number in the test
+   packets, however, this method does not provide accurate data packet
+   loss metrics.
 
    [RFC8972] defines optional extensions for STAMP.  The STAMP test
    packet with the "Direct Measurement" TLV (Type 5) [RFC8972] can be
@@ -158,10 +162,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    This document defines Simple Two-Way Direct Loss Measurement (DLM)
    procedure that can be used for Alternate-Marking Method [RFC8321] for
    detecting accurate data packet loss in a network.  Specifically, DLM
-   probe packets are defined for both unauthenticated and authenticated
-   modes and they are efficient for hardware-based implementation.
-
-
 
 
 
@@ -169,6 +169,9 @@ Gandhi, et al.           Expires August 15, 2021                [Page 3]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   probe packets are defined for both unauthenticated and authenticated
+   modes and they are efficient for hardware-based implementation.
 
 2.  Conventions Used in This Document
 
@@ -206,9 +209,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Reflector R3 receives the Session-Sender's DLM probe packet
    and acts according to the local configuration.  The Session-Reflector
    R3 transmits a DLM reply probe packet to the Session-Sender R1.
-
-
-
 
 
 
@@ -656,16 +656,16 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               <https://www.rfc-editor.org/info/rfc8972>.
 
    [SRV6-PM-TNSM]
+              Loreti, P., Mayer, A., Lungaroni, P., Lombardo, F.,
+              Scarpitta, C., Sidoretti, G., Bracciale, L., Ferrari, M.,
+              Salsano, S., Abdelsalam, A., Gandhi, R., Filsfils, C.,
               IEEE Transactions on Network and Service Management,
               Accepted for publication, "SRv6-PM: Performance Monitoring
               of SRv6 Networks with a Cloud-Native Architecture:
               https://arxiv.org/pdf/2007.08633.pdf", February 2021.
 
-   [SRV6-PM-IEEE]
-              IEEE International Conference on High Performance
-              Switching and Routing, "Implementation of Accurate Per-
-              Flow Packet Loss Monitoring in Segment Routing over IPv6
-              Networks: https://arxiv.org/pdf/2004.11414.pdf", May 2020.
+
+
 
 
 
@@ -674,13 +674,21 @@ Gandhi, et al.           Expires August 15, 2021               [Page 12]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+   [SRV6-PM-IEEE]
+              Loreti, P., Mayer, A., Lungaroni, P., Salsano, S., Gandhi,
+              R., Filsfils, C., IEEE International Conference on High
+              Performance Switching and Routing, "Implementation of
+              Accurate Per-Flow Packet Loss Monitoring in Segment
+              Routing over IPv6 Networks:
+              https://arxiv.org/pdf/2004.11414.pdf", May 2020.
+
 Acknowledgments
 
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
    Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
    comments on Direct Loss Measurement.  The authors would like to thank
-   Stefano Salsano and his team for the SRv6-PM Loss Monitoring open
-   source implementation and publications in [SRV6-PM-TNSM] and
+   Pierpaolo Loreti and the team for the SRv6-PM Loss Monitoring open
+   source implementation and its publications in [SRV6-PM-TNSM] and
    [SRV6-PM-IEEE].  The authors would like to acknowledge the earlier
    work on the loss measurement using TWAMP described in draft-xiao-
    ippm-twamp-ext-direct-loss.
@@ -712,17 +720,65 @@ Authors' Addresses
    Email: mach.chen@huawei.com
 
 
-   Bart Janssens
-   Colt
-
-   Email: Bart.Janssens@colt.net
-
-
-
-
 
 
 
 
 
 Gandhi, et al.           Expires August 15, 2021               [Page 13]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
+   Bart Janssens
+   Colt
+
+   Email: Bart.Janssens@colt.net
+
+
+   Stefano Salsano
+   Universita di Roma "Tor Vergata"
+   Italy
+
+   Email: stefano.salsano@uniroma2.it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 15, 2021               [Page 14]
