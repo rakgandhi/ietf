@@ -507,7 +507,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
    Sequence Number (32-bit): This is the exact copy of the Sequence
-   Number from the received Session-Sender DLM probe packet.
+   Number from the received Session-Sender DLM probe packet that allow
+   Stateless mode of Session-Reflector.
 
    Transmit Counter (64-bit): The number of packets or octets
    transmitted by the Session-Reflector in the DLM reply probe packet.
@@ -552,7 +553,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Session-Sender DSCP: This is the exact copy of the DSCP from the
    received Session-Sender DLM probe packet.
-
 
 
 

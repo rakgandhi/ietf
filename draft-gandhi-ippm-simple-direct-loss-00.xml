@@ -470,7 +470,8 @@
 
     <t>
    Sequence Number (32-bit): This is the exact copy of the Sequence Number 
-   from the received Session-Sender DLM probe packet.</t>
+   from the received Session-Sender DLM probe packet that allow Stateless mode
+   of Session-Reflector.</t>
 
    <t>
    Transmit Counter (64-bit): The number of packets or octets transmitted by
