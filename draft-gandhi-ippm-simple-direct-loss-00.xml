@@ -338,20 +338,18 @@
     <t>
    Block Number (7-bit): The Direct Loss Measurement using Alternate-Marking
    Method <xref target="RFC8321"/> requires to 
-   collect Block Number of the counters for the data traffic flow under measurement.  To
-   be able to correlate the transmit and receive counters of the
+   collect Block Number of the counters for the data traffic flow under measurement.  
+   To be able to correlate the transmit and receive counters of the
    matching Block Number, the Block Number of the counters
-   is carried by the DLM probe packets and DLM reply probe packets.
-   It is for the counters in the forward direction data traffic.</t>
+   carried in the DLM probe packets.
+  </t>
 
     <t>
    SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
     in <xref target="RFC8972"/>.</t>
 
     <t>
-   HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.</t>
-
-    <t>
+   HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.
    HMAC uses its own key and the mechanism to distribute the HMAC key is
    outside the scope of this document.</t>
 
@@ -455,13 +453,16 @@
    </t>
 
     <t>
-   XBT Flags: Set using the same procedure defined for the Session-Sender DLM probe packet.</t>
+   XBT Flags: Set for the reverse direction data traffic flow under measurement
+   using the same procedure defined for the Session-Sender DLM probe packet.</t>
 
     <t>
-   DSCP (6-bit): DSCP of the counters in the reverse direction data traffic flow under measurement.</t>
+   DSCP (6-bit): Set for the reverse direction data traffic flow under measurement
+   using the same procedure defined for the Session-Sender DLM probe packet.</t>
 
-   <t>
-   Block Number (7-bit): Block Number for the counters in the reverse direction data traffic flow under measurement.</t>
+    <t>
+   Block Number (7-bit): Set for the reverse direction data traffic flow under measurement
+   using the same procedure defined for the Session-Sender DLM probe packet.</t>
 
     <t>
    SSID: SSID is the exact copy of the SSID in the received Session-Sender DLM probe packet.</t>
@@ -480,8 +481,7 @@
 
     <t>
    Session-Sender Block Number: This is the exact copy of the Block Number 
-   from the received Session-Sender DLM probe packet.  It is written by the
-   Session-Reflector in the DLM reply probe packet.</t>
+   from the received Session-Sender DLM probe packet.</t>
 
     <t>
    Session-Sender DSCP: This is the exact copy of the DSCP
