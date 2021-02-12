@@ -82,12 +82,12 @@ Table of Contents
    7.  Optional Extensions . . . . . . . . . . . . . . . . . . . . .  11
    8.  Integrity Protection and Confidentiality Protection . . . . .  11
    9.  Operational Considerations  . . . . . . . . . . . . . . . . .  11
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  12
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  12
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
 
@@ -252,10 +252,11 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The DLM probe packets carry user-configured destination UDP port.
    The destination UDP port 862 is not used for the DLM probe packets.
    The user-configured destination UDP port follows the guidelines
-   described in [RFC8762].  Different destination UDP port is used for
-   DLM probe packets than the STAMP test packets defined in [RFC8762].
-   Hence, the Session-Sender and the Session-Reflector do not require
-   backwards compatibility and support for STAMP [RFC8762].
+   described in Section 4.1 of [RFC8762].  Different destination UDP
+   port is used for DLM probe packets than the STAMP test packets
+   defined in [RFC8762].  Hence, the Session-Sender and the Session-
+   Reflector do not require backwards compatibility and support for
+   STAMP.
 
 4.  Session-Sender Direct Loss Measurement Probe Packet
 
@@ -266,7 +267,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    measurement.  The DLM probe packet formats are similar to the base
    STAMP test packet formats (for example the locations of the Counters
    and Timestamps).
-
 
 
 
@@ -540,7 +540,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Sender Counter (64-bit): This is the exact copy of the
    transmit counter from the received Session-Sender DLM probe packet.
 
-   Session-Sender Sequence Number (32-bit): As defined in [RFC8762].
+   Session-Sender Sequence Number (32-bit): This is the exact copy of
+   the Sequence Number from the received Session-Sender DLM probe
+   packet.
 
    Session-Sender Block Number: This is the exact copy of the Block
    Number from the received Session-Sender DLM probe packet.
@@ -551,8 +553,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Sender DSCP: This is the exact copy of the DSCP from the
    received Session-Sender DLM probe packet.
 
-   Session-Sender TTL: As defined in [RFC8762].
-
 
 
 
@@ -561,6 +561,10 @@ Gandhi, et al.           Expires August 16, 2021               [Page 10]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   Session-Sender TTL: The Session-Sender TTL field is one octet long,
+   and its value is the copy of the TTL field in IPv4 (or Hop Limit in
+   IPv6) from the received STAMP-Test packet.
 
 6.  Data Loss Calculation
 
@@ -603,13 +607,9 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    The operational considerations specified in [RFC8762] also apply to
    the procedures defined in this document.
 
-10.  Security Considerations
 
-   The performance measurement is intended for deployment in well-
-   managed private and service provider networks.  As such, it assumes
-   that a node involved in a measurement operation has previously
-   verified the integrity of the path and the identity of the Session-
-   Reflector.
+
+
 
 
 
@@ -617,6 +617,14 @@ Gandhi, et al.           Expires August 16, 2021               [Page 11]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+10.  Security Considerations
+
+   The performance measurement is intended for deployment in well-
+   managed private and service provider networks.  As such, it assumes
+   that a node involved in a measurement operation has previously
+   verified the integrity of the path and the identity of the Session-
+   Reflector.
 
    If desired, attacks can be mitigated by performing basic validation
    and sanity checks, at the Session-Sender, of the counter fields in
@@ -657,14 +665,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-11.2.  Informative References
-
-   [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
-              Packet Loss Metric for IPPM", RFC 2680,
-              DOI 10.17487/RFC2680, September 1999,
-              <https://www.rfc-editor.org/info/rfc2680>.
-
-
 
 
 
@@ -673,6 +673,13 @@ Gandhi, et al.           Expires August 16, 2021               [Page 12]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+11.2.  Informative References
+
+   [RFC2680]  Almes, G., Kalidindi, S., and M. Zekauskas, "A One-way
+              Packet Loss Metric for IPPM", RFC 2680,
+              DOI 10.17487/RFC2680, September 1999,
+              <https://www.rfc-editor.org/info/rfc2680>.
 
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
@@ -715,6 +722,14 @@ Acknowledgments
    work on the loss measurement using TWAMP described in draft-xiao-
    ippm-twamp-ext-direct-loss.
 
+
+
+
+Gandhi, et al.           Expires August 16, 2021               [Page 13]
+
+Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
+
+
 Authors' Addresses
 
    Rakesh Gandhi (editor)
@@ -722,12 +737,6 @@ Authors' Addresses
    Canada
 
    Email: rgandhi@cisco.com
-
-
-
-Gandhi, et al.           Expires August 16, 2021               [Page 13]
-
-Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
    Clarence Filsfils
@@ -759,15 +768,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Italy
 
    Email: stefano.salsano@uniroma2.it
-
-
-
-
-
-
-
-
-
 
 
 

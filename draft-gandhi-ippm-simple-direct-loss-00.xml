@@ -248,11 +248,12 @@
 
     <t>The DLM probe packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the DLM probe packets. 
-    The user-configured destination UDP port follows the guidelines described in <xref target="RFC8762"/>. 
+    The user-configured destination UDP port follows the guidelines 
+    described in Section 4.1 of <xref target="RFC8762"/>. 
     Different destination UDP port is used for
     DLM probe packets than the STAMP test packets defined in <xref target="RFC8762"/>.
     Hence, the Session-Sender and the Session-Reflector do not require backwards
-    compatibility and support for STAMP <xref target="RFC8762"/>.</t>
+    compatibility and support for STAMP.</t>
   
     </section>
 
@@ -504,7 +505,8 @@
    counter from the received Session-Sender DLM probe packet.</t>
 
     <t>
-   Session-Sender Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+   Session-Sender Sequence Number (32-bit): This is the exact copy of the Sequence Number 
+   from the received Session-Sender DLM probe packet.</t>
 
     <t>
    Session-Sender Block Number: This is the exact copy of the Block Number 
@@ -519,8 +521,9 @@
    from the received Session-Sender DLM probe packet.</t>
 
     <t>
-   Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
-
+   Session-Sender TTL: The Session-Sender TTL field is one octet long, and its value is
+   the copy of the TTL field in IPv4 (or Hop Limit in IPv6) from the
+   received STAMP-Test packet.</t>
 
         </section>
 
