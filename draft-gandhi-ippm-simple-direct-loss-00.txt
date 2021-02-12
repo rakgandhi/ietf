@@ -534,8 +534,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Sender Block Number: This is the exact copy of the Block
    Number from the received Session-Sender DLM probe packet.
 
-   FLAGS: This is the exact copy of the XBT Flags from the received
-   Session-Sender DLM probe packet.
+   Session-Sender FLAGS: This is the exact copy of the XBT Flags from
+   the received Session-Sender DLM probe packet.
 
    Session-Sender DSCP: This is the exact copy of the DSCP from the
    received Session-Sender DLM probe packet.

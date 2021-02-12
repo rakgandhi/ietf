@@ -484,7 +484,7 @@
    from the received Session-Sender DLM probe packet.</t>
 
     <t>
-   FLAGS: This is the exact copy of the XBT Flags
+   Session-Sender FLAGS: This is the exact copy of the XBT Flags
    from the received Session-Sender DLM probe packet.</t>
 
     <t>
