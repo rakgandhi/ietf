@@ -106,7 +106,7 @@
 
    <t><xref target="ITU-Y1731"/> defines procedures for performance 
    loss monitoring for Ethernet-based networks.
-   Specifically, the message format defined in Section 9.12 of 
+   Specifically, the Loss Measurement Message (LMM) defined in Section 9.12 of 
    <xref target="ITU-Y1731"/> can be used for accurate frame loss measurement as 
    described in Appendix II of that document. The procedure, however, does not 
    apply to IP networks, but a similar procedure is needed in IP networks. </t>

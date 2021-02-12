@@ -103,9 +103,9 @@ Table of Contents
    lacks support for accurate data packet loss measurement.
 
    [ITU-Y1731] defines procedures for performance loss monitoring for
-   Ethernet-based networks.  Specifically, the message format defined in
-   Section 9.12 of [ITU-Y1731] can be used for accurate frame loss
-   measurement as described in Appendix II of that document.  The
+   Ethernet-based networks.  Specifically, the Loss Measurement Message
+   (LMM) defined in Section 9.12 of [ITU-Y1731] can be used for accurate
+   frame loss measurement as described in Appendix II of that document.
 
 
 
@@ -114,7 +114,7 @@ Gandhi, et al.           Expires August 16, 2021                [Page 2]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
-   procedure, however, does not apply to IP networks, but a similar
+   The procedure, however, does not apply to IP networks, but a similar
    procedure is needed in IP networks.
 
    The Simple Two-Way Active Measurement Protocol (STAMP) [RFC8762]
