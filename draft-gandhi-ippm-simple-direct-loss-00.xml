@@ -109,7 +109,7 @@
    Specifically, the Loss Measurement Message (LMM) defined in Section 9.12 of 
    <xref target="ITU-Y1731"/> can be used for accurate frame loss measurement as 
    described in Appendix II of that document. The procedure, however, does not 
-   apply to IP networks, but a similar procedure is needed in IP networks. </t>
+   apply to IP networks where aa similar procedure is needed. </t>
 
    <t>The Simple Two-Way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provides
    capabilities for the measurement of various performance

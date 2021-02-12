@@ -114,8 +114,8 @@ Gandhi, et al.           Expires August 16, 2021                [Page 2]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
-   The procedure, however, does not apply to IP networks, but a similar
-   procedure is needed in IP networks.
+   The procedure, however, does not apply to IP networks where aa
+   similar procedure is needed.
 
    The Simple Two-Way Active Measurement Protocol (STAMP) [RFC8762]
    provides capabilities for the measurement of various performance
