@@ -108,8 +108,8 @@
    loss monitoring for Ethernet-based networks.
    Specifically, the Loss Measurement Message (LMM) defined in Section 9.12 of 
    <xref target="ITU-Y1731"/> can be used for accurate frame loss measurement as 
-   described in Appendix II of that document. The procedure, however, does not 
-   apply to IP networks where a similar procedure is needed. </t>
+   described in Appendix II of that document. The procedure is specific 
+   to the Ethernet-based networks and does not apply to the IP networks. </t>
 
    <t>The Simple Two-Way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provides
    capabilities for the measurement of various performance
@@ -244,7 +244,8 @@
     the DLM probe packets are transmitted by the Session-Sender over UDP transport, and are used
     to collect the transmit and receive counters for the data traffic flow under measurement.
     The DLM reply probe packets are transmitted by the Session-Reflector
-    to collect the transmit and receive counters for the data traffic flow under measurement in the reverse direction.</t>
+    to collect the transmit and receive counters for the data traffic 
+    flow under measurement in the reverse direction.</t>
 
     <t>The DLM probe packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the DLM probe packets. 
@@ -254,6 +255,16 @@
     DLM probe packets than the STAMP test packets defined in <xref target="RFC8762"/>.
     Hence, the Session-Sender and the Session-Reflector do not require backwards
     compatibility and support for STAMP.</t>
+
+    <t>A DLM session is identified by the 4-tuple (source and destination
+    IP addresses, source and destination UDP port numbers).  A DLM
+    Session-Sender MAY generate a locally unique Sender Session Identifier
+    (SSID).  The SSID is a two-octet, non-zero unsigned integer.  The
+    SSID generation policy is implementation specific.  An
+    implementation MUST NOT assign the same identifier to different DLM
+    sessions.  A Session-Sender MAY use the SSID to identify a DLM
+    session.  If the SSID is used, it MUST be present in each probe
+    packet of the given DLM session.</t>	    
   
     </section>
 
@@ -319,8 +330,8 @@
 
     <t>
    Sequence Number (32-bit): For each new DLM
-   session, its value starts at zero and is incremented by one with each transmitted probe packet.
-   The Sequence Number is used to check the DLM session status as active or not active.</t>
+   session, its value starts at zero and is incremented by one with each transmitted DLM probe packet.
+   The Sequence Number helps to check the DLM session status as active or not active.</t>
 
     <t>
    Transmit Counter (64-bit): The number of packets or octets transmitted by
@@ -334,19 +345,18 @@
     <vspace blankLines="1"/>
     X: Extended counter format indicator.  Indicates the use of
       extended (64-bit) counter values.  Initialized to 1 upon creation
-      (and prior to transmission) of a DLM probe packet and copied from the DLM probe packet
-      to DLM reply probe packet.  Set to 0 when the DLM probe packet is
+      (and prior to transmission) of a DLM probe packet.  Set to 0 when the DLM probe packet is
       transmitted or received over an interface that writes 32-bit counter values.
     <vspace blankLines="1"/>
     B: Octet (byte) count.  When set to 1, indicates that the Counter
       fields represent octet counts.  The octet count applies to all
-      packets within the Direct Loss Measurement scope, and the octet count of a packet transmitted
+      packets within the DLM scope, and the octet count of a packet transmitted
       or received includes the total length of that packet (but excludes
       headers, labels, or framing of the channel itself).  When set to
       0, indicates that the Counter fields represent packet counts.
     <vspace blankLines="1"/>
       T: Traffic-class-specific measurement indicator.  Set to 1 when
-      the Direct Loss Measurement operation is scoped to data packets of a particular
+      the DLM session is scoped to data packets of a particular
       traffic class (DSCP value), and 0 otherwise.  When set to 1, the
       DSCP field of the DLM probe packet indicates the measured traffic class.
     </t>
@@ -366,8 +376,7 @@
    carried in the DLM probe packets.</t>
 
     <t>
-   SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
-    in <xref target="RFC8972"/>.</t>
+   SSID (16-bit): DLM Sender Session Identifier.</t>
 
     <t>
    HMAC: The use of the HMAC field is described in Section 4.4 of <xref target="RFC8762"/>.
@@ -470,7 +479,7 @@
 
     <t>
    Sequence Number (32-bit): This is the exact copy of the Sequence Number 
-   from the received Session-Sender DLM probe packet that allow Stateless mode
+   from the received Session-Sender DLM probe packet that allows Stateless mode
    of Session-Reflector.</t>
 
    <t>
