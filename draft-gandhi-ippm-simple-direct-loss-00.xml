@@ -317,7 +317,8 @@
    Fields are defined as the following:</t>
 
     <t>
-   Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.
+   Sequence Number (32-bit): For each new DLM
+   session, its value starts at zero and is incremented by one with each transmitted probe packet.
    The Sequence Number is used to check the DLM session status as active or not active.</t>
 
     <t>
@@ -467,7 +468,8 @@
    Fields are defined as the following:</t>
 
     <t>
-   Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+   Sequence Number (32-bit): This is the exact copy of the Sequence Number 
+   from the received Session-Sender DLM probe packet.</t>
 
    <t>
    Transmit Counter (64-bit): The number of packets or octets transmitted by

@@ -340,9 +340,10 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Fields are defined as the following:
 
-   Sequence Number (32-bit): As defined in [RFC8762].  The Sequence
-   Number is used to check the DLM session status as active or not
-   active.
+   Sequence Number (32-bit): For each new DLM session, its value starts
+   at zero and is incremented by one with each transmitted probe packet.
+   The Sequence Number is used to check the DLM session status as active
+   or not active.
 
    Transmit Counter (64-bit): The number of packets or octets
    transmitted by the Session-Sender in the DLM probe packet.  The
@@ -384,8 +385,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Number, the Block Number of the counters carried in the DLM probe
    packets.
 
-   SSID (16-bit): DLM Sender Session Identifier.  Follows the procedure
-   defined for SSID in [RFC8972].
+
 
 
 
@@ -393,6 +393,9 @@ Gandhi, et al.           Expires August 16, 2021                [Page 7]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   SSID (16-bit): DLM Sender Session Identifier.  Follows the procedure
+   defined for SSID in [RFC8972].
 
    HMAC: The use of the HMAC field is described in Section 4.4 of
    [RFC8762].  HMAC uses its own key and the mechanism to distribute the
@@ -439,9 +442,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        Sequence Number                        |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                        MBZ (12 octets)                        |
 
 
 
@@ -450,6 +450,9 @@ Gandhi, et al.           Expires August 16, 2021                [Page 8]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+    |                        Sequence Number                        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                        MBZ (12 octets)                        |
     |                                                               |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -496,15 +499,15 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Fields are defined as the following:
 
-   Sequence Number (32-bit): As defined in [RFC8762].
-
-
 
 
 Gandhi, et al.           Expires August 16, 2021                [Page 9]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
+
+   Sequence Number (32-bit): This is the exact copy of the Sequence
+   Number from the received Session-Sender DLM probe packet.
 
    Transmit Counter (64-bit): The number of packets or octets
    transmitted by the Session-Reflector in the DLM reply probe packet.
@@ -549,9 +552,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    received Session-Sender DLM probe packet.
 
    Session-Sender TTL: As defined in [RFC8762].
-
-
-
 
 
 
