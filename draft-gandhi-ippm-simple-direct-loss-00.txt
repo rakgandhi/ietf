@@ -272,7 +272,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    Session-Reflector does not maintain session state and will use the
    value in the Sequence Number field in the received probe packet as
    the value for the Sequence Number field in the reply probe packet.
-   As a result, values in the Sequence Number and Session- Sender
+   As a result, values in the Sequence Number and Session-Sender
    Sequence Number fields are the same in this mode.
 
 
