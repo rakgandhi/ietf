@@ -604,12 +604,12 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
    the nth and (n-1)th DLM probe packets, packet loss and byte loss for
    the data traffic flow can be calculated as follows:
 
-   Transmit Loss TxL[n-1, n] = (C1[n] - C1[n-1]) - (C2[n] - C2[n-1])
+   Transmit Loss TxL[ n-1, n] = (C1[ n] - C1[ n-1]) - (C2[ n] - C2[
+   n-1])
 
-   Receive Loss RxL[n-1, n] = (C3[n] - C3[n-1]) - (C4[n] - C4[n-1])
+   Receive Loss RxL[ n-1, n] = (C3[ n] - C3[ n-1]) - (C4[ n] - C4[ n-1])
 
    The Total Transmit and Receive Loss are calculated as follows:
-
 
 
 
@@ -618,7 +618,7 @@ Gandhi, et al.           Expires August 16, 2021               [Page 11]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
-   Total Transmit Loss = TxL[1, 2] + TxL[2, 3] + ...
+   Total Transmit Loss = TxL[ 1, 2] + TxL[ 2, 3] + ...
 
    Total Receive Loss = RxL[ 1, 2] + RxL[ 2, 3] + ...
 
