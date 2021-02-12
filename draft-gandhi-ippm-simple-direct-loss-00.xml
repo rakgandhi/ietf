@@ -79,7 +79,7 @@
     </address>
     </author>
 
-    <date day="11" month="February" year="2021"/>
+    <date day="12" month="February" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    This document defines Simple Two-Way Direct Loss Measurement (DLM) procedure
@@ -103,6 +103,13 @@
    This approach requires clock synchronization
    between the measurement points and lacks support for
    accurate data packet loss measurement.</t>
+
+   <t><xref target="ITU-Y1731"/> defines procedures for performance 
+   loss monitoring for Ethernet-based networks.
+   Specifically, the message format defined in Section 9.12 of 
+   <xref target="ITU-Y1731"/> can be used for accurate frame loss measurement as 
+   described in Appendix II of that document. The procedure, however, does not 
+   apply to IP networks, but a similar procedure is needed in IP networks. </t>
 
    <t>The Simple Two-Way Active Measurement Protocol (STAMP) <xref target="RFC8762"/> provides
    capabilities for the measurement of various performance
@@ -223,7 +230,7 @@
                     \                       /
                      C4                    C3
 
-         Session-Sender                 Session-Reflector
+         Session-Sender                  Session-Reflector
 
                       Reference Topology
 ]]></artwork>
@@ -234,10 +241,10 @@
 
     <section title="Overview" anchor="sect-3"><t>
     For accurate data packet loss detection,
-    the DLM probe packets are transmitted by the Session-Sender, and are used
+    the DLM probe packets are transmitted by the Session-Sender over UDP transport, and are used
     to collect the transmit and receive counters for the data traffic flow under measurement.
     The DLM reply probe packets are transmitted by the Session-Reflector
-    to collect the transmit and receive counters for the data traffic flow in the reverse direction.</t>
+    to collect the transmit and receive counters for the data traffic flow under measurement in the reverse direction.</t>
 
     <t>The DLM probe packets carry user-configured destination UDP port. 
     The destination UDP port 862 is not used for the DLM probe packets. 
@@ -253,9 +260,9 @@
    <t>In this document, base Session-Sender DLM probe packet formats 
    are defined as shown in Figure 1 and Figure 2 for unauthenticated and authenticated modes, respectively. 
    They are stand-alone DLM probe packet formats to 
-   carry transmit and receive counters for the data traffic 
+   carry counters for the data traffic 
    flow under measurement. The DLM probe packet formats are similar to the base STAMP test 
-   packet formats (for example location of the Counters and Timestamps).</t>
+   packet formats (for example the locations of the Counters and Timestamps).</t>
 
     <figure title="Session-Sender Direct Loss Measurement Probe Packet - Unauthenticated Mode" anchor="ure-lm-probe-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -307,7 +314,8 @@
     </figure>
 
     <t>
-   Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
+   Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.
+   The Sequence Number is used to check the DLM session status as active or not active.</t>
 
     <t>
    Transmit Counter (64-bit): The number of packets or octets transmitted by
@@ -350,8 +358,7 @@
    collect Block Number of the counters for the data traffic flow under measurement.  
    To be able to correlate the transmit and receive counters of the
    matching Block Number, the Block Number of the counters
-   carried in the DLM probe packets.
-  </t>
+   carried in the DLM probe packets.</t>
 
     <t>
    SSID (16-bit): DLM Sender Session Identifier. Follows the procedure defined for SSID 
@@ -369,9 +376,9 @@
     </section>
 
     <section title="Session-Reflector Direct Loss Measurement Probe Packet" anchor="sect-5">
-        <t>In this document, Session-Reflector DLM reply probe packet formats 
-	are defined as shown in Figure 3 and Figure 4, 
-	for unauthenticated and authenticated modes, respectively.</t>
+     <t>In this document, Session-Reflector DLM reply probe packet formats 
+     are defined as shown in Figure 3 and Figure 4, 
+     for unauthenticated and authenticated modes, respectively.</t>
 
     <figure title="Session-Reflector Direct Loss Measurement Probe Packet - Unauthenticated Mode" anchor="ure-lm-reply-packet-format"><artwork><![CDATA[
  0                   1                   2                   3
@@ -449,6 +456,10 @@
 ]]></artwork>
     </figure>
 
+
+    <t>
+   Fields are defined as the following:</t>
+
     <t>
    Sequence Number (32-bit): As defined in <xref target="RFC8762"/>.</t>
 
@@ -458,8 +469,7 @@
    Counter is for the reverse direction data traffic flow under measurement.
    The Session-Reflector writes the transmit counter at the same location in the
    DLM reply probe packet as the Session-Sender DLM probe packet. 
-   This is an important property for hardware-based implementation. 
-   </t>
+   This is an important property for hardware-based implementation.</t>
 
     <t>
    XBT Flags: Set for the reverse direction data traffic flow under measurement
@@ -502,6 +512,12 @@
 
     <t>
    Session-Sender TTL: As defined in <xref target="RFC8762"/>.</t>
+
+
+   <t>
+   The Session-Reflector receives the DLM probe packet and verifies it.
+   If the base DLM probe packet is validated, the Session-Reflector
+   that supports this specification prepares and transmits the reply test packet.</t>
 
         </section>
 
@@ -551,7 +567,12 @@
    also apply to the procedures defined in this document.</t>
         </section>
 
-    <section title="Security Considerations" anchor="sect-9"><t>
+    <section title="Operational Considerations" anchor="sect-9"><t>
+   The operational considerations specified in <xref target="RFC8762"/>
+   also apply to the procedures defined in this document.</t>
+        </section>
+
+    <section title="Security Considerations" anchor="sect-10"><t>
    The performance measurement is intended for deployment in
    well-managed private and service provider networks.  As such, it
    assumes that a node involved in a measurement operation has
@@ -581,20 +602,30 @@
     <references title="Normative References">
     &RFC2119;
     &RFC8174;
+    &RFC8321;
     &RFC8762;
     </references>
     <references title="Informative References">
     &RFC2680;
-    &RFC8321;
     &RFC8972;
 
+    <reference anchor="ITU-Y1731"><front>
+    <title>G.8013/Y.1731 : Operations, administration and maintenance (OAM) functions and mechanisms for Ethernet-based networks</title>
+    <author>   
+        <organization>Recommendation ITU-TG.8013/Y.1731: https://www.itu.int/rec/T-REC-G.8013-201508-I/en
+        </organization>
+    </author>
+    <date month="August" year="2015"/>
+    </front>
+    </reference>
+	    
 
     <reference anchor="SRV6-PM-TNSM"><front>
     <title>SRv6-PM: Performance Monitoring of SRv6 Networks with a Cloud-Native Architecture: https://arxiv.org/pdf/2007.08633.pdf</title>
     <author>   
 	    <organization>
             Loreti, P., Mayer, A., Lungaroni, P., Lombardo, F., Scarpitta, C., Sidoretti, G.,
-            Bracciale, L., Ferrari, M., Salsano, S., Abdelsalam, A., Gandhi, R., Filsfils, C., 
+            Bracciale, L., Ferrari, M., Salsano, S., Abdelsalam, A., Gandhi, R., and C. Filsfils, 
 	    IEEE Transactions on Network and Service Management, Accepted for publication</organization>
     </author>
     <date month="February" year="2021"/>
@@ -607,7 +638,7 @@
     <author>    
 	    <organization>
             Loreti, P., Mayer, A., Lungaroni, P., 
-            Salsano, S., Gandhi, R., Filsfils, C., 
+            Salsano, S., Gandhi, R., and C. Filsfils, 
 	    IEEE International Conference on High Performance Switching and Routing</organization>
     </author>
     <date month="May" year="2020"/>
