@@ -338,6 +338,8 @@ Gandhi, et al.           Expires August 16, 2021                [Page 6]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+   Fields are defined as the following:
+
    Sequence Number (32-bit): As defined in [RFC8762].  The Sequence
    Number is used to check the DLM session status as active or not
    active.
@@ -387,8 +389,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
 
-
-
 Gandhi, et al.           Expires August 16, 2021                [Page 7]
 
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
@@ -403,9 +403,12 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 5.  Session-Reflector Direct Loss Measurement Probe Packet
 
-   In this document, Session-Reflector DLM reply probe packet formats
-   are defined as shown in Figure 3 and Figure 4, for unauthenticated
-   and authenticated modes, respectively.
+   The Session-Reflector receives the DLM Session-Sender probe packet
+   and verifies it.  If the DLM probe packet is validated, the Session-
+   Reflector that supports this specification prepares and transmits the
+   DLM reply test packet.  In this document, Session-Reflector DLM reply
+   probe packet formats are defined as shown in Figure 3 and Figure 4,
+   for unauthenticated and authenticated modes, respectively.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -439,9 +442,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
     |                        Sequence Number                        |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        MBZ (12 octets)                        |
-    |                                                               |
-    |                                                               |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -450,6 +450,9 @@ Gandhi, et al.           Expires August 16, 2021                [Page 8]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                        Transmit Counter (C3)                  |
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -495,9 +498,6 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Sequence Number (32-bit): As defined in [RFC8762].
 
-   Transmit Counter (64-bit): The number of packets or octets
-   transmitted by the Session-Reflector in the DLM reply probe packet.
-   Counter is for the reverse direction data traffic flow under
 
 
 
@@ -506,6 +506,9 @@ Gandhi, et al.           Expires August 16, 2021                [Page 9]
 Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
 
+   Transmit Counter (64-bit): The number of packets or octets
+   transmitted by the Session-Reflector in the DLM reply probe packet.
+   Counter is for the reverse direction data traffic flow under
    measurement.  The Session-Reflector writes the transmit counter at
    the same location in the DLM reply probe packet as the Session-Sender
    DLM probe packet.  This is an important property for hardware-based
@@ -547,10 +550,7 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
 
    Session-Sender TTL: As defined in [RFC8762].
 
-   The Session-Reflector receives the DLM probe packet and verifies it.
-   If the base DLM probe packet is validated, the Session-Reflector that
-   supports this specification prepares and transmits the reply test
-   packet.
+
 
 
 
