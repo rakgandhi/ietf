@@ -692,8 +692,8 @@ Internet-Draft  Simple Direct Loss Measurement Procedure   February 2021
               Scarpitta, C., Sidoretti, G., Bracciale, L., Ferrari, M.,
               Salsano, S., Abdelsalam, A., Gandhi, R., and C. Filsfils,
               IEEE Transactions on Network and Service Management,
-              Accepted for publication, "SRv6-PM: Performance Monitoring
-              of SRv6 Networks with a Cloud-Native Architecture:
+              "SRv6-PM: Performance Monitoring of SRv6 Networks with a
+              Cloud-Native Architecture:
               https://arxiv.org/pdf/2007.08633.pdf", February 2021.
 
    [SRV6-PM-IEEE]
