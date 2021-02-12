@@ -608,7 +608,7 @@
    Zhenqiang Li, Reshad Rahman, Cheng Li, 
    and Yali Wang for the comments on Direct Loss Measurement. 
    The authors would like to thank Stefano Salsano and his team for 
-   for the publications of the SRv6 implementations in 
+   the SRv6-PM Loss Monitoring open source implementation and publications in 
    <xref target="SRV6-PM-TNSM"/> and <xref target="SRV6-PM-IEEE"/>.
    The authors would like to acknowledge the earlier 
    work on the loss measurement using TWAMP
