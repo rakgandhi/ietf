@@ -709,8 +709,8 @@ Acknowledgments
    The authors would like to thank Greg Mirsky, Tianran Zhou, Gyan
    Mishra, Zhenqiang Li, Reshad Rahman, Cheng Li, and Yali Wang for the
    comments on Direct Loss Measurement.  The authors would like to thank
-   Pierpaolo Loreti and the team for the SRv6-PM Loss Monitoring open
-   source implementation and its publications in [SRV6-PM-TNSM] and
+   Pierpaolo Loreti and the team for the Open Source implementation of
+   SRv6-PM Loss Monitoring and its publications in [SRV6-PM-TNSM] and
    [SRV6-PM-IEEE].  The authors would like to acknowledge the earlier
    work on the loss measurement using TWAMP described in draft-xiao-
    ippm-twamp-ext-direct-loss.
