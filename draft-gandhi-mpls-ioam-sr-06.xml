@@ -179,7 +179,8 @@
 
     </section>
 
-    <section title="MPLS Extension for IOAM Data Fields" anchor="sect-3"><t>
+    <section title="MPLS Extensions for IOAM Data Fields" anchor="sect-3">
+    <section title="IOAM Generic Associated Channel" anchor="sect-3.1"><t>
    The IOAM data fields are defined in <xref target="I-D.ietf-ippm-ioam-data"/>.  The IOAM
    data fields are carried in the MPLS header as shown in Figure 1.
    More than one trace options can be present in the IOAM data fields. 
@@ -190,7 +191,7 @@
    data field(s).</t>
 
 
-    <figure title="MPLS Extension for IOAM Data Fields" anchor="ure-ioam-extension-in-mpls-header"><artwork><![CDATA[
+    <figure title="IOAM Generic Associated Channel with IOAM Data Fields" anchor="ure-ioam-extension-in-mpls-header"><artwork><![CDATA[
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
@@ -260,14 +261,28 @@
     </t>
 
     </section>
+    <section title="IOAM Indicator Labels" anchor="sect-3.2"><t>
+    An IOAM Indicator Label is used to indicate the presence of the
+    IOAM data field in the MPLS header. There are two IOAM types defined in this
+    document: Edge-to-Edge and Hop-by-Hop IOAM. 
+    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
+    is used so that intermediate nodes can ignore it. 
+    If both edge and intermediate nodes need to process IOAM data 
+    then HbH IOAM Indicator Label is used. 
+    Different IOAM Indicator Labels allow
+    to optimize the IOAM processing on intermediate nodes 
+    by checking if IOAM data fields need to be processed.
+    </t>
+
+    </section>
+    </section>
 
     <section title="Edge-to-Edge IOAM" anchor="sect-4">
 
     <section title="Edge-to-Edge IOAM Indicator Label" anchor="sect-4.1"><t>
-    The Edge-to-Edge (E2E) IOAM Indicator Label is used to indicate the presence of the
+    The E2E IOAM Indicator Label is used to indicate the presence of the
     E2E IOAM data field in the MPLS header as shown in Figure 2.
-    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
-    is used so that intermediate nodes can ignore the IOAM data.</t>
+   </t>
 
     <figure title="MPLS Encapsulation for E2E IOAM" anchor="ure-ioam-encapsulation-in-mpls-header-e2e"><artwork><![CDATA[
 0                   1                   2                   3
@@ -333,7 +348,7 @@
     <section title="Edge-to-Edge IOAM Indicator Label Allocation" anchor="sect-4.3"><t>
       The E2E IOAM Indicator Label is used to indicate the presence of the E2E IOAM data
       field in the MPLS header.  The E2E IOAM Indicator Label 
-      can be allocated using one of the following methods:</t>
+      can be allocated using one of the following three methods:</t>
 
     <t><list style="symbols"><t>Label assigned by IANA with value TBA1 from the Extended
       Special-Purpose MPLS Values <xref target="I-D.ietf-mpls-spl-terminology"/>.</t>
@@ -353,18 +368,10 @@
     </section>
 
     <section title="Hop-by-Hop IOAM" anchor="sect-5">
-        
     <section title="Hop-by-Hop IOAM Indicator Label" anchor="sect-5.1"><t>
-    The Hop-by-Hop (HbH) IOAM Indicator Label is used to indicate the presence of the
+    The HbH IOAM Indicator Label is used to indicate the presence of the
     HbH IOAM data field in the MPLS header as shown in Figure 3.</t>
  
-    <t>Different IOAM Indicator Labels are used for E2E and HbH IOAM to optimize the processing on intermediate nodes 
-    and for checking if IOAM data fields need to be processed on intermediate nodes.
-    If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
-    is used so that intermediate nodes can ignore it. 
-    If both edge and intermediate nodes need to process IOAM data 
-    then HbH IOAM Indicator Label is used. </t>
-
     <figure title="MPLS Encapsulation for HbH IOAM" anchor="ure-ioam-encapsulation-in-mpls-header-1"><artwork><![CDATA[
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -435,7 +442,7 @@
     <section title="Hop-by-Hop IOAM Indicator Label Allocation" anchor="sect-5.3"><t>
     The HbH IOAM Indicator Label is used to indicate the presence of the HbH IOAM data
     field in the MPLS header.  The HbH IOAM Indicator Label 
-    can be allocated using one of the following methods:</t>
+    can be allocated using one of the following three methods:</t>
 
     <t><list style="symbols"><t>Label assigned by IANA with value TBA2 from the Extended
     Special-Purpose MPLS Values <xref target="I-D.ietf-mpls-spl-terminology"/>.</t>
