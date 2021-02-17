@@ -304,19 +304,18 @@
 ]]></artwork>
     </figure>
 
-    </section>
-
-    <section title="Procedure for Edge-to-Edge IOAM" anchor="sect-4.2"><t>
-    This section describes the E2E IOM 
-    procedure for MPLS encapsulation and decapsulation.
-    The E2E IOAM data fields carry the Option-Type(s) that
+    <t>The E2E IOAM data fields carry the Option-Type(s) that
     require processing on the encapsulating and decapsulating nodes only.
     The IOAM Option-Type carried can be IOAM Edge-to-Edge
     Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The IOAM data field SHOULD not carry any IOAM Option-Type that
+    The E2E IOAM data field SHOULD not carry any IOAM Option-Type that
     require IOAM processing on the intermediate nodes as it will
-    not be processed by them. The E2E IOAM
-    processing can be summarized as following:</t>  
+    not be processed by them.</t>  
+
+    </section>
+
+    <section title="Procedure for Edge-to-Edge IOAM" anchor="sect-4.2"><t>
+    The E2E IOM procedure is summarized as following:</t>  
 
     <t><list style="symbols"><t>The encapsulating node inserts the E2E IOAM Indicator Label 
     and one or more IOAM data field(s) in the MPLS header.</t>
@@ -392,18 +391,17 @@
 ]]></artwork>
     </figure>
 
-    </section>
-
-    <section title="Procedure for Hop-by-Hop IOAM" anchor="sect-5.2"><t>
-    This section describes the HbH IOAM procedure for MPLS encapsulation and
-    decapsulation, as well as processing on the intermediate nodes.
-    The HbH IOAM data fields carry the Option-Type(s) that require
+   <t>The HbH IOAM data fields carry the Option-Type(s) that require
     processing at the intermediate and/or encapsulating and decapsulating nodes.
     The IOAM Option-Type carried can be IOAM
     Pre-allocated Trace Option-Type, IOAM Incremental Trace Option-Type
     and IOAM Proof of Transit (POT) Option-Type, as well as Edge-to-Edge
-    Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The HbH IOAM processing can be summarized as following:</t>  
+    Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>. </t>  
+
+    </section>
+
+    <section title="Procedure for Hop-by-Hop IOAM" anchor="sect-5.2"><t>
+    The HbH IOAM procedure is summarized as following:</t>  
             
     <t><list style="symbols"><t>The encapsulating node inserts the HbH IOAM Indicator Label 
     and one or more IOAM data field(s) in the MPLS header.</t>
