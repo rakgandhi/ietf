@@ -70,24 +70,24 @@ Table of Contents
    2.  Conventions . . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  Requirement Language  . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  MPLS Extension for IOAM Data Fields . . . . . . . . . . . . .   3
+   3.  MPLS Extension for IOAM Data Fields . . . . . . . . . . . . .   4
    4.  Edge-to-Edge IOAM . . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  Edge-to-Edge IOAM Indicator Label . . . . . . . . . . . .   5
-     4.2.  Procedure for Edge-to-Edge IOAM . . . . . . . . . . . . .   5
+     4.2.  Procedure for Edge-to-Edge IOAM . . . . . . . . . . . . .   6
      4.3.  Edge-to-Edge IOAM Indicator Label Allocation  . . . . . .   6
-   5.  Hop-by-Hop IOAM . . . . . . . . . . . . . . . . . . . . . . .   6
-     5.1.  Hop-by-Hop IOAM Indicator Label . . . . . . . . . . . . .   6
+   5.  Hop-by-Hop IOAM . . . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  Hop-by-Hop IOAM Indicator Label . . . . . . . . . . . . .   7
      5.2.  Procedure for Hop-by-Hop IOAM . . . . . . . . . . . . . .   7
      5.3.  Hop-by-Hop IOAM Indicator Label Allocation  . . . . . . .   8
-   6.  Considerations for IOAM Indicator Label . . . . . . . . . . .   8
-     6.1.  Considerations for ECMP . . . . . . . . . . . . . . . . .   8
+   6.  Considerations for IOAM Indicator Label . . . . . . . . . . .   9
+     6.1.  Considerations for ECMP . . . . . . . . . . . . . . . . .   9
      6.2.  Node Capability . . . . . . . . . . . . . . . . . . . . .   9
      6.3.  MSD Considerations  . . . . . . . . . . . . . . . . . . .   9
      6.4.  Nested MPLS Encapsulation . . . . . . . . . . . . . . . .   9
-   7.  Example MPLS Encapsulations . . . . . . . . . . . . . . . . .   9
-     7.1.  Example SR-MPLS Encapsulation with IOAM . . . . . . . . .   9
+   7.  Example MPLS Encapsulations . . . . . . . . . . . . . . . . .  10
+     7.1.  Example SR-MPLS Encapsulation with IOAM . . . . . . . . .  10
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  11
      10.2.  Informative References . . . . . . . . . . . . . . . . .  12
@@ -136,7 +136,11 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    ECMP      Equal Cost Multi-Path
 
+   E2E       Edge-To-Edge
+
    G-ACh     Generic Associated Channel
+
+   HbH       Hob-by-Hop
 
    IOAM      In-situ Operations, Administration, and Maintenance
 
@@ -154,14 +158,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    SR-MPLS   Segment Routing with MPLS Data plane
 
-3.  MPLS Extension for IOAM Data Fields
 
-   The IOAM data fields are defined in [I-D.ietf-ippm-ioam-data].  The
-   IOAM data fields are carried in the MPLS header as shown in Figure 1.
-   More than one trace options can be present in the IOAM data fields.
-   G-ACh [RFC5586] provides a mechanism to transport OAM and other
-   control messages over MPLS data plane.  The IOAM G-ACh header
-   [RFC5586] with new IOAM G-ACh type is added immediately after the
+
+
+
 
 
 
@@ -170,6 +170,14 @@ Gandhi, et al.           Expires August 21, 2021                [Page 3]
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
+3.  MPLS Extension for IOAM Data Fields
+
+   The IOAM data fields are defined in [I-D.ietf-ippm-ioam-data].  The
+   IOAM data fields are carried in the MPLS header as shown in Figure 1.
+   More than one trace options can be present in the IOAM data fields.
+   G-ACh [RFC5586] provides a mechanism to transport OAM and other
+   control messages over MPLS data plane.  The IOAM G-ACh header
+   [RFC5586] with new IOAM G-ACh type is added immediately after the
    MPLS label stack in the MPLS header as shown in Figure 1, before the
    IOAM data field(s).
 
@@ -210,14 +218,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Reserved:  Reserved Bits MUST be set to zero upon transmission and
      ignored upon receipt.
 
-   Block Number:  The Block Number can be used to aggregate the IOAM
-     data collected in data plane, e.g. compute measurement metrics for
-     each block of a flow.  It is also used to correlate the IOAM data
-     on different nodes.
-
-   IOAM-OPT-Type:  8-bit field defining the IOAM Option type, as defined
-     in Section 8.1 of [I-D.ietf-ippm-ioam-data].
-
 
 
 
@@ -225,6 +225,14 @@ Gandhi, et al.           Expires August 21, 2021                [Page 4]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
+
+   Block Number:  The Block Number can be used to aggregate the IOAM
+     data collected in data plane, e.g. compute measurement metrics for
+     each block of a flow.  It is also used to correlate the IOAM data
+     on different nodes.
+
+   IOAM-OPT-Type:  8-bit field defining the IOAM Option type, as defined
+     in Section 8.1 of [I-D.ietf-ippm-ioam-data].
 
    IOAM HDR LEN:  8-bit unsigned integer.  Length of the IOAM HDR in
      4-octet units.
@@ -237,10 +245,11 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 4.1.  Edge-to-Edge IOAM Indicator Label
 
-   The E2E IOAM Indicator Label is used to indicate the presence of the
-   E2E IOAM data field in the MPLS header as shown in Figure 2.  If only
-   edge nodes need to process IOAM data then E2E IOAM Indicator Label is
-   used so that intermediate nodes can ignore the IOAM data.
+   The Edge-to-Edge (E2E) IOAM Indicator Label is used to indicate the
+   presence of the E2E IOAM data field in the MPLS header as shown in
+   Figure 2.  If only edge nodes need to process IOAM data then E2E IOAM
+   Indicator Label is used so that intermediate nodes can ignore the
+   IOAM data.
 
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -261,19 +270,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
                  Figure 2: MPLS Encapsulation for E2E IOAM
 
-4.2.  Procedure for Edge-to-Edge IOAM
 
-   This section summarizes the procedure for encapsulation and
-   decapsulation for Edge-to-Edge IOAM data fields in an MPLS header.
-   The E2E IOAM includes IOAM processing on the encapsulating and
-   decapsulating nodes.  The Edge-to-Edge (E2E) IOAM data field MUST
-   include IOAM Edge-to-Edge Option-Type [I-D.ietf-ippm-ioam-data].  The
-   IOAM data field MUST not include any Hop-by-Hop IOAM Option-Type.
 
-   o  The encapsulating node inserts the E2E IOAM Indicator Label and
-      one or more IOAM data field(s) in the MPLS header.
 
-   o  The intermediate nodes do not process IOAM data fields.
+
 
 
 
@@ -281,6 +281,21 @@ Gandhi, et al.           Expires August 21, 2021                [Page 5]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
+
+4.2.  Procedure for Edge-to-Edge IOAM
+
+   This section describes the E2E IOM procedure for MPLS encapsulation
+   and decapsulation.  The E2E IOAM data fields carry the Option-Type(s)
+   that require processing on the encapsulating and decapsulating nodes
+   only.  The IOAM Option-Type carried can be IOAM Edge-to-Edge Option-
+   Type [I-D.ietf-ippm-ioam-data].  The IOAM data field MUST not carry
+   any IOAM Option-Type that require IOAM processing on the intermediate
+   nodes.  The E2E IOAM processing can be summarized as following:
+
+   o  The encapsulating node inserts the E2E IOAM Indicator Label and
+      one or more IOAM data field(s) in the MPLS header.
+
+   o  The intermediate nodes do not process IOAM data fields.
 
    o  The decapsulating node "punts the timestamped copy" of the
       received packet as is including the IOAM data fields when the node
@@ -296,9 +311,9 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
       streaming telemetry, etc.
 
    o  The decapsulating node also pops the IOAM Indicator Label and the
-      IOAM data fields from the original received packet.  The
-      decapsulated packet is forwarded downstream or terminated locally
-      similar to the regular data packets.
+      IOAM data fields from the received packet.  The decapsulated
+      packet is forwarded downstream or terminated locally similar to
+      the regular data packets.
 
 4.3.  Edge-to-Edge IOAM Indicator Label Allocation
 
@@ -313,22 +328,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
       decapsulating node.  The Controller provisions the label on both
       encapsulating and decapsulating nodes.
 
-   o  Label allocated by the decapsulating node and signalled or
-      advertised in the network.  The signaling and/or advertisement
-      extension for this is outside the scope of this document.
 
-5.  Hop-by-Hop IOAM
-
-5.1.  Hop-by-Hop IOAM Indicator Label
-
-   The HbH IOAM Indicator Label is used to indicate the presence of the
-   HbH IOAM data field in the MPLS header as shown in Figure 3.
-
-   Different IOAM Indicator Labels are used for E2E and HbH IOAM to
-   optimize the processing on intermediate nodes and for checking if
-   IOAM data fields need to be processed on intermediate nodes.  If only
-   edge nodes need to process IOAM data then E2E IOAM Indicator Label is
-   used so that intermediate nodes can ignore it.  If both edge and
 
 
 
@@ -338,6 +338,23 @@ Gandhi, et al.           Expires August 21, 2021                [Page 6]
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
+   o  Label allocated by the decapsulating node and signalled or
+      advertised in the network.  The signaling and/or advertisement
+      extension for this is outside the scope of this document.
+
+5.  Hop-by-Hop IOAM
+
+5.1.  Hop-by-Hop IOAM Indicator Label
+
+   The Hop-by-Hop (HbH) IOAM Indicator Label is used to indicate the
+   presence of the HbH IOAM data field in the MPLS header as shown in
+   Figure 3.
+
+   Different IOAM Indicator Labels are used for E2E and HbH IOAM to
+   optimize the processing on intermediate nodes and for checking if
+   IOAM data fields need to be processed on intermediate nodes.  If only
+   edge nodes need to process IOAM data then E2E IOAM Indicator Label is
+   used so that intermediate nodes can ignore it.  If both edge and
    intermediate nodes need to process IOAM data then HbH IOAM Indicator
    Label is used.
 
@@ -358,18 +375,27 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    .                                                               .
    +---------------------------------------------------------------+
 
-              Figure 3: HbH IOAM Encapsulation in MPLS Header
+                 Figure 3: MPLS Encapsulation for HbH IOAM
 
 5.2.  Procedure for Hop-by-Hop IOAM
 
-   This section summarizes the procedure for encapsulation and
-   decapsulation in MPLS header, as well as processing on the
-   intermediate nodes for Hop-by-Hop IOAM.  The Hop-by-Hop IOAM data
-   filed MUST include one or more IOAM Option-Type from IOAM Pre-
+   This section describes the HbH IOAM procedure for MPLS encapsulation
+   and decapsulation, as well as processing on the intermediate nodes.
+   The HbH IOAM data fields carry the Option-Type(s) that require
+   processsing at the intermediate and/or encapsulating and
+   decapsulating nodes.  The IOAM Option-Type carried can be IOAM Pre-
    allocated Trace Option-Type, IOAM Incremental Trace Option-Type and
-   IOAM Proof of Transit (POT) Option-Type [I-D.ietf-ippm-ioam-data].
-   The IOAM data field MAY also include Edge-to-Edge Option-Type
-   [I-D.ietf-ippm-ioam-data].
+   IOAM Proof of Transit (POT) Option-Type, as well as Edge-to-Edge
+
+
+
+Gandhi, et al.           Expires August 21, 2021                [Page 7]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
+   Option-Type [I-D.ietf-ippm-ioam-data] The HbH IOAM processing can be
+   summarized as following:
 
    o  The encapsulating node inserts the HbH IOAM Indicator Label and
       one or more IOAM data field(s) in the MPLS header.
@@ -386,14 +412,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    o  The intermediate node forwards a copy of the processsed data
       packet downstream.
 
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 7]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    o  The decapsulating node "punts the timestamped copy" of the
       received data packet as is including the IOAM data fields when the
       node recognizes the IOAM Indicator Label.  The copy of the packet
@@ -408,9 +426,9 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
       streaming telemetry, etc.
 
    o  The decapsulating node also pops the IOAM Indicator Label and the
-      IOAM data fields from the original received packet.  The
-      decapsulated packet is forwarded downstream or terminated locally
-      similar to the regular data packets.
+      IOAM data fields from the received packet.  The decapsulated
+      packet is forwarded downstream or terminated locally similar to
+      the regular data packets.
 
 5.3.  Hop-by-Hop IOAM Indicator Label Allocation
 
@@ -424,6 +442,13 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    o  Label allocated by a Controller from the network-wide global
       table.  The Controller provisions the labels on all nodes
       participating in IOAM functions along the data traffic path.
+
+
+
+Gandhi, et al.           Expires August 21, 2021                [Page 8]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
    o  Labels allocated by the intermediate and decapsulating nodes and
       signalled or advertised in the network.  The signaling and/or
@@ -442,13 +467,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    Note that the hashing function for ECMP that uses the labels from the
    MPLS header may now include the IOAM Indicator Label.
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 8]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
    When entropy label [RFC6790] is used for hashing function for ECMP,
    the procedure defined in this document does not alter the hashing
@@ -480,6 +498,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The data packets with IOAM data fields carry only one IOAM Indicator
    Label in the MPLS header.  Any intermediate node that adds additional
    MPLS encapsulation in the MPLS header may further update the IOAM
+
+
+
+Gandhi, et al.           Expires August 21, 2021                [Page 9]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    data fields in the header without inserting another IOAM Indicator
    Label.
 
@@ -498,13 +524,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    IOAM data fields is shown in Figure 4.  The PSID allows to identify
    the path associated with the data traffic being monitored for IOAM on
    the decapsulating node.
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 9]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -534,6 +553,15 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The security considerations of IOAM in general are discussed in
    [I-D.ietf-ippm-ioam-data].
 
+
+
+
+
+Gandhi, et al.           Expires August 21, 2021               [Page 10]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    IOAM is considered a "per domain" feature, where one or several
    operators decide on leveraging and configuring IOAM according to
    their needs.  Still, operators need to properly secure the IOAM
@@ -550,17 +578,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    mpls-label-values/mpls-label-values.xml>).  IANA is requested to
    allocate IOAM Indicator Label value from the "Extended Special-
    Purpose MPLS Label Values" registry:
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 10]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
            +-------+--------------------------+---------------+
            | Value | Description              | Reference     |
@@ -593,6 +610,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               for In-situ OAM", draft-ietf-ippm-ioam-data-11 (work in
               progress), November 2020.
 
+
+
+
+Gandhi, et al.           Expires August 21, 2021               [Page 11]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    [I-D.ietf-ippm-ioam-direct-export]
               Song, H., Gafni, B., Zhou, T., Li, Z., Brockners, F.,
               Bhandari, S., Sivakolundu, R., and T. Mizrahi, "In-situ
@@ -609,14 +634,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 11]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
    [RFC4385]  Bryant, S., Swallow, G., Martini, L., and D. McPherson,
               "Pseudowire Emulation Edge-to-Edge (PWE3) Control Word for
@@ -646,6 +663,17 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 10.2.  Informative References
 
+
+
+
+
+
+
+Gandhi, et al.           Expires August 21, 2021               [Page 12]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
               Purpose Label terminology", draft-ietf-mpls-spl-
@@ -662,27 +690,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               RFC 6790, DOI 10.17487/RFC6790, November 2012,
               <https://www.rfc-editor.org/info/rfc6790>.
 
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 12]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
 Acknowledgements
 
    The authors would like to thank Patrick Khordoc, Shwetha Bhandari and
    Vengada Prasad Govindan for the discussions on IOAM.  The authors
    would also like to thank Tarek Saad, Loa Andersson, Greg Mirsky,
-   Stewart Bryant, Xiao Min, John E.  Drake and Cheng Li for providing
-   many useful comments.  The authors would also like to thank Mach
-   Chen, Andrew Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT
-   reviews.
+   Stewart Bryant, Xiao Min, and Cheng Li for providing many useful
+   comments.  The authors would also like to thank Mach Chen, Andrew
+   Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT reviews.
 
 Contributors
 
@@ -708,6 +723,13 @@ Authors' Addresses
    Email: zali@cisco.com
 
 
+
+
+Gandhi, et al.           Expires August 21, 2021               [Page 13]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    Clarence Filsfils
    Cisco Systems, Inc.
    Belgium
@@ -724,12 +746,6 @@ Authors' Addresses
    Email: fbrockne@cisco.com
 
 
-
-Gandhi, et al.           Expires August 21, 2021               [Page 13]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    Bin Wen
    Comcast
 
@@ -740,22 +756,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Comcast
 
    Email: Voitek_Kozak@comcast.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

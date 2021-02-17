@@ -117,8 +117,18 @@
     <vspace blankLines="0"/>
     </t>
 
+    <t hangText="E2E     ">
+    Edge-To-Edge
+    <vspace blankLines="0"/>
+    </t>
+
     <t hangText="G-ACh   ">
     Generic Associated Channel
+    <vspace blankLines="0"/>
+    </t>
+
+    <t hangText="HbH     ">
+    Hob-by-Hop
     <vspace blankLines="0"/>
     </t>
 
@@ -254,7 +264,7 @@
     <section title="Edge-to-Edge IOAM" anchor="sect-4">
 
     <section title="Edge-to-Edge IOAM Indicator Label" anchor="sect-4.1"><t>
-    The E2E IOAM Indicator Label is used to indicate the presence of the
+    The Edge-to-Edge (E2E) IOAM Indicator Label is used to indicate the presence of the
     E2E IOAM data field in the MPLS header as shown in Figure 2.
     If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
     is used so that intermediate nodes can ignore the IOAM data.</t>
@@ -282,13 +292,15 @@
     </section>
 
     <section title="Procedure for Edge-to-Edge IOAM" anchor="sect-4.2"><t>
-    This section summarizes the
-    procedure for encapsulation and decapsulation for Edge-to-Edge
-    IOAM data fields in an MPLS header.
-    The E2E IOAM includes IOAM processing on the encapsulating and decapsulating nodes.
-    The Edge-to-Edge (E2E) IOAM data field MUST include IOAM Edge-to-Edge
+    This section describes the E2E IOM 
+    procedure for MPLS encapsulation and decapsulation.
+    The E2E IOAM data fields carry the Option-Type(s) that
+    require processing on the encapsulating and decapsulating nodes only.
+    The IOAM Option-Type carried can be IOAM Edge-to-Edge
     Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The IOAM data field MUST not include any Hop-by-Hop IOAM Option-Type.</t>  
+    The IOAM data field MUST not carry any IOAM Option-Type that
+    require IOAM processing on the intermediate nodes. The E2E IOAM
+    processing can be summarized as following:</t>  
 
     <t><list style="symbols"><t>The encapsulating node inserts the E2E IOAM Indicator Label 
     and one or more IOAM data field(s) in the MPLS header.</t>
@@ -309,7 +321,7 @@
     telemetry, etc.</t>
 
     <t>The decapsulating node also pops the IOAM Indicator Label and the IOAM
-    data fields from the original received packet. The decapsulated packet is forwarded 
+    data fields from the received packet. The decapsulated packet is forwarded 
     downstream or terminated locally similar to the regular data packets.</t>
 
     </list>
@@ -342,7 +354,7 @@
     <section title="Hop-by-Hop IOAM" anchor="sect-5">
         
     <section title="Hop-by-Hop IOAM Indicator Label" anchor="sect-5.1"><t>
-    The HbH IOAM Indicator Label is used to indicate the presence of the
+    The Hop-by-Hop (HbH) IOAM Indicator Label is used to indicate the presence of the
     HbH IOAM data field in the MPLS header as shown in Figure 3.</t>
  
     <t>Different IOAM Indicator Labels are used for E2E and HbH IOAM to optimize the processing on intermediate nodes 
@@ -352,7 +364,7 @@
     If both edge and intermediate nodes need to process IOAM data 
     then HbH IOAM Indicator Label is used. </t>
 
-    <figure title="HbH IOAM Encapsulation in MPLS Header" anchor="ure-ioam-encapsulation-in-mpls-header-1"><artwork><![CDATA[
+    <figure title="MPLS Encapsulation for HbH IOAM" anchor="ure-ioam-encapsulation-in-mpls-header-1"><artwork><![CDATA[
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -375,16 +387,16 @@
     </section>
 
     <section title="Procedure for Hop-by-Hop IOAM" anchor="sect-5.2"><t>
-    This section summarizes the procedure for encapsulation and
-    decapsulation in MPLS header, as well as processing
-    on the intermediate nodes for Hop-by-Hop IOAM.
-    The Hop-by-Hop IOAM data filed MUST include one or more IOAM Option-Type from IOAM
+    This section describes the HbH IOAM procedure for MPLS encapsulation and
+    decapsulation, as well as processing on the intermediate nodes.
+    The HbH IOAM data fields carry the Option-Type(s) that require
+    processsing at the intermediate and/or encapsulating and decapsulating nodes.
+    The IOAM Option-Type carried can be IOAM
     Pre-allocated Trace Option-Type, IOAM Incremental Trace Option-Type
-    and IOAM Proof of Transit (POT) Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The IOAM data field MAY also include Edge-to-Edge
-    Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-     </t>
-
+    and IOAM Proof of Transit (POT) Option-Type, as well as Edge-to-Edge
+    Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>
+    The HbH IOAM processing can be summarized as following:</t>  
+		    
     <t><list style="symbols"><t>The encapsulating node inserts the HbH IOAM Indicator Label 
     and one or more IOAM data field(s) in the MPLS header.</t>
 
@@ -411,7 +423,7 @@
     data fields via streaming telemetry, etc.</t>
 
     <t>The decapsulating node also pops the IOAM Indicator Label and the IOAM
-    data fields from the original received packet. The decapsulated packet is forwarded 
+    data fields from the received packet. The decapsulated packet is forwarded 
     downstream or terminated locally similar to the regular data packets.</t>
 
     </list>
@@ -610,7 +622,7 @@
     <section title="Acknowledgements" numbered="no"><t>
     The authors would like to thank Patrick Khordoc, Shwetha Bhandari and Vengada Prasad
     Govindan for the discussions on IOAM.  The authors would also like to
-    thank Tarek Saad, Loa Andersson, Greg Mirsky, Stewart Bryant, Xiao Min, John E. Drake and Cheng Li for providing many
+    thank Tarek Saad, Loa Andersson, Greg Mirsky, Stewart Bryant, Xiao Min, and Cheng Li for providing many
     useful comments. The authors would also like to thank Mach Chen, 
     Andrew Malis, Matthew Bocci, and Nick Delregno for the MPLS-RT reviews.</t>
     </section>
