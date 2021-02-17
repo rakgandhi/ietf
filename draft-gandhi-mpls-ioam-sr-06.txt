@@ -142,7 +142,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    G-ACh     Generic Associated Channel
 
-   HbH       Hob-by-Hop
+   HbH       Hop-by-Hop
 
    IOAM      In-situ Operations, Administration, and Maintenance
 
@@ -399,12 +399,12 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    This section describes the HbH IOAM procedure for MPLS encapsulation
    and decapsulation, as well as processing on the intermediate nodes.
    The HbH IOAM data fields carry the Option-Type(s) that require
-   processsing at the intermediate and/or encapsulating and
-   decapsulating nodes.  The IOAM Option-Type carried can be IOAM Pre-
-   allocated Trace Option-Type, IOAM Incremental Trace Option-Type and
-   IOAM Proof of Transit (POT) Option-Type, as well as Edge-to-Edge
-   Option-Type [I-D.ietf-ippm-ioam-data] The HbH IOAM processing can be
-   summarized as following:
+   processing at the intermediate and/or encapsulating and decapsulating
+   nodes.  The IOAM Option-Type carried can be IOAM Pre-allocated Trace
+   Option-Type, IOAM Incremental Trace Option-Type and IOAM Proof of
+   Transit (POT) Option-Type, as well as Edge-to-Edge Option-Type
+   [I-D.ietf-ippm-ioam-data].  The HbH IOAM processing can be summarized
+   as following:
 
    o  The encapsulating node inserts the HbH IOAM Indicator Label and
       one or more IOAM data field(s) in the MPLS header.
@@ -418,8 +418,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
       processing.  The copy of the packet is punted with receive
       timestamp to the slow path for IOAM processing.
 
-   o  The intermediate node forwards a copy of the processsed data
-      packet downstream.
+   o  The intermediate node forwards a copy of the processed data packet
+      downstream.
 
    o  The decapsulating node "punts the timestamped copy" of the
       received data packet as is including the IOAM data fields when the
@@ -473,7 +473,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 6.1.  Considerations for ECMP
 
    The encapsulating node needs to make sure the IOAM data field does
-   not start with a well known IP Version Number (e.g. 0x4 for IPv4 and
+   not start with a well-known IP Version Number (e.g. 0x4 for IPv4 and
    0x6 for IPv6) as it can alter the hashing function for ECMP that uses
    the IP header.  This is achieved by using the IOAM G-ACh with IP
    Version Number 0001b after the MPLS label stack [RFC5586].
