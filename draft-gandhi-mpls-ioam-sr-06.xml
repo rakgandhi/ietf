@@ -298,8 +298,9 @@
     require processing on the encapsulating and decapsulating nodes only.
     The IOAM Option-Type carried can be IOAM Edge-to-Edge
     Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The IOAM data field MUST not carry any IOAM Option-Type that
-    require IOAM processing on the intermediate nodes. The E2E IOAM
+    The IOAM data field SHOULD not carry any IOAM Option-Type that
+    require IOAM processing on the intermediate nodes as it will
+    not be processed by them. The E2E IOAM
     processing can be summarized as following:</t>  
 
     <t><list style="symbols"><t>The encapsulating node inserts the E2E IOAM Indicator Label 
@@ -396,7 +397,7 @@
     and IOAM Proof of Transit (POT) Option-Type, as well as Edge-to-Edge
     Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>
     The HbH IOAM processing can be summarized as following:</t>  
-		    
+            
     <t><list style="symbols"><t>The encapsulating node inserts the HbH IOAM Indicator Label 
     and one or more IOAM data field(s) in the MPLS header.</t>
 
@@ -502,7 +503,13 @@
     The data packets with IOAM data fields carry only one IOAM Indicator Label
     in the MPLS header.  Any intermediate node that adds additional MPLS
     encapsulation in the MPLS header may further update the IOAM data
-    fields in the header without inserting another IOAM Indicator Label.</t>
+    fields in the header without inserting another IOAM Indicator Label.
+    When a packet is received with a HbH IOAM Indicator Label,
+    the nested MPLS encapsulating node can add a HbH and/or E2E IOAM Option-Type. However,
+    when a packet is received with an E2E IOAM Indicator Label,
+    the nested MPLS encapsulating node SHOULD NOT add a HbH IOAM Option-Type, 
+    as intermediate nodes will not process it.
+   </t>
 
     </section>
 
