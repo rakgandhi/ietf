@@ -818,11 +818,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               draft-ietf-spring-mpls-path-segment-03 (work in progress),
               September 2020.
 
-   [I-D.zzhang-intarea-generic-delivery-functions]
-              Zhang, Z., Bonica, R., and K. Kompella, "Generic Delivery
-              Functions", draft-zzhang-intarea-generic-delivery-
-              functions-00 (work in progress), January 2021.
-
    [RFC6790]  Kompella, K., Drake, J., Amante, S., Henderickx, W., and
               L. Yong, "The Use of Entropy Labels in MPLS Forwarding",
               RFC 6790, DOI 10.17487/RFC6790, November 2012,
@@ -834,6 +829,11 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               DOI 10.17487/RFC8660, December 2019,
               <https://www.rfc-editor.org/info/rfc8660>.
 
+   [RFC8664]  Sivabalan, S., Filsfils, C., Tantsura, J., Henderickx, W.,
+              and J. Hardwick, "Path Computation Element Communication
+              Protocol (PCEP) Extensions for Segment Routing", RFC 8664,
+              DOI 10.17487/RFC8664, December 2019,
+              <https://www.rfc-editor.org/info/rfc8664>.
 
 
 
@@ -841,17 +841,6 @@ Gandhi, et al.           Expires August 22, 2021               [Page 15]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
-
-   [RFC8664]  Sivabalan, S., Filsfils, C., Tantsura, J., Henderickx, W.,
-              and J. Hardwick, "Path Computation Element Communication
-              Protocol (PCEP) Extensions for Segment Routing", RFC 8664,
-              DOI 10.17487/RFC8664, December 2019,
-              <https://www.rfc-editor.org/info/rfc8664>.
-
-   [RFC8964]  Varga, B., Ed., Farkas, J., Berger, L., Malis, A., Bryant,
-              S., and J. Korhonen, "Deterministic Networking (DetNet)
-              Data Plane: MPLS", RFC 8964, DOI 10.17487/RFC8964, January
-              2021, <https://www.rfc-editor.org/info/rfc8964>.
 
 Acknowledgements
 
@@ -886,18 +875,6 @@ Authors' Addresses
    Email: zali@cisco.com
 
 
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 22, 2021               [Page 16]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    Clarence Filsfils
    Cisco Systems, Inc.
    Belgium
@@ -914,6 +891,13 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Email: fbrockne@cisco.com
 
 
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 16]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    Bin Wen
    Comcast
 
@@ -924,6 +908,22 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Comcast
 
    Email: Voitek_Kozak@comcast.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

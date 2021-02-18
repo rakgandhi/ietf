@@ -710,9 +710,7 @@
     &RFC6790;
     &RFC8660;
     &RFC8664;
-    &RFC8964;
     &I-D.ietf-mpls-spl-terminology;
-    &I-D.zzhang-intarea-generic-delivery-functions;
     &I-D.ietf-spring-mpls-path-segment;
     </references>
 
