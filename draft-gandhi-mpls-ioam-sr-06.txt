@@ -189,7 +189,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    control messages over MPLS data plane.  The IOAM G-ACh header
    [RFC5586] with new IOAM G-ACh type is added immediately after the
    MPLS label stack in the MPLS header as shown in Figure 1, before the
-   IOAM data field(s).
+   IOAM data fields.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -255,7 +255,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 3.2.  IOAM Indicator Labels
 
    An IOAM Indicator Label is used to indicate the presence of the IOAM
-   data field in the MPLS header.  There are two IOAM types defined in
+   data fields in the MPLS header.  There are two IOAM types defined in
    this document: Edge-to-Edge (E2E) and Hop-by-Hop (HbH) IOAM.  If only
    edge nodes need to process IOAM data then E2E IOAM Indicator Label is
    used so that intermediate nodes can ignore it.  If both edge and
@@ -269,7 +269,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 4.1.  Edge-to-Edge IOAM Indicator Label
 
    The E2E IOAM Indicator Label is used to indicate the presence of the
-   E2E IOAM data field in the MPLS header as shown in Figure 2.
+   E2E IOAM data fields in the MPLS header as shown in Figure 2.
 
 
 
@@ -302,7 +302,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The E2E IOAM data fields carry the Option-Type(s) that require
    processing on the encapsulating and decapsulating nodes only.  The
    IOAM Option-Type carried can be IOAM Edge-to-Edge Option-Type
-   [I-D.ietf-ippm-ioam-data].  The E2E IOAM data field SHOULD NOT carry
+   [I-D.ietf-ippm-ioam-data].  The E2E IOAM data fields SHOULD NOT carry
    any IOAM Option-Type that require IOAM processing on the intermediate
    nodes as it will not be processed by them.
 
@@ -311,19 +311,19 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The E2E IOM procedure is summarized as following:
 
    o  The encapsulating node inserts the E2E IOAM Indicator Label and
-      one or more IOAM data field(s) in the MPLS header.
+      one or more IOAM data fields in the MPLS header.
 
    o  The intermediate nodes do not process IOAM data fields.
 
    o  The decapsulating node "punts the timestamped copy" of the
       received packet as is including the IOAM data fields when the node
       recognizes the IOAM Indicator Label.  The copy of the packet is
-      punted with receive timestamp to the slow path for IOAM data field
-      processing.  The receive timestamp is required by the various E2E
-      OAM use-cases, including streaming telemetry.  Note that it is not
-      necessarily punted to the control-plane.
+      punted with receive timestamp to the slow path for IOAM data
+      fields processing.  The receive timestamp is required by the
+      various E2E OAM use-cases, including streaming telemetry.  Note
+      that it is not necessarily punted to the control-plane.
 
-   o  The decapsulating node processes the IOAM data field(s) using the
+   o  The decapsulating node processes the IOAM data fields using the
       procedures defined in [I-D.ietf-ippm-ioam-data].  An example of
       IOAM processing is to export the data fields, send data fields via
       streaming telemetry, etc.
@@ -344,8 +344,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 4.3.  Edge-to-Edge IOAM Indicator Label Allocation
 
    The E2E IOAM Indicator Label is used to indicate the presence of the
-   E2E IOAM data field in the MPLS header.  The E2E IOAM Indicator Label
-   can be allocated using one of the following three methods:
+   E2E IOAM data fields in the MPLS header.  The E2E IOAM Indicator
+   Label can be allocated using one of the following three methods:
 
    o  Label assigned by IANA with value TBA1 from the Extended Special-
       Purpose MPLS Values [I-D.ietf-mpls-spl-terminology].
@@ -363,7 +363,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 5.1.  Hop-by-Hop IOAM Indicator Label
 
    The HbH IOAM Indicator Label is used to indicate the presence of the
-   HbH IOAM data field in the MPLS header as shown in Figure 3.
+   HbH IOAM data fields in the MPLS header as shown in Figure 3.
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -402,14 +402,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The HbH IOAM procedure is summarized as following:
 
    o  The encapsulating node inserts the HbH IOAM Indicator Label and
-      one or more IOAM data field(s) in the MPLS header.
+      one or more IOAM data fields in the MPLS header.
 
    o  The intermediate node enabled with HbH IOAM functions processes
       the data packet including the IOAM data fields as defined in
       [I-D.ietf-ippm-ioam-data] when the node recognizes the HbH IOAM
       Indicator Label present in the MPLS header.  The intermediate node
       may 'punt the timestamped copy' of the received data packet
-      including the IOAM data fields as required by the IOAM data field
+      including the IOAM data fields as required by the IOAM data fields
       processing.  The copy of the packet is punted with receive
       timestamp to the slow path for IOAM processing.
 
@@ -420,11 +420,11 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
       received data packet as is including the IOAM data fields when the
       node recognizes the IOAM Indicator Label.  The copy of the packet
       is punted with receive timestamp to the slow path for IOAM data
-      field processing.  The receive timestamp is required by the
+      fields processing.  The receive timestamp is required by the
       various E2E OAM use-cases, including streaming telemetry.  Note
       that it is not necessarily punted to the control-plane.
 
-   o  The decapsulating node processes the IOAM data field(s) using the
+   o  The decapsulating node processes the IOAM data fields using the
       procedures defined in [I-D.ietf-ippm-ioam-data].  An example of
       IOAM processing is to export the data fields, send data fields via
       streaming telemetry, etc.
@@ -437,8 +437,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 5.3.  Hop-by-Hop IOAM Indicator Label Allocation
 
    The HbH IOAM Indicator Label is used to indicate the presence of the
-   HbH IOAM data field in the MPLS header.  The HbH IOAM Indicator Label
-   can be allocated using one of the following three methods:
+   HbH IOAM data fields in the MPLS header.  The HbH IOAM Indicator
+   Label can be allocated using one of the following three methods:
 
    o  Label assigned by IANA with value TBA2 from the Extended Special-
       Purpose MPLS Values [I-D.ietf-mpls-spl-terminology].
@@ -463,9 +463,9 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 6.1.  Considerations for ECMP
 
-   The encapsulating node needs to make sure the IOAM data field does
-   not start with a well-known IP Version Number (e.g. 0x4 for IPv4 and
-   0x6 for IPv6) as it can alter the hashing function for ECMP that uses
+   The encapsulating node needs to make sure the IOAM data fields do not
+   start with a well-known IP Version Number (e.g. 0x4 for IPv4 and 0x6
+   for IPv6) as that can alter the hashing function for ECMP that uses
    the IP header.  This is achieved by using the IOAM G-ACh with IP
    Version Number 0001b after the MPLS label stack [RFC5586].
 
@@ -526,10 +526,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Word [RFC4385] or another G-ACh [RFC5586] MUST be added after the
    IOAM data fields in the packet as shown in the Figure 4 and Figure 5,
    respectively.  This allows the intermediate nodes to easily access
-   the IOAM data field(s) located immediately after the MPLS header.
-   The decapsulating node can remove the MPLS encapsulation including
-   the IOAM data fields and then process the Control Word or another
-   G-ACh following it.
+   the IOAM data fields located immediately after the MPLS header.  The
+   decapsulating node can remove the MPLS encapsulation including the
+   IOAM data fields and then process the Control Word or another G-ACh
+   following it.
 
 
 
