@@ -191,26 +191,26 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    MPLS label stack in the MPLS header as shown in Figure 1, before the
    IOAM data field(s).
 
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
-   |0 0 0 1|Version|   Reserved    |          IOAM G-ACh           |  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
-   | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
-   |                                                               |  O
-   |                                                               |  A
-   ~                 IOAM Option and Data Space                    ~  M
-   |                                                               |  |
-   |                                                               |  |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
-   |                                                               |
-   |                                                               |
-   |                 Payload + Padding                             |
-   |                                                               |
-   |                                                               |
-   |                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version|   Reserved    |          IOAM G-ACh           |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+    | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+    |                                                               |  O
+    |                                                               |  A
+    ~                 IOAM Option and Data Space                    ~  M
+    |                                                               |  |
+    |                                                               |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |                                                               |
+    |                                                               |
+    |                 Payload + Padding                             |
+    |                                                               |
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
       Figure 1: IOAM Generic Associated Channel with IOAM Data Fields
 
@@ -282,20 +282,20 @@ Gandhi, et al.           Expires August 22, 2021                [Page 5]
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  Label(1)                             | TC  |S|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   .                                                               .
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  Label(n)                             | TC  |S|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  E2E IOAM Indicator Label             | TC  |1|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                Packet as shown in Figure 1                    |
-   .                                                               .
-   +---------------------------------------------------------------+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Label(1)                             | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    .                                                               .
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Label(n)                             | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  E2E IOAM Indicator Label             | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                Packet as shown in Figure 1                    |
+    .                                                               .
+    +---------------------------------------------------------------+
 
                  Figure 2: MPLS Encapsulation for E2E IOAM
 
@@ -365,20 +365,20 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The HbH IOAM Indicator Label is used to indicate the presence of the
    HbH IOAM data field in the MPLS header as shown in Figure 3.
 
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  Label(1)                             | TC  |S|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   .                                                               .
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  Label(n)                             | TC  |S|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  HbH IOAM Indicator Label             | TC  |1|  TTL          |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                Packet as shown in Figure 1                    |
-   .                                                               .
-   +---------------------------------------------------------------+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Label(1)                             | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    .                                                               .
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  Label(n)                             | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |  HbH IOAM Indicator Label             | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                Packet as shown in Figure 1                    |
+    .                                                               .
+    +---------------------------------------------------------------+
 
                  Figure 3: MPLS Encapsulation for HbH IOAM
 
@@ -587,7 +587,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 4: Example MPLS Encapsulation with Generic PW Control Word
-                           with IOAM Data Fields
+                                 with IOAM
 
 
 
@@ -643,7 +643,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 5: Example MPLS Encapsulation with Another G-ACh with IOAM
-                                Data Fields
 
 8.  Example MPLS Encapsulations
 
@@ -660,6 +659,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    IOAM data fields is shown in Figure 6.  The PSID allows to identify
    the path associated with the data traffic being monitored for IOAM on
    the decapsulating node.
+
 
 
 
@@ -853,6 +853,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
            | TBA2  | HbH IOAM Indicator Label | This document |
            +-------+--------------------------+---------------+
 
+                   Table 1: IOAM Indicator Label Values
+
    IANA maintains G-ACh Type Registry (see
    <https://www.iana.org/assignments/g-ach-parameters/g-ach-
    parameters.xhtml>).  IANA is requested to allocate a value for IOAM
@@ -860,12 +862,12 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    (including Pseudowire Associated Channel Types)" registry.
 
                 +-------+-----------------+---------------+
-                | Value |   Description   | Reference     |
+                | Value | Description     | Reference     |
                 +-------+-----------------+---------------+
                 | TBA3  | IOAM G-ACh Type | This document |
                 +-------+-----------------+---------------+
 
-                         Table 1: IOAM G-ACh Type
+                         Table 2: IOAM G-ACh Type
 
 11.  References
 
@@ -887,8 +889,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               Pignataro, C., Kfir, A., Gafni, B., Spiegel, M., and J.
               Lemon, "In-situ OAM Flags", draft-ietf-ippm-ioam-flags-03
               (work in progress), October 2020.
-
-
 
 
 
