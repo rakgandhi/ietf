@@ -71,7 +71,7 @@
     </author>
 
 
-    <date day="17" month="February" year="2021"/>
+    <date day="18" month="February" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    In-situ Operations, Administration, and Maintenance (IOAM) records
@@ -161,6 +161,11 @@
 
     <t hangText="PSID    ">
     Path Segment Identifier
+    <vspace blankLines="0"/>
+    </t>
+
+    <t hangText="PW      ">
+    PseudoWire
     <vspace blankLines="0"/>
     </t>
 
@@ -266,7 +271,7 @@
     <section title="IOAM Indicator Labels" anchor="sect-3.2"><t>
     An IOAM Indicator Label is used to indicate the presence of the
     IOAM data field in the MPLS header. There are two IOAM types defined in this
-    document: Edge-to-Edge and Hop-by-Hop IOAM. 
+    document: Edge-to-Edge (E2E) and Hop-by-Hop (HbH) IOAM. 
     If only edge nodes need to process IOAM data then E2E IOAM Indicator Label 
     is used so that intermediate nodes can ignore it. 
     If both edge and intermediate nodes need to process IOAM data 
@@ -326,8 +331,10 @@
     <t>The decapsulating node "punts the timestamped copy" of 
     the received packet as is including the IOAM data fields when the node
     recognizes the IOAM Indicator Label.
-    The copy of the packet is punted with receive timestamp to the slow path for IOAM data field processing.  
-    The receive timestamp is required by the various E2E OAM use-cases, including streaming telemetry. 
+    The copy of the packet is punted with receive timestamp 
+    to the slow path for IOAM data field processing.  
+    The receive timestamp is required by the various 
+    E2E OAM use-cases, including streaming telemetry. 
     Note that it is not necessarily punted to the control-plane.  </t>
 
     <t>The decapsulating node processes the IOAM data field(s) using the
@@ -417,8 +424,10 @@
     <t>The decapsulating node "punts the timestamped copy" of 
     the received data packet as is including the IOAM data fields when the node
     recognizes the IOAM Indicator Label.
-    The copy of the packet is punted with receive timestamp to the slow path for IOAM data field processing.  
-    The receive timestamp is required by the various E2E OAM use-cases, including streaming telemetry. 
+    The copy of the packet is punted with receive timestamp 
+    to the slow path for IOAM data field processing.  
+    The receive timestamp is required by the various 
+    E2E OAM use-cases, including streaming telemetry. 
     Note that it is not necessarily punted to the control-plane.</t>
 
     <t>The decapsulating node processes the IOAM data
@@ -515,11 +524,86 @@
    </t>
 
     </section>
+    </section>
+
+    <section title="MPLS Encapsulation with Control Word and Another G-ACh for IOAM Data Fields" anchor="sect-7"><t>
+    The IOAM data fields, including IOAM G-ACh header are added in the MPLS encapsulation 
+    immediately after the MPLS header. Any Control Word <xref target="RFC4385"/> 
+    or another G-ACh <xref target="RFC5586"/> MUST be added 
+    after the IOAM data fields in the packet as shown in the Figure 4 and Figure 5, respectively. 
+    This allows the intermediate nodes to easily access the IOAM data field(s) located 
+    immediately after the MPLS header. The decapsulating node can remove
+    the MPLS encapsulation including the IOAM data fields and then process 
+    the Control Word or another G-ACh following it.</t>
+
+
+    <figure title="Example MPLS Encapsulation with Generic PW Control Word with E2E IOAM Data Fields" anchor="ure-data-packet-with-another-cw-header"><artwork><![CDATA[
+
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | IOAM Indicator Label                  | TC  |1|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+   | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+   |                                                               |  O
+   |                                                               |  A
+   ~                 IOAM Option and Data Space                    ~  M
+   |                                                               |  |
+   |                                                               |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 0| Specified by PW Encapsulation [RFC4385]               |   
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   |                                                               |
+   ~                 Payload + Padding                             ~
+   |                                                               |
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ 
+
+]]></artwork>
+    </figure>
+
+
+    <figure title="Example MPLS Encapsulation with Another G-ACh with E2E IOAM Data Fields" anchor="ure-data-packet-with-another-ach-header"><artwork><![CDATA[
+
+
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | IOAM Indicator Label                  | TC  |1|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+   | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+   |                                                               |  O
+   |                                                               |  A
+   ~                 IOAM Option and Data Space                    ~  M
+   |                                                               |  |
+   |                                                               |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 1|Version| Reserved      | Channel Type                  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   |                                                               |
+   ~                 Payload + Padding                             ~
+   |                                                               |
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ 
+   
+]]></artwork>
+    </figure>
 
     </section>
 
-    <section title="Example MPLS Encapsulations" anchor="sect-7">
-    <section title="Example SR-MPLS Encapsulation with IOAM" anchor="sect-7.1"><t>
+
+    <section title="Example MPLS Encapsulations" anchor="sect-8">
+    <section title="Example SR-MPLS Encapsulation with IOAM" anchor="sect-8.1"><t>
     Segment Routing (SR) technology leverages the source routing paradigm
     <xref target="RFC8660"/>.  A node steers a packet through a controlled set of
     instructions, called segments, by pre-pending the packet with an SR
@@ -529,7 +613,7 @@
    <t>
     An example of data packet with SR-MPLS encapsulation containing Path
     Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> and E2E IOAM
-    data fields is shown in Figure 4.  The PSID
+    data fields is shown in Figure 6.  The PSID
     allows to identify the path associated with the data traffic 
     being monitored for IOAM on the decapsulating node.</t>
 
@@ -559,20 +643,14 @@
 
     </section>
 
-    <section title="Example MPLS PW Encapsulation with IOAM" anchor="sect-7.2"><t>
-    The MPLS Pseudowire Emulation Edge-to-Edge (PWE3) Encapsulation defined in 
-    <xref target="RFC4385"/> can be used to carry IOAM data fields.
+     <section title="Example MPLS DetNet Encapsulation with IOAM" anchor="sect-8.2"><t>
+    The MPLS DetNet Encapsulation defined in <xref target="RFC8964"/> 
+    can be used to carry IOAM data fields.
     The resulting packet format will be added in a future revision.
     </t>
     </section>
 
-    <section title="Example MPLS DetNet Encapsulation with IOAM" anchor="sect-7.3"><t>
-    The MPLS DetNet Encapsulation defined in <xref target="RFC8964"/> can be used to carry IOAM data fields.
-    The resulting packet format will be added in a future revision.
-    </t>
-    </section>
-
-    <section title="Example MPLS Generic Delivery Functions Encapsulation with IOAM" anchor="sect-7.4"><t>
+    <section title="Example MPLS Generic Delivery Functions Encapsulation with IOAM" anchor="sect-8.3"><t>
     The MPLS Generic Delivery Functions (GDF) Encapsulation defined in 
     <xref target="I-D.zzhang-intarea-generic-delivery-functions"/> 
     can be used to carry IOAM data fields. 
@@ -582,7 +660,7 @@
 
     </section>
 
-        <section title="Security Considerations" anchor="sect-8"><t>
+        <section title="Security Considerations" anchor="sect-9"><t>
     The security considerations of IOAM in general are discussed in
     <xref target="I-D.ietf-ippm-ioam-data"/>.</t>
   
@@ -597,7 +675,7 @@
 
     </section>
 
-    <section title="IANA Considerations" anchor="sect-9"><t>
+    <section title="IANA Considerations" anchor="sect-10"><t>
     IANA maintains the "Special-Purpose Multiprotocol Label Switching (MPLS) Label Values" registry (see
     <eref target="https://www.iana.org/assignments/mpls-label-values/mpls-label-values.xml"/>).  
     IANA is requested to allocate IOAM Indicator Label
@@ -615,7 +693,8 @@
     </texttable>
 
 
-    <t>IANA maintains G-ACh Type Registry (see <eref target="https://www.iana.org/assignments/g-ach-parameters/g-ach-parameters.xhtml"/>).  
+    <t>IANA maintains G-ACh Type Registry 
+    (see <eref target="https://www.iana.org/assignments/g-ach-parameters/g-ach-parameters.xhtml"/>).  
     IANA is requested to allocate a value for IOAM G-ACh Type from "MPLS Generalized Associated Channel (G-ACh) 
     Types (including Pseudowire Associated Channel Types)" registry.</t>
 

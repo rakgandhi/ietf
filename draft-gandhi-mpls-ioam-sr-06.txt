@@ -5,12 +5,12 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                                    Z. Ali
 Intended status: Standards Track                             C. Filsfils
-Expires: August 21, 2021                                    F. Brockners
+Expires: August 22, 2021                                    F. Brockners
                                                      Cisco Systems, Inc.
                                                                   B. Wen
                                                                 V. Kozak
                                                                  Comcast
-                                                       February 17, 2021
+                                                       February 18, 2021
 
 
            MPLS Data Plane Encapsulation for In-situ OAM Data
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 21, 2021.
+   This Internet-Draft will expire on August 22, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.           Expires August 21, 2021                [Page 1]
+Gandhi, et al.           Expires August 22, 2021                [Page 1]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -66,7 +66,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions . . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  Requirement Language  . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
@@ -86,34 +86,39 @@ Table of Contents
      6.2.  Node Capability . . . . . . . . . . . . . . . . . . . . .   9
      6.3.  MSD Considerations  . . . . . . . . . . . . . . . . . . .   9
      6.4.  Nested MPLS Encapsulation . . . . . . . . . . . . . . . .  10
-   7.  Example MPLS Encapsulations . . . . . . . . . . . . . . . . .  10
-     7.1.  Example SR-MPLS Encapsulation with IOAM . . . . . . . . .  10
-     7.2.  Example MPLS PW Encapsulation with IOAM . . . . . . . . .  11
-     7.3.  Example MPLS DetNet Encapsulation with IOAM . . . . . . .  11
-     7.4.  Example MPLS Generic Delivery Functions Encapsulation
-           with IOAM . . . . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  12
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  13
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+   7.  MPLS Encapsulation with Control Word and Another G-ACh for
+       IOAM Data Fields  . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  Example MPLS Encapsulations . . . . . . . . . . . . . . . . .  12
+     8.1.  Example SR-MPLS Encapsulation with IOAM . . . . . . . . .  12
+     8.2.  Example MPLS DetNet Encapsulation with IOAM . . . . . . .  13
+     8.3.  Example MPLS Generic Delivery Functions Encapsulation
+           with IOAM . . . . . . . . . . . . . . . . . . . . . . . .  13
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  15
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  16
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021                [Page 2]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
 1.  Introduction
 
    In-situ Operations, Administration, and Maintenance (IOAM) records
    operational and telemetry information within the packet while the
    packet traverses a particular network domain.  The term "in-situ"
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 2]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    refers to the fact that the IOAM data fields are added to the data
    packets rather than being sent within the probe packets specifically
    dedicated to OAM or Performance Measurement (PM).  The IOAM data
@@ -158,17 +163,18 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    POT       Proof-of-Transit
 
-   PSID      Path Segment Identifier
-
-   SR        Segment Routing
 
 
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 3]
+Gandhi, et al.           Expires August 22, 2021                [Page 3]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
+
+   PSID      Path Segment Identifier
+
+   PW        PseudoWire
+
+   SR        Segment Routing
 
    SR-MPLS   Segment Routing with MPLS Data plane
 
@@ -211,6 +217,15 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    The IOAM data fields are encapsulated using the following fields in
    the MPLS header:
 
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021                [Page 4]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    IP Version Number 0001b:  The first four octets are IP Version Field
      part of a G-ACh header, as defined in [RFC5586].
 
@@ -218,13 +233,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    IOAM G-ACh:  Generic Associated Channel (G-ACh) Type (value TBA3) for
      IOAM [RFC5586].
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 4]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
    Reserved:  Reserved Bits MUST be set to zero upon transmission and
      ignored upon receipt.
@@ -248,13 +256,13 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    An IOAM Indicator Label is used to indicate the presence of the IOAM
    data field in the MPLS header.  There are two IOAM types defined in
-   this document: Edge-to-Edge and Hop-by-Hop IOAM.  If only edge nodes
-   need to process IOAM data then E2E IOAM Indicator Label is used so
-   that intermediate nodes can ignore it.  If both edge and intermediate
-   nodes need to process IOAM data then HbH IOAM Indicator Label is
-   used.  Different IOAM Indicator Labels allow to optimize the IOAM
-   processing on intermediate nodes by checking if IOAM data fields need
-   to be processed.
+   this document: Edge-to-Edge (E2E) and Hop-by-Hop (HbH) IOAM.  If only
+   edge nodes need to process IOAM data then E2E IOAM Indicator Label is
+   used so that intermediate nodes can ignore it.  If both edge and
+   intermediate nodes need to process IOAM data then HbH IOAM Indicator
+   Label is used.  Different IOAM Indicator Labels allow to optimize the
+   IOAM processing on intermediate nodes by checking if IOAM data fields
+   need to be processed.
 
 4.  Edge-to-Edge IOAM
 
@@ -269,15 +277,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021                [Page 5]
+Gandhi, et al.           Expires August 22, 2021                [Page 5]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -333,7 +333,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 21, 2021                [Page 6]
+Gandhi, et al.           Expires August 22, 2021                [Page 6]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -389,7 +389,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 21, 2021                [Page 7]
+Gandhi, et al.           Expires August 22, 2021                [Page 7]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -445,7 +445,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 21, 2021                [Page 8]
+Gandhi, et al.           Expires August 22, 2021                [Page 8]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 21, 2021                [Page 9]
+Gandhi, et al.           Expires August 22, 2021                [Page 9]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -518,9 +518,138 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Indicator Label, the nested MPLS encapsulating node SHOULD NOT add a
    HbH IOAM Option-Type, as intermediate nodes will not process it.
 
-7.  Example MPLS Encapsulations
+7.  MPLS Encapsulation with Control Word and Another G-ACh for IOAM Data
+    Fields
 
-7.1.  Example SR-MPLS Encapsulation with IOAM
+   The IOAM data fields, including IOAM G-ACh header are added in the
+   MPLS encapsulation immediately after the MPLS header.  Any Control
+   Word [RFC4385] or another G-ACh [RFC5586] MUST be added after the
+   IOAM data fields in the packet as shown in the Figure 4 and Figure 5,
+   respectively.  This allows the intermediate nodes to easily access
+   the IOAM data field(s) located immediately after the MPLS header.
+   The decapsulating node can remove the MPLS encapsulation including
+   the IOAM data fields and then process the Control Word or another
+   G-ACh following it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 10]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | IOAM Indicator Label                  | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+    | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+    |                                                               |  O
+    |                                                               |  A
+    ~                 IOAM Option and Data Space                    ~  M
+    |                                                               |  |
+    |                                                               |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 0| Specified by PW Encapsulation [RFC4385]               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                                                               |
+    ~                 Payload + Padding                             ~
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+
+     Figure 4: Example MPLS Encapsulation with Generic PW Control Word
+                         with E2E IOAM Data Fields
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 11]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | IOAM Indicator Label                  | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+    | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+    |                                                               |  O
+    |                                                               |  A
+    ~                 IOAM Option and Data Space                    ~  M
+    |                                                               |  |
+    |                                                               |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version| Reserved      | Channel Type                  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                                                               |
+    ~                 Payload + Padding                             ~
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+
+   Figure 5: Example MPLS Encapsulation with Another G-ACh with E2E IOAM
+                                Data Fields
+
+8.  Example MPLS Encapsulations
+
+8.1.  Example SR-MPLS Encapsulation with IOAM
 
    Segment Routing (SR) technology leverages the source routing paradigm
    [RFC8660].  A node steers a packet through a controlled set of
@@ -530,7 +659,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
    An example of data packet with SR-MPLS encapsulation containing Path
    Segment Identifier (PSID) [I-D.ietf-spring-mpls-path-segment] and E2E
-   IOAM data fields is shown in Figure 4.  The PSID allows to identify
+   IOAM data fields is shown in Figure 6.  The PSID allows to identify
    the path associated with the data traffic being monitored for IOAM on
    the decapsulating node.
 
@@ -540,24 +669,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 10]
+Gandhi, et al.           Expires August 22, 2021               [Page 12]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -583,40 +695,25 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
     .                                                               .
     +---------------------------------------------------------------+
 
-     Figure 4: Example SR-MPLS Encapsulation with E2E IOAM Data Fields
+     Figure 6: Example SR-MPLS Encapsulation with E2E IOAM Data Fields
 
-7.2.  Example MPLS PW Encapsulation with IOAM
-
-   The MPLS Pseudowire Emulation Edge-to-Edge (PWE3) Encapsulation
-   defined in [RFC4385] can be used to carry IOAM data fields.  The
-   resulting packet format will be added in a future revision.
-
-7.3.  Example MPLS DetNet Encapsulation with IOAM
+8.2.  Example MPLS DetNet Encapsulation with IOAM
 
    The MPLS DetNet Encapsulation defined in [RFC8964] can be used to
    carry IOAM data fields.  The resulting packet format will be added in
    a future revision.
 
-7.4.  Example MPLS Generic Delivery Functions Encapsulation with IOAM
+8.3.  Example MPLS Generic Delivery Functions Encapsulation with IOAM
 
    The MPLS Generic Delivery Functions (GDF) Encapsulation defined in
    [I-D.zzhang-intarea-generic-delivery-functions] can be used to carry
    IOAM data fields.  The resulting packet format will be added in a
    future revision.
 
-8.  Security Considerations
+9.  Security Considerations
 
    The security considerations of IOAM in general are discussed in
    [I-D.ietf-ippm-ioam-data].
-
-
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 11]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
 
    IOAM is considered a "per domain" feature, where one or several
    operators decide on leveraging and configuring IOAM according to
@@ -624,10 +721,19 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    domain to avoid malicious configuration and use, which could include
    injecting malicious IOAM packets into a domain.
 
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 13]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    Routers that support G-ACh are subject to the same security
    considerations as defined in [RFC4385] and [RFC5586].
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
    (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
@@ -657,28 +763,28 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
                          Table 1: IOAM G-ACh Type
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
               for In-situ OAM", draft-ietf-ippm-ioam-data-11 (work in
               progress), November 2020.
 
-
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 12]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    [I-D.ietf-ippm-ioam-direct-export]
               Song, H., Gafni, B., Zhou, T., Li, Z., Brockners, F.,
               Bhandari, S., Sivakolundu, R., and T. Mizrahi, "In-situ
               OAM Direct Exporting", draft-ietf-ippm-ioam-direct-
               export-02 (work in progress), November 2020.
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 14]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
    [I-D.ietf-ippm-ioam-flags]
               Mizrahi, T., Brockners, F., Bhandari, S., Sivakolundu, R.,
@@ -705,7 +811,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [I-D.ietf-mpls-spl-terminology]
               Andersson, L., Kompella, K., and A. Farrel, "Special
@@ -723,17 +829,18 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               Functions", draft-zzhang-intarea-generic-delivery-
               functions-00 (work in progress), January 2021.
 
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 13]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    [RFC6790]  Kompella, K., Drake, J., Amante, S., Henderickx, W., and
               L. Yong, "The Use of Entropy Labels in MPLS Forwarding",
               RFC 6790, DOI 10.17487/RFC6790, November 2012,
               <https://www.rfc-editor.org/info/rfc6790>.
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 15]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
    [RFC8660]  Bashandy, A., Ed., Filsfils, C., Ed., Previdi, S.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
@@ -779,17 +886,16 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-
-
-Gandhi, et al.           Expires August 21, 2021               [Page 14]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    Zafar Ali
    Cisco Systems, Inc.
 
    Email: zali@cisco.com
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 16]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
    Clarence Filsfils
@@ -837,4 +943,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 21, 2021               [Page 15]
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 17]
