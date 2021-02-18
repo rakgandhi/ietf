@@ -537,7 +537,7 @@
     the Control Word or another G-ACh following it.</t>
 
 
-    <figure title="Example MPLS Encapsulation with Generic PW Control Word with E2E IOAM Data Fields" anchor="ure-data-packet-with-another-cw-header"><artwork><![CDATA[
+    <figure title="Example MPLS Encapsulation with Generic PW Control Word with IOAM Data Fields" anchor="ure-data-packet-with-another-cw-header"><artwork><![CDATA[
 
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -562,13 +562,11 @@
    |                                                               |
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- 
-
 ]]></artwork>
     </figure>
 
 
-    <figure title="Example MPLS Encapsulation with Another G-ACh with E2E IOAM Data Fields" anchor="ure-data-packet-with-another-ach-header"><artwork><![CDATA[
+    <figure title="Example MPLS Encapsulation with Another G-ACh with IOAM Data Fields" anchor="ure-data-packet-with-another-ach-header"><artwork><![CDATA[
 
 
    0                   1                   2                   3
@@ -594,8 +592,6 @@
    |                                                               |
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- 
-   
 ]]></artwork>
     </figure>
 

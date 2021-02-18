@@ -586,10 +586,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-
      Figure 4: Example MPLS Encapsulation with Generic PW Control Word
-                         with E2E IOAM Data Fields
+                           with IOAM Data Fields
+
+
 
 
 
@@ -642,9 +642,7 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
     |                                                               |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
-
-   Figure 5: Example MPLS Encapsulation with Another G-ACh with E2E IOAM
+     Figure 5: Example MPLS Encapsulation with Another G-ACh with IOAM
                                 Data Fields
 
 8.  Example MPLS Encapsulations
@@ -662,6 +660,8 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    IOAM data fields is shown in Figure 6.  The PSID allows to identify
    the path associated with the data traffic being monitored for IOAM on
    the decapsulating node.
+
+
 
 
 
