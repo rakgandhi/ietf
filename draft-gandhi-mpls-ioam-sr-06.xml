@@ -10,7 +10,9 @@
 <!ENTITY RFC5586 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5586.xml">
 <!ENTITY RFC4385 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4385.xml">
 <!ENTITY RFC6790 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6790.xml">
+<!ENTITY RFC8964 SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8964.xml">
 <!ENTITY I-D.ietf-mpls-spl-terminology SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mpls-spl-terminology.xml">
+<!ENTITY I-D.zzhang-intarea-generic-delivery-functions SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.zzhang-intarea-generic-delivery-functions.xml">
 <!ENTITY I-D.ietf-spring-mpls-path-segment SYSTEM "https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-spring-mpls-path-segment.xml">
 ]>
 <rfc submissionType="IETF" docName="draft-gandhi-mpls-ioam-sr-06" category="std" ipr="trust200902">
@@ -294,8 +296,6 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Label(n)                             | TC  |S|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Extension Label (15)                 | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  E2E IOAM Indicator Label             | TC  |1|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Packet as shown in Figure 1                    |
@@ -380,8 +380,6 @@
 .                                                               .
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  Label(n)                             | TC  |S|  TTL          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  Extension Label (15)                 | TC  |S|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |  HbH IOAM Indicator Label             | TC  |1|  TTL          |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -551,7 +549,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Extension Label (15)                 | TC  |S|  TTL          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  E2E IOAM Indicator Label             | TC  |1|  TTL          |
+ |  E2E IOAM Indicator Label TBA1        | TC  |1|  TTL          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                Packet as shown in Figure 1                    |
  .                                                               .
@@ -560,6 +558,28 @@
     </figure>
 
     </section>
+
+    <section title="Example MPLS PW Encapsulation with IOAM" anchor="sect-7.2"><t>
+    The MPLS Pseudowire Emulation Edge-to-Edge (PWE3) Encapsulation defined in 
+    <xref target="RFC4385"/> can be used to carry IOAM data fields.
+    The resulting packet format will be added in a future revision.
+    </t>
+    </section>
+
+    <section title="Example MPLS DetNet Encapsulation with IOAM" anchor="sect-7.3"><t>
+    The MPLS DetNet Encapsulation defined in <xref target="RFC8964"/> can be used to carry IOAM data fields.
+    The resulting packet format will be added in a future revision.
+    </t>
+    </section>
+
+    <section title="Example MPLS Generic Delivery Functions Encapsulation with IOAM" anchor="sect-7.4"><t>
+    The MPLS Generic Delivery Functions (GDF) Encapsulation defined in 
+    <xref target="I-D.zzhang-intarea-generic-delivery-functions"/> 
+    can be used to carry IOAM data fields. 
+    The resulting packet format will be added in a future revision.
+    </t>
+    </section>
+
     </section>
 
         <section title="Security Considerations" anchor="sect-8"><t>
@@ -619,15 +639,17 @@
     &RFC4385;
     &RFC5586;
     &RFC8174;
-    &RFC8660;
-    &RFC8664;
     &I-D.ietf-ippm-ioam-direct-export;
     &I-D.ietf-ippm-ioam-data;
     &I-D.ietf-ippm-ioam-flags;
     </references>
     <references title="Informative References">
     &RFC6790;
+    &RFC8660;
+    &RFC8664;
+    &RFC8964;
     &I-D.ietf-mpls-spl-terminology;
+    &I-D.zzhang-intarea-generic-delivery-functions;
     &I-D.ietf-spring-mpls-path-segment;
     </references>
 
