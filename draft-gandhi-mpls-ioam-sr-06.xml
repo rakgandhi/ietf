@@ -639,19 +639,84 @@
 
     </section>
 
-     <section title="Example MPLS DetNet Encapsulation with IOAM" anchor="sect-8.2"><t>
+    <section title="Example MPLS DetNet Encapsulation with IOAM" anchor="sect-8.2"><t>
     The MPLS DetNet Encapsulation defined in <xref target="RFC8964"/> 
     can be used to carry IOAM data fields.
-    The resulting packet format will be added in a future revision.
+    The packet format is shown in the Figure 7.
     </t>
+
+    <figure title=" Example MPLS Encapsulation with DetNet with IOAM Data Fields" anchor="ure-data-packet-with-detnet-header"><artwork><![CDATA[
+
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | [F-Label(s)]                          | TC  |S|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | S-Label                               | TC  |S|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | IOAM Indicator Label                  | TC  |1|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+   | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+   |                                                               |  O
+   |                                                               |  A
+   ~                 IOAM Option and Data Space                    ~  M
+   |                                                               |  |
+   |                                                               |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 0| Sequence Number (DetNet Control Word)                 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   |                                                               |
+   ~                 DetNet Flow                                   ~
+   ~                 Payload Packet                                ~
+   |                                                               |
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+    </figure>
+
     </section>
 
     <section title="Example MPLS Generic Delivery Functions Encapsulation with IOAM" anchor="sect-8.3"><t>
     The MPLS Generic Delivery Functions (GDF) Encapsulation defined in 
     <xref target="I-D.zzhang-intarea-generic-delivery-functions"/> 
     can be used to carry IOAM data fields. 
-    The resulting packet format will be added in a future revision.
+    The packet format is shown in the Figure 8.
     </t>
+
+    <figure title="Example MPLS Encapsulation with Generic Delivery Functions with IOAM Data Fields" anchor="ure-data-packet-with-gdf-header"><artwork><![CDATA[
+
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | IOAM Indicator Label                  | TC  |1|  TTL          |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+   | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+   |                                                               |  O
+   |                                                               |  A
+   ~                 IOAM Option and Data Space                    ~  M
+   |                                                               |  |
+   |                                                               |  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+   |0 0 0 0| Rsved | This Header   | Header Length | Next Header   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   ~              Variable field per “This header”                 ~
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                                                               |
+   |                                                               |
+   ~                 Payload Packet                                ~
+   |                                                               |
+   |                                                               |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+    </figure>
+ 
     </section>
 
     </section>

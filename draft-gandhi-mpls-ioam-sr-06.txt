@@ -92,15 +92,15 @@ Table of Contents
      8.1.  Example SR-MPLS Encapsulation with IOAM . . . . . . . . .  12
      8.2.  Example MPLS DetNet Encapsulation with IOAM . . . . . . .  13
      8.3.  Example MPLS Generic Delivery Functions Encapsulation
-           with IOAM . . . . . . . . . . . . . . . . . . . . . . . .  13
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  14
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  15
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  16
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+           with IOAM . . . . . . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -700,15 +700,120 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 8.2.  Example MPLS DetNet Encapsulation with IOAM
 
    The MPLS DetNet Encapsulation defined in [RFC8964] can be used to
-   carry IOAM data fields.  The resulting packet format will be added in
-   a future revision.
+   carry IOAM data fields.  The packet format is shown in the Figure 7.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 13]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | [F-Label(s)]                          | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | S-Label                               | TC  |S|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | IOAM Indicator Label                  | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+    | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+    |                                                               |  O
+    |                                                               |  A
+    ~                 IOAM Option and Data Space                    ~  M
+    |                                                               |  |
+    |                                                               |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 0| Sequence Number (DetNet Control Word)                 |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                                                               |
+    ~                 DetNet Flow                                   ~
+    ~                 Payload Packet                                ~
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+      Figure 7: Example MPLS Encapsulation with DetNet with IOAM Data
+                                  Fields
 
 8.3.  Example MPLS Generic Delivery Functions Encapsulation with IOAM
 
    The MPLS Generic Delivery Functions (GDF) Encapsulation defined in
    [I-D.zzhang-intarea-generic-delivery-functions] can be used to carry
-   IOAM data fields.  The resulting packet format will be added in a
-   future revision.
+   IOAM data fields.  The packet format is shown in the Figure 8.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 14]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | IOAM Indicator Label                  | TC  |1|  TTL          |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 1|Version| Reserved      | IOAM G-ACh                    |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |
+    | Reserved      | Block Number  | IOAM-OPT-Type |IOAM HDR Length|  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  I
+    |                                                               |  O
+    |                                                               |  A
+    ~                 IOAM Option and Data Space                    ~  M
+    |                                                               |  |
+    |                                                               |  |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+<-+
+    |0 0 0 0| Rsved | This Header   | Header Length | Next Header   |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    ~              Variable field per "This header"                 ~
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                                                               |
+    |                                                               |
+    ~                 Payload Packet                                ~
+    |                                                               |
+    |                                                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+   Figure 8: Example MPLS Encapsulation with Generic Delivery Functions
+                           with IOAM Data Fields
 
 9.  Security Considerations
 
@@ -721,15 +826,6 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    domain to avoid malicious configuration and use, which could include
    injecting malicious IOAM packets into a domain.
 
-
-
-
-
-Gandhi, et al.           Expires August 22, 2021               [Page 13]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    Routers that support G-ACh are subject to the same security
    considerations as defined in [RFC4385] and [RFC5586].
 
@@ -738,6 +834,14 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    IANA maintains the "Special-Purpose Multiprotocol Label Switching
    (MPLS) Label Values" registry (see <https://www.iana.org/assignments/
    mpls-label-values/mpls-label-values.xml>).  IANA is requested to
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 15]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
+
    allocate IOAM Indicator Label value from the "Extended Special-
    Purpose MPLS Label Values" registry:
 
@@ -778,19 +882,21 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               OAM Direct Exporting", draft-ietf-ippm-ioam-direct-
               export-02 (work in progress), November 2020.
 
-
-
-
-Gandhi, et al.           Expires August 22, 2021               [Page 14]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    [I-D.ietf-ippm-ioam-flags]
               Mizrahi, T., Brockners, F., Bhandari, S., Sivakolundu, R.,
               Pignataro, C., Kfir, A., Gafni, B., Spiegel, M., and J.
               Lemon, "In-situ OAM Flags", draft-ietf-ippm-ioam-flags-03
               (work in progress), October 2020.
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 16]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -834,19 +940,19 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
               RFC 6790, DOI 10.17487/RFC6790, November 2012,
               <https://www.rfc-editor.org/info/rfc6790>.
 
-
-
-
-Gandhi, et al.           Expires August 22, 2021               [Page 15]
-
-Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
-
-
    [RFC8660]  Bashandy, A., Ed., Filsfils, C., Ed., Previdi, S.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing with the MPLS Data Plane", RFC 8660,
               DOI 10.17487/RFC8660, December 2019,
               <https://www.rfc-editor.org/info/rfc8660>.
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 17]
+
+Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
+
 
    [RFC8664]  Sivabalan, S., Filsfils, C., Tantsura, J., Henderickx, W.,
               and J. Hardwick, "Path Computation Element Communication
@@ -893,7 +999,13 @@ Authors' Addresses
 
 
 
-Gandhi, et al.           Expires August 22, 2021               [Page 16]
+
+
+
+
+
+
+Gandhi, et al.           Expires August 22, 2021               [Page 18]
 
 Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
@@ -949,4 +1061,4 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
 
 
 
-Gandhi, et al.           Expires August 22, 2021               [Page 17]
+Gandhi, et al.           Expires August 22, 2021               [Page 19]
