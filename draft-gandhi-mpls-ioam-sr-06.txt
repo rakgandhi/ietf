@@ -526,10 +526,10 @@ Internet-Draft       In-situ OAM for MPLS Data plane       February 2021
    Word [RFC4385] or another G-ACh [RFC5586] MUST be added after the
    IOAM data fields in the packet as shown in the Figure 4 and Figure 5,
    respectively.  This allows the intermediate nodes to easily access
-   the IOAM data fields located immediately after the MPLS header.  The
-   decapsulating node can remove the MPLS encapsulation including the
-   IOAM data fields and then process the Control Word or another G-ACh
-   following it.
+   the HbH IOAM data fields located immediately after the MPLS header.
+   The decapsulating node can remove the MPLS encapsulation including
+   the IOAM data fields and then process the Control Word or another
+   G-ACh following it.
 
 
 
