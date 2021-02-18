@@ -313,7 +313,7 @@
     require processing on the encapsulating and decapsulating nodes only.
     The IOAM Option-Type carried can be IOAM Edge-to-Edge
     Option-Type <xref target="I-D.ietf-ippm-ioam-data"/>.
-    The E2E IOAM data field SHOULD not carry any IOAM Option-Type that
+    The E2E IOAM data field SHOULD NOT carry any IOAM Option-Type that
     require IOAM processing on the intermediate nodes as it will
     not be processed by them.</t>  
 
