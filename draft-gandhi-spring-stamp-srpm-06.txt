@@ -1146,6 +1146,11 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               Measurement Protocol (STAMP) Data Model", draft-ietf-ippm-
               stamp-yang-06 (work in progress), October 2020.
 
+   [IEEE802.1AX]
+              IEEE Std. 802.1AX, "IEEE Standard for Local and
+              metropolitan area networks - Link Aggregation", November
+              2008.
+
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -1165,17 +1170,18 @@ Authors' Addresses
    Email: rgandhi@cisco.com
 
 
-   Clarence Filsfils
-   Cisco Systems, Inc.
-
-   Email: cfilsfil@cisco.com
-
 
 
 
 Gandhi, et al.          Expires October 29, 2021               [Page 21]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
+   Clarence Filsfils
+   Cisco Systems, Inc.
+
+   Email: cfilsfil@cisco.com
 
 
    Daniel Voyer
@@ -1200,12 +1206,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
 
 
 

@@ -527,7 +527,6 @@
     &I-D.ietf-spring-segment-routing-policy;
     &I-D.ietf-pce-binding-label-sid;
 
-
     <reference anchor="IEEE802.1AX"> 
     <front>
     <title>IEEE Standard for Local and metropolitan area networks - Link Aggregation</title>
