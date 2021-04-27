@@ -340,7 +340,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
        0x0: No Reply Requested.
 
-       0x1: In-band Reply Requested.
+       0x1: Reply Requested on the Same Link.
 
    When Control Code flag is set to 0x0 in the STAMP Session-Sender test
    packet, the Session-Reflector does not transmit reply test packet to
@@ -352,7 +352,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
    When Control Code flag is set to 0x1 in the STAMP Session-Sender test
    packet, the Session-Reflector transmits the reply test packet over
    the same incoming link where the test packet is received in the
-   reverse direction.
+   reverse direction towards the Session-Sender.
 
 4.1.2.  Return Address Sub-TLV
 

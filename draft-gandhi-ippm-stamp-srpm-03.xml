@@ -318,7 +318,7 @@
     </t>
 
     <t><list hangIndent="4" style="hanging"><t>
-       0x1: In-band Reply Requested.</t> 
+       0x1: Reply Requested on the Same Link.</t> 
     </list>
     </t>
 
@@ -331,7 +331,7 @@
 
     <t>When Control Code flag is set to 0x1 in the STAMP Session-Sender test packet, 
     the Session-Reflector transmits the reply test packet over the same incoming link 
-    where the test packet is received in the reverse direction. </t>
+    where the test packet is received in the reverse direction towards the Session-Sender.</t>
 
     </section>
 
