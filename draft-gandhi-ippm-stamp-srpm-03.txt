@@ -116,8 +116,8 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
    The STAMP test packets are sent along an IP path between a Session-
    Sender and a Session-Reflector to measure performance delay and
-   packet loss along the IP path.  It may be desired in SR networks that
-   the same path (same set of links and nodes) between the Session-
+   packet loss along that IP path.  It may be desired in SR networks
+   that the same path (same set of links and nodes) between the Session-
    Sender and Session-Reflector is used for the STAMP test packets in
    both directions.  This is achieved by using the STAMP [RFC8762]
    extensions for SR-MPLS and SRv6 networks specified in this document
