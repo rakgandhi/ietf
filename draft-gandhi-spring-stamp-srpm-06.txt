@@ -899,8 +899,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
    unambiguous monitoring, the controller needs to distinguish the cases
-   whether the performance measurement is active or delay values are not
-   changing to cross threshold.
+   whether the performance measurement is active, or delay values are
+   not changing to cross threshold.
 
    The STAMP test session status initially is declared succeeded when
    one or more reply test packets are received at the STAMP Session-

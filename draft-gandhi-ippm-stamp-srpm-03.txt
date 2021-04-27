@@ -574,6 +574,11 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
               in PCE-based Networks.", draft-ietf-pce-binding-label-
               sid-05 (work in progress), October 2020.
 
+   [IEEE802.1AX]
+              IEEE Std. 802.1AX, "IEEE Standard for Local and
+              metropolitan area networks - Link Aggregation", November
+              2008.
+
 Acknowledgments
 
    The authors would like to thank Thierry Couture for the discussions
@@ -603,11 +608,6 @@ Authors' Addresses
    Email: daniel.voyer@bell.ca
 
 
-   Mach(Guoyi) Chen
-   Huawei
-
-   Email: mach.chen@huawei.com
-
 
 
 
@@ -616,6 +616,12 @@ Authors' Addresses
 Gandhi, et al.          Expires October 29, 2021               [Page 11]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
+
+
+   Mach(Guoyi) Chen
+   Huawei
+
+   Email: mach.chen@huawei.com
 
 
    Bart Janssens
@@ -628,12 +634,6 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
 
 
 

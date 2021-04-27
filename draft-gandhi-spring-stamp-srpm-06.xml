@@ -771,7 +771,7 @@
    The threshold-based notification may not be generated if the delay 
    values do not change significantly.  For an unambiguous monitoring, 
    the controller needs to distinguish the cases whether the performance 
-   measurement is active or delay values are not changing to cross threshold.</t>
+   measurement is active, or delay values are not changing to cross threshold.</t>
 
    <t>The STAMP test session status initially is declared succeeded when 
    one or more reply test packets are received at the STAMP Session-Sender.

@@ -166,7 +166,7 @@
    <t>The nodes R1 and R3 may be
    connected via a link or there exists an SR path <xref target="RFC8402"/>.  
    The link may be a physical interface, virtual link, 
-   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link. 
+   or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or LAG member link. 
    The SR path may be an SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/> 
    on node R1 (called head-end) with destination to node R3 (called tail-end).</t>
 
@@ -526,7 +526,22 @@
     &RFC8126;    
     &I-D.ietf-spring-segment-routing-policy;
     &I-D.ietf-pce-binding-label-sid;
+
+
+    <reference anchor="IEEE802.1AX"> 
+    <front>
+    <title>IEEE Standard for Local and metropolitan area networks - Link Aggregation</title>
+    <author>    
+	   <organization>
+       IEEE Std. 802.1AX
+            </organization>
+    </author>
+    <date month="November" year="2008"/>
+    </front>
+    </reference>
+
     </references>
+
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>
    The authors would like to thank Thierry Couture for the discussions
    on the use-cases for Performance Measurement in Segment Routing.  The authors
