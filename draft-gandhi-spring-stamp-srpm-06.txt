@@ -97,7 +97,7 @@ Table of Contents
        4.4.4.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  16
    5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  16
    6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  16
-   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  17
+   7.  Session State for Links and SR Paths  . . . . . . . . . . . .  17
    8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  17
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
@@ -272,7 +272,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 3.1.  Example STAMP Reference Model
 
    An example of a STAMP reference model with some of the typical
-   measurement parameters including the destination UDP port for STAMP
+   measurement parameters including the Reflector UDP port for STAMP
    test session is shown in the following Figure 1:
 
 
@@ -286,7 +286,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
                               | Controller |
                               +------------+
                                   /    \
-     Destination UDP Port        /      \    Destination UDP port
+     Reflector UDP Port          /      \    Reflector UDP port
      Authentication Mode & Key  /        \   Authentication Mode & Key
      Delay Measurement Mode    /          \
      Timestamp Format         /            \
@@ -303,10 +303,10 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
                   Figure 1: Example STAMP Reference Model
 
-   A destination UDP port number is selected as described in [RFC8762].
-   The same destination UDP port can be used for link and end-to-end SR
-   path STAMP test sessions.  In this case, the destination UDP port
-   does not distinguish between link or end-to-end SR path measurements.
+   A Reflector UDP port number is selected as described in [RFC8762].
+   The same Reflector UDP port can be used for link and end-to-end SR
+   path STAMP test sessions.  In this case, the Reflector UDP port does
+   not distinguish between link or end-to-end SR path measurements.
 
    Example of the Timestamp Format is Precision Time Protocol 64-bit
    truncated (PTPv2) [IEEE1588] and Network Time Protocol (NTP).  The
@@ -362,7 +362,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
     +---------------------------------------------------------------+
     | UDP Header                                                    |
     .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port | 862                .
+    .  Destination Port = User-configured Reflector Port | 862      .
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -486,7 +486,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
     +---------------------------------------------------------------+
     | UDP Header                                                    |
     .  Source Port = As chosen by Session-Sender                    .
-    .  Destination Port = User-configured Port | 862                .
+    .  Destination Port = User-configured Reflector Port | 862      .
     .                                                               .
     +---------------------------------------------------------------+
     | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -714,7 +714,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    The IP header of the STAMP Session-Sender test packet contains the
    Destination Address equals to the STAMP Session-Sender address and
    the Source Address equals to the STAMP Session-Reflector address.
-   The Session-Sender sets the destination UDP port that it uses to
+   The Session-Sender sets the Reflector UDP port that it uses to
    receive the test packet.  Optionally, the STAMP Session-Sender test
    packet can carry the return path information (e.g.  return path label
    stack for SR-MPLS) as part of the SR header.
@@ -901,18 +901,18 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    which is required for Alternate-Marking Method [RFC8321] for accurate
    data packet loss metric.
 
-7.  Session Status for Links and SR Paths
+7.  Session State for Links and SR Paths
 
-   The STAMP test session status allows to know if the performance
+   The STAMP test session state allows to know if the performance
    measurement test is active.  The threshold-based notification may not
    be generated if the delay values do not change significantly.  For an
    unambiguous monitoring, the controller needs to distinguish the cases
    whether the performance measurement is active, or delay values are
    not changing to cross threshold.
 
-   The STAMP test session status initially is declared succeeded when
-   one or more reply test packets are received at the STAMP Session-
-   Sender.  The STAMP test session status is declared failed when
+   The STAMP test session state initially is declared active when one or
+   more reply test packets are received at the STAMP Session-Sender.
+   The STAMP test session state is declared idle (or failed) when
    consecutive N number of reply test packets are not received at the
    STAMP Session-Sender, where N is locally provisioned value.
 

@@ -267,7 +267,7 @@
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
    An example of a STAMP reference model with some of the typical measurement 
-   parameters including the destination UDP port 
+   parameters including the Reflector UDP port 
    for STAMP test session is shown in the following Figure 1:</t>
 
    <figure title="Example STAMP Reference Model" anchor="ure-example-reference-model"><artwork><![CDATA[
@@ -276,7 +276,7 @@
                            | Controller |
                            +------------+
                                /    \
-  Destination UDP Port        /      \    Destination UDP port
+  Reflector UDP Port          /      \    Reflector UDP port
   Authentication Mode & Key  /        \   Authentication Mode & Key
   Delay Measurement Mode    /          \
   Timestamp Format         /            \
@@ -293,10 +293,10 @@
 ]]></artwork>
     </figure>
 
-   <t>A destination UDP port number is selected as described in
-   <xref target="RFC8762"/>.  The same destination UDP 
+   <t>A Reflector UDP port number is selected as described in
+   <xref target="RFC8762"/>.  The same Reflector UDP 
    port can be used for link and end-to-end SR path STAMP test sessions.
-   In this case, the destination UDP port does not distinguish between 
+   In this case, the Reflector UDP port does not distinguish between 
    link or end-to-end SR path measurements.</t>
 
     <t>Example of the Timestamp Format is Precision Time Protocol 64-bit truncated 
@@ -349,7 +349,7 @@
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Sender                    .
- .  Destination Port = User-configured Port | 862                .
+ .  Destination Port = User-configured Reflector Port | 862      .
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -449,7 +449,7 @@
  +---------------------------------------------------------------+
  | UDP Header                                                    |
  .  Source Port = As chosen by Session-Sender                    .
- .  Destination Port = User-configured Port | 862                .
+ .  Destination Port = User-configured Reflector Port | 862      .
  .                                                               .
  +---------------------------------------------------------------+
  | Payload = Test Packet as specified in Section 4.2 of RFC 8762 |
@@ -621,7 +621,7 @@
    <t>The IP header of the STAMP Session-Sender test 
    packet contains the Destination Address equals to the STAMP Session-Sender address
    and the Source Address equals to the STAMP Session-Reflector address. 
-   The Session-Sender sets the destination UDP port that it uses to receive the test packet.           
+   The Session-Sender sets the Reflector UDP port that it uses to receive the test packet.           
    Optionally, the STAMP Session-Sender test packet can carry the return path information (e.g.
    return path label stack for SR-MPLS) as part of the SR header.</t> 
 
@@ -775,16 +775,16 @@
 
    </section>
 
-     <section title="Session Status for Links and SR Paths" anchor="sect-7"><t>
-   The STAMP test session status allows to know if the performance measurement test is active.
+     <section title="Session State for Links and SR Paths" anchor="sect-7"><t>
+   The STAMP test session state allows to know if the performance measurement test is active.
    The threshold-based notification may not be generated if the delay 
    values do not change significantly.  For an unambiguous monitoring, 
    the controller needs to distinguish the cases whether the performance 
    measurement is active, or delay values are not changing to cross threshold.</t>
 
-   <t>The STAMP test session status initially is declared succeeded when 
+   <t>The STAMP test session state initially is declared active when 
    one or more reply test packets are received at the STAMP Session-Sender.
-   The STAMP test session status is declared failed when consecutive 
+   The STAMP test session state is declared idle (or failed)  when consecutive 
    N number of reply test packets are not received at the STAMP 
    Session-Sender, where N is locally provisioned value.</t>
 
