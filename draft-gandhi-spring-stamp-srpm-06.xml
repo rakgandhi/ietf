@@ -239,36 +239,41 @@
 
    </section>
 
-   <section title="Overview" anchor="sect-3"><t>
-   For performance measurement in SR networks, the STAMP Session-Sender and 
-   Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
-   They are used to measure one-way, two-way and round-trip delay 
-   as defined in this document. They are also used to infer packet loss in SR networks.</t> 
    
-   <t>The STAMP test packets are transmitted on the
-   same path as the data traffic flow under measurement  
-   to measure the delay and packet loss experienced by the data traffic flow.</t>
+    <section title="Overview" anchor="sect-3"><t>
+    For performance measurement in SR networks, the STAMP Session-Sender and 
+    Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
+    They are used to measure one-way, two-way and round-trip delay 
+    as defined in this document. They are also used to infer packet loss in SR networks.</t> 
+    
+    <t>The STAMP test packets are transmitted on the
+    same path as the data traffic flow under measurement  
+    to measure the delay and packet loss experienced by the data traffic flow.</t>
+ 
+    <t>Typically, the STAMP test packets are transmitted along an IP path between a Session-Sender 
+    and a Session-Reflector to measure delay and packet loss along that IP path.  
+    Matching the forward and reverse direction paths for STAMP test packets, 
+    even for directly connected nodes is not guaranteed. 
+    It may be desired in SR networks that the same path (same set of 
+    links and nodes) between the Session-Sender and Session-Reflector 
+    is used for the STAMP test packets in both directions.  
+    This is achieved by using the optional STAMP extensions for SR-MPLS and SRv6 networks
+    specified in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+ 
+    <t>The STAMP Session-Reflector uses 
+    the return path parameters for the reply test packet from the received STAMP test packet,
+    as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
-   <t>Typically, the STAMP test packets are transmitted along an IP path between a Session-Sender 
-   and a Session-Reflector to measure delay and packet loss along that IP path.  
-   Matching the forward and reverse direction paths for STAMP test packets, 
-   even for directly connected nodes is not guaranteed. 
-   It may be desired in SR networks that the same path (same set of 
-   links and nodes) between the Session-Sender and Session-Reflector 
-   is used for the STAMP test packets in both directions.  
-   This is achieved by using the optional STAMP extensions for SR-MPLS and SRv6 networks
-   specified in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+    <t>The optional STAMP extensions defined in <xref target="RFC8972"/> are
+    used for direct measurement packet loss in SR networks.</t>
 
-   <t>The optional STAMP extensions defined in <xref target="RFC8972"/> are
-   used for direct measurement packet loss in SR networks.</t>
-
-   <t>Note that signaling and maintaining additional dynamic state for 
-   the STAMP sessions on Session-Reflector are avoided in SR networks.</t>
+    <t>Note that signaling and maintaining additional dynamic state for 
+    the STAMP sessions on Session-Reflector are avoided in SR networks.</t>
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
-   An example of a STAMP reference model with some of the typical measurement 
-   parameters including the Reflector UDP port 
-   for STAMP test session is shown in the following Figure 1:</t>
+    An example of a STAMP reference model with some of the typical measurement 
+    parameters including the Reflector UDP port 
+    for STAMP test session is shown in the following Figure 1:</t>
 
    <figure title="Example STAMP Reference Model" anchor="ure-example-reference-model"><artwork><![CDATA[
 
@@ -317,10 +322,6 @@
     <t>When using the authenticated mode for the STAMP test sessions, the matching
     Authentication Type (e.g. HMAC-SHA-256) and Key-chain are user-configured
     on STAMP Session-Sender and STAMP Session-Reflector <xref target="RFC8762"/>.</t>
-
-    <t>The STAMP Session-Reflector uses 
-    the return path parameters for the reply test packet from the received STAMP test packet,
-    as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
     <t>The controller shown in the example reference model is not intended 
     for the dynamic signaling of the SR parameters 
