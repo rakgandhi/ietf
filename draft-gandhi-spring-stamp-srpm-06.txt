@@ -97,15 +97,15 @@ Table of Contents
        4.4.4.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  16
    5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  16
    6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  16
-   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  16
+   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  17
    8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  17
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
      11.2.  Informative References . . . . . . . . . . . . . . . . .  19
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
 
 
@@ -873,10 +873,10 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 6.  Direct Measurement for Links and SR Paths
 
    The STAMP "Direct Measurement" TLV (Type 5) defined in [RFC8972] can
-   be used in SR networks.  The STAMP test packets with this TLV are
-   transmitted using the procedures described in Section 4 to collect
-   the transmit and receive counters of the data flow for the links and
-   end-to-end SR paths.
+   be used in SR networks for data packet loss measurement.  The STAMP
+   test packets with this TLV are transmitted using the procedures
+   described in Section 4 to collect the transmit and receive counters
+   of the data flow for the links and end-to-end SR paths.
 
    The PSID carried in the received data packet for the traffic flow
    under measurement can be used to measure receive data packets (for
@@ -885,11 +885,11 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    packet header can be used to associate the receive traffic counter on
    the Session-Reflector for the end-to-end SR path.
 
-7.  Session Status for Links and SR Paths
+   The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
+   identify the Block Number of the Direct Measurement traaffic
+   counters, which is required for Alternate-Marking Method [RFC8321]
+   for accurate data packet loss measurement.
 
-   The STAMP test session status allows to know if the performance
-   measurement test is active.  The threshold-based notification may not
-   be generated if the delay values do not change significantly.  For an
 
 
 
@@ -898,6 +898,11 @@ Gandhi, et al.          Expires October 29, 2021               [Page 16]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+7.  Session Status for Links and SR Paths
+
+   The STAMP test session status allows to know if the performance
+   measurement test is active.  The threshold-based notification may not
+   be generated if the delay values do not change significantly.  For an
    unambiguous monitoring, the controller needs to distinguish the cases
    whether the performance measurement is active, or delay values are
    not changing to cross threshold.
@@ -940,11 +945,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    not the intended destination node in the "Destination Node Address"
    TLV [I-D.gandhi-ippm-stamp-srpm].
 
-9.  Security Considerations
-
-   The performance measurement is intended for deployment in well-
-   managed private and service provider networks.  As such, it assumes
-   that a node involved in a measurement operation has previously
 
 
 
@@ -954,6 +954,11 @@ Gandhi, et al.          Expires October 29, 2021               [Page 17]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+9.  Security Considerations
+
+   The performance measurement is intended for deployment in well-
+   managed private and service provider networks.  As such, it assumes
+   that a node involved in a measurement operation has previously
    verified the integrity of the path and the identity of the far-end
    STAMP Session-Reflector.
 
@@ -994,11 +999,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-   [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
-              and E. Ruffini, "Simple Two-Way Active Measurement
-              Protocol Optional Extensions", RFC 8972,
-              DOI 10.17487/RFC8972, January 2021,
-              <https://www.rfc-editor.org/info/rfc8972>.
 
 
 
@@ -1009,6 +1009,12 @@ Gandhi, et al.          Expires October 29, 2021               [Page 18]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
+
+   [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
+              and E. Ruffini, "Simple Two-Way Active Measurement
+              Protocol Optional Extensions", RFC 8972,
+              DOI 10.17487/RFC8972, January 2021,
+              <https://www.rfc-editor.org/info/rfc8972>.
 
    [I-D.gandhi-ippm-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
@@ -1051,12 +1057,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               DOI 10.17487/RFC7404, November 2014,
               <https://www.rfc-editor.org/info/rfc7404>.
 
-   [RFC7820]  Mizrahi, T., "UDP Checksum Complement in the One-Way
-              Active Measurement Protocol (OWAMP) and Two-Way Active
-              Measurement Protocol (TWAMP)", RFC 7820,
-              DOI 10.17487/RFC7820, March 2016,
-              <https://www.rfc-editor.org/info/rfc7820>.
-
 
 
 
@@ -1066,11 +1066,23 @@ Gandhi, et al.          Expires October 29, 2021               [Page 19]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+   [RFC7820]  Mizrahi, T., "UDP Checksum Complement in the One-Way
+              Active Measurement Protocol (OWAMP) and Two-Way Active
+              Measurement Protocol (TWAMP)", RFC 7820,
+              DOI 10.17487/RFC7820, March 2016,
+              <https://www.rfc-editor.org/info/rfc7820>.
+
    [RFC8029]  Kompella, K., Swallow, G., Pignataro, C., Ed., Kumar, N.,
               Aldrin, S., and M. Chen, "Detecting Multiprotocol Label
               Switched (MPLS) Data-Plane Failures", RFC 8029,
               DOI 10.17487/RFC8029, March 2017,
               <https://www.rfc-editor.org/info/rfc8029>.
+
+   [RFC8321]  Fioccola, G., Ed., Capello, A., Cociglio, M., Castaldelli,
+              L., Chen, M., Zheng, L., Mirsky, G., and T. Mizrahi,
+              "Alternate-Marking Method for Passive and Hybrid
+              Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
+              January 2018, <https://www.rfc-editor.org/info/rfc8321>.
 
    [RFC8085]  Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
               Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
@@ -1098,18 +1110,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-   [I-D.ietf-spring-sr-replication-segment]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-ietf-spring-sr-replication-segment-02
-              (work in progress), October 2020.
-
-   [I-D.ietf-pim-sr-p2mp-policy]
-              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
-              Zhang, "Segment Routing Point-to-Multipoint Policy",
-              draft-ietf-pim-sr-p2mp-policy-01 (work in progress),
-              October 2020.
-
 
 
 
@@ -1121,6 +1121,18 @@ Gandhi, et al.          Expires October 29, 2021               [Page 20]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
+
+   [I-D.ietf-spring-sr-replication-segment]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "SR Replication Segment for Multi-point Service
+              Delivery", draft-ietf-spring-sr-replication-segment-02
+              (work in progress), October 2020.
+
+   [I-D.ietf-pim-sr-p2mp-policy]
+              Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
+              Zhang, "Segment Routing Point-to-Multipoint Policy",
+              draft-ietf-pim-sr-p2mp-policy-01 (work in progress),
+              October 2020.
 
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
@@ -1158,6 +1170,14 @@ Acknowledgments
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
+
+
+
+Gandhi, et al.          Expires October 29, 2021               [Page 21]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
    Valceanu have helped improve the mechanisms described in this
    document.
 
@@ -1168,14 +1188,6 @@ Authors' Addresses
    Canada
 
    Email: rgandhi@cisco.com
-
-
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 21]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
    Clarence Filsfils
@@ -1206,18 +1218,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Nokia
 
    Email: footer.foote@nokia.com
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

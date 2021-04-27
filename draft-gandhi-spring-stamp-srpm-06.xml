@@ -752,7 +752,7 @@
 
    <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
    The STAMP "Direct Measurement" TLV (Type 5) defined in <xref target="RFC8972"/> 
-   can be used in SR networks.
+   can be used in SR networks for data packet loss measurement.
    The STAMP test packets with this TLV are transmitted using the
    procedures described in Section 4 to collect the transmit and receive counters 
    of the data flow for the links and end-to-end SR paths.</t>
@@ -763,6 +763,11 @@
    on the STAMP Session-Reflector.  The PSID in the received Session-Sender test packet
    header can be used to associate the receive traffic counter on 
    the Session-Reflector for the end-to-end SR path.</t>
+
+   <t>The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
+   identify the Block Number of the Direct Measurement traaffic counters, which is  
+   required for Alternate-Marking Method <xref target="RFC8321"/> 
+   for accurate data packet loss measurement.</t>
 
    </section>
 
@@ -877,6 +882,7 @@
     &RFC7404;
     &RFC7820;
     &RFC8029;
+    &RFC8321;
     &RFC8085;
     &RFC8402;
     &RFC8754;
