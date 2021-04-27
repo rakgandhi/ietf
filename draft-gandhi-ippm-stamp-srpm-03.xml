@@ -108,7 +108,7 @@
    without the use of a control channel to pre-signal session parameters.
    <xref target="RFC8972"/> defines optional extensions for STAMP.</t>
 
-   <t>The STAMP test packets are sent along an IP path between a Session-Sender 
+   <t>The STAMP test packets are transmitted along an IP path between a Session-Sender 
    and a Session-Reflector to measure performance delay and packet loss along that IP path.  
    It may be desired in SR networks that the same path (same set of links and nodes) between the 
    Session-Sender and Session-Reflector is used for the STAMP test packets in both directions.  

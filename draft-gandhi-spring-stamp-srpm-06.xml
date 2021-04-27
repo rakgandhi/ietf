@@ -249,7 +249,7 @@
    same path as the data traffic flow under measurement  
    to measure the delay and packet loss experienced by the data traffic flow.</t>
 
-   <t>Typically, the STAMP test packets are sent along an IP path between a Session-Sender 
+   <t>Typically, the STAMP test packets are transmitted along an IP path between a Session-Sender 
    and a Session-Reflector to measure delay and packet loss along that IP path.  
    Matching the forward and reverse direction paths for STAMP test packets, 
    even for directly connected nodes is not guaranteed. 
@@ -612,7 +612,7 @@
     </section>
 
    <section title="Round-trip Delay Measurement Mode" anchor="sect-4.2.3"><t>
-   The STAMP Session-Sender test packets are sent in loopback mode to 
+   The STAMP Session-Sender test packets are transmitted in loopback mode to 
    measure round-trip delay of a bidirectional path. In this mode,  
    the received Session-Sender test packets are not punted out of the fast path in forwarding 
    (to slow path or control-plane) at the STAMP Session-Reflector. In other words, 
@@ -765,7 +765,7 @@
    the Session-Reflector for the end-to-end SR path.</t>
 
    <t>The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
-   identify the Block Number of the Direct Measurement traaffic counters, which is  
+   identify the Block Number of the Direct Measurement traffic counters, which is  
    required for Alternate-Marking Method <xref target="RFC8321"/> 
    for accurate data packet loss measurement.</t>
 

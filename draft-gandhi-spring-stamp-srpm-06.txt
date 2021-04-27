@@ -252,15 +252,16 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    traffic flow under measurement to measure the delay and packet loss
    experienced by the data traffic flow.
 
-   Typically, the STAMP test packets are sent along an IP path between a
-   Session-Sender and a Session-Reflector to measure delay and packet
-   loss along that IP path.  Matching the forward and reverse direction
-   paths for STAMP test packets, even for directly connected nodes is
-   not guaranteed.  It may be desired in SR networks that the same path
-   (same set of links and nodes) between the Session-Sender and Session-
-   Reflector is used for the STAMP test packets in both directions.
-   This is achieved by using the optional STAMP extensions for SR-MPLS
-   and SRv6 networks specified in [I-D.gandhi-ippm-stamp-srpm].
+   Typically, the STAMP test packets are transmitted along an IP path
+   between a Session-Sender and a Session-Reflector to measure delay and
+   packet loss along that IP path.  Matching the forward and reverse
+   direction paths for STAMP test packets, even for directly connected
+   nodes is not guaranteed.  It may be desired in SR networks that the
+   same path (same set of links and nodes) between the Session-Sender
+   and Session-Reflector is used for the STAMP test packets in both
+   directions.  This is achieved by using the optional STAMP extensions
+   for SR-MPLS and SRv6 networks specified in
+   [I-D.gandhi-ippm-stamp-srpm].
 
    The optional STAMP extensions defined in [RFC8972] are used for
    direct measurement packet loss in SR networks.
@@ -273,7 +274,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    An example of a STAMP reference model with some of the typical
    measurement parameters including the destination UDP port for STAMP
    test session is shown in the following Figure 1:
-
 
 
 
@@ -704,12 +704,12 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 4.2.3.  Round-trip Delay Measurement Mode
 
-   The STAMP Session-Sender test packets are sent in loopback mode to
-   measure round-trip delay of a bidirectional path.  In this mode, the
-   received Session-Sender test packets are not punted out of the fast
-   path in forwarding (to slow path or control-plane) at the STAMP
-   Session-Reflector.  In other words, the Session-Reflector does not
-   process them and generate reply test packets.
+   The STAMP Session-Sender test packets are transmitted in loopback
+   mode to measure round-trip delay of a bidirectional path.  In this
+   mode, the received Session-Sender test packets are not punted out of
+   the fast path in forwarding (to slow path or control-plane) at the
+   STAMP Session-Reflector.  In other words, the Session-Reflector does
+   not process them and generate reply test packets.
 
    The IP header of the STAMP Session-Sender test packet contains the
    Destination Address equals to the STAMP Session-Sender address and
@@ -886,9 +886,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    the Session-Reflector for the end-to-end SR path.
 
    The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
-   identify the Block Number of the Direct Measurement traaffic
-   counters, which is required for Alternate-Marking Method [RFC8321]
-   for accurate data packet loss measurement.
+   identify the Block Number of the Direct Measurement traffic counters,
+   which is required for Alternate-Marking Method [RFC8321] for accurate
+   data packet loss measurement.
 
 
 
