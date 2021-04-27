@@ -87,25 +87,25 @@ Table of Contents
        4.1.2.  Session-Sender Test Packet for SR Paths . . . . . . .   7
      4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .  10
        4.2.1.  One-way Delay Measurement Mode  . . . . . . . . . . .  10
-       4.2.2.  Two-way Delay Measurement Mode  . . . . . . . . . . .  10
-       4.2.3.  Round-trip Delay Measurement Mode . . . . . . . . . .  12
-     4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  13
-     4.4.  Additional STAMP Test Packet Processing Rules . . . . . .  14
-       4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  14
-       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  14
-       4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  15
-       4.4.4.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  15
-   5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  15
-   6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  15
-   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  15
-   8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  16
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  17
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+       4.2.2.  Two-way Delay Measurement Mode  . . . . . . . . . . .  11
+       4.2.3.  Round-trip Delay Measurement Mode . . . . . . . . . .  13
+     4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  14
+     4.4.  Additional STAMP Test Packet Processing Rules . . . . . .  15
+       4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  15
+       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  15
+       4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  16
+       4.4.4.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  16
+   5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  16
+   6.  Direct Measurement for Links and SR Paths . . . . . . . . . .  16
+   7.  Session Status for Links and SR Paths . . . . . . . . . . . .  16
+   8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  17
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  19
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  21
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 
 
@@ -534,8 +534,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    In one-way delay measurement mode, a reply test packet as shown in
    Figure 5 is transmitted by the STAMP Session-Reflector, for both
-   links and SR Policies.  The reply test packet may be transmitted on
-   the same path or a different path in the reverse direction.
+   links and end-to-end SR Policies.  The reply test packet may be
+   transmitted on the same path or a different path in the reverse
+   direction.
 
    The STAMP Session-Sender address may not be reachable via IP route
    from the STAMP Session-Reflector.  The STAMP Session-Sender in this
@@ -549,10 +550,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    way delay measurement mode requires the clock on the Session-Sender
    and Session-Reflector to be synchronized.
 
-4.2.2.  Two-way Delay Measurement Mode
 
-   In two-way delay measurement mode, a reply test packet as shown in
-   Figure 5 is transmitted by the STAMP Session-Reflector on the same
+
+
 
 
 
@@ -562,6 +562,10 @@ Gandhi, et al.          Expires October 28, 2021               [Page 10]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+4.2.2.  Two-way Delay Measurement Mode
+
+   In two-way delay measurement mode, a reply test packet as shown in
+   Figure 5 is transmitted by the STAMP Session-Reflector on the same
    path in the reverse direction, e.g. on the reverse direction link or
    associated reverse SR path [I-D.ietf-pce-sr-bidir-path].
 
@@ -584,7 +588,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    and T4 are collected by the test packets.  All four timestamps are
    used to measure two-way delay as ((T4 - T1) - (T3 - T2)).  When clock
    synchronization on the Session-Sender and Session-Reflector nodes is
-   not possible, the one-way delay is derived using two-way delay
+   not possible, the one-way delay can be derived using two-way delay
    divided by two.
 
 4.2.2.1.  Session-Reflector Test Packet for SR-MPLS Policies
@@ -593,6 +597,26 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    transmitted on the same path as the data traffic flow under
    measurement for two-way delay measurement of an end-to-end SR-MPLS
    Policy is shown in Figure 6.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires October 28, 2021               [Page 11]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -611,13 +635,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
     Figure 6: Example Session-Reflector Test Packet for SR-MPLS Policy
 
-
-
-Gandhi, et al.          Expires October 28, 2021               [Page 11]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
 4.2.2.2.  Session-Reflector Test Packet for SRv6 Policies
 
    The content of an example STAMP Session-Reflector reply test packet
@@ -626,8 +643,36 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Policy with SRH is shown in Figure 7.
 
    The procedure defined for Upper-Layer Header processing for SRv6 End
-   SIDs in Section 4.1.1 in [RFC8986] is also used to process the IPv6/
-   UDP header in the received reply test packets on the Session-Sender.
+   SIDs in Section 4.1.1 in [RFC8986] is used to process the IPv6/UDP
+   header in the received reply test packets on the Session-Sender.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires October 28, 2021               [Page 12]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
 
     +---------------------------------------------------------------+
     | IP Header                                                     |
@@ -660,38 +705,41 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 4.2.3.  Round-trip Delay Measurement Mode
 
    The STAMP Session-Sender test packets are sent in loopback mode to
-   measure round-trip delay of a bidirectional path.  The IP header of
-   the STAMP Session-Sender test packet contains the Destination Address
-   equals to the STAMP Session-Sender address and the Source Address
-   equals to the STAMP Session-Reflector address.  The Sesssion-Sender
-   sets the destination UDP port that it can use to process the test
-   packet.  Optionally, the STAMP Session-Sender test packet can carry
+   measure round-trip delay of a bidirectional path.  In this mode, the
+   received Session-Sender test packets are not punted out of the fast
+   path in forwarding (to slow path or control-plane) at the STAMP
+   Session-Reflector.  In other words, the Session-Reflector does not
+   process them and generate reply test packets.
+
+   The IP header of the STAMP Session-Sender test packet contains the
+   Destination Address equals to the STAMP Session-Sender address and
+   the Source Address equals to the STAMP Session-Reflector address.
+   The Session-Sender sets the destination UDP port that it uses to
+   receive the test packet.  Optionally, the STAMP Session-Sender test
+   packet can carry the return path information (e.g.  return path label
+   stack for SR-MPLS) as part of the SR header.
+
+   The Session-Sender uses the SSID field in the test packet to know
+   that the test packet is using the loopback mode.  As the reply test
+   packet is not generated by the STAMP Session-Reflector, the STAMP
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 12]
+Gandhi, et al.          Expires October 28, 2021               [Page 13]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
-   the return path information (e.g.  return path label stack for SR-
-   MPLS) as part of the SR header.  This way, the received Session-
-   Sender test packets are not punted out of the fast path in forwarding
-   (to slow path or control-plane) at the STAMP Session-Reflector.
-   Also, the Session-Reflector does not process them and generate reply
-   test packets.
-
-   The Sesion-Sender uses the SSID field in the test packet to know that
-   the test packet is using the loopback mode.  As the reply test packet
-   is not generated by the STAMP Session-Reflector, the STAMP Session-
-   Sender ignores the 'Session-Sender Sequence Number', 'Session-Sender
-   Timestamp', 'Session-Sender Error Estimate', and 'Session-Sender TTL'
-   in the received test packet.  The Session-Sender sets these fields to
-   0 upon transmission.
+   Session-Sender ignores the 'Session-Sender Sequence Number',
+   'Session-Sender Timestamp', 'Session-Sender Error Estimate', and
+   'Session-Sender TTL' in the received test packet.  The Session-Sender
+   sets these fields to 0 upon transmission.
 
    In this mode, as per Reference Topology, the timestamps T1 and T4 are
    collected by the test packets.  Both these timestamps are used to
-   measure round-trip delay as (T4 - T1).
+   measure round-trip delay as (T4 - T1).  When STAMP capability on the
+   Session-Reflector node is not possible, the one-way delay can be
+   derived using round-trip delay divided by two.
 
 4.3.  Delay Measurement for P2MP SR Policies
 
@@ -700,8 +748,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy]).
 
    The procedures for performance measurement described in this document
-   for P2P SR Policies are used for the P2MP SR Policies as listed
-   below.
+   for end-to-end P2P SR Policies are used for the P2MP SR Policies as
+   listed below.
 
    o  The STAMP Session-Sender root node transmits test packets using
       the Tree-SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP
@@ -725,7 +773,15 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 13]
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires October 28, 2021               [Page 14]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -781,7 +837,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 14]
+Gandhi, et al.          Expires October 28, 2021               [Page 15]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -837,7 +893,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 15]
+Gandhi, et al.          Expires October 28, 2021               [Page 16]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -858,7 +914,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Usage of Anycast SID [RFC8402] by an SR Policy can result in ECMP
    paths via transit nodes part of that Anycast group.  The test packets
    need to be transmitted to traverse different ECMP paths to measure
-   delay of an SR Policy.
+   end-to-end delay of an SR Policy.
 
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  The mechanisms described in
@@ -893,7 +949,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 16]
+Gandhi, et al.          Expires October 28, 2021               [Page 17]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -949,7 +1005,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 17]
+Gandhi, et al.          Expires October 28, 2021               [Page 18]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -1005,7 +1061,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 18]
+Gandhi, et al.          Expires October 28, 2021               [Page 19]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -1061,7 +1117,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 19]
+Gandhi, et al.          Expires October 28, 2021               [Page 20]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -1117,7 +1173,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 20]
+Gandhi, et al.          Expires October 28, 2021               [Page 21]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -1173,4 +1229,4 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 28, 2021               [Page 21]
+Gandhi, et al.          Expires October 28, 2021               [Page 22]

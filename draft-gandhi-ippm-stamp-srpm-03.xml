@@ -33,7 +33,7 @@
     <?rfc strict="yes"?>
     <?rfc toc="yes"?>
     <front>
-    <title abbrev="STAMP Extensions for Segment Routing">Simple TWAMP (STAMP) Extensions for Segment Routing Networks</title>
+    <title abbrev="Simple TWAMP Extensions for Segment Routing">Simple TWAMP (STAMP) Extensions for Segment Routing Networks</title>
     <author fullname="Rakesh Gandhi" initials="R." role="editor" surname="Gandhi">
     <organization>Cisco Systems, Inc.</organization>
     <address><postal><street>Canada</street>
@@ -85,7 +85,8 @@
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document specifies RFC 8762 
    (Simple Two-Way Active Measurement Protocol (STAMP))
-   extensions for SR networks, for both SR-MPLS and SRv6 data planes.</t>
+   extensions for SR networks, for both SR-MPLS and SRv6 data 
+   planes by augmenting the optional extensions defined in RFC 8972.</t>
 
     </abstract>
     </front>
@@ -107,15 +108,13 @@
    without the use of a control channel to pre-signal session parameters.
    <xref target="RFC8972"/> defines optional extensions for STAMP.</t>
 
-   <t>The STAMP test packets 
-   are sent along an IP path between a Session-Sender and a Session-Reflector 
-   to measure performance delay and packet loss along the IP path.  
-   It may be desired in SR
-   networks that the same path (set of links and nodes) between the 
+   <t>The STAMP test packets are sent along an IP path between a Session-Sender 
+   and a Session-Reflector to measure performance delay and packet loss along the IP path.  
+   It may be desired in SR networks that the same path (same set of links and nodes) between the 
    Session-Sender and Session-Reflector is used for the STAMP test packets in both directions.  
-   This is achieved by using the optional STAMP extensions 
-   <xref target="RFC8972"/> for SR-MPLS and SRv6 networks.</t>   
-
+   This is achieved by using the STAMP <xref target="RFC8762"/> extensions for SR-MPLS and SRv6 networks
+   specified in this document by augmenting the optional extensions defined in <xref target="RFC8972"/>.</t>
+	  
     </section>
 
     <section title="Conventions Used in This Document" anchor="sect-2">
@@ -159,8 +158,8 @@
       <section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown below, the STAMP Session-Sender R1 initiates a
    STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet may be desired to be transmitted 
-   to the STAMP Session-Sender R1 on the same path (set of links and nodes) or a different path 
+   transmits a reply test packet.  The reply test packet may be transmitted 
+   to the STAMP Session-Sender R1 on the same path (same set of links and nodes) or a different path 
    in the reverse direction from the path taken towards the Session-Reflector.</t>  
 
    <t>The nodes R1 and R3 may be

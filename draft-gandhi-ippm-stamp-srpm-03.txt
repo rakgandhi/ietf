@@ -25,7 +25,8 @@ Abstract
    applicable to both Multiprotocol Label Switching (SR-MPLS) and IPv6
    (SRv6) data planes.  This document specifies RFC 8762 (Simple Two-Way
    Active Measurement Protocol (STAMP)) extensions for SR networks, for
-   both SR-MPLS and SRv6 data planes.
+   both SR-MPLS and SRv6 data planes by augmenting the optional
+   extensions defined in RFC 8972.
 
 Status of This Memo
 
@@ -52,10 +53,9 @@ Copyright Notice
 
 
 
-
 Gandhi, et al.          Expires October 28, 2021                [Page 1]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -111,16 +111,17 @@ Table of Contents
 
 Gandhi, et al.          Expires October 28, 2021                [Page 2]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    The STAMP test packets are sent along an IP path between a Session-
    Sender and a Session-Reflector to measure performance delay and
    packet loss along the IP path.  It may be desired in SR networks that
-   the same path (set of links and nodes) between the Session-Sender and
-   Session-Reflector is used for the STAMP test packets in both
-   directions.  This is achieved by using the optional STAMP extensions
-   [RFC8972] for SR-MPLS and SRv6 networks.
+   the same path (same set of links and nodes) between the Session-
+   Sender and Session-Reflector is used for the STAMP test packets in
+   both directions.  This is achieved by using the STAMP [RFC8762]
+   extensions for SR-MPLS and SRv6 networks specified in this document
+   by augmenting the optional extensions defined in [RFC8972].
 
 2.  Conventions Used in This Document
 
@@ -155,21 +156,22 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
    In the reference topology shown below, the STAMP Session-Sender R1
    initiates a STAMP test packet and the STAMP Session-Reflector R3
-   transmits a reply test packet.  The reply test packet may be desired
-   to be transmitted to the STAMP Session-Sender R1 on the same path
-   (set of links and nodes) or a different path in the reverse direction
-   from the path taken towards the Session-Reflector.
+   transmits a reply test packet.  The reply test packet may be
+   transmitted to the STAMP Session-Sender R1 on the same path (same set
+   of links and nodes) or a different path in the reverse direction from
+   the path taken towards the Session-Reflector.
 
-   The nodes R1 and R3 may be connected via a link or there exists an SR
-   path [RFC8402].  The link may be a physical interface, virtual link,
+
 
 
 
 Gandhi, et al.          Expires October 28, 2021                [Page 3]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
+   The nodes R1 and R3 may be connected via a link or there exists an SR
+   path [RFC8402].  The link may be a physical interface, virtual link,
    or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.
    The SR path may be an SR Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
@@ -219,11 +221,9 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 
 
-
-
 Gandhi, et al.          Expires October 28, 2021                [Page 4]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    The Address Family field indicates the type of the address, and it
@@ -279,7 +279,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021                [Page 5]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    The STAMP TLV Flags are set using the procedures described in
@@ -335,7 +335,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021                [Page 6]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
        0x0: No Reply Requested.
@@ -391,7 +391,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021                [Page 7]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 4.1.3.  Return Segment List Sub-TLVs
@@ -447,7 +447,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021                [Page 8]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    If desired, attacks can be mitigated by performing basic validation
@@ -503,7 +503,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021                [Page 9]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    o  Type (value 1): Return Path Control Code
@@ -559,7 +559,7 @@ Internet-Draft    STAMP Extensions for Segment Routing        April 2021
 
 Gandhi, et al.          Expires October 28, 2021               [Page 10]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    [I-D.ietf-spring-segment-routing-policy]
@@ -615,7 +615,7 @@ Authors' Addresses
 
 Gandhi, et al.          Expires October 28, 2021               [Page 11]
 
-Internet-Draft    STAMP Extensions for Segment Routing        April 2021
+Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
    Bart Janssens
