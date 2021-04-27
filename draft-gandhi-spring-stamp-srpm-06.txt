@@ -245,8 +245,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    For performance measurement in SR networks, the STAMP Session-Sender
    and Session-Reflector test packets defined in [RFC8762] are used.
    They are used to measure one-way, two-way and round-trip delay as
-   defined in this document.  They are also used to derive packet loss
-   in SR networks.
+   defined in this document.  They are also used to infer packet loss in
+   SR networks.
 
    The STAMP test packets are transmitted on the same path as the data
    traffic flow under measurement to measure the delay and packet loss
@@ -870,6 +870,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Stateful and Stateless Session-Reflector operations are defined
    [RFC8762], to detect forward, reverse and round-trip packet loss.
 
+   This method can be used for inferred packet loss measurement,
+   however, it does not provide accurate data packet loss metric.
+
 6.  Direct Measurement for Links and SR Paths
 
    The STAMP "Direct Measurement" TLV (Type 5) defined in [RFC8972] can
@@ -887,9 +890,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
    identify the Block Number of the Direct Measurement traffic counters,
-   which is required for Alternate-Marking Method [RFC8321] for accurate
-   data packet loss measurement.
-
 
 
 
@@ -897,6 +897,9 @@ Gandhi, et al.          Expires October 29, 2021               [Page 16]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
+
+   which is required for Alternate-Marking Method [RFC8321] for accurate
+   data packet loss metric.
 
 7.  Session Status for Links and SR Paths
 
@@ -942,9 +945,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Session-Reflector Address from 127/8 range when the STAMP test packet
    is encapsulated by a tunneling protocol or an MPLS Segment list.  The
    STAMP Session-Reflector must not transmit reply test packet if it is
-   not the intended destination node in the "Destination Node Address"
-   TLV [I-D.gandhi-ippm-stamp-srpm].
-
 
 
 
@@ -953,6 +953,9 @@ Gandhi, et al.          Expires October 29, 2021               [Page 17]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
+
+   not the intended destination node in the "Destination Node Address"
+   TLV [I-D.gandhi-ippm-stamp-srpm].
 
 9.  Security Considerations
 
@@ -998,9 +1001,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               Two-Way Active Measurement Protocol", RFC 8762,
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
-
-
-
 
 
 

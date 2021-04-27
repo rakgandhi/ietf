@@ -243,7 +243,7 @@
    For performance measurement in SR networks, the STAMP Session-Sender and 
    Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
    They are used to measure one-way, two-way and round-trip delay 
-   as defined in this document. They are also used to derive packet loss in SR networks.</t> 
+   as defined in this document. They are also used to infer packet loss in SR networks.</t> 
    
    <t>The STAMP test packets are transmitted on the
    same path as the data traffic flow under measurement  
@@ -748,6 +748,10 @@
    where Stateful and Stateless Session-Reflector operations are defined            
    <xref target="RFC8762"/>,
    to detect forward, reverse and round-trip packet loss.</t>
+
+   <t>This method can be used for inferred packet loss measurement, 
+   however, it does not provide accurate data packet loss metric.</t>
+
     </section>
 
    <section title="Direct Measurement for Links and SR Paths" anchor="sect-6"><t>
@@ -767,7 +771,7 @@
    <t>The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
    identify the Block Number of the Direct Measurement traffic counters, which is  
    required for Alternate-Marking Method <xref target="RFC8321"/> 
-   for accurate data packet loss measurement.</t>
+   for accurate data packet loss metric.</t>
 
    </section>
 
