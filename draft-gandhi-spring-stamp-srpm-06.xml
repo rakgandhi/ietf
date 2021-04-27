@@ -89,7 +89,7 @@
     </author>
     
     
-    <date day="26" month="April" year="2021"/>
+    <date day="27" month="April" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -240,31 +240,30 @@
    </section>
 
    <section title="Overview" anchor="sect-3"><t>
-   For performance measurement in SR networks, 
-   the STAMP test packets defined in <xref target="RFC8762"/> 
-   and its optional extensions defined in <xref target="RFC8972"/> 
-   and further augmented in <xref target="I-D.gandhi-ippm-stamp-srpm"/> are used as described in this document.
-   The procedures described are used to measure one-way, two-way and round-trip delay metrics 
-   also defined in this document as well as packet loss metrics in an SR network.</t> 
+   For performance measurement in SR networks, the STAMP Session-Sender and 
+   Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
+   They are used to measure one-way, two-way and round-trip delay 
+   as defined in this document. They are also used to derive packet loss in SR networks.</t> 
    
-   <t>The STAMP Session-Sender test packets are transmitted on the
+   <t>The STAMP test packets are transmitted on the
    same path as the data traffic flow under measurement  
-   to measure the delay and packet loss experienced by the data traffic flow.
-   Typically, the STAMP test packets are sent along an IP path between a Session-Sender 
+   to measure the delay and packet loss experienced by the data traffic flow.</t>
+
+   <t>Typically, the STAMP test packets are sent along an IP path between a Session-Sender 
    and a Session-Reflector to measure delay and packet loss along that IP path.  
-   Matching the forward and reverse paths for STAMP test packets, 
+   Matching the forward and reverse direction paths for STAMP test packets, 
    even for directly connected nodes is not guaranteed. 
    It may be desired in SR networks that the same path (same set of 
    links and nodes) between the Session-Sender and Session-Reflector 
    is used for the STAMP test packets in both directions.  
-   This is achieved by using the STAMP extensions for SR-MPLS and SRv6 networks
+   This is achieved by using the optional STAMP extensions for SR-MPLS and SRv6 networks
    specified in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
-   <t>A destination UDP port number is selected as described in
-   <xref target="RFC8762"/>.  The same destination UDP 
-   port can be used for link and end-to-end SR path STAMP test sessions.
-   In this case, the destination UDP port does not distinguish between 
-   link or end-to-end SR path measurements.</t>
+   <t>The optional STAMP extensions defined in <xref target="RFC8972"/> are
+   used for direct measurement packet loss in SR networks.</t>
+
+   <t>Note that signaling and maintaining additional dynamic state for 
+   the STAMP sessions on Session-Reflector are avoided in SR networks.</t>
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
    An example of a STAMP reference model with some of the typical measurement 
@@ -294,6 +293,12 @@
 ]]></artwork>
     </figure>
 
+   <t>A destination UDP port number is selected as described in
+   <xref target="RFC8762"/>.  The same destination UDP 
+   port can be used for link and end-to-end SR path STAMP test sessions.
+   In this case, the destination UDP port does not distinguish between 
+   link or end-to-end SR path measurements.</t>
+
     <t>Example of the Timestamp Format is Precision Time Protocol 64-bit truncated 
     (PTPv2) <xref target="IEEE1588"/> and Network Time Protocol (NTP).
     The Session-Reflector replies in kind to the timestamp 
@@ -302,7 +307,7 @@
     as described in <xref target="RFC8762"/>.</t>
 
     <t>Example of Delay Measurement Mode is one-way, two-way and 
-    round-trip mode as described in this document.</t>
+    round-trip mode as defined in this document.</t>
 
     <t>Example of Packet Loss Type is round-trip, near-end (forward) and far-end 
     (backward) packet loss as defined in <xref target="RFC8762"/>.</t>
@@ -315,14 +320,12 @@
     the return path parameters for the reply test packet from the received STAMP test packet,
     as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
-    <t>Note that the controller shown in the example reference model is not intended 
-   for the dynamic signaling of the SR parameters 
-   for STAMP test sessions between the STAMP Session-Sender and STAMP Session-Reflector.
-   In addition, signaling and maintaining additional dynamic state for 
-   the STAMP sessions on Session-Reflector are avoided in an SR network.</t>
+    <t>The controller shown in the example reference model is not intended 
+    for the dynamic signaling of the SR parameters 
+    for STAMP test sessions between the STAMP Session-Sender and STAMP Session-Reflector.</t>
 
-   <t>Note that the YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
-   can be used to provision the STAMP Session-Sender and STAMP Session-Reflector.</t>
+    <t>Note that the YANG data model defined in <xref target="I-D.ietf-ippm-stamp-yang"/>
+    can be used to provision the STAMP Session-Sender and STAMP Session-Reflector.</t>
 
     </section>
 
@@ -728,8 +731,9 @@
  
     <t>For IPv6 test packets, where the hardware is not capable
     of re-computing the UDP checksum or adding checksum complement
-    <xref target="RFC7820"/>, the Session-Sender may use the procedure defined in <xref target="RFC6936"/>
-    for setting the UDP checksum.</t>
+    <xref target="RFC7820"/>, the Session-Sender and Session-Reflector
+    may use the procedure defined in <xref target="RFC6936"/>
+    for the UDP checksum.</t>
  
    </section>
    </section>
@@ -763,14 +767,17 @@
    </section>
 
      <section title="Session Status for Links and SR Paths" anchor="sect-7"><t>
-   The STAMP test session status allows to know if the performance measurement is active.
-   The threshold-based notification may not be generated if the delay values do not change significantly. 
-   A controller needs to distinguish if the performance measurement is active or 
-   delay values are not crossing threshold for unambiguous monitoring.
-   The STAMP test session status initially is declared succeeded when one or more reply test 
-   packets are received at the STAMP Session-Sender.
-   The STAMP test session status is declared failed when consecutive N number of reply test packets are
-   not received at the STAMP Session-Sender, where N is locally provisioned value.</t>
+   The STAMP test session status allows to know if the performance measurement test is active.
+   The threshold-based notification may not be generated if the delay 
+   values do not change significantly.  For an unambiguous monitoring, 
+   the controller needs to distinguish the cases whether the performance 
+   measurement is active or delay values are not changing to cross threshold.</t>
+
+   <t>The STAMP test session status initially is declared succeeded when 
+   one or more reply test packets are received at the STAMP Session-Sender.
+   The STAMP test session status is declared failed when consecutive 
+   N number of reply test packets are not received at the STAMP 
+   Session-Sender, where N is locally provisioned value.</t>
 
      </section>
 
