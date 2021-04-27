@@ -282,54 +282,54 @@ Gandhi, et al.          Expires October 29, 2021                [Page 5]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
-                              +------------+
-                              | Controller |
-                              +------------+
-                                  /    \
-     Reflector UDP Port          /      \    Reflector UDP port
-     Authentication Mode & Key  /        \   Authentication Mode & Key
-     Delay Measurement Mode    /          \
-     Timestamp Format         /            \
-     Packet Loss Type        /              \
-                            /                \
-                           v                  v
-                       +-------+          +-------+
-                       |       |          |       |
-                       |   R1  |==========|   R3  |
-                       |       |          |       |
-                       +-------+          +-------+
+                               +------------+
+                               | Controller |
+                               +------------+
+                                   /    \
+     Reflector UDP Port           /      \      Reflector UDP Port
+     Authentication Mode         /        \     Authentication Mode
+         Key-chain              /          \        Key-chain
+     Timestamp Format          /            \   Timestamp Format
+     Packet Loss Type         /              \  Reflector Mode
+     Delay Measurement Mode  /                \
+                            v                  v
+                        +-------+          +-------+
+                        |       |          |       |
+                        |   R1  |==========|   R3  |
+                        |       |          |       |
+                        +-------+          +-------+
 
-                STAMP Session-Sender  STAMP Session-Reflector
+                 STAMP Session-Sender  STAMP Session-Reflector
 
                   Figure 1: Example STAMP Reference Model
 
-   A Reflector UDP port number is selected as described in [RFC8762].
-   The same Reflector UDP port can be used for link and end-to-end SR
-   path STAMP test sessions.  In this case, the Reflector UDP port does
-   not distinguish between link or end-to-end SR path measurements.
+   A reflector UDP port number is selected as described in [RFC8762].
+   The same reflector UDP port can be used for STAMP test sessions for
+   link and end-to-end SR paths.  In this case, the reflector UDP port
+   does not distinguish between link or end-to-end SR path measurements.
 
    Example of the Timestamp Format is Precision Time Protocol 64-bit
-   truncated (PTPv2) [IEEE1588] and Network Time Protocol (NTP).  The
-   Session-Reflector replies in kind to the timestamp format received in
-   the received Session-Sender test packet, as indicated by the "Z"
-   field in the Error Estimate field as described in [RFC8762].
+   truncated (PTPv2) [IEEE1588] and Network Time Protocol (NTP).  By
+   default, the Session-Reflector replies in kind to the timestamp
+   format received in the received Session-Sender test packet, as
+   indicated by the "Z" field in the Error Estimate field as described
+   in [RFC8762].
+
+   The Session-Reflector mode can be Stateful or Stateless as defined in
+   [RFC8762].
 
    Example of Delay Measurement Mode is one-way, two-way and round-trip
    mode as defined in this document.
 
-   Example of Packet Loss Type is round-trip, near-end (forward) and
+   Example of Packet Loss Type can be round-trip, near-end (forward) and
    far-end (backward) packet loss as defined in [RFC8762].
 
-   When using the authenticated mode for delay measurement, the matching
-   Authentication Type (e.g.  HMAC-SHA-256) and Key are user-configured
-   on STAMP Session-Sender and STAMP Session-Reflector [RFC8762].
+   When using the authenticated mode for the STAMP test sessions, the
+   matching Authentication Type (e.g.  HMAC-SHA-256) and Key-chain are
+   user-configured on STAMP Session-Sender and STAMP Session-Reflector
+   [RFC8762].
 
-   The STAMP Session-Reflector R3 uses the return path parameters for
-   the reply test packet from the received STAMP test packet, as
-   described in [I-D.gandhi-ippm-stamp-srpm].
 
-   The controller shown in the example reference model is not intended
-   for the dynamic signaling of the SR parameters for STAMP test
 
 
 
@@ -338,6 +338,12 @@ Gandhi, et al.          Expires October 29, 2021                [Page 6]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+   The STAMP Session-Reflector uses the return path parameters for the
+   reply test packet from the received STAMP test packet, as described
+   in [I-D.gandhi-ippm-stamp-srpm].
+
+   The controller shown in the example reference model is not intended
+   for the dynamic signaling of the SR parameters for STAMP test
    sessions between the STAMP Session-Sender and STAMP Session-
    Reflector.
 
@@ -380,12 +386,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    [RFC7404] can be used in the IPv6 header.  The Session-Sender may use
    the local Address Resolution Protocol (ARP) table to find the IP
    address for the links.  It is not recommended to use IPv4 address
-   from the range 127/8 or IPv6 loopback address ::1/128 [RFC4291] in
-   the STAMP test packets for the links.
-
-
-
-
 
 
 
@@ -393,6 +393,9 @@ Gandhi, et al.          Expires October 29, 2021                [Page 7]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
+
+   from the range 127/8 or IPv6 loopback address ::1/128 [RFC4291] in
+   the STAMP test packets for the links.
 
 4.1.2.  Session-Sender Test Packet for SR Paths
 
@@ -440,9 +443,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    The Segment List can be empty in case of a single-hop SR-MPLS Policy
    with Implicit NULL label.
 
-   The Path Segment Identifier (PSID)
-   [I-D.ietf-spring-mpls-path-segment] of an SR-MPLS Policy can be
-
 
 
 Gandhi, et al.          Expires October 29, 2021                [Page 8]
@@ -450,6 +450,8 @@ Gandhi, et al.          Expires October 29, 2021                [Page 8]
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
+   The Path Segment Identifier (PSID)
+   [I-D.ietf-spring-mpls-path-segment] of an SR-MPLS Policy can be
    carried in the MPLS header as shown in Figure 3, and can be used for
    direct measurement as described in Section 6, titled "Direct
    Measurement for Links and SR Paths".
@@ -496,8 +498,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
        Figure 4: Example Session-Sender Test Packet for SRv6 Policy
 
    The Segment List (SL) may be empty and no SRH may be carried.
-
-
 
 
 

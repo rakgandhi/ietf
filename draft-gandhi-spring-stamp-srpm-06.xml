@@ -272,51 +272,53 @@
 
    <figure title="Example STAMP Reference Model" anchor="ure-example-reference-model"><artwork><![CDATA[
 
-                           +------------+
-                           | Controller |
-                           +------------+
-                               /    \
-  Reflector UDP Port          /      \    Reflector UDP port
-  Authentication Mode & Key  /        \   Authentication Mode & Key
-  Delay Measurement Mode    /          \
-  Timestamp Format         /            \
-  Packet Loss Type        /              \
-                         /                \
-                        v                  v
-                    +-------+          +-------+
-                    |       |          |       |
-                    |   R1  |==========|   R3  |
-                    |       |          |       |
-                    +-------+          +-------+
+                            +------------+
+                            | Controller |
+                            +------------+
+                                /    \
+  Reflector UDP Port           /      \      Reflector UDP Port
+  Authentication Mode         /        \     Authentication Mode
+      Key-chain              /          \        Key-chain
+  Timestamp Format          /            \   Timestamp Format
+  Packet Loss Type         /              \  Reflector Mode
+  Delay Measurement Mode  /                \
+                         v                  v
+                     +-------+          +-------+
+                     |       |          |       |
+                     |   R1  |==========|   R3  |
+                     |       |          |       |
+                     +-------+          +-------+
 
-             STAMP Session-Sender  STAMP Session-Reflector
+              STAMP Session-Sender  STAMP Session-Reflector
 ]]></artwork>
     </figure>
 
-   <t>A Reflector UDP port number is selected as described in
-   <xref target="RFC8762"/>.  The same Reflector UDP 
-   port can be used for link and end-to-end SR path STAMP test sessions.
-   In this case, the Reflector UDP port does not distinguish between 
-   link or end-to-end SR path measurements.</t>
+    <t>A reflector UDP port number is selected as described in
+    <xref target="RFC8762"/>.  The same reflector UDP 
+    port can be used for STAMP test sessions for link and end-to-end SR paths.
+    In this case, the reflector UDP port does not distinguish between 
+    link or end-to-end SR path measurements.</t>
 
     <t>Example of the Timestamp Format is Precision Time Protocol 64-bit truncated 
     (PTPv2) <xref target="IEEE1588"/> and Network Time Protocol (NTP).
-    The Session-Reflector replies in kind to the timestamp 
+    By default, the Session-Reflector replies in kind to the timestamp 
     format received in the received Session-Sender test packet, 
     as indicated by the "Z" field in the Error Estimate field 
     as described in <xref target="RFC8762"/>.</t>
 
+    <t>The Session-Reflector mode can be Stateful or Stateless as defined in <xref target="RFC8762"/>.</t>          
+
     <t>Example of Delay Measurement Mode is one-way, two-way and 
     round-trip mode as defined in this document.</t>
 
-    <t>Example of Packet Loss Type is round-trip, near-end (forward) and far-end 
+    <t>Example of Packet Loss Type can be round-trip, near-end (forward) and far-end 
     (backward) packet loss as defined in <xref target="RFC8762"/>.</t>
 
-    <t>When using the authenticated mode for delay measurement, the matching
-    Authentication Type (e.g. HMAC-SHA-256) and Key are user-configured
+    <t>When using the authenticated mode for the STAMP test sessions, the matching
+    Authentication Type (e.g. HMAC-SHA-256) and Key-chain are user-configured
     on STAMP Session-Sender and STAMP Session-Reflector <xref target="RFC8762"/>.</t>
 
-    <t>The STAMP Session-Reflector R3 uses 
+    <t>The STAMP Session-Reflector uses 
     the return path parameters for the reply test packet from the received STAMP test packet,
     as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
 
@@ -899,19 +901,17 @@
     &I-D.ietf-pce-sr-bidir-path;
     &I-D.ietf-ippm-stamp-yang;
 
-
     <reference anchor="IEEE802.1AX"> 
     <front>
     <title>IEEE Standard for Local and metropolitan area networks - Link Aggregation</title>
     <author>    
-	   <organization>
+      <organization>
        IEEE Std. 802.1AX
-            </organization>
+      </organization>
     </author>
     <date month="November" year="2008"/>
     </front>
     </reference>
-
 
     </references>
     <section title="Acknowledgments" numbered="no" anchor="acknowledgments"><t>

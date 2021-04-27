@@ -115,7 +115,7 @@
    This is achieved by using the STAMP <xref target="RFC8762"/> extensions for 
    SR-MPLS and SRv6 networks specified in this document by augmenting 
    the optional extensions defined in <xref target="RFC8972"/>.</t>
-	  
+      
     </section>
 
     <section title="Conventions Used in This Document" anchor="sect-2">
@@ -531,9 +531,9 @@
     <front>
     <title>IEEE Standard for Local and metropolitan area networks - Link Aggregation</title>
     <author>    
-	   <organization>
+      <organization>
        IEEE Std. 802.1AX
-            </organization>
+      </organization>
     </author>
     <date month="November" year="2008"/>
     </front>
