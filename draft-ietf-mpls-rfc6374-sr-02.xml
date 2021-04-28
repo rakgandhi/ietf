@@ -82,9 +82,8 @@
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in Segment Routing networks with
    MPLS data plane (SR-MPLS), for both SR-MPLS links and end-to-end 
-   paths including SR-MPLS Policies.  In addition, this document defines Return Path TLV for
-   two-way performance measurement and Block Number TLV for loss
-   measurement.</t>
+   paths including SR-MPLS Policies.  In addition, this document defines 
+   Return Path TLV and Block Number TLV extensions for RFC 6374.</t>
 
     </abstract>
     </front>
@@ -129,8 +128,8 @@
    This document utilizes the probe-based mechanisms defined in
    <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
    with MPLS data plane, for both SR-MPLS links and end-to-end paths including SR-MPLS Policies.
-   In addition, this document defines Return Path TLV for two-way
-   performance measurement and Block Number TLV for loss measurement.
+   In addition, this document defines Return Path TLV and Block Number TLV
+   extensions for <xref target="RFC6374"/>.
    The Performance Measurements (PM) for SR-MPLS links are used to compute
    extended Traffic Engineering (TE) metrics for delay and loss and can
    be advertised in the network using the routing protocol extensions
@@ -426,7 +425,9 @@
    only insert one Return Path TLV in the probe query message. 
    The responder node that supports this TLV, MUST only process the first Return Path TLV
    and ignore the other Return Path TLVs if present.  The responder
-   node also MUST NOT add Return Path TLV in the probe response message. </t>
+   node also MUST NOT add Return Path TLV in the probe response message. 
+   The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
+	</t>
 
     <section title="Return Path Sub-TLV Extensions" anchor="sect-4.4.1">
    <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
@@ -467,7 +468,9 @@
    The responder node that supports this Sub-TLV, MUST only process the 
    first Return Path Sub-TLV and ignore the other Return Path Sub-TLVs if present.  
    The responder node also MUST send probe response message back on 
-   the return path specified in the Return Path Sub-TLV.</t>
+   the return path specified in the Return Path Sub-TLV.
+   The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
+    </t>
 
     </section>
 
@@ -575,17 +578,23 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Type TBA1   |    Length     | Reserved      | Block Number  |
+ |   Type TBA1   |    Length     | Reserved    |R| Block Number  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
+
     <t>
    The Block Number TLV is a Mandatory TLV Type. 
-   The querier node MUST only insert one Block Number TLV in the probe query message.  
+   The querier node MUST only insert one Block Number TLV in the probe query 
+   message to identify the Block Number for the traffic counters in the forward direction.  
    The responder node that supports this TLV, MUST only inert one Block 
-   Number TLV in the probe response message.
+   Number TLV in the probe response message to identify the Block 
+   Number for the traffic counters in the reverse direction.
    The responder node also MUST return the first Block Number TLV from the probe 
-   query message and ignore other Block Number TLVs if present.</t>
+   query message and ignore the other Block Number TLVs if present.
+   The R Flag MUT be clear in the probe query message and set in the probe response message.
+   The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
+    </t>
 
     </section>
 
@@ -684,20 +693,21 @@
    advertised in the routing domain as follows:</t>
 
     <t><list style="symbols"><t>For OSPF, ISIS, and BGP-LS, protocol extensions defined in
-      <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/> are used, respectively for
-      advertising the extended TE link metrics in the network.</t>
+    <xref target="RFC7471"/>, <xref target="RFC8570"/>, and 
+    <xref target="RFC8571"/> are used, respectively for
+    advertising the extended TE link metrics in the network.</t>
 
     <t>The advertised delay-variance metric is computed as specified in
-      Section 4.2 of <xref target="RFC5481"/>.</t>
+    Section 4.2 of <xref target="RFC5481"/>.</t>
 
     <t>The extended TE link one-way delay metrics can also be computed using
-      two-way delay measurement or round-trip delay measurement from
-      loopback mode by dividing the measured delay values by 2.</t>
+    two-way delay measurement or round-trip delay measurement from
+    loopback mode by dividing the measured delay values by 2.</t>
 
     <t>The extended TE link delay and loss metrics are advertised for
-      Layer 2 bundle members in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> and ISIS
-      <xref target="RFC8668"/> using the same mechanisms defined in
-      <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
+    Layer 2 bundle members in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> and ISIS
+    <xref target="RFC8668"/> using the same mechanisms defined in
+    <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
     </list>
     </t>
