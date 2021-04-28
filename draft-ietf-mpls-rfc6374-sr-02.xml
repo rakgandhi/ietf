@@ -592,7 +592,7 @@
    Number for the traffic counters in the reverse direction.
    The responder node also MUST return the first Block Number TLV from the probe 
    query message and ignore the other Block Number TLVs if present.
-   The R Flag MUT be clear in the probe query message and set in the probe response message.
+   The R Flag MUST be clear in the probe query message and set in the probe response message.
    The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
     </t>
 
