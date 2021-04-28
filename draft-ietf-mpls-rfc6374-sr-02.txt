@@ -283,9 +283,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 
    o  For loss measurement, the probe messages are sent in-band (on the
-      same path as the data traffic) by the querier node, and are used
-      to collect the receive traffic counters for the incoming link or
-      for the Path Segment Identifier (PSID) at the responder node.
+      same path as the data traffic flow under measurement) by the
+      querier node, and are used to collect the receive traffic counters
+      for the incoming link or for the Path Segment Identifier (PSID) at
+      the responder node.
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
@@ -328,7 +329,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    the message type, and the message payload following the ACH as shown
    in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
    the SR-MPLS header.
-
 
 
 
@@ -647,10 +647,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 7.2.  Block Number TLV Extensions
 
    The loss measurement using Alternate-Marking method defined in
-   [RFC8321] requires coloring the data traffic.  To be able to
-   correlate the transmit and receive traffic counters of the matching
-   color, the Block Number (or color) of the traffic counters is carried
-   by the probe query and response messages for loss measurement.
+   [RFC8321] requires coloring the data traffic flow under measurement.
+   To be able to correlate the transmit and receive traffic counters of
+   the matching color, the Block Number (or color) of the traffic
+   counters is carried by the probe query and response messages for loss
+   measurement.
 
    [RFC6374] defines probe query and response messages that can include
    one or more optional TLVs.  New TLV Type (value TBA1) is defined in
@@ -658,7 +659,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    counters in the probe query and response messages for loss
    measurement.  The format of the Block Number TLV is shown in
    Figure 7:
-
 
 
 

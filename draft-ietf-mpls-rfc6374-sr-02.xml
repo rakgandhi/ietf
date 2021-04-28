@@ -244,7 +244,7 @@
     flowing on the SR-MPLS links and Policies.</t>
 
     <t>For loss measurement, the probe messages are sent in-band (on the same
-    path as the data traffic) by the querier node, and are used to
+    path as the data traffic flow under measurement) by the querier node, and are used to
     collect the receive traffic counters for the incoming link or for the Path 
     Segment Identifier (PSID) at the responder node.</t>
 
@@ -576,7 +576,8 @@
 
     <section title="Block Number TLV Extensions" anchor="sect-7.2"><t>
    The loss measurement using Alternate-Marking method defined in
-   <xref target="RFC8321"/> requires coloring the data traffic.  To be able to correlate
+   <xref target="RFC8321"/> requires coloring the data traffic flow 
+   under measurement.  To be able to correlate
    the transmit and receive traffic counters of the matching color, the
    Block Number (or color) of the traffic counters is carried by the
    probe query and response messages for loss measurement.</t>
