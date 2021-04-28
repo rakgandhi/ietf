@@ -80,7 +80,7 @@
    measurement of packet loss, one-way and two-way delay, as well as
    related metrics such as delay variation in MPLS networks using probe
    messages.  This document utilizes these mechanisms for Performance
-   Delay and Loss Measurements in Segment Routing networks with
+   Delay and Loss Measurements in SR networks with
    MPLS data plane (SR-MPLS), for both SR-MPLS links and end-to-end 
    paths including SR-MPLS Policies.  In addition, this document defines 
    Return Path TLV and Block Number TLV extensions for RFC 6374.</t>
@@ -104,7 +104,7 @@
     <t>
    <xref target="RFC6374"/> specifies protocol mechanisms to enable the efficient and
    accurate measurement of performance metrics in MPLS networks using
-   probe messages. These mechanisms are also well-suited for Segment Routing networks when
+   probe messages. These mechanisms are also well-suited for SR networks when
    using MPLS data plane (SR-MPLS).  <xref target="RFC6374"/> also supports 
    "direct mode" Loss Measurement (LM), which is required in SR networks.</t>
 
@@ -350,8 +350,9 @@
    measurement) on the reverse direction SR-MPLS link or reverse direction 
    SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
    message with format as shown in Figure 3 for the probe query message.  In this
-   case, the "control code" in the probe query message is set to "in-band response requested".
-   Specifically, the probe response message is sent back on the same incoming    
+   case, the "control code" in the probe query message is set to "in-band response requested".</t>
+
+   <t>Specifically, the probe response message is sent back on the same incoming    
    physical interface where the probe query message is received.  This    
    is useful for example, in case of two-way measurement mode for link delay.</t>
 
@@ -370,7 +371,7 @@
    still carried at the bottom of the label stack (with S=1).  The
    responder node does not process the probe messages and generate
    response messages, and hence Loopback Request object (Type 3)
-   is not required for SR.</t>
+   is not required for an SR-MPLS path.</t>
    
    <t>In this delay measurement mode, as per Reference Topology, 
    the timestamps T1 and T4 are collected by the probes.  Both these 
@@ -400,7 +401,7 @@
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format <xref target="IEEE1588"/> is used by default as described in
    Appendix A of <xref target="RFC6374"/>. 
-   The timestamping in hardware is recommended in Segment Routing networks.</t>
+   The timestamping in hardware is recommended in SR networks.</t>
 
     </section>
 
@@ -527,7 +528,7 @@
 
     <section title="Return Path Sub-TLV Extensions" anchor="sect-7.1.1">
    <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
-   The format of the Segment-List Sub-TLV is shown in Figure 6. The 
+   The format of the Segment List Sub-TLV is shown in Figure 6. The 
    Label entries MUST be in network order. The Segment List Sub-TLV 
    in the Return Path TLV can be one of the following Types:</t>
 
