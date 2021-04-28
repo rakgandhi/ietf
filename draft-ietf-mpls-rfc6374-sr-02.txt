@@ -272,7 +272,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    sent as following:
 
    o  For delay measurement, the probe messages are sent in-band (on the
-      same path as the data traffic) by the querier node, and are used
+      same path as the data traffic flow under measurement) by the
 
 
 
@@ -282,8 +282,8 @@ Gandhi, et al.          Expires October 30, 2021                [Page 5]
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 
-      to measure the delay experienced by the actual data traffic
-      flowing on the SR-MPLS links and Policies.
+      querier node, and are used to measure the delay experienced by the
+      actual data traffic flowing on the SR-MPLS links and Policies.
 
    o  For loss measurement, the probe messages are sent in-band (on the
       same path as the data traffic) by the querier node, and are used
@@ -361,8 +361,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
      Figure 3: Example Probe Message Header for an End-to-end SR-MPLS
                                   Policy
 
-   The SR-MPLS label stack can be empty (as shown in Figure 2) to
-   indicate Implicit NULL label case.
+   The SR-MPLS label stack can be empty (similar to as shown in
+   Figure 2) to indicate Implicit NULL label case.
 
    For SR-MPLS Policy performance measurement, in order to ensure that
    the probe query message is processed by the intended responder node,
@@ -403,14 +403,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    In two-way performance measurement mode [RFC6374], when using a
    bidirectional SR path [I-D.ietf-pce-sr-bidir-path], the probe
    response message is sent back to the querier node in-band (on the
-   same path as the data traffic) on the reverse direction SR-MPLS link
-   or reverse direction SR-MPLS Policy [I-D.ietf-pce-sr-bidir-path]
-   using a message with format as shown in Figure 3 for the probe query
-   message.  In this case, the "control code" in the probe query message
-   is set to "in-band response requested".  Specifically, the probe
-   response message is sent back on the same incoming physical interface
-   where the probe query message is received.  This is useful for
-   example, in case of two-way measurement mode for link delay.
+   same path as the data traffic flow under measurement) on the reverse
+   direction SR-MPLS link or reverse direction SR-MPLS Policy
+   [I-D.ietf-pce-sr-bidir-path] using a message with format as shown in
+   Figure 3 for the probe query message.  In this case, the "control
+   code" in the probe query message is set to "in-band response
+   requested".  Specifically, the probe response message is sent back on
+   the same incoming physical interface where the probe query message is
+   received.  This is useful for example, in case of two-way measurement
+   mode for link delay.
 
    In this delay measurement mode, as per Reference Topology, all
    timestamps T1, T2, T3, and T4 are collected by the probes.  All four
@@ -444,7 +445,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 
 
-
 Gandhi, et al.          Expires October 30, 2021                [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
@@ -459,8 +459,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    The Section 3.4 of [RFC6374] defines timestamp format that can be
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format [IEEE1588] is used by default as described in
-   Appendix A of [RFC6374], with hardware support recommended in Segment
-   Routing networks.
+   Appendix A of [RFC6374].  The timestamping in hardware is recommended
+   in Segment Routing networks.
 
 6.  Loss Measurement
 

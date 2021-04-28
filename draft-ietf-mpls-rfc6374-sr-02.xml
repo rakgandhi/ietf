@@ -248,7 +248,7 @@
    sent as following:</t>
 
     <t><list style="symbols"><t>For delay measurement, the probe messages are sent in-band (on the
-    same path as the data traffic) by the querier node, and are
+    same path as the data traffic flow under measurement) by the querier node, and are
     used to measure the delay experienced by the actual data traffic
     flowing on the SR-MPLS links and Policies.</t>
 
@@ -323,7 +323,7 @@
 ]]></artwork>
     </figure>
     <t>
-   The SR-MPLS label stack can be empty (as shown in Figure 2) to
+   The SR-MPLS label stack can be empty (similar to as shown in Figure 2) to
    indicate Implicit NULL label case.</t>
 
     <t>For SR-MPLS Policy performance measurement, in order to ensure that the
@@ -355,8 +355,9 @@
    In two-way performance measurement mode <xref target="RFC6374"/>, when using a
    bidirectional SR path <xref target="I-D.ietf-pce-sr-bidir-path"/>, 
    the probe response message is sent back to the
-   querier node in-band (on the same path as the data traffic) on the reverse
-   direction SR-MPLS link or reverse direction SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
+   querier node in-band (on the same path as the data traffic flow under 
+   measurement) on the reverse direction SR-MPLS link or reverse direction 
+   SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
    message with format as shown in Figure 3 for the probe query message.  In this
    case, the "control code" in the probe query message is set to "in-band response requested".
    Specifically, the probe response message is sent back on the same incoming    
@@ -407,8 +408,8 @@
    The Section 3.4 of <xref target="RFC6374"/> defines timestamp format that can be
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format <xref target="IEEE1588"/> is used by default as described in
-   Appendix A of <xref target="RFC6374"/>, with hardware support recommended in Segment
-   Routing networks.</t>
+   Appendix A of <xref target="RFC6374"/>. 
+   The timestamping in hardware is recommended in Segment Routing networks.</t>
 
     </section>
 
