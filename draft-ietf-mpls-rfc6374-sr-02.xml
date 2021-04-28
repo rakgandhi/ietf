@@ -90,15 +90,6 @@
 
     <middle>
     <section title="Introduction" anchor="sect-1"><t>
-   Service provider's ability to satisfy Service Level Agreements (SLAs)
-   depend on the ability to measure and monitor performance metrics for
-   packet loss and one-way and two-way delay, as well as related metrics
-   such as delay variation.  The ability to monitor these performance
-   metrics also provides operators with greater visibility into the
-   performance characteristics of their networks, thereby facilitating
-   planning, troubleshooting, and network performance evaluation.</t>
-
-    <t>
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching

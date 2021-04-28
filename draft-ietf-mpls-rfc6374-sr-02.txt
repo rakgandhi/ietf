@@ -76,7 +76,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
@@ -121,14 +121,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 1.  Introduction
 
-   Service provider's ability to satisfy Service Level Agreements (SLAs)
-   depend on the ability to measure and monitor performance metrics for
-   packet loss and one-way and two-way delay, as well as related metrics
-   such as delay variation.  The ability to monitor these performance
-   metrics also provides operators with greater visibility into the
-   performance characteristics of their networks, thereby facilitating
-   planning, troubleshooting, and network performance evaluation.
-
    Segment Routing (SR) leverages the source routing paradigm and
    greatly simplifies network operations for Software Defined Networks
    (SDNs).  SR is applicable to both Multiprotocol Label Switching (SR-
@@ -161,6 +153,14 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    The Performance Measurements (PM) for SR-MPLS links are used to
    compute extended Traffic Engineering (TE) metrics for delay and loss
+   and can be advertised in the network using the routing protocol
+   extensions defined in [RFC7471], [RFC8570], and [RFC8571].
+
+2.  Conventions Used in This Document
+
+
+
+
 
 
 
@@ -169,11 +169,6 @@ Gandhi, et al.          Expires October 30, 2021                [Page 3]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-   and can be advertised in the network using the routing protocol
-   extensions defined in [RFC7471], [RFC8570], and [RFC8571].
-
-2.  Conventions Used in This Document
 
 2.1.  Requirements Language
 
@@ -218,6 +213,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    TE: Traffic Engineering.
 
+   URO: UDP Return Object.
+
+
+
+
 
 
 
@@ -225,8 +225,6 @@ Gandhi, et al.          Expires October 30, 2021                [Page 4]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-   URO: UDP Return Object.
 
 2.3.  Reference Topology
 
@@ -273,6 +271,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    o  For delay measurement, the probe messages are sent in-band (on the
       same path as the data traffic flow under measurement) by the
+      querier node, and are used to measure the delay experienced by the
+      actual data traffic flowing on the SR-MPLS links and Policies.
 
 
 
@@ -281,9 +281,6 @@ Gandhi, et al.          Expires October 30, 2021                [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-      querier node, and are used to measure the delay experienced by the
-      actual data traffic flowing on the SR-MPLS links and Policies.
 
    o  For loss measurement, the probe messages are sent in-band (on the
       same path as the data traffic) by the querier node, and are used
@@ -329,6 +326,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    the G-ACh Label (GAL) at the bottom of the stack (with S=1).  The GAL
    is followed by an Associated Channel Header (ACH), which identifies
    the message type, and the message payload following the ACH as shown
+   in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
+   the SR-MPLS header.
+
 
 
 
@@ -336,10 +336,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 Gandhi, et al.          Expires October 30, 2021                [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
-
-
-   in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
-   the SR-MPLS header.
 
 
     0                   1                   2                   3
@@ -386,6 +382,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    in the probe query message is set to "out-of-band response
    requested".
 
+   In this delay measurement mode, as per Reference Topology, the
+   timestamps T1 and T2 are collected by the probes.  Both these
+   timestamps are used to measure one-way delay as (T2 - T1).
+
 
 
 
@@ -393,10 +393,6 @@ Gandhi, et al.          Expires October 30, 2021                [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-   In this delay measurement mode, as per Reference Topology, the
-   timestamps T1 and T2 are collected by the probes.  Both these
-   timestamps are used to measure one-way delay as (T2 - T1).
 
 4.3.2.  Two-way Measurement Mode
 
@@ -443,16 +439,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    message payload following the ACH.  For both SR-MPLS links and end-
    to-end Policies measurements, the same MPLS DM ACH value is used.
 
+   The DM message payload as defined in Section 3.2 of [RFC6374] is used
+   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
+   Policies.
+
 
 
 Gandhi, et al.          Expires October 30, 2021                [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-   The DM message payload as defined in Section 3.2 of [RFC6374] is used
-   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
-   Policies.
 
 5.2.  Timestamps
 
@@ -488,24 +484,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    Policy.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires October 30, 2021                [Page 9]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
-
-
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -517,6 +495,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 4: Example With Path Segment Identifier for SR-MPLS Policy
+
+
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021                [Page 9]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
+
 
 6.1.  Loss Measurement Message Format
 
@@ -555,13 +543,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    path for two-way measurement).  This way the responder avoids
    creating and maintaining extra dynamic states for the return paths.
 
-
-
-Gandhi, et al.          Expires October 30, 2021               [Page 10]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
-
-
    For one-way performance measurement, the querier node address may not
    be reachable via IP route from the responder node.  The querier node
    in this case can send its reachability path information to the
@@ -572,6 +553,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    document for Return Path to carry return path information in the
    probe query messages (in the payload).  The format of the Return Path
    TLV is shown in Figure 5:
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 10]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 
     0                   1                   2                   3
@@ -604,6 +592,18 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    o  Type (value 2): SR-MPLS Binding SID
       [I-D.ietf-pce-binding-label-sid] of the Return SR Policy
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
