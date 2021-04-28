@@ -214,8 +214,8 @@
    The nodes R1 and R3 may be directly connected via a link enabled with MPLS 
    or there exists a Point-to-Point (P2P) SR-MPLS path <xref target="RFC8402"/>.
    The link may be a physical interface, virtual link,	
-   or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or LAG member link.	
-   The SR-MPLS path may be an SR-MPLS Policy	
+   or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or 
+   Layer-2 LAG bundle member link.  The SR-MPLS path may be an SR-MPLS Policy  
    <xref target="I-D.ietf-spring-segment-routing-policy"/> on node R1 
    (called head-end) with destination to node R3 (called tail-end).</t>  
  
@@ -704,9 +704,9 @@
    performance measurement procedures described in this document can be
    advertised in the routing domain as follows:</t>
 
-    <t><list style="symbols"><t>For OSPF, ISIS, and BGP-LS, protocol extensions defined in
-    <xref target="RFC7471"/>, <xref target="RFC8570"/>, and 
-    <xref target="RFC8571"/> are used, respectively for
+    <t><list style="symbols"><t>For OSPF, ISIS, and BGP-LS, protocol extensions 
+    defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, 
+    and <xref target="RFC8571"/> are used, respectively for
     advertising the extended TE link metrics in the network.</t>
 
     <t>The advertised delay-variance metric is computed as specified in
@@ -717,8 +717,8 @@
     loopback mode by dividing the measured delay values by 2.</t>
 
     <t>The extended TE link delay and loss metrics are advertised for
-    Layer 2 bundle members in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> and ISIS
-    <xref target="RFC8668"/> using the same mechanisms defined in
+    Layer-2 LAG bundle member links in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> 
+    and ISIS <xref target="RFC8668"/> using the same mechanisms defined in
     <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
     </list>
