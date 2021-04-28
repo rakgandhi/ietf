@@ -156,12 +156,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
    [RFC6374] for Performance Delay and Loss Measurements in SR networks
    with MPLS data plane, for both SR-MPLS links and end-to-end paths
    including SR-MPLS Policies.  In addition, this document defines
-   Return Path TLV and Block Number TLV extensions for [RFC6374].  The
-   Performance Measurements (PM) for SR-MPLS links are used to compute
-   extended Traffic Engineering (TE) metrics for delay and loss and can
-   be advertised in the network using the routing protocol extensions
-   defined in [RFC7471], [RFC8570], and [RFC8571].
+   Return Path TLV and Block Number TLV extensions for [RFC6374].
 
+   The Performance Measurements (PM) for SR-MPLS links are used to
+   compute extended Traffic Engineering (TE) metrics for delay and loss
+   and can be advertised in the network using the routing protocol
+   extensions defined in [RFC7471], [RFC8570], and [RFC8571].
 
 
 
