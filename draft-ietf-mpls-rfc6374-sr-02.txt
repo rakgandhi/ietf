@@ -647,7 +647,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 7.2.  Block Number TLV Extensions
 
    The loss measurement using Alternate-Marking method defined in
-   [RFC8321] requires to color the data traffic.  To be able to
+   [RFC8321] requires coloring the data traffic.  To be able to
    correlate the transmit and receive traffic counters of the matching
    color, the Block Number (or color) of the traffic counters is carried
    by the probe query and response messages for loss measurement.
@@ -698,8 +698,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    The Point-to-Multipoint (P2MP) SR-MPLS path that originates from a
    root node terminates on multiple destinations called leaf nodes (e.g.
-   P2MP SR-MPLS Policy [I-D.ietf-pim-sr-p2mp-policy] or P2MP Transport
-   [I-D.shen-spring-p2mp-transport-chain]).
+   P2MP SR-MPLS Policy [I-D.ietf-pim-sr-p2mp-policy]).
 
    The procedures for delay and loss measurement described in this
    document for end-to-end P2P SR-MPLS Policies are also equally
@@ -719,6 +718,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
    o  The P2MP root node measures the delay and loss performance for
       each P2MP leaf node individually.
+
 
 
 
@@ -1034,12 +1034,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
 
-   [I-D.shen-spring-p2mp-transport-chain]
-              Shen, Y., Zhang, Z., Parekh, R., Bidgoli, H., and Y.
-              Kamite, "Point-to-Multipoint Transport Using Chain
-              Replication in Segment Routing", draft-shen-spring-p2mp-
-              transport-chain-03 (work in progress), October 2020.
-
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
               and V. Kozak, "MPLS Data Plane Encapsulation for In-situ
@@ -1058,6 +1052,12 @@ Acknowledgments
    networks.  Authors would like to thank Patrick Khordoc for
    implementing the mechanisms defined in this document.  The authors
    would like to thank Greg Mirsky for providing many useful comments
+   and suggestions.  The authors would also like to thank Stewart
+   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
+   comments.  Thanks to Huaimo Chen, Yimin Shen, and Xufeng Liu for
+   MPLS-RT expert review.
+
+
 
 
 
@@ -1065,11 +1065,6 @@ Gandhi, et al.          Expires October 30, 2021               [Page 19]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
-
-   and suggestions.  The authors would also like to thank Stewart
-   Bryant, Sam Aldrin, Tarek Saad, and Rajiv Asati for their review
-   comments.  Thanks to Huaimo Chen, Yimin Shen, and Xufeng Liu for
-   MPLS-RT expert review.
 
 Contributors
 
@@ -1114,14 +1109,6 @@ Authors' Addresses
    Email: stefano.salsano@uniroma2.it
 
 
-
-
-
-Gandhi, et al.          Expires October 30, 2021               [Page 20]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
-
-
    Mach(Guoyi) Chen
    Huawei
 
@@ -1130,47 +1117,4 @@ Internet-Draft         Using RFC 6374 for SR-MPLS             April 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires October 30, 2021               [Page 21]
+Gandhi, et al.          Expires October 30, 2021               [Page 20]

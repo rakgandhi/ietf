@@ -584,7 +584,7 @@
 
     <section title="Block Number TLV Extensions" anchor="sect-7.2"><t>
    The loss measurement using Alternate-Marking method defined in
-   <xref target="RFC8321"/> requires to color the data traffic.  To be able to correlate
+   <xref target="RFC8321"/> requires coloring the data traffic.  To be able to correlate
    the transmit and receive traffic counters of the matching color, the
    Block Number (or color) of the traffic counters is carried by the
    probe query and response messages for loss measurement.</t>
@@ -628,10 +628,9 @@
 
 
     <section title="Performance Measurement for P2MP SR-MPLS Policies" anchor="sect-8"><t>
-   The Point-to-Multipoint (P2MP) SR-MPLS path
-   that originates from a root node terminates on multiple destinations called leaf nodes 
-   (e.g. P2MP SR-MPLS Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/> 
-   or P2MP Transport <xref target="I-D.shen-spring-p2mp-transport-chain"/>).</t>
+   The Point-to-Multipoint (P2MP) SR-MPLS path that originates from a 
+   root node terminates on multiple destinations called leaf nodes 
+   (e.g. P2MP SR-MPLS Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/>).</t>
 
    <t>The procedures for delay and loss measurement described in this
    document for end-to-end P2P SR-MPLS Policies  
@@ -855,7 +854,6 @@
     &I-D.ietf-spring-mpls-path-segment;
     &I-D.ietf-lsr-ospf-l2bundles;
     &I-D.ietf-pce-sr-bidir-path;
-    &I-D.shen-spring-p2mp-transport-chain;
     &I-D.gandhi-mpls-ioam-sr;
 
     <reference anchor="IEEE802.1AX"> 
