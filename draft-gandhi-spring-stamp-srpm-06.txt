@@ -247,9 +247,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    They are used in one-way, two-way (i.e. round-trip) and loopback
    measurement modes.  Note that one-way and round-trip are referred to
    in [RFC8762] and are further described in this document because of
-   the introduction of loopback measurement mode.  The procedures
-   defined in this document are also used to infer packet loss in SR
-   networks.
+   the introduction of loopback measurement mode in SR networks.  The
+   procedures defined in this document are also used to infer packet
+   loss in SR networks.
 
    The STAMP test packets are transmitted on the same path as the data
    traffic flow under measurement to measure the delay and packet loss
@@ -1032,8 +1032,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    [I-D.gandhi-ippm-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Simple TWAMP (STAMP) Extensions for Segment
-              Routing Networks", draft-gandhi-ippm-stamp-srpm-02 (work
-              in progress), February 2021.
+              Routing Networks", draft-gandhi-ippm-stamp-srpm-03 (work
+              in progress), April 2021.
 
 11.2.  Informative References
 

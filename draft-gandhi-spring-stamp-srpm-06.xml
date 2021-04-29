@@ -246,7 +246,7 @@
     They are used in one-way, two-way (i.e. round-trip) and loopback measurement modes. 
     Note that one-way and round-trip are referred to in <xref target="RFC8762"/> 
     and are further described in this document because of the introduction of 
-    loopback measurement mode.  The procedures defined in this document 
+    loopback measurement mode in SR networks.  The procedures defined in this document 
     are also used to infer packet loss in SR networks.</t> 
     
     <t>The STAMP test packets are transmitted on the same path as the data 
