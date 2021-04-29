@@ -89,7 +89,7 @@
     </author>
     
     
-    <date day="27" month="April" year="2021"/>
+    <date day="28" month="April" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -213,7 +213,7 @@
    in the reverse direction from the path taken towards the Session-Reflector.</t>  
 
    <t>The nodes R1 and R3 may be
-   connected via a link or there exists an SR path <xref target="RFC8402"/>.  
+   connected via a link or an SR path <xref target="RFC8402"/>.  
    The link may be a physical interface, virtual link, 
    or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or LAG member link. 
    The SR path may be an SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/> 
@@ -243,8 +243,10 @@
     <section title="Overview" anchor="sect-3"><t>
     For performance measurement in SR networks, the STAMP Session-Sender and 
     Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
-    They are used to measure one-way, two-way and round-trip delay 
-    as defined in this document. They are also used to infer packet loss in SR networks.</t> 
+    They are used for one-way, two-way (or round-trip) and loopback delay measurement modes. 
+    Note that these delay measurement modes are not defined in <xref target="RFC8762"/>,
+    but they are defined in this document.
+    The procedures defined in this document are also used to infer packet loss in SR networks.</t> 
     
     <t>The STAMP test packets are transmitted on the same path as the data 
     traffic flow under measurement to measure the delay and packet 
@@ -257,7 +259,7 @@
 
     <t>It may be desired in SR networks that the same path (same set of 
     links and nodes) between the Session-Sender and Session-Reflector 
-    is used for the STAMP test packets in both directions.  
+    be used for the STAMP test packets in both directions.  
     This is achieved by using the optional STAMP extensions for SR-MPLS 
     and SRv6 networks specified in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.  
     The STAMP Session-Reflector uses the return path parameters 
@@ -267,8 +269,8 @@
     <t>The optional STAMP extensions defined in <xref target="RFC8972"/> are
     used for direct measurement packet loss in SR networks.</t>
 
-    <t>Note that signaling and maintaining additional dynamic state for 
-    the STAMP sessions on Session-Reflector are avoided in SR networks.</t>
+    <t>Note that signaling and maintaining dynamic SR network state for 
+    the STAMP sessions are avoided.</t>
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
     An example of a STAMP reference model with some of the typical measurement 
@@ -315,7 +317,7 @@
     defined in <xref target="RFC8762"/>.</t>          
 
     <t>Example of Delay Measurement Mode is one-way, two-way and 
-    round-trip mode as defined in this document.</t>
+    loopback mode as defined in this document.</t>
 
     <t>Example of Packet Loss Type can be round-trip, near-end (forward) and far-end 
     (backward) packet loss as defined in <xref target="RFC8762"/>.</t>
@@ -369,9 +371,11 @@
    as Source and Destination Addresses, respectively. 
    For IPv6 links, the link local addresses <xref target="RFC7404"/> can be used in the IPv6 header.
    The Session-Sender may use 
-   the local Address Resolution Protocol (ARP) table to find the IP address for the links.
-   It is not recommended to use IPv4 address from the range 127/8 or IPv6 
-   loopback address ::1/128 <xref target="RFC4291"/> in the STAMP test packets for the links.</t>
+   the local Address Resolution Protocol (ARP) table,
+   Neighbor Solicitation or other bootstrap method to find the IP address for the links and refresh.
+   An IPv4 address from the range 127/8 or IPv6 
+   loopback address ::1/128 <xref target="RFC4291"/> must not be used
+   to IP route test packets in a network.</t>
     </section>
 
     
@@ -615,9 +619,9 @@
     </section>
     </section>
 
-   <section title="Round-trip Delay Measurement Mode" anchor="sect-4.2.3"><t>
+   <section title="Loopback Delay Measurement Mode" anchor="sect-4.2.3"><t>
    The STAMP Session-Sender test packets are transmitted in loopback mode to 
-   measure round-trip delay of a bidirectional path. In this mode,  
+   measure loopback delay of a bidirectional circular path. In this mode,  
    the received Session-Sender test packets are not punted out of the fast path in forwarding 
    (to slow path or control-plane) at the STAMP Session-Reflector. In other words, 
    the Session-Reflector does not process them and generate reply test packets.</t>
@@ -629,7 +633,8 @@
    Optionally, the STAMP Session-Sender test packet can carry the return path information (e.g.
    return path label stack for SR-MPLS) as part of the SR header.</t> 
 
-   <t>The Session-Sender uses the SSID field in the test packet to know that the test packet is
+   <t>The Session-Sender can use the SSID field in the reply test packet 
+   and/ or local configuration to know that the test session is
    using the loopback mode.  As the reply test packet is not generated by the STAMP Session-Reflector,
    the STAMP Session-Sender ignores the 'Session-Sender Sequence Number',
    'Session-Sender Timestamp', 'Session-Sender Error Estimate', and 'Session-Sender TTL' in 
@@ -637,9 +642,12 @@
    
    <t>In this mode, as per Reference Topology,
    the timestamps T1 and T4 are collected by the test packets.
-   Both these timestamps are used to measure round-trip delay as (T4 - T1).
+   Both these timestamps are used to measure loopback delay as (T4 - T1).
    When STAMP capability on the Session-Reflector node is
-   not possible, the one-way delay can be derived using round-trip delay divided by two.</t>
+   not possible, the one-way delay can be derived using loopback delay divided by two.
+   In this mode, the responder node processing time component reflects only the time
+   required to loop the test packet from the incoming interface to 
+   the outgoing interface in forwarding plane.</t>
      </section>
    </section>
 
@@ -648,8 +656,9 @@
    that originates from a root node terminates on multiple destinations called leaf nodes 
    (e.g. P2MP SR Policy <xref target="I-D.ietf-pim-sr-p2mp-policy"/>).</t>
 
-   <t>The procedures for performance measurement described in this
-   document for end-to-end P2P SR Policies are used for the P2MP SR Policies as listed below.</t>
+   <t>The procedures for delay and loss measurement described in this
+   document for end-to-end P2P SR Policies are also equally applicable to the P2MP SR Policies. 
+   The procedure for one-way measurement is defined as following:</t>
 
    <t><list style="symbols"><t>The STAMP Session-Sender root node transmits test packets using the
       Tree-SID defined in <xref target="I-D.ietf-pim-sr-p2mp-policy"/> for the
@@ -686,8 +695,9 @@
 ]]></artwork>
     </figure>
 
-   <t>The round-trip delay measurement for a P2MP SR-MPLS Policy can use the Node SID
-   of the Session-Sender at the bottom of the label stack in the MPLS header of the Session-Sender test packet.</t>
+
+    <t>The considerations for two-way mode for P2MP SR Policy (e.g. 
+    for co-routed bidirectional SR-MPLS path) are outside the scope of this document.</t>
 
     </section>
 
@@ -701,7 +711,7 @@
    is set to 255, except in the following cases.</t>
 
    <t>When using the Session-Reflector IPv4 Address from the range 127/8, 
-   the TTL field in the IPv4 header is set to 1.</t>
+   the TTL field in the IPv4 header is set to 1, for otherwise, encapsulated packets.</t>
 
    <t>For link delay, the TTL field in the STAMP test packet is set to 1 in 
    one-way and two-way delay measurement modes.</t>
@@ -714,7 +724,7 @@
    set to 255, except in the following cases.</t>
 
    <t>When using the Session-Reflector IPv6 Address of loopback address ::1/128, 
-   the Hop Limit field in the IPv6 header is set to 1.</t>
+   the Hop Limit field in the IPv6 header is set to 1, for otherwise, encapsulated packets.</t>
 
    <t>For link delay, the Hop Limit field in the STAMP test packet is set to 
    1 in one-way and two-way delay measurement modes.</t>
@@ -750,8 +760,8 @@
    The Sequence Number field in the STAMP test packet is used as 
    described in Section 4 "Theory of Operation" 
    where Stateful and Stateless Session-Reflector operations are defined            
-   <xref target="RFC8762"/>,
-   to detect forward, reverse and round-trip packet loss.</t>
+   <xref target="RFC8762"/>, to detect round-trip, near-end (forward) and far-end 
+   (backward) packet loss.</t>
 
    <t>This method can be used for inferred packet loss measurement, 
    however, it does not provide accurate data packet loss metric.</t>
@@ -809,7 +819,7 @@
 
    <t>In IPv4 header of the STAMP Session-Sender test packets,
    sweeping of Session-Reflector Address from the range 127/8 can be used to exercise
-   ECMP paths.  Note that in the loopback mode for round-trip delay measurement,
+   ECMP paths.  Note that in the loopback mode,
    both the forward and the return paths must be SR-MPLS paths 
    in this case.</t>
 

@@ -5,7 +5,7 @@
 SPRING Working Group                                      R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Informational                       Cisco Systems, Inc.
-Expires: October 29, 2021                                       D. Voyer
+Expires: October 30, 2021                                       D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
@@ -13,7 +13,7 @@ Expires: October 29, 2021                                       D. Voyer
                                                                     Colt
                                                                 R. Foote
                                                                    Nokia
-                                                          April 27, 2021
+                                                          April 28, 2021
 
 
  Performance Measurement Using Simple TWAMP (STAMP) for Segment Routing
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 29, 2021.
+   This Internet-Draft will expire on October 30, 2021.
 
 
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 1]
+Gandhi, et al.          Expires October 30, 2021                [Page 1]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -88,11 +88,11 @@ Table of Contents
      4.2.  Session-Reflector Test Packet . . . . . . . . . . . . . .  10
        4.2.1.  One-way Delay Measurement Mode  . . . . . . . . . . .  11
        4.2.2.  Two-way Delay Measurement Mode  . . . . . . . . . . .  11
-       4.2.3.  Round-trip Delay Measurement Mode . . . . . . . . . .  13
+       4.2.3.  Loopback Delay Measurement Mode . . . . . . . . . . .  13
      4.3.  Delay Measurement for P2MP SR Policies  . . . . . . . . .  14
      4.4.  Additional STAMP Test Packet Processing Rules . . . . . .  15
        4.4.1.  TTL . . . . . . . . . . . . . . . . . . . . . . . . .  15
-       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  15
+       4.4.2.  IPv6 Hop Limit  . . . . . . . . . . . . . . . . . . .  16
        4.4.3.  Router Alert Option . . . . . . . . . . . . . . . . .  16
        4.4.4.  UDP Checksum  . . . . . . . . . . . . . . . . . . . .  16
    5.  Packet Loss Measurement for Links and SR Paths  . . . . . . .  16
@@ -101,15 +101,15 @@ Table of Contents
    8.  ECMP Support for SR Policies  . . . . . . . . . . . . . . . .  17
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  19
      11.2.  Informative References . . . . . . . . . . . . . . . . .  19
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  21
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  22
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 2]
+Gandhi, et al.          Expires October 30, 2021                [Page 2]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -165,7 +165,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 3]
+Gandhi, et al.          Expires October 30, 2021                [Page 3]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -207,12 +207,12 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    of links and nodes) or a different path in the reverse direction from
    the path taken towards the Session-Reflector.
 
-   The nodes R1 and R3 may be connected via a link or there exists an SR
-   path [RFC8402].  The link may be a physical interface, virtual link,
-   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.
-   The SR path may be an SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
-   with destination to node R3 (called tail-end).
+   The nodes R1 and R3 may be connected via a link or an SR path
+   [RFC8402].  The link may be a physical interface, virtual link, or
+   Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.  The
+   SR path may be an SR Policy [I-D.ietf-spring-segment-routing-policy]
+   on node R1 (called head-end) with destination to node R3 (called
+   tail-end).
 
 
 
@@ -221,7 +221,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 4]
+Gandhi, et al.          Expires October 30, 2021                [Page 4]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -244,9 +244,11 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    For performance measurement in SR networks, the STAMP Session-Sender
    and Session-Reflector test packets defined in [RFC8762] are used.
-   They are used to measure one-way, two-way and round-trip delay as
-   defined in this document.  They are also used to infer packet loss in
-   SR networks.
+   They are used for one-way, two-way (or round-trip) and loopback delay
+   measurement modes.  Note that these delay measurement modes are not
+   defined in [RFC8762], but they are defined in this document.  The
+   procedures defined in this document are also used to infer packet
+   loss in SR networks.
 
    The STAMP test packets are transmitted on the same path as the data
    traffic flow under measurement to measure the delay and packet loss
@@ -259,7 +261,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    nodes is not guaranteed.
 
    It may be desired in SR networks that the same path (same set of
-   links and nodes) between the Session-Sender and Session-Reflector is
+   links and nodes) between the Session-Sender and Session-Reflector be
    used for the STAMP test packets in both directions.  This is achieved
    by using the optional STAMP extensions for SR-MPLS and SRv6 networks
    specified in [I-D.gandhi-ippm-stamp-srpm].  The STAMP Session-
@@ -270,14 +272,12 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    The optional STAMP extensions defined in [RFC8972] are used for
    direct measurement packet loss in SR networks.
 
-   Note that signaling and maintaining additional dynamic state for the
-   STAMP sessions on Session-Reflector are avoided in SR networks.
+   Note that signaling and maintaining dynamic SR network state for the
+   STAMP sessions are avoided.
 
 
 
-
-
-Gandhi, et al.          Expires October 29, 2021                [Page 5]
+Gandhi, et al.          Expires October 30, 2021                [Page 5]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -325,7 +325,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    The Session-Reflector mode can be Stateful or Stateless as defined in
    [RFC8762].
 
-   Example of Delay Measurement Mode is one-way, two-way and round-trip
+   Example of Delay Measurement Mode is one-way, two-way and loopback
    mode as defined in this document.
 
    Example of Packet Loss Type can be round-trip, near-end (forward) and
@@ -333,7 +333,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 6]
+Gandhi, et al.          Expires October 30, 2021                [Page 6]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -385,18 +385,19 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    remote IP addresses of the link are used as Source and Destination
    Addresses, respectively.  For IPv6 links, the link local addresses
    [RFC7404] can be used in the IPv6 header.  The Session-Sender may use
-   the local Address Resolution Protocol (ARP) table to find the IP
+   the local Address Resolution Protocol (ARP) table, Neighbor
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 7]
+Gandhi, et al.          Expires October 30, 2021                [Page 7]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
-   address for the links.  It is not recommended to use IPv4 address
-   from the range 127/8 or IPv6 loopback address ::1/128 [RFC4291] in
-   the STAMP test packets for the links.
+   Solicitation or other bootstrap method to find the IP address for the
+   links and refresh.  An IPv4 address from the range 127/8 or IPv6
+   loopback address ::1/128 [RFC4291] must not be used to IP route test
+   packets in a network.
 
 4.1.2.  Session-Sender Test Packet for SR Paths
 
@@ -444,8 +445,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-
-Gandhi, et al.          Expires October 29, 2021                [Page 8]
+Gandhi, et al.          Expires October 30, 2021                [Page 8]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -501,7 +501,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 9]
+Gandhi, et al.          Expires October 30, 2021                [Page 9]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -557,7 +557,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 10]
+Gandhi, et al.          Expires October 30, 2021               [Page 10]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -613,7 +613,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 11]
+Gandhi, et al.          Expires October 30, 2021               [Page 11]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -669,7 +669,7 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 12]
+Gandhi, et al.          Expires October 30, 2021               [Page 12]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -713,19 +713,19 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
       Figure 7: Example Session-Reflector Test Packet for SRv6 Policy
 
-4.2.3.  Round-trip Delay Measurement Mode
+4.2.3.  Loopback Delay Measurement Mode
 
    The STAMP Session-Sender test packets are transmitted in loopback
-   mode to measure round-trip delay of a bidirectional path.  In this
-   mode, the received Session-Sender test packets are not punted out of
-   the fast path in forwarding (to slow path or control-plane) at the
-   STAMP Session-Reflector.  In other words, the Session-Reflector does
-   not process them and generate reply test packets.
+   mode to measure loopback delay of a bidirectional circular path.  In
+   this mode, the received Session-Sender test packets are not punted
+   out of the fast path in forwarding (to slow path or control-plane) at
+   the STAMP Session-Reflector.  In other words, the Session-Reflector
+   does not process them and generate reply test packets.
 
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 13]
+Gandhi, et al.          Expires October 30, 2021               [Page 13]
 
 Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
@@ -738,19 +738,23 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    packet can carry the return path information (e.g.  return path label
    stack for SR-MPLS) as part of the SR header.
 
-   The Session-Sender uses the SSID field in the test packet to know
-   that the test packet is using the loopback mode.  As the reply test
-   packet is not generated by the STAMP Session-Reflector, the STAMP
-   Session-Sender ignores the 'Session-Sender Sequence Number',
-   'Session-Sender Timestamp', 'Session-Sender Error Estimate', and
-   'Session-Sender TTL' in the received test packet.  The Session-Sender
-   sets these fields to 0 upon transmission.
+   The Session-Sender can use the SSID field in the reply test packet
+   and/ or local configuration to know that the test session is using
+   the loopback mode.  As the reply test packet is not generated by the
+   STAMP Session-Reflector, the STAMP Session-Sender ignores the
+   'Session-Sender Sequence Number', 'Session-Sender Timestamp',
+   'Session-Sender Error Estimate', and 'Session-Sender TTL' in the
+   received test packet.  The Session-Sender sets these fields to 0 upon
+   transmission.
 
    In this mode, as per Reference Topology, the timestamps T1 and T4 are
    collected by the test packets.  Both these timestamps are used to
-   measure round-trip delay as (T4 - T1).  When STAMP capability on the
+   measure loopback delay as (T4 - T1).  When STAMP capability on the
    Session-Reflector node is not possible, the one-way delay can be
-   derived using round-trip delay divided by two.
+   derived using loopback delay divided by two.  In this mode, the
+   responder node processing time component reflects only the time
+   required to loop the test packet from the incoming interface to the
+   outgoing interface in forwarding plane.
 
 4.3.  Delay Measurement for P2MP SR Policies
 
@@ -758,9 +762,10 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    node terminates on multiple destinations called leaf nodes (e.g.
    P2MP SR Policy [I-D.ietf-pim-sr-p2mp-policy]).
 
-   The procedures for performance measurement described in this document
-   for end-to-end P2P SR Policies are used for the P2MP SR Policies as
-   listed below.
+   The procedures for delay and loss measurement described in this
+   document for end-to-end P2P SR Policies are also equally applicable
+   to the P2MP SR Policies.  The procedure for one-way measurement is
+   defined as following:
 
    o  The STAMP Session-Sender root node transmits test packets using
       the Tree-SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP
@@ -773,17 +778,19 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    o  Each STAMP Session-Reflector leaf node transmits its node address
       in the Source Address of the reply test packets shown in Figure 5.
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 14]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
       This allows the STAMP Session-Sender root node to identify the
       STAMP Session-Reflector leaf nodes of the P2MP SR Policy.
 
    o  The P2MP root node measures the delay for each P2MP leaf node
       individually.
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 14]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
 
     0                   1                   2                   3
@@ -802,9 +809,9 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
     Figure 8: Example Session-Sender Test Packet with Tree-SID for SR-
                                 MPLS Policy
 
-   The round-trip delay measurement for a P2MP SR-MPLS Policy can use
-   the Node SID of the Session-Sender at the bottom of the label stack
-   in the MPLS header of the Session-Sender test packet.
+   The considerations for two-way mode for P2MP SR Policy (e.g.  for co-
+   routed bidirectional SR-MPLS path) are outside the scope of this
+   document.
 
 4.4.  Additional STAMP Test Packet Processing Rules
 
@@ -819,10 +826,21 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    in the following cases.
 
    When using the Session-Reflector IPv4 Address from the range 127/8,
-   the TTL field in the IPv4 header is set to 1.
+   the TTL field in the IPv4 header is set to 1, for otherwise,
+   encapsulated packets.
 
    For link delay, the TTL field in the STAMP test packet is set to 1 in
    one-way and two-way delay measurement modes.
+
+
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 15]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
 
 4.4.2.  IPv6 Hop Limit
 
@@ -831,16 +849,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    in the following cases.
 
    When using the Session-Reflector IPv6 Address of loopback address
-   ::1/128, the Hop Limit field in the IPv6 header is set to 1.
-
-
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 15]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
+   ::1/128, the Hop Limit field in the IPv6 header is set to 1, for
+   otherwise, encapsulated packets.
 
    For link delay, the Hop Limit field in the STAMP test packet is set
    to 1 in one-way and two-way delay measurement modes.
@@ -868,7 +878,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    and end-to-end SR paths.  The Sequence Number field in the STAMP test
    packet is used as described in Section 4 "Theory of Operation" where
    Stateful and Stateless Session-Reflector operations are defined
-   [RFC8762], to detect forward, reverse and round-trip packet loss.
+   [RFC8762], to detect round-trip, near-end (forward) and far-end
+   (backward) packet loss.
 
    This method can be used for inferred packet loss measurement,
    however, it does not provide accurate data packet loss metric.
@@ -878,6 +889,15 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    The STAMP "Direct Measurement" TLV (Type 5) defined in [RFC8972] can
    be used in SR networks for data packet loss measurement.  The STAMP
    test packets with this TLV are transmitted using the procedures
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 16]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
    described in Section 4 to collect the transmit and receive counters
    of the data flow for the links and end-to-end SR paths.
 
@@ -890,14 +910,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    The STAMP "Direct Measurement" TLV (Type 5) lacks the support to
    identify the Block Number of the Direct Measurement traffic counters,
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 16]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
    which is required for Alternate-Marking Method [RFC8321] for accurate
    data packet loss metric.
 
@@ -932,9 +944,15 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    In IPv4 header of the STAMP Session-Sender test packets, sweeping of
    Session-Reflector Address from the range 127/8 can be used to
-   exercise ECMP paths.  Note that in the loopback mode for round-trip
-   delay measurement, both the forward and the return paths must be SR-
-   MPLS paths in this case.
+   exercise ECMP paths.  Note that in the loopback mode, both the
+   forward and the return paths must be SR-MPLS paths in this case.
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 17]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
 
    As specified in [RFC6437], Flow Label field in the outer IPv6 header
    can also be used for sweeping to exercise different IPv6 ECMP paths.
@@ -945,15 +963,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    Session-Reflector Address from 127/8 range when the STAMP test packet
    is encapsulated by a tunneling protocol or an MPLS Segment list.  The
    STAMP Session-Reflector must not transmit reply test packet if it is
-
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 17]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
    not the intended destination node in the "Destination Node Address"
    TLV [I-D.gandhi-ippm-stamp-srpm].
 
@@ -989,6 +998,18 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
 
    This document does not require any IANA action.
 
+
+
+
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 18]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
 11.  References
 
 11.1.  Normative References
@@ -1002,14 +1023,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               DOI 10.17487/RFC8762, March 2020,
               <https://www.rfc-editor.org/info/rfc8762>.
 
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 18]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
    [RFC8972]  Mirsky, G., Min, X., Nydell, H., Foote, R., Masputra, A.,
               and E. Ruffini, "Simple Two-Way Active Measurement
               Protocol Optional Extensions", RFC 8972,
@@ -1019,8 +1032,8 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    [I-D.gandhi-ippm-stamp-srpm]
               Gandhi, R., Filsfils, C., Voyer, D., Chen, M., and B.
               Janssens, "Simple TWAMP (STAMP) Extensions for Segment
-              Routing Networks", draft-gandhi-ippm-stamp-srpm-01 (work
-              in progress), January 2021.
+              Routing Networks", draft-gandhi-ippm-stamp-srpm-02 (work
+              in progress), February 2021.
 
 11.2.  Informative References
 
@@ -1042,6 +1055,17 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               Switched Paths (LSPs)", RFC 5884, DOI 10.17487/RFC5884,
               June 2010, <https://www.rfc-editor.org/info/rfc5884>.
 
+
+
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 19]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
    [RFC6437]  Amante, S., Carpenter, B., Jiang, S., and J. Rajahalme,
               "IPv6 Flow Label Specification", RFC 6437,
               DOI 10.17487/RFC6437, November 2011,
@@ -1056,15 +1080,6 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               Addressing inside an IPv6 Network", RFC 7404,
               DOI 10.17487/RFC7404, November 2014,
               <https://www.rfc-editor.org/info/rfc7404>.
-
-
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 19]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
 
    [RFC7820]  Mizrahi, T., "UDP Checksum Complement in the One-Way
               Active Measurement Protocol (OWAMP) and Two-Way Active
@@ -1098,6 +1113,15 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               (SRH)", RFC 8754, DOI 10.17487/RFC8754, March 2020,
               <https://www.rfc-editor.org/info/rfc8754>.
 
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 20]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
    [RFC8986]  Filsfils, C., Ed., Camarillo, P., Ed., Leddy, J., Voyer,
               D., Matsushima, S., and Z. Li, "Segment Routing over IPv6
               (SRv6) Network Programming", RFC 8986,
@@ -1110,35 +1134,23 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
               ietf-spring-segment-routing-policy-09 (work in progress),
               November 2020.
 
-
-
-
-
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 20]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
    [I-D.ietf-spring-sr-replication-segment]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "SR Replication Segment for Multi-point Service
-              Delivery", draft-ietf-spring-sr-replication-segment-02
-              (work in progress), October 2020.
+              Delivery", draft-ietf-spring-sr-replication-segment-04
+              (work in progress), February 2021.
 
    [I-D.ietf-pim-sr-p2mp-policy]
               Voyer, D., Filsfils, C., Parekh, R., Bidgoli, H., and Z.
               Zhang, "Segment Routing Point-to-Multipoint Policy",
-              draft-ietf-pim-sr-p2mp-policy-01 (work in progress),
-              October 2020.
+              draft-ietf-pim-sr-p2mp-policy-02 (work in progress),
+              February 2021.
 
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
-              draft-ietf-spring-mpls-path-segment-03 (work in progress),
-              September 2020.
+              draft-ietf-spring-mpls-path-segment-04 (work in progress),
+              April 2021.
 
    [I-D.ietf-spring-srv6-path-segment]
               Li, C., Cheng, W., Chen, M., Dhody, D., and R. Gandhi,
@@ -1156,7 +1168,15 @@ Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
    [I-D.ietf-ippm-stamp-yang]
               Mirsky, G., Min, X., and W. Luo, "Simple Two-way Active
               Measurement Protocol (STAMP) Data Model", draft-ietf-ippm-
-              stamp-yang-06 (work in progress), October 2020.
+              stamp-yang-07 (work in progress), March 2021.
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 21]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
 
    [IEEE802.1AX]
               IEEE Std. 802.1AX, "IEEE Standard for Local and
@@ -1170,14 +1190,6 @@ Acknowledgments
    authors would also like to thank Greg Mirsky, Gyan Mishra, Xie
    Jingrong, and Mike Koldychev for reviewing this document and
    providing useful comments and suggestions.  Patrick Khordoc and Radu
-
-
-
-Gandhi, et al.          Expires October 29, 2021               [Page 21]
-
-Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
-
-
    Valceanu have helped improve the mechanisms described in this
    document.
 
@@ -1214,6 +1226,14 @@ Authors' Addresses
    Email: Bart.Janssens@colt.net
 
 
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 22]
+
+Internet-Draft   Using Simple TWAMP for Segment Routing       April 2021
+
+
    Richard Foote
    Nokia
 
@@ -1229,4 +1249,40 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires October 30, 2021               [Page 23]
