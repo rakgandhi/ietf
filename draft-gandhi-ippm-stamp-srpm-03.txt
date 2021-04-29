@@ -5,7 +5,7 @@
 IPPM Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: October 29, 2021                                       D. Voyer
+Expires: October 31, 2021                                       D. Voyer
                                                              Bell Canada
                                                                  M. Chen
                                                                   Huawei
@@ -13,7 +13,7 @@ Expires: October 29, 2021                                       D. Voyer
                                                                     Colt
                                                                 R. Foote
                                                                    Nokia
-                                                          April 27, 2021
+                                                          April 29, 2021
 
 
       Simple TWAMP (STAMP) Extensions for Segment Routing Networks
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 29, 2021.
+   This Internet-Draft will expire on October 31, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 1]
+Gandhi, et al.          Expires October 31, 2021                [Page 1]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 2]
+Gandhi, et al.          Expires October 31, 2021                [Page 2]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -165,17 +165,17 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 3]
+Gandhi, et al.          Expires October 31, 2021                [Page 3]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
-   The nodes R1 and R3 may be connected via a link or there exists an SR
-   path [RFC8402].  The link may be a physical interface, virtual link,
-   or Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.
-   The SR path may be an SR Policy
-   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
-   with destination to node R3 (called tail-end).
+   The nodes R1 and R3 may be connected via a link or an SR path
+   [RFC8402].  The link may be a physical interface, virtual link, or
+   Link Aggregation Group (LAG) [IEEE802.1AX], or LAG member link.  The
+   SR path may be an SR Policy [I-D.ietf-spring-segment-routing-policy]
+   on node R1 (called head-end) with destination to node R3 (called
+   tail-end).
 
                           T1                T2
                          /                   \
@@ -221,7 +221,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 4]
+Gandhi, et al.          Expires October 31, 2021                [Page 4]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -245,17 +245,14 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
    transmit the reply test packet on a specific return path.  The STAMP
    Session-Sender can request this in the test packet to the STAMP
    Session-Reflector using a Return Path TLV.  With this TLV carried in
-   the STAMP Session-Sender test packet, the STAMP Session-Reflector
-   does not require signaling and maintaining any additional dynamic
-   states for the STAMP sessions for the end-to-end SR paths.
+   the STAMP Session-Sender test packet, signaling and maintaining
+   dynamic SR network state for the STAMP sessions on the Session-
+   Reflector are avoided.
 
    For links, the STAMP Session-Reflector may need to transmit the reply
    test packet on the same incoming link in the reverse direction.  The
    STAMP Session-Sender can request this in the test packet to the STAMP
-   Session-Reflector using a Return Path TLV.  With this TLV carried in
-   the STAMP Session-Sender test packet, the STAMP Session-Reflector
-   does not require maintenance of any additional states for the STAMP
-   sessions for the links.
+   Session-Reflector using a Return Path TLV.
 
    [RFC8972] defines STAMP test packets that can include one or more
    optional TLVs.  In this document, the TLV Type (value TBA2) is
@@ -274,16 +271,16 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
                          Figure 2: Return Path TLV
 
+   The STAMP TLV Flags are set using the procedures described in
+   [RFC8972].
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 5]
+
+Gandhi, et al.          Expires October 31, 2021                [Page 5]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
-
-   The STAMP TLV Flags are set using the procedures described in
-   [RFC8972].
 
    The Return Path TLV is optional.  The STAMP Session-Sender MUST only
    insert one Return Path TLV in the STAMP test packet.  The STAMP
@@ -296,8 +293,8 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
    The Return Path TLV contains one or more Sub-TLVs to carry the
    information for the requested return path.  A Return Path Sub-TLV can
-   either carry Return Path Control Code, Return Path IP Address or
-   Return Path Segment List.
+   carry Return Path Control Code, Return Path IP Address or Return Path
+   Segment List.
 
    The STAMP Sub-TLV Flags are set using the procedures described in
    [RFC8972].
@@ -306,6 +303,9 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
    packet, the STAMP Session-Reflector that supports this TLV, MUST
    transmit reply test packet using the return path information
    specified in the Return Path Sub-TLV.
+
+   A Return Path TLV MUST NOT contain both Control Code Sub-TLV as well
+   as Return Address or Return Segment List Sub-TLV.
 
 4.1.1.  Return Path Control Code Sub-TLV
 
@@ -333,7 +333,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 6]
+Gandhi, et al.          Expires October 31, 2021                [Page 6]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -389,7 +389,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 7]
+Gandhi, et al.          Expires October 31, 2021                [Page 7]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -402,13 +402,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
    o  Type (value 3): SR-MPLS Label Stack of the Return Path
 
-   o  Type (value 4): SR-MPLS Binding SID
-      [I-D.ietf-pce-binding-label-sid] of the Return SR Policy
-
-   o  Type (value 5): SRv6 Segment List of the Return Path
-
-   o  Type (value 6): SRv6 Binding SID [I-D.ietf-pce-binding-label-sid]
-      of the Return SR Policy
+   o  Type (value 4): SRv6 Segment List of the Return Path
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -428,6 +422,12 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
              Figure 5: Segment List Sub-TLV in Return Path TLV
 
+   An SR-MPLS Label Stack Sub-TLV may carry only Binding SID
+   [I-D.ietf-pce-binding-label-sid] of the Return SR-MPLS Policy.
+
+   An SRv6 Segment List Sub-TLV may carry only Binding SID
+   [I-D.ietf-pce-binding-label-sid] of the Return SRv6 Policy.
+
    The STAMP Session-Sender MUST only insert one Segment List Return
    Path Sub-TLV in the test packet.  The STAMP Session-Reflector MUST
    only process the first Segment List Return Path Sub-TLV in the test
@@ -445,7 +445,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 8]
+Gandhi, et al.          Expires October 31, 2021                [Page 8]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -501,7 +501,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021                [Page 9]
+Gandhi, et al.          Expires October 31, 2021                [Page 9]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -512,11 +512,7 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
    o  Type (value 3): SR-MPLS Label Stack of the Return Path
 
-   o  Type (value 4): SR-MPLS Binding SID of the Return SR Policy
-
-   o  Type (value 5): SRv6 Segment List of the Return Path
-
-   o  Type (value 6): SRv6 Binding SID of the Return SR Policy
+   o  Type (value 4): SRv6 Segment List of the Return Path
 
 7.  References
 
@@ -557,7 +553,11 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 10]
+
+
+
+
+Gandhi, et al.          Expires October 31, 2021               [Page 10]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -569,10 +569,10 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
               November 2020.
 
    [I-D.ietf-pce-binding-label-sid]
-              Sivabalan, S., Filsfils, C., Tantsura, J., Hardwick, J.,
-              Previdi, S., and C. Li, "Carrying Binding Label/Segment-ID
-              in PCE-based Networks.", draft-ietf-pce-binding-label-
-              sid-05 (work in progress), October 2020.
+              Sivabalan, S., Filsfils, C., Tantsura, J., Previdi, S.,
+              and C. Li, "Carrying Binding Label/Segment Identifier in
+              PCE-based Networks.", draft-ietf-pce-binding-label-sid-08
+              (work in progress), April 2021.
 
    [IEEE802.1AX]
               IEEE Std. 802.1AX, "IEEE Standard for Local and
@@ -613,7 +613,7 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 11]
+Gandhi, et al.          Expires October 31, 2021               [Page 11]
 
 Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
@@ -669,4 +669,4 @@ Internet-Draft Simple TWAMP Extensions for Segment Routing    April 2021
 
 
 
-Gandhi, et al.          Expires October 29, 2021               [Page 12]
+Gandhi, et al.          Expires October 31, 2021               [Page 12]

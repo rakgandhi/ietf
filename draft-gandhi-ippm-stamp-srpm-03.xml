@@ -78,7 +78,7 @@
     </author>
     
 
-    <date day="27" month="April" year="2021"/>
+    <date day="29" month="April" year="2021"/>
     <workgroup>IPPM Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -164,7 +164,7 @@
    in the reverse direction from the path taken towards the Session-Reflector.</t>  
 
    <t>The nodes R1 and R3 may be
-   connected via a link or there exists an SR path <xref target="RFC8402"/>.  
+   connected via a link or an SR path <xref target="RFC8402"/>.  
    The link may be a physical interface, virtual link, 
    or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or LAG member link. 
    The SR path may be an SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/> 
@@ -238,17 +238,14 @@
    For end-to-end SR paths, the STAMP Session-Reflector may need to transmit the reply test 
    packet on a specific return path.  The STAMP Session-Sender
    can request this in the test packet to the STAMP Session-Reflector using a Return Path TLV. 
-   With this TLV carried in the STAMP Session-Sender test packet, 
-   the STAMP Session-Reflector does not require signaling and maintaining 
-   any additional dynamic states for the STAMP sessions for the end-to-end SR paths.</t>
+   With this TLV carried in the STAMP Session-Sender test packet,
+   signaling and maintaining dynamic SR network state for the
+   STAMP sessions on the Session-Reflector are avoided.</t>
 
    <t>For links, the STAMP Session-Reflector may need to transmit the reply test
    packet on the same incoming link in the reverse direction. 
    The STAMP Session-Sender can request this in the test packet 
-   to the STAMP Session-Reflector using a Return Path TLV. 
-   With this TLV carried in the STAMP Session-Sender test packet, 
-   the STAMP Session-Reflector does not require maintenance of 
-   any additional states for the STAMP sessions for the links.</t>
+   to the STAMP Session-Reflector using a Return Path TLV.</t>
 
     <t><xref target="RFC8972"/> defines STAMP test packets that
    can include one or more optional TLVs.  In this document, the TLV Type (value TBA2) is
@@ -279,7 +276,7 @@
    <section title="Return Path Sub-TLVs" anchor="sect-4.1">
    <t>The Return Path TLV contains one or more Sub-TLVs to carry 
    the information for the requested return path. 
-   A Return Path Sub-TLV can either carry Return Path Control Code, 
+   A Return Path Sub-TLV can carry Return Path Control Code, 
    Return Path IP Address or Return Path Segment List.</t>
 
    <t>The STAMP Sub-TLV Flags are set using the procedures described in <xref target="RFC8972"/>.</t>
@@ -288,6 +285,10 @@
    the STAMP Session-Reflector that supports this TLV,
    MUST transmit reply test packet using the return path information 
    specified in the Return Path Sub-TLV.</t>
+
+   <t>A Return Path TLV MUST NOT contain both Control Code Sub-TLV as 
+   well as Return Address or Return Segment List Sub-TLV.</t>
+
 
    <section title="Return Path Control Code Sub-TLV" anchor="sect-4.1.1">
     <t>The format of the Return Path Control Code Sub-TLV is shown in Figure 3. The Type of the Return Path 
@@ -372,15 +373,10 @@
     The segment entries MUST be in network order. 
     The Segment List Sub-TLV can be one of the following Types:</t>
 
-    <t><list style="symbols"><t>Type (value 3): SR-MPLS Label Stack of the Return Path</t>
+    <t><list style="symbols">
+    <t>Type (value 3): SR-MPLS Label Stack of the Return Path</t>
 
-    <t>Type (value 4): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-      the Return SR Policy</t>
-
-    <t>Type (value 5): SRv6 Segment List of the Return Path</t>
-
-    <t>Type (value 6): SRv6 Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-      the Return SR Policy</t>
+    <t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
     </list>
     </t>
@@ -405,6 +401,12 @@
 ]]></artwork>
     </figure>
 
+
+   <t>An SR-MPLS Label Stack Sub-TLV may carry only Binding SID 
+   <xref target="I-D.ietf-pce-binding-label-sid"/> of the Return SR-MPLS Policy.</t>
+
+   <t>An SRv6 Segment List Sub-TLV may carry only Binding SID 
+   <xref target="I-D.ietf-pce-binding-label-sid"/> of the Return SRv6 Policy.</t>
 
    <t>The STAMP Session-Sender MUST only insert one Segment List Return Path Sub-TLV
    in the test packet.  The STAMP Session-Reflector MUST only process
@@ -500,11 +502,7 @@
 
     <t>Type (value 3): SR-MPLS Label Stack of the Return Path</t>
 
-    <t>Type (value 4): SR-MPLS Binding SID of the Return SR Policy</t>
-
-    <t>Type (value 5): SRv6 Segment List of the Return Path</t>
-
-    <t>Type (value 6): SRv6 Binding SID of the Return SR Policy</t>
+    <t>Type (value 4): SRv6 Segment List of the Return Path</t>
 
     </list>
     </t>

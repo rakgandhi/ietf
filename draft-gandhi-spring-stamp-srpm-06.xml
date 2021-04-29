@@ -89,7 +89,7 @@
     </author>
     
     
-    <date day="28" month="April" year="2021"/>
+    <date day="29" month="April" year="2021"/>
     <workgroup>SPRING Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  SR is
@@ -243,19 +243,21 @@
     <section title="Overview" anchor="sect-3"><t>
     For performance measurement in SR networks, the STAMP Session-Sender and 
     Session-Reflector test packets defined in <xref target="RFC8762"/> are used.
-    They are used for one-way, two-way (or round-trip) and loopback delay measurement modes. 
-    Note that these delay measurement modes are not defined in <xref target="RFC8762"/>,
-    but they are defined in this document.
-    The procedures defined in this document are also used to infer packet loss in SR networks.</t> 
+    They are used in one-way, two-way (i.e. round-trip) and loopback measurement modes. 
+    Note that one-way and round-trip are referred to in <xref target="RFC8762"/> 
+    and are further described in this document because of the introduction of 
+    loopback measurement mode.  The procedures defined in this document 
+    are also used to infer packet loss in SR networks.</t> 
     
     <t>The STAMP test packets are transmitted on the same path as the data 
     traffic flow under measurement to measure the delay and packet 
     loss experienced by the data traffic flow.</t>
  
-    <t>Typically, the STAMP test packets are transmitted along an IP path between a Session-Sender 
-    and a Session-Reflector to measure delay and packet loss along that IP path.  
-    Matching the forward and reverse direction paths for STAMP test packets, 
-    even for directly connected nodes is not guaranteed.</t>
+    <t>Typically, the STAMP test packets are transmitted along an IP path 
+    between a Session-Sender and a Session-Reflector to measure delay and 
+    packet loss along that IP path.  Matching the forward and reverse 
+    direction paths for STAMP test packets, even for directly connected 
+    nodes is not guaranteed.</t>
 
     <t>It may be desired in SR networks that the same path (same set of 
     links and nodes) between the Session-Sender and Session-Reflector 
@@ -264,13 +266,12 @@
     and SRv6 networks specified in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.  
     The STAMP Session-Reflector uses the return path parameters 
     for the reply test packet from the received STAMP test packet,
-    as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.</t>
+    as described in <xref target="I-D.gandhi-ippm-stamp-srpm"/>.
+    This way signaling and maintaining dynamic SR network state for 
+    the STAMP sessions on the Session-Reflector are avoided.</t>
 
     <t>The optional STAMP extensions defined in <xref target="RFC8972"/> are
     used for direct measurement packet loss in SR networks.</t>
-
-    <t>Note that signaling and maintaining dynamic SR network state for 
-    the STAMP sessions are avoided.</t>
 
     <section title="Example STAMP Reference Model" anchor="sect-3.1"><t>
     An example of a STAMP reference model with some of the typical measurement 
@@ -316,8 +317,8 @@
     <t>The Session-Reflector mode can be Stateful or Stateless as 
     defined in <xref target="RFC8762"/>.</t>          
 
-    <t>Example of Delay Measurement Mode is one-way, two-way and 
-    loopback mode as defined in this document.</t>
+    <t>Example of Delay Measurement Mode is one-way, two-way (i.e. round-trip) and 
+    loopback mode as described in this document.</t>
 
     <t>Example of Packet Loss Type can be round-trip, near-end (forward) and far-end 
     (backward) packet loss as defined in <xref target="RFC8762"/>.</t>
@@ -500,7 +501,7 @@
 ]]></artwork>
     </figure>
  
-   <section title="One-way Delay Measurement Mode" anchor="sect-4.2.1"><t>
+   <section title="One-way Measurement Mode" anchor="sect-4.2.1"><t>
    In one-way delay measurement mode, a reply test packet
    as shown in Figure 5 is transmitted by the STAMP Session-Reflector,
    for both links and end-to-end SR Policies.  The reply test packet may be transmitted on the same path 
@@ -520,8 +521,8 @@
 
     </section>
 
-   <section title="Two-way Delay Measurement Mode" anchor="sect-4.2.2"><t>
-   In two-way delay measurement mode, a reply test packet as shown in 
+   <section title="Two-way Measurement Mode" anchor="sect-4.2.2"><t>
+   In two-way (i.e. round-trip) delay measurement mode, a reply test packet as shown in 
    Figure 5 is transmitted by the STAMP Session-Reflector 
    on the same path in the reverse direction, 
    e.g. on the reverse direction link or associated reverse SR path
@@ -619,7 +620,7 @@
     </section>
     </section>
 
-   <section title="Loopback Delay Measurement Mode" anchor="sect-4.2.3"><t>
+   <section title="Loopback Measurement Mode" anchor="sect-4.2.3"><t>
    The STAMP Session-Sender test packets are transmitted in loopback mode to 
    measure loopback delay of a bidirectional circular path. In this mode,  
    the received Session-Sender test packets are not punted out of the fast path in forwarding 
@@ -819,9 +820,9 @@
 
    <t>In IPv4 header of the STAMP Session-Sender test packets,
    sweeping of Session-Reflector Address from the range 127/8 can be used to exercise
-   ECMP paths.  Note that in the loopback mode,
+   ECMP paths.  In this case,
    both the forward and the return paths must be SR-MPLS paths 
-   in this case.</t>
+   when using the loopback mode.</t>
 
    <t>As specified in <xref target="RFC6437"/>, Flow Label field in
    the outer IPv6 header can also be used for sweeping to exercise different IPv6 ECMP paths.</t>

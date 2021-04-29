@@ -72,7 +72,7 @@
     </address>
     </author>
 
-    <date day="28" month="April" year="2021"/>
+    <date day="29" month="April" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -203,7 +203,7 @@
 
    <t>SR is enabled with MPLS data plane on nodes R1 and R3.
    The nodes R1 and R3 may be directly connected via a link enabled with MPLS 
-   or there exists a Point-to-Point (P2P) SR-MPLS path <xref target="RFC8402"/>.
+   or a Point-to-Point (P2P) SR-MPLS path <xref target="RFC8402"/>.
    The link may be a physical interface, virtual link,	
    or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or 
    Layer-2 LAG bundle member link.  The SR-MPLS path may be an SR-MPLS Policy  
@@ -534,9 +534,6 @@
 
     <t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Return Path</t>
 
-    <t>Type (value 2): SR-MPLS Binding SID <xref target="I-D.ietf-pce-binding-label-sid"/> of
-                       the Return SR Policy</t>
-
     </list>
     </t>
 
@@ -560,6 +557,10 @@
 ]]></artwork>
     </figure>
 
+
+   <t>An SR-MPLS Label Stack Sub-TLV may carry only Binding SID 
+   <xref target="I-D.ietf-pce-binding-label-sid"/> of the Return SR-MPLS Policy.</t>
+ 
     <t>
    The Return Path TLV MUST carry only one Return Path Sub-TLV. 
    The responder node that supports this Sub-TLV, MUST only process the 
@@ -801,11 +802,8 @@
     <ttcol align="center">Description</ttcol>
     <ttcol align="left">Reference</ttcol>
      <c>1</c>
-    <c>SR-MPLS Label Stack of the Return Path</c>
-    <c>This document</c>
-     <c>2</c>
-    <c>SR-MPLS Binding SID of the Return SR Policy</c>
-    <c>This document</c>
+     <c>SR-MPLS Label Stack of the Return Path</c>
+     <c>This document</c>
    </texttable>
 
     </section>
