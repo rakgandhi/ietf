@@ -236,19 +236,21 @@
    <xref target="RFC6374"/> are used.</t>
 
     <t>
-   For Performance Measurement, probe query and response messages are
-   sent as following:</t>
+    For Performance Measurement, the probe query and probe response messages defined
+    in <xref target="RFC6374"/> are sent as following:</t>
 
-    <t><list style="symbols"><t>For delay measurement, the probe messages are sent 
-    in-band (on the same path (same set of links and nodes) as the data traffic 
-    flow under measurement) by the querier node, and are
-    used to measure the delay experienced by the actual data traffic
-    flowing on the SR-MPLS links and Policies.</t>
+    <t><list style="symbols"><t>For delay measurement, the probe messages are sent for  
+    the data traffic flow under measurement by the querier node, and are 
+    used to collect the transmit timestamps and receive timestamps 
+    to measure the delay experienced by the data traffic
+    flowing on the SR-MPLS links and Policies <xref target="RFC6374"/>.</t>
 
-    <t>For loss measurement, the probe messages are sent in-band (on the same
-    path as the data traffic flow under measurement) by the querier node, and are used to
-    collect the receive traffic counters for the incoming link or for the Path 
-    Segment Identifier (PSID) at the responder node.</t>
+    <t>For loss measurement, the probe messages are sent for 
+    the data traffic flow under measurement by the querier node, and are 
+    used to collect the transmit traffic counters and
+    the receive traffic counters for the incoming link or for the incoming Path 
+    Segment Identifier (PSID) <xref target="RFC6374"/> to measure the packet loss
+    experienced by the data traffic flowing on the SR-MPLS links and Policies.</t>
 
     </list>
     </t>
