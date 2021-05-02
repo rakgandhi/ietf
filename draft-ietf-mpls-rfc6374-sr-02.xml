@@ -72,7 +72,7 @@
     </address>
     </author>
 
-    <date day="01" month="May" year="2021"/>
+    <date day="02" month="May" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -336,14 +336,14 @@
 
     <section title="Probe Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
-   Section 2.4 of <xref target="RFC7679"/>, the querier node
+   Section 2.4 of <xref target="RFC6374"/>, the querier node
    can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
    UDP-Destination-Port and IP Address.  In particular, if the querier node
    sets its own IP address in the URO TLV, the probe response is sent
-   back by the responder node to the querier node to that IP address and UDP 
-   port as destinations.  In addition, the "control code" in the probe 
+   to that IP address 
+   as destination.  In addition, the "control code" in the probe 
    query message is set to "out-of-band response requested".</t>
 
    <t>In this delay measurement mode, as per Reference Topology, the timestamps 
@@ -838,7 +838,6 @@
     </reference>
     &RFC5481;
     &RFC6790;
-    &RFC7679;
     &RFC7471;
     &RFC8126;
     &RFC8321;

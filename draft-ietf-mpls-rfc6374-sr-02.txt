@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: November 2, 2021                                       D. Voyer
+Expires: November 3, 2021                                       D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                            May 01, 2021
+                                                            May 02, 2021
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 2, 2021.
+   This Internet-Draft will expire on November 3, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 1]
+Gandhi, et al.          Expires November 3, 2021                [Page 1]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 2]
+Gandhi, et al.          Expires November 3, 2021                [Page 2]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -165,7 +165,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 3]
+Gandhi, et al.          Expires November 3, 2021                [Page 3]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -221,7 +221,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 4]
+Gandhi, et al.          Expires November 3, 2021                [Page 4]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -277,7 +277,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 5]
+Gandhi, et al.          Expires November 3, 2021                [Page 5]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -333,7 +333,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 6]
+Gandhi, et al.          Expires November 3, 2021                [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -377,19 +377,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.3.1.  One-way Measurement Mode
 
-   In one-way measurement mode defined in Section 2.4 of [RFC7679], the
+   In one-way measurement mode defined in Section 2.4 of [RFC6374], the
    querier node can receive "out-of-band" probe responses by properly
    setting the UDP Return Object (URO) TLV in the probe query message.
    The URO TLV (Type=131) is defined in [RFC7876] and includes the UDP-
    Destination-Port and IP Address.  In particular, if the querier node
-   sets its own IP address in the URO TLV, the probe response is sent
-   back by the responder node to the querier node to that IP address and
-   UDP port as destinations.  In addition, the "control code" in the
-   probe query message is set to "out-of-band response requested".
+   sets its own IP address in the URO TLV, the probe response is sent to
+   that IP address as destination.  In addition, the "control code" in
+   the probe query message is set to "out-of-band response requested".
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 7]
+
+Gandhi, et al.          Expires November 3, 2021                [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -445,7 +445,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 8]
+Gandhi, et al.          Expires November 3, 2021                [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -501,7 +501,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021                [Page 9]
+Gandhi, et al.          Expires November 3, 2021                [Page 9]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -557,7 +557,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 10]
+Gandhi, et al.          Expires November 3, 2021               [Page 10]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -613,7 +613,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 11]
+Gandhi, et al.          Expires November 3, 2021               [Page 11]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -669,7 +669,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 12]
+Gandhi, et al.          Expires November 3, 2021               [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -725,7 +725,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 13]
+Gandhi, et al.          Expires November 3, 2021               [Page 13]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -781,7 +781,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 14]
+Gandhi, et al.          Expires November 3, 2021               [Page 14]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -837,7 +837,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 15]
+Gandhi, et al.          Expires November 3, 2021               [Page 15]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -893,7 +893,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 16]
+Gandhi, et al.          Expires November 3, 2021               [Page 16]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -923,11 +923,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               RFC 6790, DOI 10.17487/RFC6790, November 2012,
               <https://www.rfc-editor.org/info/rfc6790>.
 
-   [RFC7679]  Almes, G., Kalidindi, S., Zekauskas, M., and A. Morton,
-              Ed., "A One-Way Delay Metric for IP Performance Metrics
-              (IPPM)", STD 81, RFC 7679, DOI 10.17487/RFC7679, January
-              2016, <https://www.rfc-editor.org/info/rfc7679>.
-
    [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
               Previdi, "OSPF Traffic Engineering (TE) Metric
               Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
@@ -944,20 +939,20 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               Performance Monitoring", RFC 8321, DOI 10.17487/RFC8321,
               January 2018, <https://www.rfc-editor.org/info/rfc8321>.
 
-
-
-
-
-
-Gandhi, et al.          Expires November 2, 2021               [Page 17]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    [RFC8402]  Filsfils, C., Ed., Previdi, S., Ed., Ginsberg, L.,
               Decraene, B., Litkowski, S., and R. Shakir, "Segment
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
+
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 17]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
    [RFC8570]  Ginsberg, L., Ed., Previdi, S., Ed., Giacalone, S., Ward,
               D., Drake, J., and Q. Wu, "IS-IS Traffic Engineering (TE)
@@ -999,22 +994,21 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               PCE-based Networks.", draft-ietf-pce-binding-label-sid-08
               (work in progress), April 2021.
 
-
-
-
-
-
-
-Gandhi, et al.          Expires November 2, 2021               [Page 18]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    [I-D.ietf-spring-mpls-path-segment]
               Cheng, W., Li, H., Chen, M., Gandhi, R., and R. Zigler,
               "Path Segment in MPLS Based Segment Routing Network",
               draft-ietf-spring-mpls-path-segment-04 (work in progress),
               April 2021.
+
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 18]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
    [I-D.ietf-lsr-ospf-l2bundles]
               Talaulikar, K. and P. Psenak, "Advertising L2 Bundle
@@ -1061,7 +1055,13 @@ Contributors
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 19]
+
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 19]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 2, 2021               [Page 20]
+Gandhi, et al.          Expires November 3, 2021               [Page 20]
