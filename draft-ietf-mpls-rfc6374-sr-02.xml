@@ -241,15 +241,16 @@
 
     <t><list style="symbols"><t>For delay measurement, the probe messages are sent for  
     the data traffic flow under measurement by the querier node, and are 
-    used to collect the transmit timestamps and receive timestamps 
+    used to collect the transmit and receive timestamps 
     to measure the delay experienced by the data traffic
     flowing on the SR-MPLS links and Policies <xref target="RFC6374"/>.</t>
 
     <t>For loss measurement, the probe messages are sent for 
-    the data traffic flow under measurement by the querier node, and are 
-    used to collect the transmit traffic counters and
-    the receive traffic counters for the incoming link or for the incoming Path 
-    Segment Identifier (PSID) <xref target="RFC6374"/> to measure the packet loss
+    the data traffic flow under measurement by the querier node, 
+    and are used to collect the transmit traffic counters and the 
+    receive traffic counters (e.g. received on the incoming link for the 
+    link loss or on the incoming Path Segment Identifier (PSID) for 
+    the end-to-end SR-MPLS path) <xref target="RFC6374"/> to measure the packet loss
     experienced by the data traffic flowing on the SR-MPLS links and Policies.</t>
 
     </list>
@@ -332,7 +333,8 @@
     </section>
 
     <section title="Probe Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
-   In one-way performance measurement mode <xref target="RFC7679"/>, the querier node
+   In one-way measurement mode defined in 
+   Section 2.3 of <xref target="RFC7679"/>, the querier node
    can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
@@ -349,7 +351,8 @@
     </section>
 
     <section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
-   In two-way performance measurement mode <xref target="RFC6374"/>, 
+   In two-way measurement mode defined in 
+   Section 2.3 of <xref target="RFC6374"/>, 
    the probe response messages are sent back to the
    querier node in-band (on the same path (same set of links and nodes) 
    on the reverse direction SR-MPLS link or reverse direction 
@@ -490,7 +493,7 @@
    <section title="TLV Extensions" anchor="sect-7">
 
         <section title="Return Path TLV Extensions" anchor="sect-7.1"><t>
-   For two-way performance measurement, the responder node needs to send
+   For two-way measurement, the responder node needs to send
    the probe response message on a specific return path.  The querier
    node can request in the probe query message to the responder node to
    send a response message back on a given return path (e.g. co-routed
@@ -670,7 +673,7 @@
     </figure>
 
 
-   <t>The considerations for two-way mode and loopback mode for performance measurement for 
+   <t>The considerations for two-way mode and loopback mode for delay measurement for 
    P2MP SR-MPLS Policy (e.g. for co-routed bidirectional SR-MPLS path) 
    are outside the scope of this document.</t>
 
@@ -711,7 +714,7 @@
     Section 4.2 of <xref target="RFC5481"/>.</t>
 
     <t>The extended TE link one-way delay metrics can also be computed using
-    two-way delay measurement or round-trip delay measurement from
+    two-way measurement or round-trip delay measurement from
     loopback mode by dividing the measured delay values by 2.</t>
 
     <t>The extended TE link delay and loss metrics are advertised for
