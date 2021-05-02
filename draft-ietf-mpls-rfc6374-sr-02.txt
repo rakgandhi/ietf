@@ -370,11 +370,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Figure 2) to indicate Implicit NULL label case.
 
    For SR-MPLS Policy performance measurement, in order to ensure that
-   the query message is processed by the intended responder node,
-   Destination Address TLV (Type 129) [RFC6374] MAY be sent in the query
-   message.  The responder only returns Success in Control Code if it is
-   the intended destination for the query.  Otherwise, it MUST return
-   0x15: Error - Invalid Destination Node Identifier [RFC6374].
+   the query message is processed by the intended responder, Destination
+   Address TLV (Type 129) [RFC6374] MAY be sent in the query message.
+   The responder only returns Success in Control Code if it is the
+   intended destination for the query.  Otherwise, it MUST return 0x15:
+   Error - Invalid Destination Node Identifier [RFC6374].
 
 4.3.  Response Message for SR-MPLS Links and Policies
 
@@ -563,8 +563,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
    In one-way measurement mode, the querier address may not be reachable
-   via IP route from the responder node.  The querier node in this case
-   can send its reachability path information to the responder node.
+   via IP route from the responder.  The querier in this case can send
+   its reachability path information to the responder.
 
    [RFC6374] defines DM and LM query messages that can include one or
    more optional TLVs.  New TLV Type (TBA2) is defined in this document
@@ -801,10 +801,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 11.  Backwards Compatibility
 
    The procedures defined in this document are backwards compatible with
-   the procedures defined in [RFC6374] at both querier and responder
-   nodes.  If the responder does not support the new Mandatory TLV Types
-   defined in this document, it MUST return Error 0x17: Unsupported
-   Mandatory TLV Object as per [RFC6374].
+   the procedures defined in [RFC6374] at both querier and responder.
+   If the responder does not support the new Mandatory TLV Types defined
+   in this document, it MUST return Error 0x17: Unsupported Mandatory
+   TLV Object as per [RFC6374].
 
 12.  Security Considerations
 

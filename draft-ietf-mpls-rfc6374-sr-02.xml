@@ -328,7 +328,7 @@
    indicate Implicit NULL label case.</t>
 
     <t>For SR-MPLS Policy performance measurement, in order to ensure that the
-      query message is processed by the intended responder node,
+      query message is processed by the intended responder,
       Destination Address TLV (Type 129) <xref target="RFC6374"/> MAY be sent in the query
       message.  The responder only returns Success in Control Code if it is the intended
       destination for the query. 
@@ -511,9 +511,9 @@
 
     <t>
    In one-way measurement mode, the querier address may not
-   be reachable via IP route from the responder node.  The querier node
+   be reachable via IP route from the responder.  The querier 
    in this case can send its reachability path information to the
-   responder node.</t>
+   responder.</t>
 
     <t>
    <xref target="RFC6374"/> defines DM and LM query messages that can include one
@@ -737,7 +737,7 @@
 
     <section title="Backwards Compatibility" anchor="sect-11"><t>
    The procedures defined in this document are backwards compatible with 
-   the procedures defined in <xref target="RFC6374"/> at both querier and responder nodes. 
+   the procedures defined in <xref target="RFC6374"/> at both querier and responder. 
    If the responder does not support the new Mandatory 
    TLV Types defined in this document, 
    it MUST return Error 0x17: Unsupported Mandatory TLV Object as per <xref target="RFC6374"/>.
