@@ -269,10 +269,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    in [RFC6374] are sent as following:
 
    o  For delay measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier node, and are used
-      to collect the transmit and receive timestamps to measure the
-      delay experienced by the data traffic flowing on the SR-MPLS links
-      and Policies.
+      traffic flow under measurement by the querier, and are used to
+      collect the transmit and receive timestamps to measure the delay
+      experienced by the data traffic flowing on the SR-MPLS links and
+      Policies.
 
 
 
@@ -283,8 +283,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
    o  For loss measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier node, and are used
-      to collect the transmit traffic counters and the receive traffic
+      traffic flow under measurement by the querier, and are used to
+      collect the transmit traffic counters and the receive traffic
       counters (e.g. for traffic received on the incoming link for the
       link loss or on the incoming Path Segment Identifier (PSID) for
       the end-to-end SR-MPLS path loss) to measure the packet loss
@@ -372,20 +372,20 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    For SR-MPLS Policy performance measurement, in order to ensure that
    the query message is processed by the intended responder node,
    Destination Address TLV (Type 129) [RFC6374] MAY be sent in the query
-   message.  The responder node only returns Success in Control Code if
-   it is the intended destination for the query.  Otherwise, it MUST
-   return 0x15: Error - Invalid Destination Node Identifier [RFC6374].
+   message.  The responder only returns Success in Control Code if it is
+   the intended destination for the query.  Otherwise, it MUST return
+   0x15: Error - Invalid Destination Node Identifier [RFC6374].
 
 4.3.  Response Message for SR-MPLS Links and Policies
 
 4.3.1.  One-way Measurement Mode
 
    In one-way measurement mode defined in Section 2.4 of [RFC6374], the
-   querier node can receive "out-of-band" responses by properly setting
-   the UDP Return Object (URO) TLV in the query message.  The URO TLV
+   querier can receive "out-of-band" responses by properly setting the
+   UDP Return Object (URO) TLV in the query message.  The URO TLV
    (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
-   Port and IP Address.  When the querier node sets an IP address in the
-   URO TLV, the response is sent to that IP address as destination.  In
+   Port and IP Address.  When the querier sets an IP address in the URO
+   TLV, the response is sent to that IP address as destination.  In
 
 
 
@@ -404,9 +404,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 4.3.2.  Two-way Measurement Mode
 
    In two-way measurement mode defined in Section 2.4 of [RFC6374], the
-   response messages are sent back to the querier node in-band (on the
-   same path (same set of links and nodes) in the reverse direction.  In
-   this case, the "control code" in the query message is set to "in-band
+   response messages are sent back to the querier in-band (on the same
+   path (same set of links and nodes) in the reverse direction.  In this
+   case, the "control code" in the query message is set to "in-band
    response requested".
 
    For SR-MPLS links, the response message is sent back on the same
@@ -432,9 +432,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    case carries the return path label stack as part of the MPLS header.
    The GAL is still carried at the bottom of the label stack (with S=1).
 
-   As the responder node does not process the query messages and
-   generate response messages, the Loopback Request object (Type 3)
-   [RFC6374] is not required for an end-to-end SR-MPLS path.
+   As the responder does not process the query messages and generate
+   response messages, the Loopback Request object (Type 3) [RFC6374] is
+   not required for an end-to-end SR-MPLS path.
 
    In loopback delay measurement mode, as per Reference Topology, the
    timestamps T1 and T4 are collected by the query/response messages.
@@ -492,7 +492,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    accounting received traffic on the on the egress node of the SR-MPLS
    Policy.  For direct mode, the PSID in the received query message as
    shown in Figure 4 can be used to associate the receive traffic
-   counter on the responder node for the end-to-end SR-MPLS Policy.
+   counter on the responder for the end-to-end SR-MPLS Policy.
    Different values of PSID can be used to measure packet loss per SR-
    MPLS Policy, per Candidate Path or per Segment List of the SR Policy.
 
@@ -548,12 +548,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 7.1.  Return Path TLV Extension
 
-   In two-way measurement mode, the responder node needs to send the
-   response message on a specific return path.  The querier node can
-   request in the query message to the responder node to send a response
-   message back on a given return path (e.g. co-routed path for two-way
-   measurement).  This way the responder avoids creating and maintaining
-   extra dynamic states for the return paths.
+   In two-way measurement mode, the responder needs to send the response
+   message on a specific return path.  The querier can request in the
+   query message to the responder to send a response message back on a
+   given return path (e.g. co-routed path for two-way measurement).
+   This way the responder avoids creating and maintaining extra dynamic
+   states for the return paths.
 
 
 
@@ -562,10 +562,9 @@ Gandhi, et al.          Expires November 3, 2021               [Page 10]
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
-   In one-way measurement mode, the querier node address may not be
-   reachable via IP route from the responder node.  The querier node in
-   this case can send its reachability path information to the responder
-   node.
+   In one-way measurement mode, the querier address may not be reachable
+   via IP route from the responder node.  The querier node in this case
+   can send its reachability path information to the responder node.
 
    [RFC6374] defines DM and LM query messages that can include one or
    more optional TLVs.  New TLV Type (TBA2) is defined in this document
@@ -585,13 +584,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
                          Figure 5: Return Path TLV
 
-   The Return Path TLV is a Mandatory TLV Type.  The querier node MUST
-   only insert one Return Path TLV in the query message.  The responder
-   node that supports this TLV, MUST only process the first Return Path
-   TLV and ignore the other Return Path TLVs if present.  The responder
-   node also MUST NOT add Return Path TLV in the response message.  The
-   Reserved field MUST be set to 0 and MUST be ignored on the receive
-   side.
+   The Return Path TLV is a Mandatory TLV Type.  The querier MUST only
+   insert one Return Path TLV in the query message.  The responder that
+   supports this TLV, MUST only process the first Return Path TLV and
+   ignore the other Return Path TLVs if present.  The responder also
+   MUST NOT add Return Path TLV in the response message.  The Reserved
+   field MUST be set to 0 and MUST be ignored on the receive side.
 
 7.1.1.  Return Path Sub-TLV Extension
 
@@ -601,6 +599,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Return Path TLV can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Return Path
+
+
 
 
 
@@ -640,12 +640,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    [I-D.ietf-pce-binding-label-sid] of the Return SR-MPLS Policy.
 
    The Return Path TLV MUST carry only one Return Path Sub-TLV.  The
-   responder node that supports this Sub-TLV, MUST only process the
-   first Return Path Sub-TLV and ignore the other Return Path Sub-TLVs
-   if present.  The responder node also MUST send response message back
-   on the return path specified in the Return Path Sub-TLV.  The
-   Reserved field MUST be set to 0 and MUST be ignored on the receive
-   side.
+   responder that supports this Sub-TLV, MUST only process the first
+   Return Path Sub-TLV and ignore the other Return Path Sub-TLVs if
+   present.  The responder also MUST send response message back on the
+   return path specified in the Return Path Sub-TLV.  The Reserved field
+   MUST be set to 0 and MUST be ignored on the receive side.
 
 7.2.  Block Number TLV Extension
 
@@ -669,6 +668,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
 
+
 Gandhi, et al.          Expires November 3, 2021               [Page 12]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
@@ -682,17 +682,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
                         Figure 7: Block Number TLV
 
-   The Block Number TLV is a Mandatory TLV Type.  The querier node MUST
-   only insert one Block Number TLV in the query message to identify the
+   The Block Number TLV is a Mandatory TLV Type.  The querier MUST only
+   insert one Block Number TLV in the query message to identify the
    Block Number for the traffic counters in the forward direction.  The
-   responder node that supports this TLV, MUST only inert one Block
-   Number TLV in the response message to identify the Block Number for
-   the traffic counters in the reverse direction.  The responder node
-   also MUST return the first Block Number TLV from the query message
-   and ignore the other Block Number TLVs if present.  The R Flag MUST
-   be clear in the query message and set in the response message.  The
-   Reserved field MUST be set to 0 and MUST be ignored on the receive
-   side.
+   responder that supports this TLV, MUST only inert one Block Number
+   TLV in the response message to identify the Block Number for the
+   traffic counters in the reverse direction.  The responder also MUST
+   return the first Block Number TLV from the query message and ignore
+   the other Block Number TLVs if present.  The R Flag MUST be clear in
+   the query message and set in the response message.  The Reserved
+   field MUST be set to 0 and MUST be ignored on the receive side.
 
 8.  Performance Measurement for P2MP SR-MPLS Policies
 
@@ -718,6 +717,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    o  The P2MP root node measures the delay and loss performance for
       each P2MP leaf node individually.
+
 
 
 

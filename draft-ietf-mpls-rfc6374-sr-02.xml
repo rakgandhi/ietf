@@ -242,13 +242,13 @@
     messages defined in <xref target="RFC6374"/> are sent as following:</t>
 
     <t><list style="symbols"><t>For delay measurement, the query messages are sent for  
-    the data traffic flow under measurement by the querier node, and are 
+    the data traffic flow under measurement by the querier, and are 
     used to collect the transmit and receive timestamps 
     to measure the delay experienced by the data traffic
     flowing on the SR-MPLS links and Policies.</t>
 
     <t>For loss measurement, the query messages are sent for 
-    the data traffic flow under measurement by the querier node, 
+    the data traffic flow under measurement by the querier, 
     and are used to collect the transmit traffic counters and the 
     receive traffic counters (e.g. for traffic received on the incoming link for the 
     link loss or on the incoming Path Segment Identifier (PSID) for 
@@ -330,7 +330,7 @@
     <t>For SR-MPLS Policy performance measurement, in order to ensure that the
       query message is processed by the intended responder node,
       Destination Address TLV (Type 129) <xref target="RFC6374"/> MAY be sent in the query
-      message.  The responder node only returns Success in Control Code if it is the intended
+      message.  The responder only returns Success in Control Code if it is the intended
       destination for the query. 
       Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier <xref target="RFC6374"/>.</t>
 
@@ -339,11 +339,11 @@
 
     <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
-   Section 2.4 of <xref target="RFC6374"/>, the querier node
+   Section 2.4 of <xref target="RFC6374"/>, the querier
    can receive "out-of-band" responses by properly setting the UDP
    Return Object (URO) TLV in the query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
-   UDP-Destination-Port and IP Address.  When the querier node
+   UDP-Destination-Port and IP Address.  When the querier
    sets an IP address in the URO TLV, the response is sent
    to that IP address as destination.  
    In addition, the "control code" in the 
@@ -358,7 +358,7 @@
     <section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
    In two-way measurement mode defined in Section 2.4 of <xref target="RFC6374"/>, 
    the response messages are sent back to the
-   querier node in-band (on the same path (same set of links and nodes) 
+   querier in-band (on the same path (same set of links and nodes) 
    in the reverse direction.  In this case, the "control code" 
    in the query message is set to "in-band response requested".</t>
 
@@ -387,7 +387,7 @@
    return path label stack as part of the MPLS header.  The GAL is
    still carried at the bottom of the label stack (with S=1).</t>
 
-   <t>As the responder node does not process the query messages and generate
+   <t>As the responder does not process the query messages and generate
    response messages, the Loopback Request object (Type 3) <xref target="RFC6374"/> 
    is not required for an end-to-end SR-MPLS path.</t>
    
@@ -448,7 +448,7 @@
    on the egress node of the SR-MPLS Policy.
    For direct mode, the PSID in the received query message 
    as shown in Figure 4 can be used to associate the receive traffic counter 
-   on the responder node for the end-to-end SR-MPLS Policy.
+   on the responder for the end-to-end SR-MPLS Policy.
    Different values of PSID can be used to measure packet loss per
    SR-MPLS Policy, per Candidate Path or per Segment List of the SR Policy.</t>
 
@@ -502,15 +502,15 @@
    <section title="TLV Extensions" anchor="sect-7">
 
         <section title="Return Path TLV Extension" anchor="sect-7.1"><t>
-   In two-way measurement mode, the responder node needs to send
+   In two-way measurement mode, the responder needs to send
    the response message on a specific return path.  The querier
-   node can request in the query message to the responder node to
+   can request in the query message to the responder to
    send a response message back on a given return path (e.g. co-routed
    path for two-way measurement). This way the responder 
    avoids creating and maintaining extra dynamic states for the return paths.</t>
 
     <t>
-   In one-way measurement mode, the querier node address may not
+   In one-way measurement mode, the querier address may not
    be reachable via IP route from the responder node.  The querier node
    in this case can send its reachability path information to the
    responder node.</t>
@@ -536,11 +536,11 @@
     </figure>
 
     <t>
-   The Return Path TLV is a Mandatory TLV Type.  The querier node MUST 
+   The Return Path TLV is a Mandatory TLV Type.  The querier MUST 
    only insert one Return Path TLV in the query message. 
-   The responder node that supports this TLV, MUST only process the first Return Path TLV
+   The responder that supports this TLV, MUST only process the first Return Path TLV
    and ignore the other Return Path TLVs if present.  The responder
-   node also MUST NOT add Return Path TLV in the response message. 
+   also MUST NOT add Return Path TLV in the response message. 
    The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
     </t>
 
@@ -581,9 +581,9 @@
  
     <t>
    The Return Path TLV MUST carry only one Return Path Sub-TLV. 
-   The responder node that supports this Sub-TLV, MUST only process the 
+   The responder that supports this Sub-TLV, MUST only process the 
    first Return Path Sub-TLV and ignore the other Return Path Sub-TLVs if present.  
-   The responder node also MUST send response message back on 
+   The responder also MUST send response message back on 
    the return path specified in the Return Path Sub-TLV.
    The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
     </t>
@@ -621,12 +621,12 @@
 
     <t>
    The Block Number TLV is a Mandatory TLV Type. 
-   The querier node MUST only insert one Block Number TLV in the query 
+   The querier MUST only insert one Block Number TLV in the query 
    message to identify the Block Number for the traffic counters in the forward direction.  
-   The responder node that supports this TLV, MUST only inert one Block 
+   The responder that supports this TLV, MUST only inert one Block 
    Number TLV in the response message to identify the Block 
    Number for the traffic counters in the reverse direction.
-   The responder node also MUST return the first Block Number TLV from the 
+   The responder also MUST return the first Block Number TLV from the 
    query message and ignore the other Block Number TLVs if present.
    The R Flag MUST be clear in the query message and set in the response message.
    The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
