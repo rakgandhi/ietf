@@ -376,7 +376,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.3.1.  One-way Measurement Mode
 
-   In one-way measurement mode defined in Section 2.3 of [RFC7679], the
+   In one-way measurement mode defined in Section 2.4 of [RFC7679], the
    querier node can receive "out-of-band" probe responses by properly
    setting the UDP Return Object (URO) TLV in the probe query message.
    The URO TLV (Type=131) is defined in [RFC7876] and includes the UDP-
@@ -400,7 +400,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.3.2.  Two-way Measurement Mode
 
-   In two-way measurement mode defined in Section 2.3 of [RFC6374], the
+   In two-way measurement mode defined in Section 2.4 of [RFC6374], the
    probe response messages are sent back to the querier node in-band (on
    the same path (same set of links and nodes) on the reverse direction
    SR-MPLS link or reverse direction SR-MPLS Policy
