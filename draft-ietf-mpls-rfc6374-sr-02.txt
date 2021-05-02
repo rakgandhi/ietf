@@ -236,13 +236,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    nodes) or a different path in the reverse direction.
 
    SR is enabled with MPLS data plane on nodes R1 and R3.  The nodes R1
-   and R3 may be directly connected via a link enabled with MPLS or a
-   Point-to-Point (P2P) SR-MPLS path [RFC8402].  The link may be a
-   physical interface, virtual link, or Link Aggregation Group (LAG)
-   [IEEE802.1AX], or Layer-2 LAG bundle member link.  The SR-MPLS path
-   may be an SR-MPLS Policy [I-D.ietf-spring-segment-routing-policy] on
-   node R1 (called head-end) with destination to node R3 (called tail-
-   end).
+   and R3 may be directly connected via a link enabled with MPLS
+   (Section 2.9.1 of [RFC6374]) or a Point-to-Point (P2P) SR-MPLS path
+   [RFC8402].  The link may be a physical interface, virtual link, or
+   Link Aggregation Group (LAG) [IEEE802.1AX], or Layer-2 LAG bundle
+   member link.  The SR-MPLS path may be an SR-MPLS Policy
+   [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
+   with destination to node R3 (called tail-end).
 
 
                           T1                T2
@@ -260,11 +260,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 3.  Overview
 
-   For one-way, two-way and round-trip delay measurements in SR-MPLS
-   networks, the procedures defined in Section 2.4 and Section 2.6 of
-   [RFC6374] are used.  For transmit and receive packet loss
+   For one-way, two-way and round-trip delay and delay variation
    measurements in SR-MPLS networks, the procedures defined in
-   Section 2.2 and Section 2.6 of [RFC6374] are used.
+   Section 2.4 and Section 2.5 of [RFC6374] are used.  For transmit and
+   receive packet loss measurements in SR-MPLS networks, the procedures
+   defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
 
    For Performance Measurement, the probe query and probe response
    messages defined in [RFC6374] are sent as following:
@@ -285,11 +285,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    o  For loss measurement, the probe query messages are sent for the
       data traffic flow under measurement by the querier node, and are
       used to collect the transmit traffic counters and the receive
-      traffic counters (e.g. received on the incoming link for the link
-      loss or on the incoming Path Segment Identifier (PSID) for the
-      end-to-end SR-MPLS path loss) to measure the packet loss
-      experienced by the data traffic flowing on the SR-MPLS links and
-      Policies.
+      traffic counters (e.g. for traffic received on the incoming link
+      for the link loss or on the incoming Path Segment Identifier
+      (PSID) for the end-to-end SR-MPLS path loss) to measure the packet
+      loss experienced by the data traffic flowing on the SR-MPLS links
+      and Policies.
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used

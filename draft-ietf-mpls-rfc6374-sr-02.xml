@@ -203,7 +203,8 @@
 
    <t>SR is enabled with MPLS data plane on nodes R1 and R3.
    The nodes R1 and R3 may be directly connected via a link enabled with MPLS 
-   or a Point-to-Point (P2P) SR-MPLS path <xref target="RFC8402"/>.
+   (Section 2.9.1 of <xref target="RFC6374"/>) or a Point-to-Point (P2P) 
+   SR-MPLS path <xref target="RFC8402"/>.
    The link may be a physical interface, virtual link,    
    or Link Aggregation Group (LAG) <xref target="IEEE802.1AX"/>, or 
    Layer-2 LAG bundle member link.  The SR-MPLS path may be an SR-MPLS Policy  
@@ -229,15 +230,16 @@
     </section>
 
     <section title="Overview" anchor="sect-3"><t>
-   For one-way, two-way and round-trip delay measurements in SR-MPLS networks, 
-   the procedures defined in Section 2.4 and Section 2.6 of <xref target="RFC6374"/> 
-   are used.  For transmit and receive packet loss measurements in SR-MPLS networks, 
+   For one-way, two-way and round-trip delay and delay variation 
+   measurements in SR-MPLS networks, the procedures defined in 
+   Section 2.4 and Section 2.5 of <xref target="RFC6374"/> are used.  
+   For transmit and receive packet loss measurements in SR-MPLS networks, 
    the procedures defined in Section 2.2 and Section 2.6 of
    <xref target="RFC6374"/> are used.</t>
 
     <t>
-    For Performance Measurement, the probe query and probe response messages defined
-    in <xref target="RFC6374"/> are sent as following:</t>
+    For Performance Measurement, the probe query and probe response 
+    messages defined in <xref target="RFC6374"/> are sent as following:</t>
 
     <t><list style="symbols"><t>For delay measurement, the probe query messages are sent for  
     the data traffic flow under measurement by the querier node, and are 
@@ -248,7 +250,7 @@
     <t>For loss measurement, the probe query messages are sent for 
     the data traffic flow under measurement by the querier node, 
     and are used to collect the transmit traffic counters and the 
-    receive traffic counters (e.g. received on the incoming link for the 
+    receive traffic counters (e.g. for traffic received on the incoming link for the 
     link loss or on the incoming Path Segment Identifier (PSID) for 
     the end-to-end SR-MPLS path loss) to measure the packet loss
     experienced by the data traffic flowing on the SR-MPLS links and Policies.</t>
