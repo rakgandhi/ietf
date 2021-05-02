@@ -267,16 +267,13 @@
 
     <section title="Query and Response Messages" anchor="sect-4">
         
-    <section title="Query and Response Messages for SR-MPLS Links" anchor="sect-4.2"><t>
+    <section title="Query and Response Message Format" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A query/response message for SR-MPLS links contains G-ACh Label (GAL)
+   (G-ACh).  A query/response message contains G-ACh Label (GAL)
    (value 13, with S=1).  The GAL is followed by an Associated Channel Header
    (ACH), which identifies the message type, and the message payload
-   following the ACH as shown in Figure 2. The query messages are sent over the links
-   for both delay and loss measurement using the procedures described 
-   in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
-   in the SR-MPLS header for one-way and two-way measurement modes.</t>
+   following the ACH as shown in Figure 2.</t>
 
     <figure title="Query and Response Message Header for an SR-MPLS Link" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
@@ -290,8 +287,18 @@
 ]]></artwork>
     </figure>
     </section>
-        
-        <section title="Query Messages for SR-MPLS Policies" anchor="sect-4.1"><t>
+
+    <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.2">
+
+       <section title="Query for SR-MPLS Links" anchor="sect-4.1.1"><t>
+   The query message and response messages as shown in Figure 2 are sent over the links
+   for both delay and loss measurement using the procedures described 
+   in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
+   in the SR-MPLS header for one-way and two-way measurement modes.</t>
+
+    </section>
+
+        <section title="Query Messages for SR-MPLS Policies" anchor="sect-4.2.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A query message for an end-to-end SR-MPLS Policy measurement
@@ -333,6 +340,7 @@
       Otherwise, it MUST return 0x15: Error - Invalid Destination Node Identifier <xref target="RFC6374"/>.</t>
 
     </section>
+    </section>
 
     <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
@@ -346,7 +354,7 @@
    In addition, the "control code" in the 
    query message is set to "out-of-band response requested".</t>
 
-   <t>In this delay measurement mode, as per Reference Topology, the timestamps 
+   <t>In one-way delay measurement mode, as per Reference Topology, the timestamps 
    T1 and T2 are collected by the query/response messages. Both these timestamps 
    are used to measure one-way delay as (T2 - T1).</t>
 
@@ -370,7 +378,7 @@
    send the response message back on a given reverse path using an 
    SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
 
-   <t>In this delay measurement mode, as per Reference Topology, 
+   <t>In two-way delay measurement mode, as per Reference Topology, 
    all timestamps T1, T2, T3, and T4 are collected by the query/response messages. 
    All four timestamps are used to measure two-way 
    delay as ((T4 - T1) - (T3 - T2)).</t>
@@ -388,7 +396,7 @@
    response messages, and hence Loopback Request object (Type 3)
    is not required for an SR-MPLS path.</t>
    
-   <t>In this delay measurement mode, as per Reference Topology, 
+   <t>In loopback delay measurement mode, as per Reference Topology, 
    the timestamps T1 and T4 are collected by the query/response messages.  Both these 
    timestamps are used to measure round-trip delay as (T4 - T1).</t>
 
