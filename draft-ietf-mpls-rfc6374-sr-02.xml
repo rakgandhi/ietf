@@ -267,7 +267,7 @@
 
     <section title="Query and Response Messages" anchor="sect-4">
         
-    <section title="Query and Response Message Format" anchor="sect-4.1"><t>
+    <section title="Query and Response Message Header" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A query/response message contains G-ACh Label (GAL)
@@ -275,7 +275,7 @@
    (ACH), which identifies the message type, and the message payload
    following the ACH as shown in Figure 2.</t>
 
-    <figure title="Query and Response Message Header for an SR-MPLS Link" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
+    <figure title="Query and Response Message Header" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -291,22 +291,17 @@
     <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.2">
 
        <section title="Query for SR-MPLS Links" anchor="sect-4.1.1"><t>
-   The query message and response messages as shown in Figure 2 are sent over the links
+   A query message as shown in Figure 2 is sent over the links
    for both delay and loss measurement using the procedures described 
    in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
-   in the SR-MPLS header for one-way and two-way measurement modes.</t>
+   in the SR-MPLS header.</t>
 
     </section>
 
         <section title="Query Messages for SR-MPLS Policies" anchor="sect-4.2.2"><t>
-   As described in Section 2.9.1 of <xref target="RFC6374"/>, query and
-   response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A query message for an end-to-end SR-MPLS Policy measurement
+   A query message for an end-to-end SR-MPLS Policy measurement
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
-   with the G-ACh Label (GAL) at the bottom of the stack (with S=1).
-   The GAL is followed by an Associated Channel Header (ACH), which
-   identifies the message type, and the message payload following the
-   ACH as shown in Figure 3.
+   with the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
     <figure title="Example Query Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
