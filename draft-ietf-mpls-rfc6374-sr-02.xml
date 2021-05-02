@@ -272,7 +272,7 @@
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A query/response message contains G-ACh Label (GAL)
    (value 13, with S=1).  The GAL is followed by an Associated Channel Header
-   (ACH), which identifies the message type, and the message payload
+   (ACH), where Channel Type identifies the message type, and the message payload
    following the ACH as shown in Figure 2.</t>
 
     <figure title="Query and Response Message Header" anchor="ure-header-for-an-sr-mpls-link"><artwork><![CDATA[
@@ -282,7 +282,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             GAL (value 13)            | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+ |0 0 0 1|Version| Reserved      |       Channel Type            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -291,7 +291,7 @@
     <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.2">
 
        <section title="Query Message for SR-MPLS Links" anchor="sect-4.1.1"><t>
-   A query message as shown in Figure 2 is sent over the links
+   A query message as shown in Figure 2 is sent over the SR-MPLS links
    for both delay and loss measurement using the procedures described 
    in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
    in the SR-MPLS header.</t>
@@ -319,7 +319,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                  GAL (value 13)       | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+ |0 0 0 1|Version| Reserved      |       Channel Type            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -343,7 +343,7 @@
    can receive "out-of-band" responses by properly setting the UDP
    Return Object (URO) TLV in the query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
-   UDP-Destination-Port and IP Address.  In particular, when the querier node
+   UDP-Destination-Port and IP Address.  When the querier node
    sets an IP address in the URO TLV, the response is sent
    to that IP address as destination.  
    In addition, the "control code" in the 
@@ -362,9 +362,8 @@
    in the reverse direction.  In this case, the "control code" 
    in the query message is set to "in-band response requested".</t>
 
-   <t>Specifically, the response message is sent back on the same incoming    
-   link where the query message is received.  This    
-   is useful for example, in case of two-way measurement mode for links.</t>
+   <t>For SR-MPLS links, the response message is sent back on the same incoming    
+   link where the query message is received.</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
    the response message (with format shown in Figure 3) on a specific reverse SR-MPLS path 
@@ -382,8 +381,8 @@
 
     <section title="Loopback Measurement Mode" anchor="sect-4.3.3"><t>
    The Loopback measurement mode defined in Section 2.8 of <xref target="RFC6374"/> can
-   be used to measure round-trip delay for a bidirectional SR-MPLS path
-   <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
+   be used to measure round-trip delay for a bidirectional circular SR-MPLS path
+    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
    The query messages in this case carries the
    return path label stack as part of the MPLS header.  The GAL is
    still carried at the bottom of the label stack (with S=1).</t>
@@ -407,7 +406,7 @@
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
    message payload following the ACH.  For both SR-MPLS links and end-to-end
-   SR-MPLS Policies measurements, the same MPLS DM ACH value is used.</t>
+   SR-MPLS Policies, the same MPLS DM ACH value is used.</t>
 
     <t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
@@ -463,7 +462,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                  GAL (value 13)       | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+ |0 0 0 1|Version| Reserved      |       Channel Type            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
@@ -473,7 +472,7 @@
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end 
-   SR-MPLS Policies measurements, the same MPLS LM ACH value is used.</t>
+   SR-MPLS Policies, the same MPLS LM ACH value is used.</t>
 
     <t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
@@ -489,7 +488,7 @@
    and delay measurement or value 0x000E for inferred loss and delay measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end 
-   SR-MPLS Policies measurements, the same MPLS ACH value is used.</t>
+   SR-MPLS Policies, the same MPLS DM+LM ACH value is used.</t>
 
     <t>
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
@@ -677,7 +676,7 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |              GAL (value 13)           | TC  |S|      TTL      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+ |0 0 0 1|Version| Reserved      |       Channel Type            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>

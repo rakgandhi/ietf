@@ -304,8 +304,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    messages flow over the MPLS Generic Associated Channel (G-ACh).  A
    query/response message contains G-ACh Label (GAL) (value 13, with
    S=1).  The GAL is followed by an Associated Channel Header (ACH),
-   which identifies the message type, and the message payload following
-   the ACH as shown in Figure 2.
+   where Channel Type identifies the message type, and the message
+   payload following the ACH as shown in Figure 2.
 
 
     0                   1                   2                   3
@@ -313,7 +313,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |             GAL (value 13)            | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+    |0 0 0 1|Version| Reserved      |       Channel Type            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                 Figure 2: Query and Response Message Header
@@ -322,8 +322,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.2.1.  Query Message for SR-MPLS Links
 
-   A query message as shown in Figure 2 is sent over the links for both
-   delay and loss measurement using the procedures described in
+   A query message as shown in Figure 2 is sent over the SR-MPLS links
+   for both delay and loss measurement using the procedures described in
    [RFC6374].  For SR-MPLS links, the TTL value is set to 1 in the SR-
    MPLS header.
 
@@ -360,7 +360,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                  GAL (value 13)       | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+    |0 0 0 1|Version| Reserved      |       Channel Type            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 3: Example Query Message Header for an End-to-end SR-MPLS
@@ -384,8 +384,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    querier node can receive "out-of-band" responses by properly setting
    the UDP Return Object (URO) TLV in the query message.  The URO TLV
    (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
-   Port and IP Address.  In particular, when the querier node sets an IP
-   address in the URO TLV, the response is sent to that IP address as
+   Port and IP Address.  When the querier node sets an IP address in the
+   URO TLV, the response is sent to that IP address as destination.  In
 
 
 
@@ -394,8 +394,8 @@ Gandhi, et al.          Expires November 3, 2021                [Page 7]
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
-   destination.  In addition, the "control code" in the query message is
-   set to "out-of-band response requested".
+   addition, the "control code" in the query message is set to "out-of-
+   band response requested".
 
    In one-way delay measurement mode, as per Reference Topology, the
    timestamps T1 and T2 are collected by the query/response messages.
@@ -409,9 +409,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    this case, the "control code" in the query message is set to "in-band
    response requested".
 
-   Specifically, the response message is sent back on the same incoming
-   link where the query message is received.  This is useful for
-   example, in case of two-way measurement mode for links.
+   For SR-MPLS links, the response message is sent back on the same
+   incoming link where the query message is received.
 
    For end-to-end SR-MPLS paths, the responder needs to transmit the
    response message (with format shown in Figure 3) on a specific
@@ -428,10 +427,10 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 4.3.3.  Loopback Measurement Mode
 
    The Loopback measurement mode defined in Section 2.8 of [RFC6374] can
-   be used to measure round-trip delay for a bidirectional SR-MPLS path
-   [I-D.ietf-pce-sr-bidir-path].  The query messages in this case
-   carries the return path label stack as part of the MPLS header.  The
-   GAL is still carried at the bottom of the label stack (with S=1).
+   be used to measure round-trip delay for a bidirectional circular SR-
+   MPLS path [I-D.ietf-pce-sr-bidir-path].  The query messages in this
+   case carries the return path label stack as part of the MPLS header.
+   The GAL is still carried at the bottom of the label stack (with S=1).
 
    As the responder node does not process the query messages and
    generate response messages, the Loopback Request object (Type 3)
@@ -441,6 +440,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    timestamps T1 and T4 are collected by the query/response messages.
    Both these timestamps are used to measure round-trip delay as (T4 -
    T1).
+
 
 
 
@@ -458,7 +458,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Associated Channel Header (ACH) (value 0x000C for delay measurement)
    [RFC6374], which identifies the message type, and the message payload
    following the ACH.  For both SR-MPLS links and end-to-end SR-MPLS
-   Policies measurements, the same MPLS DM ACH value is used.
+   Policies, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
@@ -513,7 +513,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |                  GAL (value 13)       | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+    |0 0 0 1|Version| Reserved      |       Channel Type            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
      Figure 4: Example With Path Segment Identifier for SR-MPLS Policy
@@ -524,8 +524,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
-   ACH.  For both SR-MPLS links and end-to-end SR-MPLS Policies
-   measurements, the same MPLS LM ACH value is used.
+   ACH.  For both SR-MPLS links and end-to-end SR-MPLS Policies, the
+   same MPLS LM ACH value is used.
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
    for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end
@@ -538,7 +538,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    delay measurement or value 0x000E for inferred loss and delay
    measurement), which identifies the message type, and the message
    payload following the ACH.  For both SR-MPLS links and end-to-end SR-
-   MPLS Policies measurements, the same MPLS ACH value is used.
+   MPLS Policies, the same MPLS DM+LM ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS
@@ -741,7 +741,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |              GAL (value 13)           | TC  |S|      TTL      |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |0 0 0 1|Version| Reserved      | GAL Channel Type              |
+    |0 0 0 1|Version| Reserved      |       Channel Type            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
          Figure 8: Example Query with Tree-SID for SR-MPLS Policy
