@@ -110,7 +110,7 @@
 
     <t>
    <xref target="RFC7876"/> specifies the procedures to be used when sending and
-   processing out-of-band performance measurement responses over an
+   processing out-of-band responses over an
    UDP return path when receiving RFC 6374 based queries.  These
    procedures can be used to send out-of-band responses for both
    SR-MPLS links and Policies for one-way measurement.</t>
@@ -196,7 +196,7 @@
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown in Figure 1, the querier node R1
-   initiates a performance measurement query message and the responder
+   initiates a query message and the responder
    node R3 sends a response message for the query message received.  The
    response message is sent back to the querier node R1 in-band on the same path 
    (same set of links and nodes) or a different path in the reverse direction.</t> 
@@ -265,7 +265,7 @@
     </section>
 
 
-    <section title="Query and Response Messages" anchor="sect-4">
+    <section title="Query and Response Message" anchor="sect-4">
         
     <section title="Query and Response Message Header" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
@@ -290,7 +290,7 @@
 
     <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.2">
 
-       <section title="Query for SR-MPLS Links" anchor="sect-4.1.1"><t>
+       <section title="Query Message for SR-MPLS Links" anchor="sect-4.1.1"><t>
    A query message as shown in Figure 2 is sent over the links
    for both delay and loss measurement using the procedures described 
    in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
@@ -298,7 +298,7 @@
 
     </section>
 
-        <section title="Query Messages for SR-MPLS Policies" anchor="sect-4.2.2"><t>
+        <section title="Query Message for SR-MPLS Policies" anchor="sect-4.2.2"><t>
    A query message for an end-to-end SR-MPLS Policy measurement
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown in Figure 3.
@@ -364,7 +364,7 @@
 
    <t>Specifically, the response message is sent back on the same incoming    
    link where the query message is received.  This    
-   is useful for example, in case of two-way measurement mode for link delay.</t>
+   is useful for example, in case of two-way measurement mode for links.</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
    the response message (with format shown in Figure 3) on a specific reverse SR-MPLS path 
@@ -386,10 +386,11 @@
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
    The query messages in this case carries the
    return path label stack as part of the MPLS header.  The GAL is
-   still carried at the bottom of the label stack (with S=1).  The
-   responder node does not process the query messages and generate
-   response messages, and hence Loopback Request object (Type 3)
-   is not required for an SR-MPLS path.</t>
+   still carried at the bottom of the label stack (with S=1).</t>
+
+   <t>As the responder node does not process the query messages and generate
+   response messages, the Loopback Request object (Type 3) <xref target="RFC6374"/> 
+   is not required for an end-to-end SR-MPLS path.</t>
    
    <t>In loopback delay measurement mode, as per Reference Topology, 
    the timestamps T1 and T4 are collected by the query/response messages.  Both these 
@@ -501,8 +502,8 @@
 
    <section title="TLV Extensions" anchor="sect-7">
 
-        <section title="Return Path TLV Extensions" anchor="sect-7.1"><t>
-   For two-way measurement, the responder node needs to send
+        <section title="Return Path TLV Extension" anchor="sect-7.1"><t>
+   In two-way measurement mode, the responder node needs to send
    the response message on a specific return path.  The querier
    node can request in the query message to the responder node to
    send a response message back on a given return path (e.g. co-routed
@@ -510,7 +511,7 @@
    avoids creating and maintaining extra dynamic states for the return paths.</t>
 
     <t>
-   For one-way performance measurement, the querier node address may not
+   In one-way measurement mode, the querier node address may not
    be reachable via IP route from the responder node.  The querier node
    in this case can send its reachability path information to the
    responder node.</t>
@@ -544,7 +545,7 @@
    The Reserved field MUST be set to 0 and MUST be ignored on the receive side.
     </t>
 
-    <section title="Return Path Sub-TLV Extensions" anchor="sect-7.1.1">
+    <section title="Return Path Sub-TLV Extension" anchor="sect-7.1.1">
    <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
    The format of the Segment List Sub-TLV is shown in Figure 6. The 
    Label entries MUST be in network order. The Segment List Sub-TLV 
@@ -593,7 +594,7 @@
     </section>
 
 
-    <section title="Block Number TLV Extensions" anchor="sect-7.2"><t>
+    <section title="Block Number TLV Extension" anchor="sect-7.2"><t>
    The loss measurement using Alternate-Marking method defined in
    <xref target="RFC8321"/> requires coloring the data traffic flow 
    under measurement.  To be able to correlate
@@ -682,7 +683,7 @@
     </figure>
 
 
-   <t>The considerations for two-way mode and loopback mode for delay measurement for 
+   <t>The considerations for two-way and loopback measurement modes for 
    P2MP SR-MPLS Policy (e.g. for co-routed bidirectional SR-MPLS path) 
    are outside the scope of this document.</t>
 
@@ -694,7 +695,7 @@
    Usage of Anycast SID <xref target="RFC8402"/> by an SR-MPLS Policy can result in ECMP
    paths via transit nodes part of that Anycast group.  The query/response 
    messages need to be sent to traverse different ECMP paths to measure
-   performance delay of each of the ECMP path of an SR-MPLS Policy.</t>
+   delay of each of the ECMP path of an SR-MPLS Policy.</t>
 
     <t>
    Forwarding plane has various hashing functions available to forward
@@ -704,14 +705,14 @@
    influence the ECMP path taken by them.</t>
 
     <t>
-   The considerations for performance loss measurement for different
+   The considerations for loss measurement for different
    ECMP paths of an SR-MPLS Policy are outside the scope of this document.</t>
 
     </section>
 
     <section title="SR-MPLS Link Extended TE Metrics Advertisements" anchor="sect-10"><t>
    The extended TE metrics for SR-MPLS link delay and loss computed using the
-   performance measurement procedures described in this document can be
+   procedures described in this document can be
    advertised in the routing domain as follows:</t>
 
     <t><list style="symbols"><t>For OSPF, ISIS, and BGP-LS, protocol extensions 
