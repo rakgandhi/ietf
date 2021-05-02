@@ -82,7 +82,7 @@
    messages.  This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in SR networks with
    MPLS data plane (SR-MPLS), for both SR-MPLS links and end-to-end 
-   paths including SR-MPLS Policies.  In addition, this document defines 
+   SR-MPLS paths including Policies.  In addition, this document defines 
    Return Path TLV and Block Number TLV extensions for RFC 6374.</t>
 
     </abstract>
@@ -118,7 +118,7 @@
     <t>
    This document utilizes the mechanisms defined in
    <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR-MPLS links and end-to-end paths including SR-MPLS Policies.
+   with MPLS data plane, for both SR-MPLS links and end-to-end SR-MPLS paths including Policies.
    In addition, this document defines Return Path TLV and Block Number TLV
    extensions for <xref target="RFC6374"/>.</t>
 
@@ -231,9 +231,9 @@
 
     <section title="Overview" anchor="sect-3"><t>
    For one-way, two-way and round-trip delay and delay variation 
-   measurements in SR-MPLS networks, the procedures defined in 
+   measurement in SR-MPLS networks, the procedures defined in 
    Section 2.4 and Section 2.5 of <xref target="RFC6374"/> are used.  
-   For transmit and receive packet loss measurements in SR-MPLS networks, 
+   For transmit and receive packet loss measurement in SR-MPLS networks, 
    the procedures defined in Section 2.2 and Section 2.6 of
    <xref target="RFC6374"/> are used.</t>
 
@@ -275,7 +275,7 @@
    (ACH), which identifies the message type, and the message payload
    following the ACH as shown in Figure 2.</t>
 
-    <figure title="Query and Response Message Header" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
+    <figure title="Query and Response Message Header" anchor="ure-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -304,7 +304,7 @@
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
-    <figure title="Example Query Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
+    <figure title="Example Query Message Header for an End-to-end SR-MPLS Policy" anchor="ure-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -407,11 +407,11 @@
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
    message payload following the ACH.  For both SR-MPLS links and end-to-end
-   Policies measurements, the same MPLS DM ACH value is used.</t>
+   SR-MPLS Policies measurements, the same MPLS DM ACH value is used.</t>
 
     <t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
-   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end Policies.</t>
+   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end SR-MPLS Policies.</t>
 
     </section>
 
@@ -473,12 +473,12 @@
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end 
-   Policies measurements, the same MPLS LM ACH value is used.</t>
+   SR-MPLS Policies measurements, the same MPLS LM ACH value is used.</t>
 
     <t>
    The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
    for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end 
-   Policies.</t>
+   SR-MPLS Policies.</t>
 
     </section>
 
@@ -489,12 +489,12 @@
    and delay measurement or value 0x000E for inferred loss and delay measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end 
-   Policies measurements, the same MPLS ACH value is used.</t>
+   SR-MPLS Policies measurements, the same MPLS ACH value is used.</t>
 
     <t>
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS links and end-to-end 
-   Policies.</t>
+   SR-MPLS Policies.</t>
         </section>
 
     </section>
@@ -700,7 +700,7 @@
     <t>
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  For SR-MPLS Policy, sweeping of
-	    entropy label <xref target="RFC6790"/> values can be used in query/response messages to
+   entropy label <xref target="RFC6790"/> values can be used in query/response messages to
    take advantage of the hashing function in forwarding plane to
    influence the ECMP path taken by them.</t>
 
@@ -749,7 +749,7 @@
     <section title="Security Considerations" anchor="sect-13"><t>
    This document describes the procedures for performance delay and loss
    measurement for SR-MPLS networks, for both SR-MPLS links and end-to-end 
-   Policies using the mechanisms defined in <xref target="RFC6374"/> and <xref target="RFC7876"/>.
+   SR-MPLS Policies using the mechanisms defined in <xref target="RFC6374"/> and <xref target="RFC7876"/>.
    This document does not introduce any additional security
    considerations other than those covered in <xref target="RFC6374"/>, <xref target="RFC7471"/>,
    <xref target="RFC8570"/>, <xref target="RFC8571"/>, and <xref target="RFC7876"/>.</t>

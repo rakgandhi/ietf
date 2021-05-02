@@ -26,9 +26,9 @@ Abstract
    related metrics such as delay variation in MPLS networks using query/
    response messages.  This document utilizes these mechanisms for
    Performance Delay and Loss Measurements in SR networks with MPLS data
-   plane (SR-MPLS), for both SR-MPLS links and end-to-end paths
-   including SR-MPLS Policies.  In addition, this document defines
-   Return Path TLV and Block Number TLV extensions for RFC 6374.
+   plane (SR-MPLS), for both SR-MPLS links and end-to-end SR-MPLS paths
+   including Policies.  In addition, this document defines Return Path
+   TLV and Block Number TLV extensions for RFC 6374.
 
 Status of This Memo
 
@@ -149,7 +149,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    This document utilizes the mechanisms defined in [RFC6374] for
    Performance Delay and Loss Measurements in SR networks with MPLS data
-   plane, for both SR-MPLS links and end-to-end paths including SR-MPLS
+   plane, for both SR-MPLS links and end-to-end SR-MPLS paths including
    Policies.  In addition, this document defines Return Path TLV and
    Block Number TLV extensions for [RFC6374].
 
@@ -260,9 +260,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 3.  Overview
 
    For one-way, two-way and round-trip delay and delay variation
-   measurements in SR-MPLS networks, the procedures defined in
+   measurement in SR-MPLS networks, the procedures defined in
    Section 2.4 and Section 2.5 of [RFC6374] are used.  For transmit and
-   receive packet loss measurements in SR-MPLS networks, the procedures
+   receive packet loss measurement in SR-MPLS networks, the procedures
    defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
 
    For Performance Measurement, the query and response messages defined
@@ -457,12 +457,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    As defined in [RFC6374], MPLS DM query and response messages use
    Associated Channel Header (ACH) (value 0x000C for delay measurement)
    [RFC6374], which identifies the message type, and the message payload
-   following the ACH.  For both SR-MPLS links and end-to-end Policies
-   measurements, the same MPLS DM ACH value is used.
+   following the ACH.  For both SR-MPLS links and end-to-end SR-MPLS
+   Policies measurements, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
-   Policies.
+   SR-MPLS Policies.
 
 5.2.  Timestamps
 
@@ -524,12 +524,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
-   ACH.  For both SR-MPLS links and end-to-end Policies measurements,
-   the same MPLS LM ACH value is used.
+   ACH.  For both SR-MPLS links and end-to-end SR-MPLS Policies
+   measurements, the same MPLS LM ACH value is used.
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
    for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end
-   Policies.
+   SR-MPLS Policies.
 
 6.2.  Combined Loss/Delay Measurement Message Format
 
@@ -537,12 +537,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    use Associated Channel Header (ACH) (value 0x000D for direct loss and
    delay measurement or value 0x000E for inferred loss and delay
    measurement), which identifies the message type, and the message
-   payload following the ACH.  For both SR-MPLS links and end-to-end
-   Policies measurements, the same MPLS ACH value is used.
+   payload following the ACH.  For both SR-MPLS links and end-to-end SR-
+   MPLS Policies measurements, the same MPLS ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS
-   links and end-to-end Policies.
+   links and end-to-end SR-MPLS Policies.
 
 7.  TLV Extensions
 
@@ -810,8 +810,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    This document describes the procedures for performance delay and loss
    measurement for SR-MPLS networks, for both SR-MPLS links and end-to-
-   end Policies using the mechanisms defined in [RFC6374] and [RFC7876].
-   This document does not introduce any additional security
+   end SR-MPLS Policies using the mechanisms defined in [RFC6374] and
+   [RFC7876].  This document does not introduce any additional security
    considerations other than those covered in [RFC6374], [RFC7471],
    [RFC8570], [RFC8571], and [RFC7876].
 
