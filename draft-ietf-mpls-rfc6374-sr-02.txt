@@ -23,12 +23,12 @@ Abstract
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
    specifies protocol mechanisms to enable the efficient and accurate
    measurement of packet loss, one-way and two-way delay, as well as
-   related metrics such as delay variation in MPLS networks using probe
-   messages.  This document utilizes these mechanisms for Performance
-   Delay and Loss Measurements in SR networks with MPLS data plane (SR-
-   MPLS), for both SR-MPLS links and end-to-end paths including SR-MPLS
-   Policies.  In addition, this document defines Return Path TLV and
-   Block Number TLV extensions for RFC 6374.
+   related metrics such as delay variation in MPLS networks using query/
+   response messages.  This document utilizes these mechanisms for
+   Performance Delay and Loss Measurements in SR networks with MPLS data
+   plane (SR-MPLS), for both SR-MPLS links and end-to-end paths
+   including SR-MPLS Policies.  In addition, this document defines
+   Return Path TLV and Block Number TLV extensions for RFC 6374.
 
 Status of This Memo
 
@@ -101,7 +101,7 @@ Table of Contents
    8.  Performance Measurement for P2MP SR-MPLS Policies . . . . . .  13
    9.  ECMP for SR-MPLS Policies . . . . . . . . . . . . . . . . . .  14
    10. SR-MPLS Link Extended TE Metrics Advertisements . . . . . . .  14
-   11. Backwards Compatibility . . . . . . . . . . . . . . . . . . .  15
+   11. Backwards Compatibility . . . . . . . . . . . . . . . . . . .  14
    12. Security Considerations . . . . . . . . . . . . . . . . . . .  15
    13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
@@ -117,7 +117,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
      14.2.  Informative References . . . . . . . . . . . . . . . . .  17
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -134,16 +134,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    [RFC6374] specifies protocol mechanisms to enable the efficient and
    accurate measurement of performance metrics in MPLS networks using
-   probe messages.  These mechanisms are also well-suited for SR
-   networks when using MPLS data plane (SR-MPLS).  [RFC6374] also
+   query/response messages.  These mechanisms are also well-suited for
+   SR networks when using MPLS data plane (SR-MPLS).  [RFC6374] also
    supports "direct mode" Loss Measurement (LM), which is required in SR
    networks.
 
    [RFC7876] specifies the procedures to be used when sending and
-   processing out-of-band performance measurement probe responses over
-   an UDP return path when receiving RFC 6374 based probe queries.
-   These procedures can be used to send out-of-band probe responses for
-   both SR-MPLS links and Policies for one-way measurement.
+   processing out-of-band performance measurement responses over an UDP
+   return path when receiving RFC 6374 based queries.  These procedures
+   can be used to send out-of-band responses for both SR-MPLS links and
+   Policies for one-way measurement.
 
    This document utilizes the mechanisms defined in [RFC6374] for
    Performance Delay and Loss Measurements in SR networks with MPLS data
@@ -229,11 +229,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 2.3.  Reference Topology
 
    In the reference topology shown in Figure 1, the querier node R1
-   initiates a performance measurement probe query message and the
-   responder node R3 sends a probe response message for the probe query
-   message received.  The probe response message is sent back to the
-   querier node R1 in-band on the same path (same set of links and
-   nodes) or a different path in the reverse direction.
+   initiates a performance measurement query message and the responder
+   node R3 sends a response message for the query message received.  The
+   response message is sent back to the querier node R1 in-band on the
+   same path (same set of links and nodes) or a different path in the
+   reverse direction.
 
    SR is enabled with MPLS data plane on nodes R1 and R3.  The nodes R1
    and R3 may be directly connected via a link enabled with MPLS
@@ -266,12 +266,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    receive packet loss measurements in SR-MPLS networks, the procedures
    defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
 
-   For Performance Measurement, the probe query and probe response
-   messages defined in [RFC6374] are sent as following:
+   For Performance Measurement, the query and response messages defined
+   in [RFC6374] are sent as following:
 
-   o  For delay measurement, the probe query messages are sent for the
-      data traffic flow under measurement by the querier node, and are
-      used to collect the transmit and receive timestamps to measure the
+   o  For delay measurement, the query messages are sent for the data
+      traffic flow under measurement by the querier node, and are used
+      to collect the transmit and receive timestamps to measure the
       delay experienced by the data traffic flowing on the SR-MPLS links
       and Policies.
 
@@ -282,14 +282,14 @@ Gandhi, et al.          Expires November 3, 2021                [Page 5]
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
-   o  For loss measurement, the probe query messages are sent for the
-      data traffic flow under measurement by the querier node, and are
-      used to collect the transmit traffic counters and the receive
-      traffic counters (e.g. for traffic received on the incoming link
-      for the link loss or on the incoming Path Segment Identifier
-      (PSID) for the end-to-end SR-MPLS path loss) to measure the packet
-      loss experienced by the data traffic flowing on the SR-MPLS links
-      and Policies.
+   o  For loss measurement, the query messages are sent for the data
+      traffic flow under measurement by the querier node, and are used
+      to collect the transmit traffic counters and the receive traffic
+      counters (e.g. for traffic received on the incoming link for the
+      link loss or on the incoming Path Segment Identifier (PSID) for
+      the end-to-end SR-MPLS path loss) to measure the packet loss
+      experienced by the data traffic flowing on the SR-MPLS links and
+      Policies.
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
@@ -300,16 +300,16 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.1.  Probe Message for SR-MPLS Links
 
-   As described in Section 2.9.1 of [RFC6374], the probe query and
-   response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A probe message for SR-MPLS links contains G-ACh Label
-   (GAL) (value 13, with S=1).  The GAL is followed by an Associated
-   Channel Header (ACH), which identifies the message type, and the
-   message payload following the ACH as shown in Figure 2.  The probe
-   messages are sent over the links for both delay and loss measurement
-   using the procedures described in [RFC6374].  For SR-MPLS links, the
-   TTL value is set to 1 in the SR-MPLS header for one-way and two-way
-   measurement modes.
+   As described in Section 2.9.1 of [RFC6374], the query and response
+   messages flow over the MPLS Generic Associated Channel (G-ACh).  A
+   query/response message for SR-MPLS links contains G-ACh Label (GAL)
+   (value 13, with S=1).  The GAL is followed by an Associated Channel
+   Header (ACH), which identifies the message type, and the message
+   payload following the ACH as shown in Figure 2.  The query messages
+   are sent over the links for both delay and loss measurement using the
+   procedures described in [RFC6374].  For SR-MPLS links, the TTL value
+   is set to 1 in the SR-MPLS header for one-way and two-way measurement
+   modes.
 
 
     0                   1                   2                   3
@@ -324,12 +324,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 4.2.  Probe Message for SR-MPLS Policies
 
-   As described in Section 2.9.1 of [RFC6374], probe query and response
+   As described in Section 2.9.1 of [RFC6374], query and response
    messages flow over the MPLS Generic Associated Channel (G-ACh).  A
-   probe message for an end-to-end SR-MPLS Policy measurement contains
-   SR-MPLS label stack [I-D.ietf-spring-segment-routing-policy], with
-   the G-ACh Label (GAL) at the bottom of the stack (with S=1).  The GAL
-   is followed by an Associated Channel Header (ACH), which identifies
+   query/response message for an end-to-end SR-MPLS Policy measurement
+   contains SR-MPLS label stack
+   [I-D.ietf-spring-segment-routing-policy], with the G-ACh Label (GAL)
+   at the bottom of the stack (with S=1).  The GAL is followed by an
 
 
 
@@ -338,9 +338,9 @@ Gandhi, et al.          Expires November 3, 2021                [Page 6]
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
-   the message type, and the message payload following the ACH as shown
-   in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
-   the SR-MPLS header.
+   Associated Channel Header (ACH), which identifies the message type,
+   and the message payload following the ACH as shown in Figure 3.  For
+   SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.
 
 
     0                   1                   2                   3
@@ -366,25 +366,25 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Figure 2) to indicate Implicit NULL label case.
 
    For SR-MPLS Policy performance measurement, in order to ensure that
-   the probe query message is processed by the intended responder node,
-   Destination Address TLV (Type 129) [RFC6374] MAY be sent in the probe
-   query message.  The responder node only returns Success in Control
-   Code if it is the intended destination for the probe query.
-   Otherwise, it MUST return 0x15: Error - Invalid Destination Node
-   Identifier [RFC6374].
+   the query message is processed by the intended responder node,
+   Destination Address TLV (Type 129) [RFC6374] MAY be sent in the query
+   message.  The responder node only returns Success in Control Code if
+   it is the intended destination for the query.  Otherwise, it MUST
+   return 0x15: Error - Invalid Destination Node Identifier [RFC6374].
 
 4.3.  Probe Response Message for SR-MPLS Links and Policies
 
 4.3.1.  One-way Measurement Mode
 
    In one-way measurement mode defined in Section 2.4 of [RFC6374], the
-   querier node can receive "out-of-band" probe responses by properly
-   setting the UDP Return Object (URO) TLV in the probe query message.
-   The URO TLV (Type=131) is defined in [RFC7876] and includes the UDP-
-   Destination-Port and IP Address.  In particular, when the querier
-   node sets an IP address in the URO TLV, the probe response is sent to
-   that IP address as destination.  In addition, the "control code" in
-   the probe query message is set to "out-of-band response requested".
+   querier node can receive "out-of-band" responses by properly setting
+   the UDP Return Object (URO) TLV in the query message.  The URO TLV
+   (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
+   Port and IP Address.  In particular, when the querier node sets an IP
+   address in the URO TLV, the response is sent to that IP address as
+   destination.  In addition, the "control code" in the query message is
+   set to "out-of-band response requested".
+
 
 
 
@@ -395,53 +395,53 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
    In this delay measurement mode, as per Reference Topology, the
-   timestamps T1 and T2 are collected by the probes.  Both these
-   timestamps are used to measure one-way delay as (T2 - T1).
+   timestamps T1 and T2 are collected by the query/response messages.
+   Both these timestamps are used to measure one-way delay as (T2 - T1).
 
 4.3.2.  Two-way Measurement Mode
 
    In two-way measurement mode defined in Section 2.4 of [RFC6374], the
-   probe response messages are sent back to the querier node in-band (on
-   the same path (same set of links and nodes) on the reverse direction
-   SR-MPLS link or reverse direction SR-MPLS Policy
+   response messages are sent back to the querier node in-band (on the
+   same path (same set of links and nodes) on the reverse direction SR-
+   MPLS link or reverse direction SR-MPLS Policy
    [I-D.ietf-pce-sr-bidir-path] using a message with format shown in
-   Figure 3 for the probe query message.  In this case, the "control
-   code" in the probe query message is set to "in-band response
-   requested".
+   Figure 3 for the query message.  In this case, the "control code" in
+   the query message is set to "in-band response requested".
 
-   Specifically, the probe response message is sent back on the same
-   incoming link where the probe query message is received.  This is
-   useful for example, in case of two-way measurement mode for link
-   delay.
+   Specifically, the response message is sent back on the same incoming
+   link where the query message is received.  This is useful for
+   example, in case of two-way measurement mode for link delay.
 
    In this delay measurement mode, as per Reference Topology, all
-   timestamps T1, T2, T3, and T4 are collected by the probes.  All four
-   timestamps are used to measure two-way delay as ((T4 - T1) - (T3 -
-   T2)).
+   timestamps T1, T2, T3, and T4 are collected by the query/response
+   messages.  All four timestamps are used to measure two-way delay as
+   ((T4 - T1) - (T3 - T2)).
 
 4.3.3.  Loopback Measurement Mode
 
    The Loopback measurement mode defined in Section 2.8 of [RFC6374] can
    be used to measure round-trip delay for a bidirectional SR-MPLS path
-   [I-D.ietf-pce-sr-bidir-path].  The probe query messages in this case
+   [I-D.ietf-pce-sr-bidir-path].  The query messages in this case
    carries the return path label stack as part of the MPLS header.  The
    GAL is still carried at the bottom of the label stack (with S=1).
-   The responder node does not process the probe messages and generate
-   response messages, and hence Loopback Request object (Type 3) is not
-   required for an SR-MPLS path.
+   The responder node does not process the query/response messages and
+   generate response messages, and hence Loopback Request object (Type
+   3) is not required for an SR-MPLS path.
 
    In this delay measurement mode, as per Reference Topology, the
-   timestamps T1 and T4 are collected by the probes.  Both these
-   timestamps are used to measure round-trip delay as (T4 - T1).
+   timestamps T1 and T4 are collected by the query/response messages.
+   Both these timestamps are used to measure round-trip delay as (T4 -
+   T1).
 
 5.  Delay Measurement
 
 5.1.  Delay Measurement Message Format
 
-   As defined in [RFC6374], MPLS DM probe query and response messages
-   use Associated Channel Header (ACH) (value 0x000C for delay
-   measurement) [RFC6374], which identifies the message type, and the
-
+   As defined in [RFC6374], MPLS DM query and response messages use
+   Associated Channel Header (ACH) (value 0x000C for delay measurement)
+   [RFC6374], which identifies the message type, and the message payload
+   following the ACH.  For both SR-MPLS links and end-to-end Policies
+   measurements, the same MPLS DM ACH value is used.
 
 
 
@@ -449,9 +449,6 @@ Gandhi, et al.          Expires November 3, 2021                [Page 8]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
-
-   message payload following the ACH.  For both SR-MPLS links and end-
-   to-end Policies measurements, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
@@ -483,27 +480,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    [I-D.ietf-spring-mpls-path-segment] carried in the received data
    packet for the traffic flow under measurement can be used for
    accounting received traffic on the on the egress node of the SR-MPLS
-   Policy.  For direct mode, the PSID in the received probe query
-   message as shown in Figure 4 can be used to associate the receive
-   traffic counter on the responder node for the end-to-end SR-MPLS
-   Policy.  Different values of PSID can be used to measure packet loss
-   per SR-MPLS Policy, per Candidate Path or per Segment List of the SR
-   Policy.
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021                [Page 9]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+   Policy.  For direct mode, the PSID in the received query message as
+   shown in Figure 4 can be used to associate the receive traffic
+   counter on the responder node for the end-to-end SR-MPLS Policy.
+   Different values of PSID can be used to measure packet loss per SR-
+   MPLS Policy, per Candidate Path or per Segment List of the SR Policy.
 
 
     0                   1                   2                   3
@@ -518,10 +499,17 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
      Figure 4: Example With Path Segment Identifier for SR-MPLS Policy
 
+
+
+Gandhi, et al.          Expires November 3, 2021                [Page 9]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
+
 6.1.  Loss Measurement Message Format
 
-   As defined in [RFC6374], MPLS LM probe query and response messages
-   use Associated Channel Header (ACH) (value 0x000A for direct loss
+   As defined in [RFC6374], MPLS LM query and response messages use
+   Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end Policies measurements,
@@ -533,12 +521,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 6.2.  Combined Loss/Delay Measurement Message Format
 
-   As defined in [RFC6374], Combined DM+LM probe query and response
-   messages use Associated Channel Header (ACH) (value 0x000D for direct
-   loss and delay measurement or value 0x000E for inferred loss and
-   delay measurement), which identifies the message type, and the
-   message payload following the ACH.  For both SR-MPLS links and end-
-   to-end Policies measurements, the same MPLS ACH value is used.
+   As defined in [RFC6374], Combined DM+LM query and response messages
+   use Associated Channel Header (ACH) (value 0x000D for direct loss and
+   delay measurement or value 0x000E for inferred loss and delay
+   measurement), which identifies the message type, and the message
+   payload following the ACH.  For both SR-MPLS links and end-to-end
+   Policies measurements, the same MPLS ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS
@@ -548,30 +536,30 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 7.1.  Return Path TLV Extensions
 
-   For two-way measurement, the responder node needs to send the probe
+   For two-way measurement, the responder node needs to send the
    response message on a specific return path.  The querier node can
-   request in the probe query message to the responder node to send a
-   response message back on a given return path (e.g. co-routed path for
-   two-way measurement).  This way the responder avoids creating and
-   maintaining extra dynamic states for the return paths.
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 10]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
+   request in the query message to the responder node to send a response
+   message back on a given return path (e.g. co-routed path for two-way
+   measurement).  This way the responder avoids creating and maintaining
+   extra dynamic states for the return paths.
 
    For one-way performance measurement, the querier node address may not
    be reachable via IP route from the responder node.  The querier node
    in this case can send its reachability path information to the
    responder node.
 
-   [RFC6374] defines DM and LM probe query messages that can include one
-   or more optional TLVs.  New TLV Type (TBA2) is defined in this
-   document for Return Path to carry return path information in the
-   probe query messages (in the payload).  The format of the Return Path
-   TLV is shown in Figure 5:
+   [RFC6374] defines DM and LM query messages that can include one or
+   more optional TLVs.  New TLV Type (TBA2) is defined in this document
+   for Return Path to carry return path information in the query
+   messages (in the payload).  The format of the Return Path TLV is
+   shown in Figure 5:
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 10]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
     0                   1                   2                   3
@@ -586,12 +574,12 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
                          Figure 5: Return Path TLV
 
    The Return Path TLV is a Mandatory TLV Type.  The querier node MUST
-   only insert one Return Path TLV in the probe query message.  The
-   responder node that supports this TLV, MUST only process the first
-   Return Path TLV and ignore the other Return Path TLVs if present.
-   The responder node also MUST NOT add Return Path TLV in the probe
-   response message.  The Reserved field MUST be set to 0 and MUST be
-   ignored on the receive side.
+   only insert one Return Path TLV in the query message.  The responder
+   node that supports this TLV, MUST only process the first Return Path
+   TLV and ignore the other Return Path TLVs if present.  The responder
+   node also MUST NOT add Return Path TLV in the response message.  The
+   Reserved field MUST be set to 0 and MUST be ignored on the receive
+   side.
 
 7.1.1.  Return Path Sub-TLV Extensions
 
@@ -601,21 +589,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Return Path TLV can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Return Path
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 11]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
     0                   1                   2                   3
@@ -636,14 +609,23 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
              Figure 6: Segment List Sub-TLV in Return Path TLV
 
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 11]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
+
    An SR-MPLS Label Stack Sub-TLV may carry only Binding SID
    [I-D.ietf-pce-binding-label-sid] of the Return SR-MPLS Policy.
 
    The Return Path TLV MUST carry only one Return Path Sub-TLV.  The
    responder node that supports this Sub-TLV, MUST only process the
    first Return Path Sub-TLV and ignore the other Return Path Sub-TLVs
-   if present.  The responder node also MUST send probe response message
-   back on the return path specified in the Return Path Sub-TLV.  The
+   if present.  The responder node also MUST send response message back
+   on the return path specified in the Return Path Sub-TLV.  The
    Reserved field MUST be set to 0 and MUST be ignored on the receive
    side.
 
@@ -653,25 +635,14 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    [RFC8321] requires coloring the data traffic flow under measurement.
    To be able to correlate the transmit and receive traffic counters of
    the matching color, the Block Number (or color) of the traffic
-   counters is carried by the probe query and response messages for loss
+   counters is carried by the query and response messages for loss
    measurement.
 
-   [RFC6374] defines probe query and response messages that can include
-   one or more optional TLVs.  New TLV Type (value TBA1) is defined in
-   this document to carry the Block Number (8-bit) of the traffic
-   counters in the probe query and response messages for loss
-   measurement.  The format of the Block Number TLV is shown in
-   Figure 7:
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 12]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+   [RFC6374] defines query and response messages that can include one or
+   more optional TLVs.  New TLV Type (value TBA1) is defined in this
+   document to carry the Block Number (8-bit) of the traffic counters in
+   the query and response messages for loss measurement.  The format of
+   the Block Number TLV is shown in Figure 7:
 
 
     0                   1                   2                   3
@@ -683,16 +654,25 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
                         Figure 7: Block Number TLV
 
    The Block Number TLV is a Mandatory TLV Type.  The querier node MUST
-   only insert one Block Number TLV in the probe query message to
-   identify the Block Number for the traffic counters in the forward
-   direction.  The responder node that supports this TLV, MUST only
-   inert one Block Number TLV in the probe response message to identify
-   the Block Number for the traffic counters in the reverse direction.
-   The responder node also MUST return the first Block Number TLV from
-   the probe query message and ignore the other Block Number TLVs if
-   present.  The R Flag MUST be clear in the probe query message and set
-   in the probe response message.  The Reserved field MUST be set to 0
-   and MUST be ignored on the receive side.
+   only insert one Block Number TLV in the query message to identify the
+   Block Number for the traffic counters in the forward direction.  The
+   responder node that supports this TLV, MUST only inert one Block
+   Number TLV in the response message to identify the Block Number for
+   the traffic counters in the reverse direction.  The responder node
+   also MUST return the first Block Number TLV from the query message
+   and ignore the other Block Number TLVs if present.  The R Flag MUST
+   be clear in the query message and set in the response message.  The
+   Reserved field MUST be set to 0 and MUST be ignored on the receive
+   side.
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 12]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
 8.  Performance Measurement for P2MP SR-MPLS Policies
 
@@ -705,29 +685,19 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    applicable to the P2MP SR-MPLS Policies.  The procedure for one-way
    measurement is defined as following:
 
-   o  The querier root node sends probe query messages using the Tree-
-      SID defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP SR-MPLS
-      Policy as shown in Figure 8.  The probe query messages may contain
-      the replication SID as defined in
+   o  The querier root node sends query messages using the Tree-SID
+      defined in [I-D.ietf-pim-sr-p2mp-policy] for the P2MP SR-MPLS
+      Policy as shown in Figure 8.  The query messages may contain the
+      replication SID as defined in
       [I-D.ietf-spring-sr-replication-segment].
 
    o  Each responder leaf node sends its node address in the "Source
-      Address" TLV (Type 130) [RFC6374] in the probe response messages.
-      This TLV allows the querier root node to identify the responder
-      leaf nodes of the P2MP SR-MPLS Policy.
+      Address" TLV (Type 130) [RFC6374] in the response messages.  This
+      TLV allows the querier root node to identify the responder leaf
+      nodes of the P2MP SR-MPLS Policy.
 
    o  The P2MP root node measures the delay and loss performance for
       each P2MP leaf node individually.
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 13]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
     0                   1                   2                   3
@@ -750,21 +720,31 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    measurement for P2MP SR-MPLS Policy (e.g. for co-routed bidirectional
    SR-MPLS path) are outside the scope of this document.
 
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 13]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
+
 9.  ECMP for SR-MPLS Policies
 
    An SR-MPLS Policy can have ECMPs between the source and transit
    nodes, between transit nodes and between transit and destination
    nodes.  Usage of Anycast SID [RFC8402] by an SR-MPLS Policy can
    result in ECMP paths via transit nodes part of that Anycast group.
-   The probe messages need to be sent to traverse different ECMP paths
-   to measure performance delay of each of the ECMP path of an SR-MPLS
-   Policy.
+   The query/response messages need to be sent to traverse different
+   ECMP paths to measure performance delay of each of the ECMP path of
+   an SR-MPLS Policy.
 
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  For SR-MPLS Policy, sweeping of
-   entropy label [RFC6790] values can be used in probe messages to take
-   advantage of the hashing function in forwarding plane to influence
-   the ECMP path taken by them.
+   entropy label [RFC6790] values can be used in query/response messages
+   to take advantage of the hashing function in forwarding plane to
+   influence the ECMP path taken by them.
 
    The considerations for performance loss measurement for different
    ECMP paths of an SR-MPLS Policy are outside the scope of this
@@ -776,16 +756,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    using the performance measurement procedures described in this
    document can be advertised in the routing domain as follows:
 
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 14]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
       [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
       advertising the extended TE link metrics in the network.
@@ -794,8 +764,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
       Section 4.2 of [RFC5481].
 
    o  The extended TE link one-way delay metrics can also be computed
-      using two-way measurement or round-trip delay measurement from
-      loopback mode by dividing the measured delay values by 2.
+      using the two-way and round-trip delay values by dividing the
+      values by 2.
 
    o  The extended TE link delay and loss metrics are advertised for
       Layer-2 LAG bundle member links in OSPF
@@ -807,6 +777,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    The procedures defined in this document are backwards compatible with
    the procedures defined in [RFC6374] at both querier and responder
    nodes.  If the responder does not support the new Mandatory TLV Types
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 14]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
+
    defined in this document, it MUST return Error 0x17: Unsupported
    Mandatory TLV Object as per [RFC6374].
 
@@ -822,25 +801,18 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 13.  IANA Considerations
 
    IANA is requested to allocate a value for the following Mandatory
-   Block Number TLV Type for [RFC6374] to be carried in the probe query
-   and response messages from the "MPLS Loss/Delay Measurement TLV
-   Object" registry contained within the "Generic Associated Channel
-   (G-ACh) Parameters" registry set:
+   Block Number TLV Type for [RFC6374] to be carried in the query and
+   response messages from the "MPLS Loss/Delay Measurement TLV Object"
+   registry contained within the "Generic Associated Channel (G-ACh)
+   Parameters" registry set:
 
    o  Type TBA1: Block Number TLV
 
    IANA is also requested to allocate a value for the following
    Mandatory Return Path TLV Type for [RFC6374] to be carried in the
-   probe query messages from the "MPLS Loss/Delay Measurement TLV
-   Object" registry contained within the "Generic Associated Channel
-   (G-ACh) Parameters" registry set:
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 15]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
+   query messages from the "MPLS Loss/Delay Measurement TLV Object"
+   registry contained within the "Generic Associated Channel (G-ACh)
+   Parameters" registry set:
 
    o  Type TBA2: Return Path TLV
 
@@ -851,6 +823,24 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    the range 128 through 239 in this registry shall be allocated
    according to the "First Come First Served" procedure as specified in
    [RFC8126].  Remaining code points are allocated according to Table 1:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 15]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
                +-----------+--------------+---------------+
                | Value     | Description  | Reference     |
@@ -890,14 +880,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               DOI 10.17487/RFC6374, September 2011,
               <https://www.rfc-editor.org/info/rfc6374>.
 
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 16]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    [RFC7876]  Bryant, S., Sivabalan, S., and S. Soni, "UDP Return Path
               for Packet Loss and Delay Measurement for MPLS Networks",
               RFC 7876, DOI 10.17487/RFC7876, July 2016,
@@ -906,6 +888,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 16]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
 14.2.  Informative References
 
@@ -944,16 +935,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
 
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 17]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    [RFC8570]  Ginsberg, L., Ed., Previdi, S., Ed., Giacalone, S., Ward,
               D., Drake, J., and Q. Wu, "IS-IS Traffic Engineering (TE)
               Metric Extensions", RFC 8570, DOI 10.17487/RFC8570, March
@@ -964,6 +945,14 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               IGP Traffic Engineering Performance Metric Extensions",
               RFC 8571, DOI 10.17487/RFC8571, March 2019,
               <https://www.rfc-editor.org/info/rfc8571>.
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 17]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
    [RFC8668]  Ginsberg, L., Ed., Bashandy, A., Filsfils, C., Nanduri,
               M., and E. Aries, "Advertising Layer 2 Bundle Member Link
@@ -1000,16 +989,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               draft-ietf-spring-mpls-path-segment-04 (work in progress),
               April 2021.
 
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 18]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    [I-D.ietf-lsr-ospf-l2bundles]
               Talaulikar, K. and P. Psenak, "Advertising L2 Bundle
               Member Link Attributes in OSPF", draft-ietf-lsr-ospf-
@@ -1021,6 +1000,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
               Extensions for Associated Bidirectional Segment Routing
               (SR) Paths", draft-ietf-pce-sr-bidir-path-05 (work in
               progress), January 2021.
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 18]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
    [I-D.gandhi-mpls-ioam-sr]
               Gandhi, R., Ali, Z., Filsfils, C., Brockners, F., Wen, B.,
@@ -1047,25 +1035,6 @@ Acknowledgments
 
 Contributors
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021               [Page 19]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    Sagar Soni
    Cisco Systems, Inc.
    Email: sagsoni@cisco.com
@@ -1086,6 +1055,15 @@ Authors' Addresses
    Canada
 
    Email: rgandhi@cisco.com
+
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021               [Page 19]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
    Clarence Filsfils
@@ -1111,6 +1089,28 @@ Authors' Addresses
    Huawei
 
    Email: mach.chen@huawei.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
