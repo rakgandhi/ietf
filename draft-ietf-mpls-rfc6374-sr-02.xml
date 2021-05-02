@@ -340,10 +340,10 @@
    can receive "out-of-band" probe responses by properly setting the UDP
    Return Object (URO) TLV in the probe query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
-   UDP-Destination-Port and IP Address.  In particular, if the querier node
-   sets its own IP address in the URO TLV, the probe response is sent
-   to that IP address 
-   as destination.  In addition, the "control code" in the probe 
+   UDP-Destination-Port and IP Address.  In particular, when the querier node
+   sets an IP address in the URO TLV, the probe response is sent
+   to that IP address as destination.  
+   In addition, the "control code" in the probe 
    query message is set to "out-of-band response requested".</t>
 
    <t>In this delay measurement mode, as per Reference Topology, the timestamps 
