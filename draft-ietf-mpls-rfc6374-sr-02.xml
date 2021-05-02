@@ -265,9 +265,9 @@
     </section>
 
 
-    <section title="Probe Query and Response Messages" anchor="sect-4">
+    <section title="Query and Response Messages" anchor="sect-4">
         
-    <section title="Probe Message for SR-MPLS Links" anchor="sect-4.2"><t>
+    <section title="Query and Response Messages for SR-MPLS Links" anchor="sect-4.2"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A query/response message for SR-MPLS links contains G-ACh Label (GAL)
@@ -278,7 +278,7 @@
    in <xref target="RFC6374"/>.  For SR-MPLS links, the TTL value is set to 1 
    in the SR-MPLS header for one-way and two-way measurement modes.</t>
 
-    <figure title="Probe Message Header for an SR-MPLS Link" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
+    <figure title="Query and Response Message Header for an SR-MPLS Link" anchor="ure-packet-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -291,7 +291,7 @@
     </figure>
     </section>
         
-        <section title="Probe Message for SR-MPLS Policies" anchor="sect-4.1"><t>
+        <section title="Query and Response Messages for SR-MPLS Policies" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  A query/response message for an end-to-end SR-MPLS Policy measurement
@@ -302,7 +302,7 @@
    ACH as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
-    <figure title="Example Probe Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
+    <figure title="Example Query and Response Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -334,7 +334,7 @@
 
     </section>
 
-    <section title="Probe Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
+    <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
    Section 2.4 of <xref target="RFC6374"/>, the querier node
    can receive "out-of-band" responses by properly setting the UDP
@@ -655,7 +655,7 @@
     </list>
     </t>
 
-    <figure title="Example Probe Query with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
+    <figure title="Example Query with Tree-SID for SR-MPLS Policy" anchor="ure-with-replication-segment-for-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

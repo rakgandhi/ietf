@@ -81,10 +81,10 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Probe Query and Response Messages . . . . . . . . . . . . . .   6
-     4.1.  Probe Message for SR-MPLS Links . . . . . . . . . . . . .   6
-     4.2.  Probe Message for SR-MPLS Policies  . . . . . . . . . . .   6
-     4.3.  Probe Response Message for SR-MPLS Links and Policies . .   7
+   4.  Query and Response Messages . . . . . . . . . . . . . . . . .   6
+     4.1.  Query and Response Messages for SR-MPLS Links . . . . . .   6
+     4.2.  Query and Response Messages for SR-MPLS Policies  . . . .   6
+     4.3.  Response Message for SR-MPLS Links and Policies . . . . .   7
        4.3.1.  One-way Measurement Mode  . . . . . . . . . . . . . .   7
        4.3.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
        4.3.3.  Loopback Measurement Mode . . . . . . . . . . . . . .   8
@@ -296,9 +296,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    to record OAM information in the packets, and are outside the scope
    of this document.
 
-4.  Probe Query and Response Messages
+4.  Query and Response Messages
 
-4.1.  Probe Message for SR-MPLS Links
+4.1.  Query and Response Messages for SR-MPLS Links
 
    As described in Section 2.9.1 of [RFC6374], the query and response
    messages flow over the MPLS Generic Associated Channel (G-ACh).  A
@@ -320,9 +320,9 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-            Figure 2: Probe Message Header for an SR-MPLS Link
+      Figure 2: Query and Response Message Header for an SR-MPLS Link
 
-4.2.  Probe Message for SR-MPLS Policies
+4.2.  Query and Response Messages for SR-MPLS Policies
 
    As described in Section 2.9.1 of [RFC6374], query and response
    messages flow over the MPLS Generic Associated Channel (G-ACh).  A
@@ -359,8 +359,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-     Figure 3: Example Probe Message Header for an End-to-end SR-MPLS
-                                  Policy
+   Figure 3: Example Query and Response Message Header for an End-to-end
+                              SR-MPLS Policy
 
    The SR-MPLS label stack can be empty (similar to as shown in
    Figure 2) to indicate Implicit NULL label case.
@@ -372,7 +372,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    it is the intended destination for the query.  Otherwise, it MUST
    return 0x15: Error - Invalid Destination Node Identifier [RFC6374].
 
-4.3.  Probe Response Message for SR-MPLS Links and Policies
+4.3.  Response Message for SR-MPLS Links and Policies
 
 4.3.1.  One-way Measurement Mode
 
@@ -714,7 +714,7 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
     |0 0 0 1|Version| Reserved      | GAL Channel Type              |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-      Figure 8: Example Probe Query with Tree-SID for SR-MPLS Policy
+         Figure 8: Example Query with Tree-SID for SR-MPLS Policy
 
    The considerations for two-way mode and loopback mode for delay
    measurement for P2MP SR-MPLS Policy (e.g. for co-routed bidirectional
