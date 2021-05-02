@@ -291,10 +291,10 @@
     </figure>
     </section>
         
-        <section title="Query and Response Messages for SR-MPLS Policies" anchor="sect-4.1"><t>
+        <section title="Query Messages for SR-MPLS Policies" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A query/response message for an end-to-end SR-MPLS Policy measurement
+   (G-ACh).  A query message for an end-to-end SR-MPLS Policy measurement
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1).
    The GAL is followed by an Associated Channel Header (ACH), which
@@ -302,7 +302,7 @@
    ACH as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
 
-    <figure title="Example Query and Response Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
+    <figure title="Example Query Message Header for an End-to-end SR-MPLS Policy" anchor="ure-packet-header-for-an-end-to-end-sr-mpls-policy"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -347,7 +347,7 @@
    query message is set to "out-of-band response requested".</t>
 
    <t>In this delay measurement mode, as per Reference Topology, the timestamps 
-	   T1 and T2 are collected by the query/response messages. Both these timestamps 
+   T1 and T2 are collected by the query/response messages. Both these timestamps 
    are used to measure one-way delay as (T2 - T1).</t>
 
     </section>
@@ -356,17 +356,22 @@
    In two-way measurement mode defined in Section 2.4 of <xref target="RFC6374"/>, 
    the response messages are sent back to the
    querier node in-band (on the same path (same set of links and nodes) 
-   on the reverse direction SR-MPLS link or reverse direction 
-   SR-MPLS Policy <xref target="I-D.ietf-pce-sr-bidir-path"/> using a
-   message with format shown in Figure 3 for the query message.  In this
-   case, the "control code" in the query message is set to "in-band response requested".</t>
+   in the reverse direction.  In this case, the "control code" 
+   in the query message is set to "in-band response requested".</t>
 
    <t>Specifically, the response message is sent back on the same incoming    
    link where the query message is received.  This    
    is useful for example, in case of two-way measurement mode for link delay.</t>
 
+   <t>For end-to-end SR-MPLS paths, the responder needs to transmit
+   the response message (with format shown in Figure 3) on a specific reverse SR-MPLS path 
+   <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
+   can request in the query message to the responder to
+   send the response message back on a given reverse path using an 
+   SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
+
    <t>In this delay measurement mode, as per Reference Topology, 
-	   all timestamps T1, T2, T3, and T4 are collected by the query/response messages. 
+   all timestamps T1, T2, T3, and T4 are collected by the query/response messages. 
    All four timestamps are used to measure two-way 
    delay as ((T4 - T1) - (T3 - T2)).</t>
 
@@ -379,7 +384,7 @@
    The query messages in this case carries the
    return path label stack as part of the MPLS header.  The GAL is
    still carried at the bottom of the label stack (with S=1).  The
-   responder node does not process the query/response messages and generate
+   responder node does not process the query messages and generate
    response messages, and hence Loopback Request object (Type 3)
    is not required for an SR-MPLS path.</t>
    
