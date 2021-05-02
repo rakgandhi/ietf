@@ -790,8 +790,8 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
       [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
       advertising the extended TE link metrics in the network.
 
-   o  The advertised delay-variance metric is computed as specified in
-      Section 4.2 of [RFC5481].
+   o  The advertised delay-variance metric is Packet Delay Variation
+      (PDV) and is computed as described in Section 4.2 of [RFC5481].
 
    o  The extended TE link one-way delay metrics can also be computed
       using the two-way and round-trip delay values by dividing the

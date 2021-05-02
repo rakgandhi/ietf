@@ -719,8 +719,8 @@
     and <xref target="RFC8571"/> are used, respectively for
     advertising the extended TE link metrics in the network.</t>
 
-    <t>The advertised delay-variance metric is computed as specified in
-    Section 4.2 of <xref target="RFC5481"/>.</t>
+    <t>The advertised delay-variance metric is Packet Delay Variation (PDV)
+    and is computed as described in Section 4.2 of <xref target="RFC5481"/>.</t>
 
     <t>The extended TE link one-way delay metrics can also be computed using
     the two-way and round-trip delay values by dividing the values by 2.</t>
