@@ -357,8 +357,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
      Figure 3: Example Query Message Header for an End-to-end SR-MPLS
                                   Policy
 
-   The SR-MPLS label stack can be empty (similar to as shown in
-   Figure 2) to indicate Implicit NULL label case.
+   The SR-MPLS label stack can be empty (format as shown in Figure 2) to
+   indicate Implicit NULL label case.
 
    For SR-MPLS Policy performance measurement, in order to ensure that
    the query message is processed by the intended responder, Destination

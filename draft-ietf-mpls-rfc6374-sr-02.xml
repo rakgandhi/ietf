@@ -324,7 +324,7 @@
 ]]></artwork>
     </figure>
     <t>
-   The SR-MPLS label stack can be empty (similar to as shown in Figure 2) to
+   The SR-MPLS label stack can be empty (format as shown in Figure 2) to
    indicate Implicit NULL label case.</t>
 
     <t>For SR-MPLS Policy performance measurement, in order to ensure that the
