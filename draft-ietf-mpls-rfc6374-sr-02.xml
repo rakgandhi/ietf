@@ -250,7 +250,7 @@
 
 
     <t>
-    For Performance Measurement in SR-MPLS networks, the query and response 
+    In SR-MPLS networks, the query and response 
     messages defined in <xref target="RFC6374"/> are sent as following:</t>
 
     <t><list style="symbols"><t>For delay measurement, the query messages are sent for  
@@ -272,7 +272,7 @@
     </t>
 
     <t>
-    The Performance Measurements (PM) for SR-MPLS links can be used to compute
+    The performance measurements procedure for SR-MPLS links can be used to compute
     extended Traffic Engineering (TE) metrics for delay and loss as described in
     Section 10 and advertised in the network using the routing protocol extensions
     defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
@@ -709,7 +709,7 @@
 
     <section title="SR-MPLS Link Extended TE Metrics Advertisements" anchor="sect-10"><t>
    The extended TE metrics for SR-MPLS link delay and loss can be computed using the
-   procedures described in this document and 
+   performance measurement procedures described in this document and 
    advertised in the routing domain as follows:</t>
 
     <t><list style="symbols">

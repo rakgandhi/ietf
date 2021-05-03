@@ -265,8 +265,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    receive packet loss measurement in SR-MPLS networks, the procedures
    defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
 
-   For Performance Measurement in SR-MPLS networks, the query and
-   response messages defined in [RFC6374] are sent as following:
+   In SR-MPLS networks, the query and response messages defined in
+   [RFC6374] are sent as following:
 
    o  For delay measurement, the query messages are sent for the data
       traffic flow under measurement by the querier, and are used to
@@ -291,10 +291,10 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
       experienced by the data traffic flowing on the SR-MPLS links and
       end-to-end SR-MPLS Policies.
 
-   The Performance Measurements (PM) for SR-MPLS links can be used to
-   compute extended Traffic Engineering (TE) metrics for delay and loss
-   as described in Section 10 and advertised in the network using the
-   routing protocol extensions defined in [RFC7471], [RFC8570], and
+   The performance measurements procedure for SR-MPLS links can be used
+   to compute extended Traffic Engineering (TE) metrics for delay and
+   loss as described in Section 10 and advertised in the network using
+   the routing protocol extensions defined in [RFC7471], [RFC8570], and
    [RFC8571].
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
@@ -745,8 +745,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 10.  SR-MPLS Link Extended TE Metrics Advertisements
 
    The extended TE metrics for SR-MPLS link delay and loss can be
-   computed using the procedures described in this document and
-   advertised in the routing domain as follows:
+   computed using the performance measurement procedures described in
+   this document and advertised in the routing domain as follows:
 
    o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
       [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
