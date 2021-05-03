@@ -522,13 +522,10 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Policy.  In direct mode, the PSID in the received query message as
    shown in Figure 4 can be used to associate the receive traffic
    counter on the responder for the end-to-end SR-MPLS Policy.
-   Different values of PSID can be used to measure packet loss per SR-
-   MPLS Policy, per Candidate Path or per Segment List of the SR Policy
-   [I-D.ietf-spring-segment-routing-policy].
 
    In inferred mode, the PSID in the received query message as shown in
    Figure 4 can be used to count the received query messages to detect
-   the number of query packets lost.
+   the number of query packets lost for the end-to-end SR-MPLS Policy.
 
 
     0                   1                   2                   3
@@ -543,6 +540,10 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
      Figure 4: Example With Path Segment Identifier for SR-MPLS Policy
 
+   Different values of PSID can be used to measure packet loss per SR-
+   MPLS Policy, per Candidate Path or per Segment List of the SR Policy
+   [I-D.ietf-spring-segment-routing-policy].
+
 7.  TLV Extensions
 
 7.1.  Return Path TLV Extension
@@ -553,7 +554,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    given return path (e.g. co-routed SR-MPLS path for two-way
    measurement).  This way the responder avoids creating and maintaining
    extra dynamic SR states for the return paths.
-
 
 
 

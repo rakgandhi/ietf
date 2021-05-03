@@ -482,14 +482,11 @@
    on the egress node of the SR-MPLS Policy.
    In direct mode, the PSID in the received query message 
    as shown in Figure 4 can be used to associate the receive traffic counter 
-   on the responder for the end-to-end SR-MPLS Policy.
-   Different values of PSID can be used to measure packet loss per
-   SR-MPLS Policy, per Candidate Path or per Segment List of the 
-   SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/>.</t>
+   on the responder for the end-to-end SR-MPLS Policy.</t>
 
    <t>In inferred mode, the PSID in the received query message as 
    shown in Figure 4 can be used to count the received query messages
-   to detect the number of query packets lost.</t>
+   to detect the number of query packets lost for the end-to-end SR-MPLS Policy.</t>
 
     <figure title="Example With Path Segment Identifier for SR-MPLS Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
 
@@ -505,6 +502,9 @@
 ]]></artwork>
     </figure>
 
+   <t>Different values of PSID can be used to measure packet loss per
+   SR-MPLS Policy, per Candidate Path or per Segment List of the 
+   SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/>.</t>
         </section>
 
     </section>
