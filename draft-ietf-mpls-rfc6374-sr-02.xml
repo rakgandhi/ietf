@@ -362,13 +362,13 @@
    the same link or end-to-end SR-MPLS path (same set of links and nodes) 
    in the reverse direction.</t>
 
-   <t>For SR-MPLS links, the response message (format shown in Figure 2) 
+   <t>For SR-MPLS links, the response message (format as shown in Figure 2) 
    is sent back on the same incoming link where the query 
    message is received.  In this case, the "control code" 
    in the query message is set to "in-band response requested".</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
-   the response message (format shown in Figure 3) 
+   the response message (format as shown in Figure 3) 
    on a specific reverse SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to
@@ -386,9 +386,9 @@
    The Loopback measurement mode defined in Section 2.8 of <xref target="RFC6374"/> can
    be used to measure round-trip delay for a bidirectional circular SR-MPLS path
     <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
-   The query messages in this case carry the
+   The query messages in this case also carry the
    return path label stack as part of the MPLS header.  The GAL is
-   carried at the bottom of the label stack (with S=1).</t>
+   carried at the bottom of the label stack (with S=1) (format as shown in Figure 3).</t>
 
    <t>As the responder does not process the query messages and generate
    response messages, the Loopback Request object (Type 3) <xref target="RFC6374"/> 

@@ -401,17 +401,17 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    link or end-to-end SR-MPLS path (same set of links and nodes) in the
    reverse direction.
 
-   For SR-MPLS links, the response message (format shown in Figure 2) is
-   sent back on the same incoming link where the query message is
+   For SR-MPLS links, the response message (format as shown in Figure 2)
+   is sent back on the same incoming link where the query message is
    received.  In this case, the "control code" in the query message is
    set to "in-band response requested".
 
    For end-to-end SR-MPLS paths, the responder needs to transmit the
-   response message (format shown in Figure 3) on a specific reverse SR-
-   MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can request in
-   the query message to the responder to send the response message back
-   on a given reverse path using an SR-MPLS Segment List sub-TLV in the
-   Return Path TLV defined in this document.
+   response message (format as shown in Figure 3) on a specific reverse
+   SR-MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can request
+   in the query message to the responder to send the response message
+   back on a given reverse path using an SR-MPLS Segment List sub-TLV in
+   the Return Path TLV defined in this document.
 
    In two-way delay measurement mode, as per Reference Topology, all
    timestamps T1, T2, T3, and T4 are collected by the query and response
@@ -423,8 +423,9 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    The Loopback measurement mode defined in Section 2.8 of [RFC6374] can
    be used to measure round-trip delay for a bidirectional circular SR-
    MPLS path [I-D.ietf-pce-sr-bidir-path].  The query messages in this
-   case carry the return path label stack as part of the MPLS header.
-   The GAL is carried at the bottom of the label stack (with S=1).
+   case also carry the return path label stack as part of the MPLS
+   header.  The GAL is carried at the bottom of the label stack (with
+   S=1) (format as shown in Figure 3).
 
    As the responder does not process the query messages and generate
    response messages, the Loopback Request object (Type 3) [RFC6374] is
@@ -441,7 +442,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    As defined in [RFC6374], MPLS DM query and response messages use
    Associated Channel Header (ACH) (value 0x000C for delay measurement)
    [RFC6374], which identifies the message type, and the message payload
-
 
 
 
