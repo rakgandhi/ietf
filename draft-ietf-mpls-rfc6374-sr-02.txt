@@ -82,14 +82,13 @@ Table of Contents
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Query and Response Message  . . . . . . . . . . . . . . . . .   6
-     4.1.  Query and Response Message Header . . . . . . . . . . . .   6
-     4.2.  Query Message for SR-MPLS Links and Policies  . . . . . .   6
-       4.2.1.  Query Message for SR-MPLS Links . . . . . . . . . . .   6
-       4.2.2.  Query Message for SR-MPLS Policies  . . . . . . . . .   6
-     4.3.  Response Message for SR-MPLS Links and Policies . . . . .   7
-       4.3.1.  One-way Measurement Mode  . . . . . . . . . . . . . .   7
-       4.3.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
-       4.3.3.  Loopback Measurement Mode . . . . . . . . . . . . . .   8
+     4.1.  Query Message for SR-MPLS Links and Policies  . . . . . .   6
+       4.1.1.  Query Message for SR-MPLS Links . . . . . . . . . . .   6
+       4.1.2.  Query Message for SR-MPLS Policies  . . . . . . . . .   6
+     4.2.  Response Message for SR-MPLS Links and Policies . . . . .   7
+       4.2.1.  One-way Measurement Mode  . . . . . . . . . . . . . .   7
+       4.2.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
+       4.2.3.  Loopback Measurement Mode . . . . . . . . . . . . . .   8
    5.  Delay Measurement . . . . . . . . . . . . . . . . . . . . . .   8
      5.1.  Delay Measurement Message Format  . . . . . . . . . . . .   8
      5.2.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -106,6 +105,7 @@ Table of Contents
    11. Backwards Compatibility . . . . . . . . . . . . . . . . . . .  14
    12. Security Considerations . . . . . . . . . . . . . . . . . . .  14
    13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -114,7 +114,6 @@ Gandhi, et al.          Expires November 4, 2021                [Page 2]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      14.1.  Normative References . . . . . . . . . . . . . . . . . .  16
      14.2.  Informative References . . . . . . . . . . . . . . . . .  16
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  18
@@ -162,6 +161,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    DM: Delay Measurement.
 
+   ECMP: Equal Cost Multi-Path.
 
 
 
@@ -169,8 +169,6 @@ Gandhi, et al.          Expires November 4, 2021                [Page 3]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
-
-   ECMP: Equal Cost Multi-Path.
 
    G-ACh: Generic Associated Channel (G-ACh).
 
@@ -221,6 +219,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
+
+
 Gandhi, et al.          Expires November 4, 2021                [Page 4]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
@@ -241,54 +241,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 3.  Overview
 
-   For one-way, two-way and round-trip delay and delay variation
-   measurement in SR-MPLS networks, the procedures defined in
-   Section 2.4 and Section 2.5 of [RFC6374] are used.  For transmit and
-   receive packet loss measurement in SR-MPLS networks, the procedures
-   defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
-
-   For Performance Measurement, the query and response messages defined
-   in [RFC6374] are sent as following:
-
-   o  For delay measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier, and are used to
-      collect the transmit and receive timestamps to measure the delay
-      experienced by the data traffic flowing on the SR-MPLS links and
-      Policies.
-
-   o  For loss measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier, and are used to
-      collect the transmit traffic counters and the receive traffic
-      counters (e.g. for traffic received on the incoming link for the
-      link loss or on the incoming Path Segment Identifier (PSID) for
-      the end-to-end SR-MPLS path loss) to measure the packet loss
-      experienced by the data traffic flowing on the SR-MPLS links and
-      Policies.
-
-   The Performance Measurements (PM) for SR-MPLS links are used to
-   compute extended Traffic Engineering (TE) metrics for delay and loss
-   as described in Section 10 and can be advertised in the network using
-   the routing protocol extensions defined in [RFC7471], [RFC8570], and
-   [RFC8571].
-
-   The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
-
-
-
-
-Gandhi, et al.          Expires November 4, 2021                [Page 5]
-
-Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
-
-
-   to record OAM information in the packets, and are outside the scope
-   of this document.
-
-4.  Query and Response Message
-
-4.1.  Query and Response Message Header
-
    As described in Section 2.9.1 of [RFC6374], the query and response
    messages flow over the MPLS Generic Associated Channel (G-ACh).
    These query and response messages contain G-ACh Label (GAL) (value
@@ -307,22 +259,70 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
                 Figure 2: Query and Response Message Header
 
-4.2.  Query Message for SR-MPLS Links and Policies
+   For one-way, two-way and round-trip delay and delay variation
+   measurement in SR-MPLS networks, the procedures defined in
+   Section 2.4 and Section 2.5 of [RFC6374] are used.  For transmit and
+   receive packet loss measurement in SR-MPLS networks, the procedures
+   defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
 
-4.2.1.  Query Message for SR-MPLS Links
+   For Performance Measurement in SR-MPLS networks, the query and
+   response messages defined in [RFC6374] are sent as following:
+
+   o  For delay measurement, the query messages are sent for the data
+      traffic flow under measurement by the querier, and are used to
+      collect the transmit and receive timestamps to measure the delay
+      experienced by the data traffic flowing on the SR-MPLS links and
+      end-to-end SR-MPLS Policies.
+
+
+
+
+Gandhi, et al.          Expires November 4, 2021                [Page 5]
+
+Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
+
+
+   o  For loss measurement, the query messages are sent for the data
+      traffic flow under measurement by the querier, and are used to
+      collect the transmit traffic counters and the receive traffic
+      counters (e.g. for traffic received on the incoming link for the
+      link loss or on the incoming Path Segment Identifier (PSID) for
+      the end-to-end SR-MPLS path loss) to measure the packet loss
+      experienced by the data traffic flowing on the SR-MPLS links and
+      end-to-end SR-MPLS Policies.
+
+   The Performance Measurements (PM) for SR-MPLS links can be used to
+   compute extended Traffic Engineering (TE) metrics for delay and loss
+   as described in Section 10 and advertised in the network using the
+   routing protocol extensions defined in [RFC7471], [RFC8570], and
+   [RFC8571].
+
+   The In-Situ Operations, Administration, and Maintenance (IOAM)
+   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
+   to record OAM information in the packets, and are outside the scope
+   of this document.
+
+4.  Query and Response Message
+
+4.1.  Query Message for SR-MPLS Links and Policies
+
+4.1.1.  Query Message for SR-MPLS Links
 
    A query message as shown in Figure 2 is sent over the SR-MPLS links
    for both delay and loss measurement using the procedures described in
    [RFC6374].  For SR-MPLS links, the TTL value is set to 1 in the SR-
    MPLS header.
 
-4.2.2.  Query Message for SR-MPLS Policies
+4.1.2.  Query Message for SR-MPLS Policies
 
    A query message for an end-to-end SR-MPLS Policy measurement contains
    SR-MPLS label stack [I-D.ietf-spring-segment-routing-policy], with
    the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown
    in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
    the SR-MPLS header.
+
+
+
 
 
 
@@ -367,9 +367,9 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    intended destination for the query.  Otherwise, it MUST return 0x15:
    Error - Invalid Destination Node Identifier [RFC6374].
 
-4.3.  Response Message for SR-MPLS Links and Policies
+4.2.  Response Message for SR-MPLS Links and Policies
 
-4.3.1.  One-way Measurement Mode
+4.2.1.  One-way Measurement Mode
 
    In one-way measurement mode defined in Section 2.4 of [RFC6374], the
    querier can receive "out-of-band" responses by properly setting the
@@ -394,10 +394,10 @@ Gandhi, et al.          Expires November 4, 2021                [Page 7]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
-4.3.2.  Two-way Measurement Mode
+4.2.2.  Two-way Measurement Mode
 
    In two-way measurement mode defined in Section 2.4 of [RFC6374], the
-   response messages are sent back to the querier in-band (on the same
+   response messages are sent back to the querier in-band on the same
    path (same set of links and nodes) in the reverse direction.  In this
    case, the "control code" in the query message is set to "in-band
    response requested".
@@ -417,7 +417,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    messages.  All four timestamps are used to measure two-way delay as
    ((T4 - T1) - (T3 - T2)).
 
-4.3.3.  Loopback Measurement Mode
+4.2.3.  Loopback Measurement Mode
 
    The Loopback measurement mode defined in Section 2.8 of [RFC6374] can
    be used to measure round-trip delay for a bidirectional circular SR-

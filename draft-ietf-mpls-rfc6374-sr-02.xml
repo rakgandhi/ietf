@@ -219,52 +219,9 @@
 
     </section>
 
-    <section title="Overview" anchor="sect-3"><t>
-   For one-way, two-way and round-trip delay and delay variation 
-   measurement in SR-MPLS networks, the procedures defined in 
-   Section 2.4 and Section 2.5 of <xref target="RFC6374"/> are used.  
-   For transmit and receive packet loss measurement in SR-MPLS networks, 
-   the procedures defined in Section 2.2 and Section 2.6 of
-   <xref target="RFC6374"/> are used.</t>
+    <section title="Overview" anchor="sect-3">
 
-    <t>
-    For Performance Measurement, the query and response 
-    messages defined in <xref target="RFC6374"/> are sent as following:</t>
-
-    <t><list style="symbols"><t>For delay measurement, the query messages are sent for  
-    the data traffic flow under measurement by the querier, and are 
-    used to collect the transmit and receive timestamps 
-    to measure the delay experienced by the data traffic
-    flowing on the SR-MPLS links and Policies.</t>
-
-    <t>For loss measurement, the query messages are sent for 
-    the data traffic flow under measurement by the querier, 
-    and are used to collect the transmit traffic counters and the 
-    receive traffic counters (e.g. for traffic received on the incoming link for the 
-    link loss or on the incoming Path Segment Identifier (PSID) for 
-    the end-to-end SR-MPLS path loss) to measure the packet loss
-    experienced by the data traffic flowing on the SR-MPLS links and Policies.</t>
-
-    </list>
-    </t>
-
-    <t>
-    The Performance Measurements (PM) for SR-MPLS links are used to compute
-    extended Traffic Engineering (TE) metrics for delay and loss as described in
-    Section 10 and can be advertised in the network using the routing protocol extensions
-    defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
-
-    <t>The In-Situ Operations, Administration, and Maintenance (IOAM) mechanisms 
-    for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> are used 
-    to record OAM information in the packets, and are outside the scope of this document.</t>
-
-    </section>
-
-
-    <section title="Query and Response Message" anchor="sect-4">
-        
-    <section title="Query and Response Message Header" anchor="sect-4.1"><t>
-   As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
+   <t>As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
    response messages flow over the MPLS Generic Associated Channel
    (G-ACh).  These query and response messages contain G-ACh Label (GAL)
    (value 13, with S=1).  The GAL is followed by an Associated Channel Header
@@ -282,7 +239,53 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
+
+
+   <t>For one-way, two-way and round-trip delay and delay variation 
+   measurement in SR-MPLS networks, the procedures defined in 
+   Section 2.4 and Section 2.5 of <xref target="RFC6374"/> are used.  
+   For transmit and receive packet loss measurement in SR-MPLS networks, 
+   the procedures defined in Section 2.2 and Section 2.6 of
+   <xref target="RFC6374"/> are used.</t>
+
+
+    <t>
+    For Performance Measurement in SR-MPLS networks, the query and response 
+    messages defined in <xref target="RFC6374"/> are sent as following:</t>
+
+    <t><list style="symbols"><t>For delay measurement, the query messages are sent for  
+    the data traffic flow under measurement by the querier, and are 
+    used to collect the transmit and receive timestamps 
+    to measure the delay experienced by the data traffic
+    flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.</t>
+
+    <t>For loss measurement, the query messages are sent for 
+    the data traffic flow under measurement by the querier, 
+    and are used to collect the transmit traffic counters and the 
+    receive traffic counters (e.g. for traffic received on the incoming link for the 
+    link loss or on the incoming Path Segment Identifier (PSID) for 
+    the end-to-end SR-MPLS path loss) to measure the packet loss
+    experienced by the data traffic flowing on the 
+    SR-MPLS links and end-to-end SR-MPLS Policies.</t>
+
+    </list>
+    </t>
+
+    <t>
+    The Performance Measurements (PM) for SR-MPLS links can be used to compute
+    extended Traffic Engineering (TE) metrics for delay and loss as described in
+    Section 10 and advertised in the network using the routing protocol extensions
+    defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
+
+    <t>The In-Situ Operations, Administration, and Maintenance (IOAM) mechanisms 
+    for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> are used 
+    to record OAM information in the packets, and are outside the scope of this document.</t>
+
     </section>
+
+
+    <section title="Query and Response Message" anchor="sect-4">
+        
 
     <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.2">
 
@@ -353,7 +356,7 @@
     <section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
    In two-way measurement mode defined in Section 2.4 of <xref target="RFC6374"/>, 
    the response messages are sent back to the
-   querier in-band (on the same path (same set of links and nodes) 
+   querier in-band on the same path (same set of links and nodes) 
    in the reverse direction.  In this case, the "control code" 
    in the query message is set to "in-band response requested".</t>
 
