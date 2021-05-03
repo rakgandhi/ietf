@@ -600,20 +600,19 @@
 
 
     <section title="Block Number TLV Extension" anchor="sect-7.2"><t>
-   The loss measurement using Alternate-Marking method defined in
-   <xref target="RFC8321"/> requires coloring the data traffic flow 
-   under measurement.  To be able to correlate
-   the transmit and receive traffic counters of the matching color, the
-   Block Number (or color) of the traffic counters is carried by the
-   query and response messages for loss measurement.</t>
+   The direct mode loss measurement using Alternate-Marking Method 
+   defined in <xref target="RFC8321"/> requires to collecy Block 
+   Number of the counters for the data traffic flow under measurement.
+   To be able to correlate the transmit and receive traffic counters 
+   of the matching Block Number, the Block Number of the traffic 
+   counters is carried in the LM query and response messages.</t>
 
     <t>
    <xref target="RFC6374"/> defines query and response messages that can include
    one or more optional TLVs.  New TLV Type (value TBA1) is defined in
    this document to carry the Block Number (8-bit) of the traffic
-   counters in the query and response messages for loss
-   measurement.  The format of the Block Number TLV is shown in Figure
-   7:</t>
+   counters in the LM query and response messages.  
+   The format of the Block Number TLV is shown in Figure 7:</t>
 
     <figure title="Block Number TLV" anchor="ure-block-number-tlv"><artwork><![CDATA[
 
