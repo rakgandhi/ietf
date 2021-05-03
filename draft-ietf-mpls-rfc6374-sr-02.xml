@@ -117,11 +117,6 @@
    In addition, this document defines Return Path TLV and Block Number TLV
    extensions for <xref target="RFC6374"/>.</t>
 
-   <t>
-   The Performance Measurements (PM) for SR-MPLS links are used to compute
-   extended Traffic Engineering (TE) metrics for delay and loss and can
-   be advertised in the network using the routing protocol extensions
-   defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
 
     </section>
 
@@ -252,6 +247,12 @@
 
     </list>
     </t>
+
+    <t>
+    The Performance Measurements (PM) for SR-MPLS links are used to compute
+    extended Traffic Engineering (TE) metrics for delay and loss as described in
+    Section 10 and can be advertised in the network using the routing protocol extensions
+    defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
 
     <t>The In-Situ Operations, Administration, and Maintenance (IOAM) mechanisms 
     for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> are used 
@@ -704,25 +705,26 @@
     </section>
 
     <section title="SR-MPLS Link Extended TE Metrics Advertisements" anchor="sect-10"><t>
-   The extended TE metrics for SR-MPLS link delay and loss computed using the
-   procedures described in this document can be
+   The extended TE metrics for SR-MPLS link delay and loss can be computed using the
+   procedures described in this document and 
    advertised in the routing domain as follows:</t>
 
-    <t><list style="symbols"><t>For OSPF, ISIS, and BGP-LS, protocol extensions 
+    <t><list style="symbols">
+    <t>For OSPF, ISIS, and BGP-LS, protocol extensions 
     defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, 
     and <xref target="RFC8571"/> are used, respectively for
     advertising the extended TE link metrics in the network.</t>
+
+    <t>The extended TE link delay and loss metrics are advertised for
+    Layer-2 LAG bundle member links in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> 
+    and ISIS <xref target="RFC8668"/> using the same mechanisms defined in
+    <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
     <t>The advertised delay-variance metric is Packet Delay Variation (PDV)
     and is computed as described in Section 4.2 of <xref target="RFC5481"/>.</t>
 
     <t>The extended TE link one-way delay metrics can also be computed using
     the two-way and round-trip delay values by dividing the values by 2.</t>
-
-    <t>The extended TE link delay and loss metrics are advertised for
-    Layer-2 LAG bundle member links in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> 
-    and ISIS <xref target="RFC8668"/> using the same mechanisms defined in
-    <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
     </list>
     </t>

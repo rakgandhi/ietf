@@ -78,7 +78,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
      2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
+     2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Query and Response Message  . . . . . . . . . . . . . . . . .   6
@@ -147,11 +147,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    addition, this document defines Return Path TLV and Block Number TLV
    extensions for [RFC6374].
 
-   The Performance Measurements (PM) for SR-MPLS links are used to
-   compute extended Traffic Engineering (TE) metrics for delay and loss
-   and can be advertised in the network using the routing protocol
-   extensions defined in [RFC7471], [RFC8570], and [RFC8571].
-
 2.  Conventions Used in This Document
 
 2.1.  Requirements Language
@@ -161,6 +156,11 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
 
+2.2.  Abbreviations
+
+   ACH: Associated Channel Header.
+
+   DM: Delay Measurement.
 
 
 
@@ -169,12 +169,6 @@ Gandhi, et al.          Expires November 4, 2021                [Page 3]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
-
-2.2.  Abbreviations
-
-   ACH: Associated Channel Header.
-
-   DM: Delay Measurement.
 
    ECMP: Equal Cost Multi-Path.
 
@@ -218,20 +212,18 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    SR is enabled with MPLS data plane on nodes R1 and R3.  The nodes R1
    and R3 may be directly connected via a link enabled with MPLS
-
-
-
-Gandhi, et al.          Expires November 4, 2021                [Page 4]
-
-Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
-
-
    (Section 2.9.1 of [RFC6374]) or a Point-to-Point (P2P) SR-MPLS path
    [RFC8402].  The link may be a physical interface, virtual link, or
    Link Aggregation Group (LAG) [IEEE802.1AX], or Layer-2 LAG bundle
    member link.  The SR-MPLS path may be an SR-MPLS Policy
    [I-D.ietf-spring-segment-routing-policy] on node R1 (called head-end)
    with destination to node R3 (called tail-end).
+
+
+
+Gandhi, et al.          Expires November 4, 2021                [Page 4]
+
+Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
                           T1                T2
@@ -273,6 +265,14 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
       experienced by the data traffic flowing on the SR-MPLS links and
       Policies.
 
+   The Performance Measurements (PM) for SR-MPLS links are used to
+   compute extended Traffic Engineering (TE) metrics for delay and loss
+   as described in Section 10 and can be advertised in the network using
+   the routing protocol extensions defined in [RFC7471], [RFC8570], and
+   [RFC8571].
+
+   The In-Situ Operations, Administration, and Maintenance (IOAM)
+   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
 
 
 
@@ -282,8 +282,6 @@ Gandhi, et al.          Expires November 4, 2021                [Page 5]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
-   The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
    to record OAM information in the packets, and are outside the scope
    of this document.
 
@@ -325,6 +323,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown
    in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
    the SR-MPLS header.
+
+
 
 
 
@@ -744,13 +744,18 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 10.  SR-MPLS Link Extended TE Metrics Advertisements
 
-   The extended TE metrics for SR-MPLS link delay and loss computed
-   using the procedures described in this document can be advertised in
-   the routing domain as follows:
+   The extended TE metrics for SR-MPLS link delay and loss can be
+   computed using the procedures described in this document and
+   advertised in the routing domain as follows:
 
    o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
       [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
       advertising the extended TE link metrics in the network.
+
+   o  The extended TE link delay and loss metrics are advertised for
+      Layer-2 LAG bundle member links in OSPF
+      [I-D.ietf-lsr-ospf-l2bundles] and ISIS [RFC8668] using the same
+      mechanisms defined in [RFC7471] and [RFC8570], respectively.
 
    o  The advertised delay-variance metric is Packet Delay Variation
       (PDV) and is computed as described in Section 4.2 of [RFC5481].
@@ -758,11 +763,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    o  The extended TE link one-way delay metrics can also be computed
       using the two-way and round-trip delay values by dividing the
       values by 2.
-
-   o  The extended TE link delay and loss metrics are advertised for
-      Layer-2 LAG bundle member links in OSPF
-      [I-D.ietf-lsr-ospf-l2bundles] and ISIS [RFC8668] using the same
-      mechanisms defined in [RFC7471] and [RFC8570], respectively.
 
 11.  Backwards Compatibility
 
