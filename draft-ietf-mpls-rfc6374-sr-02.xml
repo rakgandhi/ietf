@@ -298,7 +298,7 @@
     </section>
 
         <section title="Query Message for SR-MPLS Policies" anchor="sect-4.2.2"><t>
-   A query message for an end-to-end SR-MPLS Policy measurement
+   A query message for an end-to-end SR-MPLS Policy, for both delay and loss measurement,
    contains SR-MPLS label stack <xref target="I-D.ietf-spring-segment-routing-policy"/>,
    with the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown in Figure 3.
    For SR-MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.</t>
