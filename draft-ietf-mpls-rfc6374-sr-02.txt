@@ -519,12 +519,16 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    [I-D.ietf-spring-mpls-path-segment] carried in the received data
    packet for the traffic flow under measurement can be used for
    accounting received traffic on the on the egress node of the SR-MPLS
-   Policy.  For direct mode, the PSID in the received query message as
+   Policy.  In direct mode, the PSID in the received query message as
    shown in Figure 4 can be used to associate the receive traffic
    counter on the responder for the end-to-end SR-MPLS Policy.
    Different values of PSID can be used to measure packet loss per SR-
    MPLS Policy, per Candidate Path or per Segment List of the SR Policy
    [I-D.ietf-spring-segment-routing-policy].
+
+   In inferred mode, the PSID in the received query message as shown in
+   Figure 4 can be used to count the received query messages to detect
+   the number of query packets lost.
 
 
     0                   1                   2                   3
@@ -550,10 +554,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    measurement).  This way the responder avoids creating and maintaining
    extra dynamic SR states for the return paths.
 
-   In one-way measurement mode, the querier address may not be reachable
-   via IP route from the responder.  The querier in this case can send
-   its reachability path information to the responder.
-
 
 
 
@@ -561,6 +561,10 @@ Gandhi, et al.          Expires November 4, 2021               [Page 10]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
+
+   In one-way measurement mode, the querier address may not be reachable
+   via IP route from the responder.  The querier in this case can send
+   its reachability path information to the responder.
 
    [RFC6374] defines DM and LM query messages that can include one or
    more optional TLVs.  New TLV Type (TBA2) is defined in this document
@@ -595,10 +599,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Return Path TLV can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Return Path
-
-
-
-
 
 
 
