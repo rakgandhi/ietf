@@ -795,8 +795,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
       protocol extensions defined in [RFC7471] and [RFC8570],
       respectively.
 
-   o  The advertised delay-variance metric is Packet Delay Variation
-      (PDV) and is computed as described in Section 4.2 of [RFC5481].
+   o  The advertised delay-variance metric, Packet Delay Variation (PDV)
+      is computed as described in Section 4.2 of [RFC5481].
 
    o  In the absence of one-way delay measurement, the extended TE link
       one-way delay metrics can be computed using the two-way and round-

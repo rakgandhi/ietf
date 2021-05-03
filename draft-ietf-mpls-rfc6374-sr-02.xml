@@ -730,8 +730,8 @@
     and ISIS <xref target="RFC8668"/> using the same protocol extensions defined in
     <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
-    <t>The advertised delay-variance metric is Packet Delay Variation (PDV)
-    and is computed as described in Section 4.2 of <xref target="RFC5481"/>.</t>
+    <t>The advertised delay-variance metric, Packet Delay Variation (PDV)
+    is computed as described in Section 4.2 of <xref target="RFC5481"/>.</t>
 
     <t>In the absence of one-way delay measurement,
     the extended TE link one-way delay metrics can be computed using
