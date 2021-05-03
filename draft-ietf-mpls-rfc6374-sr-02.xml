@@ -423,7 +423,8 @@
 
     </section>
 
-    <section title="Loss Measurement" anchor="sect-6"><t>
+    <section title="Loss Measurement" anchor="sect-6">
+    <section title="Loss Measurement Message Format" anchor="sect-6.1"><t>
    The LM protocol can perform two distinct kinds of loss measurement as
    described in Section 2.9.8 of <xref target="RFC6374"/>.</t>
 
@@ -439,43 +440,16 @@
     </list>
     </t>
 
-   <t>
-   The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> 
-   carried in the received data packet for the traffic flow    
-   under measurement can be used for accounting received traffic on the 
-   on the egress node of the SR-MPLS Policy.
-   For direct mode, the PSID in the received query message 
-   as shown in Figure 4 can be used to associate the receive traffic counter 
-   on the responder for the end-to-end SR-MPLS Policy.
-   Different values of PSID can be used to measure packet loss per
-   SR-MPLS Policy, per Candidate Path or per Segment List of the SR Policy.</t>
-
-
-    <figure title="Example With Path Segment Identifier for SR-MPLS Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
-
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                  PSID                 | TC  |S|      TTL      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                  GAL (value 13)       | TC  |S|      TTL      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |0 0 0 1|Version| Reserved      |       Channel Type            |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-    </figure>
-    <section title="Loss Measurement Message Format" anchor="sect-6.1"><t>
-   As defined in <xref target="RFC6374"/>, MPLS LM query and response messages
+   <t>As defined in <xref target="RFC6374"/>, MPLS LM query and response messages
    use Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the
    ACH.  For both SR-MPLS links and end-to-end 
    SR-MPLS Policies, the same MPLS LM ACH value is used.</t>
 
-    <t>
-   The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> is used
-   for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end 
-   SR-MPLS Policies.</t>
+   <t>The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> 
+   is used for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end 
+   SR-MPLS Policies .</t>
 
     </section>
 
@@ -492,6 +466,34 @@
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS links and end-to-end 
    SR-MPLS Policies.</t>
+        </section>
+
+    <section title="Counters" anchor="sect-6.4"><t>
+   The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> 
+   carried in the received data packet for the traffic flow    
+   under measurement can be used for accounting received traffic on the 
+   on the egress node of the SR-MPLS Policy.
+   For direct mode, the PSID in the received query message 
+   as shown in Figure 4 can be used to associate the receive traffic counter 
+   on the responder for the end-to-end SR-MPLS Policy.
+   Different values of PSID can be used to measure packet loss per
+   SR-MPLS Policy, per Candidate Path or per Segment List of the 
+   SR Policy <xref target="I-D.ietf-spring-segment-routing-policy"/>.</t>
+
+    <figure title="Example With Path Segment Identifier for SR-MPLS Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
+
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                  PSID                 | TC  |S|      TTL      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                  GAL (value 13)       | TC  |S|      TTL      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |0 0 0 1|Version| Reserved      |       Channel Type            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+    </figure>
+
         </section>
 
     </section>
