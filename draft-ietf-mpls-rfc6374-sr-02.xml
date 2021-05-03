@@ -72,14 +72,14 @@
     </address>
     </author>
 
-    <date day="02" month="May" year="2021"/>
+    <date day="03" month="May" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
    specifies protocol mechanisms to enable the efficient and accurate
    measurement of packet loss, one-way and two-way delay, as well as
-   related metrics such as delay variation in MPLS networks using query/response
-   messages.  This document utilizes these mechanisms for Performance
+   related metrics such as delay variation in MPLS networks.  
+   This document utilizes these mechanisms for Performance
    Delay and Loss Measurements in SR networks with
    MPLS data plane (SR-MPLS), for both SR-MPLS links and end-to-end 
    SR-MPLS paths including Policies.  In addition, this document defines 
@@ -340,12 +340,11 @@
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
    UDP-Destination-Port and IP Address.  When the querier
    sets an IP address in the URO TLV, the response is sent
-   to that IP address as destination.  
-   In addition, the "control code" in the 
+   to that IP address as destination.  In addition, the "control code" in the 
    query message is set to "out-of-band response requested".</t>
 
    <t>In one-way delay measurement mode, as per Reference Topology, the timestamps 
-   T1 and T2 are collected by the query/response messages. Both these timestamps 
+   T1 and T2 are collected by the query and response messages. Both these timestamps 
    are used to measure one-way delay as (T2 - T1).</t>
 
     </section>
@@ -368,7 +367,7 @@
    SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
 
    <t>In two-way delay measurement mode, as per Reference Topology, 
-   all timestamps T1, T2, T3, and T4 are collected by the query/response messages. 
+   all timestamps T1, T2, T3, and T4 are collected by the query and response messages. 
    All four timestamps are used to measure two-way 
    delay as ((T4 - T1) - (T3 - T2)).</t>
 
@@ -378,16 +377,16 @@
    The Loopback measurement mode defined in Section 2.8 of <xref target="RFC6374"/> can
    be used to measure round-trip delay for a bidirectional circular SR-MPLS path
     <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
-   The query messages in this case carries the
+   The query messages in this case carry the
    return path label stack as part of the MPLS header.  The GAL is
-   still carried at the bottom of the label stack (with S=1).</t>
+   carried at the bottom of the label stack (with S=1).</t>
 
    <t>As the responder does not process the query messages and generate
    response messages, the Loopback Request object (Type 3) <xref target="RFC6374"/> 
    is not required for an end-to-end SR-MPLS path.</t>
    
    <t>In loopback delay measurement mode, as per Reference Topology, 
-   the timestamps T1 and T4 are collected by the query/response messages.  Both these 
+   the timestamps T1 and T4 are collected by the query messages.  Both these 
    timestamps are used to measure round-trip delay as (T4 - T1).</t>
 
     </section>
@@ -501,8 +500,8 @@
    the response message on a specific return path.  The querier
    can request in the query message to the responder to
    send a response message back on a given return path (e.g. co-routed
-   path for two-way measurement). This way the responder 
-   avoids creating and maintaining extra dynamic states for the return paths.</t>
+   SR-MPLS path for two-way measurement). This way the responder 
+   avoids creating and maintaining extra dynamic SR states for the return paths.</t>
 
     <t>
    In one-way measurement mode, the querier address may not
@@ -687,16 +686,16 @@
    An SR-MPLS Policy can have ECMPs between the source and transit nodes,
    between transit nodes and between transit and destination nodes.
    Usage of Anycast SID <xref target="RFC8402"/> by an SR-MPLS Policy can result in ECMP
-   paths via transit nodes part of that Anycast group.  The query/response 
+   paths via transit nodes part of that Anycast group.  The query and response 
    messages need to be sent to traverse different ECMP paths to measure
    delay of each of the ECMP path of an SR-MPLS Policy.</t>
 
     <t>
    Forwarding plane has various hashing functions available to forward
    packets on specific ECMP paths.  For SR-MPLS Policy, sweeping of
-   entropy label <xref target="RFC6790"/> values can be used in query/response messages to
-   take advantage of the hashing function in forwarding plane to
-   influence the ECMP path taken by them.</t>
+   entropy label <xref target="RFC6790"/> values can be used in query 
+   and response messages to take advantage of the hashing function in 
+   forwarding plane to influence the ECMP path taken by them.</t>
 
     <t>
    The considerations for loss measurement for different
