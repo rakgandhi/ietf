@@ -242,10 +242,10 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 3.  Overview
 
    As described in Section 2.9.1 of [RFC6374], the query and response
-   messages flow over the MPLS Generic Associated Channel (G-ACh).
-   These query and response messages contain G-ACh Label (GAL) (value
-   13, with S=1).  The GAL is followed by an Associated Channel Header
-   (ACH), where Channel Type identifies the message type, and the
+   messages flow over an MPLS Generic Associated Channel (G-ACh).  These
+   query and response messages contain G-ACh Label (GAL) (value 13, with
+   S=1).  The GAL is followed by an Associated Channel Header (ACH),
+   where Channel Type identifies the measurement message type, and the
    message payload following the ACH as shown in Figure 2.
 
 
@@ -257,7 +257,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
     |0 0 0 1|Version| Reserved      |       Channel Type            |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                Figure 2: Query and Response Message Header
+           Figure 2: RFC 6374 Query and Response Message Header
 
    For one-way, two-way and round-trip delay and delay variation
    measurement in SR-MPLS networks, the procedures defined in

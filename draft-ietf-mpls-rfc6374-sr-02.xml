@@ -222,13 +222,14 @@
     <section title="Overview" anchor="sect-3">
 
    <t>As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
-   response messages flow over the MPLS Generic Associated Channel
+   response messages flow over an MPLS Generic Associated Channel
    (G-ACh).  These query and response messages contain G-ACh Label (GAL)
    (value 13, with S=1).  The GAL is followed by an Associated Channel Header
-   (ACH), where Channel Type identifies the message type, and the message payload
+   (ACH), where Channel Type identifies the measurement 
+   message type, and the message payload
    following the ACH as shown in Figure 2.</t>
 
-    <figure title="Query and Response Message Header" anchor="ure-header-for-an-sr-mpls-link"><artwork><![CDATA[
+    <figure title="RFC 6374 Query and Response Message Header" anchor="ure-header-for-an-sr-mpls-link"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
