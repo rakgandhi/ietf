@@ -776,8 +776,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    this document and advertised in the routing domain as follows:
 
    o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
-      [RFC7471], [RFC8570], and [RFC8571] are used, respectively for
-      advertising the extended TE link metrics in the network.
+      [RFC7471], [RFC8570], and [RFC8571], respectively, are used for
+
 
 
 
@@ -786,17 +786,21 @@ Gandhi, et al.          Expires November 4, 2021               [Page 14]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
+      advertising the extended TE link delay and loss metrics in the
+      network.
+
    o  The extended TE link delay and loss metrics are advertised for
       Layer-2 LAG bundle member links in OSPF
       [I-D.ietf-lsr-ospf-l2bundles] and ISIS [RFC8668] using the same
-      mechanisms defined in [RFC7471] and [RFC8570], respectively.
+      protocol extensions defined in [RFC7471] and [RFC8570],
+      respectively.
 
    o  The advertised delay-variance metric is Packet Delay Variation
       (PDV) and is computed as described in Section 4.2 of [RFC5481].
 
-   o  The extended TE link one-way delay metrics can also be computed
-      using the two-way and round-trip delay values by dividing the
-      values by 2.
+   o  In the absence of one-way delay measurement, the extended TE link
+      one-way delay metrics can be computed using the two-way and round-
+      trip delay values by dividing the values by 2.
 
 11.  Backwards Compatibility
 
@@ -831,16 +835,14 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    registry contained within the "Generic Associated Channel (G-ACh)
    Parameters" registry set:
 
-   o  Type TBA2: Return Path TLV
-
-
-
 
 
 Gandhi, et al.          Expires November 4, 2021               [Page 15]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
+
+   o  Type TBA2: Return Path TLV
 
    IANA is requested to create the "Return Path Sub-TLV" sub-registry as
    part of the Return Path TLV registry.  All code points in the range 1
@@ -887,8 +889,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
               Measurement for MPLS Networks", RFC 6374,
               DOI 10.17487/RFC6374, September 2011,
               <https://www.rfc-editor.org/info/rfc6374>.
-
-
 
 
 

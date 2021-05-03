@@ -718,18 +718,19 @@
     <t><list style="symbols">
     <t>For OSPF, ISIS, and BGP-LS, protocol extensions 
     defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, 
-    and <xref target="RFC8571"/> are used, respectively for
-    advertising the extended TE link metrics in the network.</t>
+    and <xref target="RFC8571"/>, respectively, are used for
+    advertising the extended TE link delay and loss metrics in the network.</t>
 
     <t>The extended TE link delay and loss metrics are advertised for
     Layer-2 LAG bundle member links in OSPF <xref target="I-D.ietf-lsr-ospf-l2bundles"/> 
-    and ISIS <xref target="RFC8668"/> using the same mechanisms defined in
+    and ISIS <xref target="RFC8668"/> using the same protocol extensions defined in
     <xref target="RFC7471"/> and <xref target="RFC8570"/>, respectively.</t>
 
     <t>The advertised delay-variance metric is Packet Delay Variation (PDV)
     and is computed as described in Section 4.2 of <xref target="RFC5481"/>.</t>
 
-    <t>The extended TE link one-way delay metrics can also be computed using
+    <t>In the absence of one-way delay measurement,
+    the extended TE link one-way delay metrics can be computed using
     the two-way and round-trip delay values by dividing the values by 2.</t>
 
     </list>
