@@ -490,7 +490,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
    for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end
-   SR-MPLS Policies .
+   SR-MPLS Policies.
 
 6.2.  Combined Loss/Delay Measurement Message Format
 
