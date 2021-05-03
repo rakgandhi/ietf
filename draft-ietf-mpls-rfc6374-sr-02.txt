@@ -137,8 +137,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    accurate measurement of performance metrics in MPLS networks using
    query and response messages.  [RFC7876] specifies mechanisms for
    sending and processing out-of-band responses over an UDP return path
-   when receiving [RFC6374] query messages.  These mechanisms are also
-   well-suited in SR-MPLS networks.
+   when receiving [RFC6374] based query messages.  These mechanisms are
+   also well-suited in SR-MPLS networks.
 
    This document utilizes the mechanisms defined in [RFC6374] for
    Performance Delay and Loss Measurements in SR-MPLS networks, for both

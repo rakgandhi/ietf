@@ -107,7 +107,7 @@
    in MPLS networks using query and response messages. 
    <xref target="RFC7876"/> specifies mechanisms for sending and
    processing out-of-band responses over an UDP return path when 
-   receiving <xref target="RFC6374"/> query messages. 
+   receiving <xref target="RFC6374"/> based query messages. 
    These mechanisms are also well-suited in SR-MPLS networks.</t>
 
     <t>
