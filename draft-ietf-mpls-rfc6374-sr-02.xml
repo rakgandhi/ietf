@@ -337,15 +337,17 @@
     </section>
     </section>
 
-    <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3"><section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
+    <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3">
+	    <section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
    Section 2.4 of <xref target="RFC6374"/>, the querier
-   can receive "out-of-band" responses by properly setting the UDP
+   can receive "out-of-band" response messages with IP/UDP header by properly setting the UDP
    Return Object (URO) TLV in the query message.  The URO TLV
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
    UDP-Destination-Port and IP Address.  When the querier
-   sets an IP address in the URO TLV, the response is sent
-   to that IP address as destination.  In addition, the "control code" in the 
+   sets an IP address and an UDP port in the URO TLV, the response is sent
+   to that IP address as destination addresss and UDP port as destination port.
+   In addition, the "control code" in the 
    query message is set to "out-of-band response requested".</t>
 
    <t>In one-way delay measurement mode, as per Reference Topology, the timestamps 
@@ -360,12 +362,13 @@
    the same link or end-to-end SR-MPLS path (same set of links and nodes) 
    in the reverse direction.</t>
 
-   <t>For SR-MPLS links, the response message is sent back on the same incoming    
-   link where the query message is received.  In this case, the "control code" 
+   <t>For SR-MPLS links, the response message (format shown in Figure 2) 
+   is sent back on the same incoming link where the query 
+   message is received.  In this case, the "control code" 
    in the query message is set to "in-band response requested".</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
-   the response message (format similar to shown in Figure 3) 
+   the response message (format shown in Figure 3) 
    on a specific reverse SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to

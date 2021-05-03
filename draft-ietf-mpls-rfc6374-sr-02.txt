@@ -372,19 +372,19 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 4.2.1.  One-way Measurement Mode
 
    In one-way measurement mode defined in Section 2.4 of [RFC6374], the
-   querier can receive "out-of-band" responses by properly setting the
-   UDP Return Object (URO) TLV in the query message.  The URO TLV
-   (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
-   Port and IP Address.  When the querier sets an IP address in the URO
-   TLV, the response is sent to that IP address as destination.  In
-   addition, the "control code" in the query message is set to "out-of-
-   band response requested".
+   querier can receive "out-of-band" response messages with IP/UDP
+   header by properly setting the UDP Return Object (URO) TLV in the
+   query message.  The URO TLV (Type=131) is defined in [RFC7876] and
+   includes the UDP-Destination-Port and IP Address.  When the querier
+   sets an IP address and an UDP port in the URO TLV, the response is
+   sent to that IP address as destination addresss and UDP port as
+   destination port.  In addition, the "control code" in the query
+   message is set to "out-of-band response requested".
 
    In one-way delay measurement mode, as per Reference Topology, the
    timestamps T1 and T2 are collected by the query and response
    messages.  Both these timestamps are used to measure one-way delay as
    (T2 - T1).
-
 
 
 
@@ -401,17 +401,17 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    link or end-to-end SR-MPLS path (same set of links and nodes) in the
    reverse direction.
 
-   For SR-MPLS links, the response message is sent back on the same
-   incoming link where the query message is received.  In this case, the
-   "control code" in the query message is set to "in-band response
-   requested".
+   For SR-MPLS links, the response message (format shown in Figure 2) is
+   sent back on the same incoming link where the query message is
+   received.  In this case, the "control code" in the query message is
+   set to "in-band response requested".
 
    For end-to-end SR-MPLS paths, the responder needs to transmit the
-   response message (format similar to shown in Figure 3) on a specific
-   reverse SR-MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can
-   request in the query message to the responder to send the response
-   message back on a given reverse path using an SR-MPLS Segment List
-   sub-TLV in the Return Path TLV defined in this document.
+   response message (format shown in Figure 3) on a specific reverse SR-
+   MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can request in
+   the query message to the responder to send the response message back
+   on a given reverse path using an SR-MPLS Segment List sub-TLV in the
+   Return Path TLV defined in this document.
 
    In two-way delay measurement mode, as per Reference Topology, all
    timestamps T1, T2, T3, and T4 are collected by the query and response
