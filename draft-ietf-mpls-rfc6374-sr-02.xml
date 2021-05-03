@@ -355,24 +355,25 @@
 
     <section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
    In two-way measurement mode defined in Section 2.4 of <xref target="RFC6374"/>, 
-   the response messages are sent back to the
-   querier in-band on the same path (same set of links and nodes) 
-   in the reverse direction.  In this case, the "control code" 
-   in the query message is set to "in-band response requested".</t>
+   the response messages are sent back to the querier in-band on 
+   the same link or end-to-end SR-MPLS path (same set of links and nodes) 
+   in the reverse direction.</t>
 
    <t>For SR-MPLS links, the response message is sent back on the same incoming    
-   link where the query message is received.</t>
+   link where the query message is received.  In this case, the "control code" 
+   in the query message is set to "in-band response requested".</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
-   the response message (with format shown in Figure 3) on a specific reverse SR-MPLS path 
+   the response message (format similar to shown in Figure 3) 
+   on a specific reverse SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to
    send the response message back on a given reverse path using an 
    SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
 
    <t>In two-way delay measurement mode, as per Reference Topology, 
-   all timestamps T1, T2, T3, and T4 are collected by the query and response messages. 
-   All four timestamps are used to measure two-way 
+   all timestamps T1, T2, T3, and T4 are collected by the query and 
+   response messages.  All four timestamps are used to measure two-way 
    delay as ((T4 - T1) - (T3 - T2)).</t>
 
     </section>

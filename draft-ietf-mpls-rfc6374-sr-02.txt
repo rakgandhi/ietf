@@ -398,15 +398,16 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    In two-way measurement mode defined in Section 2.4 of [RFC6374], the
    response messages are sent back to the querier in-band on the same
-   path (same set of links and nodes) in the reverse direction.  In this
-   case, the "control code" in the query message is set to "in-band
-   response requested".
+   link or end-to-end SR-MPLS path (same set of links and nodes) in the
+   reverse direction.
 
    For SR-MPLS links, the response message is sent back on the same
-   incoming link where the query message is received.
+   incoming link where the query message is received.  In this case, the
+   "control code" in the query message is set to "in-band response
+   requested".
 
    For end-to-end SR-MPLS paths, the responder needs to transmit the
-   response message (with format shown in Figure 3) on a specific
+   response message (format similar to shown in Figure 3) on a specific
    reverse SR-MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can
    request in the query message to the responder to send the response
    message back on a given reverse path using an SR-MPLS Segment List
@@ -440,8 +441,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    As defined in [RFC6374], MPLS DM query and response messages use
    Associated Channel Header (ACH) (value 0x000C for delay measurement)
    [RFC6374], which identifies the message type, and the message payload
-   following the ACH.  For both SR-MPLS links and end-to-end SR-MPLS
-   Policies, the same MPLS DM ACH value is used.
+
 
 
 
@@ -449,6 +449,9 @@ Gandhi, et al.          Expires November 4, 2021                [Page 8]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
+
+   following the ACH.  For both SR-MPLS links and end-to-end SR-MPLS
+   Policies, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
    for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
@@ -495,9 +498,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    use Associated Channel Header (ACH) (value 0x000D for direct loss and
    delay measurement or value 0x000E for inferred loss and delay
    measurement), which identifies the message type, and the message
-   payload following the ACH.  For both SR-MPLS links and end-to-end SR-
-   MPLS Policies, the same MPLS DM+LM ACH value is used.
-
 
 
 
@@ -505,6 +505,9 @@ Gandhi, et al.          Expires November 4, 2021                [Page 9]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
+
+   payload following the ACH.  For both SR-MPLS links and end-to-end SR-
+   MPLS Policies, the same MPLS DM+LM ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
    for SR-MPLS combined delay and loss measurement, for both SR-MPLS
@@ -551,9 +554,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    via IP route from the responder.  The querier in this case can send
    its reachability path information to the responder.
 
-   [RFC6374] defines DM and LM query messages that can include one or
-   more optional TLVs.  New TLV Type (TBA2) is defined in this document
-   for Return Path to carry return path information in the query
 
 
 
@@ -562,6 +562,9 @@ Gandhi, et al.          Expires November 4, 2021               [Page 10]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
+   [RFC6374] defines DM and LM query messages that can include one or
+   more optional TLVs.  New TLV Type (TBA2) is defined in this document
+   for Return Path to carry return path information in the query
    messages (in the payload).  The format of the Return Path TLV is
    shown in Figure 5:
 
@@ -592,9 +595,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Return Path TLV can be one of the following Types:
 
    o  Type (value 1): SR-MPLS Label Stack of the Return Path
-
-
-
 
 
 
