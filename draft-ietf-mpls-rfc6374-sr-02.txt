@@ -76,22 +76,22 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Conventions Used in This Document . . . . . . . . . . . . . .   4
-     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
+     2.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   4
-     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   5
+     2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Query and Response Message  . . . . . . . . . . . . . . . . .   6
      4.1.  Query and Response Message Header . . . . . . . . . . . .   6
      4.2.  Query Message for SR-MPLS Links and Policies  . . . . . .   6
        4.2.1.  Query Message for SR-MPLS Links . . . . . . . . . . .   6
-       4.2.2.  Query Message for SR-MPLS Policies  . . . . . . . . .   7
+       4.2.2.  Query Message for SR-MPLS Policies  . . . . . . . . .   6
      4.3.  Response Message for SR-MPLS Links and Policies . . . . .   7
        4.3.1.  One-way Measurement Mode  . . . . . . . . . . . . . .   7
        4.3.2.  Two-way Measurement Mode  . . . . . . . . . . . . . .   8
        4.3.3.  Loopback Measurement Mode . . . . . . . . . . . . . .   8
-   5.  Delay Measurement . . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  Delay Measurement Message Format  . . . . . . . . . . . .   9
+   5.  Delay Measurement . . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  Delay Measurement Message Format  . . . . . . . . . . . .   8
      5.2.  Timestamps  . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Loss Measurement  . . . . . . . . . . . . . . . . . . . . . .   9
      6.1.  Loss Measurement Message Format . . . . . . . . . . . . .  10
@@ -136,39 +136,21 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    [RFC6374] specifies protocol mechanisms to enable the efficient and
    accurate measurement of performance metrics in MPLS networks using
-   query/response messages.  These mechanisms are also well-suited for
-   SR networks when using MPLS data plane (SR-MPLS).  [RFC6374] also
-   supports "direct mode" Loss Measurement (LM), which is required in SR
-   networks.
-
-   [RFC7876] specifies the procedures to be used when sending and
-   processing out-of-band responses over an UDP return path when
-   receiving RFC 6374 based queries.  These procedures can be used to
-   send out-of-band responses for both SR-MPLS links and Policies for
-   one-way measurement.
+   query and response messages.  [RFC7876] specifies mechanisms for
+   sending and processing out-of-band responses over an UDP return path
+   when receiving [RFC6374] query messages.  These mechanisms are also
+   well-suited in SR-MPLS networks.
 
    This document utilizes the mechanisms defined in [RFC6374] for
-   Performance Delay and Loss Measurements in SR networks with MPLS data
-   plane, for both SR-MPLS links and end-to-end SR-MPLS paths including
-   Policies.  In addition, this document defines Return Path TLV and
-   Block Number TLV extensions for [RFC6374].
+   Performance Delay and Loss Measurements in SR-MPLS networks, for both
+   SR-MPLS links and end-to-end SR-MPLS paths including Policies.  In
+   addition, this document defines Return Path TLV and Block Number TLV
+   extensions for [RFC6374].
 
    The Performance Measurements (PM) for SR-MPLS links are used to
    compute extended Traffic Engineering (TE) metrics for delay and loss
    and can be advertised in the network using the routing protocol
    extensions defined in [RFC7471], [RFC8570], and [RFC8571].
-
-
-
-
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021                [Page 3]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
 
 2.  Conventions Used in This Document
 
@@ -178,6 +160,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119] [RFC8174]
    when, and only when, they appear in all capitals, as shown here.
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021                [Page 3]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
 2.2.  Abbreviations
 
@@ -217,15 +208,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    URO: UDP Return Object.
 
-
-
-
-
-Gandhi, et al.          Expires November 3, 2021                [Page 4]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
 2.3.  Reference Topology
 
    In the reference topology shown in Figure 1, the querier node R1
@@ -236,6 +218,14 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
    SR is enabled with MPLS data plane on nodes R1 and R3.  The nodes R1
    and R3 may be directly connected via a link enabled with MPLS
+
+
+
+Gandhi, et al.          Expires November 3, 2021                [Page 4]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
+
    (Section 2.9.1 of [RFC6374]) or a Point-to-Point (P2P) SR-MPLS path
    [RFC8402].  The link may be a physical interface, virtual link, or
    Link Aggregation Group (LAG) [IEEE802.1AX], or Layer-2 LAG bundle
@@ -274,14 +264,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
       experienced by the data traffic flowing on the SR-MPLS links and
       Policies.
 
-
-
-
-Gandhi, et al.          Expires November 3, 2021                [Page 5]
-
-Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
    o  For loss measurement, the query messages are sent for the data
       traffic flow under measurement by the querier, and are used to
       collect the transmit traffic counters and the receive traffic
@@ -290,6 +272,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
       the end-to-end SR-MPLS path loss) to measure the packet loss
       experienced by the data traffic flowing on the SR-MPLS links and
       Policies.
+
+
+
+
+
+Gandhi, et al.          Expires November 3, 2021                [Page 5]
+
+Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
+
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
@@ -301,11 +292,11 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 4.1.  Query and Response Message Header
 
    As described in Section 2.9.1 of [RFC6374], the query and response
-   messages flow over the MPLS Generic Associated Channel (G-ACh).  A
-   query/response message contains G-ACh Label (GAL) (value 13, with
-   S=1).  The GAL is followed by an Associated Channel Header (ACH),
-   where Channel Type identifies the message type, and the message
-   payload following the ACH as shown in Figure 2.
+   messages flow over the MPLS Generic Associated Channel (G-ACh).
+   These query and response messages contain G-ACh Label (GAL) (value
+   13, with S=1).  The GAL is followed by an Associated Channel Header
+   (ACH), where Channel Type identifies the message type, and the
+   message payload following the ACH as shown in Figure 2.
 
 
     0                   1                   2                   3
@@ -327,6 +318,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    [RFC6374].  For SR-MPLS links, the TTL value is set to 1 in the SR-
    MPLS header.
 
+4.2.2.  Query Message for SR-MPLS Policies
+
+   A query message for an end-to-end SR-MPLS Policy measurement contains
+   SR-MPLS label stack [I-D.ietf-spring-segment-routing-policy], with
+   the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown
+   in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
+   the SR-MPLS header.
+
+
 
 
 
@@ -336,15 +336,6 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 Gandhi, et al.          Expires November 3, 2021                [Page 6]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
-
-
-4.2.2.  Query Message for SR-MPLS Policies
-
-   A query message for an end-to-end SR-MPLS Policy measurement contains
-   SR-MPLS label stack [I-D.ietf-spring-segment-routing-policy], with
-   the G-ACh Label (GAL) at the bottom of the stack (with S=1) as shown
-   in Figure 3.  For SR-MPLS Policies, the TTL value is set to 255 in
-   the SR-MPLS header.
 
 
     0                   1                   2                   3
@@ -386,6 +377,15 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    (Type=131) is defined in [RFC7876] and includes the UDP-Destination-
    Port and IP Address.  When the querier sets an IP address in the URO
    TLV, the response is sent to that IP address as destination.  In
+   addition, the "control code" in the query message is set to "out-of-
+   band response requested".
+
+   In one-way delay measurement mode, as per Reference Topology, the
+   timestamps T1 and T2 are collected by the query/response messages.
+   Both these timestamps are used to measure one-way delay as (T2 - T1).
+
+
+
 
 
 
@@ -393,13 +393,6 @@ Gandhi, et al.          Expires November 3, 2021                [Page 7]
 
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
-
-   addition, the "control code" in the query message is set to "out-of-
-   band response requested".
-
-   In one-way delay measurement mode, as per Reference Topology, the
-   timestamps T1 and T2 are collected by the query/response messages.
-   Both these timestamps are used to measure one-way delay as (T2 - T1).
 
 4.3.2.  Two-way Measurement Mode
 
@@ -441,6 +434,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    Both these timestamps are used to measure round-trip delay as (T4 -
    T1).
 
+5.  Delay Measurement
+
+5.1.  Delay Measurement Message Format
+
+   As defined in [RFC6374], MPLS DM query and response messages use
+   Associated Channel Header (ACH) (value 0x000C for delay measurement)
+   [RFC6374], which identifies the message type, and the message payload
 
 
 
@@ -450,13 +450,6 @@ Gandhi, et al.          Expires November 3, 2021                [Page 8]
 Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
 
 
-5.  Delay Measurement
-
-5.1.  Delay Measurement Message Format
-
-   As defined in [RFC6374], MPLS DM query and response messages use
-   Associated Channel Header (ACH) (value 0x000C for delay measurement)
-   [RFC6374], which identifies the message type, and the message payload
    following the ACH.  For both SR-MPLS links and end-to-end SR-MPLS
    Policies, the same MPLS DM ACH value is used.
 
@@ -495,6 +488,13 @@ Internet-Draft         Using RFC 6374 for SR-MPLS               May 2021
    counter on the responder for the end-to-end SR-MPLS Policy.
    Different values of PSID can be used to measure packet loss per SR-
    MPLS Policy, per Candidate Path or per Segment List of the SR Policy.
+
+
+
+
+
+
+
 
 
 

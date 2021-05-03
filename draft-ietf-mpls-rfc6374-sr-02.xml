@@ -102,23 +102,18 @@
    essential requirements to provide Service Level Agreements (SLAs).</t>
 
     <t>
-   <xref target="RFC6374"/> specifies protocol mechanisms to enable the efficient and
-   accurate measurement of performance metrics in MPLS networks using
-   query/response messages. These mechanisms are also well-suited for SR networks when
-   using MPLS data plane (SR-MPLS).  <xref target="RFC6374"/> also supports 
-   "direct mode" Loss Measurement (LM), which is required in SR networks.</t>
+   <xref target="RFC6374"/> specifies protocol mechanisms to enable 
+   the efficient and accurate measurement of performance metrics 
+   in MPLS networks using query and response messages. 
+   <xref target="RFC7876"/> specifies mechanisms for sending and
+   processing out-of-band responses over an UDP return path when 
+   receiving <xref target="RFC6374"/> query messages. 
+   These mechanisms are also well-suited in SR-MPLS networks.</t>
 
     <t>
-   <xref target="RFC7876"/> specifies the procedures to be used when sending and
-   processing out-of-band responses over an
-   UDP return path when receiving RFC 6374 based queries.  These
-   procedures can be used to send out-of-band responses for both
-   SR-MPLS links and Policies for one-way measurement.</t>
-
-    <t>
-   This document utilizes the mechanisms defined in
-   <xref target="RFC6374"/> for Performance Delay and Loss Measurements in SR networks
-   with MPLS data plane, for both SR-MPLS links and end-to-end SR-MPLS paths including Policies.
+   This document utilizes the mechanisms defined in <xref target="RFC6374"/> 
+   for Performance Delay and Loss Measurements in SR-MPLS networks,
+   for both SR-MPLS links and end-to-end SR-MPLS paths including Policies.
    In addition, this document defines Return Path TLV and Block Number TLV
    extensions for <xref target="RFC6374"/>.</t>
 
@@ -270,7 +265,7 @@
     <section title="Query and Response Message Header" anchor="sect-4.1"><t>
    As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
    response messages flow over the MPLS Generic Associated Channel
-   (G-ACh).  A query/response message contains G-ACh Label (GAL)
+   (G-ACh).  These query and response messages contain G-ACh Label (GAL)
    (value 13, with S=1).  The GAL is followed by an Associated Channel Header
    (ACH), where Channel Type identifies the message type, and the message payload
    following the ACH as shown in Figure 2.</t>
