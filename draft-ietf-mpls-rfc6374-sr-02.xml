@@ -186,10 +186,11 @@
 
     <section title="Reference Topology" anchor="sect-2.3"><t>
    In the reference topology shown in Figure 1, the querier node R1
-   initiates a query message and the responder
-   node R3 sends a response message for the query message received.  The
-   response message is sent back to the querier node R1 in-band on the same path 
-   (same set of links and nodes) or a different path in the reverse direction.</t> 
+   initiates a query message and the responder node R3 sends 
+   a response message for the query message received.  The
+   response message is sent back to the querier node R1 in-band 
+   on the same path (same set of links and nodes) or a different 
+   path in the reverse direction.</t> 
 
    <t>SR is enabled with MPLS data plane on nodes R1 and R3.
    The nodes R1 and R3 may be directly connected via a link enabled with MPLS 
@@ -369,10 +370,10 @@
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
    the response message (format as shown in Figure 3) 
-   on a specific reverse SR-MPLS path 
+   on a specific return SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to
-   send the response message back on a given reverse path using an 
+   send the response message back on a given return path using an 
    SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
 
    <t>In two-way delay measurement mode, as per Reference Topology, 
@@ -404,7 +405,8 @@
 
     </section>
 
-    <section title="Delay Measurement" anchor="sect-5"><section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
+    <section title="Delay Measurement" anchor="sect-5">
+	    <section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
    As defined in <xref target="RFC6374"/>, MPLS DM query and response messages
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
@@ -502,7 +504,6 @@
         </section>
 
     </section>
-
 
    <section title="TLV Extensions" anchor="sect-7">
 
