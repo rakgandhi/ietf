@@ -138,7 +138,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    accurate measurement of performance metrics in MPLS networks using
    query and response messages.  [RFC7876] specifies mechanisms for
    sending and processing out-of-band responses over an UDP return path
-   when receiving [RFC6374] based query messages.  These mechanisms are
+   when receiving RFC 6374 based query messages.  These mechanisms are
    also well-suited in SR-MPLS networks.
 
    This document utilizes the mechanisms defined in [RFC6374] for
@@ -525,8 +525,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    In inferred mode, the PSID in the received query message as shown in
    Figure 4 can be used to count the received query messages on the
-   responder to detect the number of query packets lost for the end-to-
-   end SR-MPLS Policy.
+   responder to detect the trasmit packet loss for an end-to-end SR-MPLS
+   Policy.
 
 
     0                   1                   2                   3
