@@ -81,6 +81,7 @@ Table of Contents
      2.2.  Abbreviations . . . . . . . . . . . . . . . . . . . . . .   3
      2.3.  Reference Topology  . . . . . . . . . . . . . . . . . . .   4
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.1.  RFC 6374 Message Header . . . . . . . . . . . . . . . . .   6
    4.  Query and Response Message  . . . . . . . . . . . . . . . . .   6
      4.1.  Query Message for SR-MPLS Links and Policies  . . . . . .   6
        4.1.1.  Query Message for SR-MPLS Links . . . . . . . . . . .   6
@@ -105,7 +106,6 @@ Table of Contents
    10. SR-MPLS Link Extended TE Metrics Advertisements . . . . . . .  14
    11. Backwards Compatibility . . . . . . . . . . . . . . . . . . .  15
    12. Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
 
 
 
@@ -114,6 +114,7 @@ Gandhi, et al.          Expires November 5, 2021                [Page 2]
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
+   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      14.1.  Normative References . . . . . . . . . . . . . . . . . .  16
      14.2.  Informative References . . . . . . . . . . . . . . . . .  17
@@ -161,7 +162,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    ACH: Associated Channel Header.
 
    DM: Delay Measurement.
-
 
 
 
@@ -241,6 +241,57 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 3.  Overview
 
+   For delay and loss measurement in SR-MPLS networks, the procedures
+   defined in [RFC6374] are used in this document.  Note that one-way,
+   two-way and round-trip delay measurements are defined in Section 2.4
+   in [RFC6374] and are further described in this document for SR-MPLS
+   networks.  Similarly, packet loss measurements are defined in
+   Section 2.2 in [RFC6374] and are further described in this document
+   for SR-MPLS networks.
+
+   In SR-MPLS networks, the query and response messages defined in
+   [RFC6374] are sent as following:
+
+   o  For delay measurement, the query messages are sent in-band (on the
+      same path as data traffic) to collect the transmit and receive
+      timestamps to measure the delay experienced by the data traffic
+      flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.
+
+   o  For loss measurement, the query messages are sent in-band (on the
+      same path as data traffic) to collect the transmit traffic
+      counters and the receive traffic counters (e.g. for traffic
+      received on the incoming link for the link loss or on the incoming
+      Path Segment Identifier (PSID) for the end-to-end SR-MPLS path
+      loss) to measure the packet loss experienced by the data traffic
+      flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.
+
+   It may be desired in SR-MPLS networks that the same path (same set of
+   links and nodes) between the querier and responder be used in both
+   directions of the measurement.  This is achieved by using the SR-MPLS
+   Return Path TLV extension defined in this document.
+
+   The performance measurement procedure for SR-MPLS links can be used
+   to compute extended Traffic Engineering (TE) metrics for delay and
+   loss as described in Section 10 and advertised in the network using
+
+
+
+
+Gandhi, et al.          Expires November 5, 2021                [Page 5]
+
+Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
+
+
+   the routing protocol extensions defined in [RFC7471], [RFC8570], and
+   [RFC8571].
+
+   The In-Situ Operations, Administration, and Maintenance (IOAM)
+   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
+   to record OAM information in the packets, and are outside the scope
+   of this document.
+
+3.1.  RFC 6374 Message Header
+
    As described in Section 2.9.1 of [RFC6374], the query and response
    messages flow over an MPLS Generic Associated Channel (G-ACh).  These
    query and response messages contain G-ACh Label (GAL) (value 13, with
@@ -258,49 +309,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
            Figure 2: RFC 6374 Query and Response Message Header
-
-   For one-way, two-way and round-trip delay and delay variation
-   measurement in SR-MPLS networks, the procedures defined in
-   Section 2.4 and Section 2.5 of [RFC6374] are used.  For transmit and
-   receive packet loss measurement in SR-MPLS networks, the procedures
-   defined in Section 2.2 and Section 2.6 of [RFC6374] are used.
-
-   In SR-MPLS networks, the query and response messages defined in
-   [RFC6374] are sent as following:
-
-   o  For delay measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier, and are used to
-      collect the transmit and receive timestamps to measure the delay
-      experienced by the data traffic flowing on the SR-MPLS links and
-      end-to-end SR-MPLS Policies.
-
-
-
-
-Gandhi, et al.          Expires November 5, 2021                [Page 5]
-
-Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
-
-
-   o  For loss measurement, the query messages are sent for the data
-      traffic flow under measurement by the querier, and are used to
-      collect the transmit traffic counters and the receive traffic
-      counters (e.g. for traffic received on the incoming link for the
-      link loss or on the incoming Path Segment Identifier (PSID) for
-      the end-to-end SR-MPLS path loss) to measure the packet loss
-      experienced by the data traffic flowing on the SR-MPLS links and
-      end-to-end SR-MPLS Policies.
-
-   The performance measurement procedure for SR-MPLS links can be used
-   to compute extended Traffic Engineering (TE) metrics for delay and
-   loss as described in Section 10 and advertised in the network using
-   the routing protocol extensions defined in [RFC7471], [RFC8570], and
-   [RFC8571].
-
-   The In-Situ Operations, Administration, and Maintenance (IOAM)
-   mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
-   to record OAM information in the packets, and are outside the scope
-   of this document.
 
 4.  Query and Response Message
 
@@ -320,14 +328,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    [I-D.ietf-spring-segment-routing-policy], with the G-ACh Label (GAL)
    at the bottom of the stack (with S=1) as shown in Figure 3.  For SR-
    MPLS Policies, the TTL value is set to 255 in the SR-MPLS header.
-
-
-
-
-
-
-
-
 
 
 
