@@ -410,7 +410,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    response message (format as shown in Figure 3) on a specific return
    SR-MPLS path [I-D.ietf-pce-sr-bidir-path].  The querier can request
    in the query message to the responder to send the response message
-   back on a given return path using an SR-MPLS Segment List sub-TLV in
+   back on a given return path using the SR-MPLS Segment List sub-TLV in
    the Return Path TLV defined in this document.
 
    In two-way delay measurement mode, as per Reference Topology, all
@@ -649,7 +649,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 7.2.  Block Number TLV Extension
 
    The direct mode loss measurement using Alternate-Marking Method
-   defined in [RFC8321] requires to collect Block Number of the counters
+   defined in [RFC8321] requires collecting Block Number of the counters
    for the data traffic flow under measurement.  To be able to correlate
    the transmit and receive traffic counters of the matching Block
    Number, the Block Number of the traffic counters is carried in the LM

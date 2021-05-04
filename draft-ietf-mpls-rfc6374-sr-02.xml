@@ -373,7 +373,7 @@
    on a specific return SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to
-   send the response message back on a given return path using an 
+   send the response message back on a given return path using the 
    SR-MPLS Segment List sub-TLV in the Return Path TLV defined in this document.</t>
 
    <t>In two-way delay measurement mode, as per Reference Topology, 
