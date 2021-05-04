@@ -270,7 +270,9 @@
     for SR-MPLS defined in <xref target="I-D.gandhi-mpls-ioam-sr"/> are used 
     to record OAM information in the packets, and are outside the scope of this document.</t>
 
-    <section title="RFC 6374 Message Header" anchor="sect-3.1">
+    </section>
+
+    <section title="Query and Response Message" anchor="sect-4">
     <t>As described in Section 2.9.1 of <xref target="RFC6374"/>, the query and
     response messages flow over an MPLS Generic Associated Channel
     (G-ACh).  These query and response messages contain G-ACh Label (GAL)
@@ -291,10 +293,7 @@
 ]]></artwork>
     </figure>
 
-    </section>
-    </section>
 
-    <section title="Query and Response Message" anchor="sect-4">
     <section title="Query Message for SR-MPLS Links and Policies" anchor="sect-4.1">
        <section title="Query Message for SR-MPLS Links" anchor="sect-4.1.1"><t>
    A query message as shown in Figure 2 is sent over the SR-MPLS links
