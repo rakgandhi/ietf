@@ -523,10 +523,8 @@
    avoids creating and maintaining extra dynamic SR states for the return paths.</t>
 
     <t>
-   In one-way measurement mode, the querier address may not
-   be reachable via IP route from the responder.  The querier 
-   in this case can send its reachability information via SR-MPLS path 
-   to the responder.</t>
+   In one-way measurement mode, the querier can send its reachability 
+   information via SR-MPLS path to the responder.</t>
 
     <t>
    <xref target="RFC6374"/> defines DM and LM query messages that can include one
