@@ -339,7 +339,7 @@
     </section>
 
     <section title="Response Message for SR-MPLS Links and Policies" anchor="sect-4.3">
-	    <section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
+        <section title="One-way Measurement Mode" anchor="sect-4.3.1"><t>
    In one-way measurement mode defined in 
    Section 2.4 of <xref target="RFC6374"/>, the querier
    can receive "out-of-band" response messages with IP/UDP header by properly setting the UDP
@@ -406,7 +406,7 @@
     </section>
 
     <section title="Delay Measurement" anchor="sect-5">
-	    <section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
+        <section title="Delay Measurement Message Format" anchor="sect-5.1"><t>
    As defined in <xref target="RFC6374"/>, MPLS DM query and response messages
    use Associated Channel Header (ACH) (value 0x000C for delay
    measurement) <xref target="RFC6374"/>, which identifies the message type, and the
@@ -524,7 +524,8 @@
     <t>
    In one-way measurement mode, the querier address may not
    be reachable via IP route from the responder.  The querier 
-   in this case can send its reachability path information to the responder.</t>
+   in this case can send its reachability information via SR-MPLS path 
+   to the responder.</t>
 
     <t>
    <xref target="RFC6374"/> defines DM and LM query messages that can include one

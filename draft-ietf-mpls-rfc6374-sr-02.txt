@@ -567,7 +567,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    In one-way measurement mode, the querier address may not be reachable
    via IP route from the responder.  The querier in this case can send
-   its reachability path information to the responder.
+   its reachability information via SR-MPLS path to the responder.
 
    [RFC6374] defines DM and LM query messages that can include one or
    more optional TLVs.  New TLV Type (TBA2) is defined in this document
