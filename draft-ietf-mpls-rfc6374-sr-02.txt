@@ -398,8 +398,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    In two-way measurement mode defined in Section 2.4 of [RFC6374], the
    response messages are sent back to the querier in-band on the same
-   link or end-to-end SR-MPLS path (same set of links and nodes) in the
-   reverse direction.
+   link or the same end-to-end SR-MPLS path (same set of links and
+   nodes) in the reverse direction.
 
    For SR-MPLS links, the response message (format as shown in Figure 2)
    is sent back on the same incoming link where the query message is
@@ -521,7 +521,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    accounting received traffic on the on the egress node of the SR-MPLS
    Policy.  In direct mode, the PSID in the received query message as
    shown in Figure 4 can be used to associate the receive traffic
-   counter on the responder for the end-to-end SR-MPLS Policy.
+   counter on the responder to detect the transmit packet loss for the
+   end-to-end SR-MPLS Policy.
 
    In inferred mode, the PSID in the received query message as shown in
    Figure 4 can be used to count the received query messages on the
@@ -553,7 +554,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    message on a specific return path.  The querier can request in the
    query message to the responder to send a response message back on a
    given return path (e.g. co-routed SR-MPLS path for two-way
-
 
 
 

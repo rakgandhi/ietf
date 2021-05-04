@@ -360,8 +360,8 @@
     <section title="Two-way Measurement Mode" anchor="sect-4.3.2"><t>
    In two-way measurement mode defined in Section 2.4 of <xref target="RFC6374"/>, 
    the response messages are sent back to the querier in-band on 
-   the same link or end-to-end SR-MPLS path (same set of links and nodes) 
-   in the reverse direction.</t>
+   the same link or the same end-to-end SR-MPLS path (same set of 
+   links and nodes) in the reverse direction.</t>
 
    <t>For SR-MPLS links, the response message (format as shown in Figure 2) 
    is sent back on the same incoming link where the query 
@@ -478,11 +478,12 @@
     <section title="Counters" anchor="sect-6.4"><t>
    The Path Segment Identifier (PSID) <xref target="I-D.ietf-spring-mpls-path-segment"/> 
    carried in the received data packet for the traffic flow    
-   under measurement can be used for accounting received traffic on the 
-   on the egress node of the SR-MPLS Policy.
+   under measurement can be used for accounting received traffic 
+   on the on the egress node of the SR-MPLS Policy.
    In direct mode, the PSID in the received query message 
-   as shown in Figure 4 can be used to associate the receive traffic counter 
-   on the responder for the end-to-end SR-MPLS Policy.</t>
+   as shown in Figure 4 can be used to associate the receive 
+   traffic counter on the responder to detect the transmit packet 
+   loss for the end-to-end SR-MPLS Policy.</t>
 
    <t>In inferred mode, the PSID in the received query message as 
    shown in Figure 4 can be used to count the received query 
