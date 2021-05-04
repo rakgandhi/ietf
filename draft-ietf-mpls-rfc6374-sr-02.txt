@@ -597,12 +597,12 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 7.1.1.  Return Path Sub-TLV Extension
 
    The Return Path TLV contains a Sub-TLV to carry the return path.  The
-   format of the Segment List Sub-TLV is shown in Figure 6.  The Label
-   entries MUST be in network order.  The Segment List Sub-TLV in the
-   Return Path TLV can be one of the following Types:
+   format of the SR-MPLS Segment List Sub-TLV is shown in Figure 6.  The
+   SR-MPLS Segment List Sub-TLV contains SR-MPLS Label Stack.  The Label
+   entries in the Segment List MUST be in network order.  The SR-MPLS
+   Segment List Sub-TLV in the Return Path TLV is of the following Type:
 
-   o  Type (value 1): SR-MPLS Label Stack of the Return Path
-
+   o  Type (value 1): SR-MPLS Segment List of the Return Path
 
 
 
@@ -634,9 +634,9 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
     .                                                               .
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 6: Segment List Sub-TLV in Return Path TLV
+         Figure 6: SR-MPLS Segment List Sub-TLV in Return Path TLV
 
-   An SR-MPLS Label Stack Sub-TLV may carry only Binding SID
+   An SR-MPLS Segment List Sub-TLV may carry only Binding SID
    [I-D.ietf-pce-binding-label-sid] of the Return SR-MPLS Policy.
 
    The Return Path TLV MUST carry only one Return Path Sub-TLV.  The
@@ -868,11 +868,11 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    This document defines the following new values in the Return Path
    Sub-TLV sub-registry:
 
-    +-------+----------------------------------------+---------------+
-    | Value |              Description               | Reference     |
-    +-------+----------------------------------------+---------------+
-    | 1     | SR-MPLS Label Stack of the Return Path | This document |
-    +-------+----------------------------------------+---------------+
+    +-------+-----------------------------------------+---------------+
+    | Value |               Description               | Reference     |
+    +-------+-----------------------------------------+---------------+
+    | 1     | SR-MPLS Segment List of the Return Path | This document |
+    +-------+-----------------------------------------+---------------+
 
                     Table 2: Return Path Sub-TLV Types
 

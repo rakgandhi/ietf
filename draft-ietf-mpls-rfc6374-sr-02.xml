@@ -559,16 +559,17 @@
 
     <section title="Return Path Sub-TLV Extension" anchor="sect-7.1.1">
    <t>The Return Path TLV contains a Sub-TLV to carry the return path. 
-   The format of the Segment List Sub-TLV is shown in Figure 6. The 
-   Label entries MUST be in network order. The Segment List Sub-TLV 
-   in the Return Path TLV can be one of the following Types:</t>
+   The format of the SR-MPLS Segment List Sub-TLV is shown in Figure 6. 
+   The SR-MPLS Segment List Sub-TLV contains SR-MPLS Label Stack. 
+   The Label entries in the Segment List MUST be in network order. The SR-MPLS Segment List Sub-TLV 
+   in the Return Path TLV is of the following Type:</t>
 
-    <t><list style="symbols"><t>Type (value 1): SR-MPLS Label Stack of the Return Path</t>
+    <t><list style="symbols"><t>Type (value 1): SR-MPLS Segment List of the Return Path</t>
 
     </list>
     </t>
 
-    <figure title="Segment List Sub-TLV in Return Path TLV" anchor="ure-segment-list-sub-tlv-in-return-path-tlv"><artwork><![CDATA[
+    <figure title="SR-MPLS Segment List Sub-TLV in Return Path TLV" anchor="ure-segment-list-sub-tlv-in-return-path-tlv"><artwork><![CDATA[
 
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -589,7 +590,7 @@
     </figure>
 
 
-   <t>An SR-MPLS Label Stack Sub-TLV may carry only Binding SID 
+   <t>An SR-MPLS Segment List Sub-TLV may carry only Binding SID 
    <xref target="I-D.ietf-pce-binding-label-sid"/> of the Return SR-MPLS Policy.</t>
  
     <t>
@@ -831,7 +832,7 @@
     <ttcol align="center">Description</ttcol>
     <ttcol align="left">Reference</ttcol>
      <c>1</c>
-     <c>SR-MPLS Label Stack of the Return Path</c>
+     <c>SR-MPLS Segment List of the Return Path</c>
      <c>This document</c>
    </texttable>
 
