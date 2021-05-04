@@ -609,7 +609,7 @@
 
     <section title="Block Number TLV Extension" anchor="sect-7.2"><t>
    The direct mode loss measurement using Alternate-Marking Method 
-   defined in <xref target="RFC8321"/> requires to collect Block 
+   defined in <xref target="RFC8321"/> requires collecting Block 
    Number of the counters for the data traffic flow under measurement.
    To be able to correlate the transmit and receive traffic counters 
    of the matching Block Number, the Block Number of the traffic 
