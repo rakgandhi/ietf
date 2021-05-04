@@ -291,7 +291,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
       experienced by the data traffic flowing on the SR-MPLS links and
       end-to-end SR-MPLS Policies.
 
-   The performance measurements procedure for SR-MPLS links can be used
+   The performance measurement procedure for SR-MPLS links can be used
    to compute extended Traffic Engineering (TE) metrics for delay and
    loss as described in Section 10 and advertised in the network using
    the routing protocol extensions defined in [RFC7471], [RFC8570], and
@@ -377,7 +377,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    query message.  The URO TLV (Type=131) is defined in [RFC7876] and
    includes the UDP-Destination-Port and IP Address.  When the querier
    sets an IP address and an UDP port in the URO TLV, the response is
-   sent to that IP address as destination addresss and UDP port as
+   sent to that IP address as destination address and UDP port as
    destination port.  In addition, the "control code" in the query
    message is set to "out-of-band response requested".
 
@@ -526,8 +526,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    In inferred mode, the PSID in the received query message as shown in
    Figure 4 can be used to count the received query messages on the
-   responder to detect the trasmit packet loss for an end-to-end SR-MPLS
-   Policy.
+   responder to detect the transmit packet loss for an end-to-end SR-
+   MPLS Policy.
 
 
     0                   1                   2                   3
@@ -649,7 +649,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 7.2.  Block Number TLV Extension
 
    The direct mode loss measurement using Alternate-Marking Method
-   defined in [RFC8321] requires to collecy Block Number of the counters
+   defined in [RFC8321] requires to collect Block Number of the counters
    for the data traffic flow under measurement.  To be able to correlate
    the transmit and receive traffic counters of the matching Block
    Number, the Block Number of the traffic counters is carried in the LM

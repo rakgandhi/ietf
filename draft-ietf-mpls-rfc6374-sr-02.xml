@@ -274,7 +274,7 @@
     </t>
 
     <t>
-    The performance measurements procedure for SR-MPLS links can be used to compute
+    The performance measurement procedure for SR-MPLS links can be used to compute
     extended Traffic Engineering (TE) metrics for delay and loss as described in
     Section 10 and advertised in the network using the routing protocol extensions
     defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
@@ -347,7 +347,7 @@
    (Type=131) is defined in <xref target="RFC7876"/> and includes the
    UDP-Destination-Port and IP Address.  When the querier
    sets an IP address and an UDP port in the URO TLV, the response is sent
-   to that IP address as destination addresss and UDP port as destination port.
+   to that IP address as destination address and UDP port as destination port.
    In addition, the "control code" in the 
    query message is set to "out-of-band response requested".</t>
 
@@ -487,7 +487,7 @@
 
    <t>In inferred mode, the PSID in the received query message as 
    shown in Figure 4 can be used to count the received query 
-   messages on the responder to detect the trasmit packet loss
+   messages on the responder to detect the transmit packet loss
    for an end-to-end SR-MPLS Policy.</t>
 
 
@@ -608,7 +608,7 @@
 
     <section title="Block Number TLV Extension" anchor="sect-7.2"><t>
    The direct mode loss measurement using Alternate-Marking Method 
-   defined in <xref target="RFC8321"/> requires to collecy Block 
+   defined in <xref target="RFC8321"/> requires to collect Block 
    Number of the counters for the data traffic flow under measurement.
    To be able to correlate the transmit and receive traffic counters 
    of the matching Block Number, the Block Number of the traffic 
