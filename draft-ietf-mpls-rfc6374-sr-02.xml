@@ -259,11 +259,11 @@
     <t>The packet loss measurement using Alternate-Marking Method 
     defined in <xref target="RFC8321"/> requires collecting 
     Block Number of the traffic counters. This is achieved by 
-    using the Block Number TLV extenssion defined in this document.</t>
+    using the Block Number TLV extension defined in this document.</t>
     
     <t>The performance measurement procedure for SR-MPLS links can be used to compute
     extended Traffic Engineering (TE) metrics for delay and loss as described in
-    Section 10 and advertised in the network using the routing protocol extensions
+    this document. The metrics are advertised in the network using the routing protocol extensions
     defined in <xref target="RFC7471"/>, <xref target="RFC8570"/>, and <xref target="RFC8571"/>.</t>
 
     <t>The In-Situ Operations, Administration, and Maintenance (IOAM) mechanisms 
@@ -723,9 +723,9 @@
     </section>
 
     <section title="SR-MPLS Link Extended TE Metrics Advertisements" anchor="sect-10"><t>
-   The extended TE metrics for SR-MPLS link delay and loss can be computed using the
-   performance measurement procedures described in this document and 
-   advertised in the routing domain as follows:</t>
+    The extended TE metrics for SR-MPLS link delay and loss can be 
+    computed using the performance measurement procedures described
+    in this document to advertise in the routing domain as follows:</t>
 
     <t><list style="symbols">
     <t>For OSPF, ISIS, and BGP-LS, protocol extensions 

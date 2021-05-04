@@ -272,7 +272,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    The packet loss measurement using Alternate-Marking Method defined in
    [RFC8321] requires collecting Block Number of the traffic counters.
-   This is achieved by using the Block Number TLV extenssion defined in
+   This is achieved by using the Block Number TLV extension defined in
    this document.
 
 
@@ -284,9 +284,9 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    The performance measurement procedure for SR-MPLS links can be used
    to compute extended Traffic Engineering (TE) metrics for delay and
-   loss as described in Section 10 and advertised in the network using
-   the routing protocol extensions defined in [RFC7471], [RFC8570], and
-   [RFC8571].
+   loss as described in this document.  The metrics are advertised in
+   the network using the routing protocol extensions defined in
+   [RFC7471], [RFC8570], and [RFC8571].
 
    The In-Situ Operations, Administration, and Maintenance (IOAM)
    mechanisms for SR-MPLS defined in [I-D.gandhi-mpls-ioam-sr] are used
@@ -773,7 +773,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
    The extended TE metrics for SR-MPLS link delay and loss can be
    computed using the performance measurement procedures described in
-   this document and advertised in the routing domain as follows:
+   this document to advertise in the routing domain as follows:
 
    o  For OSPF, ISIS, and BGP-LS, protocol extensions defined in
       [RFC7471], [RFC8570], and [RFC8571], respectively, are used for
