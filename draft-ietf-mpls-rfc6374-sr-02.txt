@@ -566,13 +566,12 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    extra dynamic SR states for the return paths.
 
    In one-way measurement mode, the querier can send its reachability
-   information via SR-MPLS path to the responder.
+   information to the responder using Return Path TLV.
 
-   [RFC6374] defines DM and LM query messages that can include one or
+   [RFC6374] defines query and response messages those can include or
    more optional TLVs.  New TLV Type (TBA2) is defined in this document
-   for Return Path to carry return path information in the query
-   messages (in the payload).  The format of the Return Path TLV is
-   shown in Figure 5:
+   for Return Path to carry return path information in query messages.
+   The format of the Return Path TLV is shown in Figure 5:
 
 
     0                   1                   2                   3
@@ -602,6 +601,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Segment List Sub-TLV in the Return Path TLV is of the following Type:
 
    o  Type (value 1): SR-MPLS Segment List of the Return Path
+
 
 
 
@@ -655,8 +655,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Number, the Block Number of the traffic counters is carried in the LM
    query and response messages.
 
-   [RFC6374] defines query and response messages that can include one or
-   more optional TLVs.  New TLV Type (value TBA1) is defined in this
+   [RFC6374] defines query and response messages those can include one
+   or more optional TLVs.  New TLV Type (value TBA1) is defined in this
    document to carry the Block Number (8-bit) of the traffic counters in
    the LM query and response messages.  The format of the Block Number
    TLV is shown in Figure 7:

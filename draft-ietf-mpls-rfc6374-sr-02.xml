@@ -524,14 +524,13 @@
 
     <t>
    In one-way measurement mode, the querier can send its reachability 
-   information via SR-MPLS path to the responder.</t>
+   information to the responder using Return Path TLV.</t>
 
     <t>
-   <xref target="RFC6374"/> defines DM and LM query messages that can include one
+   <xref target="RFC6374"/> defines query and response messages those can include
    or more optional TLVs.  New TLV Type (TBA2) is defined in this
-   document for Return Path to carry return path information in the query
-   messages (in the payload).  The format of the Return
-   Path TLV is shown in Figure 5:</t>
+   document for Return Path to carry return path information in query
+   messages.  The format of the Return Path TLV is shown in Figure 5:</t>
 
     <figure title="Return Path TLV" anchor="ure-return-path-tlv"><artwork><![CDATA[
 
@@ -614,7 +613,7 @@
    counters is carried in the LM query and response messages.</t>
 
     <t>
-   <xref target="RFC6374"/> defines query and response messages that can include
+   <xref target="RFC6374"/> defines query and response messages those can include
    one or more optional TLVs.  New TLV Type (value TBA1) is defined in
    this document to carry the Block Number (8-bit) of the traffic
    counters in the LM query and response messages.  
