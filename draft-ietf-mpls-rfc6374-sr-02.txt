@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: November 4, 2021                                       D. Voyer
+Expires: November 5, 2021                                       D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                            May 03, 2021
+                                                            May 04, 2021
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 4, 2021.
+   This Internet-Draft will expire on November 5, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 1]
+Gandhi, et al.          Expires November 5, 2021                [Page 1]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 2]
+Gandhi, et al.          Expires November 5, 2021                [Page 2]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -165,7 +165,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 3]
+Gandhi, et al.          Expires November 5, 2021                [Page 3]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -221,7 +221,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 4]
+Gandhi, et al.          Expires November 5, 2021                [Page 4]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -277,7 +277,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 5]
+Gandhi, et al.          Expires November 5, 2021                [Page 5]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -333,7 +333,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 6]
+Gandhi, et al.          Expires November 5, 2021                [Page 6]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -389,7 +389,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 7]
+Gandhi, et al.          Expires November 5, 2021                [Page 7]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -445,7 +445,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 8]
+Gandhi, et al.          Expires November 5, 2021                [Page 8]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -454,8 +454,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    Policies, the same MPLS DM ACH value is used.
 
    The DM message payload as defined in Section 3.2 of [RFC6374] is used
-   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end
-   SR-MPLS Policies.
+   for delay measurement, for both SR-MPLS links and end-to-end SR-MPLS
+   Policies.
 
 5.2.  Timestamps
 
@@ -463,7 +463,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format [IEEE1588] is used by default as described in
    Appendix A of [RFC6374].  The timestamping in hardware is recommended
-   in SR networks.
+   in SR-MPLS networks.
 
 6.  Loss Measurement
 
@@ -489,8 +489,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    same MPLS LM ACH value is used.
 
    The LM message payload as defined in Section 3.1 of [RFC6374] is used
-   for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end
-   SR-MPLS Policies.
+   for loss measurement, for both SR-MPLS links and end-to-end SR-MPLS
+   Policies.
 
 6.2.  Combined Loss/Delay Measurement Message Format
 
@@ -501,7 +501,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021                [Page 9]
+Gandhi, et al.          Expires November 5, 2021                [Page 9]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -510,8 +510,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    MPLS Policies, the same MPLS DM+LM ACH value is used.
 
    The message payload as defined in Section 3.3 of [RFC6374] is used
-   for SR-MPLS combined delay and loss measurement, for both SR-MPLS
-   links and end-to-end SR-MPLS Policies.
+   for combined delay and loss measurement, for both SR-MPLS links and
+   end-to-end SR-MPLS Policies.
 
 6.3.  Counters
 
@@ -524,8 +524,9 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    counter on the responder for the end-to-end SR-MPLS Policy.
 
    In inferred mode, the PSID in the received query message as shown in
-   Figure 4 can be used to count the received query messages to detect
-   the number of query packets lost for the end-to-end SR-MPLS Policy.
+   Figure 4 can be used to count the received query messages on the
+   responder to detect the number of query packets lost for the end-to-
+   end SR-MPLS Policy.
 
 
     0                   1                   2                   3
@@ -552,15 +553,17 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    message on a specific return path.  The querier can request in the
    query message to the responder to send a response message back on a
    given return path (e.g. co-routed SR-MPLS path for two-way
-   measurement).  This way the responder avoids creating and maintaining
-   extra dynamic SR states for the return paths.
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 10]
+
+Gandhi, et al.          Expires November 5, 2021               [Page 10]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
+
+   measurement).  This way the responder avoids creating and maintaining
+   extra dynamic SR states for the return paths.
 
    In one-way measurement mode, the querier address may not be reachable
    via IP route from the responder.  The querier in this case can send
@@ -610,10 +613,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-
-
-
-Gandhi, et al.          Expires November 4, 2021               [Page 11]
+Gandhi, et al.          Expires November 5, 2021               [Page 11]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -669,7 +669,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 12]
+Gandhi, et al.          Expires November 5, 2021               [Page 12]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -677,7 +677,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |   Type TBA1   |    Length     | Reserved    |R| Block Number  |
+    |  Type = TBA1  |    Length     | Reserved    |R| Block Number  |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
                         Figure 7: Block Number TLV
@@ -725,7 +725,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 13]
+Gandhi, et al.          Expires November 5, 2021               [Page 13]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -781,7 +781,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 14]
+Gandhi, et al.          Expires November 5, 2021               [Page 14]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -837,7 +837,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 15]
+Gandhi, et al.          Expires November 5, 2021               [Page 15]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -893,7 +893,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 16]
+Gandhi, et al.          Expires November 5, 2021               [Page 16]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -949,7 +949,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 17]
+Gandhi, et al.          Expires November 5, 2021               [Page 17]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 18]
+Gandhi, et al.          Expires November 5, 2021               [Page 18]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1061,7 +1061,7 @@ Contributors
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 19]
+Gandhi, et al.          Expires November 5, 2021               [Page 19]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 4, 2021               [Page 20]
+Gandhi, et al.          Expires November 5, 2021               [Page 20]

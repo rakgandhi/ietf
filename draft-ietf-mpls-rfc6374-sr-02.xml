@@ -72,7 +72,7 @@
     </address>
     </author>
 
-    <date day="03" month="May" year="2021"/>
+    <date day="04" month="May" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -415,7 +415,7 @@
 
     <t>
    The DM message payload as defined in Section 3.2 of <xref target="RFC6374"/> is used
-   for SR-MPLS delay measurement, for both SR-MPLS links and end-to-end SR-MPLS Policies.</t>
+   for delay measurement, for both SR-MPLS links and end-to-end SR-MPLS Policies.</t>
 
     </section>
 
@@ -424,7 +424,7 @@
    used for delay measurement.  The IEEE 1588 Precision Time Protocol
    (PTP) timestamp format <xref target="IEEE1588"/> is used by default as described in
    Appendix A of <xref target="RFC6374"/>. 
-   The timestamping in hardware is recommended in SR networks.</t>
+   The timestamping in hardware is recommended in SR-MPLS networks.</t>
 
     </section>
 
@@ -455,7 +455,7 @@
    SR-MPLS Policies, the same MPLS LM ACH value is used.</t>
 
    <t>The LM message payload as defined in Section 3.1 of <xref target="RFC6374"/> 
-   is used for SR-MPLS loss measurement, for both SR-MPLS links and end-to-end 
+   is used for loss measurement, for both SR-MPLS links and end-to-end 
    SR-MPLS Policies.</t>
 
     </section>
@@ -471,7 +471,7 @@
 
     <t>
    The message payload as defined in Section 3.3 of <xref target="RFC6374"/> is used
-   for SR-MPLS combined delay and loss measurement, for both SR-MPLS links and end-to-end 
+   for combined delay and loss measurement, for both SR-MPLS links and end-to-end 
    SR-MPLS Policies.</t>
         </section>
 
@@ -485,8 +485,10 @@
    on the responder for the end-to-end SR-MPLS Policy.</t>
 
    <t>In inferred mode, the PSID in the received query message as 
-   shown in Figure 4 can be used to count the received query messages
-   to detect the number of query packets lost for the end-to-end SR-MPLS Policy.</t>
+   shown in Figure 4 can be used to count the received query 
+   messages on the responder to detect the number of query 
+   packets lost for the end-to-end SR-MPLS Policy.</t>
+
 
     <figure title="Example With Path Segment Identifier for SR-MPLS Policy" anchor="ure-with-path-segment-identifier-for-sr-mpls-policy"><artwork><![CDATA[
 
@@ -522,8 +524,7 @@
     <t>
    In one-way measurement mode, the querier address may not
    be reachable via IP route from the responder.  The querier 
-   in this case can send its reachability path information to the
-   responder.</t>
+   in this case can send its reachability path information to the responder.</t>
 
     <t>
    <xref target="RFC6374"/> defines DM and LM query messages that can include one
@@ -623,7 +624,7 @@
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Type TBA1   |    Length     | Reserved    |R| Block Number  |
+ |  Type = TBA1  |    Length     | Reserved    |R| Block Number  |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
     </figure>
