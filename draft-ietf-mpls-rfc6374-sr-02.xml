@@ -234,18 +234,16 @@
 
     <t><list style="symbols"><t>For delay measurement, the query 
     messages are sent in-band (on the same path as data traffic) 
-    to collect the transmit and receive timestamps 
-    to measure the delay experienced by the data traffic
-    flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.</t>
+    for SR-MPLS links and end-to-end SR-MPLS paths 
+    to collect transmit and receive timestamps.</t>
 
     <t>For loss measurement, the query messages are 
-    sent in-band (on the same path as data traffic) to collect the 
-    transmit traffic counters and the receive traffic counters 
+    sent in-band (on the same path as data traffic) 
+    for SR-MPLS links and end-to-end SR-MPLS paths 
+    to collect transmit and receive traffic counters 
     (e.g. for traffic received on the incoming link for the 
-    link loss or on the incoming Path Segment Identifier (PSID) for 
-    the end-to-end SR-MPLS path loss) to measure the packet loss
-    experienced by the data traffic flowing on the 
-    SR-MPLS links and end-to-end SR-MPLS Policies.</t>
+    link loss and for the incoming Path Segment Identifier (PSID) for 
+    the end-to-end SR-MPLS path loss).</t>
 
     </list>
     </t>

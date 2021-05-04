@@ -253,17 +253,15 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    [RFC6374] are sent as following:
 
    o  For delay measurement, the query messages are sent in-band (on the
-      same path as data traffic) to collect the transmit and receive
-      timestamps to measure the delay experienced by the data traffic
-      flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.
+      same path as data traffic) for SR-MPLS links and end-to-end SR-
+      MPLS paths to collect transmit and receive timestamps.
 
    o  For loss measurement, the query messages are sent in-band (on the
-      same path as data traffic) to collect the transmit traffic
-      counters and the receive traffic counters (e.g. for traffic
-      received on the incoming link for the link loss or on the incoming
-      Path Segment Identifier (PSID) for the end-to-end SR-MPLS path
-      loss) to measure the packet loss experienced by the data traffic
-      flowing on the SR-MPLS links and end-to-end SR-MPLS Policies.
+      same path as data traffic) for SR-MPLS links and end-to-end SR-
+      MPLS paths to collect transmit and receive traffic counters (e.g.
+      for traffic received on the incoming link for the link loss and
+      for the incoming Path Segment Identifier (PSID) for the end-to-end
+      SR-MPLS path loss).
 
    It may be desired in SR-MPLS networks that the same path (same set of
    links and nodes) between the querier and responder be used in both
@@ -274,6 +272,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    [RFC8321] requires collecting Block Number of the traffic counters.
    This is achieved by using the Block Number TLV extension defined in
    this document.
+
+
 
 
 
