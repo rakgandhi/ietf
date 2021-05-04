@@ -224,9 +224,9 @@
     <t>For delay and loss measurement in SR-MPLS networks, the procedures 
     defined in [RFC6374] are used in this document. Note that 
     one-way, two-way and round-trip delay measurements are 
-    defined in Section 2.4 in  <xref target="RFC6374"/> and are further 
+    defined in Section 2.4 of <xref target="RFC6374"/> and are further 
     described in this document for SR-MPLS networks. Similarly,
-    packet loss measurements are defined in Section 2.2 in <xref target="RFC6374"/> 
+    packet loss measurements are defined in Section 2.2 of <xref target="RFC6374"/> 
     and are further described in this document for SR-MPLS networks.</t>
 
     <t>In SR-MPLS networks, the query and response messages 
@@ -255,6 +255,11 @@
     responder be used in both directions of the measurement.  
     This is achieved by using the SR-MPLS Return Path TLV 
     extension defined in this document.</t>
+
+    <t>The packet loss measurement using Alternate-Marking Method 
+    defined in <xref target="RFC8321"/> requires collecting 
+    Block Number of the traffic counters. This is achieved by 
+    using the Block Number TLV extenssion defined in this document.</t>
     
     <t>The performance measurement procedure for SR-MPLS links can be used to compute
     extended Traffic Engineering (TE) metrics for delay and loss as described in
@@ -600,9 +605,7 @@
     </t>
 
     </section>
-
     </section>
-
 
     <section title="Block Number TLV Extension" anchor="sect-7.2"><t>
    The direct mode loss measurement using Alternate-Marking Method 
