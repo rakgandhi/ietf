@@ -371,7 +371,7 @@
    in the query message is set to "in-band response requested".</t>
 
    <t>For end-to-end SR-MPLS paths, the responder needs to transmit
-   the response message (format as shown in Figure 3) 
+   the response message (example as shown in Figure 3) 
    on a specific return SR-MPLS path 
    <xref target="I-D.ietf-pce-sr-bidir-path"/>.  The querier 
    can request in the query message to the responder to
@@ -391,7 +391,7 @@
     <xref target="I-D.ietf-pce-sr-bidir-path"/>.  
    The query messages in this case also carry the
    return path label stack as part of the MPLS header.  The GAL is
-   carried at the bottom of the label stack (with S=1) (format as shown in Figure 3).</t>
+   carried at the bottom of the label stack (with S=1) (example as shown in Figure 3).</t>
 
    <t>As the responder does not process the query messages and generate
    response messages, the Loopback Request object (Type 3) <xref target="RFC6374"/> 
