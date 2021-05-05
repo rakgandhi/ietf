@@ -72,7 +72,7 @@
     </address>
     </author>
 
-    <date day="04" month="May" year="2021"/>
+    <date day="05" month="May" year="2021"/>
     <workgroup>MPLS Working Group</workgroup>
     <abstract><t>
    Segment Routing (SR) leverages the source routing paradigm.  RFC 6374
@@ -432,8 +432,7 @@
 
     </section>
 
-    <section title="Loss Measurement" anchor="sect-6">
-    <section title="Loss Measurement Message Format" anchor="sect-6.1"><t>
+    <section title="Loss Measurement" anchor="sect-6"><t>
    The LM protocol can perform two distinct kinds of loss measurement as
    described in Section 2.9.8 of <xref target="RFC6374"/>.</t>
 
@@ -449,7 +448,8 @@
     </list>
     </t>
 
-   <t>As defined in <xref target="RFC6374"/>, MPLS LM query and response messages
+   <section title="Loss Measurement Message Format" anchor="sect-6.1"><t>
+   As defined in <xref target="RFC6374"/>, MPLS LM query and response messages
    use Associated Channel Header (ACH) (value 0x000A for direct loss
    measurement or value 0x000B for inferred loss measurement), which
    identifies the message type, and the message payload following the

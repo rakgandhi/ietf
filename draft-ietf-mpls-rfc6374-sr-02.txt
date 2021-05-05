@@ -5,13 +5,13 @@
 MPLS Working Group                                        R. Gandhi, Ed.
 Internet-Draft                                               C. Filsfils
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: November 5, 2021                                       D. Voyer
+Expires: November 6, 2021                                       D. Voyer
                                                              Bell Canada
                                                               S. Salsano
                                         Universita di Roma "Tor Vergata"
                                                                  M. Chen
                                                                   Huawei
-                                                            May 04, 2021
+                                                            May 05, 2021
 
 
 Performance Measurement Using RFC 6374 for Segment Routing Networks with
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 5, 2021.
+   This Internet-Draft will expire on November 6, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 1]
+Gandhi, et al.          Expires November 6, 2021                [Page 1]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 2]
+Gandhi, et al.          Expires November 6, 2021                [Page 2]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -165,7 +165,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 3]
+Gandhi, et al.          Expires November 6, 2021                [Page 3]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -221,7 +221,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 4]
+Gandhi, et al.          Expires November 6, 2021                [Page 4]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -277,7 +277,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 5]
+Gandhi, et al.          Expires November 6, 2021                [Page 5]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -333,7 +333,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 6]
+Gandhi, et al.          Expires November 6, 2021                [Page 6]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -389,7 +389,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 7]
+Gandhi, et al.          Expires November 6, 2021                [Page 7]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -445,7 +445,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 8]
+Gandhi, et al.          Expires November 6, 2021                [Page 8]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -467,8 +467,6 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 6.  Loss Measurement
 
-6.1.  Loss Measurement Message Format
-
    The LM protocol can perform two distinct kinds of loss measurement as
    described in Section 2.9.8 of [RFC6374].
 
@@ -480,6 +478,8 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
    o  In direct mode, LM will directly measure data plane packet loss.
       Direct mode LM provides perfect loss accounting, but may require
       hardware support.
+
+6.1.  Loss Measurement Message Format
 
    As defined in [RFC6374], MPLS LM query and response messages use
    Associated Channel Header (ACH) (value 0x000A for direct loss
@@ -501,7 +501,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021                [Page 9]
+Gandhi, et al.          Expires November 6, 2021                [Page 9]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -557,7 +557,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 10]
+Gandhi, et al.          Expires November 6, 2021               [Page 10]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -613,7 +613,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 11]
+Gandhi, et al.          Expires November 6, 2021               [Page 11]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -669,7 +669,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 12]
+Gandhi, et al.          Expires November 6, 2021               [Page 12]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -725,7 +725,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 13]
+Gandhi, et al.          Expires November 6, 2021               [Page 13]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -781,7 +781,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 14]
+Gandhi, et al.          Expires November 6, 2021               [Page 14]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -837,7 +837,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 15]
+Gandhi, et al.          Expires November 6, 2021               [Page 15]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -893,7 +893,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 16]
+Gandhi, et al.          Expires November 6, 2021               [Page 16]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -949,7 +949,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 17]
+Gandhi, et al.          Expires November 6, 2021               [Page 17]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 18]
+Gandhi, et al.          Expires November 6, 2021               [Page 18]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1061,7 +1061,7 @@ Contributors
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 19]
+Gandhi, et al.          Expires November 6, 2021               [Page 19]
 
 Internet-Draft     Using RFC 6374 for SR-MPLS Networks          May 2021
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Gandhi, et al.          Expires November 5, 2021               [Page 20]
+Gandhi, et al.          Expires November 6, 2021               [Page 20]
